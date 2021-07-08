@@ -26,6 +26,22 @@
 
 </head>
 
+<style>
+#timeSize {
+	font-size: 20px;
+}
+
+#mainTopText {
+	text-decoration: underline;
+	font-weight: bolder;
+	font-size: 20px;
+}
+
+.topNavText {
+	font-size: 30px;
+}
+</style>
+
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -44,71 +60,47 @@
 			</a>
 
 			<!-- Heading -->
-			<div class="card" style="width: 14	rem;">
-			  <img src="<c:url value ="/resources/img/아이유1.jpg"/>" class="card-img-top" alt="...">
-			  <ul class="list-group list-group-flush">
-			    <li class="list-group-item">An item</li>
-			    <li class="list-group-item">A second item</li>
-			    <li class="list-group-item">A third item</li>
-			  </ul>
-			  <div class="card-body">
-			    <a href="#" class="card-link">Card link</a>
-			    <a href="#" class="card-link">Another link</a>
-			  </div>
+			<div class="card" style="width: 14 rem;">
+				<img src="<c:url value ="/resources/img/아이유1.jpg"/>"
+					class="card-img-top" alt="...">
+				<ol class="breadcrumb mt-3">
+					<li class="breadcrumb-item">오늘받은 메일</li>
+					<li class="breadcrumb-item"><a href="#">3개</a></li>
+				</ol>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">오늘 일정</li>
+					<li class="breadcrumb-item"><a href="#">10개</a></li>
+				</ol>
+				<div class="card-body">
+					<button type="button" class="btn btn-outline-info btn-lg w-100">
+						<a href="#" class="card-link">메일 쓰기</a> <br>
+					</button>
+					<button type="button"
+						class="btn btn-outline-info btn-lg w-100 mt-3">
+						<a href="#" class="card-link">일정 등록</a> <br>
+					</button>
+
+				</div>
 			</div>
-			
-			<div class="sidebar-heading">목록 1</div>
+			<div class="card" style="width: 14 rem;">
+				<div class="card-header">근태 관리</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">오늘 일한 시간
+						<p class="card-text" id="timeSize">12시간 50분</p>
+					</li>
+					<li class="list-group-item">출근 시간
+						<p class="card-text" id="timeSize">12시간 50분</p>
+					</li>
 
-			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapseTwo"
-				aria-expanded="true" aria-controls="collapseTwo"> <i
-					class="fas fa-fw fa-cog"></i> <span>요소 1</span>
-			</a> <!--   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons">Buttons</a>
-                        <a class="collapse-item" href="cards">Cards</a>
-                    </div>
-                </div> --></li>
+					<li class="list-group-item">퇴근 시간
+						<p class="card-text" id="timeSize">12시간 50분</p>
+					</li>
+				</ul>
+			</div>
 
-			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link" href="#"> <i
-					class="fas fa-fw fa-wrench"></i> <span>요소 2</span>
-			</a></li>
-			
-			<!-- Divider -->
-			<hr class="sidebar-divider">
 
-			<!-- Heading -->
-			<div class="sidebar-heading">목록2</div>
 
-			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link" href="#"
-				data-toggle="collapse" data-target="#collapsePages"
-				aria-expanded="true" aria-controls="collapsePages"> <i
-					class="fas fa-fw fa-folder"></i> <span>요소1</span>
-			</a> <!--      <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login">Login</a>
-                        <a class="collapse-item" href="register">Register</a>
-                        <a class="collapse-item" href="forgot-password">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404">404 Page</a>
-                        <a class="collapse-item active" href="blank">Blank Page</a>
-                    </div>
-                </div> --></li>
 
-			<!-- Nav Item  -->
-			<li class="nav-item"><a class="nav-link" href="charts"> <i
-					class="fas fa-fw fa-chart-area"></i> <span>요소2</span></a></li>
-
-			<!-- Nav Item -->
-			<li class="nav-item"><a class="nav-link" href="tables"> <i
-					class="fas fa-fw fa-table"></i> <span>요소3</span></a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -130,36 +122,36 @@
 				<!-- Topbar -->
 				<nav
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
+					<span id="mainTopText">저기 힘차게 떠오르는 태양처럼 오늘도 힘차게 아자아자!</span>
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link" href="#"
-							role="button"> <span
+						<li class="nav-item topNavText"><a class="nav-link" href="#"
+							id="testBt" role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">전자 결제</span>
 						</a></li>
-						<li class="nav-item"><a class="nav-link" href="#"
+						<li class="nav-item topNavText"><a class="nav-link" href="#"
 							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">메일</span>
 						</a></li>
 
-						<li class="nav-item"><a class="nav-link" href="#"
+						<li class="nav-item topNavText"><a class="nav-link" href="#"
 							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">근태</span>
 						</a></li>
 
-						<li class="nav-item"><a class="nav-link" href="#"
+						<li class="nav-item topNavText"><a class="nav-link" href="#"
 							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">캘린더</span>
 						</a></li>
-								<li class="nav-item"><a class="nav-link" href="#"
+						<li class="nav-item topNavText"><a class="nav-link" href="#"
 							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">주소록</span>
 						</a></li>
-								<li class="nav-item"><a class="nav-link" href="#"
+						<li class="nav-item topNavText"><a class="nav-link" href="#"
 							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">게시판</span>
 						</a></li>
-								<li class="nav-item"><a class="nav-link" href="#"
+						<li class="nav-item topNavText"><a class="nav-link" href="#"
 							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">예약</span>
 						</a></li>
@@ -170,10 +162,9 @@
 						<li class="nav-item dropdown no-arrow"><a
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"> 아이디
-									들어갈자리</span> <img class="img-profile rounded-circle"
-								src="img/undraw_profile.svg">
+							aria-expanded="false"> <i class="fas fa-user fa-2x"></i><span
+								class="mr-2 d-none d-lg-inline text-gray-600 small topNavText">
+									아이디 들어갈자리</span>
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
