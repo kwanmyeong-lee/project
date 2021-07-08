@@ -33,7 +33,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">�</span>
+						<span aria-hidden="true">Ã</span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready
@@ -46,7 +46,8 @@
 			</div>
 		</div>
 	</div> -->
-
+	
+	
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="<c:url value = "/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
@@ -57,7 +58,7 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="<c:url value ="/resources/js/sb-admin-2.min.js"/>"></script>
-	
+
 	
 </body>
 

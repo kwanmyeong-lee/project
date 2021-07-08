@@ -1,30 +1,47 @@
 @charset "EUC-KR";
 
-body {
-	margin: 40px 10px;
-	padding: 0;
-	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-	font-size: 14px;
-}
+
 
 #calendar {
-	max-width: 1100px;
+	max-width: 1250px;
+	max-height:720px;
 	margin: 0 auto;
 }
 
 .modal-dialog{
 	
-	max-width: 600px;
+	max-width: 700px;
 }
 
 .selectTime{
-	width: 45px;
-	height: 27px;
+	width: 70px;
+	height: 30px;
 	text-align-last: center;
 }
 .labelTime{
-	width: 65px;
+	width: 130px;
 }
 .labelTime2{
-	width: 68px;
+	width: 130px;
 }
+.schFol{
+	height: 27px;
+}
+
+.txLabel{
+	position: absolute;
+	
+}
+
+.txSch{
+	margin-left: 134px;
+	width: 90%;
+	min-width: 50%;
+}
+.afbtdiv{
+	margin: 0;
+	margin-top : 220px;
+	width: 100%;
+	text-align: center;
+}
+

@@ -6,8 +6,6 @@
 <%@ include file="top.jsp"%>
 
 <!-- 달력 -->
-<link href='<c:url value="/resources/css/main.css"/>' rel="stylesheet" />
-<script src='<c:url value="/resources/js/main.js"/>'></script>
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 
@@ -15,9 +13,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<!-- scheduleMain -->
-<script src='<c:url value="/resources/js/schedule/main.js"/>'></script>
-<script src='<c:url value="/resources/js/schedule/schedule.js"/>'></script>
+<!-- write -->
 <script src='<c:url value="/resources/js/schedule/datepicker.js"/>'></script>
 <link
 	href="<c:url value="/resources/css/schedule/scheduleMain.css"/>"
@@ -27,28 +23,21 @@
 
 <div >
 <article>
+
 <div>
-	<h1>일정목록</h1>
+	<h1>일정등록</h1>
 	<hr>
 </div>
 
-	<div id='calendar' style="position: relative;"></div>
-	
-<!-- The Modal -->
-<div class="modal" id="myModal" data-backdrop="static">
-  <div class="modal-dialog ">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">일정 추가</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
+<div>
         <form name="addform">
-        	<label class="labelTime labelTime2">일정명</label><input type="text" id="addtitle"><br>
+        	<div class="afdiv">
+        	<label class="labelTime labelTime2">일정명</label>
+        	<input type="text" id="addtitle">
+        	</div>
+        	<br>
+        	
+        	<div class="afdiv">
         	<label	class="labelTime">일시</label>
         	<input type="text" class="scheduleDate" name="startDate" id="startDate">
         	<select class="selectTime" id="startTime">
@@ -73,30 +62,37 @@
         			<option class="optionTime" value="${i }"> <fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
         		</c:forEach>
         	</select>
+        	</div>
         	<br>
         	
+        	<div class="afdiv">
         	<label class="labelTime">내 캘린더</label>
-        	<select>
+        	<select class="schFol">
         		<option>(기본)내 일정</option>
-        		<option>zzz</option>
+        		<option>zzzadsfasdfasdfas</option>
         		<option>zzz</option>
         	</select>
+        	</div>
         	<br>
         	
+        	<div class="afdiv">
+        	<label class="labelTime txLabel" >내용</label>
+        	<textarea class="txSch" rows="5" cols="60" style="resize: none;"></textarea>
+        	</div>
+        	<br>
         	
+        	<div class="afdiv">
+        	<label class="labelTime">색상</label>
+        	<input type='color' id='myBestColor' value='#0000ff'>
+        	</div>
+        	<br>
         	
+        	<div class="afdiv afbtdiv" >
+        	<button type="button" class="btn btn-info">확인</button>
+        	<button type="button" class="btn btn-secondary">취소</button>
+        	</div>
         </form>
       </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
 </article>
 </div>
 

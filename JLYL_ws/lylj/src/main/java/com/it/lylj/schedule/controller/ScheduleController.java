@@ -46,4 +46,9 @@ public class ScheduleController {
 		
 		return list;
 	}
+	
+	@GetMapping("/write")
+	public void write() {
+		
+	}
 }

@@ -9,16 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class testController {
 	private static final Logger logger = LoggerFactory.getLogger(testController.class);
 
-	@RequestMapping("/testPage")
+	@RequestMapping("/index")
 	public void test() {
 		logger.info("test 화면 보여주기");
 		
 	}
-	
-	@RequestMapping("/login/login")
-	public void login() {
-		logger.info("login 화면 보여주기");
-		
-	}
 
-}
