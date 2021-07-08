@@ -63,7 +63,6 @@
                      	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
 			    	</div>
 			  	</div>
-			  	
 				<div class="form-group">
 			    	<label for="cc" class="col-sm-1 control-label">참조:</label>
 			    	<div class="col-sm-11">
@@ -87,7 +86,6 @@
 				<div class="form-group">
 					<textarea class="form-control" id="summernote" name="body" rows="12" placeholder="Click here to reply"></textarea>
 				</div>
-			
 		</div>	
 	</div>	
 </div>
