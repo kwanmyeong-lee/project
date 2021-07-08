@@ -14,4 +14,11 @@ public class testController {
 		logger.info("test 화면 보여주기");
 		
 	}
+	
+	@RequestMapping("/login/login")
+	public void login() {
+		logger.info("test 화면 보여주기");
+		
+	}
+}
 
