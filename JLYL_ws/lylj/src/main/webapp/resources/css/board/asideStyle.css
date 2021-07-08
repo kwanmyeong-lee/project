@@ -1,0 +1,25 @@
+/* aside */
+#asideBodyDiv{
+	float: left;
+    width: 200px;
+    height: 870px;
+    border-radius: 5px;
+    border: 1px solid rgb(201, 201, 201);
+    background: white;
+}
+
+h5{
+    padding: 20px 15px;
+    font-weight: bold;
+}
+
+.accordion-button{
+    font-size: 14px;
+    height: 30px;
+}
+
+.accordion-body{
+	margin-left: 20px;
+    font-size: 12px;
+    height: auto;
+}
