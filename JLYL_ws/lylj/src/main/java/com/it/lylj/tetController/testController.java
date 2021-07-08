@@ -15,7 +15,7 @@ public class testController {
 		
 	}
 	
-	@RequestMapping("/login/login")
+	@RequestMapping("/electronic/electronicMain")
 	public void login() {
 		logger.info("test 화면 보여주기");
 		
