@@ -1,7 +1,11 @@
 /* aside */
-body{
+#asideBodyDiv{
+	float: left;
     width: 200px;
+    height: 870px;
+    border-radius: 5px;
     border: 1px solid rgb(201, 201, 201);
+    background: white;
 }
 
 h5{
@@ -15,6 +19,7 @@ h5{
 }
 
 .accordion-body{
+	margin-left: 20px;
     font-size: 12px;
     height: auto;
 }
