@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../inc/top_2.jsp"%>
-<script type="text/javascript"
-	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
-	<script type="text/javascript">
-	$(function(){
-		$('#testBotton').click(function(){ 
-			$('#accordionSidebar').html('');
-		});
-	});
-		
-	</script>
+<%@ include file="../inc/top.jsp"%>
 
+
+
+<style>
+	#divscheduleAdd{
+		margin-left: 11px;
+
+	}
+	.btnSchAdd{
+		width: 93%;
+	}
+	
+</style>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -152,4 +154,4 @@
 <!-- /.container-fluid -->
 
 
-<%@ include file="../inc/bottom_2.jsp"%>
+<%@ include file="../inc/bottom.jsp"%>

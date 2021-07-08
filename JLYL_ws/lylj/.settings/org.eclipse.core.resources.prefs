@@ -2,8 +2,10 @@ eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/WEB-INF/views/electronic/electronicMain.jsp=UTF-8
+
 encoding//src/main/webapp/WEB-INF/views/inc/bottom_2.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/inc/top_2.jsp=UTF-8
 encoding//src/main/webapp/resources/css/board/style.css=UTF-8
+
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
