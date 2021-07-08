@@ -46,6 +46,13 @@
         	  } */
         	  
           },
+          buttonText: {
+   			today : "오늘",
+   			month : "월별",
+   			week : "주별",
+   			day : "일별",
+   			list : "목록"
+  		  },
           droppable:true,
           drop:function(arg){
           },
