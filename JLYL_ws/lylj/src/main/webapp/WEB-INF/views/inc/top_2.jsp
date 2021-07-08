@@ -27,8 +27,12 @@
 </head>
 
 <style>
-#timeSize {
-	font-size: 20px;
+#divscheduleAdd {
+	margin-left: 11px;
+}
+
+.btnSchAdd {
+	width: 93%;
 }
 
 #mainTopText {
@@ -41,7 +45,6 @@
 	font-size: 25px;
 }
 </style>
-
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -60,55 +63,35 @@
 			</a>
 
 			<!-- Heading -->
-			<div class="card" style="width: 14 rem;">
-				<img src="<c:url value ="/resources/img/아이유1.jpg"/>"
-					class="card-img-top" alt="...">
-				<ol class="breadcrumb mt-3">
-					<li class="breadcrumb-item">오늘받은 메일</li>
-					<li class="breadcrumb-item"><a href="#">3개</a></li>
-				</ol>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item">오늘 일정</li>
-					<li class="breadcrumb-item"><a href="#">10개</a></li>
-				</ol>
-				<div class="card-body">
-					<button type="button" class="btn btn-outline-info btn-lg w-100">
-						<a href="#" class="card-link">메일 쓰기</a> <br>
-					</button>
-					<button type="button"
-						class="btn btn-outline-info btn-lg w-100 mt-3">
-						<a href="#" class="card-link">일정 등록</a> <br>
-					</button>
 
-				</div>
-			</div>
-			<div class="card" style="width: 14 rem;">
-				<div class="card-header">근태 관리</div>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">오늘 일한 시간
-						<p class="card-text" id="timeSize">12시간 50분</p>
-					</li>
-					<li class="list-group-item">출근 시간
-						<p class="card-text" id="timeSize">12시간 50분</p>
-					</li>
-
-					<li class="list-group-item">퇴근 시간
-						<p class="card-text" id="timeSize">12시간 50분</p>
-					</li>
-				</ul>
+			<div class="scheduleAdd" id="divscheduleAdd">
+				<button type="button" class="btn btn-light btnSchAdd" id="testBotton">일정등록</button>
 			</div>
 
+			<!-- Nav Item - Pages Collapse Menu -->
+			<li class="nav-item"><a class="nav-link" href="charts"> <input
+					type="checkbox" class="ckSch" checked="checked"> <span>(기본)일정</span>
+			</a></li>
 
-
-
+			<!-- Nav Item -->
+			<li class="nav-item"><a class="nav-link" href="tables"> <input
+					type="checkbox" class="ckSch" checked="checked"> <span>내
+						일정</span>
+			</a></li>
 
 			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
+			<hr class="sidebar-divider">
+
+			<li class="nav-item"><a class="nav-link" href="tables"> <i
+					class="fas fa-plus"></i> <span>캘린더 추가</span>
+			</a></li>
 
 			<!-- Sidebar Toggler (Sidebar) -->
 			<div class="text-center d-none d-md-inline">
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
 			</div>
+			
+			<div id="changInput"></div>
 
 		</ul>
 		<!-- End of Sidebar -->

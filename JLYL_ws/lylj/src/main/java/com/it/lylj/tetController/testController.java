@@ -15,5 +15,12 @@ public class testController {
 		logger.info("test 화면 보여주기");
 		
 	}
+	
+	@RequestMapping("/electronic/electronicMain")
+	public void test_2() {
+		logger.info("test 화면 보여주기");
+		
+	}
+
 
 }
