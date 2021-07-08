@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="inc/top.jsp"%>
 
+
+
 <article>
 
 	<h1 class="h3 mb-4 text-gray-800">이번에는 진짜 여기 넣어주샘 bootStrap 사용 OK

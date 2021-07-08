@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -64,13 +64,13 @@
 				data-toggle="collapse" data-target="#collapseTwo"
 				aria-expanded="true" aria-controls="collapseTwo"> <i
 					class="fas fa-fw fa-cog"></i> <span>요소 1</span>
-			</a> <!--   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+			</a>   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="buttons">Buttons</a>
                         <a class="collapse-item" href="cards">Cards</a>
                     </div>
-                </div> --></li>
+                </div></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link" href="#"> <i
@@ -88,7 +88,7 @@
 				data-toggle="collapse" data-target="#collapsePages"
 				aria-expanded="true" aria-controls="collapsePages"> <i
 					class="fas fa-fw fa-folder"></i> <span>요소1</span>
-			</a> <!--      <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
+			</a>      <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
@@ -100,13 +100,13 @@
                         <a class="collapse-item" href="404">404 Page</a>
                         <a class="collapse-item active" href="blank">Blank Page</a>
                     </div>
-                </div> --></li>
+                </div></li>
 
 			<!-- Nav Item  -->
 			<li class="nav-item"><a class="nav-link" href="charts"> <i
 					class="fas fa-fw fa-chart-area"></i> <span>요소2</span></a></li>
 
-			<!-- Nav Item -->
+			<!-- 	Nav Item -->
 			<li class="nav-item"><a class="nav-link" href="tables"> <i
 					class="fas fa-fw fa-table"></i> <span>요소3</span></a></li>
 
@@ -133,7 +133,7 @@
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link" href="#"
+						<li class="nav-item"><a class="nav-link" href="#" id="testBt"
 							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">전자 결제</span>
 						</a></li>
