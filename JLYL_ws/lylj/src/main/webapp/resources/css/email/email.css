@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 body{
     margin-top:20px;
     background:#eee;
@@ -19,25 +20,25 @@ body{
 	padding-bottom: 8px;
 }
 
-.email .nav.nav-pills > li > a {
+.email .nav.nav-pills > p > a {
 	border-top: 3px solid transparent;
 }
 
-.email .nav.nav-pills > li > a > .fa {
+.email .nav.nav-pills > p > a > .fa {
 	margin-right: 5px;
 }
 
-.email .nav.nav-pills > li.active > a,
-.email .nav.nav-pills > li.active > a:hover {
+.email .nav.nav-pills > p.active > a,
+.email .nav.nav-pills > p.active > a:hover {
 	background-color: #f6f6f6;
 	border-top-color: #3c8dbc;
 }
 
-.email .nav.nav-pills > li.active > a {
+.email .nav.nav-pills > p.active > a {
 	font-weight: 600;
 }
 
-.email .nav.nav-pills > li > a:hover {
+.email .nav.nav-pills > p > a:hover {
 	background-color: #f6f6f6;
 }
 
