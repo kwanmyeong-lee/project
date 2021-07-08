@@ -3,7 +3,8 @@
 
 
 #calendar {
-	max-width: 1100px;
+	max-width: 1250px;
+	max-height:720px;
 	margin: 0 auto;
 }
 
@@ -14,14 +15,14 @@
 
 .selectTime{
 	width: 70px;
-	height: 27px;
+	height: 30px;
 	text-align-last: center;
 }
 .labelTime{
-	width: 70px;
+	width: 130px;
 }
 .labelTime2{
-	width: 70px;
+	width: 130px;
 }
 .schFol{
 	height: 27px;
@@ -33,12 +34,13 @@
 }
 
 .txSch{
-	margin-left: 73px;
-	width: 95%;
+	margin-left: 134px;
+	width: 90%;
 	min-width: 50%;
 }
 .afbtdiv{
 	margin: 0;
+	margin-top : 220px;
 	width: 100%;
 	text-align: center;
 }

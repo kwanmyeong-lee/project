@@ -27,6 +27,10 @@
 
 <div >
 <article>
+<div>
+	<h1>일정목록</h1>
+	<hr>
+</div>
 
 	<div id='calendar' style="position: relative;"></div>
 	
