@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< Updated upstream
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ include file="../inc/top.jsp" %>
+<%@ include file="boardAside.jsp" %>
 <!-- summernote - include libraries(jQuery, bootstrap) -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
@@ -17,7 +17,7 @@
 	$(document).ready(function() {
 		$('#summernote').summernote({
 	        placeholder: '내용을 입력하세요',
-	      	width: 1000,
+	      	width: 955,
 	   		height: 500,
 	   		toolbar: [
 	   			['fontname', ['fontname']],
@@ -42,13 +42,22 @@
         </select>
         <input type="submit" value="업로드" id="submitUp"><br>
         <br>
-        <label for="titleLb">제목 : </label>
+        <label for="titleLb" id="writeTitle">제목 : </label>
         <input type="text" name="title" id="title"> 
-        <input type="checkbox" name="chkNotice" id="chkNotice"> <span class="noticeSpan">공지사항</span>
+        <div id="writeCancleDiv">취소</div>
         <textarea id="summernote" name="content" class="summernote"></textarea>
-        <input type="file" name="file1" class="upfile">
-        <input type="file" name="file2" class="upfile">
-        <input type="file" name="file3" class="upfile">
+        <div class="input-group">
+		  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+		  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">취소</button>
+		</div>
+        <div class="input-group">
+		  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+		  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">취소</button>
+		</div>
+        <div class="input-group">
+		  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+		  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">취소</button>
+		</div>
     </div>
 </form>
 <%@ include file="../inc/bottom.jsp" %>
