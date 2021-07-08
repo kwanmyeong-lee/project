@@ -44,4 +44,24 @@
 	width: 100%;
 	text-align: center;
 }
+.fc-daygrid-day-number {
+	color:black;
+}
+.fc-col-header-cell-cushion{
+	color: black;
+}
+
+.fc-col-header > tbody> tr > th:nth-child(1) .fc-col-header-cell-cushion{
+	color:red;
+}
+.fc-col-header > tbody> tr > th:nth-child(7) .fc-col-header-cell-cushion{
+	color:blue;
+}
+.fc-scrollgrid-sync-table > tbody> tr > td:nth-child(1) .fc-daygrid-day-number{
+	color:red;
+}
+.fc-scrollgrid-sync-table > tbody> tr > td:nth-child(7) .fc-daygrid-day-number{
+	color:blue;
+}
+
 

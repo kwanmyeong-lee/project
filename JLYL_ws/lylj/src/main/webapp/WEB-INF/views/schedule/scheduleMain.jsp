@@ -10,6 +10,7 @@
 <script src='<c:url value="/resources/js/main.js"/>'></script>
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
+	
 
 <!-- datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
