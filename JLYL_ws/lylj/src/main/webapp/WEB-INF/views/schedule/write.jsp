@@ -33,7 +33,13 @@
         <form name="addform">
         	<div class="afdiv">
         	<label class="labelTime labelTime2">일정명</label>
-        	<input type="text" id="addtitle">
+        	<input type="text" class="addTitle">
+        	</div>
+        	<br>
+        	
+        	<div class="afdiv">
+        	<label class="labelTime txLabel" >내용</label>
+        	<textarea class="txSch" rows="5" style="resize: none;"></textarea>
         	</div>
         	<br>
         	
@@ -72,12 +78,6 @@
         		<option>zzzadsfasdfasdfas</option>
         		<option>zzz</option>
         	</select>
-        	</div>
-        	<br>
-        	
-        	<div class="afdiv">
-        	<label class="labelTime txLabel" >내용</label>
-        	<textarea class="txSch" rows="5" cols="60" style="resize: none;"></textarea>
         	</div>
         	<br>
         	

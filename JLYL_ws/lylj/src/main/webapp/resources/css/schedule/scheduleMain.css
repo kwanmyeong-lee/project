@@ -32,10 +32,14 @@
 	position: absolute;
 	
 }
+.addTitle{
+	width: 89%;
+	
+}
 
 .txSch{
 	margin-left: 134px;
-	width: 90%;
+	width: 89%;
 	min-width: 50%;
 }
 .afbtdiv{
