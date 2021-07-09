@@ -1,6 +1,6 @@
 .metadata/
 application.properties
-
+pom.properties
 
 # Compiled class file
 *.class
