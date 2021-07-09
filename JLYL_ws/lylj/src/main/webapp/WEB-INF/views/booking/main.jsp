@@ -26,12 +26,11 @@
 
 <title>Insert title here</title>
 <style type="text/css">
-body {
+
 #calendar {
-  max-width: 900px;
-  height : auto;
-  margin: 0 auto;
+  max-height: 500px;
 }
+
 </style>
 
 
@@ -40,8 +39,9 @@ body {
 <div>
 	<h1>자산 예약 현황</h1>
 	<hr>
-	
-	<div id='calendar'></div>
+	<div id="calDiv">
+	<div id='calendar' "></div>
+	</div>
 </div>
 
 	

@@ -6,6 +6,7 @@ $(function() { // document ready
 	      center: 'title',
 	      right: 'basicWeek,timelineDay'
 	    },
+	    contentHeight: 400,
 	    buttonText: {
    			today : "오늘",
    			month : "월별",
