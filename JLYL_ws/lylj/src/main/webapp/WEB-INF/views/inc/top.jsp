@@ -42,8 +42,15 @@
 			$('#accordionSidebar')
 			.html(
 					'<!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="index"><div class="sidebar-brand-icon rotate-n-15"></div><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="topNavButton"><button type="button"class="btn btn-light btnSchAdd"id="testBotton">새결재작성하기</button></div><!--Divider--><hr class="sidebar-divider d-none d-md-block"><!--Nav Item-Tables--><li class="nav-item"><a class="nav-link"href="#"><i class="fas fa-fw fa-table"></i><span>자주쓰는양식</span></a></li><!--Nav Item-Pages Collapse Menu--><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapseOne"aria-expanded="true"aria-controls="collapseOne"><i class="fas fa-fw fa-cog"></i><span>결재</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="#">결재대기문서</a><a class="collapse-item"href="#">결재수신문서</a><a class="collapse-item"href="#">결재예정문서</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapseTwo"aria-expanded="true"aria-controls="collapseTwo"><i class="fas fa-fw fa-cog"></i><span>내문서함</span></a><div id="collapseTwo"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="#">기안문서함</a><a class="collapse-item"href="#">임시저장함</a><a class="collapse-item"href="#">결재완료문서</a></div></div></li>');
+		}else if(${navNo==4}){
+			$('#accordionSidebar')
+			.html(
+					'<!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="index"><div class="sidebar-brand-icon rotate-n-15"></div><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="divscheduleAdd"><button type="button"class="btn btn-light btnSchAdd">일정등록</button></div><!--Nav Item-Pages Collapse Menu--><li class="nav-item"><a class="nav-link"href="charts"><input type="checkbox"class="ckSch"checked="checked"><span>(기본)일정</span></a></li><!--Nav Item--><li class="nav-item"><a class="nav-link"href="tables"><input type="checkbox"class="ckSch"checked="checked"><span>내일정</span></a></li><!--Divider--><hr class="sidebar-divider"><li class="nav-item"><a class="nav-link"href="tables"><i class="fas fa-plus"></i><span>캘린더추가</span></a></li>');
+		}else if(${navNo==7}){
+			$('#accordionSidebar')
+			.html(
+					'<!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="index"><div class="sidebar-brand-icon rotate-n-15"></div><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="divscheduleAdd"><button type="button"class="btn btn-light btnSchAdd">예약/대여</button></div><!--Nav Item-Pages Collapse Menu--><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapse1"aria-expanded="true"aria-controls="collapse1"><i class="fas fa-fw fa-cog"></i><span>본사1층회의실</span></a><div id="collapse1"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><h6 class="collapse-header">Custom Components:</h6><a class="collapse-item"href="buttons">Buttons</a><a class="collapse-item"href="cards">Cards</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapse2"aria-expanded="true"aria-controls="collapse2"><i class="fas fa-fw fa-cog"></i><span>본사5층회의실</span></a><div id="collapse2"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><h6 class="collapse-header">Custom Components:</h6><a class="collapse-item"href="buttons">Buttons</a><a class="collapse-item"href="cards">Cards</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapse3"aria-expanded="true"aria-controls="collapse3"><i class="fas fa-fw fa-cog"></i><span>차량</span></a><div id="collapse3"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><h6 class="collapse-header">Custom Components:</h6><a class="collapse-item"href="buttons">Buttons</a><a class="collapse-item"href="cards">Cards</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapse4"aria-expanded="true"aria-controls="collapse4"><i class="fas fa-fw fa-cog"></i><span>빔프로젝터</span></a><div id="collapse4"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><h6 class="collapse-header">Custom Components:</h6><a class="collapse-item"href="buttons">Buttons</a><a class="collapse-item"href="cards">Cards</a></div></div></li><!--Divider--><hr class="sidebar-divider"><li class="nav-item"><a class="nav-link"href="tables"><i class="fas fa-plus"></i><span>자산추가</span></a></li>');
 		}
-		
 	});
 </script>
 <style>
@@ -68,6 +75,13 @@
 .btnSchAdd {
 	width: 93%;
 }
+#divscheduleAdd{
+		margin-left: 11px;
+
+}
+.btnSchAdd{
+		width: 93%;
+}
 </style>
 
 
@@ -80,7 +94,7 @@
 		<ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"
 			id="accordionSidebar">
 	
-			<c:if test="${navNo!=1}">
+			<c:if test="${empty navNo}">
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
@@ -167,9 +181,9 @@
 								class="mr-2 d-none d-lg-inline text-gray-600 small">근태</span>
 						</a></li>
 
-						<li class="nav-item topNavText"><a class="nav-link" href="#"
+						<li class="nav-item topNavText"><a class="nav-link" href="<c:url value='/schedule/scheduleMain'/>"
 							role="button"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">캘린더</span>
+								class="mr-2 d-none d-lg-inline text-gray-600 small">일정</span>
 						</a></li>
 						<li class="nav-item topNavText"><a class="nav-link" href="#"
 							role="button"> <span
@@ -179,7 +193,7 @@
 							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">게시판</span>
 						</a></li>
-						<li class="nav-item topNavText"><a class="nav-link" href="#"
+						<li class="nav-item topNavText"><a class="nav-link" href="<c:url value='/booking/main'/>"
 							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">예약</span>
 						</a></li>

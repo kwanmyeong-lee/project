@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="top.jsp"%>
+<%@ include file="../inc/top.jsp"%>
 
 <!-- 달력 -->
 <link href='<c:url value="/resources/css/main.css"/>' rel="stylesheet" />
@@ -101,4 +101,4 @@
 </article>
 </div>
 
-<%@ include file="bottom.jsp"%>
+<%@ include file="../inc/bottom.jsp"%>
