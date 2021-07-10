@@ -25,8 +25,12 @@ $(function() {
 		
 		$('#endDate').datepicker();
 		$('#endDate').datepicker("setDate","today");
-		
+
+		$("#endDate").datepicker( "option", "minDate", $('#startDate').val() );		
 		$('#startDate').datepicker("option", "onClose", function ( selectedDate ) {
 	        $("#endDate").datepicker( "option", "minDate", selectedDate );
+	        timeChange();
 	    });
+		
 });
+
