@@ -1,9 +1,15 @@
 @charset "UTF-8";
 
-.maindiv1{
+.main-div{
 	margin-bottom: 100px;
 }
 	
-.mainh1{
+.main-h1{
 	margin-left: 30px;
 }
+
+.main-table{
+	width: 1200px;
+	
+}
+

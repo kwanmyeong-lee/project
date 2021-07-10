@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="top.jsp"%>
+<%@ include file="../inc/top.jsp"%>
 
 <!-- 달력 -->
 <script type="text/javascript"
@@ -12,9 +12,10 @@
 <!-- datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src='<c:url value="/resources/js/schedule/datepicker.js"/>'></script>
 
 <!-- write -->
-<script src='<c:url value="/resources/js/schedule/datepicker.js"/>'></script>
+<script src='<c:url value="/resources/js/schedule/write.js"/>'></script>
 <link
 	href="<c:url value="/resources/css/schedule/scheduleMain.css"/>"
 	rel="stylesheet" type="text/css">
@@ -89,11 +90,11 @@
         	
         	<div class="afdiv afbtdiv" >
         	<button type="button" class="btn btn-info">확인</button>
-        	<button type="button" class="btn btn-secondary">취소</button>
+        	<button type="button" class="btn btn-secondary" id="cancle" >취소</button>
         	</div>
         </form>
       </div>
 </article>
 </div>
 
-<%@ include file="bottom.jsp"%>
+<%@ include file="../inc/bottom.jsp"%>

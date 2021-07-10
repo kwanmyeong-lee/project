@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<%@ include file="top.jsp"%>
+<%@ include file="../inc/top.jsp"%>
 
 <!-- 달력 -->
 <link href='http://fullcalendar.io/js/fullcalendar-2.5.0/fullcalendar.css' rel='stylesheet' />
@@ -30,21 +30,25 @@
 
 <div >
 <article>
-<div class="maindiv1">
-	<h1 class="mainh1">자산 예약 현황</h1><br>
+<div class="main-div">
+	<h1 class="main-h1">자산 예약 현황</h1><br>
 	<div id='calendar'></div>
+	
 </div>
 <div>
 
 
-	<h1 class="mainh1">내 예약/대여 현황</h1>
-	<table>
-		<tbody class="table table-hover">
+	<h1 class="main-h1">내 예약/대여 현황</h1>
+	<table class="table table-hover main-table">
+		<tbody>
 			<tr>
 				<th>자산</th>
 				<th>이름</th>
 				<th>예약 시간</th>
 				<th>취소/반납</th>				
+			</tr>
+			<tr>
+			<td colspan="4">예약/대여 중인 항목이 없습니다.</td>
 			</tr>
 		</tbody>
 	</table>
@@ -54,4 +58,4 @@
 </article>
 </div>
 
-<%@ include file="bottom.jsp"%>
+<%@ include file="../inc/bottom.jsp"%>
