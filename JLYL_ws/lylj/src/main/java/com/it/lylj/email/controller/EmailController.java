@@ -16,7 +16,7 @@ public class EmailController {
 	@RequestMapping("/emailMain")
 	public void email(Model model) {
 		logger.info("이메일 페이지");
-		model.addAttribute("navNo", 1);
+		model.addAttribute("navNo", 2);
 		
 	}
 	
