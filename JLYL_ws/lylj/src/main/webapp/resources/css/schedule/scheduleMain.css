@@ -19,10 +19,13 @@
 	text-align-last: center;
 }
 .labelTime{
-	width: 104px;
+	width: 80px;
 }
 .labelTime2{
-	width: 100px;
+	width: 84px;
+}
+.chk-span{
+	font-size: 15px;
 }
 .schFol{
 	height: 27px;
