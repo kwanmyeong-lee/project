@@ -14,6 +14,7 @@
           editable: true,
           selectable: true,
           locale : "ko",
+          nowIndicator: true,
           dayMaxEvents: true,
           select:function(arg){
         	  $('#myModal').modal('show');
