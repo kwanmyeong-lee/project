@@ -48,7 +48,7 @@
 				<th>취소/반납</th>				
 			</tr>
 			<tr>
-			<td colspan="4">예약/대여 중인 항목이 없습니다.</td>
+			<td align="center" colspan="4" >예약/대여 중인 항목이 없습니다.</td>
 			</tr>
 		</tbody>
 	</table>

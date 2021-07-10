@@ -17,7 +17,7 @@
 <!-- write -->
 <script src='<c:url value="/resources/js/schedule/write.js"/>'></script>
 <link
-	href="<c:url value="/resources/css/schedule/scheduleMain.css"/>"
+	href="<c:url value="/resources/css/schedule/write.css"/>"
 	rel="stylesheet" type="text/css">
 
 

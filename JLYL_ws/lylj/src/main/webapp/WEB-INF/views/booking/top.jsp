@@ -115,7 +115,7 @@
 			<li class="nav-item">
 				<a class="nav-link" href="tables">
 					<i class="fas fa-plus"></i>
-					<span>캘린더 추가</span>
+					<span>자산 추가</span>
 				</a>
 			</li>
 
