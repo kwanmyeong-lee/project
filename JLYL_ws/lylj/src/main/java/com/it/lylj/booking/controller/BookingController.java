@@ -1,6 +1,7 @@
 package com.it.lylj.booking.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BookingController {
 	
 	@GetMapping("/main")
-	public void main() {
-		
+	public void main(Model model) {
+		model.addAttribute("navNo",7);
 		
 	}
 	

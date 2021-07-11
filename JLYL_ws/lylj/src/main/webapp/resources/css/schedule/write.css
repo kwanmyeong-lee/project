@@ -19,13 +19,10 @@
 	text-align-last: center;
 }
 .labelTime{
-	width: 80px;
+	width: 130px;
 }
 .labelTime2{
-	width: 84px;
-}
-.chk-span{
-	font-size: 15px;
+	width: 130px;
 }
 .schFol{
 	height: 27px;
@@ -47,7 +44,7 @@
 }
 .afbtdiv{
 	margin: 0;
-	margin-top : 20px;
+	margin-top : 10%;
 	width: 100%;
 	text-align: center;
 }
