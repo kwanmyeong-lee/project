@@ -9,6 +9,18 @@
 <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
 <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/login/login.css"/>"> 
+<style type="text/css">
+.form-check #emp{
+	width: 30px;
+}
+.form-check #admin{
+	width: 30px;
+}
+.logo{
+	height: 50px;
+}
+</style>
+
 </head>
 <body oncontextmenu='return false' class='snippet-body'>
 	<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
@@ -17,7 +29,7 @@
 				<div class="col-lg-6">
 					<div class="card1 pb-5">
 						<div class="row">
-							<img src="<c:url value=""/>" class="logo">
+							<img src="<c:url value="/resources/img/logo.png"/>" class="logo">
 						</div>
 						<div class="row px-3 justify-content-center mt-4 mb-5 border-line">
 							<img src="<c:url value='/resources/img/loginimg.gif'/>" class="image">
@@ -31,21 +43,29 @@
 						<div class="row mb-4 px-3">
 						</div>
 						<div class="row px-3 mb-4">
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="emp" value="emp">
+							  <label class="form-check-label" for="emp">사원</label>
+							</div>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="admin" value="admin">
+							  <label class="form-check-label" for="admin">관리자</label>
+							</div>
 						</div>
 						<div class="row px-3">
 							<label class="mb-1">
-								<h6 class="mb-0 text-sm">사원번호</h6>
+								사원번호
 							</label> <input class="mb-4" type="text" name="email" placeholder="Enter a valid email employee number">
 						</div>
 						<div class="row px-3">
 							<label class="mb-1">
-								<h6 class="mb-0 text-sm">비밀번호</h6>
+								비밀번호
 							</label> 
 							<input type="password" name="password" placeholder="Enter password">
 						</div>
 						<div class="row px-3 mb-4">
 							<div class="custom-control custom-checkbox custom-control-inline">
-								<input id="chk1" type="checkbox" name="chk" class="custom-control-input"> 
+								<input id="chk1" type="checkbox" name="chkSave" class="custom-control-input"> 
 								<label for="chk1"class="custom-control-label text-sm">아이디 저장하기</label>
 							</div>
 							<a href="#" class="ml-auto mb-0 text-sm">비밀번호찾기</a>
