@@ -12,6 +12,9 @@
 	max-width: 700px;
 }
 
+.modal-dialog2{
+	max-width: 350px;
+}
 
 .selectTime{
 	width: 70px;
@@ -39,9 +42,6 @@
 	width: 89%;
 	
 }
-#addtitle{
-	width:79%;
-}
 
 .txSch{
 	margin-left: 134px;
@@ -64,7 +64,7 @@
 .fc-col-header > tbody> tr > th:nth-child(1) .fc-col-header-cell-cushion{
 	color:red;
 }
-.fc-daygrid .fc-col-header > tbody> tr > th:nth-child(7) .fc-col-header-cell-cushion{
+.fc-col-header > tbody> tr > th:nth-child(7) .fc-col-header-cell-cushion{
 	color:blue;
 }
 .fc-scrollgrid-sync-table > tbody> tr > td:nth-child(1) .fc-daygrid-day-number{

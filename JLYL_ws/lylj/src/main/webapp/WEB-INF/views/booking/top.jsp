@@ -78,7 +78,7 @@
 					class="far fa-calendar-minus"></i> <span>본사 5층 회의실</span>
 			</a>  <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="assetInfo">대회의실</a>
+                        <a class="collapse-item" href="buttons">대회의실</a>
                         <a class="collapse-item" href="buttons">소회의실</a>
                     </div>
                 </div> </li>
@@ -109,108 +109,20 @@
 			<hr class="sidebar-divider">
 			
 			<li class="nav-item">
-				<a class="nav-link" id=asset-add href="#">
+				<a class="nav-link" id=asset-add href="tables">
 					<i class="fas fa-plus"></i>
 					<span>자산 추가</span>
 				</a>
-				<a class="nav-link" id=asset-edit href="#">
+				<a class="nav-link" id=asset-edit href="tables">
 					<i class="far fa-edit"></i>
 					<span>자산 수정</span>
 				</a>
-				<a class="nav-link" id=asset-delete href="#">
+				<a class="nav-link" id=asset-delete href="tables">
 					<i class="far fa-trash-alt"></i>
 					<span>자산 삭제</span>
 				</a>
 			</li>
-			
-			<!-- 일정 목록 추가 Modal -->
-            <div class="modal modal2" id="myModaladd" data-backdrop="static">
-                <div class="modal-dialog modal-dialog2">
-                    <div
-                        class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">자산 추가</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <form name="list-add-form">
-                                <label class="labelTime labelTime2">자산 수정</label><input type="text" id="addTitle">
-                                <br>
-                            </form>
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-info" id="btnAdd">추가</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 일정 목록 수정 Modal -->
-            <div class="modal modal2" id="myModaledit" data-backdrop="static">
-                <div class="modal-dialog modal-dialog2">
-                    <div
-                        class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">자산 삭제</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <form name="list-edit-form">
-                                <label class="labelTime labelTime2">일정 목록</label>
-                                <select>
-                                    <option>(기본)내 일정</option>
-                                    <option>zzz</option>
-                                    <option>zzz</option>
-                                </select>
-                                <br>
-                                <label class="labelTime labelTime2">일정명</label><input type="text" id="editTitle">
-                                <br>
-                            </form>
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-info" id="btnEdit">수정</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 일정 목록 삭제 Modal -->
-            <div class="modal modal2" id="myModaldelete" data-backdrop="static">
-                <div class="modal-dialog modal-dialog2 ">
-                    <div
-                        class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">일정 목록 삭제</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <form name="list-del-form">
-                                <label class="labelTime labelTime2">일정 목록</label>
-                                <select>
-                                    <option>(기본)내 일정</option>
-                                    <option>zzz</option>
-                                    <option>zzz</option>
-                                </select>
-                                <br>
-                            </form>
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-info" id="btnDelete">삭제</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-			
+
 			<!-- Sidebar Toggler (Sidebar) -->
 			<div class="text-center d-none d-md-inline">
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
