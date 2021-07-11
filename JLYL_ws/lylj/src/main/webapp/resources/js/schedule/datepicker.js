@@ -31,6 +31,52 @@ $(function() {
 	        $("#endDate").datepicker( "option", "minDate", selectedDate );
 	        timeChange();
 	    });
+	    
+	    $('.chk-day').change(function() {
+	        if ($(this).prop('checked')) {
+	            $('.selectTime').hide();
+	        } else {
+	            $('.selectTime').show();
+	        }
+	    });
+	
+	    $('#startTime').change(function() {
+	        timeChange();
+	    });
+	
+	    $('#endDate').change(function() {
+	        timeChange();
+	    });
+	
+	    $('#startDate').change(function() {
+	        timeChange();
+	    });
 		
 });
 
+function timeChange() {
+    var startday = new Date($('#startDate').val());
+    var endday = new Date($('#endDate').val());
+    var btday = startday.getTime() - endday.getTime();
+
+    if (btday < 0) {
+        for (var i = 0; i < 48; i++) {
+            var showTime = '#option-endTime' + i;
+            $(showTime).show();
+        }
+    } else if (btday == 0) {
+        var selectStartTime = Number($('#startTime').val());
+        var selectEndTime = Number($('#endTime').val());
+        if (selectStartTime > selectEndTime) {
+            $('#endTime').val(selectStartTime).prop('selectded', true);
+        }
+        for (var i = 0; i < selectStartTime; i++) {
+            var hideTime = '#option-endTime' + i;
+            $(hideTime).hide();
+        }
+        for (var i = selectStartTime; i < 48; i++) {
+            var showTime = '#option-endTime' + i;
+            $(showTime).show();
+        }
+    }
+}
