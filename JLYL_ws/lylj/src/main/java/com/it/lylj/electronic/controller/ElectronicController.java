@@ -22,5 +22,10 @@ public class ElectronicController {
 	public void documentSty() {
 		logger.info("양식 선택 보여주기");
 	}
+	
+	@GetMapping("/documentWrite")
+	public void documentWrite() {
+		logger.info("양식 작성 페이지 보여주기");
+	}
 
 }
