@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="../inc/top.jsp" %>
-<%@ include file="boardAside.jsp" %>
 
 <link rel="stylesheet" href="<c:url value='/resources/css/board/style.css'/>">
 
