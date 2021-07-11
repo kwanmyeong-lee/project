@@ -23,10 +23,10 @@
 
 <!-- scheduleMain -->
 <script src='<c:url value="/resources/js/schedule/main.js"/>'></script>
-<script src='<c:url value="/resources/js/schedule/schedule.js"/>'></script>
+<script src='<c:url value="/resources/js/booking/assetInfo.js"/>'></script>
 <script src='<c:url value="/resources/js/schedule/datepicker.js"/>'></script>
 <link
-	href="<c:url value="/resources/css/schedule/scheduleMain.css"/>"
+	href="<c:url value="/resources/css/booking/assetInfo.css"/>"
 	rel="stylesheet" type="text/css">
 
 
@@ -34,7 +34,7 @@
 <div >
 <article>
 <div>
-	<h1>일정목록</h1>
+	<h1>대회의실</h1>
 	<hr>
 </div>
 
@@ -49,15 +49,14 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">일정 추가</h4>
+        <h4 class="modal-title">예약</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
         <form name="addform">
-        	<label class="labelTime labelTime2">일정명</label><input type="text" id="addtitle"><br>
-        	<label	class="labelTime">일시</label>
+        	<label	class="labelTime">예약일</label>
         	<input type="text" class="scheduleDate" name="startDate" id="startDate">
         	<select class="selectTime" id="startTime">
         		<c:forEach var="i" begin="${selectEndTime }" end="47">
@@ -84,12 +83,8 @@
         	<input type="checkbox" class="chk-day"><span class="chk-span">종일</span>
         	<br>
         	
-        	<label class="labelTime">내 캘린더</label>
-        	<select>
-        		<option>(기본)내 일정</option>
-        		<option>zzz</option>
-        		<option>zzz</option>
-        	</select>
+        	<label class="labelTime">예약자</label><span>홍길동</span><br>
+        	<label class="labelTime labelTime2">예약목적</label><input type="text" id="addContent"><br>
         	<br>
         	
         </form>
