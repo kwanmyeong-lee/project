@@ -1,27 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../inc/top.jsp" %>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="https://select2.github.io/dist/css/select2.min.css" rel="stylesheet">
-<script src="https://select2.github.io/dist/js/select2.full.js"></script>
+<%@ include file="emailAside.jsp" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- include libraries(jQuery, bootstrap) -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
+<!-- datepicker -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src='<c:url value="/resources/js/schedule/datepicker.js"/>'></script>
+
 <style type="text/css">
+.emailContainer{
+	margin-left: 200px;
+	width: 90%;
+	background: white;
+}
+.emailPanel{
+	padding: 20px;
+}
 .textBox{
 	width: 90%;
 	float:left;
-}
-.textBox.tx{
-	width: 100%;
 }
 .title{
 	float: left;
@@ -30,17 +35,22 @@
 }
 .searchbox{
 	float: right;
-	width: 200px
+	width: 300px;
+}
+#startDate{
+	width: 120px;
+
+}
+#startTime{
+	width: 120px;
 }
 
 </style>
 
-<div class="container">
-	<div class="panel panel-default">
-		<div class="panel-body message">
-		<span class="title">메일쓰기</span>
-		
-				<form action="#" class="text-right ">
+<div class="container emailContainer">
+	<div class="panel emailPanel">
+		<span class="title">메일보내기</span>
+				<form action="#" class="text-right">
 					<div class="input-group searchbox">
 						<input type="text" class="form-control input-sm"  placeholder="Search" >
 						<span class="input-group-btn">
@@ -51,50 +61,100 @@
 				<br>
 				<hr>
 			<div class="form-group">	
-				<button type="submit" class="btn btn-default">보내기</button>
-				<button type="submit" class="btn btn-default">미리보기</button>
-				<button type="submit" class="btn btn-default">임시저장</button>
+				<button type="submit" class="btn btn-secondary">보내기</button>
+				<button type="submit" class="btn btn-secondary">미리보기</button>
+				<button type="submit" class="btn btn-secondary">임시저장</button>
 			</div>
-			<form class="form-horizontal" role="form">
-				<div class="form-group">
+			<form class="form-horizontal writefrm" role="form">
+				<div class="form-group firstFrm row">
 			    	<label for="to" class="col-sm-1 control-label">받는사람:</label>
 			    	<div class="col-sm-11">
                         <input type="email" class="form-control select2-offscreen textBox" id="to" name="to" tabindex="-1">
                      	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
 			    	</div>
 			  	</div>
-				<div class="form-group">
-			    	<label for="cc" class="col-sm-1 control-label">참조:</label>
+				<div class="form-group row">
+			    	<label for="reference" class="col-sm-1 control-label">참조:</label>
 			    	<div class="col-sm-11">
                     	<input type="email" class="form-control select2-offscreen textBox tx" id="reference" name="reference" tabindex="-1">
 			    	</div>
 			  	</div>
 			  	
-				<div class="form-group">
+				<div class="form-group row">
 			    	<label for="bcc" class="col-sm-1 control-label">제목:</label>
 			    	<div class="col-sm-11">
                          <input type="email" class="form-control select2-offscreen textBox tx" id="title" name="title" tabindex="-1">
 			    	</div>
 			  	</div>
-			  	<div class="form-group">
-			    	<label for="bcc" class="col-sm-1 control-label">파일첨부:</label>
+			  	<div class="form-group row">
+			    	<label for="uploadFile" class="col-sm-1 control-label">파일첨부:</label>
 			    	<div class="col-sm-11">
-                         <input type="file" class="textBox tx" id="uploadFile">
-			    	</div>
+					  <input type="file" multiple="multiple" class="form-control select2-offscreen textBox tx" id="uploadFile">
+					</div>
+			  	</div>
+				<div class="form-group">
+					<textarea class="form-control message" id="summernote" ></textarea>
+				</div>
+				<div class="form-group row chkBook">
+					<span>
+				    	<label for="yesBook" class="col-sm-1 control-label">전송예약 : </label>
+		    			<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="okBook" value="1">
+						  <label class="form-check-label" for="okBook">예</label>
+						</div>
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="notBook" value="2" checked="checked">
+						  <label class="form-check-label" for="notBook">아니요</label>
+						</div>
+					</span>
+			    </div>
+			    <div class="form-group row">
+			    	<div class="col-sm-11 row" id="setDate" >
+				    	<span>날짜 :
+				    	<input type="text" class="scheduleDate" name="startDate" id="startDate">
+				    	시간 :
+				    	<select class="selectTime" id="startTime" >
+			        		<c:forEach var="i" begin="0" end="47">
+			        			<c:set var="hour" value="${i/2 - i/2%1}"/>
+			        			<c:set var ="sec" value="00"/>
+			        			<c:if test="${i%2 eq 1 }">
+			        				<c:set var ="sec" value="30"/>
+			        			</c:if>
+			        			<option class="optionTime" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
+			        		</c:forEach>
+	        			</select>
+	        			</span> 
+				   </div>
 			  	</div>
 			</form>
-				<div class="form-group">
-					<textarea class="form-control" id="summernote" name="body" rows="12" placeholder="Click here to reply"></textarea>
-				</div>
 		</div>	
-	</div>	
 </div>
-<script type="text/javascript">
-$('#summernote').summernote({
-    tabsize: 2,
-    height: 600
-   
-  });
+<script>
+	$(document).ready(function() {
+		$('#summernote').summernote({
+	        placeholder: '내용을 입력하세요',
+	      	width: 1150,
+	   		height: 500,
+	   		toolbar: [
+	   			['fontname', ['fontname']],
+	    		['fontsize', ['fontsize']],
+	    		['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+	    		['color', ['forecolor','color']],
+	    		['para', ['ul', 'ol', 'paragraph']],
+			],
+   			fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+		});
+	
+		$("input:radio[name=inlineRadioOptions]").change(function(){
+			if($("input:radio[name=inlineRadioOptions]").val()=='1'){
+				$('#setDate').css('visibility', 'visible');
+			}else if($("input:radio[name=inlineRadioOptions]").val()=='2'){
+				$('#setDate').css('visibility', 'hidden'); 
+			}
+		});
+	});
+	
 </script>
 
 <%@include file="../inc/bottom.jsp" %>

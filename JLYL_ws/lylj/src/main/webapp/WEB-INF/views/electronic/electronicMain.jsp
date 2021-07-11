@@ -3,7 +3,6 @@
 <%@ include file="../inc/top.jsp"%>
 
 
-
 <style>
 	#divscheduleAdd{
 		margin-left: 11px;
@@ -14,6 +13,13 @@
 	}
 	
 </style>
+<script type="text/javascript"> 
+	$(function(){
+		$('#newDocument').click(function(){
+			open('<c:url value="/electronic/documentSelect"/>', 'documentSelect', 'width=800,height=500');
+		});
+	});
+</script>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">

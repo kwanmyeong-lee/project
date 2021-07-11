@@ -41,11 +41,11 @@
             <option value="freeBoard">자유게시판</option>
             <!-- 게시판을 추가하면 자동으로 추가되게끔 size 또는 length 받아옴 -->
         </select>
-        <input type="submit" value="업로드" id="submitUp"><br>
+        <input type="submit" value="수정" id="submitUp"><br>
         <br>
         <label for="titleLb" id="writeTitle">제목 : </label>
         <input type="text" name="title" id="title"> 
-        <button id="writeCancleBtn">취소</button>
+		<button id="writeCancleBtn">취소</button>
         <textarea id="summernote" name="content" class="summernote"></textarea>
         <div class="input-group">
 		  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
