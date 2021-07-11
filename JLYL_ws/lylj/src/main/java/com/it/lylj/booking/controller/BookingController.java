@@ -19,6 +19,11 @@ public class BookingController {
 		model.addAttribute("navNo",7);
 		
 	}
+	@GetMapping("/rent")
+	public void rent(Model model) {
+		model.addAttribute("navNo",7);
+		
+	}
 	
 	
 }

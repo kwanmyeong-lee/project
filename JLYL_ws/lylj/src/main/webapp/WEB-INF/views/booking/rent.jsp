@@ -5,95 +5,41 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../inc/top.jsp"%>
 
-<!-- 달력 -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 
-<!-- datepicker -->
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src='<c:url value="/resources/js/schedule/datepicker.js"/>'></script>
-
-<!-- write -->
-<script src='<c:url value="/resources/js/schedule/write.js"/>'></script>
-<link
-	href="<c:url value="/resources/css/schedule/write.css"/>"
-	rel="stylesheet" type="text/css">
-
-
+<!-- rent -->
 
 <div >
 <article>
 
 <div>
-	<h1>일정등록</h1>
-	<hr>
+	<h1>예약관리</h1>
 </div>
 
-<div>
-        <form name="addform">
-        	<div class="afdiv">
-        	<label class="labelTime labelTime2">일정명</label>
-        	<input type="text" class="addTitle">
-        	</div>
-        	<br>
-        	
-        	<div class="afdiv">
-        	<label class="labelTime txLabel" >내용</label>
-        	<textarea class="txSch" rows="5" style="resize: none;"></textarea>
-        	</div>
-        	<br>
-        	
-        	<div class="afdiv">
-        	<label	class="labelTime">일시</label>
-        	<input type="text" class="scheduleDate" name="startDate" id="startDate">
-        	<select class="selectTime" id="startTime">
-        		<c:forEach var="i" begin="0" end="47">
-        			<c:set var="hour" value="${i/2 - i/2%1}"/>
-        			<c:set var ="sec" value="00"/>
-        			<c:if test="${i%2 eq 1 }">
-        				<c:set var ="sec" value="30"/>
-        			</c:if>
-        			<option class="optionTime" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
-        		</c:forEach>
-        	</select>
-        	
-        	<input type="text" class="scheduleDate" name="endDate" id="endDate">
-        	<select class="selectTime" id="endTime">
-        		<c:forEach var="i" begin="0" end="47">
-        			<c:set var="hour" value="${i/2 - i/2%1}"/>
-        			<c:set var ="sec" value="00"/>
-        			<c:if test="${i%2 eq 1 }">
-        				<c:set var ="sec" value="30"/>
-        			</c:if>
-        			<option class="optionTime" value="${i }"> <fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
-        		</c:forEach>
-        	</select>
-        	</div>
-        	<br>
-        	
-        	<div class="afdiv">
-        	<label class="labelTime">내 캘린더</label>
-        	<select class="schFol">
-        		<option>(기본)내 일정</option>
-        		<option>zzzadsfasdfasdfas</option>
-        		<option>zzz</option>
-        	</select>
-        	</div>
-        	<br>
-        	
-        	<div class="afdiv">
-        	<label class="labelTime">색상</label>
-        	<input type='color' id='myBestColor' value='#0000ff'>
-        	</div>
-        	<br>
-        	
-        	<div class="afdiv afbtdiv" >
-        	<button type="button" class="btn btn-info">확인</button>
-        	<button type="button" class="btn btn-secondary" id="cancle" >취소</button>
-        	</div>
-        </form>
-      </div>
+<div class="main-div2">
+                        <table class="table table-hover main-table">
+                            <colgroup>
+                                <col style="width: 20%;"/>
+                                <col style="width: 20%;"/>
+                                <col style="width: 50%;"/>
+                                <col style="width: 10%;"/>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">자산</th>
+                                    <th scope="col">이름</th>
+                                    <th scope="col">예약 시간</th>
+                                    <th scope="col">승인/취소</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td align="center" colspan="4">예약/대여 신청 항목이 없습니다.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 </article>
 </div>
 

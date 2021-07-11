@@ -80,3 +80,29 @@ function timeChange() {
         }
     }
 }
+
+function timeDefault(h,m){
+	var thour = Number(h);
+	var tmin=0; 
+	
+	if(Number(m)==30){
+		tmin = 1;
+	}
+	thour*=2;
+	thour+=tmin;
+	return thour;  
+}
+
+function timeSetting(st,et) {
+    $('#startTime').val(st).prop('selectded', true);
+    $('#endTime').val(et).prop('selectded', true);
+
+    for (var i = 0; i < st; i++) {
+         var hideTime = '#option-endTime' + i;
+         $(hideTime).hide();
+    }
+    for (var i = st; i < 48; i++) {
+         var showTime = '#option-endTime' + i;
+         $(showTime).show();
+    }
+}

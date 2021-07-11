@@ -56,7 +56,7 @@
 			<!-- Heading -->
 			
 			<div class="scheduleAdd" id="divscheduleAdd">
-				<button type="button" class="btn btn-light btnSchAdd">예약/대여</button>
+				<button type="button" class="btn btn-light btnRentAdmin">예약/대여 관리</button>
 			</div>
 
 			<!-- Nav Item - Pages Collapse Menu -->
