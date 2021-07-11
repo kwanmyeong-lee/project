@@ -17,6 +17,7 @@
 }
 .title{
 	font-size: 20px;
+	font-weight: bold;
 	padding: 10px;	
 }
 .search{
@@ -25,6 +26,14 @@
 .searchfrm{
 	margin-left: 380px;
 	width: 255px;
+}
+.email{
+	height: 855px;
+	margin-left: 3%;
+	margin-top: 10px;
+}
+.emailBody{
+	width: 95%;
 }
 #searchBox{
 	width: 200px;
@@ -35,14 +44,14 @@
 
 </style>
 <div class="container">	
-	<div class="col-md-13">
 		<div class="panel panel-default">
 		<!-- BEGIN INBOX -->
 			<div class="grid email">
-				<div class="grid-body">
+				<div class="grid-body emailBody">
 					<div class="row">
 						<div class="col-md-12">
 							<span class="grid-title title"><i class="fa fa-inbox"></i> 메일함</span>
+							<hr>
 							<div class="row">
 								<div class="col-sm-5 buttonGroup">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -71,10 +80,10 @@
 							</div>
 							<div class="table-responsive">
 								<table class="table">
-									<tbody><tr>
+									<tbody>
+									<tr>
 										<td class="action"><input type="checkbox" /></td>
 										<td class="action"><i class="fa fa-star-o"></i></td>
-										<td class="action"><i class="fa fa-bookmark-o"></i></td>
 										<td class="name"><a href="#">Larry Gardner</a></td>
 										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
 										<td class="time">08:30 PM</td>
@@ -82,7 +91,27 @@
 									<tr>
 										<td class="action"><input type="checkbox" /></td>
 										<td class="action"><i class="fa fa-star-o"></i></td>
-										<td class="action"><i class="fa fa-bookmark"></i></td>
+										<td class="name"><a href="#">Larry Gardner</a></td>
+										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
+										<td class="time">08:30 PM</td>
+									</tr>
+									<tr>
+										<td class="action"><input type="checkbox" /></td>
+										<td class="action"><i class="fa fa-star-o"></i></td>
+										<td class="name"><a href="#">Larry Gardner</a></td>
+										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
+										<td class="time">08:30 PM</td>
+									</tr>
+									<tr>
+										<td class="action"><input type="checkbox" /></td>
+										<td class="action"><i class="fa fa-star-o"></i></td>
+										<td class="name"><a href="#">Larry Gardner</a></td>
+										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
+										<td class="time">08:30 PM</td>
+									</tr>
+									<tr>
+										<td class="action"><input type="checkbox" /></td>
+										<td class="action"><i class="fa fa-star-o"></i></td>
 										<td class="name"><a href="#">Larry Gardner</a></td>
 										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
 										<td class="time">08:30 PM</td>
@@ -91,7 +120,6 @@
 									<tr>
 										<td class="action"><input type="checkbox" /></td>
 										<td class="action"><i class="fa fa-star-o"></i></td>
-										<td class="action"><i class="fa fa-bookmark-o"></i></td>
 										<td class="name"><a href="#">Larry Gardner</a></td>
 										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
 										<td class="time">08:30 PM</td>
@@ -99,7 +127,6 @@
 									<tr class="read">
 										<td class="action"><input type="checkbox" /></td>
 										<td class="action"><i class="fa fa-star-o"></i></td>
-										<td class="action"><i class="fa fa-bookmark-o"></i></td>
 										<td class="name"><a href="#">Larry Gardner</a></td>
 										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
 										<td class="time">08:30 PM</td>
@@ -107,7 +134,6 @@
 									<tr class="read">
 	                                    <td class="action"><input type="checkbox" /></td>
 										<td class="action"><i class="fa fa-star-o"></i></td>
-										<td class="action"><i class="fa fa-bookmark"></i></td>
 										<td class="name"><a href="#">Larry Gardner</a></td>
 										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
 										<td class="time">08:30 PM</td>
@@ -115,7 +141,6 @@
 									<tr>
 	                                    <td class="action"><input type="checkbox" /></td>
 										<td class="action"><i class="fa fa-star"></i></td>
-										<td class="action"><i class="fa fa-bookmark-o"></i></td>
 										<td class="name"><a href="#">Larry Gardner</a></td>
 										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
 										<td class="time">08:30 PM</td>
@@ -123,7 +148,6 @@
 									<tr>
 										<td class="action"><input type="checkbox" /></td>
 										<td class="action"><i class="fa fa-star-o"></i></td>
-										<td class="action"><i class="fa fa-bookmark-o"></i></td>
 										<td class="name"><a href="#">Larry Gardner</a></td>
 										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
 										<td class="time">08:30 PM</td>
@@ -131,7 +155,6 @@
 									<tr class="read">
 										<td class="action"><input type="checkbox" /></td>
 										<td class="action"><i class="fa fa-star"></i></td>
-										<td class="action"><i class="fa fa-bookmark"></i></td>
 										<td class="name"><a href="#">Larry Gardner</a></td>
 										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
 										<td class="time">08:30 PM</td>
@@ -139,7 +162,34 @@
 									<tr>
 										<td class="action"><input type="checkbox" /></td>
 										<td class="action"><i class="fa fa-star"></i></td>
-										<td class="action"><i class="fa fa-bookmark-o"></i></td>
+										<td class="name"><a href="#">Larry Gardner</a></td>
+										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
+										<td class="time">08:30 PM</td>
+									</tr>
+									<tr>
+										<td class="action"><input type="checkbox" /></td>
+										<td class="action"><i class="fa fa-star"></i></td>
+										<td class="name"><a href="#">Larry Gardner</a></td>
+										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
+										<td class="time">08:30 PM</td>
+									</tr>
+									<tr>
+										<td class="action"><input type="checkbox" /></td>
+										<td class="action"><i class="fa fa-star"></i></td>
+										<td class="name"><a href="#">Larry Gardner</a></td>
+										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
+										<td class="time">08:30 PM</td>
+									</tr>
+									<tr>
+										<td class="action"><input type="checkbox" /></td>
+										<td class="action"><i class="fa fa-star"></i></td>
+										<td class="name"><a href="#">Larry Gardner</a></td>
+										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
+										<td class="time">08:30 PM</td>
+									</tr>
+									<tr>
+	                                    <td class="action"><input type="checkbox" /></td>
+										<td class="action"><i class="fa fa-star"></i></td>
 										<td class="name"><a href="#">Larry Gardner</a></td>
 										<td class="subject"><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed </a></td>
 										<td class="time">08:30 PM</td>
@@ -163,7 +213,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		<!-- END INBOX -->
 	</div>
 </div>
