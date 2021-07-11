@@ -8,8 +8,6 @@
 <!-- 달력 -->
 <link href='<c:url value="/resources/css/main.css"/>' rel="stylesheet" />
 <script src='<c:url value="/resources/js/main.js"/>'></script>
-<script type="text/javascript"
-	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 	
 <!-- 달력 날짜 변환 -->
 <script class="cssdesk" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.0/moment.min.js" type="text/javascript"></script>	
