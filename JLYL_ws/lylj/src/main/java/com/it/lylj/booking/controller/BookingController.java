@@ -14,11 +14,6 @@ public class BookingController {
 		model.addAttribute("navNo",7);
 		
 	}
-	@GetMapping("/assetInfo")
-	public void assetInfo(Model model) {
-		model.addAttribute("navNo",7);
-		
-	}
 	
 	
 }
