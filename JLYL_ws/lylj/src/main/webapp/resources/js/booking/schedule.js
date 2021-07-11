@@ -104,7 +104,7 @@ $(function() { // document ready
         ],
         /*selectable: true,
         select: function(start, end, event, view, resource) {
-            /*$('#myModal').modal('show');
+            $('#myModal').modal('show');
             var title = prompt("일정명:");
             var resourceId = resource.id
             if (title) {

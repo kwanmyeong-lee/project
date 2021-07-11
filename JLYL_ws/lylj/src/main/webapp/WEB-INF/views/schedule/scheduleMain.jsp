@@ -11,6 +11,11 @@
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 	
+<!-- 달력 날짜 변환 -->
+<script class="cssdesk" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.0/moment.min.js" type="text/javascript"></script>	
+
+<!-- alert창 디자인 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -34,8 +39,10 @@
 </div>
 
 	<div id='calendar' style="position: relative;"></div>
+
+
 	
-<!-- The Modal -->
+<!-- 달력 Modal -->
 <div class="modal" id="myModal" data-backdrop="static">
   <div class="modal-dialog ">
     <div class="modal-content">
@@ -84,15 +91,14 @@
         		<option>zzz</option>
         	</select>
         	<br>
-
-
+        	
         </form>
       </div>
-
+      
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-info">일정 상세 입력</button>
-        <button type="button" class="btn btn-info">등록</button>
+        <button type="button" class="btn btn-info" id="btn-write">일정 상세 입력</button>
+        <button type="button" class="btn btn-info" id="btn-add">등록</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
       </div>
 
@@ -100,6 +106,107 @@
   </div>
 </div>
 
+<!-- 일정 목록 추가 Modal -->
+<div class="modal modal2" id="myModaladd" data-backdrop="static">
+  <div class="modal-dialog modal-dialog2">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">일정 목록 추가</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form name="list-add-form">
+        	<label class="labelTime labelTime2">일정목록명</label><input type="text" id="addTitle">
+        	<br>
+      	</form>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" id="btnAdd">추가</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- 일정 목록 수정 Modal -->
+<div class="modal modal2" id="myModaledit" data-backdrop="static">
+  <div class="modal-dialog modal-dialog2">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">일정 목록 수정</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form name="list-edit-form">
+        
+        	<label class="labelTime">일정 목록</label>
+        	<select>
+        		<option>(기본)내 일정</option>
+        		<option>zzz</option>
+        		<option>zzz</option>
+        	</select>
+        	<br>
+        	        	
+        	<label class="labelTime labelTime2">일정명</label><input type="text" id="editTitle">
+			<br>
+        </form>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" id="btnEdit">수정</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 일정 목록 삭제 Modal -->
+<div class="modal modal2" id="myModaldelete" data-backdrop="static">
+  <div class="modal-dialog modal-dialog2 ">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">일정 목록 삭제</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form name="list-del-form">
+        
+        	<label class="labelTime">일정 목록</label>
+        	<select>
+        		<option>(기본)내 일정</option>
+        		<option>zzz</option>
+        		<option>zzz</option>
+        	</select>
+        	<br>        	        	
+        </form>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" id="btnDelete">삭제</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 </article>
 </div>
 

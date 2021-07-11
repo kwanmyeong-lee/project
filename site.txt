@@ -1,0 +1,32 @@
+1. HTML 코드 정리해 주는 사이트
+http://tools.arantius.com/tabifier
+
+
+2.JS 코드 정리해 주는 사이트
+http://jsbeautifier.org/
+
+
+3. HTML & CSS 코드 정리해 주는 사이트
+http://prettydiff.com/?m=beautify
+
+
+4. CSS 코드 정리해 주는 사이트
+http://www.codebeautifier.com/
+
+
+5. CSS 코드 한줄로 만드는 사이트
+http://cssminifier.com/
+
+
+6. JS & HTML 코드 한줄로 만드는 사이트
+http://javascriptcompressor.com/
+
+
+출처: https://bbaksae.tistory.com/9 [QRD]
+
+
+이미지 아이콘
+https://fontawesome.com/v5.15/icons/trash-alt?style=regular
+
+팝업
+https://sweetalert.js.org/

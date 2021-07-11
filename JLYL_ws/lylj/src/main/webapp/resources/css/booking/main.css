@@ -3,13 +3,25 @@
 .main-div{
 	margin-bottom: 100px;
 }
+
+.main-div2{
+	width: 100%;
+}
 	
 .main-h1{
 	margin-left: 30px;
+	display: inline-block;
 }
 
 .main-table{
-	width: 1250px;
+	width: 100%;
+}
+
+.asset{
+	float: right;
+	margin-top: 10px;
+    height: 30px;
 	
 }
+
 

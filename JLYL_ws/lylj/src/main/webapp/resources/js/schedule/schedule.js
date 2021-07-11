@@ -19,18 +19,25 @@ $(function() {
         dayMaxEvents: true,
         select: function(arg) {
             $('#myModal').modal('show');
-            startD=JSON.stringify(arg.start);
-            endD=JSON.stringify(arg.end);
-            
+
+            endD = JSON.stringify(arg.end);
+
+            startD = moment(arg.start).format('YYYY-MM-DD');
+            endD = endD.substr(1, endD.indexOf("T") - 1);
+
+            /*alert(startD+" "+endD);
             startD=startD.substr(1,startD.indexOf("T")-1);
-            endD=endD.substr(1,endD.indexOf("T")-1);
-            
-            alert(startD+" "+endD);
+            endD=endD.substr(1,endD.indexOf("T")-1);          
             
             $('#startDate').datepicker( "setDate", new Date(startD));
 			$("#endDate").datepicker( "option", "minDate", $('#startDate').val() );
-			$('#endDate').datepicker( "setDate", new Date(endD));
-			
+			$('#endDate').datepicker( "setDate", new Date(endD));*/
+
+
+            $('#startDate').datepicker("setDate", startD);
+            $("#endDate").datepicker("option", "minDate", $('#startDate').val());
+            $('#endDate').datepicker("setDate", endD);
+
             /* var title= prompt("일정명:");
         	  if(title){
         		  var obj = new Object();
