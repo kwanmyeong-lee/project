@@ -1,55 +1,89 @@
 @charset "UTF-8";
 
-/* 리스트 css */
-table{
-    width: 800px;
+/*리스트 CSS*/
+#listBodyDiv{
+	float: left;
+    width: 1000px;
+    height: 870px;
+    margin: 0px 0px 10px 10px;
+	padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px #a2a2a2;
 }
 
-td{
-    height: auto;
-    padding: 10px;
-    border-radius: 15px;
-    background-color: rgb(230, 230, 230);
+#writeBtnDiv{
+	float: right;
+    width: 70px;
+    height: 33px;
+    padding-top: 5px;
+    margin: 0px 20px 15px 0px;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    background-color: rgb(70, 171, 196);
+    cursor: pointer;
+}
+
+#listBodyDiv > table{
+	clear: both;
+    width: 950px;
+}
+
+#listBodyDiv > table > thead > tr > th{
+	text-align: center;
+}
+
+#thStyle{
+	height: 40px;	
+    border-top: 1px solid #a2a2a2;
+    border-bottom: 1px solid #a2a2a2;
+}
+
+#tdStyle{
+	height: 50px;
+    border-bottom: 1px solid #a2a2a2;
+}
+
+.userNameTd, .regdateTd, .readCountTd{
+    text-align: center;
 }
 
 .titleDiv{
-    float: left;
-    font-size: 20px;
-    font-weight: bold;
+    padding: 5px 0px 5px 10px;
 }
 
-.newDiv{
-    float: left;
-    width: 50px;
-    height: 22px;
-    margin: 5px 0 5px 10px;
-    font-size: 15px;
+.newSpan{
+    padding: 1px 7px 2px 7px;
+    margin: 8px 0 5px 10px;
+    font-size: 12px;
     text-align: center;
+    border-radius: 5px;
     background-color: rgb(255, 60, 0);
     color: white;
 }
 
-.readCountDiv{
-    float: right;
-    font-size: 15px;
-    margin: 5px 10px 5px 0;
+#pagingDiv{
+	text-align: center;
+	margin-top: 40px;
 }
 
-.contentDiv{
-    clear: both;
-    float: left;
-    height: 60px;
-    margin-top: 20px;
+#searchDiv{
+	margin: 30px 300px;
 }
 
-.infoDiv{
-    clear: both;
-    float: right;
-    margin: 10px;
+#searchDiv > #searchTextBox{
+	width: 210px;
+	font-size: 15px;
 }
 
+#searchDiv > button{
+	border-radius: 5px;
+    color: rgb(58, 58, 58);
+    border: 1px solid rgb(58, 58, 58); 
+}
 
-/* 등록 css*/
+/* 등록, 수정 css*/
 .writeForm{
     padding-left: 10px;
 }
@@ -62,6 +96,7 @@ td{
     background: white;
     border-radius: 15px;
     box-shadow: 0px 2px 5px #a2a2a2;
+
 }
 
 #boardSelect{
@@ -91,6 +126,7 @@ td{
 .input-group{
     border-radius: 5px;
     margin: 10px 0;
+   	width: 955px;
     color: rgb(58, 58, 58);
 }
 
@@ -122,36 +158,34 @@ td{
     cursor: pointer;
 }
 
-
-/* 수정 css*/
-#submitEdit{
-    margin: 20px 450px;
-    width: 100px;
-    height: 50px;
-    color: white;
-    background-color: rgb(63, 182, 16);
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-}
-
 /* 상세보기 css*/
 #contentTaDetail{
     resize: none;
     background-color: white;
+    border: none;
 }
 
-#bodyDiv{
-    width: 800px;
+#detailBodyDiv{
+	float: left;
+    width: 900px;
+    height: auto;
+    margin-left: 20px;
+    margin-bottom: 20px;
+   	background: white;
+   	border-radius: 15px;
+    box-shadow: 0px 2px 5px #a2a2a2;
 }
 
-#bodyDiv > #titleDiv{
+#detailDiv > #titleDiv{
     margin-top: 40px;
-    width: 760px;
+    width: 850px;
     padding-left: 20px;
     font-size: 18px;
     font-weight: bold;
+}
+
+#detailDiv{
+	margin: 15px;
 }
 
 #detialMenu{
@@ -165,8 +199,7 @@ td{
 }
 
 #menuImg{
-    height: 19px;
-    margin-right: 5px;
+	margin-bottom: 10px;
 }
 
 #userNameSpan{
@@ -183,7 +216,7 @@ td{
 }
 #borderDiv{
     border: 1px solid black;
-    width:780px;
+    width: 850px;
     margin: 8px 5px;
 }
 
@@ -195,8 +228,8 @@ td{
 
 /* 댓글 css*/
 #commentBodyDiv{
-    width: 800px;
-    padding: 10px;
+    width: 895px;
+    padding: 20px;
 }
 
 #commentDiv > hr{
