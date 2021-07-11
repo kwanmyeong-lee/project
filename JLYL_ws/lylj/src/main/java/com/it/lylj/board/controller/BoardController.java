@@ -10,6 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BoardController {
 	private static final Logger logger=LoggerFactory.getLogger(BoardController.class);
 	
+	//메인
+	@RequestMapping("/boardMain")
+	public String main() {
+		logger.info("게시판 메인 페이지");
+		
+		return "board/boardMain";
+	}
+	
 	//게시글 등록
 	@RequestMapping("/boardWrite")
 	public String write() {

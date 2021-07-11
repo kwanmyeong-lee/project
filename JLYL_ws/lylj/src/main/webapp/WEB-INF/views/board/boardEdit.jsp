@@ -45,7 +45,7 @@
         <br>
         <label for="titleLb" id="writeTitle">제목 : </label>
         <input type="text" name="title" id="title"> 
-        <div id="writeCancleDiv">취소</div>
+		<button id="writeCancleBtn">취소</button>
         <textarea id="summernote" name="content" class="summernote"></textarea>
         <div class="input-group">
 		  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">

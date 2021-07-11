@@ -9,6 +9,7 @@
             <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
         </button>
         <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
+            <li class="dropdown-item">답변</li>
             <li><a class="dropdown-item" href="#">삭제</a></li>
         </ul><br><br>
        
@@ -16,6 +17,6 @@
         <span id="regdateComm">2021-07-05 23:38:55</span>
         <hr>
     </div>
-    <textarea name="commentTa" id="commentTa" cols="90" rows="3"></textarea>
+    <textarea name="commentTa" id="commentTa" cols="100" rows="3"></textarea>
     <button type="button" class="btn btn-primary" id="commentUp">등록</button>
 </div>

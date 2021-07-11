@@ -22,7 +22,7 @@
 	        <span id="userNameSpan">테스트이름</span>
 	    </div>
 	    <div id="borderDiv"></div>
-	    <textarea name="contentTa" id="contentTaDetail" cols="120" rows="35" readonly>아아아아아아ㅏㅇ</textarea>
+	    <textarea name="contentTa" id="contentTaDetail" cols="120" rows="35" readonly>에베베벱베베베벱</textarea>
 	    <span id="regdateSpan">2021-07-05 23:38:55</span>
 	    <div id="borderDiv"></div>
     </div>
