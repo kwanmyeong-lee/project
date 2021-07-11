@@ -48,7 +48,7 @@
         	<label	class="labelTime">일시</label>
         	<input type="text" class="scheduleDate" name="startDate" id="startDate">
         	<select class="selectTime" id="startTime">
-        		<c:forEach var="i" begin="${selectEndTime }" end="47">
+        		<c:forEach var="i" begin="0" end="47">
         			<c:set var="hour" value="${i/2 - i/2%1}"/>
         			<c:set var ="sec" value="00"/>
         			<c:if test="${i%2 eq 1 }">
@@ -66,10 +66,9 @@
         			<c:if test="${i%2 eq 1 }">
         				<c:set var ="sec" value="30"/>
         			</c:if>
-        			<option class="optionTime" id="option-endTime${i}" value="${i }"> <fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
+        			<option class="optionTime" value="${i }"> <fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
         		</c:forEach>
         	</select>
-        	<input type="checkbox" class="chk-day"><span class="chk-span">종일</span>
         	</div>
         	<br>
         	

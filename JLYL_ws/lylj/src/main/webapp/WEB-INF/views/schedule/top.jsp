@@ -109,17 +109,17 @@
 			<hr class="sidebar-divider">
 			
 			<li class="nav-item">
-				<a class="nav-link" id=asset-add href="tables">
+				<a class="nav-link" id=asset-add>
 					<i class="fas fa-plus"></i>
-					<span>자산 추가</span>
+					<span>일정 목록 추가</span>
 				</a>
-				<a class="nav-link" id=asset-edit href="tables">
+				<a class="nav-link" id=asset-edit>
 					<i class="far fa-edit"></i>
-					<span>자산 수정</span>
+					<span>일정 목록 수정</span>
 				</a>
-				<a class="nav-link" id=asset-delete href="tables">
+				<a class="nav-link" id=asset-delete>
 					<i class="far fa-trash-alt"></i>
-					<span>자산 삭제</span>
+					<span>일정 목록 삭제</span>
 				</a>
 			</li>
 

@@ -1,51 +1,37 @@
+$(function() {
+    $('.btnSchAdd').click(function() {
+        location.href = "write";
+    });
 
-$(function(){
-	$('.btnSchAdd').click(function(){
-		location.href="write";
+    $('#btn-write').click(function(){
+		location.href ="write";
+	});
+    $('#btn-add').click(function(){
+		if($('#addtitle').val()==""){
+			swal ( "" , "일정명을 입력하세요" ,  "error" )
+		}
+	});
+	$('#cal-add').click(function(){
+		$('#myModaladd').modal('show');
 	});
 	
-	$('.chk-day').change(function(){
-		if($(this).prop('checked')){
-			$('.selectTime').hide();
+	$('#cal-edit').click(function(){
+		$('#myModaledit').modal('show');
+	});
+	
+	$('#cal-delete').click(function(){
+		$('#myModaldelete').modal('show');
+	});
+	
+	$('.list-span').click(function(){
+		if($(this).prev('.ckSch').prop('checked')){
+			$(this).prev('.ckSch').prop('checked',false)
 		}else{
-			$('.selectTime').show();			
+			$(this).prev('.ckSch').prop('checked',true)
 		}
 	});
 	
-	$('#startTime').change(function(){
-		timeChange();
-	});
 	
-	$('#endDate').change(function(){
-		timeChange();
-	});
-	
-	$('#startDate').change(function(){
-		timeChange();
-	});
 	
 });
 
-function timeChange(){
-	var startday =new Date($('#startDate').val());
-		var endday= new Date($('#endDate').val());
-		var btday = startday.getTime()-endday.getTime();
-		
-		if(btday<0){
-		for(var i = 0; i<48;i++){
-			var showTime = '#option-endTime'+i;
-			$(showTime).show();
-		}
-		}else if(btday==0){
-			var selectEndTime=$('#startTime').val();
-		$('#endTime').val(selectEndTime).prop('selectded',true);
-		for(var i=0; i<selectEndTime; i++){
-			var hideTime = '#option-endTime'+i;
-			$(hideTime).hide();
-		}
-		for(var i = selectEndTime; i<48;i++){
-			var showTime = '#option-endTime'+i;
-			$(showTime).show();
-		}
-		}
-}
