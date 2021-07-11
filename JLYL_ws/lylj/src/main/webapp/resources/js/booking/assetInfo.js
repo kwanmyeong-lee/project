@@ -29,9 +29,9 @@ $(function() {
 	
 	            endD = JSON.stringify(arg.end);
 			
-	            startD = moment(arg.start).format('YYYY-MM-DD');
-	            endD = endD.substr(1, endD.indexOf("T") - 1);
-				
+	            startD = moment(arg.start).format('YYYY-MM-DD HH');
+				endD = moment(arg.end).format('YYYY-MM-DD HH');
+								
 				var sh=	moment(arg.start).format('HH');
 				var eh=	moment(arg.end).format('HH');
 				var sm=	moment(arg.start).format('mm');

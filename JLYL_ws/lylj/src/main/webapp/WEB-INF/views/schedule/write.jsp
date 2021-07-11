@@ -5,9 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../inc/top.jsp"%>
 
-<!-- 달력 -->
-<script type="text/javascript"
-	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 
 <!-- datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
