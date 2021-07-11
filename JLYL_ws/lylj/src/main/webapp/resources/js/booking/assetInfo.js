@@ -31,7 +31,15 @@ $(function() {
 			
 	            startD = moment(arg.start).format('YYYY-MM-DD');
 	            endD = endD.substr(1, endD.indexOf("T") - 1);
-	
+				
+				var sh=	moment(arg.start).format('HH');
+				var eh=	moment(arg.end).format('HH');
+				var sm=	moment(arg.start).format('mm');
+				var em=	moment(arg.end).format('mm');
+				var st = timeDefault(sh,sm);
+				var et = timeDefault(eh,em);
+				timeSetting(st,et);
+				
 	            /*alert(startD+" "+endD);
 	            startD=startD.substr(1,startD.indexOf("T")-1);
 	            endD=endD.substr(1,endD.indexOf("T")-1);          
