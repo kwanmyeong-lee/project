@@ -58,7 +58,6 @@ CREATE TABLE EMP (
 	EMP_ACCOUNT VARCHAR2(255), /* 계좌 */
 	EMP_ADMIN_LEV NUMBER, /* 관리자 레벨번호 */
 	EMP_BIRTH DATE, /* 생일 */
-	MAIL_NO NUMBER, /* 메일 번호 */
 	DEPARTMENT_NO NUMBER, /* 부서번호 */
 	POSITION_NO NUMBER /* 직급 번호 */
 );
@@ -103,6 +102,7 @@ ALTER TABLE ELIMP
 /* 메일 */
 CREATE TABLE MAIL (
 	MAIL_NO NUMBER NOT NULL, /* 메일 번호 */
+    MAIL_EMPNO number NOT NULL, /*메일 사원번호*/
 	MAIL_TITLE VARCHAR2(255) NOT NULL, /* 제목 */
 	MAIL_CONTENT CLOB NOT NULL, /* 내용 */
 	MAIL_SEND VARCHAR2(255) NOT NULL, /* 보낸사람 */
