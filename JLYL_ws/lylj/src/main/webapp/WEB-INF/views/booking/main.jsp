@@ -16,11 +16,11 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     
-<!-- scheduleMain -->
-<script src='<c:url value="/resources/js/schedule/main.js"/>'></script>
+<!-- Main -->
 <script src='<c:url value="/resources/js/schedule/datepicker.js"/>'></script>
 <script src='<c:url value="/resources/js/booking/ko.js"/>'></script>
 <script src='<c:url value="/resources/js/booking/schedule.js"/>'></script>
+<script src='<c:url value="/resources/js/booking/top.js"/>'></script>
 <link href="<c:url value="/resources/css/booking/main.css"/>" rel="stylesheet" type="text/css">
 
         <title>bookingMain</title>
