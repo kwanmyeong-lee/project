@@ -32,7 +32,7 @@
 <div >
 <article>
 <div>
-	<h1>일정목록</h1>
+	<h3>일정목록</h3>
 	<hr>
 </div>
 
