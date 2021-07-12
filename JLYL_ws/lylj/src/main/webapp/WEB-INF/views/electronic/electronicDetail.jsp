@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="../inc/top.jsp"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 <link href="<c:url value="/resources/css/boot_css/bootstrap.min.css"/>"
@@ -79,9 +77,6 @@
 </style>
 
 
-
-</head>
-<body>
 	<div class="container" style="max-width: 1000px;">
 		<h1>기안서</h1>
 		<div style="text-align: right;">
@@ -183,16 +178,8 @@
 			</table>
 			<br>
 			<!-- 문서 양식끝 -->
-
-			<div class="form-group">
-				<div>
-					<label class="custom-file"><input type="file" name="upload"
-						id="upload" class="custom-file-input"><span
-						class="custom-file-control"></span></label>
-				</div>
-			</div>
 			<br>
-			<div class="form-row">
+			<div >
 				<div class="form-group">
 					<input type="submit" name="submit" class="btn btn-primary">
 					<button type="button" class="btn btn-primary">임시 저장</button>
@@ -201,5 +188,5 @@
 			</div>
 		</form>
 	</div>
-</body>
-</html>
+
+<%@ include file="../inc/bottom.jsp"%>

@@ -149,27 +149,28 @@
 			<hr>
 			<h2>문서양식 선택해주세요</h2>
 			<div class="col-sm-4">
-				<h2>Input</h2>
+				<h2>검색</h2>
 				<div class="form-group">
-					<label for="input-select-node" class="sr-only">검색</label> <input
+					<label for="input-select-node" class="sr-only"></label><input
 						type="input" class="form-control" id="input-select-node"
 						placeholder="검색어를 입력해주세요" value="">
 				</div>
 				<div class="form-group">
-					<button type="button" class="btn btn-success select-node"
+					<button type="button" class="btn btn-success select-node my-2" 
 						id="btn-select-node">찾기</button>
 				</div>
 				<div class="form-group">
-					<button type="button" class="btn btn-danger select-node"
+					<button type="button" class="btn btn-danger select-node my-2"
 						id="btn-unselect-node">선택 취소</button>
 				</div>
 				<div class="form-group">
 					<a href="<c:url value = "/electronic/documentWrite"/>">
-					<button type="button" class="btn btn-info select-node"
-						id="btn-unselect-node">너로 정했다!</button></a> 
+						<button type="button" class="btn btn-info select-node my-2"
+							id="btn-unselect-node">너로 정했다!</button>
+					</a>
 				</div>
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-5">
 				<h2>목록</h2>
 				<div id="treeview-selectable" class=""></div>
 			</div>
