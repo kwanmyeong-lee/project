@@ -9,7 +9,10 @@
 
 <!-- rent -->
 <script src='<c:url value="/resources/js/booking/top.js"/>'></script>
-
+<link
+	href="<c:url value="/resources/css/booking/assetInfo.css"/>"
+	rel="stylesheet" type="text/css">
+	
 <div >
 <article>
 

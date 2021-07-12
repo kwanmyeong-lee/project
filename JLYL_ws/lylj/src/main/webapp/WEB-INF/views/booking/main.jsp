@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <%@ include file="../inc/top.jsp"%>
+<script src='<c:url value="/resources/js/booking/top.js"/>'></script>
+
 <!-- 달력 -->
 <link href='http://fullcalendar.io/js/fullcalendar-2.5.0/fullcalendar.css' rel='stylesheet'/>
 <link href='http://fullcalendar.io/js/fullcalendar-scheduler-1.1.0/scheduler.min.css' rel='stylesheet'/>
@@ -20,8 +22,10 @@
 <script src='<c:url value="/resources/js/schedule/datepicker.js"/>'></script>
 <script src='<c:url value="/resources/js/booking/ko.js"/>'></script>
 <script src='<c:url value="/resources/js/booking/schedule.js"/>'></script>
-<script src='<c:url value="/resources/js/booking/top.js"/>'></script>
 <link href="<c:url value="/resources/css/booking/main.css"/>" rel="stylesheet" type="text/css">
+<link
+	href="<c:url value="/resources/css/booking/assetInfo.css"/>"
+	rel="stylesheet" type="text/css">
 
         <title>bookingMain</title>
         <div>
