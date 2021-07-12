@@ -13,7 +13,8 @@
 	
 <!-- 달력 날짜 변환 -->
 <script class="cssdesk" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.0/moment.min.js" type="text/javascript"></script>	
-
+<script type="text/javascript"
+	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 <!-- alert창 디자인 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -22,9 +23,9 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- scheduleMain -->
-<script src='<c:url value="/resources/js/schedule/main.js"/>'></script>
 <script src='<c:url value="/resources/js/booking/assetInfo.js"/>'></script>
 <script src='<c:url value="/resources/js/schedule/datepicker.js"/>'></script>
+<script src='<c:url value="/resources/js/booking/top.js"/>'></script>
 <link
 	href="<c:url value="/resources/css/booking/assetInfo.css"/>"
 	rel="stylesheet" type="text/css">
@@ -43,14 +44,14 @@
 
 	
 <!-- 달력 Modal -->
-<div class="modal" id="myModal" data-backdrop="static">
+<div class="modal" id="myModal" data-bs-backdrop="static">
   <div class="modal-dialog ">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">예약</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
@@ -94,7 +95,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-info" id="btn-write">일정 상세 입력</button>
         <button type="button" class="btn btn-info" id="btn-add">등록</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
       </div>
 
     </div>

@@ -55,96 +55,59 @@
                     <i class="far fa-trash-alt"></i>
                     <span>일정목록삭제</span>
                 </a>
-            </li>
-            <!-- 일정 목록 추가 Modal -->
-            <div class="modal modal2" id="myModaladd" data-backdrop="static">
+            </li><!--일정목록추가Modal--><div class="modal modal2" id="myModaladd" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog2">
-                    <div
-                        class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">일정 목록 추가</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
+                    <div class="modal-content"><!--Modal Header--><div class="modal-header">
+                            <h4 class="modal-title">일정목록추가</h4>
+                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                        </div><!--Modal body--><div class="modal-body">
                             <form name="list-add-form">
-                                <label class="labelTime labelTime2">일정목록명</label><input type="text" id="addTitle">
-                                <br>
-                            </form>
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
+                                <label class="labelTime labelTime2">일정목록명</label><input type="text" id="addTitle"><br></form>
+                        </div><!--Modal footer--><div class="modal-footer">
                             <button type="button" class="btn btn-info" id="btnAdd">추가</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- 일정 목록 수정 Modal -->
-            <div class="modal modal2" id="myModaledit" data-backdrop="static">
+            </div><!--일정목록수정Modal--><div class="modal modal2" id="myModaledit" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog2">
-                    <div
-                        class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">일정 목록 수정</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
+                    <div class="modal-content"><!--Modal Header--><div class="modal-header">
+                            <h4 class="modal-title">일정목록수정</h4>
+                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                        </div><!--Modal body--><div class="modal-body">
                             <form name="list-edit-form">
-                                <label class="labelTime labelTime2">일정 목록</label>
+                                <label class="labelTime labelTime2">일정목록</label>
                                 <select>
-                                    <option>(기본)내 일정</option>
+                                    <option>(기본)내일정</option>
                                     <option>zzz</option>
                                     <option>zzz</option>
-                                </select>
-                                <br>
-                                <label class="labelTime labelTime2">일정명</label><input type="text" id="editTitle">
-                                <br>
-                            </form>
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
+                                </select><br><label class="labelTime labelTime2">일정명</label><input type="text" id="editTitle"><br></form>
+                        </div><!--Modal footer--><div class="modal-footer">
                             <button type="button" class="btn btn-info" id="btnEdit">수정</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- 일정 목록 삭제 Modal -->
-            <div class="modal modal2" id="myModaldelete" data-backdrop="static">
+            </div><!--일정목록삭제Modal--><div class="modal modal2" id="myModaldelete" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog2 ">
-                    <div
-                        class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">일정 목록 삭제</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
+                    <div class="modal-content"><!--Modal Header--><div class="modal-header">
+                            <h4 class="modal-title">일정목록삭제</h4>
+                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                        </div><!--Modal body--><div class="modal-body">
                             <form name="list-del-form">
-                                <label class="labelTime labelTime2">일정 목록</label>
+                                <label class="labelTime labelTime2">일정목록</label>
                                 <select>
-                                    <option>(기본)내 일정</option>
+                                    <option>(기본)내일정</option>
                                     <option>zzz</option>
                                     <option>zzz</option>
-                                </select>
-                                <br>
-                            </form>
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
+                                </select><br></form>
+                        </div><!--Modal footer--><div class="modal-footer">
                             <button type="button" class="btn btn-info" id="btnDelete">삭제</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -200,10 +163,10 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     아이디
-                                    									들어갈자리</span>
+                                                                        									들어갈자리</span>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -221,7 +184,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
