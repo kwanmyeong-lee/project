@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../inc/top.jsp" %>
-<%@ include file="emailAside.jsp" %>
+<%@include file="emailtop.jsp" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- include libraries(jQuery, bootstrap) -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
@@ -17,12 +13,12 @@
 
 <style type="text/css">
 .emailContainer{
-	margin-left: 200px;
-	width: 90%;
-	background: white;
+	margin-left: 20px;
 }
 .emailPanel{
-	padding: 20px;
+	padding: 40px;
+	width: 1300px;
+	background: white;
 }
 .textBox{
 	width: 90%;
@@ -33,6 +29,11 @@
 	font-weight: bold;
 	padding: 5px;
 }
+
+.emailcc{
+	width: 1100px;
+}
+
 .searchbox{
 	float: right;
 	width: 300px;
@@ -74,7 +75,7 @@
 			    	</div>
 			  	</div>
 				<div class="form-group row">
-			    	<label for="reference" class="col-sm-1 control-label">참조:</label>
+			    	<label for="reference" class="col-sm-1 control-label emailcc">참조:</label>
 			    	<div class="col-sm-11">
                     	<input type="email" class="form-control select2-offscreen textBox tx" id="reference" name="reference" tabindex="-1">
 			    	</div>
@@ -133,7 +134,7 @@
 	$(document).ready(function() {
 		$('#summernote').summernote({
 	        placeholder: '내용을 입력하세요',
-	      	width: 1150,
+	      	width: 1120,
 	   		height: 500,
 	   		toolbar: [
 	   			['fontname', ['fontname']],
@@ -159,4 +160,4 @@
 	
 </script>
 
-<%@include file="../inc/bottom.jsp" %>
+<%@include file="emailbottom.jsp" %>
