@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+/* 주소록 메인 */
+#bookMainDiv{
+	float: left;
+	width: 95%;
+	margin: 20px;
+   	background: white;
+	padding-bottom: 20px;
+   	border-radius: 15px;
+    box-shadow: 0px 2px 20px #d0d0d0;
+    position: sticky;
+}
+
+#bookMainDiv > h3{
+	margin: 40px 0 10px 40px;
+	color: rgb(58, 58, 58);
+}
+
+#searchDiv{
+	float: left;
+	margin-left: 40px;
+}
+
+#searchDiv > select{
+	height : 30px;
+}
+
+#searchDiv > input[type=submit]{
+	width: 70px;
+}
+
+#searchTextBox{
+	width: 300px;
+}
+
+#serviceDiv > div{
+	float: left;
+	width: 100px;
+	padding: 5px 0;
+	margin: 20px 0 20px 40px;
+	border-radius: 5px;
+	color: white;
+	font-size: 14px;
+	text-align: center;
+	background-color: rgb(54, 185, 204);
+}
+
+#addMail{
+	float: right;
+	width: 100px;
+	padding: 5px 0;
+	margin: 20px 0 20px 10px;
+	color: white;
+	font-size: 14px;
+	text-align: center;
+	border-radius: 5px;
+	border: none;
+	background-color: rgb(54, 185, 204);
+}
+
+#deleteBtn{
+	float: right;
+	width: 100px;
+	padding: 5px 0;
+	margin: 20px 70px 20px 10px;
+	color: white;
+	font-size: 14px;
+	text-align: center;
+	border-radius: 5px;
+	border: none;
+	background-color: rgb(54, 185, 204);
+}
+
+
+#bookMainDiv > table{
+	width: 93%;
+	margin: 30px 40px;
+	border-top: 1px solid #d0d0d0;
+}
+
+#bookMainDiv > table > thead > tr > th{
+	height: 40px;
+	padding-left: 30px;
+	color: rgb(56, 56, 56);
+	border-bottom: 1px solid #d0d0d0;
+}
+
+#bookMainDiv > table > tbody > tr > td{
+	height: 50px;
+	padding-left: 30px;
+	border-bottom: 1px solid #d0d0d0;
+	color: rgb(56, 56, 56);
+		
+}
+
+#userNameTd > img{
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+}
+
+#userNameSpan{
+	padding-left: 15px;
+}
+
+#pagingDiv{
+	text-align: center;
+}
