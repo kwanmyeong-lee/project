@@ -2,7 +2,7 @@
 
 /* 메인 CSS */
 #mainBodyDiv{
-	margin-left: 7%;
+	margin-left: 13%;
 }
 
 #noticeView{
@@ -75,7 +75,7 @@
 	padding: 20px;
     background: white;
     border-radius: 15px;
-    box-shadow: 0px 2px 5px #a2a2a2;
+    box-shadow: 0px 2px 20px #d0d0d0;
 }
 
 #writeBtnDiv{
@@ -147,17 +147,15 @@
 }
 
 /* 등록, 수정 css*/
-.writeForm{
-    padding-left: 10px;
-}
 
 .wrtieDiv{
 	float : left;
     width: 1000px;
 	padding: 20px;
+	margin: 0 20% 20px 20%;
     background: white;
     border-radius: 15px;
-    box-shadow: 0px 2px 5px #a2a2a2;
+    box-shadow: 0px 2px 20px #d0d0d0;
 
 }
 
@@ -228,7 +226,9 @@
 
 /* 상세보기 css*/
 #contentTaDetail{
-    resize: none;
+	width: 850px;
+	margin: 30px 5px;
+	padding: 0 15px;
     background-color: white;
     border: none;
 }
@@ -237,18 +237,18 @@
 	float: left;
     width: 900px;
     height: auto;
-    margin-left: 20px;
+    margin-left: 20%;
     margin-bottom: 20px;
    	background: white;
    	border-radius: 15px;
-    box-shadow: 0px 2px 5px #a2a2a2;
+    box-shadow: 0px 2px 20px #d0d0d0;
 }
 
 #detailDiv > #titleDiv{
     margin-top: 40px;
     width: 850px;
     padding-left: 20px;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bold;
 }
 
@@ -271,13 +271,19 @@
 }
 
 #userNameSpan{
-    float: right;
     font-size: 16px;
-    margin-right: 15px;
+    color: rgb(97, 97, 97);
+}
+
+#likeSpan{
+	float: right;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: normal;
+	
 }
 
 #readcountSpan{
-    float: right;
     font-size: 14px;
     margin-top: 3px;
     font-weight: normal;
@@ -289,7 +295,8 @@
 }
 
 #regdateSpan{
-    float: right;
+	margin-left: 5px;
+	font-size:13px;
     font-weight: normal;
     margin: 15px 30px 0px 0px;
 }
