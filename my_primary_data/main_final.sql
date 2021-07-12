@@ -1,3 +1,4 @@
+------------------------- DROP ---------------------------------
 DROP TABLE EMP CASCADE CONSTRAINTS ;
 DROP TABLE BOOKING CASCADE CONSTRAINTS ;
 DROP TABLE BOTARGET CASCADE  CONSTRAINTS ;
@@ -25,6 +26,20 @@ DROP TABLE ADDFOL CASCADE CONSTRAINTS ;
 DROP TABLE ADDBOOK CASCADE CONSTRAINTS ;
 DROP TABLE MAIL CASCADE CONSTRAINTS ;
 DROP TABLE MAILFILE CASCADE CONSTRAINTS ;
+
+------------------------- DROP ---------------------------------
+
+------------------------- SEQ ----------------------------------
+
+CREATE SEQUENCE EMP_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
+
+
+------------------------- SEQ ----------------------------------
 
 /* 사용자 */
 CREATE TABLE EMP (
@@ -880,3 +895,17 @@ ALTER TABLE RELINE
 		REFERENCES EMP (
 			EMP_NO
 		);
+        
+-------------------------------------------------------------------------------------------
+
+insert into EMP value(EMP_SEQ.nextval, admin, admin, '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 1001, 1);
+
+
+
+
+
+
+
+
+
+
