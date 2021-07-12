@@ -37,63 +37,65 @@
 	        </tbody>
 		</table>
 	</div>
-	<div id="ArchivesView">
-		<h5 class="boardMainH">자료실</h5>
-		<br>
-		<div class="moreBtn">더보기</div>
-		<table>
-		    <colgroup>
-		       <col style="width:20%;" />
-		       <col style="width:70%;" />
-		    </colgroup>
-	        <thead>
-			    <tr id="thStyle">
-		            <th>작성자</th>
-		            <th>제목</th>
-			    </tr>
-	        </thead>
-	        <tbody>
-		        <c:forEach var="i" begin="1" end="5">
-				    <tr id="tdStyle">
-			            <td class="userNameTd">유혁</td>
-			            <td>
-			            	<a href="https://www.youtube.com/" class="titleA">테스트용 제목</a> 
-			            	<span>[6]</span> <=[ ] 안에 댓글 수 
-			            	<span class="newSpan">new</span>
-			            </td>
+	<div id="div2">
+		<div id="ArchivesView">
+			<h5 class="boardMainH">자료실</h5>
+			<br>
+			<div class="moreBtn">더보기</div>
+			<table>
+			    <colgroup>
+			       <col style="width:20%;" />
+			       <col style="width:70%;" />
+			    </colgroup>
+		        <thead>
+				    <tr id="thStyle">
+			            <th>작성자</th>
+			            <th>제목</th>
 				    </tr>
-			    </c:forEach>
-	        </tbody>
-		</table>
-	</div>
-	<div id="freeBoardView">
-		<h5 class="boardMainH">자유게시판</h5>
-		<br>
-		<div class="moreBtn">더보기</div>
-		<table>
-		    <colgroup>
-		       <col style="width:20%;" />
-		       <col style="width:70%;" />
-		    </colgroup>
-	        <thead>
-			    <tr id="thStyle">
-		            <th>작성자</th>
-		            <th>제목</th>
-			    </tr>
-	        </thead>
-	        <tbody>
-		        <c:forEach var="i" begin="1" end="5">
-				    <tr id="tdStyle">
-			            <td class="userNameTd">유혁</td>
-			            <td>
-			            	<a href="https://www.youtube.com/" class="titleA">테스트용 제목</a> 
-			            	<span>[6]</span> <=[ ] 안에 댓글 수 
-			            	<span class="newSpan">new</span>
-			            </td>
+		        </thead>
+		        <tbody>
+			        <c:forEach var="i" begin="1" end="5">
+					    <tr id="tdStyle">
+				            <td class="userNameTd">유혁</td>
+				            <td>
+				            	<a href="https://www.youtube.com/" class="titleA">테스트용 제목</a> 
+				            	<span>[6]</span> <=[ ] 안에 댓글 수 
+				            	<span class="newSpan">new</span>
+				            </td>
+					    </tr>
+				    </c:forEach>
+		        </tbody>
+			</table>
+		</div>
+		<div id="freeBoardView">
+			<h5 class="boardMainH">자유게시판</h5>
+			<br>
+			<div class="moreBtn">더보기</div>
+			<table>
+			    <colgroup>
+			       <col style="width:20%;" />
+			       <col style="width:70%;" />
+			    </colgroup>
+		        <thead>
+				    <tr id="thStyle">
+			            <th>작성자</th>
+			            <th>제목</th>
 				    </tr>
-			    </c:forEach>
-	        </tbody>
-		</table>
+		        </thead>
+		        <tbody>
+			        <c:forEach var="i" begin="1" end="5">
+					    <tr id="tdStyle">
+				            <td class="userNameTd">유혁</td>
+				            <td>
+				            	<a href="https://www.youtube.com/" class="titleA">테스트용 제목</a> 
+				            	<span>[6]</span> <=[ ] 안에 댓글 수 
+				            	<span class="newSpan">new</span>
+				            </td>
+					    </tr>
+				    </c:forEach>
+		        </tbody>
+			</table>
+		</div>
 	</div>
 </div>
 
