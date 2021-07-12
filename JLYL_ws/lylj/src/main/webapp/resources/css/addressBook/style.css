@@ -107,3 +107,76 @@
 #pagingDiv{
 	text-align: center;
 }
+
+/* 주소록 등록, 수정 */
+#bookWriteDiv{
+	float: left;
+	width: 80%;
+	margin: 20px 150px;
+   	background: white;
+	padding: 50px 0;
+   	border-radius: 15px;
+    box-shadow: 0px 2px 20px #d0d0d0;
+    position: sticky;
+}
+
+#bookWriteDiv > h4{
+	color: #373737;
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;	
+}
+
+#bookWriteDiv > p{
+	margin: 50px 0;
+	font-size: 17px;
+	font-weight: normal;	
+	text-align: center;	
+	color: rgb(255, 66, 66);
+}
+
+div{
+	color: #373737;
+	font-size: 20px;
+	font-weight: bold;
+	
+}
+div > label{
+	color: #373737;
+	margin: 20px 20px 0 20%;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.inputItems{
+	margin-left: 20px;
+	font-size: 20px;
+	width: 50%;
+}
+
+#btnItems{
+	text-align: center;
+	margin-top: 50px; 
+}
+
+#bookWriteSubmit{
+	width: 90px;
+	height: 50px;
+	font-size: 17px;
+	font-weight: bold;
+	background: #55bed9;
+	color: white;
+	border-radius: 10px;
+	border: none;
+}
+
+#bookWritwCancleBtn{
+	width: 90px;
+	height: 50px;
+	font-size: 17px;
+	font-weight: bold;
+	background: #a2a2a2;
+	color: #454545;
+	border-radius: 10px;
+	border: none;
+}

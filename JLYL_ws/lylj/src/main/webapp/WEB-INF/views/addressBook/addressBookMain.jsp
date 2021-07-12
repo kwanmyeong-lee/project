@@ -48,8 +48,8 @@
 				    <tr id="tdStyle">
 			            <td><input type="checkbox"> </td>
 			            <td id="userNameTd"><img src="<c:url value='/resources/img/undraw_profile.svg'/>"> <span id="userNameSpan">테스트</span></td>
-			            <td id="telTd" >010-3333-8888</td>
-			            <td id="emailTd" >yoog0201@gmail.com</td>
+			           	<td id="telTd" >010-3333-8888</td>
+			            <td id="emailTd" >yooh0201@gmail.com</td>
 			            <td id="" >웹 백엔드</td>
 			            <td id="" >사원</td>
 				    </tr>
