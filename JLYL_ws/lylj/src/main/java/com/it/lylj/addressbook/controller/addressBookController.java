@@ -16,4 +16,18 @@ public class addressBookController {
 		
 		return "addressBook/addressBookMain";
 	}
+
+	@RequestMapping("/addressBookWrite")
+	public String bookWrite() {
+		logger.info("주소록 추가 페이지");
+		
+		return "addressBook/addressBookWrite";
+	}
+
+	@RequestMapping("/addressBookEdit")
+	public String bookEdit() {
+		logger.info("주소록 수정 페이지");
+		
+		return "addressBook/addressBookEdit";
+	}
 }
