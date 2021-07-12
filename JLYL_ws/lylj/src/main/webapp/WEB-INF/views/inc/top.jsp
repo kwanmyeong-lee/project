@@ -35,7 +35,7 @@
 		if(${navNo==1}){
 			$('#accordionSidebar')
 			.html(
-					'<!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="topNavButton"><button type="button"class="btn btn-light btnSchAdd"id="newDocument">새결재작성하기</button></div><!--Divider--><hr class="sidebar-divider d-none d-md-block"><!--Nav Item-Tables--><li class="nav-item"><a class="nav-link"href="#"><i class="fas fa-fw fa-table"></i><span>자주쓰는양식</span></a></li><!--Nav Item-Pages Collapse Menu--><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapseOne"aria-expanded="true"aria-controls="collapseOne"><i class="fas fa-fw fa-cog"></i><span>결재</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="#">결재대기문서</a><a class="collapse-item"href="#">결재수신문서</a><a class="collapse-item"href="#">결재예정문서</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapseTwo"aria-expanded="true"aria-controls="collapseTwo"><i class="fas fa-fw fa-cog"></i><span>내문서함</span></a><div id="collapseTwo"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="#">기안문서함</a><a class="collapse-item"href="#">임시저장함</a><a class="collapse-item"href="#">결재완료문서</a></div></div></li>');
+					'<!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="topNavButton"><button type="button"class="btn btn-light btnSchAdd"id="newDocument">새결재작성하기</button></div><!--Divider--><hr class="sidebar-divider d-none d-md-block"><!--Nav Item-Tables--><li class="nav-item"><a class="nav-link"href="#"><i class="fas fa-fw fa-table"></i><span>자주쓰는양식</span></a></li><!--Nav Item-Pages Collapse Menu--><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseOne"data-bs-toggle="collapse"role="button"aria-expanded="ture"aria-controls="collapseOne"><i class="fas fa-fw fa-cog"></i><span>결재</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="#">결재대기문서</a><a class="collapse-item"href="#">결재수신문서</a><a class="collapse-item"href="#">결재예정문서</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseTwo"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="fas fa-fw fa-cog"></i><span>내문서함</span></a><div id="collapseTwo"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="#">기안문서함</a><a class="collapse-item"href="#">임시저장함</a><a class="collapse-item"href="#">결재완료문서</a></div></div></li>');
 		}else if(${navNo==4}){
 			$('#accordionSidebar')
 			.html(
@@ -43,7 +43,7 @@
 		}else if(${navNo==7}){
 			$('#accordionSidebar')
 			.html(
-					'<!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="index"><div class="sidebar-brand-icon rotate-n-15"></div><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="divscheduleAdd"><button type="button"class="btn btn-light btnSchAdd">예약/대여</button></div><!--Nav Item-Pages Collapse Menu--><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapse1"aria-expanded="true"aria-controls="collapse1"><i class="far fa-calendar-minus"></i><span>본사1층회의실</span></a><div id="collapse1"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="assetInfo">대회의실</a><a class="collapse-item"href="buttons">소회의실</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapse2"aria-expanded="true"aria-controls="collapse2"><i class="far fa-calendar-minus"></i><span>본사5층회의실</span></a><div id="collapse2"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">대회의실</a><a class="collapse-item"href="buttons">소회의실</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapse3"aria-expanded="true"aria-controls="collapse3"><i class="far fa-calendar-minus"></i><span>차량</span></a><div id="collapse3"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">7498아반떼</a><a class="collapse-item"href="buttons">3929아반떼</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-toggle="collapse"data-target="#collapse4"aria-expanded="true"aria-controls="collapse4"><i class="far fa-calendar-minus"></i><span>빔프로젝터</span></a><div id="collapse4"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">1번빔프로젝터</a><a class="collapse-item"href="buttons">2번빔프로젝터</a></div></div></li><!--Divider--><hr class="sidebar-divider"><li class="nav-item"><a class="nav-link"id=asset-add href="tables"><i class="fas fa-plus"></i><span>자산추가</span></a><a class="nav-link"id=asset-edit href="tables"><i class="far fa-edit"></i><span>자산수정</span></a><a class="nav-link"id=asset-delete href="tables"><i class="far fa-trash-alt"></i><span>자산삭제</span></a></li>');
+					'<!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-icon rotate-n-15"></div><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="divscheduleAdd"><button type="button"class="btn btn-light btnSchAdd">예약/대여</button></div><!--Nav Item-Pages Collapse Menu--><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse1"aria-expanded="true"aria-controls="collapse1"><i class="far fa-calendar-minus"></i><span>본사1층회의실</span></a><div id="collapse1"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="assetInfo">대회의실</a><a class="collapse-item"href="buttons">소회의실</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse2"aria-expanded="true"aria-controls="collapse2"><i class="far fa-calendar-minus"></i><span>본사5층회의실</span></a><div id="collapse2"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">대회의실</a><a class="collapse-item"href="buttons">소회의실</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse3"aria-expanded="true"aria-controls="collapse3"><i class="far fa-calendar-minus"></i><span>차량</span></a><div id="collapse3"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">7498아반떼</a><a class="collapse-item"href="buttons">3929아반떼</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse4"aria-expanded="true"aria-controls="collapse4"><i class="far fa-calendar-minus"></i><span>빔프로젝터</span></a><div id="collapse4"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">1번빔프로젝터</a><a class="collapse-item"href="buttons">2번빔프로젝터</a></div></div></li><!--Divider--><hr class="sidebar-divider"><li class="nav-item"><a class="nav-link"id=asset-add href="tables"><i class="fas fa-plus"></i><span>자산추가</span></a><a class="nav-link"id=asset-edit href="tables"><i class="far fa-edit"></i><span>자산수정</span></a><a class="nav-link"id=asset-delete href="tables"><i class="far fa-trash-alt"></i><span>자산삭제</span></a></li>');
 		}
 	});
 </script>
@@ -77,7 +77,8 @@
 .btnSchAdd {
 	width: 93%;
 }
-.sidebar-divider{
+
+.sidebar-divider {
 	color: black;
 }
 </style>
@@ -164,12 +165,13 @@
 					<span id="mainTopText">저기 힘차게 떠오르는 태양처럼 오늘도 힘차게 아자아자!</span>
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item topNavText"><a class="nav-link" href="<c:url value="/electronic/electronicMain"/>"
-							id="testBt" role="button"> <span
+						<li class="nav-item topNavText"><a class="nav-link"
+							href="<c:url value="/electronic/electronicMain"/>" id="testBt"
+							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">전자 결제</span>
 						</a></li>
-						<li class="nav-item topNavText"><a class="nav-link" href="<c:url value="/email/emailMain"/>"
-							role="button"> <span
+						<li class="nav-item topNavText"><a class="nav-link"
+							href="<c:url value="/email/emailMain"/>" role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">메일</span>
 						</a></li>
 
@@ -186,8 +188,8 @@
 							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">주소록</span>
 						</a></li>
-						<li class="nav-item topNavText"><a class="nav-link" href="<c:url value='board/boardMain'/>"
-							role="button"> <span
+						<li class="nav-item topNavText"><a class="nav-link"
+							href="<c:url value='board/boardMain'/>" role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">게시판</span>
 						</a></li>
 						<li class="nav-item topNavText"><a class="nav-link"
@@ -200,8 +202,8 @@
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow"><a
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-user fa-2x"></i><span
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fas fa-user fa-2x"></i><span
 								class="mr-2 d-none d-lg-inline text-gray-600 small topNavText">
 									아이디 들어갈자리</span>
 						</a> <!-- Dropdown - User Information -->
@@ -224,6 +226,7 @@
 									Logout
 								</a>
 							</div></li>
+
 
 					</ul>
 
