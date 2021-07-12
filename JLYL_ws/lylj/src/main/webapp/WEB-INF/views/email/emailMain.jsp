@@ -1,18 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../inc/top.jsp" %>
-<%@ include file="emailAside.jsp" %>
+<%@ include file="emailtop.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="<c:url value="/resources/css/email/email.css"/>">
 
 <style>
-.container{
-	width: 100%;
+.containerDiv{
+	width: 1400px;
+	height: 100%;
+	margin: 30px;
+}
+.panelDiv{
+	width: 1400px;
+	background: white;
 }
 .container *{
-	font-size: 15px;
+	font-size: 20px;
 	
 }
 .title{
@@ -25,10 +28,11 @@
 }
 .searchfrm{
 	margin-left: 380px;
-	width: 255px;
+	width: 300px;
 }
 .email{
-	height: 855px;
+	width: 1350px;
+	height: 1100px;
 	margin-left: 3%;
 	margin-top: 10px;
 }
@@ -39,12 +43,12 @@
 	width: 200px;
 }
 #btn_search{
-	float: right
+	clear:both;
+	float: right;
 }
-
 </style>
-<div class="container">	
-		<div class="panel panel-default">
+<div class="container containerDiv">	
+		<div class="panel panel-default panelDiv">
 		<!-- BEGIN INBOX -->
 			<div class="grid email">
 				<div class="grid-body emailBody">
@@ -72,9 +76,11 @@
 	
 									<!-- 검색  -->
 									<form action="#" class="searchfrm" >
-										<div class="input-group mb-3 inline">
-										  <input type="text" class="form-control" placeholder="Search keyword" id="searchBox">
-										  <button class="btn btn-secondary" type="button" id="btn_search"><i class="fa fa-search"></i></button>
+										<div class="input-group mb-3">
+										<span>
+											<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" id="searchBox">
+										  	<button class="btn_ btn-primary btn-sm" type="button" id="btn_search"><i class="fa fa-search"></i></button>
+										  </span>
 										</div>
 									</form>
 							</div>
@@ -217,4 +223,4 @@
 	</div>
 </div>
 
-<%@include file="../inc/bottom.jsp" %>
+<%@include file="emailbottom.jsp" %>

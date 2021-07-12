@@ -37,10 +37,12 @@ public class ElectronicController {
 	public void myDocument(Model model) {
 		model.addAttribute("navNo", 1);
 	}
+
 	
 	@GetMapping("/electronicDetail")
 	public void electronicDetail(Model model) {
 		model.addAttribute("navNo", 1);
 	}
+
 
 }
