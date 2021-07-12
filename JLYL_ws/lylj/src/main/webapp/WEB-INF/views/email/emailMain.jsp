@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="emailtop.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="<c:url value="/resources/css/email/email.css"/>">
 
 <style>
@@ -14,6 +12,7 @@
 }
 .panelDiv{
 	width: 1400px;
+	background: white;
 }
 .container *{
 	font-size: 20px;
@@ -29,7 +28,7 @@
 }
 .searchfrm{
 	margin-left: 380px;
-	width: 260px;
+	width: 300px;
 }
 .email{
 	width: 1350px;
@@ -44,9 +43,9 @@
 	width: 200px;
 }
 #btn_search{
-	float: right
+	clear:both;
+	float: right;
 }
-
 </style>
 <div class="container containerDiv">	
 		<div class="panel panel-default panelDiv">
@@ -77,9 +76,11 @@
 	
 									<!-- 검색  -->
 									<form action="#" class="searchfrm" >
-										<div class="input-group mb-3 inline">
-										  <input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" id="searchBox">
-										  <button class="btn_ btn-primary btn-sm" type="button" id="btn_search"><i class="fa fa-search"></i></button>
+										<div class="input-group mb-3">
+										<span>
+											<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" id="searchBox">
+										  	<button class="btn_ btn-primary btn-sm" type="button" id="btn_search"><i class="fa fa-search"></i></button>
+										  </span>
 										</div>
 									</form>
 							</div>

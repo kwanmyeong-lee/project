@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@include file="emailtop.jsp" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- include libraries(jQuery, bootstrap) -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
@@ -16,11 +13,12 @@
 
 <style type="text/css">
 .emailContainer{
-	margin-left: 30px;
+	margin-left: 20px;
 }
 .emailPanel{
 	padding: 40px;
 	width: 1300px;
+	background: white;
 }
 .textBox{
 	width: 90%;

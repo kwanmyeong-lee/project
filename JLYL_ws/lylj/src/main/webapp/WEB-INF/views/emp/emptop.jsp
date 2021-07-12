@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>메일</title>
+<title>사원등록</title>
 
 <!-- Custom fonts for this template-->
 <link
@@ -56,7 +56,7 @@
 	width: 93%;
 }
 
-#emailWrite {
+#empWrite {
 	margin-left: 11px;
 }
 
@@ -66,7 +66,6 @@
 .sidebar-divider{
 	color: black;
 }
-
 </style>
 
 
@@ -86,33 +85,30 @@
 				</a>
 				</li>
 				<li>
-				<div class="emailWrite" id="emailWrite">
-                	<a href="<c:url value='/email/emailWrite'/>"><button type="button" class="btn btn-light btnSchAdd">메일쓰기</button></a>
+				<div class="empWrite" id="empWrite">
+                	<a href="<c:url value='/emp/empWrite'/>"><button type="button" class="btn btn-light btnSchAdd">사원등록</button></a>
             	</div>
             	</li>
    
 				<!-- Sidebar - Brand -->
 				<li class="nav-item">
 					<a class="nav-link collapsed" href="#"data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1"> 
-					<span>메일함</span>
+					<span>사원관리</span>
 				</a> 
 				<div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="<c:url value="/email/emailMain"/>">받은메일함</a>
-                        <a class="collapse-item" href="buttons">보낸메일함</a>
-                        <a class="collapse-item" href="buttons">임시보관함</a>
-                        <a class="collapse-item" href="buttons">예약메일함</a>
-                        <a class="collapse-item" href="buttons">휴지통</a>
+                        <a class="collapse-item" href="buttons">사원정보관리</a>
+                        <a class="collapse-item" href="buttons">권한부여</a>
                     </div>
                 </div> 
                 </li>
                 <li class="nav-item">
 					<a class="nav-link collapsed" href="#"data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2"> 
-					<span>빠른검색</span>
+					<span>뭐있지?일단 틀 유지</span>
 				</a> 
 				<div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons">안읽은 메일함</a>
+                        <a class="collapse-item" href="buttons">인사넣을거?</a>
                         <a class="collapse-item" href="buttons">중요 메일함</a>
                     </div>
                 </div> 
@@ -203,4 +199,4 @@
 
 
 				<!-- Begin Page Content -->
-				<div class="container-fluid">
+				<div class="container-fluid maincontainer">
