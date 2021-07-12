@@ -13,12 +13,17 @@
 	padding-bottom: 20px;
    	border-radius: 15px;
     box-shadow: 0px 2px 20px #d0d0d0;
+    position: sticky;
 }
 
 #noticeView > table{
 	clear: both;
     width: 1100px;
     margin: 0px 30px;
+}
+
+#div2{
+	width:1200px;
 }
 
 #freeBoardView{
@@ -29,6 +34,7 @@
 	padding-bottom: 20px;
    	border-radius: 15px;
     box-shadow: 0px 2px 20px #d0d0d0;
+    position: sticky;
 }
 
 #freeBoardView > table{
@@ -45,6 +51,7 @@
 	padding-bottom: 20px;
    	border-radius: 15px;
     box-shadow: 0px 2px 20px #d0d0d0;
+    position: sticky;
 }
 
 #ArchivesView > table{
@@ -76,6 +83,7 @@
     background: white;
     border-radius: 15px;
     box-shadow: 0px 2px 20px #d0d0d0;
+    
 }
 
 #writeBtnDiv{
