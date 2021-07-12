@@ -5,10 +5,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../inc/top.jsp"%>
 
-<script type="text/javascript"
-	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
+
 
 <!-- rent -->
+<script src='<c:url value="/resources/js/booking/top.js"/>'></script>
 
 <div >
 <article>

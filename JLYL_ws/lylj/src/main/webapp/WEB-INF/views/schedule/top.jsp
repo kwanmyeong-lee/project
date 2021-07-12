@@ -29,6 +29,8 @@
         <!-- Page Wrapper -->
         <div
             id="wrapper">
+            
+            
             <!--Sidebar-Brand-->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value="/index"/>">
                 <div class="sidebar-brand-text mx-3">메인으로이동</div>
