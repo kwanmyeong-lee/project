@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
 /* 메인 CSS */
+#mainBodyDiv{
+	margin-left: 7%;
+}
 
 #noticeView{
 	float: left;
@@ -9,7 +12,7 @@
    	background: white;
 	padding-bottom: 20px;
    	border-radius: 15px;
-    box-shadow: 0px 2px 5px #a2a2a2;
+    box-shadow: 0px 2px 20px #d0d0d0;
 }
 
 #noticeView > table{
@@ -25,7 +28,7 @@
    	background: white;
 	padding-bottom: 20px;
    	border-radius: 15px;
-    box-shadow: 0px 2px 5px #a2a2a2;
+    box-shadow: 0px 2px 20px #d0d0d0;
 }
 
 #freeBoardView > table{
@@ -41,7 +44,7 @@
    	background: white;
 	padding-bottom: 20px;
    	border-radius: 15px;
-    box-shadow: 0px 2px 5px #a2a2a2;
+    box-shadow: 0px 2px 20px #d0d0d0;
 }
 
 #ArchivesView > table{
@@ -216,6 +219,11 @@
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
+}
+
+.boardMainH{
+	margin: 20px 0 0 20px;
+	font-weight: bold;
 }
 
 /* 상세보기 css*/

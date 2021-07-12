@@ -6,7 +6,7 @@
 
 <div id="mainBodyDiv" class="boardMain">
 	<div id="noticeView">
-		<h5>공지사항</h5>
+		<h5 class="boardMainH">공지사항</h5>
 		<br>
 		<div class="moreBtn">더보기</div>
 		<table>
@@ -38,7 +38,7 @@
 		</table>
 	</div>
 	<div id="ArchivesView">
-		<h5>자료실</h5>
+		<h5 class="boardMainH">자료실</h5>
 		<br>
 		<div class="moreBtn">더보기</div>
 		<table>
@@ -67,7 +67,7 @@
 		</table>
 	</div>
 	<div id="freeBoardView">
-		<h5>자유게시판</h5>
+		<h5 class="boardMainH">자유게시판</h5>
 		<br>
 		<div class="moreBtn">더보기</div>
 		<table>
