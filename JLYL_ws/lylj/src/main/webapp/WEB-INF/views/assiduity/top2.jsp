@@ -60,9 +60,7 @@
 .sidebar-divider{
 	color: black;
 }
-
 </style>
-
 
 
 <body id="page-top">
@@ -87,45 +85,9 @@
 				</div>
 				<div id="clockTime">
 				</div>
-		
-				<div>
-					<ul class="commute-ul">
-						<li class="commute-li"><dl class="commute-dl"><dt id="comeTime">출근시간</dd><dd >s</dd></dl></li>
-						<li class="commute-li"><dl class="commute-dl"><dt id="leaveTime">퇴근시간</dd><dd>s</dd></dl></li>
-						<li class="commute-li"><dl class="commute-dl"><dt id="weekWorkTime">주간 누적 근무시간</dd><dd>12:12:12</dd></dl></li>
-					</ul>
-				</div>
 				
-				<div class="commute-div">
-					<button type="button" class="btn btn-light btn-commute">출근하기</button>
-					<button type="button" class="btn btn-light btn-commute">퇴근하기</button>
-					
-				</div>
-				<br>
-				
-				<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapse1"
-				aria-expanded="true" aria-controls="collapse1"> <i
-					class="far fa-calendar-minus"></i> <span>근태관리</span>
-			</a>  <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons">내 근태 현황</a>
-                        <a class="collapse-item" href="buttons">내 연차 내역</a>
-                    </div>
-                </div> </li>
-                
-                <li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapse2"
-				aria-expanded="true" aria-controls="collapse2"> <i
-					class="far fa-calendar-minus"></i> <span>부서 근태관리</span>
-			</a>  <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons">부서 근태형황</a>
-                        <a class="collapse-item" href="buttons">부서 근태통계</a>
-                    </div>
-                </div> </li>
-				
-			<!-- 여기까지 왼쪽 메인 top에  넣을 소스-->
+			
+			<!-- 여기까지 왼쪽  메인 top에  넣을 소스-->
 		</ul>
 		<!-- End of Sidebar -->
 
