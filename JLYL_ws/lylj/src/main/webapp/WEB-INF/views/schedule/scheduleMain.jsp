@@ -41,14 +41,14 @@
 
 	
 <!-- 달력 Modal -->
-<div class="modal" id="myModal" data-backdrop="static">
+<div class="modal" id="myModal" data-bs-backdrop="static">
   <div class="modal-dialog ">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">일정 추가</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
@@ -97,7 +97,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-info" id="btn-write">일정 상세 입력</button>
         <button type="button" class="btn btn-info" id="btn-add">등록</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
       </div>
 
     </div>

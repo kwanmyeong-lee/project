@@ -61,7 +61,7 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapse1"
+				data-bs-toggle="collapse" data-bs-target="#collapse1"
 				aria-expanded="true" aria-controls="collapse1"> <i
 					class="far fa-calendar-minus"></i> <span>본사 1층 회의실</span>
 			</a>  <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -73,7 +73,7 @@
                 
             
             <li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapse2"
+				data-bs-toggle="collapse" data-bs-target="#collapse2"
 				aria-expanded="true" aria-controls="collapse2"> <i
 					class="far fa-calendar-minus"></i> <span>본사 5층 회의실</span>
 			</a>  <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -84,7 +84,7 @@
                 </div> </li>
                 
             <li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapse3"
+				data-bs-toggle="collapse" data-bs-target="#collapse3"
 				aria-expanded="true" aria-controls="collapse3"> <i
 					class="far fa-calendar-minus"></i> <span>차량</span>
 			</a>  <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -94,8 +94,8 @@
                     </div>
                 </div> </li>
              
-             <li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapse4"
+             <li class="nav-item"><a class="nav-link collapsed " href="#"
+				data-bs-toggle="collapse" data-bs-target="#collapse4"
 				aria-expanded="true" aria-controls="collapse4"> <i
 					class="far fa-calendar-minus"></i> <span>빔프로젝터</span>
 			</a>  <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -124,14 +124,14 @@
 			</li>
 			
 			<!-- 일정 목록 추가 Modal -->
-            <div class="modal modal2" id="myModaladd" data-backdrop="static">
+            <div class="modal modal2" id="myModaladd" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog2">
                     <div
                         class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <h4 class="modal-title">자산 추가</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal body -->
                         <div class="modal-body">
@@ -143,20 +143,20 @@
                         <!-- Modal footer -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-info" id="btnAdd">추가</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- 일정 목록 수정 Modal -->
-            <div class="modal modal2" id="myModaledit" data-backdrop="static">
+            <div class="modal modal2" id="myModaledit" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog2">
                     <div
                         class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <h4 class="modal-title">자산 삭제</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal body -->
                         <div class="modal-body">
@@ -175,20 +175,20 @@
                         <!-- Modal footer -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-info" id="btnEdit">수정</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- 일정 목록 삭제 Modal -->
-            <div class="modal modal2" id="myModaldelete" data-backdrop="static">
+            <div class="modal modal2" id="myModaldelete" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog2 ">
                     <div
                         class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <h4 class="modal-title">일정 목록 삭제</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal body -->
                         <div class="modal-body">
@@ -205,7 +205,7 @@
                         <!-- Modal footer -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-info" id="btnDelete">삭제</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
                         </div>
                     </div>
                 </div>
@@ -267,7 +267,7 @@
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow"><a
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
+							role="button" data-bs-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small"> 아이디
 									들어갈자리</span> <img class="img-profile rounded-circle"
@@ -286,8 +286,8 @@
 									Activity Log
 								</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal"
-									data-target="#logoutModal"> <i
+								<a class="dropdown-item" href="#" data-bs-toggle="modal"
+									data-bs-target="#logoutModal"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
 								</a>

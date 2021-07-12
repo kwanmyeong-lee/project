@@ -104,18 +104,18 @@
 				<br>
 				
 				<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapse1"
+				data-bs-toggle="collapse" data-bs-target="#collapse1"
 				aria-expanded="true" aria-controls="collapse1"> <i
 					class="far fa-calendar-minus"></i> <span>근태관리</span>
-			</a>  <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
+			</a>  <div id="collapse1" class="collapse " aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded ">
                         <a class="collapse-item" href="buttons">내 근태 현황</a>
                         <a class="collapse-item" href="buttons">내 연차 내역</a>
                     </div>
                 </div> </li>
                 
                 <li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapse2"
+				data-bs-toggle="collapse" data-bs-target="#collapse2"
 				aria-expanded="true" aria-controls="collapse2"> <i
 					class="far fa-calendar-minus"></i> <span>부서 근태관리</span>
 			</a>  <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -177,7 +177,7 @@
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow"><a
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
+							role="button" data-bs-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-user fa-2x"></i><span
 								class="mr-2 d-none d-lg-inline text-gray-600 small topNavText">
 									아이디 들어갈자리</span>
@@ -195,8 +195,8 @@
 									Activity Log
 								</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal"
-									data-target="#logoutModal"> <i
+								<a class="dropdown-item" href="#" data-bs-toggle="modal"
+									data-bs-target="#logoutModal"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
 								</a>
