@@ -28,9 +28,15 @@ public class ElectronicController {
 		logger.info("양식 작성 페이지 보여주기");
 	}
 	
-	@GetMapping("/electronicWait")
+	@GetMapping("/electronicDefaultDoc")
 	public void electronicWait(Model model) {
 		model.addAttribute("navNo", 1);
 	}
+	
+	@GetMapping("/myDocument")
+	public void myDocument(Model model) {
+		model.addAttribute("navNo", 1);
+	}
+
 
 }
