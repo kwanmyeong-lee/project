@@ -27,7 +27,7 @@
         <div>
             <article>
                 <div class="main-div">
-                    <h1 class="main-h1">자산 예약 현황</h1>
+                    <h3 class="main-h1">자산 예약 현황</h3>
                     <select class="asset">
                     	<option>자산1</option>
                     	<option>자산2</option>
@@ -38,7 +38,7 @@
                         <div id='calendar'></div>
                     </div>
                     <div class="main-div2">
-                        <h1 class="main-h1">내 예약/대여 현황</h1>
+                        <h3 class="main-h1">내 예약/대여 현황</h3>
                         <table class="table table-hover main-table">
                             <colgroup>
                                 <col style="width: 20%;"/>
