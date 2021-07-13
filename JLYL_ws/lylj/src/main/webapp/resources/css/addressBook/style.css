@@ -82,12 +82,14 @@
 #bookMainDiv > table > thead > tr > th{
 	height: 40px;
 	padding-left: 30px;
+	font-size: 17px;
 	color: rgb(56, 56, 56);
 	border-bottom: 1px solid #d0d0d0;
 }
 
 #bookMainDiv > table > tbody > tr > td{
 	height: 50px;
+	font-size: 15px;
 	padding-left: 30px;
 	border-bottom: 1px solid #d0d0d0;
 	color: rgb(56, 56, 56);
@@ -135,12 +137,13 @@
 	color: rgb(255, 66, 66);
 }
 
-div{
+.splitSpan{
 	color: #373737;
 	font-size: 20px;
 	font-weight: bold;
 	
 }
+
 div > label{
 	color: #373737;
 	margin: 20px 20px 0 20%;

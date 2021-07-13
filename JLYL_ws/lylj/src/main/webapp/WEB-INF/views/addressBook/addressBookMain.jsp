@@ -26,12 +26,12 @@
 		</div>
 		<table>
 		    <colgroup>
-		       <col style="width:10%;" />
-		       <col style="width:20%;" />
-		       <col style="width:20%;" />
-		       <col style="width:20%;" />
+		       <col style="width:5%;" />
+		       <col style="width:22%;" />
+		       <col style="width:22%;" />
+		       <col style="width:22%;" />
 		       <col style="width:20%;" />      
-		       <col style="width:10%;" />      
+		       <col style="width:14%;" />      
 		    </colgroup>
 	        <thead>
 			    <tr id="thStyle">

@@ -169,7 +169,19 @@
 }
 #todayYearMonth{
 	font-size:15px;
-}	
+}
+
+/* ulCol */
+#ulCol{
+	float: right;
+}
+#ulCol li{
+	float: right;
+	margin-left: 30px; 
+}
+#liCol2{
+	color:#f14f4f; 
+}
 </style>
 
 <script type="text/javascript">
@@ -440,8 +452,13 @@ window.onload= function(){
                </div>
                </div>
                
+               <div>
+               	<ul id="ulCol">
+               		<li id="liCol2">지각</li>
+               		<li id="liCol1">정상</li>
+               	</ul>
+               </div>
 <div class="accordion" id="accordionExample">
-
   <c:forEach var="weekNo" begin="1" end="6">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne${weekNo }">
@@ -450,7 +467,7 @@ window.onload= function(){
       </button>
     </h2>
     <div id="collapseOne${weekNo }" class="accordion-collapse collapse" aria-labelledby="headingOne${weekNo }" data-bs-parent="#accordionExample">
-      <div class="accordion-body abody">
+      <div class="accordion-body abody abody${weekNo }">
       	<div class="week-header">
       		<div class="w-h header-date">일자</div>
       		<div class="w-h header-start">업무시작</div>
@@ -470,7 +487,7 @@ window.onload= function(){
 	      		<div class="w-c content-detail content-detail${weekDay }"><span>일자</span></div>
 	      		<div class="w-c content-approval content-approval${weekDay }"><span>일자</span></div>
 			</div>
-			<div id="content${weekNo }Div${weekDay }" class="content-collapse collapse" aria-labelledby="headingOne${weekNo }" data-bs-parent=".abody">
+			<div id="content${weekNo }Div${weekDay }" class="content-collapse collapse" aria-labelledby="headingOne${weekNo }" data-bs-parent=".abody${weekNo }">
 	                        <div class="content-content">내 근태 현황</div>
 	        </div>
         </c:forEach>
