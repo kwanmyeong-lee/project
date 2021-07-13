@@ -90,15 +90,15 @@
 		
 				<div>
 					<ul class="commute-ul">
-						<li class="commute-li"><dl class="commute-dl"><dt id="comeTime">출근시간</dd><dd >s</dd></dl></li>
-						<li class="commute-li"><dl class="commute-dl"><dt id="leaveTime">퇴근시간</dd><dd>s</dd></dl></li>
-						<li class="commute-li"><dl class="commute-dl"><dt id="weekWorkTime">주간 누적 근무시간</dd><dd>12:12:12</dd></dl></li>
+						<li class="commute-li"><dl class="commute-dl"><dt>출근시간</dd><dd id="comeTime">--:--:--</dd></dl></li>
+						<li class="commute-li"><dl class="commute-dl"><dt>퇴근시간</dd><dd id="leaveTime">--:--:--</dd></dl></li>
+						<li class="commute-li"><dl class="commute-dl"><dt>금일 근무시간</dd><dd id="dayWorkTime">--:--:--</dd></dl></li>
 					</ul>
 				</div>
 				
 				<div class="commute-div">
-					<button type="button" class="btn btn-light btn-commute">출근하기</button>
-					<button type="button" class="btn btn-light btn-commute">퇴근하기</button>
+					<button type="button" class="btn btn-light btn-commute" id="btnCome">출근하기</button>
+					<button type="button" class="btn btn-light btn-commute" id="btnLeave">퇴근하기</button>
 					
 				</div>
 				<br>

@@ -50,6 +50,7 @@
 	width: 90%;
 	text-align: center;
 	display: inline-block;
+	margin-bottom: 50px;
 }
 .week-div{
 	display:inline-block;
@@ -58,9 +59,15 @@
 	width: 15%;
 	text-align: center;
 }
+/* accordion */
 .accordion{
 	clear: both;
 }
+.abody{
+	padding-left:0; 
+	padding-right:0; 
+}
+
 .divide-bar{
 	display: inline-block;
     margin: 24px 8px;
@@ -96,7 +103,7 @@
 /* <!-- week-header --> */
 .week-header{
 	clear:both;
-	border: 1px solid black;
+	border-bottom: 1px solid gray;
 }
 .w-h{
 	display:inline-block;
@@ -131,10 +138,27 @@
 .content-detail{
 	width: 30%;
 }
-
+.content-link:hover{
+	cursor:pointer;
+	background: #edf4fb;
+}
+.content-content{
+	border-bottom: 1px solid #00a1b9; 
+	border-right: 1px solid #00a1b9; 
+	border-left: 1px solid #00a1b9; 
+}
+.content-link{
+	border-top: 1px solid #00a1b9; 
+	border-right: 1px solid #00a1b9; 
+	border-left: 1px solid #00a1b9; 
+}
+.content-link.collapsed{
+	border:0;
+}
 /* now-div */
 .now-div{
 	padding-bottom: 10px;
+	margin-top: 20px;
 }
 .now-span{
 	padding-left: 10px;
@@ -142,6 +166,9 @@
 	width: 50px;
 	font-size: 30px;
 	color: black;
+}
+#todayYearMonth{
+	font-size:15px;
 }	
 </style>
 
@@ -164,6 +191,42 @@ $(function(){
 		$('#nowYearMonth').text(pd);
 		dayView(pd);
 	});
+	
+	$('#todayYearMonth').click(function(){
+		var nd = new Date();
+		nd= moment(nd).format("YYYY-MM");
+
+		$('#nowYearMonth').text(nd);
+		dayView(nd);
+	});
+	
+	$('#btnCome').click(function(){
+		var now = $('#clockTime').text();
+		
+		$('#comeTime').text(now);
+		$(this).prop("disabled",true);
+	});
+		
+	$('#btnLeave').click(function(){
+		if($('#btnCome').prop("disabled")==true){
+			var now = $('#clockTime').text();
+			$('#leaveTime').text(now);
+			$(this).prop("disabled",true);
+			
+			var cTime = $('#comeTime').text();
+			var lTime = $('#leaveTime').text();
+			var dayWorkTime=workTime(cTime,lTime);
+			
+			$('#dayWorkTime').text(dayWorkTime);
+			
+			
+		}else{
+			alert("출근을 하세요");
+		}
+	});
+	
+	
+	
 });
 
 function Clock(){
@@ -245,12 +308,12 @@ function dayView(date){
 	
 	var weekNo= getWeekOfMonth(firstDay);
 	var weekDay= firstDay.getDay();
-		
+	
 		//저번달
 		if(weekDay!=0){
-			var pastDay=new Date();
+			var pastDay=firstDay;
 			pastDay.setDate(firstDay.getDate()-weekDay);
-			for(var j=0; j<weekDay; j++){
+ 			for(var j=0; j<weekDay; j++){
 				var num= moment(pastDay).format('DD');
 				var d = ".content-date"+j;
 				
@@ -313,6 +376,23 @@ function dayView(date){
 	
 }
 
+function workTime(cTime,lTime){
+	/* var hour= ctime.substring(0,ctime.indexOf(":"));
+	var time= ctime.substring(ctime.indexOf(":")+1,ctime.lastIndexOf(":"));
+	var min= ctime.substring(ctime.lastIndexOf(":")+1); */
+	
+	lTime="2021-01-01 "+lTime;
+	cTime="2021-01-01 "+cTime;
+	
+	var comeTime = new Date(cTime);
+	var leaveTime = new Date(lTime);
+	var dayWorkTime = new Date(leaveTime.getTime() - comeTime.getTime()+ (1000*60*60*15));
+	
+	dayWorkTime = moment(dayWorkTime).format("HH:mm:ss");	
+	
+	return dayWorkTime; 
+}
+
 var nowDates= new Date();
 window.onload= function(){
 	Clock();
@@ -329,8 +409,9 @@ window.onload= function(){
                <h3>근태현황</h3>
                <div class="now-div text-center">
                		<span class="now-span" id="nowLeft"><i class="fas fa-chevron-left"></i></span>
-               		<span class="now-span" id="nowYearMonth">aaa</span>
+               		<span class="now-span" id="nowYearMonth"></span>
                		<span class="now-span" id="nowRight"><i class="fas fa-chevron-right"></i></span>
+               		<span class="now-span" id="todayYearMonth">이번 달</span>
                </div>
                <div class="m-d">
                <div class="main-week-div">
@@ -381,16 +462,16 @@ window.onload= function(){
       	<c:forEach var="weekDay" begin="0" end="6"> 	
 	      	<div class="content-link collapsed" 
 					data-bs-toggle="collapse" data-bs-target="#content${weekNo }Div${weekDay }"
-					aria-bs-expanded="true" aria-bs-controls="contentDiv">
-				<div class="w-c content-date${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-start${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-end${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-all${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-detail${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-approval${weekDay }"><span>일자</span></div>
+					aria-bs-expanded="true" aria-bs-controls="#content${weekNo }Div${weekDay }">
+				<div class="w-c content-date content-date${weekDay }"><span>일자</span></div>
+	      		<div class="w-c content-start content-start${weekDay }"><span>일자</span></div>
+	      		<div class="w-c content-end content-end${weekDay }"><span>일자</span></div>
+	      		<div class="w-c content-all content-all${weekDay }"><span>일자</span></div>
+	      		<div class="w-c content-detail content-detail${weekDay }"><span>일자</span></div>
+	      		<div class="w-c content-approval content-approval${weekDay }"><span>일자</span></div>
 			</div>
-			<div id="content${weekNo }Div${weekDay }" class="collapse " aria-labelledby="headingOne${weekNo }" data-bs-parent=".abody">
-	                        <p>내 근태 현황</p>
+			<div id="content${weekNo }Div${weekDay }" class="content-collapse collapse" aria-labelledby="headingOne${weekNo }" data-bs-parent=".abody">
+	                        <div class="content-content">내 근태 현황</div>
 	        </div>
         </c:forEach>
       </div>
