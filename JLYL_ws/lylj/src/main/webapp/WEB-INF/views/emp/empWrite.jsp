@@ -44,10 +44,10 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('EMP_ZIPCODE').value = data.zonecode;
-                document.getElementById("EMP_ADDRESS").value = addr;
+                document.getElementById('empZipcode').value = data.zonecode;
+                document.getElementById("empAddress").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("EMP_ADDRESSDETAIL").focus();
+                document.getElementById("empAddressdetail").focus();
             }
         }).open();
 	}
@@ -76,23 +76,19 @@
 		<hr>
 
 		<!-- 사원등록 form -->
-		<form class="row g-3" method="post" action="">
+		<form class="row g-3" method="post" action="<c:url value='/emp/empWrite'/>">
 		   <div></div>
 		   <div class="row">
-			  <div class="col">
-			  	<label for="name" class="form-label">이름</label>
-			    <input type="text" class="form-control" placeholder="name" aria-label="NAME" name="EMP_NAME">
-			  </div>
-			  <div class="col">
-			  	<label for="pwd" class="form-label">사원번호</label>
-			    <input type="text" class="form-control" placeholder="emp no" aria-label="EMPNO" name="EMP_NO">
+			  <div class="col-md-6">
+			  	<label for="empName" class="form-label">이름</label>
+			    <input type="text" class="form-control" placeholder="name" aria-label="NAME" id="empName" name="empName">
 			  </div>
 		   </div>
 		   <div></div>
 		   <div class="row">
 			  <div class="col">
-			  	<label for="pwd" class="form-label">비밀번호</label>
-			    <input type="text" class="form-control" placeholder="password" aria-label="PWD" name="EMP_PWD">
+			  	<label for="empPwd" class="form-label">비밀번호</label>
+			    <input type="text" class="form-control" placeholder="password" aria-label="PWD" name="empPwd" id="empPwd">
 			  </div>
 			  <div class="col">
 			  	<label for="chkPwd" class="form-label">비밀번호확인</label>
@@ -100,40 +96,39 @@
 			  </div>
 		    </div>
 	  		 <div class="col-md-11">
-	    		<label for="tel" class="form-label">전화번호</label>
-	    		<input type="tel" class="form-control" id="tel" name="EMP_TEL">
+	    		<label for="empTel" class="form-label">전화번호</label>
+	    		<input type="tel" class="form-control" id="empTel" name="empTel">
 	  		</div>
 			 <div class="col-md-11">
-	    		<label for="email" class="form-label">Email</label>
-	    		<input type="email" class="form-control" id="email" name="EMP_EMAIL">
+	    		<label for="empEmail" class="form-label">Email</label>
+	    		<input type="email" class="form-control" id="empEmail" name="empEmail">
 	  		</div>
 	  	  	<div class="col-md-11">
-				<label for="photo" class="form-label">사진첨부</label>
-			    <input type="file" class="form-control"  aria-label="adressDetail" name="EMP_PHOTO">
+				<label for="empPhoto" class="form-label">사진첨부</label>
+			    <input type="file" class="form-control" id="empPhoto" name="empPhoto">
 		  	</div>
 	  		<div class="col-md-6">
-	    		<label for="EMP_ZIPCODE" class="form-label">우편번호</label>
-	    		<input type="text" class="form-control sample6_postcode" id="EMP_ZIPCODE" name="EMP_ZIPCODE" aria-label="zipcode" readonly="readonly">
+	    		<label for="empZipcode" class="form-label">우편번호</label>
+	    		<input type="text" class="form-control sample6_postcode" id="empZipcode" name="empZipcode" aria-label="zipcode" readonly="readonly">
 	  		</div>
 	  		<div class="col-md-4">
 		  		<input type="button" class="btn btn-secondary" onclick="bt_zipcode()" id="btZipcode" value="우편번호 찾기">
 		  	</div>
 
 		  	<div class="col-md-8">
-				<label for="EMP_ADDRESS" class="form-label">주소</label>
-			    <input type="text" class="form-control" id="EMP_ADDRESS" name="EMP_ADDRESS" aria-label="address" readonly="readonly">
+				<label for="empAddress" class="form-label">주소</label>
+			    <input type="text" class="form-control" id="empAddress" name="empAddress" aria-label="address" readonly="readonly">
 		  	</div>
 		  	<div></div>
 		   	<div class="row">
 		   		<div class="col-md-6">
-					<label for="EMP_ADDRESSDETAIL" class="form-label">상세주소</label>
-			    	<input type="text" class="form-control" id="EMP_ADDRESSDETAIL" name="EMP_ADDRESSDETAIL" placeholder="상세주소" aria-label="adressDetail">
+					<label for="empAddressdetail" class="form-label">상세주소</label>
+			    	<input type="text" class="form-control" id="empAddressdetail" name="empAddressdetail" placeholder="상세주소" aria-label="adressDetail">
 		  		</div>
 		  		<div class="col-md-2">
 					<label for="dong" class="form-label">동</label>
 			    	<input type="text" class="form-control" id="dong" aria-label="adressDetail" readonly="readonly">
 		  		</div>
-		  		
 		  	</div>
 		  	<div>
 		  		<hr>
@@ -142,69 +137,53 @@
 		  	</div>
 		  	<div class="row">
 			  	<div class="col-md-6">
-					<label for="joindate" class="form-label">입사일</label>
-				    <input type="date" class="form-control" name="EMP_REGDATE" placeholder="join date" aria-label="joindate">
+					<label for="empRegdate" class="form-label">입사일</label>
+				    <input type="text" class="form-control" id="empRegdate" name="empRegdate" placeholder="Regdate">
 			  	</div>
 			  	<div class="col-md-6">
-			  		<label for="joindate" class="form-label">생일</label>
-				    <input type="date" class="form-control" name="EMP_BIRTH" placeholder="join date" aria-label="joindate">
+			  		<label for="empBirth" class="form-label">생일</label>
+				    <input type="text" class="form-control" id="empBirth" name="empBirth" placeholder="birth day">
 			  	</div>
 		  	</div>
 		  	<div></div>
 		  	<div class="row">
 			  	<div class="col-md-4">
-					<label for="salary" class="form-label">봉급</label>
-				    <input type="text" class="form-control" name="EMP_SALARY" placeholder="join date" aria-label="salary">
+					<label for="empSalary" class="form-label">봉급</label>
+				    <input type="text" class="form-control" id="empSalary" name="empSalary" placeholder="Salary">
 				    
 			  	</div>
-			  	<div class="col-md-2">
-					<label for="salary" class="form-label">은행</label>
-				    <select class="form-control">
-				    	<option>-선택하세요-</option>
-				    	<option value="NongHyup">농협</option>
-				    	<option value="ShinHan">신한</option>
-				    	<option value="KookMin">국민</option>
-				    	<option value="Woori">우리</option>
-				    	<option value="etc">기타</option>
-				    </select>
-			  	</div>
 			   	<div class="col-md-4">
-					<label for="salary" class="form-label">계좌번호</label>
-				    <input type="text" class="form-control" name="EMP_ACCOUNT" placeholder="join date" aria-label="salary">
+					<label for="empAccount" class="form-label">계좌번호</label>
+				    <input type="text" class="form-control" id="empAccount" name="empAccount" placeholder="Account" >
 			  	</div>
 		  	</div>
 		  	<div></div>
 		  	<div class="row">
 				<div class="col-md-2">
 					<label class="form-label">관리자</label>
-				    <select class="form-control" name="EMP_ADMIN_LEV">
+				    <select class="form-control" name="empAdminLev" id="empAdminLev">
 				    	<option>-선택하세요-</option>
-				    	<option value="emp">사원</option>
-				    	<option value="teamLeader">팀장</option>
-				    	<option value="admin">관리자</option>
+				    	<option value="3">사원</option>
+				    	<option value="2">팀장</option>
+				    	<option value="1">관리자</option>
 				    </select>
 			  	</div>
 			  	<div class="col-md-2">
-			  	<label class="form-label">부서</label>
-				    <select class="form-control"  name="DEPARTMENT_NO">
+			  	<label class="form-label" for="departmentNo">부서</label>
+				    <select class="form-control" id="departmentNo" name="departmentNo">
 				    	<option>-선택하세요-</option>
-				    	<option value="1">영업</option>
-				    	<option value="2">마케팅</option>
-				    	<option value="3">개발</option>
-				    	<option value="4">인사</option>
-				    	<option value="5">총무/회계</option>
+				    	<c:forEach var="departmentVo" items="${departmentList}">
+				    		<option value="${departmentVo.departmentNo}">${departmentVo.departmentName }</option>
+				    	</c:forEach>
 				    </select>
 				 </div>
-				<div class="col-md-2" name=>
-			  	<label class="form-label">직급</label>
-				    <select class="form-control" name="POSITION_NO">
-				    	<option>-선택하세요-</option>
-				    	<option value="6">사원</option>
-				    	<option value="5">주임</option>
-				    	<option value="4">대리</option>
-				    	<option value="3">과장</option>
-				    	<option value="2">부장</option>
-				    	<option value="1">사장</option>
+				<div class="col-md-2">
+			  	<label class="form-label" for="positionNo" >직급</label>
+				    <select class="form-control" id="positionNo" name="positionNo">
+				    	<option value="">-선택하세요-</option>
+				    	<c:forEach var="positionVo" items="${positionList}">
+				    		<option value="${positionVo.positionNo}">${positionVo.positionName }</option>
+				    	</c:forEach>
 				    </select>
 				 </div>
 			  </div>

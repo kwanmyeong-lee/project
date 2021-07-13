@@ -15,5 +15,19 @@ public class AssiduityController {
 	public void main(Model model) {
 		model.addAttribute("navNo",3);
 	}
+
+	@GetMapping("/annual")
+	public void annual(Model model) {
+		model.addAttribute("navNo",3);
+	}
+	
+	@GetMapping("/condition")
+	public void condition(Model model) {
+		model.addAttribute("navNo",3);
+	}
+	@GetMapping("/stats")
+	public void stats(Model model) {
+		model.addAttribute("navNo",3);
+	}
 	
 }
