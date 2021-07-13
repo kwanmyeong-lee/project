@@ -294,6 +294,14 @@ ALTER TABLE DEPARTMENT
 		PRIMARY KEY (
 			DEPARTMENT_NO
 		);
+        
+insert into DEPARTMENT values(1,'전략기획팀');
+insert into DEPARTMENT values(2,'영업팀');
+insert into DEPARTMENT values(3,'마케팅팀');
+insert into DEPARTMENT values(4,'개발팀');
+insert into DEPARTMENT values(5,'인사팀');
+insert into DEPARTMENT values(6,'총무회계팀');
+
 
 /* 직급 */
 CREATE TABLE POSITION (
@@ -312,6 +320,13 @@ ALTER TABLE POSITION
 		PRIMARY KEY (
 			POSITION_NO
 		);
+
+insert into POSITION values(1, '사장');
+insert into POSITION values(2, '부장');
+insert into POSITION values(3, '과장');
+insert into POSITION values(4, '대리');
+insert into POSITION values(5, '주임');
+insert into POSITION values(6, '사원');
 
 /* 메일 첨부파일 */
 CREATE TABLE MAILFILE (
