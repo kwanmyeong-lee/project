@@ -53,6 +53,30 @@
 			.html(
 					'<!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-icon rotate-n-15"></div><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="divscheduleAdd"><button type="button"class="btn btn-light btnSchAdd btnRentAdmin">예약/대여</button></div><!--Nav Item-Pages Collapse Menu--><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse1"aria-expanded="true"aria-controls="collapse1"><i class="far fa-calendar-minus"></i><span>본사1층회의실</span></a><div id="collapse1"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="assetInfo">대회의실</a><a class="collapse-item"href="buttons">소회의실</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse2"aria-expanded="true"aria-controls="collapse2"><i class="far fa-calendar-minus"></i><span>본사5층회의실</span></a><div id="collapse2"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">대회의실</a><a class="collapse-item"href="buttons">소회의실</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse3"aria-expanded="true"aria-controls="collapse3"><i class="far fa-calendar-minus"></i><span>차량</span></a><div id="collapse3"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">7498아반떼</a><a class="collapse-item"href="buttons">3929아반떼</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse4"aria-expanded="true"aria-controls="collapse4"><i class="far fa-calendar-minus"></i><span>빔프로젝터</span></a><div id="collapse4"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">1번빔프로젝터</a><a class="collapse-item"href="buttons">2번빔프로젝터</a></div></div></li><!--Divider--><hr class="sidebar-divider"><li class="nav-item"><a class="nav-link"id="asset-add"href="#"><i class="fas fa-plus"></i><span>자산추가</span></a><a class="nav-link"id="asset-edit"href="#"><i class="far fa-edit"></i><span>자산수정</span></a><a class="nav-link"id="asset-delete"href="#"><i class="far fa-trash-alt"></i><span>자산삭제</span></a></li><!--일정목록추가Modal--><div class="modal modal2"id="myModaladd"data-bs-backdrop="static"><div class="modal-dialog modal-dialog2"><div class="modal-content"><!--Modal Header--><div class="modal-header"><h4 class="modal-title">자산추가</h4><button type="button"class="close"data-bs-dismiss="modal">&times;</button></div><!--Modal body--><div class="modal-body"><form name="list-add-form"><label class="labelTime labelTime2">자산수정</label><input type="text"id="addTitle"><br></form></div><!--Modal footer--><div class="modal-footer"><button type="button"class="btn btn-info"id="btnAdd">추가</button><button type="button"class="btn btn-danger"data-bs-dismiss="modal">취소</button></div></div></div></div><!--일정목록수정Modal--><div class="modal modal2"id="myModaledit"data-bs-backdrop="static"><div class="modal-dialog modal-dialog2"><div class="modal-content"><!--Modal Header--><div class="modal-header"><h4 class="modal-title">자산삭제</h4><button type="button"class="close"data-bs-dismiss="modal">&times;</button></div><!--Modal body--><div class="modal-body"><form name="list-edit-form"><label class="labelTime labelTime2">일정목록</label><select><option>(기본)내일정</option><option>zzz</option><option>zzz</option></select><br><label class="labelTime labelTime2">일정명</label><input type="text"id="editTitle"><br></form></div><!--Modal footer--><div class="modal-footer"><button type="button"class="btn btn-info"id="btnEdit">수정</button><button type="button"class="btn btn-danger"data-bs-dismiss="modal">취소</button></div></div></div></div><!--일정목록삭제Modal--><div class="modal modal2"id="myModaldelete"data-bs-backdrop="static"><div class="modal-dialog modal-dialog2 "><div class="modal-content"><!--Modal Header--><div class="modal-header"><h4 class="modal-title">일정목록삭제</h4><button type="button"class="close"data-bs-dismiss="modal">&times;</button></div><!--Modal body--><div class="modal-body"><form name="list-del-form"><label class="labelTime labelTime2">일정목록</label><select><option>(기본)내일정</option><option>zzz</option><option>zzz</option></select><br></form></div><!--Modal footer--><div class="modal-footer"><button type="button"class="btn btn-info"id="btnDelete">삭제</button><button type="button"class="btn btn-danger"data-bs-dismiss="modal">취소</button></div></div></div></div><!--Sidebar Toggler(Sidebar)--><div class="text-center d-none d-md-inline"><button class="rounded-circle border-0"id="sidebarToggle"></button></div>');
 		}
+		
+
+	});
+	
+	$(function(){
+		$("#ori-toggle").click(function(){
+			var element = document.getElementById("ori-toggle");
+			
+			if(document.getElementById("ori").style.height == "438px"){
+				document.getElementById("ori").style.height = "50px"
+				document.getElementById("ori-div2").style.display = "none";
+				element.classList.remove("fa-chevron-down");
+			    element.classList.add("fa-chevron-up");
+			}else{
+				document.getElementById("ori").style.height = "438px";
+				document.getElementById("ori-div2").style.display = "block";
+				element.classList.add("fa-chevron-down");
+				element.classList.remove("fa-chevron-up");
+			}
+			
+		
+		
+			
+		});
 	});
 </script>
 <style>
@@ -89,6 +113,91 @@
 .sidebar-divider {
 	color: black;
 }
+
+/* 어사이드 */
+.ori {
+	height: 50px;
+	top: 860px;
+	width: 250px;
+	z-index: 60;
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	padding: 5px 0px;
+	background: #434343;
+	display: block;
+	position: fixed;
+	top: auto;
+	left: 0;
+	right: 0;
+	left: 0;
+}
+
+.ori-span1 {
+	position: absolute;
+	right: 2px;
+	top: 14px;
+}
+
+.ori-span2 {
+	width: 25px;
+	height: 12px;
+}
+
+.ori-div1 {
+	margin: 0px 30px 5px 8px;
+	width: auto;
+	overflow: hidden;
+	background-color: #2e2e2e;
+	border: 1px solid #4d4f50;
+}
+
+.ori-div2 {
+	display: none;
+	margin: 0 10px;
+	padding: 0;
+}
+
+.ori-div3 {
+	height: 400px;
+	display: block;
+	width: 100%;
+	min-height: 110px;
+	border: 1px solid #ddd;
+	border-radius: 0 0 5px 5px;
+	overflow-y: auto;
+	margin: 0;
+	background: #fff;
+	padding: 0;
+}
+
+.ori-div4 {
+	min-height: 375px;
+	max-height: 375px;
+	background-color: #fff !important;
+	padding: 10px 5px;
+	font-size: 13px;
+}
+
+.ori-from {
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+
+.ori-input-text1 {
+	width: 210px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 13px;
+}
+
+.test {
+	display: block;
+}
+
+/* 어사이드 */
 </style>
 
 
@@ -170,10 +279,8 @@
 				<!-- Topbar -->
 				<nav
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-					<a href="#" class="btn btn-info btn-icon-split"> <span
-						class="icon text-white-50"> <i class="fas fa-info-circle"></i>
-					</span> <span class="text">조직도</span>
-					</a>
+
+
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item topNavText"><a class="nav-link"
@@ -239,14 +346,31 @@
 								</a>
 							</div></li>
 
-
 					</ul>
 
 				</nav>
 				<!-- End of Topbar -->
+				<aside class="ori" id="ori">
+					<h3>
+						<span class="ori-span1"> <span id="ori-toggle"
+							class="fas fa-chevron-up ori-span2"></span>
+						</span>
+					</h3>
+					<div class="ori-div1">
+						<form class="ori-from" action="">
+							<input class="ori-input-text1" type="text" placeholder="이름"
+								title="이름">
+						</form>
+					</div>
 
-
-
+					<div class="ori-div2" id="ori-div2">
+						<div class="ori-div3">
+							<div class="ori-div4">
+								<c:import url="/inc/organizationChart"></c:import>
+							</div>
+						</div>
+					</div>
+				</aside>
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
