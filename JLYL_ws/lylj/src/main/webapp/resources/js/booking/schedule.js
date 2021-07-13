@@ -68,15 +68,15 @@ $(function() { // document ready
         events: [{
                 id: '1',
                 resourceId: 'b',
-                start: '2021-07-10T02:00:00',
-                end: '2021-07-10T07:00:00',
+                start: '2021-07-10 02:00:00',
+                end: '2021-07-10 07:00:00',
                 title: 'yyy'
             },
             {
                 id: '2',
                 resourceId: 'c',
-                start: '2021-07-10T05:00:00',
-                end: '2021-07-10T22:00:00',
+                start: '2021-07-10 05:00:00',
+                end: '2021-07-10 22:00:00',
                 title: 'event 2'
             },
             {
