@@ -26,6 +26,7 @@ DROP TABLE ADDFOL CASCADE CONSTRAINTS ;
 DROP TABLE ADDBOOK CASCADE CONSTRAINTS ;
 DROP TABLE MAIL CASCADE CONSTRAINTS ;
 DROP TABLE MAILFILE CASCADE CONSTRAINTS ;
+DROP SEQUENCE EMP_SEQ;
 
 ------------------------- DROP ---------------------------------
 
@@ -51,13 +52,13 @@ CREATE TABLE EMP (
 	EMP_ZIPCODE VARCHAR2(255), /* 우편번호 */
 	EMP_ADDRESS VARCHAR2(255), /* 주소 */
 	EMP_ADDRESSDETAIL VARCHAR2(255), /* 상세주소 */
-	EMP_REGDATE TIMESTAMP, /* 입사일 */
-	EMP_RESDATE TIMESTAMP, /* 퇴사일 */
+	EMP_REGDATE DATE, /* 입사일 */
+	EMP_RESDATE DATE, /* 퇴사일 */
 	EMP_PHOTO VARCHAR2(255), /* 사원사진 */
 	EMP_SALARY NUMBER, /* 봉급 */
 	EMP_ACCOUNT VARCHAR2(255), /* 계좌 */
 	EMP_ADMIN_LEV NUMBER, /* 관리자 레벨번호 */
-	EMP_BIRTH TIMESTAMP, /* 생일 */
+	EMP_BIRTH DATE, /* 생일 */
 	DEPARTMENT_NO NUMBER, /* 부서번호 */
 	POSITION_NO NUMBER /* 직급 번호 */
 );
@@ -294,13 +295,7 @@ ALTER TABLE DEPARTMENT
 		PRIMARY KEY (
 			DEPARTMENT_NO
 		);
-        
-insert into DEPARTMENT values(1,'전략기획팀');
-insert into DEPARTMENT values(2,'영업팀');
-insert into DEPARTMENT values(3,'마케팅팀');
-insert into DEPARTMENT values(4,'개발팀');
-insert into DEPARTMENT values(5,'인사팀');
-insert into DEPARTMENT values(6,'총무회계팀');
+    
 
 
 /* 직급 */
@@ -320,13 +315,6 @@ ALTER TABLE POSITION
 		PRIMARY KEY (
 			POSITION_NO
 		);
-
-insert into POSITION values(1, '사장');
-insert into POSITION values(2, '부장');
-insert into POSITION values(3, '과장');
-insert into POSITION values(4, '대리');
-insert into POSITION values(5, '주임');
-insert into POSITION values(6, '사원');
 
 /* 메일 첨부파일 */
 CREATE TABLE MAILFILE (
@@ -623,16 +611,6 @@ ALTER TABLE RELINE
 
 ALTER TABLE EMP
 	ADD
-		CONSTRAINT FK_MAIL_TO_EMP
-		FOREIGN KEY (
-			MAIL_NO
-		)
-		REFERENCES MAIL (
-			MAIL_NO
-		);
-
-ALTER TABLE EMP
-	ADD
 		CONSTRAINT FK_DEPARTMENT_TO_EMP
 		FOREIGN KEY (
 			DEPARTMENT_NO
@@ -910,16 +888,29 @@ ALTER TABLE RELINE
 		REFERENCES EMP (
 			EMP_NO
 		);
-        
+
+
 -------------------------------------------------------------------------------------------
 
-insert into EMP value(EMP_SEQ.nextval, admin, admin, '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 1001, 1);
+--insert into EMP value(EMP_SEQ.nextval, admin, admin, '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 1001, 1);
 
+----직급
+insert into POSITION values(1, '사장');
+insert into POSITION values(2, '부장');
+insert into POSITION values(3, '과장');
+insert into POSITION values(4, '대리');
+insert into POSITION values(5, '주임');
+insert into POSITION values(6, '사원');
+--
+---- 부서
+insert into DEPARTMENT values(1,'전략기획팀');
+insert into DEPARTMENT values(2,'영업팀');
+insert into DEPARTMENT values(3,'마케팅팀');
+insert into DEPARTMENT values(4,'개발팀');
+insert into DEPARTMENT values(5,'인사팀');
+insert into DEPARTMENT values(6,'총무회계팀');
 
-
-
-
-
+commit;
 
 
 

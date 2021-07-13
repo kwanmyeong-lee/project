@@ -57,7 +57,7 @@ public class EmpController {
 		int cnt = empService.insertEmp(vo);
 		logger.info("사원등록처리 성공여부, cnt={}",cnt);
 		
-		String msg ="등록실패", url="/emp/empwrite";
+		String msg ="등록실패", url="/index";
 		if(cnt>0) {
 			msg="등록성공";
 		}

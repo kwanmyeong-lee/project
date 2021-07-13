@@ -3,14 +3,15 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.it.lylj.emp.model.EmpDAO">
+
 	<insert id="insertEmp" parameterType="empVo">
 		<selectKey keyProperty="empNo" resultType="int" order="BEFORE">
 			select EMP_SEQ.nextval from dual
 		</selectKey>
-		insert into EMP
-		values(#{empNo}, #{empName}, #{empPwd}, #{empTel}, #{empEmail}, #{empZipcode}, #{empAddress}, #{empAddressdetail},
-			 to_date('#{empRegdate}','YYYY-MM-DD'), null, #{empPhoto}, #{empSalary},#{empAccount}, #{empAdminLev},
-			 to_date('#{empBirth}','YYYY-DD-MM'), #{departmentNo}, #{positionNo})
+			insert into emp
+			values(#{empNo}, #{empName}, #{empPwd}, #{empTel}, #{empEmail},#{empZipcode},#{empAddress},
+					#{empAddressdetail},#{empRegdate},null,#{empPhoto},#{empSalary},#{empAccount},#{empAdminLev},
+					#{empBirth},#{departmentNo},#{positionNo})
 	</insert>
  </mapper>
 
