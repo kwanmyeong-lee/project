@@ -202,7 +202,7 @@
 	float: right;
     width: 100px;
     height: 35px;
-    padding-top: 3px;
+    padding-top: 6px;
     margin-right: 55px;
     border-radius: 5px;
     text-align: center;
@@ -263,6 +263,24 @@
 
 #detailDiv{
 	margin: 15px;
+}
+
+#likeDiv{
+	float: right;
+}
+
+#likeBtnChk1{
+	color: #0000ff;
+	cursor: pointer;
+}
+
+#likeBtnChk2{
+	color: #c0c0c0;
+	cursor: pointer;
+}
+
+#likeCnt{
+	font-size: 15px;	
 }
 
 #detialMenu{
