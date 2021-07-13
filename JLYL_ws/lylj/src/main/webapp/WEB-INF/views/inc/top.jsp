@@ -131,7 +131,7 @@
 
 					</div>
 				</div>
-				<div class="card" style="width: 14rem">
+				<div class="card">
 					<div class="card-header">근태 관리</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">오늘 일한 시간
@@ -170,7 +170,10 @@
 				<!-- Topbar -->
 				<nav
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-					<span id="mainTopText">저기 힘차게 떠오르는 태양처럼 오늘도 힘차게 아자아자!</span>
+					<a href="#" class="btn btn-info btn-icon-split"> <span
+						class="icon text-white-50"> <i class="fas fa-info-circle"></i>
+					</span> <span class="text">조직도</span>
+					</a>
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item topNavText"><a class="nav-link"
@@ -183,8 +186,8 @@
 								class="mr-2 d-none d-lg-inline text-gray-600 small">메일</span>
 						</a></li>
 
-						<li class="nav-item topNavText"><a class="nav-link" href="<c:url value="/assiduity/main"/>"
-							role="button"> <span
+						<li class="nav-item topNavText"><a class="nav-link"
+							href="<c:url value="/assiduity/main"/>" role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">근태</span>
 						</a></li>
 
@@ -199,7 +202,6 @@
 
 						<li class="nav-item topNavText"><a class="nav-link"
 							href="<c:url value='board/boardMain'/>" role="button"> <span
-
 								class="mr-2 d-none d-lg-inline text-gray-600 small">게시판</span>
 						</a></li>
 						<li class="nav-item topNavText"><a class="nav-link"
