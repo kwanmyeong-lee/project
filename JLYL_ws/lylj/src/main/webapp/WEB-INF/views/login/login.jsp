@@ -43,14 +43,6 @@
 						<div class="row mb-4 px-3">
 						</div>
 						<div class="row px-3 mb-4">
-							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="emp" value="emp">
-							  <label class="form-check-label" for="emp">사원</label>
-							</div>
-							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="admin" value="admin">
-							  <label class="form-check-label" for="admin">관리자</label>
-							</div>
 						</div>
 						<div class="row px-3">
 							<label class="mb-1">
