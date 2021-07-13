@@ -29,7 +29,7 @@
 			    <tr id="tdStyle">
 		            <td class="userNameTd">유혁</td>
 		            <td>
-		            	<a href="https://www.youtube.com/" class="titleA">테스트용 제목</a> 
+		            	<a href="<c:url value='/board/boardDetail'/>" class="titleA">테스트용 제목</a> 
 		            	<span>[6]</span> <=[ ] 안에 댓글 수 
 		            	<span class="newSpan">new</span>
 		            </td>

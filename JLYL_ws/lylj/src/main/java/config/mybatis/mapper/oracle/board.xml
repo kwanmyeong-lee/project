@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.it.lylj.board.model.BoardDAO">
+	<insert id="insertBoard" parameterType="BoardVo">
+		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+			SELECT OFBOARD_SEQ.nextval FROM OFBOARD 
+		</selectKey>
+		insert into OFBOARD(BOARD_NO, EMP_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER, BOARD_HITS, BOARD_DEL_FLAG, BOARD_THEME, BOARD_FOLDER_NO)
+		values(#{boardNo}, #{empNo}, #{boardTitle}, #{boardContent}, #{boardWriter}, #{boardHits}, #{boardDelFlag}, #{boardTheme}, #{boardFolderNo})
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+

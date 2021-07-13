@@ -29,12 +29,22 @@
 			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
 		});
 	});
+	
+	$(function(){
+		$('#inputGroupFileAddon04').click(function(){
+			$('#inputGroupFile04').val('');
+		});
+		
+		$('#writeCancleBtn').click(function(){
+			window.history.back();
+		});
+	});
 </script>
 <form method="post" class="writeForm">
     <div class="wrtieDiv">
         <select name="boardSelect" id="boardSelect">
             <option value="">게시판을 선택해주세요.</option>
-            <option value="freeBoard">안내게시판</option>
+            <option value="">안내게시판</option>
             <option value="freeBoard">자유게시판</option>
             <option value="freeBoard">팀원게시판</option>
             <option value="freeBoard">자유게시판</option>
@@ -44,7 +54,7 @@
         <br>
         <label for="titleLb" id="writeTitle">제목 : </label>
         <input type="text" name="title" id="title"> 
-        <button id="writeCancleBtn">취소</button>
+        <div id="writeCancleBtn">취소</div>
         <textarea id="summernote" name="content" class="summernote"></textarea>
         <div class="input-group">
 		  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
