@@ -80,8 +80,7 @@
 	<div class="container" style="max-width: 1000px;">
 		<h1>기안서</h1>
 		<div style="text-align: right;">
-			<button type="button" class="btn btn-primary text-end">결재자
-				선택</button>
+			<button type="button" class="btn btn-primary text-end">결재 하기</button>
 		</div>
 		<div
 			class="row align-items-start selectLine border border-5 border-secondary">
@@ -183,6 +182,7 @@
 				<div class="form-group">
 					<input type="submit" name="submit" class="btn btn-primary">
 					<button type="button" class="btn btn-primary">임시 저장</button>
+					<button type="button" class="btn btn-primary">목록으로</button>
 					<button type="button" class="btn btn-primary">취소</button>
 				</div>
 			</div>

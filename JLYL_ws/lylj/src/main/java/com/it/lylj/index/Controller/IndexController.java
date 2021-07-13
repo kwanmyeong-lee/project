@@ -14,6 +14,13 @@ public class IndexController {
 		logger.info("메인 화면 보여주기");
 		
 	}
+
+	@RequestMapping("/inc/organizationChart")
+	public void organizationChart() {
+		logger.info("메인 화면 보여주기");
+		
+	}
+	
 	
 }
 
