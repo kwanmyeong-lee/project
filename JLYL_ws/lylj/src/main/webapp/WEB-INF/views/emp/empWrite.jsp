@@ -81,7 +81,7 @@
 		   <div class="row">
 			  <div class="col-md-6">
 			  	<label for="empName" class="form-label">이름</label>
-			    <input type="text" class="form-control" placeholder="name" aria-label="NAME" id="empName" name="empName">
+			    <input type="text" class="form-control" placeholder="name" id="empName" name="empName">
 			  </div>
 		   </div>
 		   <div></div>
@@ -138,11 +138,11 @@
 		  	<div class="row">
 			  	<div class="col-md-6">
 					<label for="empRegdate" class="form-label">입사일</label>
-				    <input type="text" class="form-control" id="empRegdate" name="empRegdate" placeholder="Regdate">
+				    <input type="date" class="form-control" id="empRegdate" name="empRegdate" placeholder="Regdate">
 			  	</div>
 			  	<div class="col-md-6">
 			  		<label for="empBirth" class="form-label">생일</label>
-				    <input type="text" class="form-control" id="empBirth" name="empBirth" placeholder="birth day">
+				    <input type="date" class="form-control" id="empBirth" name="empBirth" placeholder="birth day">
 			  	</div>
 		  	</div>
 		  	<div></div>
@@ -173,7 +173,7 @@
 				    <select class="form-control" id="departmentNo" name="departmentNo">
 				    	<option>-선택하세요-</option>
 				    	<c:forEach var="departmentVo" items="${departmentList}">
-				    		<option value="${departmentVo.departmentNo}">${departmentVo.departmentName }</option>
+				    		<option value='${departmentVo.departmentNo}'>${departmentVo.departmentName }</option>
 				    	</c:forEach>
 				    </select>
 				 </div>
