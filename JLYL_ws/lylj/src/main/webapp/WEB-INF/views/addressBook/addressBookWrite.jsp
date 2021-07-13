@@ -8,23 +8,23 @@
 		<h4>주소록 등록</h4>
 		<p>설명을 어쩌규 저쩌구 할것임 ㅇㅇ</p>
 		<div id="userNameInputDiv">
-			<label>이름</label>:
+			<label>이름</label><span class="splitSpan">:</span>
 			<input type="text" name="addressBook_name" id="addressBook_name" class="inputItems">
 		</div>
 		<div id="telInputDiv">
-			<label>번호</label>:
+			<label>번호</label><span class="splitSpan">:</span>
 			<input type="text" name="addressBook_tel" id="addressBook_tel" class="inputItems">
 		</div>
 		<div id="emailInputDiv">
-			<label>메일</label>:
+			<label>메일</label><span class="splitSpan">:</span>
 			<input type="text" name="addressBook_maile" id="addressBook_maile" class="inputItems">
 		</div>
 		<div id="InputDiv">
-			<label>부서</label>:
+			<label>부서</label><span class="splitSpan">:</span>
 
 		</div>
 		<div id="positionInputDiv">
-			<label>직급</label>:
+			<label>직급</label><span class="splitSpan">:</span>
 
 		</div>
 		<div id="btnItems">
