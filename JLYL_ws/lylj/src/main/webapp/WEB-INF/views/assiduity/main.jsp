@@ -4,8 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <%@ include file="top.jsp"%>
+
+<!-- 달력 -->
 <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
 <script src='//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
 
 
 <style>
@@ -167,6 +170,9 @@
 	font-size: 30px;
 	color: black;
 }
+.now-span:hover{
+	cursor:pointer;
+}
 #todayYearMonth{
 	font-size:15px;
 }
@@ -181,6 +187,18 @@
 }
 #liCol2{
 	color:#f14f4f; 
+}
+
+/* content-table */
+.content-table{
+	width: 100%;
+}
+.content-table td:nth-child(2n){
+	border-left: 1px dotted black;
+}
+.content-table td:nth-child(2n-1){
+	border-left: 1px solid black;
+	height: 35px;
 }
 </style>
 
@@ -217,6 +235,19 @@ $(function(){
 		
 		$('#comeTime').text(now);
 		$(this).prop("disabled",true);
+		var comeNum = hourMin(now);
+		
+		var comef="#content-td"+comeNum;
+		
+		var nDate=new Date();
+		var weekNum= getWeekOfMonth(nDate);
+		var weekDay=moment(nDate).format('d');
+		
+		var parent="#content"+weekNum+"Div"+weekDay;
+		
+		$(parent).find(comef).css("background","blue");
+		
+		
 	});
 		
 	$('#btnLeave').click(function(){
@@ -232,6 +263,20 @@ $(function(){
 			$('#dayWorkTime').text(dayWorkTime);
 			
 			
+			var comeNum = hourMin("08:24:00");
+			var leaveNum = hourMin(now);
+			
+			
+			var nDate=new Date();
+			var weekNum= getWeekOfMonth(nDate);
+			var weekDay=moment(nDate).format('d');
+			
+			var parent="#content"+weekNum+"Div"+weekDay;
+
+			for(var i=comeNum; i<=leaveNum; i++){
+				var comef="#content-td"+i;
+				$(parent).find(comef).css("background","blue");
+			}
 		}else{
 			alert("출근을 하세요");
 		}
@@ -405,16 +450,27 @@ function workTime(cTime,lTime){
 	return dayWorkTime; 
 }
 
+function hourMin(time){
+	var hour= time.substring(0,time.indexOf(":"));
+	var min= time.substring(time.indexOf(":")+1,time.lastIndexOf(":"));
+	min=Number(min);
+	
+	var num= Number(hour)*2;
+	if(min>=30){
+		num++;
+	}
+	
+	return num;
+}
+
 var nowDates= new Date();
 window.onload= function(){
 	Clock();
 	NowYD();
-	dayView(nowDates);	
+	dayView(nowDates);
 }
 
 </script>
-
-
         <title>assiduitygMain</title>
         <div>
             <article>
@@ -488,7 +544,20 @@ window.onload= function(){
 	      		<div class="w-c content-approval content-approval${weekDay }"><span>일자</span></div>
 			</div>
 			<div id="content${weekNo }Div${weekDay }" class="content-collapse collapse" aria-labelledby="headingOne${weekNo }" data-bs-parent=".abody${weekNo }">
-	                        <div class="content-content">내 근태 현황</div>
+				<div class="content-content">
+				<table class="content-table">
+					<tr>
+						<c:forEach var="i" begin="0" end="23">
+	                   		<th colspan="2"><fmt:formatNumber value="${i }" pattern="00"  />:00</th>
+						</c:forEach>
+					</tr>
+					<tr>
+						<c:forEach var="i" begin="0" end="47">
+	                   		<td id="content-td${i }"></td>
+						</c:forEach>
+					<td>
+	            </table>
+	            </div>
 	        </div>
         </c:forEach>
       </div>
@@ -497,7 +566,6 @@ window.onload= function(){
   </c:forEach>
 </div>
 
-               
             </article>
         </div>
             <%@ include file="bottom.jsp"%>

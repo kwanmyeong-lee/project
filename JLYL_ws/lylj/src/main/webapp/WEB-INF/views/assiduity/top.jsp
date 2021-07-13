@@ -109,8 +109,8 @@
 					class="far fa-calendar-minus"></i> <span>근태관리</span>
 			</a>  <div id="collapse1" class="collapse " aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded ">
-                        <a class="collapse-item" href="buttons">내 근태 현황</a>
-                        <a class="collapse-item" href="buttons">내 연차 내역</a>
+                        <a class="collapse-item" href="<c:url value='/assiduity/main'/>">내 근태 현황</a>
+                        <a class="collapse-item" href="<c:url value='/assiduity/annual'/>">내 연차 내역</a>
                     </div>
                 </div> </li>
                 
@@ -120,8 +120,8 @@
 					class="far fa-calendar-minus"></i> <span>부서 근태관리</span>
 			</a>  <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons">부서 근태형황</a>
-                        <a class="collapse-item" href="buttons">부서 근태통계</a>
+                        <a class="collapse-item" href="<c:url value='/assiduity/condition'/>">부서 근태현황</a>
+                        <a class="collapse-item" href="<c:url value='/assiduity/stats'/>">부서 근태통계</a>
                     </div>
                 </div> </li>
 				
