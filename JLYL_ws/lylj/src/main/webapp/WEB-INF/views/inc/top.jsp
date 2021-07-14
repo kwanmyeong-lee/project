@@ -310,8 +310,9 @@
 							href="<c:url value='/schedule/scheduleMain'/>" role="button">
 								<span class="mr-2 d-none d-lg-inline text-gray-600 small">일정</span>
 						</a></li>
-						<li class="nav-item topNavText"><a class="nav-link" 
-							href="<c:url value="/addressBook/addressBookMain"/>" role="button"> <span
+						<li class="nav-item topNavText"><a class="nav-link"
+							href="<c:url value="/addressBook/addressBookMain"/>"
+							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">주소록</span>
 						</a></li>
 
@@ -338,19 +339,17 @@
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="#"> <i
-									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-									Settings
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-									Activity Log
+									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내정보
 								</a>
+									<a class="dropdown-item" href="#"> <i
+									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 사원관리
+								</a>
+
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#" data-toggle="modal"
 									data-target="#logoutModal"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-									Logout
+									로그아웃
 								</a>
 							</div></li>
 
