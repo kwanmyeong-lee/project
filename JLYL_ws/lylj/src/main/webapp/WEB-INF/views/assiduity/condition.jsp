@@ -24,13 +24,16 @@
 	border-top: 1px solid; 
 }
 .condition-th{
-	border-bottom:1px solid;
+	border-bottom:1px solid gray;
 }
 .condition-td{
-	border-bottom:1px solid;
+	border-bottom:1px solid gray;
 }
 .select-form{
 	display: inline-block;
+}
+.time-text{
+	width: 50px;
 }
 </style>
 
@@ -50,6 +53,19 @@
 			}
 		});
 		
+		$('#nowLeft1').click(function(){
+			var now = new Date($('#nowYearMonth1').text());
+			now.setDate(now.getDate()-1);
+			
+			conditionDate(now);
+		});
+		$('#nowRight1').click(function(){
+			var now = new Date($('#nowYearMonth2').text());
+			now.setDate(now.getDate()+1);
+			
+			conditionDate(now);
+		});
+		
 	});
 	
 	function conditionDate(date){
@@ -60,11 +76,28 @@
 		var sDate= moment(now).format("YYYY-MM-DD");
 		$('#nowYearMonth1').text(sDate);
 		
-		now.setDate(now.getDate()+6);
+		var weekDay=['일','월','화','수','목','금','토'];
+		var str ='<th class="condition-th">이름</th>';
+		str+='<th class="condition-th">누적근무시간</th>';
+		
+		for(var i=0; i<7; i++){
+			var days= moment(now).format("DD");
+			var dayNo= moment(now).format("d");
+			str+='<th class="condition-th">'+days+weekDay[dayNo]+'</th>';
+			now.setDate(now.getDate()+1);
+		}
+		
+		$('#tableTr1').html(str);
+		$('#tableTr1').children().eq(2).css("color","#ff9898");
+		$('#tableTr1').children().eq(8).css("color","#8ba5f3");
+		
+		
+		now.setDate(now.getDate()-1);
 		var eDate= moment(now).format("YYYY-MM-DD");
 		$('#nowYearMonth2').text(eDate);
 		
 	}
+	
 	
 	var nowDates= new Date();
 	window.onload= function(){
@@ -79,12 +112,12 @@
             <article>
                <h3>근태현황</h3>
                <div class="now-div text-center">
-               		<span class="now-span" id="nowLeft"><i class="fas fa-chevron-left"></i></span>
+               		<span class="now-span" id="nowLeft1"><i class="fas fa-chevron-left"></i></span>
                		<span class="now-span" id="nowYearMonth1"></span>
                		<span class="now-span">~</span>
                		<span class="now-span" id="nowYearMonth2"></span>
-               		<span class="now-span" id="nowRight"><i class="fas fa-chevron-right"></i></span>
-               		<span class="now-span" id="todayYearMonth">오늘</span>
+               		<span class="now-span" id="nowRight1"><i class="fas fa-chevron-right"></i></span>
+               		<span class="now-span" id="todayYearMonth1">오늘</span>
                </div>
                
                
@@ -107,7 +140,7 @@
                		</form> 
                		
                		<form class="select-form select-time" hidden="hidden">
-	               		<input type="text" ><span>시간</span>
+	               		<input type="text" class="time-text" oninput="this.value = this.value.replace(/[^0-9]/g, '');"><span>시간</span>
 	               		<select>
 	               			<option>초과</option>
 	               			<option>미만</option>
@@ -118,16 +151,8 @@
                
 				<div class="condition-div">
 					<table class="condition-table">
-						<tr>
-							<th class="condition-th">이름</th>
-							<th class="condition-th">누적근무시간</th>
-							<th class="condition-th">01(일)</th>
-							<th class="condition-th">01(월)</th>
-							<th class="condition-th">01(화)</th>
-							<th class="condition-th">01(수)</th>
-							<th class="condition-th">01(목)</th>
-							<th class="condition-th">01(금)</th>
-							<th class="condition-th">01(토)</th>
+						<tr id="tableTr1">
+							
 						</tr>
 						<c:forEach var="i" begin="0" end="8">
 							<tr>

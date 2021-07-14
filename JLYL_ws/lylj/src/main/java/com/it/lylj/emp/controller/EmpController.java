@@ -43,6 +43,7 @@ public class EmpController {
 		//3
 		model.addAttribute("positionList", positionList);
 		model.addAttribute("departmentList", departmentList);
+		model.addAttribute("navNo", 8);
 		
 		return "emp/empWrite";
 		
@@ -68,12 +69,27 @@ public class EmpController {
 		return "common/message";
 	}
 	
+
+
+	@GetMapping("/empInfo")
+	public void empinfo(Model model) {
+		logger.info("사원정보디테일 페이지");
+		model.addAttribute("navNo", 8);
+	}
+	
+	@GetMapping("/empEdit")
+	public void empEdit(Model model) {
+		logger.info("사원정보디테일 페이지");
+		model.addAttribute("navNo", 8);
+	}
+	
+	@GetMapping("/empList")
+	public void empList(Model model) {
+		logger.info("사원정보리스트 페이지");
+		model.addAttribute("navNo", 8);
+	}
+
 }
-
-
-
-
-
 
 
 
