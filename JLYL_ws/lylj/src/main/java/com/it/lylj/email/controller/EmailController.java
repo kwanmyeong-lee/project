@@ -21,7 +21,8 @@ public class EmailController {
 	}
 	
 	@RequestMapping("/emailWrite")
-	public void emailWrite() {
+	public void emailWrite(Model model) {
 		logger.info("이메일쓰기 페이지");
+		model.addAttribute("navNo", 2);
 	}
 }
