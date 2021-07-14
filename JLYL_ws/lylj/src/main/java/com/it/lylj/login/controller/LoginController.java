@@ -10,7 +10,7 @@ public class LoginController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	@RequestMapping("login/login")
+	@RequestMapping("/login/login")
 	public void login() {
 		logger.info("로그인 페이지");
 	}
