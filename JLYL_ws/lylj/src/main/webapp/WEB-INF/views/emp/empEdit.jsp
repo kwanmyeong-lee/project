@@ -189,7 +189,7 @@
 			  </div>
 			<div></div>
 			<div class="btGroup">
-				<button class="btn btn-secondary " type="submit">사원등록</button>
+				<button class="btn btn-secondary " type="submit">수정</button>
 				<button class="btn btn-secondary " type="button" >취소</button>
 			</div>
 		</form>
