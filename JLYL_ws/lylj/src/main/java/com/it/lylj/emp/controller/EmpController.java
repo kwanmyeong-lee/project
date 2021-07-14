@@ -67,4 +67,13 @@ public class EmpController {
 		
 		return "common/message";
 	}
+	
 }
+
+
+
+
+
+
+
+

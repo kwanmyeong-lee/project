@@ -1,5 +1,7 @@
 package com.it.lylj.emp.model;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -12,5 +14,10 @@ public class EmpServiceImpl implements EmpService{
 	@Override
 	public int insertEmp(EmpVO vo) {
 		return empDao.insertEmp(vo);
+	}
+
+	@Override
+	public List<EmpVO> selectAllEmp() {
+		return empDao.selectAllEmp();
 	}
 }
