@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../inc/top.jsp" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="<c:url value='/resources/css/board/style.css'/>">
@@ -24,9 +24,9 @@
 	    <div id="titleDiv"> 
 	    	<span>제목테스트!!!</span>
 	    	<br>
-	        <a href="#" id="userNameSpan">테스트이름</a>
-	        <span id="readcountSpan">조회수 : 39</span>
-		    <span id="regdateSpan">2021-07-05 23:38:55</span>
+	        <a href="#" id="userNameSpan">${vo.boardWriter }</a>
+	        <span id="readcountSpan">조회수 : ${vo.boardHits }</span>
+		    <span id="regdateSpan"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 	            <button id="detialMenu" type="button" data-bs-toggle="dropdown" >
 	                <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
 	            </button>
@@ -41,7 +41,7 @@
 			    </div>
 	    </div>
 	    <div id="borderDiv"></div>
-	   	<div id="contentTaDetail">녝스트 럐블~~~ 저 너머의 문을12312312312312312312312312312312312azsdasdcfqawedr Q3ERE ASEDFSDF ASD FAWERFWEFszdfgwerfgawe3123123123131 열어 녝st 럐ㅖ블</div>
+	   	<div id="contentTaDetail">${vo.boardContent }</div>
 	    <div id="borderDiv"></div>
     </div>
 	<%@ include file="boardComment.jsp" %>

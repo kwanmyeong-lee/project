@@ -8,4 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface BoardDAO {
 	int insertBoard(BoardVO vo);
 	List<BoardVO> selectBoard(int boardFolderNo);
+	int updateReadCount(int boardNo);
+	BoardVO selectByNo(int boardNo);
+
 }
