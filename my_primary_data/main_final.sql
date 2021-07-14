@@ -29,6 +29,7 @@ DROP TABLE MAILFILE CASCADE CONSTRAINTS ;
 DROP TABLE BREAKDAY CASCADE CONSTRAINTS ;
 DROP TABLE BREAKTHEME CASCADE CONSTRAINTS ;
 DROP SEQUENCE EMP_SEQ;
+DROP SEQUENCE CALENDAR_SEQ;
 
 ------------------------- DROP ---------------------------------
 
@@ -41,6 +42,12 @@ INCREMENT BY 1
 START WITH 1 
 NOCACHE;
 
+CREATE SEQUENCE CALENDAR_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
 
 ------------------------- SEQ ----------------------------------
 
@@ -982,6 +989,11 @@ insert into EMP values(EMP_SEQ.nextval, 'admin4', 'admin4', '010-3225-4091', 'ad
 insert into EMP values(EMP_SEQ.nextval, 'admin5', 'admin5', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 3);
 insert into EMP values(EMP_SEQ.nextval, 'admin6', 'admin6', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 4);
 
+--달력테마
+insert into sctheme values(1, '일정');
+
+--달력
+insert into calendar values(calendar_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','red',1,1,1,null,'asd');
 
 
 commit;

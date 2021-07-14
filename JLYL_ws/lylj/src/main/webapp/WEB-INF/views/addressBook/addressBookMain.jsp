@@ -13,7 +13,14 @@
 			$(".addressBookModal").hide();
 		});
 		
-		/* 주소록 수정 모달 - 첫번째 하나만되는듯....*/
+		/* 주소록 수정 모달 */
+		$('.tdStyle').hover(function(){
+			$(this).css("background","rgb(240, 240, 240)");
+		}, function(){
+			$(this).css("background","none");
+		});
+		
+		/* 주소록 수정 모달 */
 		$(".userNameClick").click(function() {
 			$(".addressBookEditModal").fadeIn();
 		});
@@ -114,7 +121,10 @@
 		        <c:forEach var="i" begin="1" end="20">
 				    <tr class="tdStyle">
 			            <td><input type="checkbox" class="chkBox"> </td>
-			            <td id="userNameTd" class="userNameClick"><img src="<c:url value='/resources/img/undraw_profile.svg'/>"> <span id="userNameSpan">테스트</span></td>
+			            <td id="userNameTd" class="userNameClick">
+			            	<img src="<c:url value='/resources/img/undraw_profile.svg'/>"> 
+			            	<span id="userNameSpan">테스트</span> 
+		            	</td>
 			           	<td id="telTd" >010-3333-8888</td>
 			            <td id="emailTd" >yooh0201@gmail.com</td>
 			            <td id="" >웹 백엔드</td>

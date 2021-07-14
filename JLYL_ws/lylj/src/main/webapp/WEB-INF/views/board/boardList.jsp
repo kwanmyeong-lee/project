@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/board/style.css'/>">
 
 <div id="listBodyDiv">
-	<h4>?? 게시판</h4>
+	<h4> 게시판</h4>
 	<br>
 	<div id="writeBtnDiv">글쓰기</div>
 	<table>
@@ -25,18 +25,25 @@
 		    </tr>
         </thead>
         <tbody>
-	        <c:forEach var="i" begin="1" end="10">
+        <c:if test="${empty list}">
+		    <tr id="tdStyle">
+	            <td colspan="4" class="userNameTd">등록된 게시글이 없습니다.</td>
+    		</tr>    	
+        </c:if>
+        <c:if test="${!empty list}">
+	        <c:forEach var="vo" items="${list}">
 			    <tr id="tdStyle">
-		            <td class="userNameTd">유혁</td>
+		            <td class="userNameTd">${vo.boardWriter}</td>
 		            <td>
-		            	<a href="<c:url value='/board/boardDetail'/>" class="titleA">테스트용 제목</a> 
-		            	<span>[6]</span> <=[ ] 안에 댓글 수 
-		            	<span class="newSpan">new</span>
+		            	<a href="<c:url value='/board/boardDetail'/>" class="titleA">${vo.boardTitle}</a> 
+		            	<span>[6]</span> <!-- [ ] 안에 댓글 수 (###########) -->
+		            	<span class="newSpan">new</span> <!-- 시간계산으로 new 처리 !!!! -->
 		            </td>
-		            <td class="regdateTd">2021-07-11</td>
-		            <td class="readCountTd">85</td>
+		            <td class="regdateTd">${vo.boardDate}</td>
+		            <td class="readCountTd">85</td> <!-- 조회수 컬럼 추가!!!! -->
 			    </tr>
 		    </c:forEach>
+        </c:if>
         </tbody>
 	</table>
 	
