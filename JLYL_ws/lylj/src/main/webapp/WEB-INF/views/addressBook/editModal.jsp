@@ -26,11 +26,11 @@
 	 	<div class="sidebar-brand-text mx-3">메인으로이동</div></a>
 	<!--Heading-->
 	<button type="button" class="btn btn-light btnSchAdd" id="newAddressBook">주소록 등록</button>
-	<div class="addressBookEditModal" id="topNavButton">
-		<div class="editModal_content">
+	<div class="addressBookModal" id="topNavButton">
+		<div class="modal_content">
 			<form name="frmBookWrite" action="#">
 				<div id="bookWriteDiv">
-						<h4>주소록 수정</h4>
+						<h4>주소록 등록</h4>
 						<p>설명을 어쩌규 저쩌구 할것임 ㅇㅇ</p>
 						<div id="userNameInputDiv" class="boxDiv">
 							<label>이름</label><span class="splitSpan">:</span>
@@ -61,8 +61,8 @@
 							
 						</div>
 						<div id="btnItems">
-							<input type="submit" id="bookWriteSubmit" value="수정">
-							<button id="bookWritwCancleBtn">취소</button>
+							<input type="submit" id="bookWriteSubmit" value="">
+							<button id="bookCancleBtn">취소</button>
 						</div>
 				</div>
 			</form>

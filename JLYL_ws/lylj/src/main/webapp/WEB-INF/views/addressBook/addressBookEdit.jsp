@@ -6,7 +6,7 @@
 
 <form name="frmBookWrite" action="#">
 	<div id="bookWriteDiv">
-		<h4>주소록 등록</h4>
+		<h4>주소록 수정</h4>
 		<p>설명을 어쩌규 저쩌구 할것임 ㅇㅇ</p>
 		<div id="userNameInputDiv">
 			<label>이름</label>:
