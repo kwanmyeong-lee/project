@@ -17,6 +17,28 @@ public class EmpServiceImpl implements EmpService{
 	}
 
 	@Override
+	public int loginProc(int empNo, String empPwd) {
+		String dbPwd = empDao.selectPwd(empNo);
+		
+		int result = 0;
+		if(dbPwd==null || dbPwd.isEmpty()) {
+			result =ID_NONE;
+		}else {
+			if(dbPwd.equals(empPwd)) {
+				result = LOGIN_OK;
+			}else {
+				result = PWD_DISAGREE;
+			}
+			
+		}
+		
+		return result;
+	}
+
+	@Override
+	public EmpVO selectByEmpNo(int empNo) {
+		return empDao.selectByEmpNo(empNo);
+  @Override
 	public List<EmpVO> selectAllEmp() {
 		return empDao.selectAllEmp();
 	}

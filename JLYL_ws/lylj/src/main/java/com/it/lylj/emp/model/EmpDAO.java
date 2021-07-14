@@ -7,5 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface EmpDAO {
 	int insertEmp(EmpVO vo);
-	List<EmpVO> selectAllEmp();
+	String selectPwd(int empNo);
+	EmpVO selectByEmpNo(int empNo);
+
 }
