@@ -34,10 +34,6 @@ public class BoardController {
 		return "board/boardWrite";
 	}
 	
-	@PostMapping("/boardWrite")
-	public String write_post(@ModelAttribute BoardVO, Model model) {
-		
-	}
 	
 	//게시글 수정
 	@RequestMapping("/boardEdit")

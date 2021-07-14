@@ -258,9 +258,3 @@ function hourMin(time){
 	return num;
 }
 
-var nowDates= new Date();
-window.onload= function(){
-	Clock();
-	NowYD();
-	dayView(nowDates);
-}
