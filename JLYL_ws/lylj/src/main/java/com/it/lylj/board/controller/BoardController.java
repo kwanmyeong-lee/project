@@ -28,9 +28,7 @@ public class BoardController {
 	private final BoardService boardSerive;
 	private final BoardFolService boardFolService;
 	
-
 	/*        메인        */
-
 	@RequestMapping("/boardMain")
 	public String main(Model model) {
 		logger.info("게시판 메인 페이지");
@@ -76,31 +74,6 @@ public class BoardController {
 		
 		return "common/message";
 	}
-	
-	@PostMapping("/boardWrite")
-	public String write_post(@ModelAttribute BoardVO vo, Model model) {
-		logger.info("게시판 등록 처리");
-		
-		/* 파일 업로드 처리*/
-		
-		
-		
-		/* 글등록 처리 */
-		int cnt=boardSerive.insertBoard(vo);
-		logger.info("게시판 등록 결과, cnt={}", cnt);
-		
-		String msg="등록을 실패하였습니다.", url="/board/boardMain";
-		if(cnt>0) {
-			msg="등록 성공";
-			url="/board/boardMain";
-		}
-		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		
-		return "common/message";
-	}
-
 
 	/*        게시글 목록        */
 	@RequestMapping("/boardList")	
@@ -167,6 +140,7 @@ public class BoardController {
 		return "board/boardDetail";
 	}
 
+
 	/*        게시글 수정        */
 	@RequestMapping("/boardEdit")
 	public String eidt(Model model) {
@@ -174,5 +148,11 @@ public class BoardController {
 		model.addAttribute("navNo",6);
 
 		return "board/boardEdit";
-  }
+	}
+	
+	
+	
+	
+	
+	
 }
