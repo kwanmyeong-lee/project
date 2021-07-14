@@ -10,4 +10,5 @@ public interface BoardDAO {
 	List<BoardVO> selectBoard(int boardFolderNo);
 	int updateReadCount(int boardNo);
 	BoardVO selectByNo(int boardNo);
+
 }

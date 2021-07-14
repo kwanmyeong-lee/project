@@ -30,6 +30,4 @@ public class BoardServiceImpl implements BoardService{
 	public BoardVO selectByNo(int boardNo) {
 		return boardDao.selectByNo(boardNo);
 	}
-
-
 }
