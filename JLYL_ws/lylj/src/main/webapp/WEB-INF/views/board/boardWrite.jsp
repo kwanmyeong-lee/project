@@ -38,24 +38,39 @@
 		$('#writeCancleBtn').click(function(){
 			window.history.back();
 		});
+		
+		$('form[name="writeForm"]').submit(function(){
+			//유효성 검사
+			if($('#boardSelect').val()==''){
+				alert('게시판을 선택하세요.');
+				return false;
+			}else if($('#title').val()==''){
+				alert('상품명을 입력하세요.');
+				return false;
+			}else if($('#summernote').val()==''){
+				alert('상품명을 입력하세요.');
+				return false;
+			}
+		});
 	});
 </script>
-<form method="post" class="writeForm">
+<form method="post" class="writeForm" name="writeForm" action="<c:url value='/board/boardWrite'/>">
+<input type="hidden" name="empNo" value="6"><!-- 사원번호 -->
+<input type="hidden" name="boardWriter" value="테슽흐"><!-- 사원번호 -->
     <div class="wrtieDiv">
-        <select name="boardSelect" id="boardSelect">
+        <select name="boardFolderNo" id="boardSelect">
             <option value="">게시판을 선택해주세요.</option>
-            <option value="">안내게시판</option>
-            <option value="freeBoard">자유게시판</option>
-            <option value="freeBoard">팀원게시판</option>
-            <option value="freeBoard">자유게시판</option>
+            <c:forEach var="fol" items="${folList }">
+	            <option value="${fol.boardFolderNo }">${fol.boardFolderName }</option>
+            </c:forEach>
             <!-- 게시판을 추가하면 자동으로 추가되게끔 size 또는 length 받아옴 -->
         </select>
         <input type="submit" value="업로드" id="submitUp"><br>
         <br>
         <label for="titleLb" id="writeTitle">제목 : </label>
-        <input type="text" name="title" id="title"> 
+        <input type="text" name="boardTitle" id="title"> 
         <div id="writeCancleBtn">취소</div>
-        <textarea id="summernote" name="content" class="summernote"></textarea>
+        <textarea id="summernote" name="boardContent" class="summernote"></textarea>
         <div class="input-group">
 		  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
 		  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"><i class="fas fa-trash-alt"></i></button>

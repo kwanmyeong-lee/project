@@ -1,5 +1,7 @@
 package com.it.lylj.board.model;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int insertBoard(BoardVO vo) {
 		return boardDao.insertBoard(vo);
+	}
+
+	@Override
+	public List<BoardVO> selectBoard(int boardFolderNo) {
+		return boardDao.selectBoard(boardFolderNo);
 	}
 
 }
