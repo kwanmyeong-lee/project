@@ -5,11 +5,16 @@
 <mapper namespace="com.it.lylj.board.model.BoardDAO">
 	<insert id="insertBoard" parameterType="BoardVo">
 		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
-			SELECT OFBOARD_SEQ.nextval FROM OFBOARD 
+			SELECT OFBOARD_SEQ.nextval FROM ofboard 
 		</selectKey>
-		insert into OFBOARD(BOARD_NO, EMP_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER, BOARD_HITS, BOARD_DEL_FLAG, BOARD_THEME, BOARD_FOLDER_NO)
-		values(#{boardNo}, #{empNo}, #{boardTitle}, #{boardContent}, #{boardWriter}, #{boardHits}, #{boardDelFlag}, #{boardTheme}, #{boardFolderNo})
+		INSERT INTO ofboard(BOARD_NO, EMP_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER, BOARD_FOLDER_NO)
+		VALUES(#{boardNo}, #{empNo}, #{boardTitle}, #{boardContent:CLOB}, #{boardWriter}, #{boardFolderNo})
 	</insert>
+	
+	<select id="selectBoard" parameterType="int" resultType="boardVo">
+		SELECT * FROM ofboard
+		WHERE board_folder_no=#{boardFolderNo}
+	</select>
 </mapper>
 
 
