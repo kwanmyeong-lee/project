@@ -1,5 +1,7 @@
 package com.it.lylj.emp.model;
 
+import java.util.List;
+
 public interface EmpService {
 	//로그인처리 상수
 	int LOGIN_OK=1;
@@ -9,4 +11,5 @@ public interface EmpService {
 	int insertEmp(EmpVO vo);
 	public int loginProc(int empNo, String empPwd);
 	EmpVO selectByEmpNo(int empNo);
+	List<EmpVO> selectAllEmp();
 }

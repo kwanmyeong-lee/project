@@ -7,6 +7,11 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class IndexVO {
+public class OriVo {
+	
 	private String id;
+//	private String parent;
+	private String text;
+//	private String icon;
+	
 }

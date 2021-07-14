@@ -26,7 +26,10 @@ DROP TABLE ADDFOL CASCADE CONSTRAINTS ;
 DROP TABLE ADDBOOK CASCADE CONSTRAINTS ;
 DROP TABLE MAIL CASCADE CONSTRAINTS ;
 DROP TABLE MAILFILE CASCADE CONSTRAINTS ;
+DROP TABLE BREAKDAY CASCADE CONSTRAINTS ;
+DROP TABLE BREAKTHEME CASCADE CONSTRAINTS ;
 DROP SEQUENCE EMP_SEQ;
+DROP SEQUENCE CALENDAR_SEQ;
 
 ------------------------- DROP ---------------------------------
 
@@ -39,6 +42,12 @@ INCREMENT BY 1
 START WITH 1 
 NOCACHE;
 
+CREATE SEQUENCE CALENDAR_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
 
 ------------------------- SEQ ----------------------------------
 
@@ -49,7 +58,7 @@ CREATE TABLE EMP (
 	EMP_PWD VARCHAR2(255), /* 비밀번호 */
 	EMP_TEL VARCHAR2(255), /* 전화번호 */
 	EMP_EMAIL VARCHAR2(255), /* 이메일 */
-	EMP_ZIPCODE VARCHAR2(255), /* 우편번호 */
+	EMP_ZIPCODE NUMBER, /* 우편번호 */
 	EMP_ADDRESS VARCHAR2(255), /* 주소 */
 	EMP_ADDRESSDETAIL VARCHAR2(255), /* 상세주소 */
 	EMP_REGDATE DATE, /* 입사일 */
@@ -103,7 +112,6 @@ ALTER TABLE ELIMP
 /* 메일 */
 CREATE TABLE MAIL (
 	MAIL_NO NUMBER NOT NULL, /* 메일 번호 */
-    MAIL_EMPNO number NOT NULL, /*메일 사원번호*/
 	MAIL_TITLE VARCHAR2(255) NOT NULL, /* 제목 */
 	MAIL_CONTENT CLOB NOT NULL, /* 내용 */
 	MAIL_SEND VARCHAR2(255) NOT NULL, /* 보낸사람 */
@@ -111,7 +119,8 @@ CREATE TABLE MAIL (
 	MAIL_SENDDATE DATE DEFAULT SYSDATE, /* 보낸 날짜 */
 	MAIL_READDATE DATE, /* 읽은 날짜 */
 	MAIL_RESERVE DATE, /* 예약 날짜 */
-	MAIL_DEL_CHECK VARCHAR2(255) DEFAULT 0 /* 삭제 여부 */
+	MAIL_DEL_CHECK VARCHAR2(255) DEFAULT 0, /* 삭제 여부 */
+	MALI_EMPNO NUMBER NOT NULL /* 사원번호 */
 );
 
 CREATE UNIQUE INDEX PK_MAIL
@@ -132,7 +141,9 @@ CREATE TABLE ATTEND (
 	EMP_NO NUMBER, /* 사원 번호 */
 	ATTENDANCE_ANNUAL_COUNT NUMBER DEFAULT 21, /* 연차 갯수 */
 	ATTENDANCE_ANNUAL_USE NUMBER DEFAULT 0, /* 연차 사용일 */
-	ATTENDANCE_LATE_COUNT NUMBER DEFAULT 0 /* 지각 일수 */
+	ATTENDANCE_LATE_COUNT NUMBER DEFAULT 0, /* 지각 일수 */
+	ATTENDANCE_REWARD_COUNT NUMBER DEFAULT 0, /* 보상 휴가 일수 */
+	ATTENDANCE_REWARD_USE NUMBER DEFAULT 0 /* 보상휴가 사용일 */
 );
 
 CREATE UNIQUE INDEX PK_ATTEND
@@ -295,8 +306,6 @@ ALTER TABLE DEPARTMENT
 		PRIMARY KEY (
 			DEPARTMENT_NO
 		);
-    
-
 
 /* 직급 */
 CREATE TABLE POSITION (
@@ -609,6 +618,45 @@ ALTER TABLE RELINE
 			RECEIVE_LINE_NO
 		);
 
+/* 휴가 정보 */
+CREATE TABLE BREAKDAY (
+	BREAKDAY_NO NUMBER NOT NULL, /* 휴가 번호 */
+	BREAKDAY_START DATE, /* 시작일 */
+	BREAKDAY_END DATE, /* 마지막일 */
+	EMP_NO NUMBER, /* 사원 번호 */
+	BREAKTHEME_NO NUMBER /* 휴가 종류 번호 */
+);
+
+CREATE UNIQUE INDEX PK_BREAKDAY
+	ON BREAKDAY (
+		BREAKDAY_NO ASC
+	);
+
+ALTER TABLE BREAKDAY
+	ADD
+		CONSTRAINT PK_BREAKDAY
+		PRIMARY KEY (
+			BREAKDAY_NO
+		);
+
+/* 휴가 종류 */
+CREATE TABLE BREAKTHEME (
+	BREAKTHEME_NO NUMBER NOT NULL, /* 휴가 종류 번호 */
+	BREAKTHEME_NAME VARCHAR2(255) /* 휴가 종류 이름 */
+);
+
+CREATE UNIQUE INDEX PK_BREAKTHEME
+	ON BREAKTHEME (
+		BREAKTHEME_NO ASC
+	);
+
+ALTER TABLE BREAKTHEME
+	ADD
+		CONSTRAINT PK_BREAKTHEME
+		PRIMARY KEY (
+			BREAKTHEME_NO
+		);
+
 ALTER TABLE EMP
 	ADD
 		CONSTRAINT FK_DEPARTMENT_TO_EMP
@@ -889,11 +937,32 @@ ALTER TABLE RELINE
 			EMP_NO
 		);
 
+ALTER TABLE BREAKDAY
+	ADD
+		CONSTRAINT FK_EMP_TO_BREAKDAY
+		FOREIGN KEY (
+			EMP_NO
+		)
+		REFERENCES EMP (
+			EMP_NO
+		);
+
+ALTER TABLE BREAKDAY
+	ADD
+		CONSTRAINT FK_BREAKTHEME_TO_BREAKDAY
+		FOREIGN KEY (
+			BREAKTHEME_NO
+		)
+		REFERENCES BREAKTHEME (
+			BREAKTHEME_NO
+		);
+
+
 
 -------------------------------------------------------------------------------------------
 
---insert into EMP value(EMP_SEQ.nextval, admin, admin, '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 1001, 1);
 
+select * from emp;
 ----직급
 insert into POSITION values(1, '사장');
 insert into POSITION values(2, '부장');
@@ -910,8 +979,24 @@ insert into DEPARTMENT values(4,'개발팀');
 insert into DEPARTMENT values(5,'인사팀');
 insert into DEPARTMENT values(6,'총무회계팀');
 
-commit;
+--EMP
 
+insert into EMP values(EMP_SEQ.nextval, 'admin', 'admin', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', null, null);
+insert into EMP values(EMP_SEQ.nextval, 'admin1', 'admin1', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin2', 'admin2', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin3', 'admin3', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 4);
+insert into EMP values(EMP_SEQ.nextval, 'admin4', 'admin4', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin5', 'admin5', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin6', 'admin6', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 4);
+
+--달력테마
+insert into sctheme values(1, '일정');
+
+--달력
+insert into calendar values(calendar_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','red',1,1,1,null,'asd');
+
+
+commit;
 
 
 

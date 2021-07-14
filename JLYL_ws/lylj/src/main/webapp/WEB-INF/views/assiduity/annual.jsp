@@ -75,11 +75,13 @@
                		<th class="ann-th">연차 사용기간</th>
                		<th class="ann-th">사용연차</th>
                </tr>
+               <tr>
                		<td class="ann-td">1</td>
                		<td class="ann-td">2</td>
                		<td class="ann-td">3</td>
                		<td class="ann-td">4</td>
                		<td class="ann-td">5</td>
+               </tr>
                </table>
 				</div>
 

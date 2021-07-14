@@ -43,7 +43,7 @@ public class ScheduleController {
 	@ResponseBody
 	public List<ScheduleVO> listSchedule(){
 		List<ScheduleVO> list = service.listSchedule();
-		logger.info("cal 리스트, 파라미터 vo = {}", list.get(1));
+		logger.info("cal 리스트, 파라미터 vo = {}", list.get(0));
 		
 		return list;
 	}

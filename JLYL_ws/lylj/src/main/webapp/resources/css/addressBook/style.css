@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* 주소록 메인 */
+/* top 주소록 모달*/
 .addressBookModal {
 	position: absolute;
 	width: 100%;
@@ -20,6 +20,20 @@
 	margin-left: 11px;
 	width: 198px;
 }
+
+/* 수정 모달 */
+.addressBookEditModal{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.2);
+	top: 0;
+	left: 0;
+	z-index: 1;
+	display: none;
+}
+
+/* 주소록 메인 */
 
 #bookMainDiv{
 	float: left;
@@ -121,6 +135,10 @@
 	border-radius: 30px;
 }
 
+#userNameTd{
+	cursor: pointer;
+}
+
 #userNameSpan{
 	padding-left: 15px;
 }
@@ -128,6 +146,7 @@
 #pagingDiv{
 	text-align: center;
 }
+
 
 /* 주소록 등록, 수정 */
 #bookWriteDiv{
@@ -202,7 +221,7 @@ div > label{
 	margin-right: 10px;
 }
 
-#bookWritwCancleBtn{
+.bookCancleBtn{
 	width: 90px;
 	height: 50px;
 	font-size: 17px;
