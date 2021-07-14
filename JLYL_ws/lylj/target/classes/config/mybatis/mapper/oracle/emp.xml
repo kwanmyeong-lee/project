@@ -15,8 +15,8 @@
 		#{empAddressdetail},#{empRegdate},null,#{empPhoto},#{empSalary},#{empAccount},#{empAdminLev},
 		#{empBirth},#{departmentNo},#{positionNo})
 	</insert>
-
-  <select id="selectPwd" parameterType="int" resultType="String">
+	
+	<select id="selectPwd" parameterType="int" resultType="String">
 		select emp_pwd from emp
 		where emp_no=#{empNo}
 	</select> 
@@ -25,9 +25,12 @@
 		select * from emp
 		where emp_no=#{empNo}
 	</select>
+
 	<select id="selectAllEmp" resultType="empVo">
 		select * from emp
 	</select>
+
+</mapper>
 
 
 
