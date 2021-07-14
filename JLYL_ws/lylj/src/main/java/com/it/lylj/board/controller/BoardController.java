@@ -30,7 +30,6 @@ public class BoardController {
 		
 		return "board/boardWrite";
 	}
-
 	//게시글 수정
 	@RequestMapping("/boardEdit")
 	public String eidt(Model model) {
