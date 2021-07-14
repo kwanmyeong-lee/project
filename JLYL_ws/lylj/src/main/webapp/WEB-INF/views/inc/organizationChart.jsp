@@ -27,39 +27,16 @@
 				alert(thrownError);
 			}
 		});
-
-		$('input[name=oriName]').keyup(function() {
-			var node = $('#oriName').val();
-			$('#SimpleJSTree').jstree(true).search(node);
-		});
-
 	});
 
 	function createJSTree(jsondata) {
-		$('#SimpleJSTree').jstree(
-				{
-					'core' : {
-						'data' : jsondata
-
-					},
-					"plugins" : [ "themes", "json_data", "ui", "types", "crrm",
-							"cookies", "contextmenu", "search" ]
-				}).bind("select_node.jstree", function(event, data) {
-			if (data.instance.get_node(data.selected).id >= 100) {
-				console.log("select_node.jstree");
-				selectEvetn(event);
+		$('#SimpleJSTree').jstree({
+			'core' : {
+				'data' : function(jsondata){
+					return {'id' : jsondata.id},{'text' : jsondata.text};
+				}
 			}
-
 		});
-
-	}
-
-	function selectEvetn(target) {
-		window
-				.open(
-						'popup.html',
-						'_blank',
-						'top=40, left=40, width=300, height=300, status=no, menubar=no, toolbar=no, resizable=no, directories=no, location=no, resizable=no');
 	}
 </script>
 </head>

@@ -70,6 +70,7 @@ public class EmpController {
 	}
 	
 
+
 	@GetMapping("/empInfo")
 	public void empinfo(Model model) {
 		logger.info("사원정보디테일 페이지");

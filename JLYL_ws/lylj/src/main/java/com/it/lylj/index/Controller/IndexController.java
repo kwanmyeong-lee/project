@@ -12,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.it.lylj.department.model.DepartmentService;
-import com.it.lylj.department.model.DepartmentVO;
 import com.it.lylj.emp.model.EmpService;
 import com.it.lylj.emp.model.EmpVO;
 import com.it.lylj.index.model.OriVo;
@@ -25,62 +23,64 @@ import lombok.RequiredArgsConstructor;
 public class IndexController {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	private final EmpService empService;
-	private final DepartmentService departmentService;
+
+
 
 	@RequestMapping("/inc/organizationChart")
 	public void organizationChart() {
 		logger.info("메인 화면 보여주기");
 
 	}
-
+	
 	@RequestMapping("/index")
-	public void test(HttpServletRequest req) {
-		HttpSession session = req.getSession();
+    public void test(HttpServletRequest req) {
+        HttpSession session = req.getSession();
 
-		session.setAttribute("empNo", 1);
+        session.setAttribute("empNo", 1);
 
-	}
+    }
+
+//	@ResponseBody
+//	@RequestMapping("/inc/list")
+//	public String  list() {
+//		logger.info("메인 화면 보여주기");
+//
+//		String vo = "[{\"id\":1,\"text\":\"Root node\",\"children\":[{\"id\":2,\"text\":\"Child node 1\"},{\"id\":3,\"text\":\"Child node 2\"}]}]";
+//		
+//		return vo;
+//	}
 
 	@ResponseBody
 	@RequestMapping("/inc/list")
 	public List<OriVo> selectOri() {
 		logger.info("메인 화면 보여주기");
 
-		List<OriVo> olist = new ArrayList<>();
-		List<EmpVO> elist = empService.selectAllEmp();
-		List<DepartmentVO> dlist = departmentService.selectAllDepartment();
+		List<EmpVO> list = empService.selectAllEmp();
 
-		for (int i = 0; i < elist.size(); i++) {
+		List<OriVo> alist = new ArrayList<>();
 
-			EmpVO empVo = elist.get(i);
+		for (int i = 0; i < list.size(); i++) {
+			
+			EmpVO empVo = list.get(i);
 			OriVo orivo = new OriVo();
-			int depNo = empVo.getDepartmentNo();
-			if (depNo == 0) {
-				orivo.setParent("#");
-			} else {
-				orivo.setParent(Integer.toString(depNo));
-
-			}
-			orivo.setId(Integer.toString(empVo.getEmpNo()));
+			orivo.setId(Integer.toString(empVo.getDepartmentNo()));
 			orivo.setText(empVo.getEmpName());
-			olist.add(orivo);
-		}
-
-		for(int i = 0; i< dlist.size();i++) {
+//			orivo.setParent(Integer.toString(empVo.getDepartmentNo()));
 			
-			DepartmentVO departVo = dlist.get(i);
-			OriVo orivo = new OriVo();
-			orivo.setId(Integer.toString(departVo.getDepartmentNo()));
-			orivo.setText(departVo.getDepartmentName());
-			orivo.setParent("#");
-			
-			olist.add(orivo);
+			alist.add(orivo);
 		}
-		return olist;
+		
+		return alist;
 
 	}
 
 }
+
+
+
+
+
+
 
 
 

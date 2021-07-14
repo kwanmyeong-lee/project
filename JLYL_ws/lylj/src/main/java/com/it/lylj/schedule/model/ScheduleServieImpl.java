@@ -18,8 +18,8 @@ public class ScheduleServieImpl implements ScheduleService{
 	}
 
 	@Override
-	public List<ScheduleVO> selectAllSchedule() {
-		return dao.selectAllSchedule();
+	public List<ScheduleVO> listSchedule() {
+		return dao.listSchedule();
 	}
 	
 }
