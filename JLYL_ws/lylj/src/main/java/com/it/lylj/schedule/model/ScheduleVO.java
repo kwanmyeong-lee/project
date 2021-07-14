@@ -8,9 +8,16 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ScheduleVO {
-	private int scno;
-	private String title;
-	private String startDate;
-	private String endDate;
-	private boolean allday;
+	private int scheduleNo;
+	private String scheduleTitle;
+	private String scheduleStart;
+	private String scheduleEnd;
+	private String scheduleAllday;
+	private String scheduleColor;
+	private int scheduleFolderNo;
+	private int scheduleThemeNo;
+	private int empNo;
+	private int bookingTargetNo;
+	private String scheduleContent;
+	
 }

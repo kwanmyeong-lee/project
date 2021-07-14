@@ -27,7 +27,7 @@
 	font-size: 9px;
 }
 .searchfrm{
-	margin-left: 380px;
+	margin-left: 450px;
 	width: 300px;
 }
 .email{
@@ -76,11 +76,9 @@
 	
 									<!-- 검색  -->
 									<form action="#" class="searchfrm" >
-										<div class="input-group mb-3">
-										<span>
+										<div class="input-group mb-4">
 											<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" id="searchBox">
 										  	<button class="btn_ btn-primary btn-sm" type="button" id="btn_search"><i class="fa fa-search"></i></button>
-										  </span>
 										</div>
 									</form>
 							</div>

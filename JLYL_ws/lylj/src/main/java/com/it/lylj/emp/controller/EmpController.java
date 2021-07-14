@@ -69,6 +69,8 @@ public class EmpController {
 		return "common/message";
 	}
 	
+
+
 	@GetMapping("/empInfo")
 	public void empinfo(Model model) {
 		logger.info("사원정보디테일 페이지");
@@ -86,8 +88,8 @@ public class EmpController {
 		logger.info("사원정보리스트 페이지");
 		model.addAttribute("navNo", 8);
 	}
-}
 
+}
 
 
 

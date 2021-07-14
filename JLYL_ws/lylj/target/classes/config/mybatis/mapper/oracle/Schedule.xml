@@ -3,13 +3,28 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.it.lylj.schedule.model.ScheduleDAO">
+	<resultMap id="cal_clob" type="hashMap">
+		    <result property="scheduleNo" column="SCHEDULE_NO" />
+		    <result property="scheduleTitle" column="SCHEDULE_TITLE" />
+		    <result property="scheduleStart" column="SCHEDULE_START" />
+		    <result property="scheduleEnd" column="SCHEDULE_END" />
+		    <result property="scheduleAllday" column="SCHEDULE_ALLDAY" />
+		    <result property="scheduleColor" column="SCHEDULE_COLOR" />
+		    <result property="scheduleFolderNo" column="SCHEDULE_FOLDER_NO" />
+		    <result property="scheduleThemeNo" column="SCHEDULE_THEME_NO" />
+		    <result property="empNo" column="EMP_NO" />
+		    <result property="bookingTargetNo" column="BOOKING_TARGET_NO" />
+		    <result property="scheduleContent" column="SCHEDULE_CONTENT" jdbcType="CLOB" javaType="java.lang.String"/>
+	</resultMap>
+	
 	<insert id="insertSchedule" parameterType="scheduleVO">
 		insert into schedule
-		values(schedule_seq.nextval, #{title}, #{startDate}, #{endDate}, #{allday})
+		values(schedule_seq.nextval, #{scheduleTitle}, #{scheduleStart}, #{scheduleEnd}, #{scheduleAllday},
+		#{scheduleColor},#{scheduleFolderNo},#{scheduleThemeNo},#{empNo},#{bookingTargetNo},#{scheduleContent})
 	</insert>
 	
-	<select id="listSchedule" resultType="scheduleVO">
-		select * from schedule
+	<select id="listSchedule" resultMap="cal_clob">
+		select * from calendar
 	</select>
  </mapper>
 
