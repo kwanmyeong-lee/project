@@ -14,7 +14,7 @@
 		});
 		
 		/* 주소록 수정 모달 - 첫번째 하나만되는듯....*/
-		$('.userNameClick')
+		$('.userNameClick').hover()
 		$(".userNameClick").click(function() {
 			$(".addressBookEditModal").fadeIn();
 		});
