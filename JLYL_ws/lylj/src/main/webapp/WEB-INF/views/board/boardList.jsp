@@ -41,7 +41,6 @@
 		            </td>
 		            <td class="regdateTd"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd"/></td>
 		            <td class="readCountTd">${vo.boardHits }</td> <!-- 조회수 컬럼 추가!!!! -->
-
 			    </tr>
 		    </c:forEach>
         </c:if>
