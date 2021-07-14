@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.lylj.board.model.BoardService;
@@ -29,7 +28,7 @@ public class BoardController {
 	private final BoardService boardSerive;
 	private final BoardFolService boardFolService;
 	
-	//메인
+	/*        메인        */
 	@RequestMapping("/boardMain")
 	public String main(Model model) {
 		logger.info("게시판 메인 페이지");
@@ -38,9 +37,9 @@ public class BoardController {
 		return "board/boardMain";
 	}
 	
-	//게시글 등록
+	/*        게시글 등록        */
 	@RequestMapping("/boardWrite")
-	public String write(Model model) {
+	public void write(Model model) {
 		logger.info("게시판 등록 페이지");
 		
 		/* 게시판 폴더 처리 */
@@ -50,12 +49,11 @@ public class BoardController {
 		model.addAttribute("folList", folList);
 		model.addAttribute("navNo",6);
 
-		return "board/boardWrite";
 	}
 	
 	@PostMapping("/boardWrite")
 	public String write_post(@ModelAttribute BoardVO vo, Model model) {
-		logger.info("게시판 등록 처리");
+		logger.info("게시판 등록 처리, 파라미터 vo={}", vo);
 		
 		/* 파일 업로드 처리*/
 		
@@ -68,7 +66,7 @@ public class BoardController {
 		String msg="등록을 실패하였습니다.", url="/board/boardMain";
 		if(cnt>0) {
 			msg="등록 성공";
-			url="/board/boardMain";
+			url="/board/boardList?boardFolderNo="+vo.getBoardFolderNo();
 		}
 		
 		model.addAttribute("msg", msg);
@@ -76,33 +74,15 @@ public class BoardController {
 		
 		return "common/message";
 	}
-	
-	//게시글 수정
-	@RequestMapping("/boardEdit")
-	public String eidt(Model model) {
-		logger.info("게시판 수정 페이지");
-		model.addAttribute("navNo",6);
 
-		return "board/boardEdit";
-	}
-	
-	//게시글 상세보기
-	@RequestMapping("/boardDetail")
-	public String detail(Model model) {
-		logger.info("게시판 상세보기 페이지");
-		model.addAttribute("navNo",6);
-		
-		return "board/boardDetail";
-	}
-	
-	//게시글 목록
+	/*        게시글 목록        */
 	@RequestMapping("/boardList")	
 	public String list(@RequestParam(defaultValue = "0")int boardFolderNo, Model model) {
 		
 		if(boardFolderNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
 			model.addAttribute("url", "/board/boardMain");
-
+			
 			return "common/message";
 		}
 		
@@ -116,7 +96,7 @@ public class BoardController {
 		if(boardFolderNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
 			model.addAttribute("url", "/board/boardMain");
-
+			
 			return "common/message";
 		}
 		
@@ -128,6 +108,50 @@ public class BoardController {
 		
 		return "board/boardList";
 	}
+	
+	/*        게시글 상세보기        */
+	@RequestMapping("/countUpdate")
+	public String hitsUpdate(@RequestParam(defaultValue = "0")int boardNo, Model model) {
+		logger.info("조회수 증가, 파라미터 boardNo={}", boardNo);
+		
+		if(boardNo==0) {
+			model.addAttribute("msg", "잘못된 url 입니다.");
+			model.addAttribute("url", "/board/boardMain");
+			
+			return "common/message";
+		}
+		
+		int cnt = boardSerive.updateReadCount(boardNo);
+		logger.info("조회수 증가 처리, cnt={}", cnt);
+		
+		return "redirect:/board/boardDetail?boardNo="+boardNo;
+		
+	}
+	@RequestMapping("/boardDetail")
+	public String detail(@RequestParam(defaultValue = "0")int boardNo, Model model) {
+		logger.info("게시판 상세보기 페이지, 파라미터 boardNo={}", boardNo);
+		
+		BoardVO vo = boardSerive.selectByNo(boardNo);
+		logger.info("글 상세보기 조회, vo={}", vo);
+		
+		model.addAttribute("vo", vo);
+		model.addAttribute("navNo",6);
+		
+		return "board/boardDetail";
+	}
+
+
+	/*        게시글 수정        */
+	@RequestMapping("/boardEdit")
+	public String eidt(Model model) {
+		logger.info("게시판 수정 페이지");
+		model.addAttribute("navNo",6);
+
+		return "board/boardEdit";
+	}
+	
+	
+	
 	
 	
 	
