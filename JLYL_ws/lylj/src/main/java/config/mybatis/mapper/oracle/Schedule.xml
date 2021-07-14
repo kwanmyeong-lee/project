@@ -18,9 +18,9 @@
 	</resultMap>
 	
 	<insert id="insertSchedule" parameterType="scheduleVO">
-		insert into schedule
+		insert into calendar
 		values(schedule_seq.nextval, #{scheduleTitle}, #{scheduleStart}, #{scheduleEnd}, #{scheduleAllday},
-		#{scheduleColor},#{scheduleFolderNo},#{scheduleThemeNo},#{empNo},#{bookingTargetNo},#{scheduleContent})
+		#{scheduleColor:VARCHAR},#{scheduleFolderNo},#{scheduleThemeNo},#{empNo},#{bookingTargetNo},#{scheduleContent:CLOB})
 	</insert>
 	
 	<select id="listSchedule" resultMap="cal_clob">

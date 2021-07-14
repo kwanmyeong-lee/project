@@ -27,10 +27,11 @@ public class ScheduleController {
 
 	@PostMapping("/insertSchedule")
 	@ResponseBody
-	public void insertSchedule(@RequestBody ScheduleVO scheduleVO) {
+	public int insertSchedule(@RequestBody ScheduleVO scheduleVO) {
 		logger.info("cal 등록, 파라미터 vo = {}", scheduleVO);
 		service.insertSchedule(scheduleVO);
 		
+		return 1;
 	}
 	
 	@GetMapping("/scheduleMain")
