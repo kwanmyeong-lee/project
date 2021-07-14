@@ -3,8 +3,16 @@
 <%@ include file="../inc/top.jsp" %>
 
 <link rel="stylesheet" href="<c:url value='/resources/css/addressBook/style.css'/>">
-
-<form action="#" name="frmBookMain">
+<script type="text/javascript">
+	$(function() {
+		$("#newAddressBook").click(function() {
+			$(".addressBookModal").fadeIn();
+		});
+		$("#bookWritwCancleBtn").click(function() {
+			$(".addressBookModal").hide();
+		});
+	});
+</script>
 	<div id="bookMainDiv">
 		<h3>주소록</h3>
 		<br>
@@ -59,6 +67,5 @@
 		
 		<div id="pagingDiv">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
 	</div>
-</form>
 
 <%@ include file="../inc/bottom.jsp" %>
