@@ -43,7 +43,7 @@ public class ScheduleController {
 	@GetMapping("/listSchedule")
 	@ResponseBody
 	public List<ScheduleVO> listSchedule(){
-		List<ScheduleVO> list = service.listSchedule();
+		List<ScheduleVO> list = service.selectAllSchedule();
 		logger.info("cal 리스트, 파라미터 vo = {}", list.get(0));
 		
 		return list;
