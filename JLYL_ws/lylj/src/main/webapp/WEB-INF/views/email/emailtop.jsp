@@ -79,44 +79,38 @@
 		<ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
 				<!-- 여기서부터 왼쪽 -->
-				<!-- Sidebar - Brand-->
-				<li class="emailSide">
-				<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value="/index"/>">
-					메인으로이동
-				</a>
-				</li>
-				<li>
-				<div class="emailWrite" id="emailWrite">
-                	<a href="<c:url value='/email/emailWrite'/>"><button type="button" class="btn btn-light btnSchAdd">메일쓰기</button></a>
-            	</div>
-            	</li>
-   
-				<!-- Sidebar - Brand -->
-				<li class="nav-item">
-					<a class="nav-link collapsed" href="#"data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1"> 
-					<span>메일함</span>
-				</a> 
-				<div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="<c:url value="/email/emailMain"/>">받은메일함</a>
-                        <a class="collapse-item" href="buttons">보낸메일함</a>
-                        <a class="collapse-item" href="buttons">임시보관함</a>
-                        <a class="collapse-item" href="buttons">예약메일함</a>
-                        <a class="collapse-item" href="buttons">휴지통</a>
-                    </div>
-                </div> 
-                </li>
-                <li class="nav-item">
-					<a class="nav-link collapsed" href="#"data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2"> 
-					<span>빠른검색</span>
-				</a> 
-				<div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons">안읽은 메일함</a>
-                        <a class="collapse-item" href="buttons">중요 메일함</a>
-                    </div>
-                </div> 
-                </li>                
+<!--Sidebar-Brand-->
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value=" /index"/>">
+<div class="sidebar-brand-text mx-3">
+	메인으로이동
+</div>
+</a>
+<!--Heading-->
+<div class="scheduleAdd" id="topNavButton">
+	<a href="<c:url value="/email/emailWrite"/>"><button type="button" class="btn btn-light btnSchAdd" id="newDocument">메일쓰기</button></a>
+</div>
+<!--Divider-->
+<hr class="sidebar-divider d-none d-md-block">
+<!--Nav Item-Pages Collapse Menu-->
+<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#collapseOne" data-bs-toggle="collapse" role="button" aria-expanded="ture" aria-controls="collapseOne"><i class="far fa-edit"></i><span>메일함</span></a>
+<div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+	<div class="bg-white py-2 collapse-inner rounded">
+		<a class="collapse-item" href="<c:url value='/email/emailMain'/>">받은메일함</a>
+        <a class="collapse-item" href="<c:url value='/email/emailSand'/>">보낸메일함</a>
+        <a class="collapse-item" href="<c:url value='/email/emailTemporary'/>">임시보관함</a>
+        <a class="collapse-item" href="<c:url value='/email/emailBooking'/>">예약메일함</a>
+        <a class="collapse-item" href="<c:url value='/email/emailTrashcan'/>">휴지통</a>
+	</div>
+</div>
+</li>
+<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#collapseTwo" data-bs-toggle="collapse" role="button" aria-expanded="true"><i class="far fa-edit"></i><span>빠른검색</span></a>
+<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+	<div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="buttons">안읽은 메일함</a>
+        <a class="collapse-item" href="buttons">중요 메일함</a>
+	</div>
+</div>
+</li>             
 			<!-- 여기까지 왼쪽 -->
 		</ul>
 		<!-- End of Sidebar -->
