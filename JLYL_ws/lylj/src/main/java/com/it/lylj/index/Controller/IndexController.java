@@ -24,11 +24,7 @@ public class IndexController {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	private final EmpService empService;
 
-	@RequestMapping("/index")
-	public void test() {
-		logger.info("메인 화면 보여주기");
 
-	}
 
 	@RequestMapping("/inc/organizationChart")
 	public void organizationChart() {
