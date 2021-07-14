@@ -11,6 +11,11 @@ import lombok.RequiredArgsConstructor;
 public class EmpServiceImpl implements EmpService{
 	private final EmpDAO empDao;
 
+	 @Override
+	 public List<EmpVO> selectAllEmp() {
+		return empDao.selectAllEmp();
+	}
+	
 	@Override
 	public int insertEmp(EmpVO vo) {
 		return empDao.insertEmp(vo);
@@ -38,8 +43,6 @@ public class EmpServiceImpl implements EmpService{
 	@Override
 	public EmpVO selectByEmpNo(int empNo) {
 		return empDao.selectByEmpNo(empNo);
-  @Override
-	public List<EmpVO> selectAllEmp() {
-		return empDao.selectAllEmp();
 	}
+
 }

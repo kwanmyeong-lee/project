@@ -9,5 +9,5 @@ public interface EmpDAO {
 	int insertEmp(EmpVO vo);
 	String selectPwd(int empNo);
 	EmpVO selectByEmpNo(int empNo);
-
+	List<EmpVO> selectAllEmp();
 }
