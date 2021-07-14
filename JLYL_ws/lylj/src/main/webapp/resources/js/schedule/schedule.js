@@ -106,10 +106,10 @@ $(function() {
                     var events = [];
                     $(data).each(function(index) {
                         events.push({
-                            title: data[index].title,
-                            start: data[index].startDate,
-                            end: data[index].endDate,
-                            allDay: data[index].allday
+                            title: data[index].scheduleTitle,
+                            start: data[index].scheduleStart,
+                            end: data[index].scheduleEnd,
+                            allDay: data[index].scheduleAllday
                         });
 
                     });
