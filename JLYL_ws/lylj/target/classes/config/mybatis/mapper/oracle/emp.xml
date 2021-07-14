@@ -5,15 +5,22 @@
 <mapper namespace="com.it.lylj.emp.model.EmpDAO">
 
 	<insert id="insertEmp" parameterType="empVo">
-		<selectKey keyProperty="empNo" resultType="int" order="BEFORE">
+		<selectKey keyProperty="empNo" resultType="int"
+			order="BEFORE">
 			select EMP_SEQ.nextval from dual
 		</selectKey>
-			insert into emp
-			values(#{empNo}, #{empName}, #{empPwd}, #{empTel}, #{empEmail},#{empZipcode},#{empAddress},
-					#{empAddressdetail},#{empRegdate},null,#{empPhoto},#{empSalary},#{empAccount},#{empAdminLev},
-					#{empBirth},#{departmentNo},#{positionNo})
+		insert into emp
+		values(#{empNo}, #{empName}, #{empPwd}, #{empTel},
+		#{empEmail},#{empZipcode},#{empAddress},
+		#{empAddressdetail},#{empRegdate},null,#{empPhoto},#{empSalary},#{empAccount},#{empAdminLev},
+		#{empBirth},#{departmentNo},#{positionNo})
 	</insert>
- </mapper>
+
+	<select id="selectAllEmp" resultType="empVo">
+		select * from emp
+	</select>
+
+</mapper>
 
 
 
