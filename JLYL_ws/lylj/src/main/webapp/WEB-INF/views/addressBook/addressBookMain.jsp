@@ -3,8 +3,76 @@
 <%@ include file="../inc/top.jsp" %>
 
 <link rel="stylesheet" href="<c:url value='/resources/css/addressBook/style.css'/>">
+<script type="text/javascript">
+	$(function() {
+		/* 주소록 등록 모달*/
+		$("#newAddressBook").click(function() {
+			$(".addressBookModal").fadeIn();
+		});
+		$(".bookCancleBtn").click(function() {
+			$(".addressBookModal").hide();
+		});
+		
+		/* 주소록 수정 모달 - 첫번째 하나만되는듯....*/
+		$('.userNameClick')
+		$(".userNameClick").click(function() {
+			$(".addressBookEditModal").fadeIn();
+		});
+		$(".bookCancleBtn").click(function() {
+			$(".addressBookEditModal").hide();
+		});
+		
+		/*전체 선택 처리*/
+		$('#userNameTd').click(function(){
+			$('#tdStyle td input[type=checkbox]').prop('checked',this.checked);			
+		});
+		
+	});
+</script>
 
-<form action="#" name="frmBookMain">
+<div class="addressBookEditModal" id="topNavButton">
+	<div class="editModal_content">
+		<form name="frmBookWrite" action="#">
+			<div id="bookWriteDiv">
+					<h4>주소록 수정</h4>
+					<p>설명을 어쩌규 저쩌구 할것임 ㅇㅇ</p>
+					<div id="userNameInputDiv" class="boxDiv">
+						<label>이름</label><span class="splitSpan">:</span>
+						<input type="text" name="addressBook_name" id="addressBook_name" class="inputItems">
+					</div>
+					<div id="telInputDiv" class="boxDiv">
+						<label>번호</label><span class="splitSpan">:</span>
+						<input type="text" name="addressBook_tel" id="addressBook_tel" class="inputItems">
+					</div>
+					<div id="emailInputDiv" class="boxDiv">
+						<label>메일</label><span class="splitSpan">:</span>
+						<input type="text" name="addressBook_maile" id="addressBook_maile" class="inputItems">
+					</div>
+					<div id="InputDiv" class="boxDiv">
+						<label>부서</label><span class="splitSpan">:</span>
+						<select name="boooo" id="" class="selectItem">
+							<option>부서1</option>
+							<option>부서2</option>
+						</select>
+					</div>
+					<div id="positionInputDiv" class="boxDiv">
+						<label>직급</label><span class="splitSpan">:</span>
+						<select name="boooo" id="" class="selectItem">
+							<option>사원</option>
+							<option>팀장</option>
+							<option>관리자</option>
+						</select>
+						
+					</div>
+					<div id="btnItems">
+						<input type="submit" id="bookWriteSubmit" value="수정">
+						<button class="bookCancleBtn">취소</button>
+					</div>
+			</div>
+		</form>
+	</div>
+</div>
+	
 	<div id="bookMainDiv">
 		<h3>주소록</h3>
 		<br>
@@ -35,7 +103,7 @@
 		    </colgroup>
 	        <thead>
 			    <tr id="thStyle">
-		            <th><input type="checkbox" name="chkAllMain"></th>
+		            <th><input type="checkbox" name="chkAllMain" id="chkAllMain"></th>
 		            <th>이름</th>
 		            <th>전화번호</th>
 		            <th>이메일</th>
@@ -45,9 +113,9 @@
 	        </thead>
 	        <tbody>
 		        <c:forEach var="i" begin="1" end="20">
-				    <tr id="tdStyle">
-			            <td><input type="checkbox"> </td>
-			            <td id="userNameTd"><img src="<c:url value='/resources/img/undraw_profile.svg'/>"> <span id="userNameSpan">테스트</span></td>
+				    <tr class="tdStyle">
+			            <td><input type="checkbox" class="chkBox"> </td>
+			            <td id="userNameTd" class="userNameClick"><img src="<c:url value='/resources/img/undraw_profile.svg'/>"> <span id="userNameSpan">테스트</span></td>
 			           	<td id="telTd" >010-3333-8888</td>
 			            <td id="emailTd" >yooh0201@gmail.com</td>
 			            <td id="" >웹 백엔드</td>
@@ -59,6 +127,5 @@
 		
 		<div id="pagingDiv">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
 	</div>
-</form>
 
 <%@ include file="../inc/bottom.jsp" %>

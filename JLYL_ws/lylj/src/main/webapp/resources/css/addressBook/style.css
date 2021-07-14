@@ -1,6 +1,40 @@
 @charset "UTF-8";
 
+/* top 주소록 모달*/
+.addressBookModal {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.2);
+	top: 0;
+	left: 0;
+	z-index: 1;
+	display: none;
+}
+
+#topNavButton{
+	margin: 0;
+}
+
+#newAddressBook{
+	margin-left: 11px;
+	width: 198px;
+}
+
+/* 수정 모달 */
+.addressBookEditModal{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.2);
+	top: 0;
+	left: 0;
+	z-index: 1;
+	display: none;
+}
+
 /* 주소록 메인 */
+
 #bookMainDiv{
 	float: left;
 	width: 95%;
@@ -8,7 +42,6 @@
    	background: white;
 	padding-bottom: 20px;
    	border-radius: 15px;
-    box-shadow: 0px 2px 20px #d0d0d0;
     position: sticky;
 }
 
@@ -102,6 +135,10 @@
 	border-radius: 30px;
 }
 
+#userNameTd{
+	cursor: pointer;
+}
+
 #userNameSpan{
 	padding-left: 15px;
 }
@@ -113,13 +150,12 @@
 /* 주소록 등록, 수정 */
 #bookWriteDiv{
 	float: left;
-	width: 80%;
-	margin: 20px 150px;
+	width: 50%;
+	margin: 20px 25%;
    	background: white;
 	padding: 50px 0;
    	border-radius: 15px;
     box-shadow: 0px 2px 20px #d0d0d0;
-    position: sticky;
 }
 
 #bookWriteDiv > h4{
@@ -137,11 +173,21 @@
 	color: rgb(255, 66, 66);
 }
 
+.boxDiv{
+	margin-bottom: 15px;
+}
+
 .splitSpan{
 	color: #373737;
 	font-size: 20px;
 	font-weight: bold;
 	
+}
+
+.selectItem{
+	margin-left: 20px;
+	width: 100px;
+	height: 25px;
 }
 
 div > label{
@@ -167,19 +213,21 @@ div > label{
 	height: 50px;
 	font-size: 17px;
 	font-weight: bold;
-	background: #55bed9;
+	background: rgb(70, 171, 196);
 	color: white;
 	border-radius: 10px;
 	border: none;
+	margin-right: 10px;
 }
 
-#bookWritwCancleBtn{
+.bookCancleBtn{
 	width: 90px;
 	height: 50px;
 	font-size: 17px;
 	font-weight: bold;
-	background: #a2a2a2;
-	color: #454545;
+	background: rgb(196, 196, 196);
+	color: rgb(97, 97, 97);
 	border-radius: 10px;
 	border: none;
+	cursor: pointer;
 }

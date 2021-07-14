@@ -33,4 +33,11 @@ public class addressBookController {
 		
 		return "addressBook/addressBookEdit";
 	}
+	
+	@RequestMapping("/booktop")
+	public String top() {
+		logger.info("주소록 탑 테스트");
+		
+		return "addressBook/booktop";
+	}
 }
