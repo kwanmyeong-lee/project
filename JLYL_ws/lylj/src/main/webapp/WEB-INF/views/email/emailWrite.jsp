@@ -51,14 +51,6 @@
 <div class="container emailContainer">
 	<div class="panel emailPanel">
 		<span class="title">메일보내기</span>
-				<form action="#" class="text-right">
-					<div class="input-group searchbox">
-						<input type="text" class="form-control input-sm"  placeholder="Search" >
-						<span class="input-group-btn">
-                         	<button type="submit" name="search" class="btn_ btn-primary btn-sm search"><i class="fa fa-search"></i></button>
-                         </span>
-					</div>			 
-				</form>
 				<br>
 				<hr>
 			<div class="form-group">	
@@ -160,4 +152,4 @@
 	
 </script>
 
-<%@include file="emailbottom.jsp" %>
+<%@include file="../inc/bottom.jsp" %>
