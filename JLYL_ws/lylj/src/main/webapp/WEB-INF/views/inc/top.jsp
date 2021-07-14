@@ -85,6 +85,9 @@
 				element.classList.remove("fa-chevron-up");
 			}
 			
+		
+		
+			
 		});
 	});
 </script>
@@ -205,9 +208,6 @@
 .test {
 	display: block;
 }
-/* .main_small{
-	font-size: 1px;
-} */
 
 /* 어사이드 */
 </style>
@@ -227,11 +227,7 @@
 				<a
 					class="sidebar-brand d-flex align-items-center justify-content-center"
 					href="<c:url value="/index"/>">
-					<div class="sidebar-brand-text mx-3" style="font-size: 30px;">IU</div>
-					<div>
-						<small class="main_small"> intranet</small> <br> <small
-							class="main_small"> user interface </small>
-					</div>
+					<div class="sidebar-brand-text mx-3">메인으로 이동</div>
 				</a>
 
 				<div class="card">
@@ -350,7 +346,6 @@
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내정보
 								</a>
 									<a class="dropdown-item" href="<c:url value='/emp/empList'/>"> <i
-								</a> <a class="dropdown-item" href="#"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 사원관리
 								</a>
 
@@ -366,8 +361,6 @@
 
 				</nav>
 				<!-- End of Topbar -->
-
-				<!-- start aside -->
 				<aside class="ori" id="ori">
 					<h3>
 						<span class="ori-span1"> <span id="ori-toggle"
@@ -389,7 +382,6 @@
 						</div>
 					</div>
 				</aside>
-				<!-- end aside -->
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
