@@ -20,6 +20,7 @@
 			$(this).css("background","none");
 		});
 		
+		/* 주소록 수정 모달 */
 		$(".userNameClick").click(function() {
 			$(".addressBookEditModal").fadeIn();
 		});
