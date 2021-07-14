@@ -368,10 +368,10 @@
 						</span>
 					</h3>
 					<div class="ori-div1">
-						<form class="ori-from" action="">
-							<input class="ori-input-text1" type="text" placeholder="이름"
+						<div class="ori-from" action="">
+							<input class="ori-input-text1" type="text" placeholder="이름" id="oriName" name="oriName"
 								title="이름">
-						</form>
+						</div>
 					</div>
 
 					<div class="ori-div2" id="ori-div2">
