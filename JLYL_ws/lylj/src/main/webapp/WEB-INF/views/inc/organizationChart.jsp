@@ -15,7 +15,7 @@
 	$(function() {
 		$.ajax({
 			async : true,
-			type : "GET",
+			type : "get",
 			url : "<c:url value = "/inc/list/"/>",
 			dataType : "json",
 			success : function(json) {
@@ -32,7 +32,9 @@
 	function createJSTree(jsondata) {
 		$('#SimpleJSTree').jstree({
 			'core' : {
-				'data' : jsondata
+				'data' : function(jsondata){
+					return {'id' : jsondata.id},{'text' : jsondata.text};
+				}
 			}
 		});
 	}
