@@ -1,5 +1,9 @@
 package com.it.lylj.index.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -24,13 +28,30 @@ public class IndexController {
 		
 	}
 	
-	@ResponseBody
+//	@ResponseBody
+//	@RequestMapping("/inc/list")
+//	public String  list() {
+//		logger.info("메인 화면 보여주기");
+//
+//		String vo = "[{\"id\":1,\"text\":\"Root node\",\"children\":[{\"id\":2,\"text\":\"Child node 1\"},{\"id\":3,\"text\":\"Child node 2\"}]}]";
+//		
+//		return vo;
+//	}
+	
+	
 	@RequestMapping("/inc/list")
-	public String  list() {
+	public void list() {
 		logger.info("메인 화면 보여주기");
 
-		String vo = "[{\"id\":1,\"text\":\"Root node\",\"children\":[{\"id\":2,\"text\":\"Child node 1\"},{\"id\":3,\"text\":\"Child node 2\"}]}]";
-		return vo;
+		
+		List<IndexVO> list = new ArrayList<>();
+		
+		IndexVO vo1 = new IndexVO;
+		vo1.setId();
+		
+		list.add();
+		
+		
 	}
 	
 }

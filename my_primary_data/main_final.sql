@@ -892,8 +892,8 @@ ALTER TABLE RELINE
 
 -------------------------------------------------------------------------------------------
 
---insert into EMP value(EMP_SEQ.nextval, admin, admin, '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 1001, 1);
 
+select * from emp;
 ----직급
 insert into POSITION values(1, '사장');
 insert into POSITION values(2, '부장');
@@ -910,8 +910,19 @@ insert into DEPARTMENT values(4,'개발팀');
 insert into DEPARTMENT values(5,'인사팀');
 insert into DEPARTMENT values(6,'총무회계팀');
 
-commit;
+--EMP
 
+insert into EMP values(EMP_SEQ.nextval, 'admin', 'admin', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', null, null);
+insert into EMP values(EMP_SEQ.nextval, 'admin1', 'admin1', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin2', 'admin2', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin3', 'admin3', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 4);
+insert into EMP values(EMP_SEQ.nextval, 'admin4', 'admin4', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin5', 'admin5', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin6', 'admin6', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 4);
+
+
+
+commit;
 
 
 
