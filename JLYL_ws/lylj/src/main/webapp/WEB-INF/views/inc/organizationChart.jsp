@@ -32,12 +32,14 @@
 	function createJSTree(jsondata) {
 		$('#SimpleJSTree').jstree({
 			'core' : {
-				'data' : function(jsondata){
-					return {'id' : jsondata.id},{'text' : jsondata.text};
-				}
+				'data' : jsondata
+					
+				
 			}
 		});
-	}
+	} 
+	
+
 </script>
 </head>
 <body>
