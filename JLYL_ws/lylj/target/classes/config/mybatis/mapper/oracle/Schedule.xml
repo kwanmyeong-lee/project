@@ -23,7 +23,7 @@
 		#{scheduleColor},#{scheduleFolderNo},#{scheduleThemeNo},#{empNo},#{bookingTargetNo},#{scheduleContent})
 	</insert>
 	
-	<select id="listSchedule" resultMap="cal_clob">
+	<select id="selectAllSchedule" resultMap="cal_clob">
 		select * from calendar
 	</select>
  </mapper>
