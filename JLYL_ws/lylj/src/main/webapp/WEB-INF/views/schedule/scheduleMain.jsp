@@ -86,9 +86,12 @@
         	<label class="labelTime">내 캘린더</label>
         	<select class="cal-select" id="selectMycal">
         		<c:forEach var="i" items="${sfList }">
-                 	<option value="${i.scheduleFolderName}">${i.scheduleFolderName}</option>
+                 	<option value="${i.scheduleFolderNo}">${i.scheduleFolderName}</option>
                 </c:forEach>
         	</select>
+        		<c:forEach var="i" items="${sfList }">
+					<input type="hidden" id="hiddenMycal${i.scheduleFolderNo}" value="${i.scheduleFolderColor}">
+                </c:forEach>
         	<br>
         	
         </form>

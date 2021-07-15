@@ -94,7 +94,6 @@ $(function() {
             AppCalendar.saveEvent("up", arg);
         },
         eventRemove: function(arg) {
-            alert("삭제 완료");
         },
 
         events: function(info, successCallback, failureCallback) {
@@ -107,10 +106,13 @@ $(function() {
                     var events = [];
                     $(data).each(function(index) {
                         events.push({
+							id:data[index].scheduleFolderNo,
                             title: data[index].scheduleTitle,
                             start: data[index].scheduleStart,
                             end: data[index].scheduleEnd,
-                            allDay: data[index].scheduleAllday
+                            allDay: (data[index].scheduleAllday=="true"),
+                            color:data[index].scheduleColor,
+                            className:"asd"
                         });
 
                     });
@@ -118,9 +120,14 @@ $(function() {
                     successCallback(events);
                 }
             });
-        }
+        },
+        eventDidMount: function(info) {
+ 				 
+   				 var s=info.event.id;
+		}
+        	
     });
-    calendar.render();
+    calendar.render(); 	
 
     $('.add-button').click(function() {
         allSave();

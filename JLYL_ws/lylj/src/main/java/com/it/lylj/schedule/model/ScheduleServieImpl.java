@@ -21,5 +21,11 @@ public class ScheduleServieImpl implements ScheduleService{
 	public List<ScheduleVO> selectAllScheduleByEmpNo(int empNo){
 		return dao.selectAllScheduleByEmpNo(empNo);
 	}
+
+	@Override
+	public List<ScheduleVO> selectAllScheduleByScFolderNo(int scheduleFolderNo) {
+		// TODO Auto-generated method stub
+		return dao.selectAllScheduleByScFolderNo(scheduleFolderNo);
+	}
 	
 }

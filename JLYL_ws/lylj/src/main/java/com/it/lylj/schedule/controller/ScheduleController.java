@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.lylj.scFolder.model.ScFolderService;
@@ -36,7 +37,9 @@ public class ScheduleController {
 	@ResponseBody
 	public int insertSchedule(@RequestBody ScheduleVO scheduleVO) {
 		logger.info("cal 등록, 파라미터 vo = {}", scheduleVO);
+		
 		service.insertSchedule(scheduleVO);
+		
 		
 		return 1;
 	}
@@ -60,10 +63,19 @@ public class ScheduleController {
 		
 		HttpSession session = req.getSession();
 		int empNo = (int)session.getAttribute("empNo");
-		logger.info("emp search, 파라미터 empNo = {}", empNo);
 		
 		List<ScheduleVO> list = service.selectAllScheduleByEmpNo(empNo);
 		logger.info("cal 리스트, 파라미터 vo = {}", list.get(0));
+		
+		return list;
+	}
+	
+	@PostMapping("/listScheduleByScFolderNo")
+	@ResponseBody
+	public List<ScheduleVO> listScheduleByScFolderNo(@RequestBody int scFolderNo){
+		
+		logger.info("listScheduleByScFolderNo scFolderNo = {}", scFolderNo);
+		List<ScheduleVO> list = service.selectAllScheduleByScFolderNo(scFolderNo);
 		
 		return list;
 	}

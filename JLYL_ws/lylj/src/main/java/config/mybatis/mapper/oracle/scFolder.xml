@@ -12,6 +12,11 @@
         select * from scfolder
         where EMP_NO=#{empNo}
     </select>
+    
+    <select id="selectScFolderByScFolderNo" parameterType="int" resultType="ScFolderVo">
+        select * from scfolder
+        where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
+    </select>
  </mapper>
 
 
