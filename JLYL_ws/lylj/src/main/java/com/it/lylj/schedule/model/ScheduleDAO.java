@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ScheduleDAO {
-	int selectAllSchedule(ScheduleVO vo);
-	List<ScheduleVO> listSchedule();
+	int insertSchedule(ScheduleVO vo);
+	List<ScheduleVO> selectAllScheduleByEmpNo(int empNo);
 	
 }

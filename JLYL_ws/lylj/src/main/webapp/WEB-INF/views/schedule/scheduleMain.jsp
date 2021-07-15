@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="../inc/top.jsp"%>
+<%@ include file="top.jsp"%>
 
 <!-- 달력 -->
 <link href='<c:url value="/resources/css/main.css"/>' rel="stylesheet" />
@@ -83,10 +83,10 @@
         	<br>
         	
         	<label class="labelTime">내 캘린더</label>
-        	<select>
-        		<option>(기본)내 일정</option>
-        		<option>zzz</option>
-        		<option>zzz</option>
+        	<select class="cal-select">
+        		<c:forEach var="i" items="${sfList }">
+                 	<option>${i.scheduleFolderName}</option>
+                </c:forEach>
         	</select>
         	<br>
         	

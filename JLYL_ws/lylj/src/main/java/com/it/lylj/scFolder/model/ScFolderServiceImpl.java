@@ -17,8 +17,8 @@ public class ScFolderServiceImpl implements ScFolderService{
     }
 
     @Override
-    public List<ScFolderVO> selectAllScFolder() {
-        return dao.selectAllScFolder();
+    public List<ScFolderVO> selectAllScFolderByEmpNo(int empNo) {
+        return dao.selectAllScFolderByEmpNo(empNo);
     }
     
     
