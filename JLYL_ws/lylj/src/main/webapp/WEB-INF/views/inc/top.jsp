@@ -227,7 +227,8 @@
 				<a
 					class="sidebar-brand d-flex align-items-center justify-content-center"
 					href="<c:url value="/index"/>">
-					<div class="sidebar-brand-text mx-3">메인으로 이동</div>
+					<div class="sidebar-brand-text mx-3">IU</div>
+					<div>intranet user interface</div>
 				</a>
 
 				<div class="card">
@@ -361,19 +362,18 @@
 
 				</nav>
 				<!-- End of Topbar -->
-				<aside class="ori" id="ori">
+					<aside class="ori" id="ori">
 					<h3>
 						<span class="ori-span1"> <span id="ori-toggle"
 							class="fas fa-chevron-up ori-span2"></span>
 						</span>
 					</h3>
 					<div class="ori-div1">
-						<form class="ori-from" action="">
-							<input class="ori-input-text1" type="text" placeholder="이름"
+						<div class="ori-from" action="">
+							<input class="ori-input-text1" type="text" placeholder="이름" id="oriName" name="oriName"
 								title="이름">
-						</form>
+						</div>
 					</div>
-
 					<div class="ori-div2" id="ori-div2">
 						<div class="ori-div3">
 							<div class="ori-div4">
