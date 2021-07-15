@@ -54,9 +54,6 @@
             <!-- Sidebar -->
             <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
                 <!-- 여기서부터 왼쪽 -->
-                <!-- Sidebar-->
-                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value="/index"/>"> <div class="sidebar-brand-text mx-3">메인으로 이동</div>
-                </a>
                 <!-- 이 부분 부터 메인 top에 넣을 소스 -->
                 <!--Sidebar-Brand-->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value="/index"/>">
@@ -69,6 +66,7 @@
                 <c:forEach var="i" items="${sfList}">
                 <li class="nav-item">
                     <a class="nav-link" href="#"><input type="checkbox" class="ckSch" checked="checked"><span class="list-span">${i.scheduleFolderName }</span>
+                    <input type="hidden" value="${i.scheduleFolderNo }">
                     </a>
                     
                 </li>

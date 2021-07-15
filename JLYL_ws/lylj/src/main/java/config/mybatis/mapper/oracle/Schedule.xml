@@ -27,6 +27,13 @@
 		select * from calendar
 		where EMP_NO=#{empNo}
 	</select>
+	
+	<select id="selectAllScheduleByScFolderNo" parameterType="int" resultMap="cal_clob">
+		select * from calendar
+		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
+	</select>
+	
+	
  </mapper>
 
 
