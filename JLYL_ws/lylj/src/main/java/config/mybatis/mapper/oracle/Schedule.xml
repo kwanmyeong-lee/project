@@ -18,12 +18,12 @@
 	</resultMap>
 	
 	<insert id="insertSchedule" parameterType="scheduleVO">
-		insert into calendar
+		insert into schedule
 		values(schedule_seq.nextval, #{scheduleTitle}, #{scheduleStart}, #{scheduleEnd}, #{scheduleAllday},
-		#{scheduleColor:VARCHAR},#{scheduleFolderNo},#{scheduleThemeNo},#{empNo},#{bookingTargetNo},#{scheduleContent:CLOB})
+		#{scheduleColor},#{scheduleFolderNo},#{scheduleThemeNo},#{empNo},#{bookingTargetNo},#{scheduleContent})
 	</insert>
 	
-	<select id="selectAllSchedule" resultMap="cal_clob">
+	<select id="listSchedule" resultMap="cal_clob">
 		select * from calendar
 	</select>
  </mapper>

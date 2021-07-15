@@ -25,19 +25,20 @@ public class IndexController {
 	private final EmpService empService;
 
 
+
 	@RequestMapping("/inc/organizationChart")
 	public void organizationChart() {
 		logger.info("메인 화면 보여주기");
 
 	}
-
+	
 	@RequestMapping("/index")
-	public void test(HttpServletRequest req) {
-		HttpSession session = req.getSession();
+    public void test(HttpServletRequest req) {
+        HttpSession session = req.getSession();
 
-		session.setAttribute("empNo", 1);
+        session.setAttribute("empNo", 1);
 
-	}
+    }
 
 //	@ResponseBody
 //	@RequestMapping("/inc/list")
@@ -59,24 +60,38 @@ public class IndexController {
 		List<OriVo> alist = new ArrayList<>();
 
 		for (int i = 0; i < list.size(); i++) {
-
+			
 			EmpVO empVo = list.get(i);
 			OriVo orivo = new OriVo();
-			int depNo = empVo.getDepartmentNo();
-			if (depNo == 0) {
-				orivo.setParent("#");
-			} else {
-				orivo.setParent(Integer.toString(depNo));
-
-			}
-
-			orivo.setId(Integer.toString(empVo.getEmpNo()));
+			orivo.setId(Integer.toString(empVo.getDepartmentNo()));
 			orivo.setText(empVo.getEmpName());
+//			orivo.setParent(Integer.toString(empVo.getDepartmentNo()));
+			
 			alist.add(orivo);
 		}
-
+		
 		return alist;
 
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,7 +15,7 @@ public class BoardVO {
 	private String boardTitle;
 	private String boardContent;
 	private String boardWriter;
-	private int hits;
+	private int boardHits;
 	private Timestamp boardDate;
 	private String boardDelFlag;
 	private int boardTheme;

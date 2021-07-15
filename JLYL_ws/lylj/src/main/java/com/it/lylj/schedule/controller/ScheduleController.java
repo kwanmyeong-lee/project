@@ -27,11 +27,10 @@ public class ScheduleController {
 
 	@PostMapping("/insertSchedule")
 	@ResponseBody
-	public int insertSchedule(@RequestBody ScheduleVO scheduleVO) {
+	public void insertSchedule(@RequestBody ScheduleVO scheduleVO) {
 		logger.info("cal 등록, 파라미터 vo = {}", scheduleVO);
 		service.insertSchedule(scheduleVO);
 		
-		return 1;
 	}
 	
 	@GetMapping("/scheduleMain")
@@ -43,7 +42,7 @@ public class ScheduleController {
 	@GetMapping("/listSchedule")
 	@ResponseBody
 	public List<ScheduleVO> listSchedule(){
-		List<ScheduleVO> list = service.selectAllSchedule();
+		List<ScheduleVO> list = service.listSchedule();
 		logger.info("cal 리스트, 파라미터 vo = {}", list.get(0));
 		
 		return list;
