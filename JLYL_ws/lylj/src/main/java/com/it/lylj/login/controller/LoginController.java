@@ -38,22 +38,25 @@ public class LoginController {
 				Model model) {
 		//1
 	    int iEmpNo =Integer.parseInt(empNo);
-		logger.info("로그인 처리, 파라미터 empNo={}, pwd={}, chkSave={}", empNo, empPwd, chkSave);
+		logger.info("로그인 처리, 파라미터 empNo={}, pwd={}, chkSave={}", iEmpNo, empPwd, chkSave);
 	    
 		//2
 	    int result = empService.loginProc(iEmpNo, empPwd);
 	    logger.info("로그인 처리, 결과 cnt={}", result);
 	    	
 	    String msg="로그인실패", url="/login/login";
+	    EmpVO vo= null;
 	    if(result==EmpService.LOGIN_OK) {
-	    	EmpVO vo = empService.selectByEmpNo(iEmpNo);
+	    	vo = empService.selectByEmpNo(iEmpNo);
 	    	logger.info("로그인된 사원정보, vo={}",vo);
 	    	
 	    	//[세션]
 	    	HttpSession session = request.getSession();
-	    	session.setAttribute("empNo", empNo);
+	    	session.setAttribute("empNo",vo.getEmpNo());
 	    	session.setAttribute("empName", vo.getEmpName());
 	    	session.setAttribute("empAdminLev", vo.getEmpAdminLev());
+	    	
+	    	logger.info("session={}",session.getAttribute("empNo"));
 	    	
 	    	//[쿠키]
 	    	Cookie ck = new Cookie("ck_empNo", empNo);
@@ -63,6 +66,7 @@ public class LoginController {
 	          }else {
 	             ck.setMaxAge(0);
 	          }
+	    	 
 	    	response.addCookie(ck);
 	    	msg="로그인되었습니다";
 	    	url="/index";
@@ -77,6 +81,7 @@ public class LoginController {
 	    //3
 	    model.addAttribute("msg", msg);
 	    model.addAttribute("url", url);
+	    
 	    
 	    return "common/message";
 	}

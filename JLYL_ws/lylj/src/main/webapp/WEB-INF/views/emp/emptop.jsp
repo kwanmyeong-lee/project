@@ -109,7 +109,6 @@
 	</div>
 </div>
 </li>  
-			<!-- 여기까지 왼쪽 -->
 		</ul>
 		<!-- End of Sidebar -->
 
@@ -122,20 +121,22 @@
 				<!-- Topbar -->
 				<nav
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-					<span id="mainTopText">저기 힘차게 떠오르는 태양처럼 오늘도 힘차게 아자아자!</span>
+
+
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item topNavText"><a class="nav-link" href="<c:url value="/electronic/electronicMain"/>"
-							id="testBt" role="button"> <span
+						<li class="nav-item topNavText"><a class="nav-link"
+							href="<c:url value="/electronic/electronicMain"/>" id="testBt"
+							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">전자 결제</span>
 						</a></li>
-						<li class="nav-item topNavText"><a class="nav-link" href="<c:url value="/email/emailMain"/>"
-							role="button"> <span
+						<li class="nav-item topNavText"><a class="nav-link"
+							href="<c:url value="/email/emailMain"/>" role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">메일</span>
 						</a></li>
 
-						<li class="nav-item topNavText"><a class="nav-link" href="#"
-							role="button"> <span
+						<li class="nav-item topNavText"><a class="nav-link"
+							href="<c:url value="/assiduity/main"/>" role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">근태</span>
 						</a></li>
 
@@ -143,12 +144,14 @@
 							href="<c:url value='/schedule/scheduleMain'/>" role="button">
 								<span class="mr-2 d-none d-lg-inline text-gray-600 small">일정</span>
 						</a></li>
-						<li class="nav-item topNavText"><a class="nav-link" href="#"
+						<li class="nav-item topNavText"><a class="nav-link"
+							href="<c:url value="/addressBook/addressBookMain"/>"
 							role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">주소록</span>
 						</a></li>
-						<li class="nav-item topNavText"><a class="nav-link" href="<c:url value='board/boardMain'/>"
-							role="button"> <span
+
+						<li class="nav-item topNavText"><a class="nav-link"
+							href="<c:url value="/board/boardMain"/>" role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">게시판</span>
 						</a></li>
 						<li class="nav-item topNavText"><a class="nav-link"
@@ -161,28 +164,28 @@
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow"><a
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-user fa-2x"></i><span
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fas fa-user fa-2x"></i><span
 								class="mr-2 d-none d-lg-inline text-gray-600 small topNavText">
-									아이디 들어갈자리</span>
+									${empName}</span>
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="#"> <i
-									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-									Settings
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-									Activity Log
+									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내정보
 								</a>
+								<c:if test="${empAdminLev==1||empAdminLev==2}">
+									<a class="dropdown-item" href="<c:url value='/emp/empList'/>"> <i
+										class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 사원관리
+									</a>
+								</c:if>
+
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal"
+								<a class="dropdown-item" href="<c:url value="/login/logout"/>" data-toggle="modal"
 									data-target="#logoutModal"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-									Logout
+									로그아웃
 								</a>
 							</div></li>
 
@@ -190,9 +193,28 @@
 
 				</nav>
 				<!-- End of Topbar -->
+					<aside class="ori" id="ori">
+					<h3>
+						<span class="ori-span1"> <span id="ori-toggle"
+							class="fas fa-chevron-up ori-span2"></span>
+						</span>
+					</h3>
+					<div class="ori-div1">
+						<div class="ori-from" action="">
+							<input class="ori-input-text1" type="text" placeholder="이름" id="oriName" name="oriName"
+								title="이름">
+						</div>
+					</div>
+					<div class="ori-div2" id="ori-div2">
+						<div class="ori-div3">
+							<div class="ori-div4">
+								<c:import url="/inc/organizationChart"></c:import>
+							</div>
+						</div>
+					</div>
+				</aside>
 
-
-
-
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
 				<!-- Begin Page Content -->
 				<div class="container-fluid maincontainer">

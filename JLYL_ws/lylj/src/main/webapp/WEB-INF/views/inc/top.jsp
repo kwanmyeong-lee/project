@@ -343,7 +343,10 @@
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="#"> <i
+								<input type="text" value="${empNo}">
+								<input type="text" value="${empName}">
+								<input type="text" value="${empAdminLev}">
+								<a class="dropdown-item" href="<c:url value='/emp/empInfo?empNo=${empNo}'/>"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내정보
 								</a>
 								<c:if test="${empAdminLev==1||empAdminLev==2}">

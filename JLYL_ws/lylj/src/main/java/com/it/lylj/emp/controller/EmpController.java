@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.lylj.department.model.DepartmentService;
 import com.it.lylj.department.model.DepartmentVO;
@@ -72,8 +73,17 @@ public class EmpController {
 
 
 	@GetMapping("/empInfo")
-	public void empinfo(Model model) {
-		logger.info("사원정보디테일 페이지");
+	public String empinfo(@RequestParam(defaultValue = "0")int empNo , Model model) {
+		//1
+		logger.info("사원정보디테일 페이지, 파라미터 empNo={}",empNo);
+		//2
+		EmpVO vo = empService.selectByEmpNo(empNo);
+		logger.info("로그인된 정보, 파라미터 vo={}",vo);
+		//3
+		
+		model.addAttribute("vo", vo);
+
+		return "emp/empInfo";
 	}
 	
 	@GetMapping("/empEdit")
