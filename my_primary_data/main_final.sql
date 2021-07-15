@@ -8,6 +8,7 @@ DROP TABLE SCTHEME CASCADE CONSTRAINTS ;
 DROP TABLE SCFOLDER CASCADE CONSTRAINTS ;
 DROP TABLE OFBOARDCOM CASCADE CONSTRAINTS ;
 DROP TABLE OFBOARD CASCADE CONSTRAINTS ;
+DROP TABLE OFOARDFOL CASCADE CONSTRAINTS ;
 DROP TABLE OFBOARDFILE CASCADE CONSTRAINTS ;
 DROP TABLE OFBOARDLIKE CASCADE CONSTRAINTS ;
 DROP TABLE ATTENDDAY CASCADE CONSTRAINTS ;
@@ -27,23 +28,18 @@ DROP TABLE MAIL CASCADE CONSTRAINTS ;
 DROP TABLE MAILFILE CASCADE CONSTRAINTS ;
 DROP TABLE BREAKDAY CASCADE CONSTRAINTS ;
 DROP TABLE BREAKTHEME CASCADE CONSTRAINTS ;
-DROP TABLE OFBOARDFOL CASCADE CONSTRAINTS ;
-DROP SEQUENCE OFBOARD_SEQ;
-DROP SEQUENCE OFBOARDFOL_SEQ;
 DROP SEQUENCE EMP_SEQ;
 DROP SEQUENCE CALENDAR_SEQ;
-DROP SEQUENCE SCFOLDER_SEQ;
-
 
 ------------------------- DROP ---------------------------------
 
 ------------------------- SEQ ----------------------------------
 
 CREATE SEQUENCE EMP_SEQ
-MINVALUE 1 
+MINVALUE 100 
 MAXVALUE 9999999999999999999999999999 
 INCREMENT BY 1 
-START WITH 1 
+START WITH 100 
 NOCACHE;
 
 CREATE SEQUENCE CALENDAR_SEQ
@@ -52,29 +48,6 @@ MAXVALUE 9999999999999999999999999999
 INCREMENT BY 1 
 START WITH 1 
 NOCACHE;
-
-
-CREATE SEQUENCE SCFOLDER_SEQ
-MINVALUE 1 
-MAXVALUE 9999999999999999999999999999 
-INCREMENT BY 1 
-START WITH 1 
-NOCACHE;
-
-CREATE SEQUENCE OFBOARDFOL_SEQ
-MINVALUE 1
-MAXVALUE 9999999999999999999999999999 
-INCREMENT BY 1 
-START WITH 4 
-NOCACHE;
-
-CREATE SEQUENCE OFBOARD_SEQ
-MINVALUE 1 
-MAXVALUE 9999999999999999999999999999 
-INCREMENT BY 1 
-START WITH 1 
-NOCACHE;
-
 
 ------------------------- SEQ ----------------------------------
 
@@ -192,7 +165,7 @@ CREATE TABLE OFBOARD (
 	BOARD_TITLE VARCHAR2(255) NOT NULL, /* 제목 */
 	BOARD_CONTENT CLOB, /* 내용 */
 	BOARD_WRITER VARCHAR2(255) NOT NULL, /* 글쓴이 */
-	BOARD_HITS NUMBER DEFAULT 1, /* 조회수 */
+	BOARD_HITS NUMBER, /* 조회수 */
 	BOARD_DATE DATE DEFAULT SYSDATE, /* 작성일 */
 	BOARD_DEL_FLAG VARCHAR2(255) DEFAULT 0, /* 삭제 여부 */
 	BOARD_THEME NUMBER, /* 글 분류 */
@@ -571,19 +544,19 @@ ALTER TABLE BOFOL
 		);
 
 /* 게시판 폴더 */
-CREATE TABLE OFBOARDFOL (
+CREATE TABLE OFOARDFOL (
 	BOARD_FOLDER_NO NUMBER NOT NULL, /* 게시판 폴더 번호 */
 	BOARD_FOLDER__NAME VARCHAR2(255) /* 게시판 폴더 이름 */
 );
 
-CREATE UNIQUE INDEX PK_OFBOARDFOL
-	ON OFBOARDFOL (
+CREATE UNIQUE INDEX PK_OFOARDFOL
+	ON OFOARDFOL (
 		BOARD_FOLDER_NO ASC
 	);
 
-ALTER TABLE OFBOARDFOL
+ALTER TABLE OFOARDFOL
 	ADD
-		CONSTRAINT PK_OFBOARDFOL
+		CONSTRAINT PK_OFOARDFOL
 		PRIMARY KEY (
 			BOARD_FOLDER_NO
 		);
@@ -746,11 +719,11 @@ ALTER TABLE OFBOARD
 
 ALTER TABLE OFBOARD
 	ADD
-		CONSTRAINT FK_OFBOARDFOL_TO_OFBOARD
+		CONSTRAINT FK_OFOARDFOL_TO_OFBOARD
 		FOREIGN KEY (
 			BOARD_FOLDER_NO
 		)
-		REFERENCES OFBOARDFOL (
+		REFERENCES OFOARDFOL (
 			BOARD_FOLDER_NO
 		);
 
@@ -985,6 +958,7 @@ ALTER TABLE BREAKDAY
 		);
 
 
+
 -------------------------------------------------------------------------------------------
 
 
@@ -1007,13 +981,27 @@ insert into DEPARTMENT values(6,'총무회계팀');
 
 --EMP
 
-insert into EMP values(EMP_SEQ.nextval, 'admin', 'admin', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', null, null);
-insert into EMP values(EMP_SEQ.nextval, 'admin1', 'admin1', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 2);
-insert into EMP values(EMP_SEQ.nextval, 'admin2', 'admin2', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 3);
-insert into EMP values(EMP_SEQ.nextval, 'admin3', 'admin3', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 4);
+insert into EMP values(EMP_SEQ.nextval, '기성쓰', 'admin', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', null, null);
+insert into EMP values(EMP_SEQ.nextval, '관명', 'admin1', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 2);
+insert into EMP values(EMP_SEQ.nextval, '혁', 'admin2', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 3);
+insert into EMP values(EMP_SEQ.nextval, '준경', 'admin3', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 4);
 insert into EMP values(EMP_SEQ.nextval, 'admin4', 'admin4', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 2);
 insert into EMP values(EMP_SEQ.nextval, 'admin5', 'admin5', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 3);
 insert into EMP values(EMP_SEQ.nextval, 'admin6', 'admin6', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 4);
+insert into EMP values(EMP_SEQ.nextval, 'admin7', 'admin7', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 3, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin8', 'admin8', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 3, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin9', 'admin9', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 3, 4);
+insert into EMP values(EMP_SEQ.nextval, 'admin10', 'admin10', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 4, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin11', 'admin11', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 4, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin12', 'admin12', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 4, 4);
+insert into EMP values(EMP_SEQ.nextval, 'admin13', 'admin13', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 5, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin14', 'admin14', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 5, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin15', 'admin15', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 5, 4);
+insert into EMP values(EMP_SEQ.nextval, 'admin16', 'admin16', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin17', 'admin17', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin18', 'admin18', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
+
+select * from emp;
 
 --달력테마
 insert into sctheme values(1, '일정');
@@ -1021,18 +1009,7 @@ insert into sctheme values(1, '일정');
 --달력
 insert into calendar values(calendar_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','red',1,1,1,null,'asd');
 
---달력 사원별 목록
-insert into scfolder values(scfolder_seq.nextval,'(기본)내 일정', 'RED', '1');
-insert into scfolder values(scfolder_seq.nextval,'TEST1', 'BLUE', '1');
-insert into scfolder values(scfolder_seq.nextval,'TEST2', 'GREEN', '1');
-
---게시판 폴더
-INSERT INTO OFBOARDFOL VALUES(1, '공지사항');
-INSERT INTO OFBOARDFOL VALUES(2, '자료실');
-INSERT INTO OFBOARDFOL VALUES(3, '커뮤니티');
-INSERT INTO OFBOARDFOL VALUES(OFBOARDFOL_SEQ.nextval, '영업 본부');
 
 commit;
-
 
 
