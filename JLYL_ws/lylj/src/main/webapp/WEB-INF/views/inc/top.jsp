@@ -227,7 +227,8 @@
 				<a
 					class="sidebar-brand d-flex align-items-center justify-content-center"
 					href="<c:url value="/index"/>">
-					<div class="sidebar-brand-text mx-3">메인으로 이동</div>
+					<div class="sidebar-brand-text mx-3">IU</div>
+					<div>intranet user interface</div>
 				</a>
 
 				<div class="card">
@@ -337,7 +338,7 @@
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								<i class="fas fa-user fa-2x"></i><span
 								class="mr-2 d-none d-lg-inline text-gray-600 small topNavText">
-									아이디 들어갈자리</span>
+									${empName}</span>
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -345,12 +346,14 @@
 								<a class="dropdown-item" href="#"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내정보
 								</a>
+								<c:if test="${empAdminLev==1||empAdminLev==2}">
 									<a class="dropdown-item" href="<c:url value='/emp/empList'/>"> <i
-									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 사원관리
-								</a>
+										class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 사원관리
+									</a>
+								</c:if>
 
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal"
+								<a class="dropdown-item" href="<c:url value="/login/logout"/>" data-toggle="modal"
 									data-target="#logoutModal"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									로그아웃
@@ -361,19 +364,18 @@
 
 				</nav>
 				<!-- End of Topbar -->
-				<aside class="ori" id="ori">
+					<aside class="ori" id="ori">
 					<h3>
 						<span class="ori-span1"> <span id="ori-toggle"
 							class="fas fa-chevron-up ori-span2"></span>
 						</span>
 					</h3>
 					<div class="ori-div1">
-						<form class="ori-from" action="">
-							<input class="ori-input-text1" type="text" placeholder="이름"
+						<div class="ori-from" action="">
+							<input class="ori-input-text1" type="text" placeholder="이름" id="oriName" name="oriName"
 								title="이름">
-						</form>
+						</div>
 					</div>
-
 					<div class="ori-div2" id="ori-div2">
 						<div class="ori-div3">
 							<div class="ori-div4">

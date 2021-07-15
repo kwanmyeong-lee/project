@@ -1,6 +1,5 @@
 package com.it.lylj.emp.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;

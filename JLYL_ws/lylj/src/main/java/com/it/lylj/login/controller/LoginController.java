@@ -53,6 +53,7 @@ public class LoginController {
 	    	HttpSession session = request.getSession();
 	    	session.setAttribute("empNo", empNo);
 	    	session.setAttribute("empName", vo.getEmpName());
+	    	session.setAttribute("empAdminLev", vo.getEmpAdminLev());
 	    	
 	    	//[쿠키]
 	    	Cookie ck = new Cookie("ck_empNo", empNo);
@@ -78,5 +79,15 @@ public class LoginController {
 	    model.addAttribute("url", url);
 	    
 	    return "common/message";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		logger.info("로그아웃");
+		session.removeAttribute("empNo");
+		session.removeAttribute("empName");
+		session.removeAttribute("empAdminLev");
+		
+		return "redirect:/login/login";
 	}
 }

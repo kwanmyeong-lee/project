@@ -3,13 +3,32 @@
 <%@ include file="../inc/top.jsp" %>
 
 <link rel="stylesheet" href="<c:url value='/resources/css/addressBook/style.css'/>">
+<style type="text/css">
+#topNavButton{
+	margin-left: 11px;
+}
+#red{
+	font-size: 1.1em;
+	color: red;
+	font-weight: bold;
+}
+.modalLabel{
+	margin-left: 10px;
+}
+.buttonGroup{
+	width: 300px;
+	padding: 5px;
+	margin-left: 75px;
+}
+#btcloseModal{
+	margin-top: 10px;
+}
+</style>
+
 <script type="text/javascript">
 	$(function() {
-		$("#newAddressBook").click(function() {
-			$(".addressBookModal").fadeIn();
-		});
-		$("#bookWritwCancleBtn").click(function() {
-			$(".addressBookModal").hide();
+		$("tbody #btLeave").click(function(){
+			$('#leaveModal').modal('show');
 		});
 	});
 </script>
@@ -61,8 +80,8 @@
 			            <td id="" >웹 백엔드</td>
 			            <td id="" >사원</td>
 			            <td id="" >
-			            		<a href="<c:url value="/emp/empEdit"/>"><button type="button" class="btn btn-success" value="수정"><i class="fas fa-user-edit"></i></button></a>
-			            		<a href="<c:url value="/emp/empDelete"/>"><button type="button" class="btn btn-danger" value="삭제"><i class="fas fa-user-minus"></i></button>
+			            	<a href="<c:url value="/emp/empEdit"/>"><button type="button" class="btn btn-success" value="수정"><i class="fas fa-user-edit"></i></button></a>
+			            	<button type="button" class="btn btn-danger" id="btLeave" value="삭제"><i class="fas fa-user-minus"></i></button>
 			            </td>
 				    </tr>
 			    </c:forEach>
@@ -71,5 +90,51 @@
 		
 		<div id="pagingDiv">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
 	</div>
+	
+	<!-- 퇴사등록 Modal -->
+	<div class="modal" id="leaveModal" data-bs-backdrop="static">
+	  <div class="modal-dialog ">
+	    <div class="modal-content">
+	
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">사원정보삭제</h4>
+	        <button type="button" class="close" data-bs-dismiss="modal" id="modalClose">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+ 		 <div class="modal-body">
+		    <form name="findPwdfrm" id="findPwdfrm" method="post" action="<c:url value="/emp/leaveEmp"/>">
+     	        <div class="row">
+     	        	<div class="col-md-12">
+     		        	<label class="form-label modalLabel" for="empNo">사원번호</label> 
+	                	<input class="form-control" type="text" name="empNo" id="modalEmpNo" placeholder="Enter employee number">
+	                </div>
+                </div>
+                <div class="row">
+                	 <div class="col-md-12">
+	                 	<label class="form-label modalLabel" for="modalEmpEmail">관리자번호</label> 
+	                 	<input class="form-control" type="email" name="empEmail" id="modalEmpEmail" name="empName" value="${empNo }" readonly="readonly">
+	                 </div>
+                </div>
+                <div class="row">
+                	 <div class="col-md-12">
+	                 	<label class="form-label modalLabel" for="modalAdminPwd">관리자비밀번호</label> 
+	                 	<input class="form-control" type="email" name="empEmail" id="modalAdminPwd" name="empPwd" placeholder="Enter password">
+	                 </div>
+                </div>
+                <br>
+			<div class="row px-3">
+			   	<span id ="red">사원정보가 삭제됩니다. 신중히 클릭해주세요.</span>
+			</div><hr>
+			<div class="row px-3 buttonGroup">
+				<button type="submit" class="btn btn-info" id="btfindPwd">찾기</button>
+		        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btcloseModal">취소</button>
+		    </div>
+            </form>
+		  </div>
+	    </div>
+	  </div>
+	</div>	
 
 <%@ include file="../inc/bottom.jsp" %>

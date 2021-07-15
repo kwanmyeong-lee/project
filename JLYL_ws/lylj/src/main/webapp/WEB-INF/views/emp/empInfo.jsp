@@ -52,9 +52,13 @@
     		<label for="empTel" class="form-label">전화번호</label>
     		<input type="tel" class="form-control" id="empTel" name="empTel" readonly="readonly">
   		</div>
+  		<div class="col-md-6">
+		  	<label for="empNo" class="form-label">사원번호</label>
+		    <input type="text" class="form-control"  id="empNo" name="empNo" readonly="readonly">
+		 </div>
 		 <div class="col-md-6">
     		<label for="empEmail" class="form-label">Email</label>
-    		<input type="email" class="form-control" id="empEmail" name="empEmail">
+    		<input type="email" class="form-control" id="empEmail" name="empEmail" readonly="readonly">
   		</div>
   		<div class="col-md-6">
     		<label for="empZipcode" class="form-label">우편번호</label>
@@ -87,51 +91,41 @@
 	  	<div class="row">
 		  	<div class="col-md-5">
 				<label for="empRegdate" class="form-label">입사일</label>
-			    <input type="date" class="form-control" id="empRegdate" name="empRegdate" placeholder="Regdate" readonly="readonly">
+			    <input type="date" class="form-control" id="empRegdate" name="empRegdate" readonly="readonly">
 		  	</div>
 		  	<div class="col-md-5">
 		  		<label for="empBirth" class="form-label">생일</label>
-			    <input type="date" class="form-control" id="empBirth" name="empBirth" placeholder="birth day" readonly="readonly">
+			    <input type="date" class="form-control" id="empBirth" name="empBirth" readonly="readonly">
 		  	</div>
 	  	</div>
 		   	<div class="col-md-5">
 				<label for="empAccount" class="form-label">계좌번호</label>
-			    <input type="text" class="form-control" id="empAccount" name="empAccount" placeholder="Account" >
+			    <input type="text" class="form-control" id="empAccount" name="empAccount" readonly="readonly">
 		  	</div>
 	  	<div class="row">
 			<div class="col-md-2">
 				<label class="form-label">관리자</label>
-			    <select class="form-control" name="empAdminLev" id="empAdminLev">
-			    	<option>-선택하세요-</option>
-			    	<option value="3">사원</option>
-			    	<option value="2">팀장</option>
-			    	<option value="1">관리자</option>
-			    </select>
+			    <input type="text" class="form-control" name="empAdminLev" id="empAdminLev" readonly="readonly">
 		  	</div>
 		  	<div class="col-md-2">
 		  	<label class="form-label" for="departmentNo">부서</label>
-			    <select class="form-control" id="departmentNo" name="departmentNo">
-			    	<option>-선택하세요-</option>
-			    	<c:forEach var="departmentVo" items="${departmentList}">
-			    		<option value='${departmentVo.departmentNo}'>${departmentVo.departmentName }</option>
-			    	</c:forEach>
-			    </select>
+			    <input type="text" class="form-control" id="departmentNo" name="departmentNo" readonly="readonly">
 			 </div>
 			<div class="col-md-2">
-		  	<label class="form-label" for="positionNo" >직급</label>
-			    <select class="form-control" id="positionNo" name="positionNo">
-			    	<option value="">-선택하세요-</option>
-			    	<c:forEach var="positionVo" items="${positionList}">
-			    		<option value="${positionVo.positionNo}">${positionVo.positionName }</option>
-			    	</c:forEach>
-			    </select>
+		  		<label class="form-label" for="positionNo" >직급</label>
+			    <input type="text" class="form-control" id="positionNo" name="positionNo" readonly="readonly">
 			 </div>
 		  </div>
 		<div></div>
 		<div class="btGroup">
 			<a href="<c:url value='/emp/empEdit'/>"><button class="btn btn-secondary " type="submit">수정</button></a>
-			<button class="btn btn-secondary " type="submit">퇴사처리</button>
-			<button class="btn btn-secondary " type="button" >목록으로</button>
+			<c:if test="${empAdminLev==1 || empAdminLev==2}">
+				<button class="btn btn-secondary " type="submit">퇴사처리</button>
+				<button class="btn btn-secondary " type="button" >사원목록으로</button>
+			</c:if>
+			<c:if test="${empAdminLev==3}">
+				<a href="<c:url value="/index"/>"><button class="btn btn-secondary" type="submit">메인으로</button></a>
+			</c:if>
 		</div>
 	</div>
 	
