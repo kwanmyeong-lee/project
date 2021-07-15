@@ -30,6 +30,8 @@ DROP TABLE BREAKDAY CASCADE CONSTRAINTS ;
 DROP TABLE BREAKTHEME CASCADE CONSTRAINTS ;
 DROP SEQUENCE EMP_SEQ;
 DROP SEQUENCE CALENDAR_SEQ;
+DROP SEQUENCE DOCSTY_SEQ;
+DROP SEQUENCE DOCFOL_SEQ;
 
 ------------------------- DROP ---------------------------------
 
@@ -48,6 +50,21 @@ MAXVALUE 9999999999999999999999999999
 INCREMENT BY 1 
 START WITH 1 
 NOCACHE;
+
+CREATE SEQUENCE DOCSTY_SEQ
+MINVALUE 100
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 100
+NOCACHE;
+
+CREATE SEQUENCE DOCFOL_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
+
 
 ------------------------- SEQ ----------------------------------
 
@@ -255,8 +272,10 @@ ALTER TABLE ELFILE
 CREATE TABLE DOCSTY (
 	STYLE_NO NUMBER NOT NULL, /* 양식번호 */
 	STYLE_NAME VARCHAR2(255) NOT NULL, /* 양식이름 */
+    STYLE_CONTENT CLOB, /* 양식내용 */
 	FOLDER_NO NUMBER /* 문서 폴더 번호 */
 );
+
 
 CREATE UNIQUE INDEX PK_DOCSTY
 	ON DOCSTY (
@@ -585,6 +604,9 @@ CREATE TABLE DOCFOL (
 	FOLDER_NO NUMBER NOT NULL, /* 문서 폴더 번호 */
 	FOLDER_NAME VARCHAR(255) DEFAULT '기본' /* 문서 폴더 이름 */
 );
+select * from docfol;
+
+
 
 CREATE UNIQUE INDEX PK_DOCFOL
 	ON DOCFOL (
@@ -1010,6 +1032,98 @@ insert into sctheme values(1, '일정');
 insert into calendar values(calendar_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','red',1,1,1,null,'asd');
 
 
+
+--전자 결재 문서 폴더
+select * from docfol;
+insert into DOCFOL
+values(DOCFOL_SEQ.nextval, '문서폴더1');
+insert into DOCFOL
+values(DOCFOL_SEQ.nextval, '문서폴더2');
+insert into DOCFOL
+values(DOCFOL_SEQ.nextval, '문서폴더3');
+insert into DOCFOL
+values(DOCFOL_SEQ.nextval, '문서폴더4');
+insert into DOCFOL
+values(DOCFOL_SEQ.nextval, '문서폴더5');
+insert into DOCFOL
+values(DOCFOL_SEQ.nextval, '문서폴더6');
+
+--전자 결재 문서 양식
+--SEQ strat 100
+select * from docsty;
+insert into DOCSTY
+values(DOCSTY_SEQ.nextval, '양식번호1', '	<br>
+			<h2>휴가신청서</h2>
+
+			<table class="doc-table">
+				<tr>
+					<td class="doc-td" colspan="3">문서번호</td>
+					<td class="doc-td2"><input type="text"></input></td>
+					<td class="doc-td">작성일자</td>
+					<td class="doc-td2"><input type="text"></input></td>
+				</tr>
+				<tr>
+					<td class="doc-td" colspan="3">이 름</td>
+					<td class="doc-td2"><input type="text"></input></td>
+					<td class="doc-td">직 책</td>
+					<td class="doc-td2"><input type="text"></input></td>
+				</tr>
+				<tr>
+					<td class="doc-td" colspan="3">소속</td>
+					<td class="doc-td2"><input type="text"></input></td>
+					<td class="doc-td">부서</td>
+					<td class="doc-td2"><input type="text"></input></td>
+				</tr>
+				<tr>
+					<td class="doc-td" rowspan="6">신청 내용</td>
+					<td class="doc-td" rowspan="4">휴가신청서</td>
+					<td class="doc-td">종류</td>
+					<td class="doc-td2" colspan="3"><input type="text"></input></td>
+				</tr>
+				<tr>
+					<td class="doc-td">일정</td>
+					<td class="doc-td2" colspan="3"><input type="text"></input></td>
+				</tr>
+				<tr>
+					<td class="doc-td">주요행선지</td>
+					<td class="doc-td2" colspan="3"><input type="text"></input></td>
+				</tr>
+				<tr>
+					<td class="doc-td">대체근무자</td>
+					<td class="doc-td2" colspan="3"><input type="text"></input></td>
+				</tr>
+				<tr>
+					<td class="doc-td" colspan="2">신청사유<br> (자세히)
+					</td>
+					<td class="doc-td2" colspan="3"><input type="text"></input></td>
+				</tr>
+				<tr>
+					<td class="doc-td" colspan="2">긴급연락처</td>
+					<td class="doc-td2" colspan="3"><input type="text"></input></td>
+				</tr>
+				<tr>
+					<td class="doc-td" colspan="3">참고사항</td>
+					<td class="doc-td2" colspan="3"><input type="text"></input></td>
+				</tr>
+
+			</table>
+			<br>', 1);
+insert into DOCSTY
+values(DOCSTY_SEQ.nextval, '양식번호2', '', 1);
+insert into DOCSTY
+values(DOCSTY_SEQ.nextval, '양식번호3', '', 2);
+insert into DOCSTY
+values(DOCSTY_SEQ.nextval, '양식번호4', '', 2);
+insert into DOCSTY
+values(DOCSTY_SEQ.nextval, '양식번호5', '', 3);
+insert into DOCSTY
+values(DOCSTY_SEQ.nextval, '양식번호6', '', 3);
+insert into DOCSTY
+values(DOCSTY_SEQ.nextval, '양식번호7', '', 4);
+insert into DOCSTY
+values(DOCSTY_SEQ.nextval, '양식번호8', '', 4);
+
+
+
+
 commit;
-
-

@@ -120,68 +120,13 @@
 		</div>
 
 
+		<!-- 문서 양식 -->
 		<form action="/" method="post" enctype="multipart/form-data"
 			id="frm-form"
 			style="margin-bottom: 100px; text-align: -webkit-center;">
 
-			<!-- 문서 양식 -->
-
-			<br>
-			<h2>휴가신청서</h2>
-
-			<table class="doc-table">
-				<tr>
-					<td class="doc-td" colspan="3">문서번호</td>
-					<td class="doc-td2"><input type="text"></input></td>
-					<td class="doc-td">작성일자</td>
-					<td class="doc-td2"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" colspan="3">이 름</td>
-					<td class="doc-td2"><input type="text"></input></td>
-					<td class="doc-td">직 책</td>
-					<td class="doc-td2"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" colspan="3">소속</td>
-					<td class="doc-td2"><input type="text"></input></td>
-					<td class="doc-td">부서</td>
-					<td class="doc-td2"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" rowspan="6">신청 내용</td>
-					<td class="doc-td" rowspan="4">휴가신청서</td>
-					<td class="doc-td">종류</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td">일정</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td">주요행선지</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td">대체근무자</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" colspan="2">신청사유<br> (자세히)
-					</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" colspan="2">긴급연락처</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" colspan="3">참고사항</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-
-			</table>
-			<br>
+			${vo.styleContent}
+		
 			<!-- 문서 양식끝 -->
 
 			<div class="form-group">
