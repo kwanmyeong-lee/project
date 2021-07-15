@@ -1,6 +1,7 @@
 package com.it.lylj.emp.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EmpService {
 	//로그인처리 상수
@@ -12,4 +13,5 @@ public interface EmpService {
 	public int loginProc(int empNo, String empPwd);
 	EmpVO selectByEmpNo(int empNo);
 	List<EmpVO> selectAllEmp();
+	Map<String, Object> selectstamp(String userNo);
 }

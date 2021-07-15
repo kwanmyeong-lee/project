@@ -13,6 +13,13 @@
 
 <script
 	src="<c:url value = "/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#selectAP').click(function(){
+			location.href='<c:url value = '/electronic/documentSelectApproval'/>';
+		});
+	});
+</script>
 
 <style type="text/css">
 #select-td {
@@ -85,17 +92,19 @@
 	<div class="container" style="max-width: 1000px;">
 		<h1>기안서</h1>
 		<div style="text-align: right;">
-			<button type="button" class="btn btn-primary text-end">결재자
+			<button type="button" class="btn btn-primary text-end" id="selectAP">결재자
 				선택</button>
 		</div>
 		<div
 			class="row align-items-start selectLine border border-5 border-secondary">
 			결 <br>재 <br>라 <br> 인
 			<div class="col selectDiv ">
+
 				<span id="select-line"> <span id="select-position">
 						대표이사 </span> <span id="select-name"> 이관명 <img style="width: 40px;"
 						alt="아이유" src="<c:url value="/resources/img/아이유1.jpg"/>">
 				</span>
+
 				</span> <span id="select-line"> <span id="select-position">
 						대표이사 </span> <span id="select-name"> 이관명 </span>
 				</span> <span id="select-line"> <span id="select-position">
@@ -126,7 +135,7 @@
 			style="margin-bottom: 100px; text-align: -webkit-center;">
 
 			${vo.styleContent}
-		
+
 			<!-- 문서 양식끝 -->
 
 			<div class="form-group">
