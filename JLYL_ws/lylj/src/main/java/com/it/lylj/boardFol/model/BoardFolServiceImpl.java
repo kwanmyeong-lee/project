@@ -21,4 +21,9 @@ public class BoardFolServiceImpl implements BoardFolService{
 		return boardFolDao.selectBoardFol();
 	}
 
+	@Override
+	public List<BoardFolVO> otherFolder() {
+		return boardFolDao.otherFolder();
+	}
+
 }

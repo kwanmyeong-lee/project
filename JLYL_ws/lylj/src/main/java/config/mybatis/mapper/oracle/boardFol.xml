@@ -7,14 +7,18 @@
 		<selectKey keyProperty="boardFolderNo" resultType="int" order="BEFORE">
 			SELECT OFBOARDFOL_SEQ.nextval FROM OFBOARDFOL 
 		</selectKey>
-		insert into OFBOARDFOL(BOARD_FOLDER_NO, BOARD_FOLDER_NAME)
+		insert into ofboardfol(BOARD_FOLDER_NO, BOARD_FOLDER_NAME)
 		values(#{boardFolderNo}, #{boardFolderName})
 	</insert>
 	
 	<select id="selectBoardFol" resultType="boardFolVo">
-		SELECT * FROM OFBOARDFOL
+		SELECT * FROM ofboardfol
 	</select>
 	
+	<select id="otherFolder" resultType="boardFolVo">
+		SELECT * FROM ofboardfol
+		WHERE board_folder_no > 3
+	</select>
 </mapper>
 
 
