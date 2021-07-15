@@ -32,6 +32,9 @@ DROP SEQUENCE EMP_SEQ;
 DROP SEQUENCE CALENDAR_SEQ;
 DROP SEQUENCE DOCSTY_SEQ;
 DROP SEQUENCE DOCFOL_SEQ;
+DROP SEQUENCE APPSTAMP_SEQ;
+
+DROP VIEW selectstamp;
 
 ------------------------- DROP ---------------------------------
 
@@ -65,6 +68,12 @@ INCREMENT BY 1
 START WITH 1 
 NOCACHE;
 
+CREATE SEQUENCE APPSTAMP_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
 
 ------------------------- SEQ ----------------------------------
 
@@ -295,6 +304,7 @@ CREATE TABLE APPSTAMP (
 	EMP_NO NUMBER, /* 사원 번호 */
 	STAMP_NAME VARCHAR2(255) NOT NULL /* 파일이름 */
 );
+
 
 CREATE UNIQUE INDEX PK_APPSTAMP
 	ON APPSTAMP (
@@ -980,6 +990,24 @@ ALTER TABLE BREAKDAY
 		);
 
 
+------------------------- view ---------------------------------
+
+--유저 번호로 도장 찾기
+create or replace view selectstamp AS 
+select a.*, b.position_name
+from 
+(
+select a.emp_Name, a.position_no , b.* 
+from emp a join appstamp b
+on a.emp_No = b.emp_no
+) a join
+position b
+on a.position_no = b.position_no;
+
+select * from selectstamp;
+
+
+------------------------- view ----------------------------------
 
 -------------------------------------------------------------------------------------------
 
@@ -1123,7 +1151,53 @@ values(DOCSTY_SEQ.nextval, '양식번호7', '', 4);
 insert into DOCSTY
 values(DOCSTY_SEQ.nextval, '양식번호8', '', 4);
 
+-- 결재 도장 등록
+insert into APPSTAMP
+values (APPSTAMP_SEQ.nextval, 101, '아이유1.jpg');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 commit;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,12 +2,15 @@ package com.it.lylj.electronic.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +19,7 @@ import com.it.lylj.electronicDocFol.model.ElectronicDocFolService;
 import com.it.lylj.electronicDocFol.model.ElectronicDocFolVO;
 import com.it.lylj.electronicDocSty.model.ElectronicDocStyService;
 import com.it.lylj.electronicDocSty.model.ElectronicDocStyVO;
+import com.it.lylj.emp.model.EmpService;
 import com.it.lylj.index.model.OriVo;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +31,7 @@ public class ElectronicController {
 	private static final Logger logger = LoggerFactory.getLogger(ElectronicController.class);
 	private final ElectronicDocFolService electronicDocFolService;
 	private final ElectronicDocStyService electronicDocStyService;
+	private final EmpService empService;
 
 	@GetMapping("/electronicMain")
 	public void electronicMain(Model model) {
@@ -38,6 +43,11 @@ public class ElectronicController {
 	@GetMapping("/documentSelect")
 	public void documentSty() {
 		logger.info("양식 선택 보여주기");
+	}
+	
+	@GetMapping("/documentSelectApproval")
+	public void documentSelectApproval() {
+		logger.info("결재라인 선택 화면 보여주기");
 	}
 
 	@GetMapping("/documentWrite")
@@ -113,6 +123,17 @@ public class ElectronicController {
 
 		return olist;
 
+	}
+	
+	@ResponseBody
+	@RequestMapping("/selectstamp")
+	public Map<String, Object> selectstamp(@RequestParam String userNo) {
+		logger.info("유저 번호로 유저 도장 정보 조회 파라미터 userNo = {}", userNo);
+		
+		Map<String, Object> stampInfo =empService.selectstamp(userNo);
+		//{"EMP_NAME":"관명","STAMP_NAME":"아이유1.jpg","POSITION_NO":2,"STAMP_NO":1,"EMP_NO":101,"POSITION_NAME":"부장"}
+		return stampInfo;
+		
 	}
 }
 

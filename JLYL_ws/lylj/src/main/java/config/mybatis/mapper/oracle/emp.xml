@@ -29,6 +29,11 @@
 	<select id="selectAllEmp" resultType="empVo">
 		select * from emp
 	</select>
+	
+	<select id="selectstamp" resultType="map" parameterType="String">
+		select * from selectstamp
+		where emp_no = #{userNo}
+	</select>
 
 </mapper>
 

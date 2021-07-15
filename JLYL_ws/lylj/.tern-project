@@ -9,9 +9,16 @@
     },
     "browser-extension": {
       
+    },
+    "bootstrap": {
+      
+    },
+    "jquery-extension": {
+      
     }
   },
   "libs": [
-    "browser"
+    "browser",
+    "jquery"
   ]
 }

@@ -1,6 +1,7 @@
 package com.it.lylj.emp.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,11 @@ public class EmpServiceImpl implements EmpService{
 	@Override
 	public EmpVO selectByEmpNo(int empNo) {
 		return empDao.selectByEmpNo(empNo);
+	}
+
+	@Override
+	public Map<String, Object> selectstamp(String userNo) {
+		return empDao.selectstamp(userNo);
 	}
 
 }
