@@ -67,12 +67,12 @@
 	</div>
 	<div id="searchDiv">
 		<select>
-			<option></option>
-			<option>제목</option>
-			<option>내용</option>
-			<option>작성자</option>
+			<option ></option>
+			<option value="title">제목</option>
+			<option value="content">내용</option>
+			<option value="writer">작성자</option>
 		</select>
-		<input type="text" id="searchTextBox">
+		<input type="text" name="searchKeyword" id="searchTextBox">
 		<button>검색</button>
 	</div>
 </div>

@@ -32,10 +32,11 @@ public class BoardController {
 	@RequestMapping("/boardMain")
 	public String main(Model model) {
 		logger.info("게시판 메인 페이지");
-		
-		List<BoardVO> noticeList =boardSerive.selectBoard(1);
-		List<BoardVO> referenceList =boardSerive.selectBoard(2);
-		List<BoardVO> communityList =boardSerive.selectBoard(3);
+    
+		List<BoardVO> noticeList = boardSerive.selectBoardMain(1);
+		List<BoardVO> referenceList = boardSerive.selectBoardMain(2);
+		List<BoardVO> communityList = boardSerive.selectBoardMain(3);
+
 		logger.info("noticeList.size={}, referenceList.size={}, communityList.size={}", 
 				noticeList.size(), referenceList.size(), communityList.size());
 		
@@ -54,10 +55,10 @@ public class BoardController {
 		logger.info("게시판 등록 페이지");
 		
 		/* 게시판 폴더 처리 */
-		List<BoardFolVO> folList = boardFolService.selectBoardFol();
-		logger.info("게시판 폴더 조회, folList.size={}", folList.size());
+		List<BoardFolVO> boFol = boardFolService.selectBoardFol();
+		logger.info("게시판 폴더 조회, boFol.size={}", boFol.size());
 		
-		model.addAttribute("folList", folList);
+		model.addAttribute("boFol", boFol);
 		model.addAttribute("navNo",6);
 
 	}
@@ -163,13 +164,13 @@ public class BoardController {
 		logger.info("게시판 글 수정 페이지");
 		
 		/* 게시판 폴더 처리 */
-		List<BoardFolVO> folList = boardFolService.selectBoardFol();
-		logger.info("게시판 폴더 조회, folList.size={}", folList.size());
+		List<BoardFolVO> boFol = boardFolService.selectBoardFol();
+		logger.info("게시판 폴더 조회, boFol.size={}", boFol.size());
 		
 		/* 수정페이지 값 받아오기 */
 		BoardVO vo = boardSerive.selectByNo(boardNo);
 		
-		model.addAttribute("folList", folList);
+		model.addAttribute("boFol", boFol);
 		model.addAttribute("vo", vo);
 		model.addAttribute("navNo",6);
 

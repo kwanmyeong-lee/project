@@ -10,7 +10,7 @@
 	<div id="noticeView">
 		<h5 class="boardMainH">공지사항</h5>
 		<br>
-		<div class="moreBtn">더보기</div>
+		<a href="<c:url value='/board/boardList?boardFolderNo=1'/>"><div class="moreBtn">더보기</div></a> 
 		<table>
 		    <colgroup>
 		       <col style="width:20%;" />
@@ -32,17 +32,15 @@
 	        	</c:if>
 	        	<c:if test="${!empty noticeList }">
 	        	<c:forEach var="vo" items="${noticeList}">
-	        		<c:forEach var="i" begin="1" end="5">
 				    <tr id="tdStyle">
 			            <td class="userNameTd">${vo.boardWriter }</td>
 			            <td>
-			            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA">${notice.boardTitle }</a> 
+			            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle }</a> 
 			            	<span>[6]</span>
 			            	<span class="newSpan">new</span>
 			            </td>
 			            <td class="regdateTd"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd"/></td>
-				    </tr>
-				    </c:forEach>
+              </tr>
 			    </c:forEach>
 			    </c:if>
 	        </tbody>
@@ -52,7 +50,7 @@
 		<div id="ArchivesView">
 			<h5 class="boardMainH" >자료실</h5>
 			<br>
-			<div class="moreBtn">더보기</div>
+			<a href="<c:url value='/board/boardList?boardFolderNo=2'/>"><div class="moreBtn">더보기</div></a>
 			<table>
 			    <colgroup>
 			       <col style="width:20%;" />
@@ -72,7 +70,6 @@
 		        	</c:if>
 		        	<c:if test="${!empty referenceList }">
 				        <c:forEach var="vo" items="${referenceList }">
-				        <c:forEach var="i" begin="1" end="5">
 						    <tr id="tdStyle">
 					            <td class="userNameTd">${vo.boardWriter }</td>
 					            <td>
@@ -82,7 +79,6 @@
 					            </td>
 						    </tr>
 					    </c:forEach>
-					    </c:forEach>
 				    </c:if>
 		        </tbody>
 			</table>
@@ -90,7 +86,7 @@
 		<div id="freeBoardView">
 			<h5 class="boardMainH">커뮤니티</h5>
 			<br>
-			<div class="moreBtn">더보기</div>
+			<a href="<c:url value='/board/boardList?boardFolderNo=1'/>"><div class="moreBtn">더보기</div></a>
 			<table>
 			    <colgroup>
 			       <col style="width:20%;" />
@@ -110,7 +106,6 @@
 		        	</c:if>
 		        	<c:if test="${!empty communityList }">
 				        <c:forEach var="vo" items="${communityList }">
-				        <c:forEach var="i" begin="1" end="5">
 						    <tr id="tdStyle">
 					            <td class="userNameTd">${vo.boardWriter }</td>
 					            <td>
@@ -119,7 +114,6 @@
 					            	<span class="newSpan">new</span>
 					            </td>
 						    </tr>
-					    </c:forEach>
 					    </c:forEach>
 				    </c:if>
 		        </tbody>

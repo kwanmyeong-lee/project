@@ -62,7 +62,7 @@
     <div class="wrtieDiv">
         <select name="boardFolderNo" id="boardSelect">
             <option value="">게시판을 선택해주세요.</option>
-            <c:forEach var="fol" items="${folList }">
+            <c:forEach var="fol" items="${boFol }">
 	            <option value="${fol.boardFolderNo }">${fol.boardFolderName }</option>
             </c:forEach>
             <!-- 게시판을 추가하면 자동으로 추가되게끔 size 또는 length 받아옴 -->
