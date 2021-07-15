@@ -8,6 +8,7 @@
 #noticeView{
 	float: left;
 	width: 1160px;
+	height: 427px;
 	margin: 20px;
    	background: white;
 	padding-bottom: 20px;
@@ -29,6 +30,7 @@
 #freeBoardView{
 	float: left;
 	width: 560px;
+	height: 427px;
 	margin: 20px;
    	background: white;
 	padding-bottom: 20px;
@@ -46,6 +48,7 @@
 #ArchivesView{
 	float: left;
 	width: 560px;
+	height: 427px;
 	margin: 20px;
    	background: white;
 	padding-bottom: 20px;

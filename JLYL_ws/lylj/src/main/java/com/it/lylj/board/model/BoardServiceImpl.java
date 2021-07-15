@@ -22,6 +22,11 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> selectBoard(int boardFolderNo) {
 		return boardDao.selectBoard(boardFolderNo);
 	}
+	
+	@Override
+	public List<BoardVO> selectBoardMain(int boardFolderNo) {
+		return boardDao.selectBoardMain(boardFolderNo);
+	}
 
 	@Override
 	public int updateReadCount(int boardNo) {

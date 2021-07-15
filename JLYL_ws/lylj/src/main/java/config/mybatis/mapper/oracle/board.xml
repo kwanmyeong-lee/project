@@ -5,8 +5,14 @@
 <mapper namespace="com.it.lylj.board.model.BoardDAO">
 	<sql id="searchWhere">
 		<if test="searchKeyword!=null and searchKeyword!=''">
-			where ${searchCondition}  like '%' || #{searchKeyword} || '%'
+			AND ${searchCondition}  like '%' || #{searchKeyword} || '%'
 		</if>
+	</sql>
+	
+	<sql id="rowNum">
+		<![CDATA[
+		AND ROWNUM <=5
+		]]>
 	</sql>
 	
 	<insert id="insertBoard" parameterType="BoardVo">
@@ -22,6 +28,17 @@
 		WHERE board_folder_no=#{boardFolderNo}
 		ORDER BY board_no desc
 	</select>
+	
+	<select id="selectBoardMain" parameterType="int" resultType="boardVo">
+		SELECT * FROM ofboard
+		WHERE board_folder_no=#{boardFolderNo}
+		<include refid="rowNum"></include>
+		ORDER BY board_no desc
+	</select>
+	
+	
+	
+	
 	
 	<update id="updateReadCount" parameterType="int">
 		UPDATE ofboard

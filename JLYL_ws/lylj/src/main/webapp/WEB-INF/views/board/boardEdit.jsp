@@ -37,7 +37,7 @@
     	<input type="hidden" name="boardNo" value="${param.boardNo }">
         <select name="boardFolderNo" id="boardSelect" >
             <option value="">게시판을 선택해주세요.</option>
-            <c:forEach var="fol" items="${folList }">
+            <c:forEach var="fol" items="${boFol }">
 	            <option value="${fol.boardFolderNo}"
 	            <c:if test='${vo.boardFolderNo == fol.boardFolderNo}'>
 	            	selected="selected"

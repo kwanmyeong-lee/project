@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.it.lylj.common.SearchVO;
+
 @Mapper
 public interface BoardDAO {
 	int insertBoard(BoardVO vo);
 	List<BoardVO> selectBoard(int boardFolderNo);
+	List<BoardVO> selectBoardMain(int boardFolderNo);
 	int updateReadCount(int boardNo);
 	BoardVO selectByNo(int boardNo);
 	int updateBoard(BoardVO vo);
