@@ -15,6 +15,11 @@
 		SELECT * FROM ofboardfol
 	</select>
 	
+	<select id="selectByNo" parameterType="int" resultType="boardFolVo">
+		SELECT * FROM ofboardfol
+		WHERE board_folder_no=#{boardFolderNo}
+	</select>
+	
 	<select id="otherFolder" resultType="boardFolVo">
 		SELECT * FROM ofboardfol
 		WHERE board_folder_no > 3

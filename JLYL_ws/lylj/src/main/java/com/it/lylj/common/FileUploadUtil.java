@@ -40,10 +40,10 @@ public class FileUploadUtil {
 				long fileSize = tempFile.getSize();
 				String originFileName = tempFile.getOriginalFilename();
 
-				//변경된 파일 이름
+				// 변경된 파일 이름
 				String fileName = getUniqueFileName(originFileName);
 				
-				//업로드 경로
+				// 업로드 경로
 				String uploadPath = getUploadPath(request, pathFlag);
 				
 				//업로드 처리 - 업로드 경로에 업로드 파일 저장 

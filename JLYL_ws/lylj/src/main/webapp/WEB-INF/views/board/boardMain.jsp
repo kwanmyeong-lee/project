@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../inc/top.jsp" %>
 
 <link rel="stylesheet" href="<c:url value='/resources/css/board/style.css'/>">
@@ -23,23 +25,32 @@
 			    </tr>
 	        </thead>
 	        <tbody>
-		        <c:forEach var="i" begin="1" end="5">
+	        	<c:if test="${empty noticeList }">
+	        		<tr id="tdStyle">
+	        			<td colspan="3" class="tdCenter">등록된 게시글이 없습니다.</td>
+	        		</tr>
+	        	</c:if>
+	        	<c:if test="${!empty noticeList }">
+	        	<c:forEach var="vo" items="${noticeList}">
+	        		<c:forEach var="i" begin="1" end="5">
 				    <tr id="tdStyle">
-			            <td class="userNameTd">유혁</td>
+			            <td class="userNameTd">${vo.boardWriter }</td>
 			            <td>
-			            	<a href="<c:url value='/board/boardDetail'/>" class="titleA">테스트용 제목</a> 
-			            	<span>[6]</span> <=[ ] 안에 댓글 수 
+			            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA">${notice.boardTitle }</a> 
+			            	<span>[6]</span>
 			            	<span class="newSpan">new</span>
 			            </td>
-			            <td class="regdateTd">2021-07-11</td>
+			            <td class="regdateTd"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd"/></td>
 				    </tr>
+				    </c:forEach>
 			    </c:forEach>
+			    </c:if>
 	        </tbody>
 		</table>
 	</div>
 	<div id="div2">
 		<div id="ArchivesView">
-			<h5 class="boardMainH">자료실</h5>
+			<h5 class="boardMainH" >자료실</h5>
 			<br>
 			<div class="moreBtn">더보기</div>
 			<table>
@@ -54,21 +65,30 @@
 				    </tr>
 		        </thead>
 		        <tbody>
-			        <c:forEach var="i" begin="1" end="5">
-					    <tr id="tdStyle">
-				            <td class="userNameTd">유혁</td>
-				            <td>
-				            	<a href="https://www.youtube.com/" class="titleA">테스트용 제목</a> 
-				            	<span>[6]</span> <=[ ] 안에 댓글 수 
-				            	<span class="newSpan">new</span>
-				            </td>
-					    </tr>
-				    </c:forEach>
+		        	<c:if test="${empty referenceList }">
+		        		<tr id="tdStyle">
+		        			<td colspan="2" class="tdCenter">등록된 게시글이 없습니다.</td>
+		        		</tr>
+		        	</c:if>
+		        	<c:if test="${!empty referenceList }">
+				        <c:forEach var="vo" items="${referenceList }">
+				        <c:forEach var="i" begin="1" end="5">
+						    <tr id="tdStyle">
+					            <td class="userNameTd">${vo.boardWriter }</td>
+					            <td>
+					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle }</a> 
+					            	<span>[6]</span>
+					            	<span class="newSpan">new</span>
+					            </td>
+						    </tr>
+					    </c:forEach>
+					    </c:forEach>
+				    </c:if>
 		        </tbody>
 			</table>
 		</div>
 		<div id="freeBoardView">
-			<h5 class="boardMainH">자유게시판</h5>
+			<h5 class="boardMainH">커뮤니티</h5>
 			<br>
 			<div class="moreBtn">더보기</div>
 			<table>
@@ -83,16 +103,25 @@
 				    </tr>
 		        </thead>
 		        <tbody>
-			        <c:forEach var="i" begin="1" end="5">
-					    <tr id="tdStyle">
-				            <td class="userNameTd">유혁</td>
-				            <td>
-				            	<a href="https://www.youtube.com/" class="titleA">테스트용 제목</a> 
-				            	<span>[6]</span> <=[ ] 안에 댓글 수 
-				            	<span class="newSpan">new</span>
-				            </td>
-					    </tr>
-				    </c:forEach>
+			        <c:if test="${empty communityList }">
+		        		<tr id="tdStyle">
+		        			<td colspan="2" class="tdCenter">등록된 게시글이 없습니다.</td>
+		        		</tr>
+		        	</c:if>
+		        	<c:if test="${!empty communityList }">
+				        <c:forEach var="vo" items="${communityList }">
+				        <c:forEach var="i" begin="1" end="5">
+						    <tr id="tdStyle">
+					            <td class="userNameTd">${vo.boardWriter }</td>
+					            <td>
+					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle }</a> 
+					            	<span>[6]</span>
+					            	<span class="newSpan">new</span>
+					            </td>
+						    </tr>
+					    </c:forEach>
+					    </c:forEach>
+				    </c:if>
 		        </tbody>
 			</table>
 		</div>
