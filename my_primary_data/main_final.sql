@@ -30,6 +30,8 @@ DROP TABLE BREAKDAY CASCADE CONSTRAINTS ;
 DROP TABLE BREAKTHEME CASCADE CONSTRAINTS ;
 DROP SEQUENCE EMP_SEQ;
 DROP SEQUENCE CALENDAR_SEQ;
+DROP SEQUENCE SCFOLDER_SEQ;
+
 
 ------------------------- DROP ---------------------------------
 
@@ -48,6 +50,15 @@ MAXVALUE 9999999999999999999999999999
 INCREMENT BY 1 
 START WITH 1 
 NOCACHE;
+
+
+CREATE SEQUENCE SCFOLDER_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
+
 
 ------------------------- SEQ ----------------------------------
 
@@ -995,6 +1006,10 @@ insert into sctheme values(1, '일정');
 --달력
 insert into calendar values(calendar_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','red',1,1,1,null,'asd');
 
+--달력 사원별 목록
+insert into scfolder values(scfolder_seq.nextval,'(기본)내 일정', 'RED', '1');
+insert into scfolder values(scfolder_seq.nextval,'TEST1', 'BLUE', '1');
+insert into scfolder values(scfolder_seq.nextval,'TEST2', 'GREEN', '1');
 
 commit;
 
