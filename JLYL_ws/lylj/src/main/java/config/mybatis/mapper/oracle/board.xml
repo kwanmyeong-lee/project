@@ -8,7 +8,7 @@
 			SELECT OFBOARD_SEQ.nextval FROM dual
 		</selectKey>
 		INSERT INTO ofboard(BOARD_NO, EMP_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER, BOARD_FOLDER_NO)
-		VALUES(#{boardNo}, #{empNo}, #{boardTitle}, #{boardContent}, #{boardWriter}, #{boardFolderNo})
+		VALUES(#{boardNo}, #{empNo}, #{boardTitle}, #{boardContent:CLOB}, #{boardWriter}, #{boardFolderNo})
 	</insert>
 	
 	<select id="selectBoard" parameterType="int" resultType="boardVo">
@@ -27,6 +27,17 @@
 		SELECT * FROM ofboard
 		WHERE board_no=#{boardNo}
 	</select>
+	
+	<update id="updateBoard" parameterType="boardVo">
+		UPDATE ofboard
+		SET board_title=#{boardTitle}, board_content=#{boardContent:CLOB}, board_date=sysdate
+		WHERE board_no=#{boardNo}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE ofboard
+		WHERE board_no=#{boardNo}
+	</delete>
 </mapper>
 
 

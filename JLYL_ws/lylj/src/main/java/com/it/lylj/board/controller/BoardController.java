@@ -143,14 +143,63 @@ public class BoardController {
 
 	/*        게시글 수정        */
 	@RequestMapping("/boardEdit")
-	public String eidt(Model model) {
-		logger.info("게시판 수정 페이지");
+	public String eidt(@RequestParam(defaultValue = "0")int boardNo, Model model) {
+		logger.info("게시판 글 수정 페이지");
+		
+		/* 게시판 폴더 처리 */
+		List<BoardFolVO> folList = boardFolService.selectBoardFol();
+		logger.info("게시판 폴더 조회, folList.size={}", folList.size());
+		
+		/* 수정페이지 값 받아오기 */
+		BoardVO vo = boardSerive.selectByNo(boardNo);
+		
+		model.addAttribute("folList", folList);
+		model.addAttribute("vo", vo);
 		model.addAttribute("navNo",6);
 
 		return "board/boardEdit";
 	}
 	
+	@PostMapping("/boardEdit")
+	public String edit_post(@ModelAttribute BoardVO vo, Model model) {
+		logger.info("게시판 글 수정 처리, 파라미터 vo={}", vo);
+		
+		int cnt = boardSerive.updateBoard(vo);
+		logger.info("게시판 글 수정 처리 결과, cnt={}", cnt);
+		
+		if(cnt<0) {
+			String msg="글 수정 처리를 실패하였습니다.";
+			String url="/board/boardDetail?boardNo="+vo.getBoardNo();
+
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
+			return "common/message";
+		}
+		
+		return "redirect:/board/boardDetail?boardNo=" + vo.getBoardNo();
+	}
 	
+	@RequestMapping("/boardDelete")
+	public String delete(@RequestParam(defaultValue = "0")int boardNo,
+						 @RequestParam(defaultValue = "0")int boardFolderNo,
+						 Model model) {
+		logger.info("게시판 글 삭제 처리");
+		
+		int cnt = boardSerive.deleteBoard(boardNo);
+		logger.info("게시판 글 삭제 결과, cnt={}", cnt);
+		
+		String msg="글 삭제 처리를 실패하였습니다.", url="/board/boardDetail?boardNo="+boardNo;
+		if(cnt>0) {
+			msg="글 삭제 처리를 완료하였습니다.";
+			url="/board/boardList?boardFolderNo="+boardFolderNo;
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
 	
 	
 	

@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface BoardFolDAO {
 	int insertBoardFol(BoardFolVO vo);
 	List<BoardFolVO> selectBoardFol();
+	List<BoardFolVO> otherFolder();
 }

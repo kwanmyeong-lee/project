@@ -5,4 +5,5 @@ import java.util.List;
 public interface BoardFolService {
 	int insertBoardFol(BoardFolVO vo);
 	List<BoardFolVO> selectBoardFol();
+	List<BoardFolVO> otherFolder();
 }

@@ -17,12 +17,16 @@
 			$(this).hide();
 			$('#likeBtnChk1').show();
 		});
+		
+		$('#boardDelete').click(function(){
+			confirm('글을 삭제 하시겠습니까?');
+		})
 	});
 </script>
 <div id="detailBodyDiv">
 	<div id=detailDiv>
 	    <div id="titleDiv"> 
-	    	<span>제목테스트!!!</span>
+	    	<span>${vo.boardTitle }</span>
 	    	<br>
 	        <a href="#" id="userNameSpan">${vo.boardWriter }</a>
 	        <span id="readcountSpan">조회수 : ${vo.boardHits }</span>
@@ -31,8 +35,8 @@
 	                <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
 	            </button>
 	            <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
-	                <li><a class="dropdown-item" href="#">수정</a></li>
-	                <li><a class="dropdown-item" href="#">삭제</a></li>
+	                <li><a class="dropdown-item" href="<c:url value='/board/boardEdit?boardNo=${param.boardNo }'/>">수정</a></li>
+	                <li><a class="dropdown-item" href="<c:url value='/board/boardDelete?boardNo=${param.boardNo }&boardFolderNo=${vo.boardFolderNo}'/>" id="boardDelete">삭제</a></li>
 	            </ul>
 	            <div id="likeDiv">
 			        <i class="fa fa-thumbs-up" id="likeBtnChk2"></i>
