@@ -8,8 +8,9 @@
         values(scfolder_seq.nextval, #{scheduleFolderName}, #{scheduleFolderColor}, #{empNo})
     </insert>
     
-    <select id="selectAllScFolder" resultType="ScFolderVo">
+    <select id="selectAllScFolderByEmpNo" parameterType="int" resultType="ScFolderVo">
         select * from scfolder
+        where EMP_NO=#{empNo}
     </select>
  </mapper>
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ScheduleService {
 	
-	int selectAllSchedule(ScheduleVO vo);
-	List<ScheduleVO> listSchedule();
+	int insertSchedule(ScheduleVO vo);
+	List<ScheduleVO> selectAllScheduleByEmpNo(int empNo);
 	
 }

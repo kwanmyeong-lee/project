@@ -13,13 +13,13 @@ public class ScheduleServieImpl implements ScheduleService{
 	private final  ScheduleDAO dao;
 	
 	@Override
-	public int selectAllSchedule(ScheduleVO vo) {
-		return dao.selectAllSchedule(vo);
+	public int insertSchedule(ScheduleVO vo) {
+		return dao.insertSchedule(vo);
 	}
 
 	@Override
-	public List<ScheduleVO> listSchedule() {
-		return dao.listSchedule();
+	public List<ScheduleVO> selectAllScheduleByEmpNo(int empNo){
+		return dao.selectAllScheduleByEmpNo(empNo);
 	}
 	
 }

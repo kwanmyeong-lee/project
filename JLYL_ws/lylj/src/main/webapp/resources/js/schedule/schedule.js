@@ -98,6 +98,7 @@ $(function() {
         },
 
         events: function(info, successCallback, failureCallback) {
+            
             $.ajax({
                 type: 'GET',
                 url: "listSchedule",
