@@ -13,8 +13,8 @@ public class ScheduleServieImpl implements ScheduleService{
 	private final  ScheduleDAO dao;
 	
 	@Override
-	public int insertSchedule(ScheduleVO vo) {
-		return dao.insertSchedule(vo);
+	public int selectAllSchedule(ScheduleVO vo) {
+		return dao.selectAllSchedule(vo);
 	}
 
 	@Override

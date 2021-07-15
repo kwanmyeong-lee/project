@@ -29,7 +29,7 @@ public class ScheduleController {
 	@ResponseBody
 	public void insertSchedule(@RequestBody ScheduleVO scheduleVO) {
 		logger.info("cal 등록, 파라미터 vo = {}", scheduleVO);
-		service.insertSchedule(scheduleVO);
+		service.selectAllSchedule(scheduleVO);
 		
 	}
 	
