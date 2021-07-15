@@ -346,12 +346,14 @@
 								<a class="dropdown-item" href="#"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내정보
 								</a>
+								<c:if test="${empAdminLev==1||empAdminLev==2}">
 									<a class="dropdown-item" href="<c:url value='/emp/empList'/>"> <i
-									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 사원관리
-								</a>
+										class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 사원관리
+									</a>
+								</c:if>
 
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal"
+								<a class="dropdown-item" href="<c:url value="/login/logout"/>" data-toggle="modal"
 									data-target="#logoutModal"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									로그아웃
