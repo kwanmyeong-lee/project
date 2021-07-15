@@ -5,7 +5,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800">어서오세요 *** 님</h1>
+	<h1 class="h3 mb-4 text-gray-800">어서오세요 ${empName} 님</h1>
 
 	<div class="row">
 

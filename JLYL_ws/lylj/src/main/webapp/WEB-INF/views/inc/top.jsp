@@ -338,7 +338,7 @@
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								<i class="fas fa-user fa-2x"></i><span
 								class="mr-2 d-none d-lg-inline text-gray-600 small topNavText">
-									아이디 들어갈자리</span>
+									${empName}</span>
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
