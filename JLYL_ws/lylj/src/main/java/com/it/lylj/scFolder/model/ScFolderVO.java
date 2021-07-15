@@ -8,8 +8,8 @@ import lombok.ToString;
 @Getter
 @ToString
 public class ScFolderVO {
-	private int scheduleFolderNo;
-	private String scheduleFolderName;
-	private String scheduleFolderColor;
-	private int empNo;
+    private int scheduleFolderNo;
+    private String scheduleFolderName;
+    private String scheduleFolderColor;
+    private int empNo;
 }

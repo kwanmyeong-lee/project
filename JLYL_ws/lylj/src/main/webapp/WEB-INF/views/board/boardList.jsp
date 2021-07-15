@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../inc/top.jsp" %>
 
 <link rel="stylesheet" href="<c:url value='/resources/css/board/style.css'/>">
@@ -35,12 +35,12 @@
 			    <tr id="tdStyle">
 		            <td class="userNameTd">${vo.boardWriter}</td>
 		            <td>
-		            	<a href="<c:url value='/board/boardDetail'/>" class="titleA">${vo.boardTitle}</a> 
+		            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle}</a> 
 		            	<span>[6]</span> <!-- [ ] 안에 댓글 수 (###########) -->
 		            	<span class="newSpan">new</span> <!-- 시간계산으로 new 처리 !!!! -->
 		            </td>
-		            <td class="regdateTd">${vo.boardDate}</td>
-		            <td class="readCountTd">85</td> <!-- 조회수 컬럼 추가!!!! -->
+		            <td class="regdateTd"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd"/></td>
+		            <td class="readCountTd">${vo.boardHits }</td> <!-- 조회수 컬럼 추가!!!! -->
 			    </tr>
 		    </c:forEach>
         </c:if>

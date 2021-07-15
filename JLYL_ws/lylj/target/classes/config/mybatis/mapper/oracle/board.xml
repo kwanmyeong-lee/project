@@ -5,15 +5,27 @@
 <mapper namespace="com.it.lylj.board.model.BoardDAO">
 	<insert id="insertBoard" parameterType="BoardVo">
 		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
-			SELECT OFBOARD_SEQ.nextval FROM ofboard 
+			SELECT OFBOARD_SEQ.nextval FROM dual
 		</selectKey>
 		INSERT INTO ofboard(BOARD_NO, EMP_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER, BOARD_FOLDER_NO)
-		VALUES(#{boardNo}, #{empNo}, #{boardTitle}, #{boardContent:CLOB}, #{boardWriter}, #{boardFolderNo})
+		VALUES(#{boardNo}, #{empNo}, #{boardTitle}, #{boardContent}, #{boardWriter}, #{boardFolderNo})
 	</insert>
 	
 	<select id="selectBoard" parameterType="int" resultType="boardVo">
 		SELECT * FROM ofboard
 		WHERE board_folder_no=#{boardFolderNo}
+		ORDER BY board_no desc
+	</select>
+	
+	<update id="updateReadCount" parameterType="int">
+		UPDATE ofboard
+		SET board_hits=board_hits+1
+		WHERE board_no=#{boardNo}
+	</update>
+	
+	<select id="selectByNo" parameterType="int" resultType="boardVo">
+		SELECT * FROM ofboard
+		WHERE board_no=#{boardNo}
 	</select>
 </mapper>
 

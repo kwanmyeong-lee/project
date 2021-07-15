@@ -21,4 +21,15 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.selectBoard(boardFolderNo);
 	}
 
+	@Override
+	public int updateReadCount(int boardNo) {
+		return boardDao.updateReadCount(boardNo);
+	}
+
+	@Override
+	public BoardVO selectByNo(int boardNo) {
+		return boardDao.selectByNo(boardNo);
+	}
+
+
 }

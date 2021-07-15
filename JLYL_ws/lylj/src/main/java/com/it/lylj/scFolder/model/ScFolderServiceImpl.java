@@ -9,17 +9,17 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ScFolderServiceImpl implements ScFolderService{
-	private final ScFolderDAO dao;
+    private final ScFolderDAO dao;
 
-	@Override
-	public int insertScFolder(ScFolderVO vo) {
-		return dao.insertScFolder(vo);
-	}
+    @Override
+    public int insertScFolder(ScFolderVO vo) {
+        return dao.insertScFolder(vo);
+    }
 
-	@Override
-	public List<ScFolderVO> selectAllScFolder() {
-		return dao.selectAllScFolder();
-	}
-	
-	
+    @Override
+    public List<ScFolderVO> selectAllScFolderByEmpNo(int empNo) {
+        return dao.selectAllScFolderByEmpNo(empNo);
+    }
+    
+    
 }

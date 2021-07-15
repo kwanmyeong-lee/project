@@ -43,8 +43,7 @@ $(function() {
             $('#startDate').datepicker("setDate", startD);
             $("#endDate").datepicker("option", "minDate", $('#startDate').val());
             $('#endDate').datepicker("setDate", endD);
-			
-			
+
             /* var title= prompt("일정명:");
         	  if(title){
         		  var obj = new Object();
@@ -99,6 +98,7 @@ $(function() {
         },
 
         events: function(info, successCallback, failureCallback) {
+            
             $.ajax({
                 type: 'GET',
                 url: "listSchedule",

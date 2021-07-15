@@ -5,6 +5,6 @@ import java.util.List;
 public interface ScheduleService {
 	
 	int insertSchedule(ScheduleVO vo);
-	List<ScheduleVO> selectAllSchedule();
+	List<ScheduleVO> selectAllScheduleByEmpNo(int empNo);
 	
 }

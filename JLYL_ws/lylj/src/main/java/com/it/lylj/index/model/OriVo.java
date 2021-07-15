@@ -10,7 +10,7 @@ import lombok.ToString;
 public class OriVo {
 	
 	private String id;
-	private String parent;
+//	private String parent;
 	private String text;
 //	private String icon;
 	
