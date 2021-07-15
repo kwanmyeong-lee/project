@@ -22,8 +22,14 @@ public class BoardFolServiceImpl implements BoardFolService{
 	}
 
 	@Override
+	public BoardFolVO selectByNo(int boardFolderNo) {
+		return boardFolDao.selectByNo(boardFolderNo);
+	}
+
+	@Override
 	public List<BoardFolVO> otherFolder() {
 		return boardFolDao.otherFolder();
 	}
+
 
 }

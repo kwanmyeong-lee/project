@@ -73,6 +73,10 @@
     cursor: pointer;
 }
 
+.tdCenter{
+	text-align: center;
+}
+
 /*리스트 CSS*/
 #listBodyDiv{
 	float: left;
@@ -84,6 +88,10 @@
     border-radius: 15px;
     box-shadow: 0px 2px 20px #d0d0d0;
     
+}
+.listTitle{
+	margin: 10px 20px;
+	font-weight: bold;
 }
 
 #writeBtnDiv{
@@ -135,8 +143,8 @@
 }
 
 #pagingDiv{
-	text-align: center;
 	margin-top: 40px;
+	margin: 40px 390px 0 390px;
 }
 
 #searchDiv{

@@ -19,7 +19,10 @@
 		});
 		
 		$('#boardDelete').click(function(){
-			confirm('글을 삭제 하시겠습니까?');
+			var result = confirm('글을 삭제 하시겠습니까?');
+			if(!result){
+				return false;
+			}
 		})
 	});
 </script>

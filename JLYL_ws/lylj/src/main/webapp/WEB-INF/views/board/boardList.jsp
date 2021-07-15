@@ -6,9 +6,8 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/board/style.css'/>">
 
 <div id="listBodyDiv">
-	<h4> 게시판</h4>
+	<h4 class="listTitle">${boFol.boardFolderName }</h4>
 	<br>
-	<div id="writeBtnDiv">글쓰기</div>
 	<table>
 	    <colgroup>
 	       <col style="width:20%;" />
@@ -47,7 +46,25 @@
         </tbody>
 	</table>
 	
-	<div id="pagingDiv">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
+	<div id="pagingDiv">
+		<nav aria-label="Page navigation example">
+		  <ul class="pagination">
+		    <li class="page-item">
+		      <a class="page-link" href="#" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <li class="page-item"><a class="page-link" href="#">1</a></li>
+		    <li class="page-item"><a class="page-link" href="#">2</a></li>
+		    <li class="page-item"><a class="page-link" href="#">3</a></li>
+		    <li class="page-item">
+		      <a class="page-link" href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>	
+	</div>
 	<div id="searchDiv">
 		<select>
 			<option></option>

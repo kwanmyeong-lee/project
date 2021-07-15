@@ -32,6 +32,17 @@ public class BoardController {
 	@RequestMapping("/boardMain")
 	public String main(Model model) {
 		logger.info("게시판 메인 페이지");
+		
+		List<BoardVO> noticeList =boardSerive.selectBoard(1);
+		List<BoardVO> referenceList =boardSerive.selectBoard(2);
+		List<BoardVO> communityList =boardSerive.selectBoard(3);
+		logger.info("noticeList.size={}, referenceList.size={}, communityList.size={}", 
+				noticeList.size(), referenceList.size(), communityList.size());
+		
+		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("referenceList", referenceList);
+		model.addAttribute("communityList", communityList);
+		
 		model.addAttribute("navNo",6);
 		
 		return "board/boardMain";
@@ -93,6 +104,9 @@ public class BoardController {
 	public String list_param(@RequestParam(defaultValue = "0")int boardFolderNo, Model model) {
 		logger.info("게시판 목록 페이지, 파라미터 boardFolderNo={}", boardFolderNo);
 		
+		BoardFolVO boFol = boardFolService.selectByNo(boardFolderNo);
+		logger.info("게시판 목록 조회, boFol={}", boFol);
+		
 		if(boardFolderNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
 			model.addAttribute("url", "/board/boardMain");
@@ -103,6 +117,8 @@ public class BoardController {
 		List<BoardVO> list = boardSerive.selectBoard(boardFolderNo);
 		logger.info("게시판 목록 조회, list.size={}", list.size());
 		
+		
+		model.addAttribute("boFol", boFol);
 		model.addAttribute("list", list);
 		model.addAttribute("navNo", 6);
 		
