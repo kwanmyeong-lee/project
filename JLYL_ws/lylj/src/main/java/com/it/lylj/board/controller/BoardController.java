@@ -32,10 +32,11 @@ public class BoardController {
 	@RequestMapping("/boardMain")
 	public String main(Model model) {
 		logger.info("게시판 메인 페이지");
-		
+    
 		List<BoardVO> noticeList = boardSerive.selectBoardMain(1);
 		List<BoardVO> referenceList = boardSerive.selectBoardMain(2);
 		List<BoardVO> communityList = boardSerive.selectBoardMain(3);
+
 		logger.info("noticeList.size={}, referenceList.size={}, communityList.size={}", 
 				noticeList.size(), referenceList.size(), communityList.size());
 		

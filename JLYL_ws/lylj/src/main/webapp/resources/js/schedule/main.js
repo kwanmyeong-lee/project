@@ -18,14 +18,26 @@ $(function() {
             /*var scheduleFolderNo =
             var scheduleThemeNo =1 ;
             var empNo ="${sessionScope.empNo}";*/
+            var startTimes = $('#startTime').val();
+            var stnum= "#option-startTime"+startTimes;
+            var startTimes = $(stnum).text();
+            
+            var endTimes = $('#endTime').val();
+            var etnum= "#option-endTime"+endTimes;
+            var endTimes = $(etnum).text();
             
             var scheduleTitle = $('#addtitle').val();
-            var scheduleStart = $('#startDate').val();
-            var scheduleEnd = $('#endDate').val();
+            var scheduleStart = $('#startDate').val()+" "+ startTimes;
+            var scheduleEnd = $('#endDate').val()+" "+ endTimes;
             var scheduleAllday = $('.chk-day').prop('checked');
-            var scheduleFolderNo = 1;
-            var scheduleThemeNo =1 ;
-            var empNo =1;
+
+            var scheduleFolderNo = $('#selectMycal').val();
+            var sccolor = "#hiddenMycal"+scheduleFolderNo;
+        	var scheduleColor = $(sccolor).val()
+            
+            var scheduleThemeNo =1;
+            var empNo = $('#empNo').val();
+            
             $.ajax({    
                       type:'POST',
                       url:"insertSchedule",
@@ -34,16 +46,20 @@ $(function() {
                               scheduleEnd:scheduleEnd,
                               scheduleAllday:scheduleAllday,
                               scheduleThemeNo:scheduleThemeNo,
-                              empNo:empNo
+                              scheduleFolderNo:scheduleFolderNo,
+                              empNo:empNo,
+                              scheduleColor:scheduleColor
                       }),
                       contentType: "application/json; charset=utf-8;",
                       dataType: "json",
                       success : function(data) {
                           calendar.addEvent({
+							  id:scheduleFolderNo,
                               title:scheduleTitle,
                                 start:scheduleStart,
                                 end:scheduleEnd,
-                                allDay:scheduleAllday
+                                allDay:(scheduleAllday=="true"),
+                                color:scheduleColor
                           });
                           $('#myModal').modal('hide');
                       }
@@ -63,14 +79,96 @@ $(function() {
 	});
 	
 	$('.list-span').click(function(){
+		var texts=$(this).next().val();
+		var event2 = calendar.getEventById(texts);
 		if($(this).prev('.ckSch').prop('checked')){
-			$(this).prev('.ckSch').prop('checked',false)
+			$(this).prev('.ckSch').prop('checked',false);
+			$.ajax({    
+                      type:'POST',
+                      url:"listScheduleByScFolderNo",
+                      data:texts,
+                      contentType: "application/json; charset=utf-8;",
+                      dataType: "json",
+                      success : function(data) {
+							$(data).each(function() {
+								event2 = calendar.getEventById(texts);
+        		                event2.remove();
+                    		});   
+                      }
+                    });
+			
+			
 		}else{
-			$(this).prev('.ckSch').prop('checked',true)
-		}
+			$(this).prev('.ckSch').prop('checked',true);		
+			$.ajax({    
+                      type:'POST',
+                      url:"listScheduleByScFolderNo",
+                      data:texts,
+                      contentType: "application/json; charset=utf-8;",
+                      dataType: "json",
+                      success : function(data) {
+	
+							$(data).each(function(index) {
+        		                calendar.addEvent({
+									id:data[index].scheduleFolderNo,
+		                            title: data[index].scheduleTitle,
+		                            start: data[index].scheduleStart,
+		                            end: data[index].scheduleEnd,
+		                            allDay: (data[index].scheduleAllday=="true"),
+		                            color:data[index].scheduleColor
+                        		});
+
+                    		});   
+                      }
+                    });
+			}
+	});
+	
+	$(".ckSch").change(function(){
+		var texts=$(this).next().next().val();
+		var event2 = calendar.getEventById(texts);
+		if(!$(this).prop('checked')){
+			$.ajax({    
+                      type:'POST',
+                      url:"listScheduleByScFolderNo",
+                      data:texts,
+                      contentType: "application/json; charset=utf-8;",
+                      dataType: "json",
+                      success : function(data) {
+							$(data).each(function() {
+								event2 = calendar.getEventById(texts);
+        		                event2.remove();
+                    		});   
+                      }
+                    });
+		}else{
+			$.ajax({    
+                      type:'POST',
+                      url:"listScheduleByScFolderNo",
+                      data:texts,
+                      contentType: "application/json; charset=utf-8;",
+                      dataType: "json",
+                      success : function(data) {
+	
+							$(data).each(function(index) {
+        		                calendar.addEvent({
+									id:data[index].scheduleFolderNo,
+		                            title: data[index].scheduleTitle,
+		                            start: data[index].scheduleStart,
+		                            end: data[index].scheduleEnd,
+		                            allDay: (data[index].scheduleAllday=="true"),
+		                            color:data[index].scheduleColor
+                        		});
+
+                    		});   
+                      }
+                    });
+			}
+		
 	});
 	
 	
 	
 });
+
 

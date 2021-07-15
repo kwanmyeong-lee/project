@@ -40,7 +40,7 @@
 			            	<span class="newSpan">new</span>
 			            </td>
 			            <td class="regdateTd"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd"/></td>
-				    </tr>
+              </tr>
 			    </c:forEach>
 			    </c:if>
 	        </tbody>

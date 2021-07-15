@@ -8,5 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ScheduleDAO {
 	int insertSchedule(ScheduleVO vo);
 	List<ScheduleVO> selectAllScheduleByEmpNo(int empNo);
+	List<ScheduleVO> selectAllScheduleByScFolderNo(int scheduleFolderNo);
 	
 }
