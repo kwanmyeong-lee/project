@@ -18,14 +18,22 @@ $(function() {
             /*var scheduleFolderNo =
             var scheduleThemeNo =1 ;
             var empNo ="${sessionScope.empNo}";*/
+            var startTimes = $('#startTime').val();
+            var stnum= "#option-startTime"+startTimes;
+            var startTimes = $(stnum).text();
+            
+            var endTimes = $('#endTime').val();
+            var etnum= "#option-endTime"+endTimes;
+            var endTimes = $(etnum).text();
             
             var scheduleTitle = $('#addtitle').val();
-            var scheduleStart = $('#startDate').val();
-            var scheduleEnd = $('#endDate').val();
+            var scheduleStart = $('#startDate').val()+" "+ startTimes;
+            var scheduleEnd = $('#endDate').val()+" "+ endTimes;
             var scheduleAllday = $('.chk-day').prop('checked');
-            var scheduleFolderNo = 1;
-            var scheduleThemeNo =1 ;
-            var empNo =1;
+            var scheduleFolderNo = $('#selectMycal').val();
+            var scheduleThemeNo =1;
+            var empNo = $('#empNo').val();
+            
             $.ajax({    
                       type:'POST',
                       url:"insertSchedule",
@@ -74,3 +82,7 @@ $(function() {
 	
 });
 
+
+function newFunction() {
+    ") %>";
+}
