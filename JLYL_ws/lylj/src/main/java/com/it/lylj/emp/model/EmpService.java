@@ -8,6 +8,11 @@ public interface EmpService {
 	int PWD_DISAGREE=2;
 	int ID_NONE=3;
 	
+	//adminLevel
+	int ADMIN=1;
+	int LEADER=2;
+	int EMP=3;
+	
 	int insertEmp(EmpVO vo);
 	public int loginProc(int empNo, String empPwd);
 	EmpVO selectByEmpNo(int empNo);

@@ -21,9 +21,9 @@
 		where emp_no=#{empNo}
 	</select> 
 	
-	<select id="selectByEmpNo" parameterType="int" resultType="EmpVo">
+	<select id="selectByEmpNo" parameterType="int" resultType="empVo">
 		select * from emp
-		where emp_no=#{empNo}
+		where emp_no= #{empNo}
 	</select>
 
 	<select id="selectAllEmp" resultType="empVo">

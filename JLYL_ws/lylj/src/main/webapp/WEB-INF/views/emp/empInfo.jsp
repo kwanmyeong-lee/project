@@ -46,7 +46,7 @@
 		 </div>
 		  <div class="col-md-6">
 		  	<label for="empName" class="form-label">이름</label>
-		    <input type="text" class="form-control" placeholder="name" id="empName" name="empName" readonly="readonly">
+		    <input type="text" class="form-control" placeholder="name" id="empName" name="empName" value="${vo.empName}" readonly="readonly">
 		 </div>
   		 <div class="col-md-6">
     		<label for="empTel" class="form-label">전화번호</label>
