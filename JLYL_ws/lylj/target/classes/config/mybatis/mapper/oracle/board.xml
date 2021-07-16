@@ -14,7 +14,7 @@
 		AND ROWNUM <=5
 		]]>
 	</sql>
-
+	
 	<insert id="insertBoard" parameterType="BoardVo">
 		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
 			SELECT OFBOARD_SEQ.nextval FROM dual
