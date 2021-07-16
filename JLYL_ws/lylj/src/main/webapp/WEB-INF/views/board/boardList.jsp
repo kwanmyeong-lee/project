@@ -7,6 +7,14 @@
 <script type="text/javascript" 
    src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 <script type="text/javascript">
+	$(function(){
+		$('form[name="frmSearch"]').submit(function(){
+			if($('select[name="searchCondition"]').val()==''){
+				$('#searchTextBox').val('');
+			}
+		});
+	});
+	
 	function pageProc(curPage){
 	    $('input[name=currentPage]').val(curPage);
 	    $('form[name=frmPage]').submit();   
@@ -20,13 +28,38 @@
 	   <p id="searchP">검색어 : ${param.searchKeyword}, ${pagingInfo.totalRecord} 건 검색되었습니다.</p>
 	</c:if>
 	<!-- 페이징 처리를 위한 form -->
-	<form action="<c:url value='/board/boardList?boardFolderNo=${param.boardFolderNo }'/>" 
-	   name="frmPage" method="post">
+	<form action="<c:url value='/board/boardList?boardFolderNo=${param.boardFolderNo}'/>" 
+	   name="frmPage" method="post" id="frmPage">
 	   <input type="hidden" name="boardFolderNo" value="${param.boardFolderNo }"><br>
 	   <input type="hidden" name="currentPage" value=${pagingInfo.currentPage }><br>
 	   <input type="hidden" name="searchCondition" value="${param.searchCondition}"><br>
 	   <input type="hidden" name="searchKeyword" value="${param.searchKeyword}"><br>   
 	</form>
+	<div id="searchDiv">
+		<form name="frmSearch" method="post" 
+         action='<c:url value="/board/boardList?boardFolderNo=${param.boardFolderNo }"/>'>
+			<select name="searchCondition" id="searchCondition">
+				<option value=""></option>
+				<option value="board_Title"
+				<c:if test="${param.searchCondition == 'board_Title' }">               
+	                  selected="selected"
+	            </c:if>
+	            >제목</option>
+				<option value="board_Content"
+				<c:if test="${param.searchCondition == 'board_Content' }">               
+	                  selected="selected"
+	            </c:if>
+	            >내용</option>
+				<option value="board_Writer"
+				<c:if test="${param.searchCondition == 'board_Writer' }">               
+	                  selected="selected"
+	            </c:if>
+	            >작성자</option>
+			</select>
+			<input type="text" name="searchKeyword" id="searchTextBox" value="${param.searchKeyword }">
+			<input type="submit" value="검색" id="searchBtn">
+		</form>
+	</div>
 	<table>
 	    <colgroup>
 	       <col style="width:7%;" />
@@ -58,7 +91,9 @@
 		            <td>
 		            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle}</a> 
 		            	<span>[6]</span> <!-- [ ] 안에 댓글 수 (###########) -->
-		            	<span class="newSpan">new</span> <!-- 시간계산으로 new 처리 !!!! -->
+		            	<c:if test="${vo.newImgTerm<12}">
+		            		<span class="newSpan">new</span> <!-- 시간계산으로 new 처리 !!!! -->
+		            	</c:if>
 		            </td>
 		            <td class="regdateTd"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd"/></td>
 		            <td class="readCountTd">${vo.boardHits }</td> <!-- 조회수 컬럼 추가!!!! -->
@@ -101,31 +136,7 @@
 		  </ul>
 		</nav>	
 	</div>
-	<div id="searchDiv">
-		<form name="frmSearch" method="post" 
-         action='<c:url value="/board/boardlist"/>'>
-			<select name="searchCondition">
-				<option ></option>
-				<option value="boardTitle"
-				<c:if test="${param.searchCondition == 'boardTitle' }">               
-	                  selected="selected"
-	            </c:if>
-	            >제목</option>
-				<option value="boardContent"
-				<c:if test="${param.searchCondition == 'boardContent' }">               
-	                  selected="selected"
-	            </c:if>
-	            >내용</option>
-				<option value="boardWriter"
-				<c:if test="${param.searchCondition == 'boardWriter' }">               
-	                  selected="selected"
-	            </c:if>
-	            >작성자</option>
-			</select>
-			<input type="text" name="searchKeyword" id="searchTextBox" value="${param.searchKeyword }">
-			<input type="submit" value="검색">
-		</form>
-	</div>
+	
 </div>
 
 <%@ include file="../inc/bottom.jsp" %>

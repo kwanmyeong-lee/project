@@ -5,11 +5,17 @@
 	margin-left: 13%;
 }
 
+.boardMainH{
+	color: #575757;
+	padding: 10px 0 0 24px;
+}
+
 #noticeView{
 	float: left;
 	width: 1160px;
 	height: 427px;
 	margin: 20px;
+	color: #575757;
    	background: white;
 	padding-bottom: 20px;
    	border-radius: 15px;
@@ -21,6 +27,7 @@
 	clear: both;
     width: 1100px;
     margin: 0px 30px;
+    color: #575757;
 }
 
 #div2{
@@ -32,6 +39,7 @@
 	width: 560px;
 	height: 427px;
 	margin: 20px;
+	color: #575757;
    	background: white;
 	padding-bottom: 20px;
    	border-radius: 15px;
@@ -43,6 +51,7 @@
 	clear: both;
     width: 500px;
     margin: 0px 30px;
+    color: #575757;
 }
 
 #ArchivesView{
@@ -50,6 +59,7 @@
 	width: 560px;
 	height: 427px;
 	margin: 20px;
+	color: #575757;
    	background: white;
 	padding-bottom: 20px;
    	border-radius: 15px;
@@ -61,6 +71,7 @@
 	clear: both;
     width: 500px;
     margin: 0px 30px;
+    color: #575757;
 }
 
 .moreBtn{
@@ -68,7 +79,7 @@
     width: 70px;
     height: 33px;
     padding-top: 5px;
-    margin: 0px 20px 15px 0px;
+    margin: 0px 30px 15px 0px;
     border-radius: 5px;
     text-align: center;
     color: white;
@@ -84,7 +95,7 @@
 #listBodyDiv{
 	float: left;
     width: 1000px;
-    height: 1150px;
+    height: auto;
     margin: 0px 0px 10px 20%;
 	padding: 20px;
     background: white;
@@ -95,6 +106,7 @@
 .listTitle{
 	margin: 10px 20px;
 	font-weight: bold;
+	color: #575757;
 }
 
 #writeBtnDiv{
@@ -109,10 +121,14 @@
     background-color: rgb(70, 171, 196);
     cursor: pointer;
 }
+#frmPage{
+	height: 0;	
+}
 
 #listBodyDiv > table{
 	clear: both;
     width: 950px;
+    color: #575757;
 }
 
 #thStyle{
@@ -154,21 +170,35 @@
 	margin: 0 auto;
 }
 
-#searchDiv{
-	margin: 30px 300px;
+#searchP{
+	float: left;
+	margin-left: 20px;
 }
 
-#searchDiv > #searchTextBox{
-	width: 210px;
+#searchDiv{
+	float: right;
+	margin: 0 20px 10px 0; 
+}
+
+#searchCondition{
+	height: 27.5px;	
+}
+
+#searchTextBox{
+	width: 200px;
 	font-size: 15px;
 }
 
-#searchDiv > button{
+#searchBtn{
 	border-radius: 5px;
-    color: rgb(58, 58, 58);
-    border: 1px solid rgb(58, 58, 58); 
+    color: #535353;
+	border: 1px solid #6e6e6e;
 }
 
+.titleA{
+	text-decoration: none;
+	color: #535353;
+}
 /* 등록, 수정 css*/
 
 .wrtieDiv{

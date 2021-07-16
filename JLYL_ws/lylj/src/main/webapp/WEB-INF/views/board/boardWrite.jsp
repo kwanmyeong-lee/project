@@ -58,12 +58,12 @@
 </script>
 <form method="post" class="writeForm" name="writeForm" action="<c:url value='/board/boardWrite'/>">
 	<input type="hidden" name="empNo" value="7"><!-- 사원번호 -->
-	<input type="hidden" name="boardWriter" value="테슽흐"><!-- 사원번호 -->
+	<input type="hidden" name="boardWriter" value="테슽흐"><!-- 사원이름 -->
     <div class="wrtieDiv">
         <select name="boardFolderNo" id="boardSelect">
             <option value="">게시판을 선택해주세요.</option>
             <c:forEach var="fol" items="${boFol }">
-	            <option value="${fol.boardFolderNo }">${fol.boardFolderName }</option>
+	            <option value="${fol.boardFolderNo}">${fol.boardFolderName}</option>
             </c:forEach>
             <!-- 게시판을 추가하면 자동으로 추가되게끔 size 또는 length 받아옴 -->
         </select>
