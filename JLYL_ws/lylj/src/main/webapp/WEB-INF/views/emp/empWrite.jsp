@@ -51,6 +51,18 @@
             }
         }).open();
 	}
+	
+	$(function(){
+		$('.frmEmpWrite').submit(function(){
+			$('.infoGroup').each(function(idx, item){
+					if($(this).val().length<1){
+						this.focus();
+						event.preventDefault();
+					}		
+			});
+		});
+	});
+	
 </script>
 
 <style type="text/css">
@@ -69,6 +81,10 @@
 .btGroup{
 	text-align: center;
 }
+.pwdInfo{
+	color: red;
+	font-size: 0.9em;
+}
 </style>
 
 	<div class="panel mainPanel">
@@ -76,36 +92,38 @@
 		<hr>
 
 		<!-- 사원등록 form -->
-		<form class="row g-3" method="post" action="<c:url value='/emp/empWrite'/>">
+		<form class="row g-3 frmEmpWrite"  method="post" action="<c:url value='/emp/empWrite'/>" enctype="multipart/form-data">
 		   <div></div>
 		   <div class="row">
 			  <div class="col-md-6">
 			  	<label for="empName" class="form-label">이름</label>
-			    <input type="text" class="form-control" placeholder="name" id="empName" name="empName">
+			    <input type="text" class="form-control infoGroup" placeholder="name" id="empName" name="empName">
 			  </div>
 		   </div>
 		   <div></div>
 		   <div class="row">
 			  <div class="col">
 			  	<label for="empPwd" class="form-label">비밀번호</label>
-			    <input type="text" class="form-control" placeholder="password" aria-label="PWD" name="empPwd" id="empPwd">
+			    <input type="password" class="form-control infoGroup" placeholder="password" aria-label="PWD" name="empPwd" id="empPwd">
+			    <span class="pwdInfo" id="pwdInfo1"></span>
 			  </div>
 			  <div class="col">
 			  	<label for="chkPwd" class="form-label">비밀번호확인</label>
-			    <input type="text" class="form-control" placeholder="check password" aria-label="chkPwd" id="chkPwd">
+			    <input type="password" class="form-control infoGroup" placeholder="check password" aria-label="chkPwd" id="chkPwd">
+			    <span class="pwdInfo" id="pwdInfo2"></span>
 			  </div>
 		    </div>
 	  		 <div class="col-md-11">
 	    		<label for="empTel" class="form-label">전화번호</label>
-	    		<input type="tel" class="form-control" id="empTel" name="empTel">
+	    		<input type="tel" class="form-control infoGroup" id="empTel" name="empTel">
 	  		</div>
 			 <div class="col-md-11">
 	    		<label for="empEmail" class="form-label">Email</label>
-	    		<input type="email" class="form-control" id="empEmail" name="empEmail">
+	    		<input type="email" class="form-control infoGroup" id="empEmail" name="empEmail">
 	  		</div>
 	  	  	<div class="col-md-11">
 				<label for="empPhoto" class="form-label">사진첨부</label>
-			    <input type="file" class="form-control" id="empPhoto" name="empPhoto">
+			    <input type="file" class="form-control infoGroup" id="empPhoto" name="empPhoto">
 		  	</div>
 	  		<div class="col-md-6">
 	    		<label for="empZipcode" class="form-label">우편번호</label>
@@ -117,13 +135,13 @@
 
 		  	<div class="col-md-8">
 				<label for="empAddress" class="form-label">주소</label>
-			    <input type="text" class="form-control" id="empAddress" name="empAddress" aria-label="address" readonly="readonly">
+			    <input type="text" class="form-control infoGroup" id="empAddress" name="empAddress" aria-label="address" readonly="readonly">
 		  	</div>
 		  	<div></div>
 		   	<div class="row">
 		   		<div class="col-md-6">
 					<label for="empAddressdetail" class="form-label">상세주소</label>
-			    	<input type="text" class="form-control" id="empAddressdetail" name="empAddressdetail" placeholder="상세주소" aria-label="adressDetail">
+			    	<input type="text" class="form-control infoGroup" id="empAddressdetail" name="empAddressdetail" placeholder="상세주소" aria-label="adressDetail">
 		  		</div>
 		  		<div class="col-md-2">
 					<label for="dong" class="form-label">동</label>

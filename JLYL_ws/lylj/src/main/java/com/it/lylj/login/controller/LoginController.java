@@ -46,17 +46,15 @@ public class LoginController {
 	    	
 	    String msg="로그인실패", url="/login/login";
 	    EmpVO vo= null;
+	    HttpSession session = request.getSession();
 	    if(result==EmpService.LOGIN_OK) {
 	    	vo = empService.selectByEmpNo(iEmpNo);
 	    	logger.info("로그인된 사원정보, vo={}",vo);
 	    	
 	    	//[세션]
-	    	HttpSession session = request.getSession();
-	    	session.setAttribute("empNo",vo.getEmpNo());
+	    	session.setAttribute("empNo",empNo);
 	    	session.setAttribute("empName", vo.getEmpName());
 	    	session.setAttribute("empAdminLev", vo.getEmpAdminLev());
-	    	
-	    	logger.info("session={}",session.getAttribute("empNo"));
 	    	
 	    	//[쿠키]
 	    	Cookie ck = new Cookie("ck_empNo", empNo);
@@ -77,11 +75,11 @@ public class LoginController {
 	    	msg = "사원번호를 확인하세요";
 	    	
 	    }
-	    
+	       
 	    //3
 	    model.addAttribute("msg", msg);
 	    model.addAttribute("url", url);
-	    
+	    logger.info("session={}",session.getAttribute("empNo"));
 	    
 	    return "common/message";
 	}

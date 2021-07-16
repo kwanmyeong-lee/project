@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -25,7 +27,6 @@
 	rel="stylesheet">
 <link href="<c:url value="/resources/css/sb-admin-2.min.css"/>"
 	rel="stylesheet">
-
 </head>
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
@@ -214,7 +215,6 @@
 
 
 <body id="page-top">
-
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -343,9 +343,6 @@
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								<input type="text" value="${empNo}">
-								<input type="text" value="${empName}">
-								<input type="text" value="${empAdminLev}">
 								<a class="dropdown-item" href="<c:url value='/emp/empInfo?empNo=${empNo}'/>"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내정보
 								</a>
