@@ -6,7 +6,9 @@ import com.it.lylj.common.SearchVO;
 
 public interface BoardService {
 	int insertBoard(BoardVO vo);
-	List<BoardVO> selectBoard(int boardFolderNo);
+	List<BoardVO> selectBoard(SearchVO searchVo);
+	int selectTotalRecord(SearchVO searchVo);
+	//int selectByFol(int boardFolderNo);
 	List<BoardVO> selectBoardMain(int boardFolderNo);
 	int updateReadCount(int boardNo);
 	BoardVO selectByNo(int boardNo);

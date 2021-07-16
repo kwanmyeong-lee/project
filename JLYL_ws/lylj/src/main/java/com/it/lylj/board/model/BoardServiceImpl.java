@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.it.lylj.boardFol.model.BoardFolVO;
 import com.it.lylj.common.SearchVO;
 
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,13 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> selectBoard(int boardFolderNo) {
-		return boardDao.selectBoard(boardFolderNo);
+	public List<BoardVO> selectBoard(SearchVO searchVo) {
+		return boardDao.selectBoard(searchVo);
+	}
+
+	@Override
+	public int selectTotalRecord(SearchVO searchVo) {
+		return boardDao.selectTotalRecord(searchVo);
 	}
 	
 	@Override
@@ -48,5 +54,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.deleteBoard(boardNo);
 	}
 
+	/*
+	 * @Override public int selectByFol(int boardFolderNo) { return
+	 * boardDao.selectByFol(boardFolderNo); }
+	 */
+
+	
 
 }

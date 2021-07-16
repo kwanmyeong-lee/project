@@ -21,6 +21,8 @@ public class SearchVO {
 	/** 동 */
 	private String dong = "";
 	
+	/* 게시판 폴더 번호 */
+	private int boardFolderNo;
     
     /**블럭당 보여질 페이지 수,  페이지 사이즈 */
     private int blockSize; // properties에서 설정
@@ -31,8 +33,12 @@ public class SearchVO {
     /** 끝 인덱스 */
     private int lastRecordIndex = 1;
     
+    
+    
     /**페이지 별 레코드 갯수 (pageSize) */
     private int recordCountPerPage; 
+    
+    
     
    /**
      * 검색 조건을  설정한다.
@@ -48,6 +54,7 @@ public class SearchVO {
     	this.lastRecordIndex = bean.lastRecordIndex;
     	this.recordCountPerPage = bean.recordCountPerPage;
     	this.dong=bean.dong;
+    	this.boardFolderNo=bean.boardFolderNo;
     }
 
     public String getSearchCondition() {
@@ -124,12 +131,20 @@ public class SearchVO {
 		this.dong = dong;
 	}
 
+	public int getBoardFolderNo() {
+		return boardFolderNo;
+	}
+
+	public void setBoardFolderNo(int boardFolderNo) {
+		this.boardFolderNo = boardFolderNo;
+	}
+
 	@Override
 	public String toString() {
 		return "SearchVO [searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", searchUseYn="
 				+ searchUseYn + ", currentPage=" + currentPage + ", dong=" + dong + ", blockSize=" + blockSize
 				+ ", firstRecordIndex=" + firstRecordIndex + ", lastRecordIndex=" + lastRecordIndex
-				+ ", recordCountPerPage=" + recordCountPerPage + "]";
+				+ ", recordCountPerPage=" + recordCountPerPage + ", boardFolderNo=" + boardFolderNo + "]";
 	}
 
 	

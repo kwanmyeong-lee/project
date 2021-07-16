@@ -5,7 +5,7 @@
 <mapper namespace="com.it.lylj.board.model.BoardDAO">
 	<sql id="searchWhere">
 		<if test="searchKeyword!=null and searchKeyword!=''">
-			AND ${searchCondition}  like '%' || #{searchKeyword} || '%'
+			AND ${searchCondition} like '%' || #{searchKeyword} || '%'
 		</if>
 	</sql>
 	
@@ -23,10 +23,30 @@
 		VALUES(#{boardNo}, #{empNo}, #{boardTitle}, #{boardContent:CLOB}, #{boardWriter}, #{boardFolderNo})
 	</insert>
 	
-	<select id="selectBoard" parameterType="int" resultType="boardVo">
+	<select id="selectBoard" parameterType="searchVo" resultType="boardVo">
+		SELECT *
+		FROM
+		(
+			SELECT rownum as RNUM,A.*
+			from
+		(
 		SELECT * FROM ofboard
 		WHERE board_folder_no=#{boardFolderNo}
-		ORDER BY board_no desc
+		<include refid="searchWhere"></include>
+		ORDER BY board_no DESC
+		)A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="selectTotalRecord" parameterType="searchVo"
+		resultType="int">
+		select count(*) from ofboard
+		where board_folder_no = #{boardFolderNo}
+		<include refid="searchWhere"></include>
 	</select>
 	
 	<select id="selectBoardMain" parameterType="int" resultType="boardVo">
@@ -35,10 +55,6 @@
 		<include refid="rowNum"></include>
 		ORDER BY board_no desc
 	</select>
-	
-	
-	
-	
 	
 	<update id="updateReadCount" parameterType="int">
 		UPDATE ofboard
