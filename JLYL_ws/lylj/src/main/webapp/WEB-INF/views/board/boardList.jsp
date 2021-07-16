@@ -20,21 +20,24 @@
 	   <p id="searchP">검색어 : ${param.searchKeyword}, ${pagingInfo.totalRecord} 건 검색되었습니다.</p>
 	</c:if>
 	<!-- 페이징 처리를 위한 form -->
-	<form action="<c:url value='/board/boardList'/>" 
+	<form action="<c:url value='/board/boardList?boardFolderNo=${param.boardFolderNo }'/>" 
 	   name="frmPage" method="post">
-	   <input type="hidden" name="currentPage"><br>
+	   <input type="hidden" name="boardFolderNo" value="${param.boardFolderNo }"><br>
+	   <input type="hidden" name="currentPage" value=${pagingInfo.currentPage }><br>
 	   <input type="hidden" name="searchCondition" value="${param.searchCondition}"><br>
 	   <input type="hidden" name="searchKeyword" value="${param.searchKeyword}"><br>   
 	</form>
 	<table>
 	    <colgroup>
+	       <col style="width:7%;" />
 	       <col style="width:20%;" />
-	       <col style="width:60%;" />
+	       <col style="width:53%;" />
 	       <col style="width:10%;" />
 	       <col style="width:10%;" />      
 	    </colgroup>
         <thead>
 		    <tr id="thStyle">
+	            <th>번호</th>
 	            <th>작성자</th>
 	            <th>제목</th>
 	            <th>작성일</th>
@@ -44,12 +47,13 @@
         <tbody>
         <c:if test="${empty list}">
 		    <tr id="tdStyle">
-	            <td colspan="4" class="userNameTd">등록된 게시글이 없습니다.</td>
+	            <td colspan="5" class="userNameTd">등록된 게시글이 없습니다.</td>
     		</tr>    	
         </c:if>
         <c:if test="${!empty list}">
 	        <c:forEach var="vo" items="${list}">
 			    <tr id="tdStyle">
+		            <td class="no" style="text-align: center;">${vo.boardNo}</td>
 		            <td class="userNameTd">${vo.boardWriter}</td>
 		            <td>
 		            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle}</a> 
@@ -65,7 +69,7 @@
 	</table>
 	
 	<div id="pagingDiv">
-		<nav aria-label="Page navigation example">
+		<nav aria-label="Page navigation example" id="pagingNav">
 		  <ul class="pagination">
 		  	<!-- 이전 블럭 -->
 		  	<c:if test="${pagingInfo.firstPage>1 }">
@@ -79,10 +83,10 @@
 		    <!-- 페이지 번호 -->
 		    <c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
 			    <c:if test="${i==pagingInfo.currentPage }">
-			    	<li class="page-item"  style="text-decoration: none;background-color:lightgray;"><a class="page-link" href="#">i</a></li>
+			    	<li class="page-item active" aria-current="page"><a class="page-link" href="#">${i }</a></li>
 			    </c:if>
 			    <c:if test="${i!=pagingInfo.currentPage }">
-			    	<li class="page-item"><a class="page-link" href="#">i</a></li>
+			    	<li class="page-item"><a class="page-link" href="#" onclick="pageProc(${i})">${i }</a></li>
 			    </c:if>
 		    </c:forEach>
 		    

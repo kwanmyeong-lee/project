@@ -2,11 +2,12 @@ package com.it.lylj.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +49,7 @@ public class BoardController {
 		model.addAttribute("communityList", communityList);
 		
 		model.addAttribute("navNo",6);
-		
+
 		return "board/boardMain";
 	}
 	
@@ -133,7 +134,7 @@ public class BoardController {
 		model.addAttribute("list", list);
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("navNo", 6);
-		
+
 		return "board/boardList";
 	}
 	
@@ -151,7 +152,7 @@ public class BoardController {
 		
 		int cnt = boardService.updateReadCount(boardNo);
 		logger.info("조회수 증가 처리, cnt={}", cnt);
-		
+
 		return "redirect:/board/boardDetail?boardNo="+boardNo;
 	}
 	
@@ -164,7 +165,7 @@ public class BoardController {
 		
 		model.addAttribute("vo", vo);
 		model.addAttribute("navNo",6);
-		
+
 		return "board/boardDetail";
 	}
 
@@ -189,7 +190,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/boardEdit")
-	public String edit_post(@ModelAttribute BoardVO vo, Model model) {
+	public String edit_post(@ModelAttribute BoardVO vo,Model model) {
 		logger.info("게시판 글 수정 처리, 파라미터 vo={}", vo);
 		
 		int cnt = boardService.updateBoard(vo);
@@ -233,3 +234,5 @@ public class BoardController {
 	
 	
 }
+
+

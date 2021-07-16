@@ -19,6 +19,7 @@
 		<a href="<c:url value="/board/boardWrite"/>">
 			<button type="button" class="btn btn-light btnSchAdd" id="newDocument">글쓰기</button>
 		</a>
+			<button type="button" class="btn btn-light btnSchAdd" id="newDocument" onclick="history.back();">글쓰기</button>
 	</div>
 	<!--Divider-->
 	<hr class="sidebar-divider d-none d-md-block">
