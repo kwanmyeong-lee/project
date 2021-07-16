@@ -114,7 +114,7 @@
                 <div class="row">
                 	 <div class="col-md-12">
 	                 	<label class="form-label modalLabel" for="modalEmpEmail">관리자번호</label> 
-	                 	<input class="form-control" type="email" name="empEmail" id="modalEmpEmail" name="empName" value="${empNo }" readonly="readonly">
+	                 	<inut class="form-control" type="email" name="empEmail" id="modalEmpEmail" name="empName" value="" readonly="readonly">
 	                 </div>
                 </div>
                 <div class="row">

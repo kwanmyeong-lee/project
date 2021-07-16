@@ -34,11 +34,8 @@ public class IndexController {
 	}
 
 	@RequestMapping("/index")
-	public void test(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-
-		session.setAttribute("empNo", 1);
-
+	public void test() {
+		logger.info("메인페이지");
 	}
 
 	@ResponseBody

@@ -13,7 +13,7 @@ public interface ConstUtil {
 	String FILE_UPLOAD_PATH = "pds_upload";
 	String FILE_UPLOAD_PATH_TEST = "D:\\lecture\\workspace_list\\spboot_ws\\springherb\\src\\main\\webapp\\pds_upload";
 
-	//관리자 페이지 - 상품 등록시 상품 이미지 저장 경로
+	//사원사진파일저장경로(경로확인필요)
 	String IMAGE_FILE_UPLOAD_PATH = "pd_images";
 	String IMAGE_FILE_UPLOAD_PATH_TEST = "D:\\lecture\\workspace_list\\spboot_ws\\springherb\\src\\main\\webapp\\pd_images";
 	

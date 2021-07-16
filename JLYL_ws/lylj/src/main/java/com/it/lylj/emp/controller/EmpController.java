@@ -78,7 +78,7 @@ public class EmpController {
 		logger.info("사원정보디테일 페이지, 파라미터 empNo={}",empNo);
 		//2
 		EmpVO vo = empService.selectByEmpNo(empNo);
-		logger.info("로그인된 정보, 파라미터 vo={}",vo);
+		logger.info("사원정보, 파라미터 vo={}",vo);
 		//3
 		
 		model.addAttribute("vo", vo);

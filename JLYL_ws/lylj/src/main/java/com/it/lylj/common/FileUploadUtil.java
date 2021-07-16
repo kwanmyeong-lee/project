@@ -55,7 +55,6 @@ public class FileUploadUtil {
 				map.put("fileSize", fileSize);
 				map.put("originalFileName", originFileName);
 				list.add(map);
-						
 				
 			} // if
 		} // while
@@ -103,7 +102,7 @@ public class FileUploadUtil {
 	public String getTimeStamp() {
 		Date d = new Date();
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyMMddHHmmssSSS");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyMMddHH");
 		String str = sdf.format(d);
 		return str;
 	}
