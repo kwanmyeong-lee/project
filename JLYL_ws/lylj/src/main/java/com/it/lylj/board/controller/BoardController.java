@@ -64,7 +64,6 @@ public class BoardController {
 		
 		model.addAttribute("boFol", boFol);
 		model.addAttribute("navNo",6);
-
 	}
 	
 	@PostMapping("/boardWrite")
@@ -82,7 +81,7 @@ public class BoardController {
 		String msg="등록을 실패하였습니다.", url="/board/boardMain";
 		if(cnt>0) {
 			msg="등록 성공";
-			url="/board/boardList?boardFolderNo="+vo.getBoardFolderNo();
+			url="/board/boardDetail?boardNo="+vo.getBoardNo();
 		}
 		
 		model.addAttribute("msg", msg);

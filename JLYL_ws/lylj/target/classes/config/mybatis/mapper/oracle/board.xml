@@ -29,12 +29,12 @@
 		(
 			SELECT rownum as RNUM,A.*
 			from
-		(
-		SELECT * FROM ofboard
-		WHERE board_folder_no=#{boardFolderNo}
-		<include refid="searchWhere"></include>
-		ORDER BY board_no DESC
-		)A
+			(
+				SELECT bo.*, (sysdate - board_date)*24 as newImgTerm FROM ofboard bo
+				WHERE board_folder_no=#{boardFolderNo}
+				<include refid="searchWhere"></include>
+				ORDER BY board_no DESC
+			)A
 		)
 		<![CDATA[
 		where RNUM > #{firstRecordIndex} 
