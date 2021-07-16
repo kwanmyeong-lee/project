@@ -55,4 +55,11 @@ public class EmpServiceImpl implements EmpService{
 		return empDao.selectstamp(userNo);
 	}
 
+	@Override
+	public Map<String, Object> selectstampList(String empNo) {
+		Map<String, Object> map = empDao.selectstampList(empNo);
+		return map;
+		
+	}
+
 }

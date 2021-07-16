@@ -15,10 +15,25 @@
 	src="<c:url value = "/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
 <script type="text/javascript">
 	$(function(){
+		var styNo = $('#styleNo').val();
 		$('#selectAP').click(function(){
-			location.href='<c:url value = '/electronic/documentSelectApproval'/>';
+			window
+			.open(
+					'<c:url value = '/electronic/documentSelectApproval?styleNo='/>'+styNo,
+					'_parent ',
+					'top=40, left=40, width=1000, height=1000, status=no, menubar=no, toolbar=no, resizable=no, directories=no, location=no, resizable=no');
+		});
+		$('#selectRC').click(function(){
+			window
+			.open(
+					'<c:url value = '/electronic/documentSelectReceive?styleNo='/>'+styNo,
+					'_parent ',
+					'top=40, left=40, width=1000, height=1000, status=no, menubar=no, toolbar=no, resizable=no, directories=no, location=no, resizable=no');
 		});
 	});
+	
+	
+	
 </script>
 
 <style type="text/css">
@@ -57,6 +72,7 @@
 .selectLine {
 	padding: 10px;
 	margin: 3px;
+	height: 180px;
 }
 
 .selectDiv {
@@ -89,42 +105,27 @@
 
 </head>
 <body>
+<input type="hidden" id="styleNo" value="${param.styleNo }">
 	<div class="container" style="max-width: 1000px;">
 		<h1>기안서</h1>
 		<div style="text-align: right;">
 			<button type="button" class="btn btn-primary text-end" id="selectAP">결재자
 				선택</button>
+			<button type="button" class="btn btn-primary text-end" id="selectRC">수신자
+				선택</button>
 		</div>
 		<div
 			class="row align-items-start selectLine border border-5 border-secondary">
 			결 <br>재 <br>라 <br> 인
-			<div class="col selectDiv ">
+			<div class="col selectDiv " id="Approval">
 
-				<span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 <img style="width: 40px;"
-						alt="아이유" src="<c:url value="/resources/img/아이유1.jpg"/>">
-				</span>
-
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span>
+			
 			</div>
 
 			수 <br>신 <br>라 <br> 인
-			<div class="col selectDiv ">
-				<span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span>
+			<div class="col selectDiv " id="Receive">
+			
+			
 			</div>
 		</div>
 
@@ -134,7 +135,7 @@
 			id="frm-form"
 			style="margin-bottom: 100px; text-align: -webkit-center;">
 
-			${vo.styleContent}
+			${svo.styleContent}
 
 			<!-- 문서 양식끝 -->
 

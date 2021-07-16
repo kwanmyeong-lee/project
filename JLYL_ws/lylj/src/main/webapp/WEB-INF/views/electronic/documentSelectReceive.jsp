@@ -104,7 +104,7 @@
 							+ val.EMP_NAME
 							+ "<br>"
 							+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span>";
-						$(opener.document).find("#Approval").append(stampInfo);
+						$(opener.document).find("#Receive").append(stampInfo);
 					});
 					self.close();
 					
@@ -191,7 +191,7 @@
 	<div class="container">
 		<div class="row">
 			<hr>
-			<h2>결재 라인을 선택해주세요</h2>
+			<h2>수신 라인을 선택해주세요</h2>
 			<div class="col-sm-4">
 				<h2>검색</h2>
 				<div class="form-group">
@@ -207,7 +207,7 @@
 			<h2>미리 보기</h2>
 			<div
 				class="row align-items-start selectLine border border-5 border-secondary">
-				결 <br>재 <br>라 <br> 인
+				수 <br>신 <br>라 <br> 인
 
 				<div class="col selectDiv" id="stamp"></div>
 			</div>
