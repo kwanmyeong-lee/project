@@ -84,7 +84,7 @@
 #listBodyDiv{
 	float: left;
     width: 1000px;
-    height: 870px;
+    height: 1150px;
     margin: 0px 0px 10px 20%;
 	padding: 20px;
     background: white;
@@ -147,7 +147,11 @@
 
 #pagingDiv{
 	margin-top: 40px;
-	margin: 40px 390px 0 390px;
+	display: flex;
+}
+
+#pagingNav{
+	margin: 0 auto;
 }
 
 #searchDiv{

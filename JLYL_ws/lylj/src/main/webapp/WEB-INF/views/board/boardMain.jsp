@@ -6,6 +6,14 @@
 
 <link rel="stylesheet" href="<c:url value='/resources/css/board/style.css'/>">
 
+<%
+	response.setHeader("Cache-Control", "no-store");
+	response.setHeader("Pragma", "no-cache");
+	response.setDateHeader("Expires", 0);
+	if (request.getProtocol().equals("HTTP/1.1"))
+	response.setHeader("Cache-Control", "no-cache");
+%>
+
 <div id="mainBodyDiv" class="boardMain">
 	<div id="noticeView">
 		<h5 class="boardMainH">공지사항</h5>
@@ -86,7 +94,7 @@
 		<div id="freeBoardView">
 			<h5 class="boardMainH">커뮤니티</h5>
 			<br>
-			<a href="<c:url value='/board/boardList?boardFolderNo=1'/>"><div class="moreBtn">더보기</div></a>
+			<a href="<c:url value='/board/boardList?boardFolderNo=3'/>"><div class="moreBtn">더보기</div></a>
 			<table>
 			    <colgroup>
 			       <col style="width:20%;" />
