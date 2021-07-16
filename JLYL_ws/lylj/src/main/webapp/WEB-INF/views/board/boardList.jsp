@@ -4,10 +4,28 @@
 <%@ include file="../inc/top.jsp" %>
 
 <link rel="stylesheet" href="<c:url value='/resources/css/board/style.css'/>">
+<script type="text/javascript" 
+   src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
+<script type="text/javascript">
+	function pageProc(curPage){
+	    $('input[name=currentPage]').val(curPage);
+	    $('form[name=frmPage]').submit();   
+	 }
+</script>
 
 <div id="listBodyDiv">
 	<h4 class="listTitle">${boFol.boardFolderName }</h4>
 	<br>
+	<c:if test="${!empty param.searchKeyword }">
+	   <p id="searchP">검색어 : ${param.searchKeyword}, ${pagingInfo.totalRecord} 건 검색되었습니다.</p>
+	</c:if>
+	<!-- 페이징 처리를 위한 form -->
+	<form action="<c:url value='/board/boardList'/>" 
+	   name="frmPage" method="post">
+	   <input type="hidden" name="currentPage"><br>
+	   <input type="hidden" name="searchCondition" value="${param.searchCondition}"><br>
+	   <input type="hidden" name="searchKeyword" value="${param.searchKeyword}"><br>   
+	</form>
 	<table>
 	    <colgroup>
 	       <col style="width:20%;" />
@@ -49,31 +67,60 @@
 	<div id="pagingDiv">
 		<nav aria-label="Page navigation example">
 		  <ul class="pagination">
-		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item">
-		      <a class="page-link" href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
+		  	<!-- 이전 블럭 -->
+		  	<c:if test="${pagingInfo.firstPage>1 }">
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Previous" onclick="pageProc(${pagingInfo.firstPage-1})">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+		    </c:if>
+		    
+		    <!-- 페이지 번호 -->
+		    <c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
+			    <c:if test="${i==pagingInfo.currentPage }">
+			    	<li class="page-item"  style="text-decoration: none;background-color:lightgray;"><a class="page-link" href="#">i</a></li>
+			    </c:if>
+			    <c:if test="${i!=pagingInfo.currentPage }">
+			    	<li class="page-item"><a class="page-link" href="#">i</a></li>
+			    </c:if>
+		    </c:forEach>
+		    
+		    <!-- 다음 블럭 -->
+		    <c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+			    <li class="page-item">
+			      <a class="page-link" href="#" aria-label="Next" onclick="pageProc(${pagingInfo.lastPage+1})">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+		    </c:if>
 		  </ul>
 		</nav>	
 	</div>
 	<div id="searchDiv">
-		<select>
-			<option ></option>
-			<option value="title">제목</option>
-			<option value="content">내용</option>
-			<option value="writer">작성자</option>
-		</select>
-		<input type="text" name="searchKeyword" id="searchTextBox">
-		<button>검색</button>
+		<form name="frmSearch" method="post" 
+         action='<c:url value="/board/boardlist"/>'>
+			<select name="searchCondition">
+				<option ></option>
+				<option value="boardTitle"
+				<c:if test="${param.searchCondition == 'boardTitle' }">               
+	                  selected="selected"
+	            </c:if>
+	            >제목</option>
+				<option value="boardContent"
+				<c:if test="${param.searchCondition == 'boardContent' }">               
+	                  selected="selected"
+	            </c:if>
+	            >내용</option>
+				<option value="boardWriter"
+				<c:if test="${param.searchCondition == 'boardWriter' }">               
+	                  selected="selected"
+	            </c:if>
+	            >작성자</option>
+			</select>
+			<input type="text" name="searchKeyword" id="searchTextBox" value="${param.searchKeyword }">
+			<input type="submit" value="검색">
+		</form>
 	</div>
 </div>
 
