@@ -1,8 +1,12 @@
 package com.it.lylj.emp.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.lylj.common.ConstUtil;
+import com.it.lylj.common.FileUploadUtil;
 import com.it.lylj.department.model.DepartmentService;
 import com.it.lylj.department.model.DepartmentVO;
 import com.it.lylj.emp.model.EmpService;
@@ -33,6 +39,7 @@ public class EmpController {
 	private final PositionService positionService;
 	private final DepartmentService departmentService;
 	private final EmpService empService;
+	private final FileUploadUtil fileUploadUtil;
 	
 	@GetMapping("/empWrite")
 	public String empWrite(Model model) {
@@ -54,17 +61,38 @@ public class EmpController {
 	}
 	
 	@PostMapping("/empWrite")
-	public String empWrite_post(@ModelAttribute EmpVO vo, Model model) {
+	public String empWrite_post(@ModelAttribute EmpVO vo, HttpServletRequest request, Model model) {
 		//1
 		logger.info("사원등록처리, 파라미터 vo={}",vo);
 		
 		//2
+		//사진업로드
+		String fileUrl ="";
+		
+		try {
+			List<Map<String, Object>> list = fileUploadUtil.fileUpload(request, ConstUtil.UPLOAD_EMP_FLAG);
+			
+			for(int i=0; i<list.size();i++ ) {
+				Map<String, Object> map = list.get(i);
+				fileUrl = (String)map.get("fileName");
+			}
+			
+			logger.info("파일 업로드 성공, fileUrl={}",fileUrl);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		vo.setEmpPhoto(fileUrl);
+		
+		//등록처리
 		int cnt = empService.insertEmp(vo);
+		logger.info("사원등록정보 vo={}",vo);
 		logger.info("사원등록처리 성공여부, cnt={}",cnt);
 		
-		String msg ="등록실패", url="/index";
+		String msg ="등록실패", url="/emp/empWrite";
 		if(cnt>0) {
 			msg="등록성공";
+			url="/emp/empList";
 		}
 		
 		model.addAttribute("msg", msg);

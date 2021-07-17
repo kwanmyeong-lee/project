@@ -27,8 +27,8 @@ public class FileUploadUtil {
 		
 		//결과를 저장할 list
 		List<Map<String, Object>> list = new ArrayList<>();
-		
 		Map<String, MultipartFile> filesMap = multiRequest.getFileMap();
+		logger.info("fliemap={}",filesMap);
 		
 		Iterator<String> iter = filesMap.keySet().iterator();
 		while (iter.hasNext()) {
@@ -63,17 +63,17 @@ public class FileUploadUtil {
 
 	public String getUploadPath(HttpServletRequest request, int pathFlag) {
 		String path = "";
-		if (ConstUtil.FILE_UPLOAD_TYPE.equals("test")) {
-			if(pathFlag==ConstUtil.UPLOAD_FILE_FLAG) {
-				path = ConstUtil.FILE_UPLOAD_PATH_TEST;
-			}else if(pathFlag==ConstUtil.UPLOAD_IMAGE_FLAG) {
-				path= ConstUtil.IMAGE_FILE_UPLOAD_PATH_TEST;
+		if (ConstUtil.FILE_UPLOAD_TYPE.equals("emp")) {
+			if(pathFlag==ConstUtil.UPLOAD_EMP_FLAG) { 			//사원이미지
+				path = ConstUtil.EMP_FILE_UPLOAD_PATH_TEST;   	//"E:\\gicording\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\emp_images";
+			}else if(pathFlag==ConstUtil.UPLOAD_BOARD_FLAG) {	//자료실
+				path= ConstUtil.BOARD_UPLOAD_PATH_TEST;			//"D:\\lecture\\workspace_list\\spboot_ws\\springherb\\src\\main\\webapp\\pds_upload";
 			}
-		} else { // deploy
-			if(pathFlag==ConstUtil.UPLOAD_FILE_FLAG) {
-				path = ConstUtil.FILE_UPLOAD_PATH; // pds_upload
-			}else if(pathFlag==ConstUtil.UPLOAD_IMAGE_FLAG) {
-				path= ConstUtil.IMAGE_FILE_UPLOAD_PATH;
+		} else { 
+			if(pathFlag==ConstUtil.UPLOAD_EMP_FLAG) {			//사원이미지
+				path = ConstUtil.EMP_UPLOAD_PATH; 				//"emp_images";
+			}else if(pathFlag==ConstUtil.UPLOAD_BOARD_FLAG) {   //게시판
+				path= ConstUtil.BOARD_UPLOAD_PATH ;				//"pds_upload";
 			}
 			// 실제 물리적인 경로 구하기
 			path = request.getSession().getServletContext().getRealPath(path);
@@ -83,8 +83,7 @@ public class FileUploadUtil {
 	}
 
 	public String getUniqueFileName(String fileName) {
-		// 업로드한 파일명이 중복될 경우 파일 이름 변경하기 - 현재시간 (밀리초까지 )추가
-		// ab.text => ab_20210630155820123.txt
+		// 업로드한 파일명이 중복될 경우 파일 이름 변경하기
 
 		// 순수파일명만 구하기
 		int idx = fileName.lastIndexOf(".");
@@ -102,7 +101,7 @@ public class FileUploadUtil {
 	public String getTimeStamp() {
 		Date d = new Date();
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyMMddHH");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String str = sdf.format(d);
 		return str;
 	}

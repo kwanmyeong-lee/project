@@ -4,6 +4,7 @@
 <!-- 카카오우편번호 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
+	/* 전체 유효성검사 */
 	$(function(){
 		$('#btAddEmp').click(function(){
 	          if($('#empName').val().length<1){
@@ -46,11 +47,43 @@
 				  alert('상세주소를 입력하세요');
 			      $('#empAddressdetail').focus();
 			      event.preventDefault(); 
+			  }else if($('#empRegdate').val().length<1){
+				  alert('입사일을 등록하세요');
+			      $('#empRegdate').focus();
+			      event.preventDefault(); 
+			  }else if($('#empBirth').val().length<1){
+				  alert('사원 생일을 등록하세요');
+			      $('#empBirth').focus();
+			      event.preventDefault(); 
+			  }else if($('#empSalary').val().length<1){
+				  alert('급여를 등록하세요');
+			      $('#empSalary').focus();
+			      event.preventDefault(); 
+			  }else if($('#empAccount').val().length<1){
+				  alert('계좌번호를 입력하세요');
+			      $('#empAccount').focus();
+			      event.preventDefault(); 
+			  }else if($('#empSalary').val().length<1){
+				  alert('급여를 등록하세요');
+			      $('#empSalary').focus();
+			      event.preventDefault(); 
+			  }else if($('#empAdminLev').val()==0){
+				  alert('관리권한을 선택하세요');
+			      $('#empAdminLev').focus();
+			      event.preventDefault(); 
+			  }else if($('#departmentNo').val()==0){
+				  alert('부서를 선택하세요');
+			      $('#departmentNo').focus();
+			      event.preventDefault(); 
+			  }else if($('#positionNo').val()==0){
+				  alert('직급을 선택하세요');
+			      $('#positionNo').focus();
+			      event.preventDefault(); 
 			  }
 	      
 		});
 		
-		
+		/* 비밀번호 유효성 알림 */
 		$("#chkPwd").keyup(function(){
 			if($('#empPwd').val().length>8){
 			 	if($('#empPwd').val()!=$('#chkPwd').val()){
@@ -64,7 +97,7 @@
 		});
 	});
 
-	
+	/* 비밀번호체크 ajax */
 	function pwdCheck(empPwd){
 		$.ajax({
 			url:"<c:url value='/emp/pwdCheck'/>",
@@ -84,6 +117,7 @@
 		});
 	}
 	
+	/* 핸드폰번호 - 자동생성 */
 	function chkHp(obj) { 
 		var number = obj.value.replace(/[^0-9]/g, ""); 
 		var phone = ""; 
@@ -107,10 +141,7 @@
 			
 	}
 
-
-
-
-	
+	/* 카카오 우편번호 API */
 	function bt_zipcode(){
 		 new daum.Postcode({
             oncomplete: function(data) {
@@ -189,7 +220,7 @@
 		<hr>
 
 		<!-- 사원등록 form -->
-		<form class="row g-3 frmEmpWrite"  method="post" action="<c:url value='/emp/empWrite'/>">
+		<form class="row g-3 frmEmpWrite"  method="post" action="<c:url value='/emp/empWrite'/>" enctype="multipart/form-data">
 		   <div></div>
 		   <div class="row">
 			  <div class="col-md-6">
@@ -211,16 +242,16 @@
 			  </div>
 		    </div>
 	  		 <div class="col-md-11">
-	    		<label for="empTel" class="form-label">전화번호</label>
-	    		<input type="tel" class="form-control infoGroup phoneNumber" onkeyup="chkHp(this)" maxlength="13" id="empTel" name="empTel" oninput="">
+	    		<label for="empTel" class="form-label">핸드폰번호</label>
+	    		<input type="tel" class="form-control infoGroup phoneNumber" onkeyup="chkHp(this)" maxlength="13" id="empTel" name="empTel" placeholder="phone">
 	  		</div>
 			 <div class="col-md-11">
 	    		<label for="empEmail" class="form-label">Email</label>
-	    		<input type="email" class="form-control infoGroup" id="empEmail" name="empEmail">
+	    		<input type="email" class="form-control infoGroup" id="empEmail" name="empEmail" placeholder="e-mail">
 	  		</div>
 	  	  	<div class="col-md-11">
-				<label for="empPhoto" class="form-label">사진첨부</label>
-			    <input type="file" class="form-control infoGroup" id="empPhoto" name="empPhoto">
+				<label for="empPhoto" class="form-label">사원사진첨부</label>
+			    <input type="file" class="form-control infoGroup" id="empPhoto" name="empPhoto" >
 		  	</div>
 	  		<div class="col-md-6">
 	    		<label for="empZipcode" class="form-label">우편번호</label>
@@ -263,7 +294,7 @@
 		  	<div></div>
 		  	<div class="row">
 			  	<div class="col-md-4">
-					<label for="empSalary" class="form-label">봉급</label>
+					<label for="empSalary" class="form-label">급여</label>
 				    <input type="text" class="form-control" id="empSalary" name="empSalary" placeholder="Salary">
 				    
 			  	</div>
