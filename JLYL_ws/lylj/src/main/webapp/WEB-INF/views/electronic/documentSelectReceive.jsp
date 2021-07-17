@@ -55,7 +55,7 @@
 	}
 
 	var no = [];
-
+	
 	function selectEvetn(userNo) {
 		//선택 event
 		//보내줘야 할것이 이름, 사진
@@ -87,44 +87,33 @@
 
 	}
 	$(function() {
-		$('#ok')
-				.click(
-						function() {
-							$
-									.ajax({
-										url : "<c:url value ='/electronic/selectstampList'/>",
-										data : {
-											empNo : no
-										},
-										type : "post",
-										success : function(data) {
-											var styNo = $('#styno').val();
-											$
-													.each(
-															data,
-															function(idx, val) {
-																var stampInfo = "<span id='select-line'><span id='select-position'>"
-																		+ val.POSITION_NAME
-																		+ "</span><span id='select-name'>"
-																		+ val.EMP_NAME
-																		+ "<br>"
-																		+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span>";
-																$(
-																		opener.document)
-																		.find(
-																				"#Approval")
-																		.append(
-																				stampInfo);
-															});
-											self.close();
+		$('#ok').click(function() {
+			$.ajax({
+				url : "<c:url value ='/electronic/selectstampList'/>",
+				data : {
+					empNo : no
+				},
+				type : "post",
+				success : function(data) {
+					var styNo = $('#styno').val();
+					$.each(data, function(idx, val) {
+						var stampInfo = "<span id='select-line'><span id='select-position'>"
+							+ val.POSITION_NAME
+							+ "</span><span id='select-name'>"
+							+ val.EMP_NAME
+							+ "<br>"
+							+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span>";
+						$(opener.document).find("#Receive").append(stampInfo);
+					});
+					self.close();
+					
+				},
+				error : function(data) {
+					alert("에러" + data)
+				}
+			});
 
-										},
-										error : function(data) {
-											alert("에러" + data)
-										}
-									});
-
-						});
+		});
 
 	});
 </script>
@@ -196,12 +185,12 @@
 
 </head>
 <body>
-	<input type="hidden" value="${param.styleNo }" id="styno">
+<input type="hidden" value="${param.styleNo }" id="styno">
 	<div class="container">
 		<div class="row">
 			<hr>
 			<div class="shadow-sm p-3 mb-5 bg-light rounded ">
-				<h2>결재 라인 선택해주세요</h2>
+				<h2>수신 라인을 선택해주세요</h2>
 			</div>
 			<div class="col-sm-4">
 				<div class="shadow-sm p-3 mb-2 bg-body rounded">
@@ -224,7 +213,7 @@
 			</div>
 			<div
 				class="row align-items-start selectLine border border-5 border-secondary">
-				결 <br>재 <br>라 <br> 인
+				수 <br>신 <br>라 <br> 인
 
 				<div class="col selectDiv" id="stamp"></div>
 			</div>

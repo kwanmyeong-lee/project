@@ -34,6 +34,11 @@
 		select * from selectstamp
 		where emp_no = #{userNo}
 	</select>
+	
+	<select id="selectstampList" resultType="map" parameterType="String">
+		select * from selectstamp
+		where emp_no = #{empNo}
+	</select>
 
 </mapper>
 

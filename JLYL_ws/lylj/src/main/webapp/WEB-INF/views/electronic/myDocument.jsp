@@ -16,10 +16,11 @@
 </script>
 <style type="text/css">
 </style>
-<h2>자주쓰는 양식</h2>
 
 <div class="limiter">
+
 	<div class="container-table100">
+		<h2>자주쓰는 양식</h2>
 		<div class="wrap-table100">
 			<div class="table100 ver1 m-b-110">
 				<div class="table100-head">

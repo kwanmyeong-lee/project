@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +20,8 @@ public class EmpServiceImpl implements EmpService{
 	 public List<EmpVO> selectAllEmp() {
 		return empDao.selectAllEmp();
 	}
-	
+	 
+	@Transactional
 	@Override
 	public int insertEmp(EmpVO vo) {
 		vo.setEmpPwd(passwordEncoder.encode(vo.getEmpPwd()));
@@ -53,6 +55,13 @@ public class EmpServiceImpl implements EmpService{
 	@Override
 	public Map<String, Object> selectstamp(String userNo) {
 		return empDao.selectstamp(userNo);
+	}
+
+	@Override
+	public Map<String, Object> selectstampList(String empNo) {
+		Map<String, Object> map = empDao.selectstampList(empNo);
+		return map;
+		
 	}
 
 }

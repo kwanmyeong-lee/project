@@ -23,6 +23,9 @@
 .buttonGroup{
 	padding: 10px;
 }
+.textGroup{
+	width:  500px; 
+}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -58,6 +61,19 @@
 			
 		});
 		
+		$('#btLongin').click(function(){
+			if($('#empNo').val().length<1){
+				alert('사원번호를 입력하세요');
+				$('#empNo').focus();
+				event.preventDefault();
+			}else if($('#empPwd').val().length<1){
+				alert('비밀번호를 입력하세요');
+				$('#empPwd').focus();
+				event.preventDefault();
+			}
+			
+		});
+		
 	});
 </script>
 </head>
@@ -71,7 +87,7 @@
 							<img src="<c:url value="/resources/img/logo.png"/>" class="logo">
 						</div>
 						<div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-							<img src="<c:url value='/resources/img/loginimg.gif'/>" class="image">
+							<img src="<c:url value='/resources/img/office.png'/>" class="image">
 						</div>
 					</div>
 				</div>
@@ -86,13 +102,11 @@
 							</div>
 							<div class="row px-3">
 								<label class="mb-1">사원번호</label> 
-								<input class="mb-4" type="text" name="empNo" id="empNo" placeholder="Enter employee number">
+								<input class="mb-4 textGroup" type="text" name="empNo" id="empNo" placeholder="Enter employee number">
 							</div>
 							<div class="row px-3">
-								<label class="mb-1">
-									비밀번호
-								</label> 
-								<input type="password" name="empPwd" id="empPwd" placeholder="Enter password">
+								<label class="mb-1">비밀번호</label> 
+								<input class="mb-4 textGroup" type="password" name="empPwd" id="empPwd" placeholder="Enter password">
 							</div>
 							<div class="row px-3 mb-4">
 								<div class="custom-control custom-checkbox custom-control-inline">
@@ -102,7 +116,7 @@
 								<a href="#" id="findPwd" class="ml-auto mb-0 text-sm" >비밀번호찾기</a>
 							</div>
 							<div class="row mb-3 px-3">
-								<button type="submit" class="btn btn-blue text-center">로그인</button>
+								<button type="submit" class="btn btn-blue text-center" id="btLongin">로그인</button>
 							</div>
 						</div>
 					</form>

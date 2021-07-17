@@ -105,8 +105,8 @@
 		<br>
 		<div class="form-row">
 			<div class="form-group">
-				<button type="button" class="btn btn-primary" id="ok">선택</button>
-				<button type="button" class="btn btn-primary" id="no">취소</button>
+				<button type="button" class="btn btn-light  btn-outline-secondary" id="ok">선택</button>
+				<button type="button" class="btn btn-light btn-outline-secondary" id="no">취소</button>
 			</div>
 		</div>
 	</div>

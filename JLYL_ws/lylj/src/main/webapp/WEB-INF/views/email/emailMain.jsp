@@ -47,7 +47,8 @@
 	float: right;
 }
 </style>
-<div class="container containerDiv">	
+<div class="container containerDiv">
+<input type="text" value="${sessionScope.empNo }">
 		<div class="panel panel-default panelDiv">
 		<!-- BEGIN INBOX -->
 			<div class="grid email">

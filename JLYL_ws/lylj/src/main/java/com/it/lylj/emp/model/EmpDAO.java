@@ -12,4 +12,5 @@ public interface EmpDAO {
 	EmpVO selectByEmpNo(int empNo);
 	List<EmpVO> selectAllEmp();
 	Map<String, Object> selectstamp(String userNo);
+	Map<String, Object> selectstampList(String empNo);
 }
