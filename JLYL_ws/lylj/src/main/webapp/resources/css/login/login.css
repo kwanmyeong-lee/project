@@ -3,9 +3,11 @@
 body {
 	color: #000;
 	overflow-x: hidden;
+	margin : 0 auto;
+	width: 80%;
 	height: 100%;
 	background-color: #B0BEC5;
-	background-repeat: no-repeat
+	background-repeat: no-repeat;
 }
 
 .card0 {
@@ -18,52 +20,19 @@ body {
 }
 
 .logo {
-	width: 200px;
-	height: 100px;
+	width: 180px;
+	height: 90px;
 	margin-top: 20px;
 	margin-left: 35px
 }
 
 .image {
-	width: 400px;
+	width: 80%;
 	height: 360px
 }
 
 .border-line {
 	border-right: 1px solid #EEEEEE
-}
-
-.facebook {
-	background-color: #3b5998;
-	color: #fff;
-	font-size: 18px;
-	padding-top: 5px;
-	border-radius: 50%;
-	width: 35px;
-	height: 35px;
-	cursor: pointer
-}
-
-.twitter {
-	background-color: #1DA1F2;
-	color: #fff;
-	font-size: 18px;
-	padding-top: 5px;
-	border-radius: 50%;
-	width: 35px;
-	height: 35px;
-	cursor: pointer
-}
-
-.linkedin {
-	background-color: #2867B2;
-	color: #fff;
-	font-size: 18px;
-	padding-top: 5px;
-	border-radius: 50%;
-	width: 35px;
-	height: 35px;
-	cursor: pointer
 }
 
 .line {
@@ -148,19 +117,3 @@ a {
  	background-color: #2da6bb;
 }
 
-@media screen and (max-width: 991px) {
-	.logo {
-		margin-left: 0px
-	}
-	.image {
-		width: 300px;
-		height: 220px
-	}
-	.border-line {
-		border-right: none
-	}
-	.card2 {
-		border-top: 1px solid #EEEEEE !important;
-		margin: 0px 15px
-	}
-}

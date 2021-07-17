@@ -6,18 +6,17 @@ public interface ConstUtil {
 	int RECORD_COUNT = 15; // 한 페이지에 보여줄 레코드 개수
 
 	// 파일 업로드 처리 관련 상수
-	String FILE_UPLOAD_TYPE = "test";
-	// String FILE_UPLOAD_TYPE="deploy";
+	String FILE_UPLOAD_TYPE = "emp";
 
+	//사원사진파일저장경로(경로확인필요)-기성
+	String EMP_UPLOAD_PATH = "emp_images";
+	String EMP_FILE_UPLOAD_PATH_TEST = "E:\\gicording\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\emp_images";
+	
 	//자료실 - 파일 저장 경로
-	String FILE_UPLOAD_PATH = "pds_upload";
-	String FILE_UPLOAD_PATH_TEST = "D:\\lecture\\workspace_list\\spboot_ws\\springherb\\src\\main\\webapp\\pds_upload";
-
-	//사원사진파일저장경로(경로확인필요)
-	String IMAGE_FILE_UPLOAD_PATH = "pd_images";
-	String IMAGE_FILE_UPLOAD_PATH_TEST = "D:\\lecture\\workspace_list\\spboot_ws\\springherb\\src\\main\\webapp\\pd_images";
+	String BOARD_UPLOAD_PATH = "pds_upload";
+	String BOARD_UPLOAD_PATH_TEST = "E:\\gicording\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\emp_images";
 	
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값
-	int UPLOAD_FILE_FLAG=1;		//자료실 없로드
-	int UPLOAD_IMAGE_FLAG=2;	//상품 등록시 이미지 업로드
+	int UPLOAD_EMP_FLAG=1;		//사원등록시 사원이미지 
+	int UPLOAD_BOARD_FLAG=2;	//자료실 없로드
 }
