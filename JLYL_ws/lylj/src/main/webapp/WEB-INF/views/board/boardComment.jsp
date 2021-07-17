@@ -5,7 +5,7 @@
     <hr>
     <div id="commentDiv">
         <span id="userNameComm">작성자</span>
-        <button id="detialMenu" type="button" data-bs-toggle="dropdown" >
+        <button id="detialMenu2" type="button" data-bs-toggle="dropdown" >
             <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
         </button>
         <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
@@ -17,6 +17,6 @@
         <span id="regdateComm">2021-07-05 23:38:55</span>
         <hr>
     </div>
-    <textarea name="commentTa" id="commentTa" cols="100" rows="3"></textarea>
+    <textarea name="commentTa" id="commentTa" cols="140" rows="3"></textarea>
     <button type="button" class="btn btn-primary" id="commentUp">등록</button>
 </div>
