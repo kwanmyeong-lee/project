@@ -1,6 +1,8 @@
 package com.it.lylj.emp.controller;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.lylj.department.model.DepartmentService;
 import com.it.lylj.department.model.DepartmentVO;
@@ -70,6 +73,25 @@ public class EmpController {
 		return "common/message";
 	}
 	
+	@ResponseBody
+	@RequestMapping("/pwdCheck")
+	public boolean pwdCheck(@RequestParam String empPwd ) {
+		logger.info("비밀번호 chk, empPwd={}", empPwd);
+		
+		boolean chkPwd = false;
+		
+		//최소 8자, 최소 하나의 문자 및 하나의 숫자 포함
+		String validPwd = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+		
+		Pattern pt_symbol= Pattern.compile(validPwd);
+		Matcher mt_symbol= pt_symbol.matcher(empPwd);
+		
+		if(mt_symbol.find()) {
+			chkPwd=true;
+		}
+		
+		return chkPwd;
+	}
 
 
 	@GetMapping("/empInfo")
