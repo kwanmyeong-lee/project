@@ -4,6 +4,113 @@
 <!-- 카카오우편번호 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
+	$(function(){
+		$('#btAddEmp').click(function(){
+	          if($('#empName').val().length<1){
+	             alert('이름을 입력하세요');
+	             $('#empName').focus();
+	             event.preventDefault();
+	          }else if($('#empPwd').val().length<1){
+	             alert('비밀번호를 입력하세요.');
+	             $('#empPwd').focus();
+	             event.preventDefault();
+	          }else if($('#empPwd').val().length<8){
+		         alert('비밀번호는 8자리, 최소 하나의 문자가 포함되어야 합니다.');
+		         $('#empPwd').focus();
+		         event.preventDefault();
+	          }else if($('#empPwd').val()!=$('#chkPwd').val()){
+		         alert('비밀번호 확인해주세요!!');
+		         $('#chkPwd').focus();
+		         event.preventDefault(); 
+		      }else if($('#empPwd').val()!=$('#chkPwd').val()){
+		         alert('비밀번호 확인해주세요!!');
+		         $('#chkPwd').focus();
+		         event.preventDefault();
+			  }else if($('#empTel').val().length<1){
+				  alert('전화번호를 입력하세요');
+			      $('#empTel').focus();
+			      event.preventDefault();
+			  }else if($('#empEmail').val().length<1){
+				  alert('이메일입력하세요');
+			      $('#empEmail').focus();
+			      event.preventDefault(); 
+			  }else if($('#empPhoto').val().length<1){
+				  alert('사진을업로드해주세요 입력하세요');
+			      $('#empPhoto').focus();
+			      event.preventDefault(); 
+			  }else if($('#empZipcode').val().length<1){
+				  alert('주소를 입력하세요');
+			      $('#empAddress').focus();
+			      event.preventDefault(); 
+			  }else if($('#empAddressdetail').val().length<1){
+				  alert('상세주소를 입력하세요');
+			      $('#empAddressdetail').focus();
+			      event.preventDefault(); 
+			  }
+	      
+		});
+		
+		
+		$("#chkPwd").keyup(function(){
+			if($('#empPwd').val().length>8){
+			 	if($('#empPwd').val()!=$('#chkPwd').val()){
+			 		$('#pwdInfo1').html('');
+			 		$('#pwdInfo1').html('비밀번호가 일치하지 않습니다.');
+			 	}else{
+			 		$('#pwdInfo1').html('');
+			 		$('#pwdInfo1').html('비밀번호가 일치합니다.');
+			 	}
+			}
+		});
+	});
+
+	
+	function pwdCheck(empPwd){
+		$.ajax({
+			url:"<c:url value='/emp/pwdCheck'/>",
+			type:"POST",
+			data: {empPwd:empPwd},
+			success:function(res){
+				if(res==true){
+					$('#pwdInfo1').html("유효합니다.");
+				}else{
+					$('#pwdInfo1').html("최소 8자, 최소 하나의 문자가 포함되어야 합니다.");
+					
+				}
+			},
+			error:function(xhr,status,error){
+				alert("ajax에러");
+			}
+		});
+	}
+	
+	function chkHp(obj) { 
+		var number = obj.value.replace(/[^0-9]/g, ""); 
+		var phone = ""; 
+		if(number.length < 4) { 
+			return number; 
+		} else if(number.length < 7) { 
+			phone += number.substr(0, 3); 
+			phone += "-"; 
+			phone += number.substr(3);
+		} else if(number.length < 11) {
+			phone += number.substr(0, 3);
+			phone += "-"; phone += number.substr(3, 3);
+			phone += "-"; phone += number.substr(6);
+		} else { 
+			phone += number.substr(0, 3); 
+			phone += "-"; 
+			phone += number.substr(3, 4); 
+			phone += "-"; phone += number.substr(7); 
+		} 
+			obj.value = phone; 
+			
+	}
+
+
+
+
+	
 	function bt_zipcode(){
 		 new daum.Postcode({
             oncomplete: function(data) {
@@ -52,17 +159,6 @@
         }).open();
 	}
 	
-	$(function(){
-		$('.frmEmpWrite').submit(function(){
-			$('.infoGroup').each(function(idx, item){
-					if($(this).val().length<1){
-						this.focus();
-						event.preventDefault();
-					}		
-			});
-		});
-	});
-	
 </script>
 
 <style type="text/css">
@@ -70,6 +166,7 @@
  	width: 1250px;
  	padding: 20px;
  	background: white;
+ 	margin-left: 110px;
  }
  
  .mainPanel label{
@@ -92,7 +189,7 @@
 		<hr>
 
 		<!-- 사원등록 form -->
-		<form class="row g-3 frmEmpWrite"  method="post" action="<c:url value='/emp/empWrite'/>" enctype="multipart/form-data">
+		<form class="row g-3 frmEmpWrite"  method="post" action="<c:url value='/emp/empWrite'/>">
 		   <div></div>
 		   <div class="row">
 			  <div class="col-md-6">
@@ -104,7 +201,7 @@
 		   <div class="row">
 			  <div class="col">
 			  	<label for="empPwd" class="form-label">비밀번호</label>
-			    <input type="password" class="form-control infoGroup" placeholder="password" aria-label="PWD" name="empPwd" id="empPwd">
+			    <input type="password" class="form-control infoGroup" placeholder="password" name="empPwd" id="empPwd" oninput="pwdCheck(empPwd.value)">
 			    <span class="pwdInfo" id="pwdInfo1"></span>
 			  </div>
 			  <div class="col">
@@ -115,7 +212,7 @@
 		    </div>
 	  		 <div class="col-md-11">
 	    		<label for="empTel" class="form-label">전화번호</label>
-	    		<input type="tel" class="form-control infoGroup" id="empTel" name="empTel">
+	    		<input type="tel" class="form-control infoGroup phoneNumber" onkeyup="chkHp(this)" maxlength="13" id="empTel" name="empTel" oninput="">
 	  		</div>
 			 <div class="col-md-11">
 	    		<label for="empEmail" class="form-label">Email</label>
@@ -180,7 +277,7 @@
 				<div class="col-md-2">
 					<label class="form-label">관리자</label>
 				    <select class="form-control" name="empAdminLev" id="empAdminLev">
-				    	<option>-선택하세요-</option>
+				    	<option value="0">-선택하세요-</option>
 				    	<option value="3">사원</option>
 				    	<option value="2">팀장</option>
 				    	<option value="1">관리자</option>
@@ -189,7 +286,7 @@
 			  	<div class="col-md-2">
 			  	<label class="form-label" for="departmentNo">부서</label>
 				    <select class="form-control" id="departmentNo" name="departmentNo">
-				    	<option>-선택하세요-</option>
+				    	<option value="0">-선택하세요-</option>
 				    	<c:forEach var="departmentVo" items="${departmentList}">
 				    		<option value='${departmentVo.departmentNo}'>${departmentVo.departmentName }</option>
 				    	</c:forEach>
@@ -198,7 +295,7 @@
 				<div class="col-md-2">
 			  	<label class="form-label" for="positionNo" >직급</label>
 				    <select class="form-control" id="positionNo" name="positionNo">
-				    	<option value="">-선택하세요-</option>
+				    	<option value="0">-선택하세요-</option>
 				    	<c:forEach var="positionVo" items="${positionList}">
 				    		<option value="${positionVo.positionNo}">${positionVo.positionName }</option>
 				    	</c:forEach>
@@ -207,7 +304,7 @@
 			  </div>
 			<div></div>
 			<div class="btGroup">
-				<button class="btn btn-secondary " type="submit">사원등록</button>
+				<button class="btn btn-secondary " id="btAddEmp" type="submit">사원등록</button>
 				<button class="btn btn-secondary " type="button" >취소</button>
 			</div>
 		</form>
