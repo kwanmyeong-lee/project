@@ -35,6 +35,7 @@
 	   <input type="hidden" name="searchCondition" value="${param.searchCondition}"><br>
 	   <input type="hidden" name="searchKeyword" value="${param.searchKeyword}"><br>   
 	</form>
+	<br>
 	<div id="searchDiv">
 		<form name="frmSearch" method="post" 
          action='<c:url value="/board/boardList?boardFolderNo=${param.boardFolderNo }"/>'>
@@ -118,10 +119,12 @@
 		    <!-- 페이지 번호 -->
 		    <c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
 			    <c:if test="${i==pagingInfo.currentPage }">
-			    	<li class="page-item active" aria-current="page"><a class="page-link" href="#">${i }</a></li>
+			    	<li class="page-item active" aria-current="page">
+			    	<a class="page-link" href="#" style="background-color: #30a8b9;border-color: #f8f9fc;">${i }</a></li>
 			    </c:if>
 			    <c:if test="${i!=pagingInfo.currentPage }">
-			    	<li class="page-item"><a class="page-link" href="#" onclick="pageProc(${i})">${i }</a></li>
+			    	<li class="page-item">
+			    	<a class="page-link" href="#" onclick="pageProc(${i})" style="color:#a2a2a2;">${i }</a></li>
 			    </c:if>
 		    </c:forEach>
 		    

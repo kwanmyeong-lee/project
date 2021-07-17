@@ -78,16 +78,13 @@ public class BoardController {
 		int cnt=boardService.insertBoard(vo);
 		logger.info("게시판 등록 결과, cnt={}", cnt);
 		
-		String msg="등록을 실패하였습니다.", url="/board/boardMain";
-		if(cnt>0) {
-			msg="등록 성공";
-			url="/board/boardDetail?boardNo="+vo.getBoardNo();
+		if(cnt==0) {
+			model.addAttribute("msg", "등록을 실패하였습니다.");
+			model.addAttribute("url", "/board/boardMain");
+			return "common/message";
 		}
 		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		
-		return "common/message";
+		return "redirect:/board/boardDetail?boardNo="+vo.getBoardNo();
 	}
 
 	/*        게시글 목록        */
@@ -208,6 +205,7 @@ public class BoardController {
 		return "redirect:/board/boardDetail?boardNo=" + vo.getBoardNo();
 	}
 	
+	/*        게시글 삭제        */
 	@RequestMapping("/boardDelete")
 	public String delete(@RequestParam(defaultValue = "0")int boardNo,
 						 @RequestParam(defaultValue = "0")int boardFolderNo,

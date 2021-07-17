@@ -23,7 +23,8 @@
 			if(!result){
 				return false;
 			}
-		})
+		});
+		
 	});
 </script>
 <div id="detailBodyDiv">
@@ -34,16 +35,16 @@
 	        <a href="#" id="userNameSpan">${vo.boardWriter }</a>
 	        <span id="readcountSpan">조회수 : ${vo.boardHits }</span>
 		    <span id="regdateSpan"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
-	            <button id="detialMenu" type="button" data-bs-toggle="dropdown" >
+	            <button id="detialMenu" type="button" data-bs-toggle="dropdown" id="menuBtn">
 	                <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
 	            </button>
-	            <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
+	            <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink" id="meniList">
 	                <li><a class="dropdown-item" href="<c:url value='/board/boardEdit?boardNo=${param.boardNo }'/>">수정</a></li>
 	                <li><a class="dropdown-item" href="<c:url value='/board/boardDelete?boardNo=${param.boardNo }&boardFolderNo=${vo.boardFolderNo}'/>" id="boardDelete">삭제</a></li>
 	            </ul>
 	            <div id="likeDiv">
-			        <i class="fa fa-thumbs-up" id="likeBtnChk2"></i>
-			        <i class="fa fa-thumbs-up" id="likeBtnChk1"></i>
+			        <button id="likeBtnChk2"><i class="fa fa-thumbs-up" ></i></button> 
+			        <button id="likeBtnChk1"><i class="fa fa-thumbs-up" ></i></button> 
 	            	&nbsp;<span id="likeCnt">: 13</span>
 			    </div>
 	    </div>

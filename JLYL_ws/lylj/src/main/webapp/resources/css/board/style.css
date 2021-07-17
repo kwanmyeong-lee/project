@@ -2,7 +2,10 @@
 
 /* 메인 CSS */
 #mainBodyDiv{
-	margin-left: 13%;
+	width: 1200px;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 auto;
 }
 
 .boardMainH{
@@ -11,7 +14,6 @@
 }
 
 #noticeView{
-	float: left;
 	width: 1160px;
 	height: 427px;
 	margin: 20px;
@@ -93,10 +95,11 @@
 
 /*리스트 CSS*/
 #listBodyDiv{
-	float: left;
-    width: 1000px;
+	display: flex;
+	flex-wrap: wrap;
+    width: 1300px;
     height: auto;
-    margin: 0px 0px 10px 20%;
+    margin: 10px auto;
 	padding: 20px;
     background: white;
     border-radius: 15px;
@@ -104,12 +107,14 @@
     
 }
 .listTitle{
-	margin: 10px 20px;
+	width: 500px;
+	margin: 20px 0 20px 40px;
 	font-weight: bold;
 	color: #575757;
 }
 
 #writeBtnDiv{
+	flex-direction: row-reverse;
 	float: right;
     width: 70px;
     height: 33px;
@@ -127,7 +132,8 @@
 
 #listBodyDiv > table{
 	clear: both;
-    width: 950px;
+    width: 1200px;
+    margin: 0 auto;
     color: #575757;
 }
 
@@ -162,8 +168,7 @@
 }
 
 #pagingDiv{
-	margin-top: 40px;
-	display: flex;
+	margin: 20px auto;
 }
 
 #pagingNav{
@@ -176,8 +181,8 @@
 }
 
 #searchDiv{
-	float: right;
-	margin: 0 20px 10px 0; 
+	clear: both;
+	margin: 30px 0 15px 900px;
 }
 
 #searchCondition{
@@ -202,10 +207,9 @@
 /* 등록, 수정 css*/
 
 .wrtieDiv{
-	float : left;
     width: 1000px;
 	padding: 20px;
-	margin: 0 20% 20px 20%;
+	margin: 0 auto;
     background: white;
     border-radius: 15px;
     box-shadow: 0px 2px 20px #d0d0d0;
@@ -284,7 +288,8 @@
 
 /* 상세보기 css*/
 #contentTaDetail{
-	width: 850px;
+	width: 1150px;
+	font-size: 20px;
 	margin: 30px 5px;
 	padding: 0 15px;
     background-color: white;
@@ -292,11 +297,9 @@
 }
 
 #detailBodyDiv{
-	float: left;
-    width: 900px;
+    width: 1200px;
     height: auto;
-    margin-left: 20%;
-    margin-bottom: 20px;
+    margin: 0 auto;
    	background: white;
    	border-radius: 15px;
     box-shadow: 0px 2px 20px #d0d0d0;
@@ -304,7 +307,8 @@
 
 #detailDiv > #titleDiv{
     margin-top: 40px;
-    width: 850px;
+    width: 1150px;
+    padding-top: 20px;
     padding-left: 20px;
     font-size: 25px;
     font-weight: bold;
@@ -320,12 +324,16 @@
 
 #likeBtnChk1{
 	color: #0000ff;
-	cursor: pointer;
+	width:30px;
+	background: none;
+	border: none;
 }
 
 #likeBtnChk2{
 	color: #c0c0c0;
-	cursor: pointer;
+	width:30px;
+	background: none;
+	border: none;
 }
 
 #likeCnt{
@@ -337,7 +345,7 @@
     border: none;
     background: none;
     width: 30px;
-    height: 22px;
+    height: 30px;
     margin-top: 3px;
     margin-left:10px;
 }
@@ -366,7 +374,7 @@
 }
 #borderDiv{
     border: 1px solid black;
-    width: 850px;
+    width: 1150px;
     margin: 8px 5px;
 }
 
@@ -379,7 +387,7 @@
 
 /* 댓글 css*/
 #commentBodyDiv{
-    width: 895px;
+    width: 1190px;
     padding: 20px;
 }
 
@@ -391,6 +399,16 @@
     float: right;
     margin-right: 10px;
     font-size: 15px;
+}
+
+#detialMenu2{
+    float: right;
+    border: none;
+    background: none;
+    width: 30px;
+    height: 24px;
+    margin-top: 3px;
+    margin-left:10px;
 }
 
 #commentTa{
