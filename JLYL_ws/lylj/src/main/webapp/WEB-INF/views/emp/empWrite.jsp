@@ -220,7 +220,7 @@
 		<hr>
 
 		<!-- 사원등록 form -->
-		<form class="row g-3 frmEmpWrite"  method="post" action="<c:url value='/emp/empWrite'/>" enctype="multipart/form-data">
+		<form class="row g-3 frmEmpWrite"  method="post" enctype="multipart/form-data" action="<c:url value='/emp/empWrite'/>" >
 		   <div></div>
 		   <div class="row">
 			  <div class="col-md-6">
@@ -251,7 +251,7 @@
 	  		</div>
 	  	  	<div class="col-md-11">
 				<label for="empPhoto" class="form-label">사원사진첨부</label>
-			    <input type="file" class="form-control infoGroup" id="empPhoto" name="empPhoto" >
+			    <input type="file" class="form-control infoGroup" id="empPhoto" name="uploadFile" >
 		  	</div>
 	  		<div class="col-md-6">
 	    		<label for="empZipcode" class="form-label">우편번호</label>
