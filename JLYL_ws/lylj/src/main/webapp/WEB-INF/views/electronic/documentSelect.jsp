@@ -64,18 +64,26 @@
 	<div class="container">
 		<div class="row">
 			<hr>
-			<h2>문서양식 선택해주세요</h2>
-			<div class="col-sm-4">
-				<h2>검색</h2>
-				<div class="form-group">
-					<label for="input-select-node" class="sr-only"></label><input
-						type="text" class="form-control" id="input-select-node"
-						placeholder="검색어를 입력해주세요" value="">
+			<div class="shadow p-3 mb-5 bg-light rounded ">
+				<h2>문서양식 선택해주세요</h2>
+			</div>
+
+			<div class="col-sm-5">
+				<div class="shadow-sm p-3 mb-5 bg-body rounded">
+					<h2>검색</h2>
+					<div class="form-group">
+						<label for="input-select-node" class="sr-only"></label><input
+							type="text" class="form-control" id="input-select-node"
+							placeholder="검색어를 입력해주세요" value="">
+					</div>
 				</div>
 			</div>
 			<div class="col-sm-5">
-				<h2>목록</h2>
-				<div id="SimpleJSTree" class=""></div>
+				<div class="shadow-sm p-3 mb-5 bg-body rounded">
+					<h2>목록</h2>
+					<div id="SimpleJSTree" class=""></div>
+				</div>
+
 			</div>
 		</div>
 	</div>

@@ -75,7 +75,6 @@
 								+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+res.STAMP_NAME+"'/>'></span>";
 						$('#stamp').append(stampInfo);
 						no.push(res.EMP_NO);
-						alert(no);
 
 					},
 					error : function(xhr, status, error) {
@@ -186,25 +185,32 @@
 
 </head>
 <body>
-<body>
-<input type="text" value="${param.styleNo }" id="styno">
+<input type="hidden" value="${param.styleNo }" id="styno">
 	<div class="container">
 		<div class="row">
 			<hr>
-			<h2>수신 라인을 선택해주세요</h2>
+			<div class="shadow-sm p-3 mb-5 bg-light rounded ">
+				<h2>수신 라인을 선택해주세요</h2>
+			</div>
 			<div class="col-sm-4">
-				<h2>검색</h2>
-				<div class="form-group">
-					<label for="input-select-node" class="sr-only"></label><input
-						type="text" class="form-control" id="input-select-node"
-						placeholder="검색어를 입력해주세요" value="">
+				<div class="shadow-sm p-3 mb-2 bg-body rounded">
+					<h2>검색</h2>
+					<div class="form-group">
+						<label for="input-select-node" class="sr-only"></label><input
+							type="text" class="form-control" id="input-select-node"
+							placeholder="검색어를 입력해주세요" value="">
+					</div>
 				</div>
 			</div>
 			<div class="col-sm-5">
-				<h2>목록</h2>
-				<div id="SimpleJSTree" class=""></div>
+				<div class="shadow-sm p-3 mb-2 bg-body rounded">
+					<h2>목록</h2>
+					<div id="SimpleJSTree" class=""></div>
+				</div>
 			</div>
-			<h2>미리 보기</h2>
+			<div class="shadow-sm p-3 mb-2 bg-body rounded">
+				<h2>미리 보기</h2>
+			</div>
 			<div
 				class="row align-items-start selectLine border border-5 border-secondary">
 				수 <br>신 <br>라 <br> 인
@@ -212,11 +218,12 @@
 				<div class="col selectDiv" id="stamp"></div>
 			</div>
 		</div>
-		<button id="ok">확인</button>
-		<button id="reset">초기화</button>
+		<div class="text-center mt-4">
+			<button id="ok" class="btn btn-light btn-outline-secondary mx-1 ">확인</button>
+			<button id="reset" class="btn btn-light btn-outline-secondary mx1">초기화</button>
+		</div>
 	</div>
 	<div id="test"></div>
-</body>
 </body>
 </html>
 

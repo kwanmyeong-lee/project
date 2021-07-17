@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -36,7 +36,7 @@
 		if(${navNo==1}){
 			$('#accordionSidebar')
 			.html(
-					'<!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="topNavButton"><button type="button"class="btn btn-light btnSchAdd"id="newDocument">새결재작성하기</button></div><!--Divider--><hr class="sidebar-divider d-none d-md-block"><!--Nav Item-Tables--><li class="nav-item"><a class="nav-link"href="<c:url value="/electronic/myDocument"/>"><i class="fas fa-fw fa-table"></i><span>자주쓰는양식</span></a></li><!--Nav Item-Pages Collapse Menu--><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseOne"data-bs-toggle="collapse"role="button"aria-expanded="ture"aria-controls="collapseOne"><i class="fas fa-fw fa-cog"></i><span>결재</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultDoc"/>">결재대기문서</a><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultDoc"/>">결재수신문서</a><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultDoc"/>">결재예정문서</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseTwo"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="fas fa-fw fa-cog"></i><span>내문서함</span></a><div id="collapseTwo"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultDoc"/>">기안문서함</a><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultDoc"/>">임시저장함</a><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultDoc"/>">결재완료문서</a></div></div></li>');
+					'<!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="topNavButton"><button type="button"class="btn btn-light btnSchAdd"id="newDocument">새결재작성하기</button></div><!--Divider--><hr class="sidebar-divider d-none d-md-block"><!--Nav Item-Tables--><li class="nav-item"><a class="nav-link"href="<c:url value="/electronic/myDocument"/>"><i class="fas fa-fw fa-table"></i><span>자주쓰는양식</span></a></li><!--Nav Item-Pages Collapse Menu--><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseOne"data-bs-toggle="collapse"role="button"aria-expanded="ture"aria-controls="collapseOne"><i class="fas fa-fw fa-cog"></i><span>결재</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultList"/>">결재대기문서</a><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultList"/>">결재수신문서</a><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultList"/>">결재예정문서</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseTwo"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="fas fa-fw fa-cog"></i><span>내문서함</span></a><div id="collapseTwo"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultList"/>">기안문서함</a><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultList"/>">임시저장함</a><a class="collapse-item"href="<c:url value="/electronic/electronicDefaultList"/>">결재완료문서</a></div></div></li>');
 		}else if(${navNo==2}){
 			$('#accordionSidebar')
 			.html(
@@ -131,7 +131,7 @@
 .ori {
 	height: 50px;
 	top: 860px;
-	width: 250px;
+	width: 223px;
 	z-index: 60;
 	position: absolute;
 	left: 0px;
@@ -227,7 +227,8 @@
 				<a
 					class="sidebar-brand d-flex align-items-center justify-content-center"
 					href="<c:url value="/index"/>">
-					<div class="sidebar-brand-text mx-3">IU</div>
+		
+					<div class="sidebar-brand-text mx-3" style="width: 768px;">IU</div>
 					<div>intranet user interface</div>
 				</a>
 
@@ -343,18 +344,20 @@
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="<c:url value='/emp/empInfo?empNo=${empNo}'/>"> <i
+								<a class="dropdown-item"
+									href="<c:url value='/emp/empInfo?empNo=${empNo}'/>"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내정보
 								</a>
 								<c:if test="${empAdminLev==1||empAdminLev==2}">
-									<a class="dropdown-item" href="<c:url value='/emp/empList'/>"> <i
-										class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 사원관리
+									<a class="dropdown-item" href="<c:url value='/emp/empList'/>">
+										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+										사원관리
 									</a>
 								</c:if>
 
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="<c:url value="/login/logout"/>" data-toggle="modal"
-									data-target="#logoutModal"> <i
+								<a class="dropdown-item" href="<c:url value="/login/logout"/>"
+									data-toggle="modal" data-target="#logoutModal"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									로그아웃
 								</a>
@@ -364,7 +367,7 @@
 
 				</nav>
 				<!-- End of Topbar -->
-					<aside class="ori" id="ori">
+				<aside class="ori" id="ori">
 					<h3>
 						<span class="ori-span1"> <span id="ori-toggle"
 							class="fas fa-chevron-up ori-span2"></span>
@@ -372,8 +375,8 @@
 					</h3>
 					<div class="ori-div1">
 						<div class="ori-from" action="">
-							<input class="ori-input-text1" type="text" placeholder="이름" id="oriName" name="oriName"
-								title="이름">
+							<input class="ori-input-text1" type="text" placeholder="이름"
+								id="oriName" name="oriName" title="이름">
 						</div>
 					</div>
 					<div class="ori-div2" id="ori-div2">
