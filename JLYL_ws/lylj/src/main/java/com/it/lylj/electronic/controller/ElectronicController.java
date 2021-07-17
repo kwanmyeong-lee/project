@@ -60,7 +60,7 @@ public class ElectronicController {
 		model.addAttribute("svo", svo);
 	}
 
-	@GetMapping("/electronicDefaultDoc")
+	@GetMapping("/electronicDefaultList")
 	public void electronicWait(Model model) {
 		logger.info("결재 리스트 보여주기 기본값 수정중!!!");
 		model.addAttribute("navNo", 1);

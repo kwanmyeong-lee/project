@@ -55,7 +55,7 @@
 	}
 
 	var no = [];
-	
+
 	function selectEvetn(userNo) {
 		//선택 event
 		//보내줘야 할것이 이름, 사진
@@ -75,7 +75,6 @@
 								+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+res.STAMP_NAME+"'/>'></span>";
 						$('#stamp').append(stampInfo);
 						no.push(res.EMP_NO);
-						alert(no);
 
 					},
 					error : function(xhr, status, error) {
@@ -88,33 +87,44 @@
 
 	}
 	$(function() {
-		$('#ok').click(function() {
-			$.ajax({
-				url : "<c:url value ='/electronic/selectstampList'/>",
-				data : {
-					empNo : no
-				},
-				type : "post",
-				success : function(data) {
-					var styNo = $('#styno').val();
-					$.each(data, function(idx, val) {
-						var stampInfo = "<span id='select-line'><span id='select-position'>"
-							+ val.POSITION_NAME
-							+ "</span><span id='select-name'>"
-							+ val.EMP_NAME
-							+ "<br>"
-							+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span>";
-						$(opener.document).find("#Approval").append(stampInfo);
-					});
-					self.close();
-					
-				},
-				error : function(data) {
-					alert("에러" + data)
-				}
-			});
+		$('#ok')
+				.click(
+						function() {
+							$
+									.ajax({
+										url : "<c:url value ='/electronic/selectstampList'/>",
+										data : {
+											empNo : no
+										},
+										type : "post",
+										success : function(data) {
+											var styNo = $('#styno').val();
+											$
+													.each(
+															data,
+															function(idx, val) {
+																var stampInfo = "<span id='select-line'><span id='select-position'>"
+																		+ val.POSITION_NAME
+																		+ "</span><span id='select-name'>"
+																		+ val.EMP_NAME
+																		+ "<br>"
+																		+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span>";
+																$(
+																		opener.document)
+																		.find(
+																				"#Approval")
+																		.append(
+																				stampInfo);
+															});
+											self.close();
 
-		});
+										},
+										error : function(data) {
+											alert("에러" + data)
+										}
+									});
+
+						});
 
 	});
 </script>
@@ -186,25 +196,32 @@
 
 </head>
 <body>
-<body>
-<input type="text" value="${param.styleNo }" id="styno">
+	<input type="hidden" value="${param.styleNo }" id="styno">
 	<div class="container">
 		<div class="row">
 			<hr>
-			<h2>결재 라인을 선택해주세요</h2>
+			<div class="shadow-sm p-3 mb-5 bg-light rounded ">
+				<h2>결재 라인 선택해주세요</h2>
+			</div>
 			<div class="col-sm-4">
-				<h2>검색</h2>
-				<div class="form-group">
-					<label for="input-select-node" class="sr-only"></label><input
-						type="text" class="form-control" id="input-select-node"
-						placeholder="검색어를 입력해주세요" value="">
+				<div class="shadow-sm p-3 mb-2 bg-body rounded">
+					<h2>검색</h2>
+					<div class="form-group">
+						<label for="input-select-node" class="sr-only"></label><input
+							type="text" class="form-control" id="input-select-node"
+							placeholder="검색어를 입력해주세요" value="">
+					</div>
 				</div>
 			</div>
 			<div class="col-sm-5">
-				<h2>목록</h2>
-				<div id="SimpleJSTree" class=""></div>
+				<div class="shadow-sm p-3 mb-2 bg-body rounded">
+					<h2>목록</h2>
+					<div id="SimpleJSTree" class=""></div>
+				</div>
 			</div>
-			<h2>미리 보기</h2>
+			<div class="shadow-sm p-3 mb-2 bg-body rounded">
+				<h2>미리 보기</h2>
+			</div>
 			<div
 				class="row align-items-start selectLine border border-5 border-secondary">
 				결 <br>재 <br>라 <br> 인
@@ -212,11 +229,12 @@
 				<div class="col selectDiv" id="stamp"></div>
 			</div>
 		</div>
-		<button id="ok">확인</button>
-		<button id="reset">초기화</button>
+		<div class="text-center mt-4">
+			<button id="ok" class="btn btn-light btn-outline-secondary mx-1 ">확인</button>
+			<button id="reset" class="btn btn-light btn-outline-secondary mx1">초기화</button>
+		</div>
 	</div>
 	<div id="test"></div>
-</body>
 </body>
 </html>
 
