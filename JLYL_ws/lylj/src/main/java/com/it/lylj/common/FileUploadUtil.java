@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class FileUploadUtil {
 	private static final Logger logger = LoggerFactory.getLogger(FileUploadUtil.class);
 
-	public List<Map<String, Object>> fileUpload(HttpServletRequest request, int pathFlag) throws IllegalStateException, IOException {
+	public static List<Map<String, Object>> fileUpload(HttpServletRequest request, int pathFlag) throws IllegalStateException, IOException {
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		
 		//결과를 저장할 list
@@ -61,7 +61,7 @@ public class FileUploadUtil {
 		return list;
 	}
 
-	public String getUploadPath(HttpServletRequest request, int pathFlag) {
+	public static String getUploadPath(HttpServletRequest request, int pathFlag) {
 		String path = "";
 		if (ConstUtil.FILE_UPLOAD_TYPE.equals("emp")) {
 			if(pathFlag==ConstUtil.UPLOAD_EMP_FLAG) { 			//사원이미지
@@ -82,8 +82,9 @@ public class FileUploadUtil {
 		return path;
 	}
 
-	public String getUniqueFileName(String fileName) {
-		// 업로드한 파일명이 중복될 경우 파일 이름 변경하기
+	public static String getUniqueFileName(String fileName) {
+		// 업로드한 파일명이 중복될 경우 파일 이름 변경하기 - 현재시간 (밀리초까지 )추가
+		// ab.text => ab_20210630155820123.txt
 
 		// 순수파일명만 구하기
 		int idx = fileName.lastIndexOf(".");
@@ -98,7 +99,7 @@ public class FileUploadUtil {
 
 	}
 
-	public String getTimeStamp() {
+	public static String getTimeStamp() {
 		Date d = new Date();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.it.lylj.boardFile.model.BoardFileDAO">
+	<insert id="insertFile" parameterType="boardFileVo">
+		<selectKey keyProperty="boardFileNo" resultType="int" order="BEFORE">
+			SELECT OFBOARDFILE_SEQ.nextval FROM dual
+		</selectKey>
+		INSERT INTO ofboardfile(BOARD_FILE_NO, BOARD_NO, FILENAME, ORIGINALFILENAME, FILESIZE)
+		VALUES(#{boardFileNo}, #{boardNo}, #{fileName}, #{originalFileName}, #{fileSize})
+	</insert>
+	
+	<!-- 
+	<select id="selectByNo" parameterType="int" resultType="">
+		SELECT * FROM ofboardfile
+		WHERE board_no=#{boardNo}
+	</select>
+	 -->
+</mapper>
+
+
+
+
+
+
+
+
+

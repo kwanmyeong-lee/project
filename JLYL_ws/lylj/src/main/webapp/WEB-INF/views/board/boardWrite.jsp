@@ -56,7 +56,8 @@
 		});
 	});
 </script>
-<form method="post" class="writeForm" name="writeForm" action="<c:url value='/board/boardWrite'/>">
+<form enctype="multipart/form-data" method="post" class="writeForm" 
+	name="writeForm" action="<c:url value='/board/boardWrite'/>">
 	<input type="hidden" name="empNo" value="7"><!-- 사원번호 -->
 	<input type="hidden" name="boardWriter" value="테슽흐"><!-- 사원이름 -->
     <div class="wrtieDiv">
@@ -74,15 +75,7 @@
         <div id="writeCancleBtn">취소</div>
         <textarea id="summernote" name="boardContent" class="summernote"></textarea>
         <div class="input-group">
-		  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-		  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"><i class="fas fa-trash-alt"></i></button>
-		</div>
-        <div class="input-group">
-		  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-		  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"><i class="fas fa-trash-alt"></i></button>
-		</div>
-        <div class="input-group">
-		  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+		  <input multiple="multiple" type="file" class="form-control" name="upfile" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
 		  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"><i class="fas fa-trash-alt"></i></button>
 		</div>
     </div>
