@@ -6,5 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ElectronicDAO {
 	
 	int insertEle(ElectronicVo vo);
+	ElectronicVo selectByElectronicNo(int ElectronicNo);
 
 }

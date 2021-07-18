@@ -32,6 +32,13 @@
 			var node = $('#input-select-node').val();
 			$('#SimpleJSTree').jstree(true).search(node);
 		});
+		
+	  	window.onload = function(){
+			if($('#check').val()>1){
+				self.close();
+			}
+		}
+		
 	});
 	function createJSTree(jsondata) {
 		$('#SimpleJSTree').jstree(
@@ -61,6 +68,7 @@
 </head>
 <body>
 <body>
+<input type="text" value="${param.no }" id="check">
 	<div class="container">
 		<div class="row">
 			<hr>

@@ -66,8 +66,18 @@ public class ElectronicController {
 	@PostMapping("/documentWrite")
 	public String  documentWrite_post(@ModelAttribute ElectronicVo vo, Model model) {
 		logger.info("양식 등록 하기 파라미터 ElectronicVo={}", vo);
-		eletronicService.insertEle(vo);
+		int cnt = eletronicService.insertEle(vo);
 		
+		String url = "/electronic/documentSelect?no="+1, msg="기안서 보내기 실패";
+		if(cnt>0) {
+			msg="기안서 보내기 성공";
+			url = "/electronic/documentSelect?no="+2;
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
 	}
 
 	@GetMapping("/electronicDefaultList")
@@ -83,8 +93,11 @@ public class ElectronicController {
 	}
 
 	@GetMapping("/electronicDetail")
-	public void electronicDetail(Model model) {
-		logger.info("문서 선택시 디테일 화면 보여주기 수정중!!!");
+	public void electronicDetail(@RequestParam int ElectronicNo, Model model) {
+		logger.info("문서 선택시 디테일 화면 보여주기 파라미터 ElectronicNo={}", ElectronicNo);	
+		ElectronicVo vo = eletronicService.selectByElectronicNo(ElectronicNo);
+		
+		model.addAttribute("vo", vo);
 		model.addAttribute("navNo", 1);
 	}
 
