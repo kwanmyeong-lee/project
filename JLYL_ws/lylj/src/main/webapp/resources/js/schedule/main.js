@@ -53,6 +53,8 @@ $(function() {
                       contentType: "application/json; charset=utf-8;",
                       dataType: "json",
                       success : function(data) {
+						var listCheck = "#scFolNo"+scheduleFolderNo;
+						if($(listCheck).prev().prev().prop('checked')){
                           calendar.addEvent({
 							  id:scheduleFolderNo,
                               title:scheduleTitle,
@@ -61,6 +63,7 @@ $(function() {
                                 allDay:(scheduleAllday=="true"),
                                 color:scheduleColor
                           });
+                        }
                           $('#myModal').modal('hide');
                       }
                     });
@@ -71,11 +74,39 @@ $(function() {
 	});
 	
 	$('#cal-edit').click(function(){
+		$.ajax({    
+                      type:'get',
+                      url:"listScFolder",
+                      dataType: "json",
+                      success : function(data) {
+							var res="";
+							$(data).each(function(index) {
+								res+='<option value="'+data[index].scheduleFolderNo+'">'+data[index].scheduleFolderName+'</option>';
+							});
+							$('.del-select').html(res);
+                          $('#myModaladd').modal('hide');
+                      }
+                    });
+		
 		$('#myModaledit').modal('show');
 	});
 	
 	$('#cal-delete').click(function(){
-		$('#myModaldelete').modal('show');
+		$.ajax({    
+                      type:'get',
+                      url:"listScFolder",
+                      dataType: "json",
+                      success : function(data) {
+							var res="";
+							$(data).each(function(index) {
+								res+='<option value="'+data[index].scheduleFolderNo+'">'+data[index].scheduleFolderName+'</option>';
+							});
+							$('.del-select').html(res);
+                          $('#myModaladd').modal('hide');
+                      }
+                    });
+         $('#myModaldelete').modal('show');
+		
 	});
 	
 	$('.list-span').click(function(){

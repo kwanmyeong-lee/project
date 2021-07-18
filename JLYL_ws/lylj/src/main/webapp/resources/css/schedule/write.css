@@ -7,6 +7,9 @@
 	max-height:720px;
 	margin: 0 auto;
 }
+.scFolderText{
+	width: 580px;
+}
 
 .modal-dialog{
 	
@@ -22,6 +25,9 @@
 }
 .labelTime2{
 	width: 130px;
+}
+.labelTime3{
+	width: 84px;
 }
 .schFol{
 	height: 27px;

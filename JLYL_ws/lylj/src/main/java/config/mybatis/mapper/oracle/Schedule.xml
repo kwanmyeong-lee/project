@@ -33,6 +33,13 @@
 		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
 	</select>
 	
+	<delete id="deleteScheduleByScFolderNo" parameterType="int">
+		delete from calendar
+		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
+	</delete>
+	
+	
+	
 	
  </mapper>
 

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="../inc/top.jsp"%>
+<%@ include file="top.jsp"%>
 
 
 <!-- datepicker -->
@@ -82,7 +82,7 @@
         	
         	<div class="afdiv">
         	<label class="labelTime">색상</label>
-        	<input type='color' id='myBestColor' value='#0000ff'>
+        	<input type='color' id='myBestColor' value='#4ea0ec'>
         	</div>
         	<br>
         	

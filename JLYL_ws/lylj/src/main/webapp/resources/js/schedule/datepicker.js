@@ -51,6 +51,53 @@ $(function() {
 	    $('#startDate').change(function() {
 	        timeChange();
 	    });
+	    
+	    $('#btnAdd').click(function(){
+		if($(this).parent().prev().find('input[name=scheduleFolderName]').val()==""){
+			swal ( "" , "일정목록명을 입력하세요" ,  "error" )
+		}else{
+			$.ajax({    
+                      type:'POST',
+                      url:"insertScFolder",
+                      data:$('#listAdd').serializeArray(),
+                      dataType: "json",
+                      success : function(data) {
+							var res="";
+							$(data).each(function(index) {
+							res+='<li class="nav-item">'
+									+'<a class="nav-link" href="#"><input type="checkbox" class="ckSch" checked="checked">'
+                    				+'<span class="list-span">'+data[index].scheduleFolderName+'</span>'
+                    				+'<input type="hidden" id="scFolNo${i.scheduleFolderNo }" value="'+data[index].scheduleFolderName+'">'
+                    				+'</a></li>';
+							});
+							$('#scFolList').html(res);
+                          $('#myModaladd').modal('hide');
+                      }
+                    });
+              }
+		});
+		
+		$('#btnDelete').click(function(){
+			$.ajax({    
+                      type:'POST',
+                      url:"deleteScFolder",
+                      data:$('#listDel').serializeArray(),
+                      dataType: "json",
+                      success : function(data) {
+							var res="";
+							$(data).each(function(index) {
+							res+='<li class="nav-item">'
+									+'<a class="nav-link" href="#"><input type="checkbox" class="ckSch" checked="checked">'
+                    				+'<span class="list-span">'+data[index].scheduleFolderName+'</span>'
+                    				+'<input type="hidden" id="scFolNo${i.scheduleFolderNo }" value="'+data[index].scheduleFolderName+'">'
+                    				+'</a></li>';
+							});
+							$('#scFolList').html(res);
+							calendar.rerenderEvents();
+                          $('#myModaldelete').modal('hide');
+                      }
+                    });
+		});
 		
 });
 
