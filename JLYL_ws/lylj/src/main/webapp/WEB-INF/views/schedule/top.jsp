@@ -63,15 +63,16 @@
                     <button type="button" class="btn btn-light btnSchAdd">일정등록</button>
                 </div><!--Nav Item-Pages Collapse Menu-->
                 
+                <div id="scFolList">
                 <c:forEach var="i" items="${sfList}">
                 <li class="nav-item">
                     <a class="nav-link" href="#"><input type="checkbox" class="ckSch" checked="checked"><span class="list-span">${i.scheduleFolderName }</span>
-                    <input type="hidden" value="${i.scheduleFolderNo }">
+                    <input type="hidden" id="scFolNo${i.scheduleFolderNo }" value="${i.scheduleFolderNo }">
                     </a>
                     
                 </li>
                 </c:forEach>
-                
+                </div>
                 <!--Divider--><hr class="sidebar-divider"><li class="nav-item">
                     <a class="nav-link" id="cal-add" href="#">
                         <i class="fas fa-plus"></i>
@@ -91,8 +92,11 @@
                                 <h4 class="modal-title">일정목록추가</h4>
                                 <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                             </div><!--Modal body--><div class="modal-body">
-                                <form name="list-add-form">
-                                    <label class="labelTime labelTime2">일정목록명</label><input type="text" id="addTitle"><br></form>
+                                <form name="ScFolderVO" id="listAdd">
+                                    <label class="labelTime3">일정목록명</label><input type="text" class="scFolderText" name="scheduleFolderName" ><br>
+                                	<label class="labelTime3">색상</label><input type='color' name='scheduleFolderColor' value='#4ea0ec'>
+                                	<input type="hidden" value="${sessionScope.empNo }" name="empNo" >    
+                                </form>
                             </div><!--Modal footer--><div class="modal-footer">
                                 <button type="button" class="btn btn-info" id="btnAdd">추가</button>
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
@@ -105,13 +109,15 @@
                                 <h4 class="modal-title">일정목록수정</h4>
                                 <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                             </div><!--Modal body--><div class="modal-body">
-                                <form name="list-edit-form">
-                                    <label class="labelTime labelTime2">일정목록</label>
+                                <form name="list-edit-form" >
+                                    <label class="labelTime3 ">일정목록</label>
                                     <select class="edit-select">
                                     	<c:forEach var="i" items="${sfList }">
                                         <option>${i.scheduleFolderName}</option>
                                         </c:forEach>
-                                    </select><br><label class="labelTime labelTime2">일정명</label><input type="text" id="editTitle"><br></form>
+                                    </select><br><label class="labelTime3">일정목록명</label><input type="text" class="scFolderText" name="scheduleFolderName"><br>
+                                    <label class="labelTime3">색상</label><input type='color' name='scheduleFolderColor' value='#4ea0ec'> 
+                                    </form>
                             </div><!--Modal footer--><div class="modal-footer">
                                 <button type="button" class="btn btn-info" id="btnEdit">수정</button>
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
@@ -124,13 +130,16 @@
                                 <h4 class="modal-title">일정목록삭제</h4>
                                 <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                             </div><!--Modal body--><div class="modal-body">
-                                <form name="list-del-form">
-                                    <label class="labelTime labelTime2">일정목록</label>
-                                    <select class="del-select">
+                                <form name="list-del-form" id="listDel">
+                                    <label class="labelTime3">일정목록</label>
+                                    <select class="del-select" name="scheduleFolderNo">
                                         <c:forEach var="i" items="${sfList }">
-                                        <option>${i.scheduleFolderName}</option>
+                                        <option value="${i.scheduleFolderNo }">${i.scheduleFolderName}</option>
                                         </c:forEach>
-                                    </select><br></form>
+                                    </select><br>
+                                    <input type="hidden" value="${sessionScope.empNo }" name="empNo" >
+                                    
+                                </form>
                             </div><!--Modal footer--><div class="modal-footer">
                                 <button type="button" class="btn btn-info" id="btnDelete">삭제</button>
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>

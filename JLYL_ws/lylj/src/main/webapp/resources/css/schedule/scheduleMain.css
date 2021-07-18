@@ -11,7 +11,9 @@
 .modal-dialog{
 	max-width: 700px;
 }
-
+.scFolderText{
+	width: 580px;
+}
 
 .selectTime{
 	width: 70px;
@@ -22,6 +24,9 @@
 	width: 80px;
 }
 .labelTime2{
+	width: 84px;
+}
+.labelTime3{
 	width: 84px;
 }
 .chk-span{
