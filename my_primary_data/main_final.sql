@@ -36,6 +36,7 @@ DROP SEQUENCE APPSTAMP_SEQ;
 DROP SEQUENCE OFBOARD_SEQ;
 DROP SEQUENCE OFBOARDFOL_SEQ;
 DROP SEQUENCE ELIMP_SEQ;
+DROP SEQUENCE OFBOARDFILE_SEQ;
 
 DROP VIEW selectstamp;
 
@@ -99,27 +100,33 @@ INCREMENT BY 1
 START WITH 1 
 NOCACHE;
 
+CREATE SEQUENCE OFBOARDFILE_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
 ------------------------- SEQ ----------------------------------
 
-/* »ç¿ëÀÚ */
+/* ì‚¬ìš©ìž */
 CREATE TABLE EMP (
-	EMP_NO NUMBER NOT NULL, /* »ç¿ø ¹øÈ£ */
-	EMP_NAME VARCHAR2(255), /* »ç¿ø ÀÌ¸§ */
-	EMP_PWD VARCHAR2(255), /* ºñ¹Ð¹øÈ£ */
-	EMP_TEL VARCHAR2(255), /* ÀüÈ­¹øÈ£ */
-	EMP_EMAIL VARCHAR2(255), /* ÀÌ¸ÞÀÏ */
-	EMP_ZIPCODE NUMBER, /* ¿ìÆí¹øÈ£ */
-	EMP_ADDRESS VARCHAR2(255), /* ÁÖ¼Ò */
-	EMP_ADDRESSDETAIL VARCHAR2(255), /* »ó¼¼ÁÖ¼Ò */
-	EMP_REGDATE DATE, /* ÀÔ»çÀÏ */
-	EMP_RESDATE DATE, /* Åð»çÀÏ */
-	EMP_PHOTO VARCHAR2(255), /* »ç¿ø»çÁø */
-	EMP_SALARY NUMBER, /* ºÀ±Þ */
-	EMP_ACCOUNT VARCHAR2(255), /* °èÁÂ */
-	EMP_ADMIN_LEV NUMBER, /* °ü¸®ÀÚ ·¹º§¹øÈ£ */
-	EMP_BIRTH DATE, /* »ýÀÏ */
-	DEPARTMENT_NO NUMBER, /* ºÎ¼­¹øÈ£ */
-	POSITION_NO NUMBER /* Á÷±Þ ¹øÈ£ */
+	EMP_NO NUMBER NOT NULL, /* ì‚¬ì› ë²ˆí˜¸ */
+	EMP_NAME VARCHAR2(255), /* ì‚¬ì› ì´ë¦„ */
+	EMP_PWD VARCHAR2(255), /* ë¹„ë°€ë²ˆí˜¸ */
+	EMP_TEL VARCHAR2(255), /* ì „í™”ë²ˆí˜¸ */
+	EMP_EMAIL VARCHAR2(255), /* ì´ë©”ì¼ */
+	EMP_ZIPCODE NUMBER, /* ìš°íŽ¸ë²ˆí˜¸ */
+	EMP_ADDRESS VARCHAR2(255), /* ì£¼ì†Œ */
+	EMP_ADDRESSDETAIL VARCHAR2(255), /* ìƒì„¸ì£¼ì†Œ */
+	EMP_REGDATE DATE, /* ìž…ì‚¬ì¼ */
+	EMP_RESDATE DATE, /* í‡´ì‚¬ì¼ */
+	EMP_PHOTO VARCHAR2(255), /* ì‚¬ì›ì‚¬ì§„ */
+	EMP_SALARY NUMBER, /* ë´‰ê¸‰ */
+	EMP_ACCOUNT VARCHAR2(255), /* ê³„ì¢Œ */
+	EMP_ADMIN_LEV NUMBER, /* ê´€ë¦¬ìž ë ˆë²¨ë²ˆí˜¸ */
+	EMP_BIRTH DATE, /* ìƒì¼ */
+	DEPARTMENT_NO NUMBER, /* ë¶€ì„œë²ˆí˜¸ */
+	POSITION_NO NUMBER /* ì§ê¸‰ ë²ˆí˜¸ */
 );
 
 CREATE UNIQUE INDEX PK_EMP
@@ -134,17 +141,17 @@ ALTER TABLE EMP
 			EMP_NO
 		);
 
-/* ÀüÀÚ°áÀçÁ¤º¸ */
+/* ì „ìžê²°ìž¬ì •ë³´ */
 CREATE TABLE ELIMP (
-	ELECTRONIC_NO NUMBER NOT NULL, /* ¹®¼­¹øÈ£ */
-	ELECTRONIC_DATE DATE DEFAULT SYSDATE, /* ±â¾ÈÀÏÀÚ */
-	ELECTRONIC_TITLE VARCHAR2(255) NOT NULL, /* ±â¾ÈÁ¦¸ñ */
-	ELECTRONIC_CONTENT CLOB NOT NULL, /* ±â¾È³»¿ë */
-	ELECTRONIC_FILE_FLAG VARCHAR2(255), /* Ã·ºÎÆÄÀÏ¿©ºÎ */
-	ELECTRONIC_COMPLET_FLAG VARCHAR2(255) DEFAULT '0', /* ¿Ï·á¿©ºÎ */
-	ELECTRONIC_EMERGENCY_FLAG VARCHAR2(255) DEFAULT '0', /* ±ä±Þ ¿©ºÎ */
-	EMP_NO NUMBER, /* ±â¾ÈÀÚ */
-	STYLE_NO NUMBER /* ¾ç½Ä¹øÈ£ */
+	ELECTRONIC_NO NUMBER NOT NULL, /* ë¬¸ì„œë²ˆí˜¸ */
+	ELECTRONIC_DATE DATE DEFAULT SYSDATE, /* ê¸°ì•ˆì¼ìž */
+	ELECTRONIC_TITLE VARCHAR2(255) NOT NULL, /* ê¸°ì•ˆì œëª© */
+	ELECTRONIC_CONTENT CLOB NOT NULL, /* ê¸°ì•ˆë‚´ìš© */
+	ELECTRONIC_FILE_FLAG VARCHAR2(255), /* ì²¨ë¶€íŒŒì¼ì—¬ë¶€ */
+	ELECTRONIC_COMPLET_FLAG VARCHAR2(255) DEFAULT '0', /* ì™„ë£Œì—¬ë¶€ */
+	ELECTRONIC_EMERGENCY_FLAG VARCHAR2(255) DEFAULT '0', /* ê¸´ê¸‰ ì—¬ë¶€ */
+	EMP_NO NUMBER, /* ê¸°ì•ˆìž */
+	STYLE_NO NUMBER /* ì–‘ì‹ë²ˆí˜¸ */
 );
 
 CREATE UNIQUE INDEX PK_ELIMP
@@ -159,18 +166,18 @@ ALTER TABLE ELIMP
 			ELECTRONIC_NO
 		);
 
-/* ¸ÞÀÏ */
+/* ë©”ì¼ */
 CREATE TABLE MAIL (
-	MAIL_NO NUMBER NOT NULL, /* ¸ÞÀÏ ¹øÈ£ */
-	MAIL_TITLE VARCHAR2(255) NOT NULL, /* Á¦¸ñ */
-	MAIL_CONTENT CLOB NOT NULL, /* ³»¿ë */
-	MAIL_SEND VARCHAR2(255) NOT NULL, /* º¸³½»ç¶÷ */
-	MAIL_TAKE VARCHAR2(255) NOT NULL, /* ¹Þ´Â»ç¶÷ */
-	MAIL_SENDDATE DATE DEFAULT SYSDATE, /* º¸³½ ³¯Â¥ */
-	MAIL_READDATE DATE, /* ÀÐÀº ³¯Â¥ */
-	MAIL_RESERVE DATE, /* ¿¹¾à ³¯Â¥ */
-	MAIL_DEL_CHECK VARCHAR2(255) DEFAULT 0, /* »èÁ¦ ¿©ºÎ */
-	MALI_EMPNO NUMBER NOT NULL /* »ç¿ø¹øÈ£ */
+	MAIL_NO NUMBER NOT NULL, /* ë©”ì¼ ë²ˆí˜¸ */
+	MAIL_TITLE VARCHAR2(255) NOT NULL, /* ì œëª© */
+	MAIL_CONTENT CLOB NOT NULL, /* ë‚´ìš© */
+	MAIL_SEND VARCHAR2(255) NOT NULL, /* ë³´ë‚¸ì‚¬ëžŒ */
+	MAIL_TAKE VARCHAR2(255) NOT NULL, /* ë°›ëŠ”ì‚¬ëžŒ */
+	MAIL_SENDDATE DATE DEFAULT SYSDATE, /* ë³´ë‚¸ ë‚ ì§œ */
+	MAIL_READDATE DATE, /* ì½ì€ ë‚ ì§œ */
+	MAIL_RESERVE DATE, /* ì˜ˆì•½ ë‚ ì§œ */
+	MAIL_DEL_CHECK VARCHAR2(255) DEFAULT 0, /* ì‚­ì œ ì—¬ë¶€ */
+	MALI_EMPNO NUMBER NOT NULL /* ì‚¬ì›ë²ˆí˜¸ */
 );
 
 CREATE UNIQUE INDEX PK_MAIL
@@ -185,15 +192,15 @@ ALTER TABLE MAIL
 			MAIL_NO
 		);
 
-/* ±ÙÅÂ */
+/* ê·¼íƒœ */
 CREATE TABLE ATTEND (
-	ATTENDANCE_NO NUMBER NOT NULL, /* ±ÙÅÂ ¹øÈ£ */
-	EMP_NO NUMBER, /* »ç¿ø ¹øÈ£ */
-	ATTENDANCE_ANNUAL_COUNT NUMBER DEFAULT 21, /* ¿¬Â÷ °¹¼ö */
-	ATTENDANCE_ANNUAL_USE NUMBER DEFAULT 0, /* ¿¬Â÷ »ç¿ëÀÏ */
-	ATTENDANCE_LATE_COUNT NUMBER DEFAULT 0, /* Áö°¢ ÀÏ¼ö */
-	ATTENDANCE_REWARD_COUNT NUMBER DEFAULT 0, /* º¸»ó ÈÞ°¡ ÀÏ¼ö */
-	ATTENDANCE_REWARD_USE NUMBER DEFAULT 0 /* º¸»óÈÞ°¡ »ç¿ëÀÏ */
+	ATTENDANCE_NO NUMBER NOT NULL, /* ê·¼íƒœ ë²ˆí˜¸ */
+	EMP_NO NUMBER, /* ì‚¬ì› ë²ˆí˜¸ */
+	ATTENDANCE_ANNUAL_COUNT NUMBER DEFAULT 21, /* ì—°ì°¨ ê°¯ìˆ˜ */
+	ATTENDANCE_ANNUAL_USE NUMBER DEFAULT 0, /* ì—°ì°¨ ì‚¬ìš©ì¼ */
+	ATTENDANCE_LATE_COUNT NUMBER DEFAULT 0, /* ì§€ê° ì¼ìˆ˜ */
+	ATTENDANCE_REWARD_COUNT NUMBER DEFAULT 0, /* ë³´ìƒ íœ´ê°€ ì¼ìˆ˜ */
+	ATTENDANCE_REWARD_USE NUMBER DEFAULT 0 /* ë³´ìƒíœ´ê°€ ì‚¬ìš©ì¼ */
 );
 
 CREATE UNIQUE INDEX PK_ATTEND
@@ -208,18 +215,18 @@ ALTER TABLE ATTEND
 			ATTENDANCE_NO
 		);
 
-/* °Ô½ÃÆÇ */
+/* ê²Œì‹œíŒ */
 CREATE TABLE OFBOARD (
-	BOARD_NO NUMBER NOT NULL, /* °Ô½ÃÆÇ ¹øÈ£ */
-	EMP_NO NUMBER, /* »ç¿ø ¹øÈ£ */
-	BOARD_TITLE VARCHAR2(255) NOT NULL, /* Á¦¸ñ */
-	BOARD_CONTENT CLOB, /* ³»¿ë */
-	BOARD_WRITER VARCHAR2(255) NOT NULL, /* ±Û¾´ÀÌ */
-	BOARD_HITS NUMBER, /* Á¶È¸¼ö */
-	BOARD_DATE DATE DEFAULT SYSDATE, /* ÀÛ¼ºÀÏ */
-	BOARD_DEL_FLAG VARCHAR2(255) DEFAULT 0, /* »èÁ¦ ¿©ºÎ */
-	BOARD_THEME NUMBER, /* ±Û ºÐ·ù */
-	BOARD_FOLDER_NO NUMBER /* °Ô½ÃÆÇ Æú´õ ¹øÈ£ */
+	BOARD_NO NUMBER NOT NULL, /* ê²Œì‹œíŒ ë²ˆí˜¸ */
+	EMP_NO NUMBER, /* ì‚¬ì› ë²ˆí˜¸ */
+	BOARD_TITLE VARCHAR2(255) NOT NULL, /* ì œëª© */
+	BOARD_CONTENT CLOB, /* ë‚´ìš© */
+	BOARD_WRITER VARCHAR2(255) NOT NULL, /* ê¸€ì“´ì´ */
+	BOARD_HITS NUMBER, /* ì¡°íšŒìˆ˜ */
+	BOARD_DATE DATE DEFAULT SYSDATE, /* ìž‘ì„±ì¼ */
+	BOARD_DEL_FLAG VARCHAR2(255) DEFAULT 0, /* ì‚­ì œ ì—¬ë¶€ */
+	BOARD_THEME NUMBER, /* ê¸€ ë¶„ë¥˜ */
+	BOARD_FOLDER_NO NUMBER /* ê²Œì‹œíŒ í´ë” ë²ˆí˜¸ */
 );
 
 CREATE UNIQUE INDEX PK_OFBOARD
@@ -234,17 +241,17 @@ ALTER TABLE OFBOARD
 			BOARD_NO
 		);
 
-/* ¿¹¾à */
+/* ì˜ˆì•½ */
 CREATE TABLE BOOKING (
-	BOOKING_NO NUMBER NOT NULL, /* ¿¹¾à ¹øÈ£ */
-	EMP_NO NUMBER, /* »ç¿ø ¹øÈ£ */
-	BOOKING_CURRENT DATE DEFAULT SYSDATE, /* ½ÅÃ» ½Ã°£ */
-	BOOKING_START VARCHAR2(255), /* ¿¹¾à ½Ã°£ */
-	BOOKING_END VARCHAR2(255), /* ¿¹¾à Á¾·á ½Ã°£ */
-	BOOKING_APP_FLAG VARCHAR2(255) DEFAULT '0', /* ½ÂÀÎ ¿©ºÎ */
-	BOOKING_DEL_FLAG VARCHAR2(255) DEFAULT '0', /* Ãë¼Ò ¿©ºÎ */
-	BOOKING_TARGET_NO NUMBER, /* ¿¹¾à ´ë»ó ¹øÈ£ */
-	BOOKING_CONTENT CLOB /* ¿¹¾à ³»¿ë */
+	BOOKING_NO NUMBER NOT NULL, /* ì˜ˆì•½ ë²ˆí˜¸ */
+	EMP_NO NUMBER, /* ì‚¬ì› ë²ˆí˜¸ */
+	BOOKING_CURRENT DATE DEFAULT SYSDATE, /* ì‹ ì²­ ì‹œê°„ */
+	BOOKING_START VARCHAR2(255), /* ì˜ˆì•½ ì‹œê°„ */
+	BOOKING_END VARCHAR2(255), /* ì˜ˆì•½ ì¢…ë£Œ ì‹œê°„ */
+	BOOKING_APP_FLAG VARCHAR2(255) DEFAULT '0', /* ìŠ¹ì¸ ì—¬ë¶€ */
+	BOOKING_DEL_FLAG VARCHAR2(255) DEFAULT '0', /* ì·¨ì†Œ ì—¬ë¶€ */
+	BOOKING_TARGET_NO NUMBER, /* ì˜ˆì•½ ëŒ€ìƒ ë²ˆí˜¸ */
+	BOOKING_CONTENT CLOB /* ì˜ˆì•½ ë‚´ìš© */
 );
 
 CREATE UNIQUE INDEX PK_BOOKING
@@ -259,13 +266,13 @@ ALTER TABLE BOOKING
 			BOOKING_NO
 		);
 
-/* °áÁ¦¶óÀÎ */
+/* ê²°ì œë¼ì¸ */
 CREATE TABLE APPLINE (
-	APPROVAL_LINE_NO NUMBER NOT NULL, /* °áÁ¦¶óÀÎ¹øÈ£ */
-	ELECTRONIC_NO NUMBER, /* ¹®¼­¹øÈ£ */
-	EMP_NO NUMBER, /* °áÁ¦ÀÚ */
-	APPROVAL_LINE_COMPLETE_FLAG VARCHAR2(255) DEFAULT '0', /* ´ë±â¿¹Á¤½ÂÀÎ¿©ºÎ */
-	APPROVAL_LINE_ORDER NUMBER DEFAULT 0 /* °áÀç¼ø¼­ */
+	APPROVAL_LINE_NO NUMBER NOT NULL, /* ê²°ì œë¼ì¸ë²ˆí˜¸ */
+	ELECTRONIC_NO NUMBER, /* ë¬¸ì„œë²ˆí˜¸ */
+	EMP_NO NUMBER, /* ê²°ì œìž */
+	APPROVAL_LINE_COMPLETE_FLAG VARCHAR2(255) DEFAULT '0', /* ëŒ€ê¸°ì˜ˆì •ìŠ¹ì¸ì—¬ë¶€ */
+	APPROVAL_LINE_ORDER NUMBER DEFAULT 0 /* ê²°ìž¬ìˆœì„œ */
 );
 
 CREATE UNIQUE INDEX PK_APPLINE
@@ -280,13 +287,13 @@ ALTER TABLE APPLINE
 			APPROVAL_LINE_NO
 		);
 
-/* ÆÄÀÏ */
+/* íŒŒì¼ */
 CREATE TABLE ELFILE (
-	FILE_NO NUMBER NOT NULL, /* ÆÄÀÏ¹øÈ£ */
-	FILE_NAME VARCHAR2(255) NOT NULL, /* ÆÄÀÏÀÌ¸§ */
-	FILE_ORIGINALNAME VARCHAR2(255) NOT NULL, /* ¿ø·¡ÆÄÀÏÀÌ¸§ */
-	FILE_SIZE NUMBER NOT NULL, /* ÆÄÀÏ¿ë·® */
-	ELECTRONIC_NO NUMBER /* ¹®¼­¹øÈ£ */
+	FILE_NO NUMBER NOT NULL, /* íŒŒì¼ë²ˆí˜¸ */
+	FILE_NAME VARCHAR2(255) NOT NULL, /* íŒŒì¼ì´ë¦„ */
+	FILE_ORIGINALNAME VARCHAR2(255) NOT NULL, /* ì›ëž˜íŒŒì¼ì´ë¦„ */
+	FILE_SIZE NUMBER NOT NULL, /* íŒŒì¼ìš©ëŸ‰ */
+	ELECTRONIC_NO NUMBER /* ë¬¸ì„œë²ˆí˜¸ */
 );
 
 CREATE UNIQUE INDEX PK_ELFILE
@@ -301,12 +308,12 @@ ALTER TABLE ELFILE
 			FILE_NO
 		);
 
-/* ¹®¼­¾ç½Ä */
+/* ë¬¸ì„œì–‘ì‹ */
 CREATE TABLE DOCSTY (
-	STYLE_NO NUMBER NOT NULL, /* ¾ç½Ä¹øÈ£ */
-	STYLE_NAME VARCHAR2(255) NOT NULL, /* ¾ç½ÄÀÌ¸§ */
-    STYLE_CONTENT CLOB, /* ¾ç½Ä³»¿ë */
-	FOLDER_NO NUMBER /* ¹®¼­ Æú´õ ¹øÈ£ */
+	STYLE_NO NUMBER NOT NULL, /* ì–‘ì‹ë²ˆí˜¸ */
+	STYLE_NAME VARCHAR2(255) NOT NULL, /* ì–‘ì‹ì´ë¦„ */
+    STYLE_CONTENT CLOB, /* ì–‘ì‹ë‚´ìš© */
+	FOLDER_NO NUMBER /* ë¬¸ì„œ í´ë” ë²ˆí˜¸ */
 );
 
 
@@ -322,11 +329,11 @@ ALTER TABLE DOCSTY
 			STYLE_NO
 		);
 
-/* °áÁ¦µµÀåµî·Ï */
+/* ê²°ì œë„ìž¥ë“±ë¡ */
 CREATE TABLE APPSTAMP (
-	STAMP_NO NUMBER NOT NULL, /* µµÀå¹øÈ£ */
-	EMP_NO NUMBER, /* »ç¿ø ¹øÈ£ */
-	STAMP_NAME VARCHAR2(255) NOT NULL /* ÆÄÀÏÀÌ¸§ */
+	STAMP_NO NUMBER NOT NULL, /* ë„ìž¥ë²ˆí˜¸ */
+	EMP_NO NUMBER, /* ì‚¬ì› ë²ˆí˜¸ */
+	STAMP_NAME VARCHAR2(255) NOT NULL /* íŒŒì¼ì´ë¦„ */
 );
 
 
@@ -342,10 +349,10 @@ ALTER TABLE APPSTAMP
 			STAMP_NO
 		);
 
-/* ºÎ¼­ */
+/* ë¶€ì„œ */
 CREATE TABLE DEPARTMENT (
-	DEPARTMENT_NO NUMBER NOT NULL, /* ºÎ¼­¹øÈ£ */
-	DEPARTMENT_NAME VARCHAR2(255) NOT NULL /* ºÎ¼­ÀÌ¸§ */
+	DEPARTMENT_NO NUMBER NOT NULL, /* ë¶€ì„œë²ˆí˜¸ */
+	DEPARTMENT_NAME VARCHAR2(255) NOT NULL /* ë¶€ì„œì´ë¦„ */
 );
 
 CREATE UNIQUE INDEX PK_DEPARTMENT
@@ -360,10 +367,10 @@ ALTER TABLE DEPARTMENT
 			DEPARTMENT_NO
 		);
 
-/* Á÷±Þ */
+/* ì§ê¸‰ */
 CREATE TABLE POSITION (
-	POSITION_NO NUMBER NOT NULL, /* Á÷±Þ ¹øÈ£ */
-	POSITION_NAME VARCHAR2(255) NOT NULL /* Á÷±Þ ÀÌ¸§ */
+	POSITION_NO NUMBER NOT NULL, /* ì§ê¸‰ ë²ˆí˜¸ */
+	POSITION_NAME VARCHAR2(255) NOT NULL /* ì§ê¸‰ ì´ë¦„ */
 );
 
 CREATE UNIQUE INDEX PK_POSITION
@@ -378,13 +385,13 @@ ALTER TABLE POSITION
 			POSITION_NO
 		);
 
-/* ¸ÞÀÏ Ã·ºÎÆÄÀÏ */
+/* ë©”ì¼ ì²¨ë¶€íŒŒì¼ */
 CREATE TABLE MAILFILE (
-	FILENO NUMBER NOT NULL, /* ÆÄÀÏ¹øÈ£ */
-	MAIL_NO NUMBER, /* ¸ÞÀÏ ¹øÈ£ */
-	FILENAME VARCHAR2(255) NOT NULL, /* ÆÄÀÏÀÌ¸§ */
-	FILEORIGINNAME VARCHAR2(255) NOT NULL, /* ¿ø·¡ÆÄÀÏÀÌ¸§ */
-	FILESIZE NUMBER NOT NULL /* ÆÄÀÏ¿ë·® */
+	FILENO NUMBER NOT NULL, /* íŒŒì¼ë²ˆí˜¸ */
+	MAIL_NO NUMBER, /* ë©”ì¼ ë²ˆí˜¸ */
+	FILENAME VARCHAR2(255) NOT NULL, /* íŒŒì¼ì´ë¦„ */
+	FILEORIGINNAME VARCHAR2(255) NOT NULL, /* ì›ëž˜íŒŒì¼ì´ë¦„ */
+	FILESIZE NUMBER NOT NULL /* íŒŒì¼ìš©ëŸ‰ */
 );
 
 CREATE UNIQUE INDEX PK_MAILFILE
@@ -399,14 +406,14 @@ ALTER TABLE MAILFILE
 			FILENO
 		);
 
-/* ³¯Â¥º° ±ÙÅÂ Á¤º¸ */
+/* ë‚ ì§œë³„ ê·¼íƒœ ì •ë³´ */
 CREATE TABLE ATTENDDAY (
-	ATTENDANCE_DAY_NO NUMBER NOT NULL, /* ³¯Â¥ ±ÙÅÂ ¹øÈ£ */
-	EMP_NO NUMBER, /* »ç¿ø ¹øÈ£ */
-	ATTENDANCE_DAY_ON_HOUR DATE, /* Ãâ±Ù ½Ã°£ */
-	ATTENDANCE_DAY_OFF_HOUR DATE, /* Åð±Ù ½Ã°£ */
-	ATTENDANCE_DAY_WORK_HOUR DATE, /* ±Ù¹« ½Ã°£ */
-	ATTENDANCE_DAY_HOLIDAY_FLAG VARCHAR2(255) DEFAULT 0 /* ÈÞÀÏ ¿©ºÎ */
+	ATTENDANCE_DAY_NO NUMBER NOT NULL, /* ë‚ ì§œ ê·¼íƒœ ë²ˆí˜¸ */
+	EMP_NO NUMBER, /* ì‚¬ì› ë²ˆí˜¸ */
+	ATTENDANCE_DAY_ON_HOUR DATE, /* ì¶œê·¼ ì‹œê°„ */
+	ATTENDANCE_DAY_OFF_HOUR DATE, /* í‡´ê·¼ ì‹œê°„ */
+	ATTENDANCE_DAY_WORK_HOUR DATE, /* ê·¼ë¬´ ì‹œê°„ */
+	ATTENDANCE_DAY_HOLIDAY_FLAG VARCHAR2(255) DEFAULT 0 /* íœ´ì¼ ì—¬ë¶€ */
 );
 
 CREATE UNIQUE INDEX PK_ATTENDDAY
@@ -421,13 +428,13 @@ ALTER TABLE ATTENDDAY
 			ATTENDANCE_DAY_NO
 		);
 
-/* °Ô½ÃÆÇ Ã·ºÎÆÄÀÏ */
+/* ê²Œì‹œíŒ ì²¨ë¶€íŒŒì¼ */
 CREATE TABLE OFBOARDFILE (
-	BOARD_FILE_NO NUMBER NOT NULL, /* ÆÄÀÏ¹øÈ£ */
-	BOARD_NO NUMBER NOT NULL, /* °Ô½ÃÆÇ ¹øÈ£ */
-	BOARD_FILE_NAME VARCHAR2(255), /* ÆÄÀÏÀÌ¸§ */
-	BOARD_FILE_ORIGINALNAME VARCHAR2(255), /* ¿ø·¡ÆÄÀÏÀÌ¸§ */
-	BOARD_FILE_SIZE NUMBER /* ÆÄÀÏ¿ë·® */
+	BOARD_FILE_NO NUMBER NOT NULL, /* íŒŒì¼ë²ˆí˜¸ */
+	BOARD_NO NUMBER NOT NULL, /* ê²Œì‹œíŒ ë²ˆí˜¸ */
+	BOARD_FILE_NAME VARCHAR2(255), /* íŒŒì¼ì´ë¦„ */
+	BOARD_FILE_ORIGINALNAME VARCHAR2(255), /* ì›ëž˜íŒŒì¼ì´ë¦„ */
+	BOARD_FILE_SIZE NUMBER /* íŒŒì¼ìš©ëŸ‰ */
 );
 
 CREATE UNIQUE INDEX PK_OFBOARDFILE
@@ -442,15 +449,15 @@ ALTER TABLE OFBOARDFILE
 			BOARD_FILE_NO
 		);
 
-/* °Ô½ÃÆÇ ´ñ±Û */
+/* ê²Œì‹œíŒ ëŒ“ê¸€ */
 CREATE TABLE OFBOARDCOM (
-	BOARD_COMMENT_NO NUMBER NOT NULL, /* ´ñ±Û ¹øÈ£ */
-	BOARD_NO NUMBER, /* °Ô½ÃÆÇ ¹øÈ£ */
-	BOARD_COMMENT_CONTENT VARCHAR2(255) NOT NULL, /* ³»¿ë */
-	BOARD_COMMENT_WRITER VARCHAR2(255) NOT NULL, /* ±Û¾´ÀÌ */
-	BOARD_COMMENT_DATE DATE DEFAULT SYSDATE, /* ÀÛ¼ºÀÏ */
-	BOARD_COMMENT_DEL_FLAG VARCHAR2(255) DEFAULT '0', /* »èÁ¦ ¿©ºÎ */
-	BOARD_COMMENT_GROUP_NO NUMBER /* ±×·ì ¹øÈ£ */
+	BOARD_COMMENT_NO NUMBER NOT NULL, /* ëŒ“ê¸€ ë²ˆí˜¸ */
+	BOARD_NO NUMBER, /* ê²Œì‹œíŒ ë²ˆí˜¸ */
+	BOARD_COMMENT_CONTENT VARCHAR2(255) NOT NULL, /* ë‚´ìš© */
+	BOARD_COMMENT_WRITER VARCHAR2(255) NOT NULL, /* ê¸€ì“´ì´ */
+	BOARD_COMMENT_DATE DATE DEFAULT SYSDATE, /* ìž‘ì„±ì¼ */
+	BOARD_COMMENT_DEL_FLAG VARCHAR2(255) DEFAULT '0', /* ì‚­ì œ ì—¬ë¶€ */
+	BOARD_COMMENT_GROUP_NO NUMBER /* ê·¸ë£¹ ë²ˆí˜¸ */
 );
 
 CREATE UNIQUE INDEX PK_OFBOARDCOM
@@ -465,21 +472,21 @@ ALTER TABLE OFBOARDCOM
 			BOARD_COMMENT_NO
 		);
 
-/* ÁÁ¾Æ¿ä */
+/* ì¢‹ì•„ìš” */
 CREATE TABLE OFBOARDLIKE (
-	BOARD_NO NUMBER, /* °Ô½ÃÆÇ ¹øÈ£ */
-	EMP_NO NUMBER /* »ç¿ø ¹øÈ£ */
+	BOARD_NO NUMBER, /* ê²Œì‹œíŒ ë²ˆí˜¸ */
+	EMP_NO NUMBER /* ì‚¬ì› ë²ˆí˜¸ */
 );
 
-/* ÁÖ¼Ò·Ï Á¤º¸ */
+/* ì£¼ì†Œë¡ ì •ë³´ */
 CREATE TABLE ADDBOOK (
-	ADDRESSBOOK_NO NUMBER NOT NULL, /* ÁÖ¼Ò·Ï Á¤º¸ ¹øÈ£ */
-	EMP_NO NUMBER, /* »ç¿ø ¹øÈ£ */
-	ADDRESSBOOK_NAME VARCHAR2(255) NOT NULL, /* ÀÌ¸§ */
-	ADDRESSBOOK_TEL VARCHAR2(255) NOT NULL, /* ÀüÈ­¹øÈ£ */
-	ADDRESSBOOK_MAILE VARCHAR2(255), /* ÀÌ¸ÞÀÏ */
-	ADDRESSBOOK_POSITION VARCHAR2(255), /* Á÷±Þ */
-	ADDRESS_FOLDER_NO NUMBER /* ÁÖ¼Ò·Ï Æú´õ ¹øÈ£ */
+	ADDRESSBOOK_NO NUMBER NOT NULL, /* ì£¼ì†Œë¡ ì •ë³´ ë²ˆí˜¸ */
+	EMP_NO NUMBER, /* ì‚¬ì› ë²ˆí˜¸ */
+	ADDRESSBOOK_NAME VARCHAR2(255) NOT NULL, /* ì´ë¦„ */
+	ADDRESSBOOK_TEL VARCHAR2(255) NOT NULL, /* ì „í™”ë²ˆí˜¸ */
+	ADDRESSBOOK_MAILE VARCHAR2(255), /* ì´ë©”ì¼ */
+	ADDRESSBOOK_POSITION VARCHAR2(255), /* ì§ê¸‰ */
+	ADDRESS_FOLDER_NO NUMBER /* ì£¼ì†Œë¡ í´ë” ë²ˆí˜¸ */
 );
 
 CREATE UNIQUE INDEX ADDRESSBOOK
@@ -494,19 +501,19 @@ ALTER TABLE ADDBOOK
 			ADDRESSBOOK_NO
 		);
 
-/* ´Þ·Â */
+/* ë‹¬ë ¥ */
 CREATE TABLE CALENDAR (
-	SCHEDULE_NO NUMBER NOT NULL, /* ´Þ·Â ¹øÈ£ */
-	SCHEDULE_TITLE VARCHAR2(255) NOT NULL, /* ´Þ·Â Á¦¸ñ */
-	SCHEDULE_START VARCHAR2(255), /* ´Þ·Â ½ÃÀÛ³¯Â¥ */
-	SCHEDULE_END VARCHAR2(255), /* ´Þ·Â Á¾·á³¯Â¥ */
-	SCHEDULE_ALLDAY VARCHAR2(255), /* ´Þ·Â Á¾ÀÏ ¿©ºÎ */
-	SCHEDULE_COLOR VARCHAR2(255), /* ´Þ·Â »ö */
-	SCHEDULE_FOLDER_NO NUMBER DEFAULT 0, /* ¿¹¾à Æú´õ ¹øÈ£ */
-	SCHEDULE_THEME_NO NUMBER, /* ½ºÄÉÁÙ ±¸ºÐ ¹øÈ£ */
-	EMP_NO NUMBER, /* »ç¿ø ¹øÈ£ */
-	BOOKING_TARGET_NO NUMBER DEFAULT 0, /* ¿¹¾à ´ë»ó ¹øÈ£ */
-	SCHEDULE_CONTENT CLOB /* ´Þ·Â ³»¿ë */
+	SCHEDULE_NO NUMBER NOT NULL, /* ë‹¬ë ¥ ë²ˆí˜¸ */
+	SCHEDULE_TITLE VARCHAR2(255) NOT NULL, /* ë‹¬ë ¥ ì œëª© */
+	SCHEDULE_START VARCHAR2(255), /* ë‹¬ë ¥ ì‹œìž‘ë‚ ì§œ */
+	SCHEDULE_END VARCHAR2(255), /* ë‹¬ë ¥ ì¢…ë£Œë‚ ì§œ */
+	SCHEDULE_ALLDAY VARCHAR2(255), /* ë‹¬ë ¥ ì¢…ì¼ ì—¬ë¶€ */
+	SCHEDULE_COLOR VARCHAR2(255), /* ë‹¬ë ¥ ìƒ‰ */
+	SCHEDULE_FOLDER_NO NUMBER DEFAULT 0, /* ì˜ˆì•½ í´ë” ë²ˆí˜¸ */
+	SCHEDULE_THEME_NO NUMBER, /* ìŠ¤ì¼€ì¤„ êµ¬ë¶„ ë²ˆí˜¸ */
+	EMP_NO NUMBER, /* ì‚¬ì› ë²ˆí˜¸ */
+	BOOKING_TARGET_NO NUMBER DEFAULT 0, /* ì˜ˆì•½ ëŒ€ìƒ ë²ˆí˜¸ */
+	SCHEDULE_CONTENT CLOB /* ë‹¬ë ¥ ë‚´ìš© */
 );
 
 CREATE UNIQUE INDEX PK_CALENDAR
@@ -521,11 +528,11 @@ ALTER TABLE CALENDAR
 			SCHEDULE_NO
 		);
 
-/* ÁÖ¼Ò·Ï Æú´õ */
+/* ì£¼ì†Œë¡ í´ë” */
 CREATE TABLE ADDFOL (
-	ADDRESS_FOLDER_NO NUMBER NOT NULL, /* ÁÖ¼Ò·Ï Æú´õ ¹øÈ£ */
-	EMP_NO NUMBER, /* »ç¿ø ¹øÈ£ */
-	ADDRESS_FOLDER_NAME VARCHAR2(255) /* Æú´õ ÀÌ¸§ */
+	ADDRESS_FOLDER_NO NUMBER NOT NULL, /* ì£¼ì†Œë¡ í´ë” ë²ˆí˜¸ */
+	EMP_NO NUMBER, /* ì‚¬ì› ë²ˆí˜¸ */
+	ADDRESS_FOLDER_NAME VARCHAR2(255) /* í´ë” ì´ë¦„ */
 );
 
 CREATE UNIQUE INDEX PK_ADDFOL
@@ -540,12 +547,12 @@ ALTER TABLE ADDFOL
 			ADDRESS_FOLDER_NO
 		);
 
-/* ÀÏÁ¤ Æú´õ */
+/* ì¼ì • í´ë” */
 CREATE TABLE SCFOLDER (
-	SCHEDULE_FOLDER_NO NUMBER NOT NULL, /* ÀÏÁ¤ Æú´õ ¹øÈ£ */
-	SCHEDULE_FOLDER_NAME VARCHAR2(255), /* ÀÏÁ¤ Æú´õ ÀÌ¸§ */
-	SCHEDULE_FOLDER_COLOR VARCHAR2(255), /* »ö */
-	EMP_NO NUMBER /* »ç¿ø ¹øÈ£ */
+	SCHEDULE_FOLDER_NO NUMBER NOT NULL, /* ì¼ì • í´ë” ë²ˆí˜¸ */
+	SCHEDULE_FOLDER_NAME VARCHAR2(255), /* ì¼ì • í´ë” ì´ë¦„ */
+	SCHEDULE_FOLDER_COLOR VARCHAR2(255), /* ìƒ‰ */
+	EMP_NO NUMBER /* ì‚¬ì› ë²ˆí˜¸ */
 );
 
 CREATE UNIQUE INDEX PK_SCFOLDER
@@ -560,10 +567,10 @@ ALTER TABLE SCFOLDER
 			SCHEDULE_FOLDER_NO
 		);
 
-/* ½ºÄÉÁÙ ±¸ºÐ */
+/* ìŠ¤ì¼€ì¤„ êµ¬ë¶„ */
 CREATE TABLE SCTHEME (
-	SCHEDULE_THEME_NO NUMBER NOT NULL, /* ±¸ºÐ ¹øÈ£ */
-	SCHEDULE_THEME_NAME VARCHAR2(255) /* ±¸ºÐ ÀÌ¸§ */
+	SCHEDULE_THEME_NO NUMBER NOT NULL, /* êµ¬ë¶„ ë²ˆí˜¸ */
+	SCHEDULE_THEME_NAME VARCHAR2(255) /* êµ¬ë¶„ ì´ë¦„ */
 );
 
 CREATE UNIQUE INDEX PK_SCTHEME
@@ -578,10 +585,10 @@ ALTER TABLE SCTHEME
 			SCHEDULE_THEME_NO
 		);
 
-/* ¿¹¾à Æú´õ */
+/* ì˜ˆì•½ í´ë” */
 CREATE TABLE BOFOL (
-	BOOKING_FOLDER_NO NUMBER NOT NULL, /* ¿¹¾à Æú´õ ¹øÈ£ */
-	BOOKING_FOLDER_NAME VARCHAR2(255) /* ¿¹¾à Æú´õ ÀÌ¸§ */
+	BOOKING_FOLDER_NO NUMBER NOT NULL, /* ì˜ˆì•½ í´ë” ë²ˆí˜¸ */
+	BOOKING_FOLDER_NAME VARCHAR2(255) /* ì˜ˆì•½ í´ë” ì´ë¦„ */
 );
 
 CREATE UNIQUE INDEX PK_BOFOL
@@ -596,10 +603,10 @@ ALTER TABLE BOFOL
 			BOOKING_FOLDER_NO
 		);
 
-/* °Ô½ÃÆÇ Æú´õ */
+/* ê²Œì‹œíŒ í´ë” */
 CREATE TABLE OFBOARDFOL (
-	BOARD_FOLDER_NO NUMBER NOT NULL, /* °Ô½ÃÆÇ Æú´õ ¹øÈ£ */
-	BOARD_FOLDER__NAME VARCHAR2(255) /* °Ô½ÃÆÇ Æú´õ ÀÌ¸§ */
+	BOARD_FOLDER_NO NUMBER NOT NULL, /* ê²Œì‹œíŒ í´ë” ë²ˆí˜¸ */
+	BOARD_FOLDER__NAME VARCHAR2(255) /* ê²Œì‹œíŒ í´ë” ì´ë¦„ */
 );
 
 CREATE UNIQUE INDEX PK_OFBOARDFOL
@@ -614,11 +621,11 @@ ALTER TABLE OFBOARDFOL
 			BOARD_FOLDER_NO
 		);
 
-/* ¿¹¾à ´ë»ó */
+/* ì˜ˆì•½ ëŒ€ìƒ */
 CREATE TABLE BOTARGET (
-	BOOKING_TARGET_NO NUMBER NOT NULL, /* ¿¹¾à ´ë»ó ¹øÈ£ */
-	BOOKING_TARGET_NAME VARCHAR2(255), /* ¿¹¾à ´ë»ó ÀÌ¸§ */
-	BOOKING_FOLDER_NO NUMBER /* ¿¹¾à Æú´õ ¹øÈ£ */
+	BOOKING_TARGET_NO NUMBER NOT NULL, /* ì˜ˆì•½ ëŒ€ìƒ ë²ˆí˜¸ */
+	BOOKING_TARGET_NAME VARCHAR2(255), /* ì˜ˆì•½ ëŒ€ìƒ ì´ë¦„ */
+	BOOKING_FOLDER_NO NUMBER /* ì˜ˆì•½ í´ë” ë²ˆí˜¸ */
 );
 
 CREATE UNIQUE INDEX PK_BOTARGET
@@ -633,10 +640,10 @@ ALTER TABLE BOTARGET
 			BOOKING_TARGET_NO
 		);
 
-/* ¹®¼­Æú´õ */
+/* ë¬¸ì„œí´ë” */
 CREATE TABLE DOCFOL (
-	FOLDER_NO NUMBER NOT NULL, /* ¹®¼­ Æú´õ ¹øÈ£ */
-	FOLDER_NAME VARCHAR(255) DEFAULT '±âº»' /* ¹®¼­ Æú´õ ÀÌ¸§ */
+	FOLDER_NO NUMBER NOT NULL, /* ë¬¸ì„œ í´ë” ë²ˆí˜¸ */
+	FOLDER_NAME VARCHAR(255) DEFAULT 'ê¸°ë³¸' /* ë¬¸ì„œ í´ë” ì´ë¦„ */
 );
 select * from docfol;
 
@@ -654,12 +661,12 @@ ALTER TABLE DOCFOL
 			FOLDER_NO
 		);
 
-/* ¼ö½Å¶óÀÎ */
+/* ìˆ˜ì‹ ë¼ì¸ */
 CREATE TABLE RELINE (
-	RECEIVE_LINE_NO NUMBER NOT NULL, /* ¼ö½Å¶óÀÎ¹øÈ£ */
-	ELECTRONIC_NO NUMBER, /* ¹®¼­¹øÈ£ */
-	EMP_NO NUMBER, /* ¼ö½ÅÀÚ */
-	RECEIVE_LINE_FLAG VARCHAR2(255) DEFAULT '0' /* ¼ö½ÅÈ®ÀÎ¿©ºÎ */
+	RECEIVE_LINE_NO NUMBER NOT NULL, /* ìˆ˜ì‹ ë¼ì¸ë²ˆí˜¸ */
+	ELECTRONIC_NO NUMBER, /* ë¬¸ì„œë²ˆí˜¸ */
+	EMP_NO NUMBER, /* ìˆ˜ì‹ ìž */
+	RECEIVE_LINE_FLAG VARCHAR2(255) DEFAULT '0' /* ìˆ˜ì‹ í™•ì¸ì—¬ë¶€ */
 );
 
 CREATE UNIQUE INDEX PK_RELINE
@@ -674,13 +681,13 @@ ALTER TABLE RELINE
 			RECEIVE_LINE_NO
 		);
 
-/* ÈÞ°¡ Á¤º¸ */
+/* íœ´ê°€ ì •ë³´ */
 CREATE TABLE BREAKDAY (
-	BREAKDAY_NO NUMBER NOT NULL, /* ÈÞ°¡ ¹øÈ£ */
-	BREAKDAY_START DATE, /* ½ÃÀÛÀÏ */
-	BREAKDAY_END DATE, /* ¸¶Áö¸·ÀÏ */
-	EMP_NO NUMBER, /* »ç¿ø ¹øÈ£ */
-	BREAKTHEME_NO NUMBER /* ÈÞ°¡ Á¾·ù ¹øÈ£ */
+	BREAKDAY_NO NUMBER NOT NULL, /* íœ´ê°€ ë²ˆí˜¸ */
+	BREAKDAY_START DATE, /* ì‹œìž‘ì¼ */
+	BREAKDAY_END DATE, /* ë§ˆì§€ë§‰ì¼ */
+	EMP_NO NUMBER, /* ì‚¬ì› ë²ˆí˜¸ */
+	BREAKTHEME_NO NUMBER /* íœ´ê°€ ì¢…ë¥˜ ë²ˆí˜¸ */
 );
 
 CREATE UNIQUE INDEX PK_BREAKDAY
@@ -695,10 +702,10 @@ ALTER TABLE BREAKDAY
 			BREAKDAY_NO
 		);
 
-/* ÈÞ°¡ Á¾·ù */
+/* íœ´ê°€ ì¢…ë¥˜ */
 CREATE TABLE BREAKTHEME (
-	BREAKTHEME_NO NUMBER NOT NULL, /* ÈÞ°¡ Á¾·ù ¹øÈ£ */
-	BREAKTHEME_NAME VARCHAR2(255) /* ÈÞ°¡ Á¾·ù ÀÌ¸§ */
+	BREAKTHEME_NO NUMBER NOT NULL, /* íœ´ê°€ ì¢…ë¥˜ ë²ˆí˜¸ */
+	BREAKTHEME_NAME VARCHAR2(255) /* íœ´ê°€ ì¢…ë¥˜ ì´ë¦„ */
 );
 
 CREATE UNIQUE INDEX PK_BREAKTHEME
@@ -1016,7 +1023,7 @@ ALTER TABLE BREAKDAY
 
 ------------------------- view ---------------------------------
 
---À¯Àú ¹øÈ£·Î µµÀå Ã£±â
+--ìœ ì € ë²ˆí˜¸ë¡œ ë„ìž¥ ì°¾ê¸°
 create or replace view selectstamp AS 
 select a.*, b.position_name
 from 
@@ -1035,163 +1042,163 @@ on a.position_no = b.position_no;
 
 
 select * from emp;
-----Á÷±Þ
-insert into POSITION values(1, '»çÀå');
-insert into POSITION values(2, 'ºÎÀå');
-insert into POSITION values(3, '°úÀå');
-insert into POSITION values(4, '´ë¸®');
-insert into POSITION values(5, 'ÁÖÀÓ');
-insert into POSITION values(6, '»ç¿ø');
+----ì§ê¸‰
+insert into POSITION values(1, 'ì‚¬ìž¥');
+insert into POSITION values(2, 'ë¶€ìž¥');
+insert into POSITION values(3, 'ê³¼ìž¥');
+insert into POSITION values(4, 'ëŒ€ë¦¬');
+insert into POSITION values(5, 'ì£¼ìž„');
+insert into POSITION values(6, 'ì‚¬ì›');
 --
----- ºÎ¼­
-insert into DEPARTMENT values(1,'Àü·«±âÈ¹ÆÀ');
-insert into DEPARTMENT values(2,'¿µ¾÷ÆÀ');
-insert into DEPARTMENT values(3,'¸¶ÄÉÆÃÆÀ');
-insert into DEPARTMENT values(4,'°³¹ßÆÀ');
-insert into DEPARTMENT values(5,'ÀÎ»çÆÀ');
-insert into DEPARTMENT values(6,'ÃÑ¹«È¸°èÆÀ');
+---- ë¶€ì„œ
+insert into DEPARTMENT values(1,'ì „ëžµê¸°íšíŒ€');
+insert into DEPARTMENT values(2,'ì˜ì—…íŒ€');
+insert into DEPARTMENT values(3,'ë§ˆì¼€íŒ…íŒ€');
+insert into DEPARTMENT values(4,'ê°œë°œíŒ€');
+insert into DEPARTMENT values(5,'ì¸ì‚¬íŒ€');
+insert into DEPARTMENT values(6,'ì´ë¬´íšŒê³„íŒ€');
 
 --EMP
 
-insert into EMP values(EMP_SEQ.nextval, '±â¼º¾²', 'admin', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', null, null);
-insert into EMP values(EMP_SEQ.nextval, '°ü¸í', 'admin1', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 2);
-insert into EMP values(EMP_SEQ.nextval, 'Çõ', 'admin2', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 3);
-insert into EMP values(EMP_SEQ.nextval, 'ÁØ°æ', 'admin3', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 4);
-insert into EMP values(EMP_SEQ.nextval, 'admin4', 'admin4', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 2);
-insert into EMP values(EMP_SEQ.nextval, 'admin5', 'admin5', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 3);
-insert into EMP values(EMP_SEQ.nextval, 'admin6', 'admin6', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 4);
-insert into EMP values(EMP_SEQ.nextval, 'admin7', 'admin7', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 3, 2);
-insert into EMP values(EMP_SEQ.nextval, 'admin8', 'admin8', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 3, 3);
-insert into EMP values(EMP_SEQ.nextval, 'admin9', 'admin9', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 3, 4);
-insert into EMP values(EMP_SEQ.nextval, 'admin10', 'admin10', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 4, 2);
-insert into EMP values(EMP_SEQ.nextval, 'admin11', 'admin11', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 4, 3);
-insert into EMP values(EMP_SEQ.nextval, 'admin12', 'admin12', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 4, 4);
-insert into EMP values(EMP_SEQ.nextval, 'admin13', 'admin13', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 5, 2);
-insert into EMP values(EMP_SEQ.nextval, 'admin14', 'admin14', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 5, 3);
-insert into EMP values(EMP_SEQ.nextval, 'admin15', 'admin15', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 5, 4);
-insert into EMP values(EMP_SEQ.nextval, 'admin16', 'admin16', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 2);
-insert into EMP values(EMP_SEQ.nextval, 'admin17', 'admin17', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 3);
-insert into EMP values(EMP_SEQ.nextval, 'admin18', 'admin18', '010-3225-4091', 'admin@gmail.com', '12345', '¼­¿ïÆ¯º°½Ã °­³²±¸ ¿ª»ïµ¿', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, 'ê¸°ì„±ì“°', 'admin', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', null, null);
+insert into EMP values(EMP_SEQ.nextval, 'ê´€ëª…', 'admin1', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 2);
+insert into EMP values(EMP_SEQ.nextval, 'í˜', 'admin2', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 3);
+insert into EMP values(EMP_SEQ.nextval, 'ì¤€ê²½', 'admin3', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 4);
+insert into EMP values(EMP_SEQ.nextval, 'admin4', 'admin4', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin5', 'admin5', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin6', 'admin6', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 4);
+insert into EMP values(EMP_SEQ.nextval, 'admin7', 'admin7', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 3, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin8', 'admin8', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 3, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin9', 'admin9', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 3, 4);
+insert into EMP values(EMP_SEQ.nextval, 'admin10', 'admin10', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 4, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin11', 'admin11', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 4, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin12', 'admin12', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 4, 4);
+insert into EMP values(EMP_SEQ.nextval, 'admin13', 'admin13', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 5, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin14', 'admin14', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 5, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin15', 'admin15', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 5, 4);
+insert into EMP values(EMP_SEQ.nextval, 'admin16', 'admin16', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 2);
+insert into EMP values(EMP_SEQ.nextval, 'admin17', 'admin17', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 3);
+insert into EMP values(EMP_SEQ.nextval, 'admin18', 'admin18', '010-3225-4091', 'admin@gmail.com', '12345', 'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
 
 select * from emp;
 
---´Þ·ÂÅ×¸¶
-insert into sctheme values(1, 'ÀÏÁ¤');
+--ë‹¬ë ¥í…Œë§ˆ
+insert into sctheme values(1, 'ì¼ì •');
 
---´Þ·Â
+--ë‹¬ë ¥
 insert into calendar values(calendar_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','red',1,1,1,null,'asd');
 
 
 
---ÀüÀÚ °áÀç ¹®¼­ Æú´õ
+--ì „ìž ê²°ìž¬ ë¬¸ì„œ í´ë”
 select * from docfol;
 insert into DOCFOL
-values(DOCFOL_SEQ.nextval, '¹®¼­Æú´õ1');
+values(DOCFOL_SEQ.nextval, 'ë¬¸ì„œí´ë”1');
 insert into DOCFOL
-values(DOCFOL_SEQ.nextval, '¹®¼­Æú´õ2');
+values(DOCFOL_SEQ.nextval, 'ë¬¸ì„œí´ë”2');
 insert into DOCFOL
-values(DOCFOL_SEQ.nextval, '¹®¼­Æú´õ3');
+values(DOCFOL_SEQ.nextval, 'ë¬¸ì„œí´ë”3');
 insert into DOCFOL
-values(DOCFOL_SEQ.nextval, '¹®¼­Æú´õ4');
+values(DOCFOL_SEQ.nextval, 'ë¬¸ì„œí´ë”4');
 insert into DOCFOL
-values(DOCFOL_SEQ.nextval, '¹®¼­Æú´õ5');
+values(DOCFOL_SEQ.nextval, 'ë¬¸ì„œí´ë”5');
 insert into DOCFOL
-values(DOCFOL_SEQ.nextval, '¹®¼­Æú´õ6');
+values(DOCFOL_SEQ.nextval, 'ë¬¸ì„œí´ë”6');
 
---ÀüÀÚ °áÀç ¹®¼­ ¾ç½Ä
+--ì „ìž ê²°ìž¬ ë¬¸ì„œ ì–‘ì‹
 --SEQ strat 100
 select * from docsty;
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '¾ç½Ä¹øÈ£100', '	<br>
-			<h2>ÈÞ°¡½ÅÃ»¼­</h2>
+values(DOCSTY_SEQ.nextval, 'ì–‘ì‹ë²ˆí˜¸100', '	<br>
+			<h2>íœ´ê°€ì‹ ì²­ì„œ</h2>
 
 			<table class="doc-table">
 				<tr>
-					<td class="doc-td" colspan="3">¹®¼­¹øÈ£</td>
+					<td class="doc-td" colspan="3">ë¬¸ì„œë²ˆí˜¸</td>
 					<td class="doc-td2"><input type="text"></input></td>
-					<td class="doc-td">ÀÛ¼ºÀÏÀÚ</td>
-					<td class="doc-td2"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" colspan="3">ÀÌ ¸§</td>
-					<td class="doc-td2"><input type="text"></input></td>
-					<td class="doc-td">Á÷ Ã¥</td>
+					<td class="doc-td">ìž‘ì„±ì¼ìž</td>
 					<td class="doc-td2"><input type="text"></input></td>
 				</tr>
 				<tr>
-					<td class="doc-td" colspan="3">¼Ò¼Ó</td>
+					<td class="doc-td" colspan="3">ì´ ë¦„</td>
 					<td class="doc-td2"><input type="text"></input></td>
-					<td class="doc-td">ºÎ¼­</td>
+					<td class="doc-td">ì§ ì±…</td>
 					<td class="doc-td2"><input type="text"></input></td>
 				</tr>
 				<tr>
-					<td class="doc-td" rowspan="6">½ÅÃ» ³»¿ë</td>
-					<td class="doc-td" rowspan="4">ÈÞ°¡½ÅÃ»¼­</td>
-					<td class="doc-td">Á¾·ù</td>
+					<td class="doc-td" colspan="3">ì†Œì†</td>
+					<td class="doc-td2"><input type="text"></input></td>
+					<td class="doc-td">ë¶€ì„œ</td>
+					<td class="doc-td2"><input type="text"></input></td>
+				</tr>
+				<tr>
+					<td class="doc-td" rowspan="6">ì‹ ì²­ ë‚´ìš©</td>
+					<td class="doc-td" rowspan="4">íœ´ê°€ì‹ ì²­ì„œ</td>
+					<td class="doc-td">ì¢…ë¥˜</td>
 					<td class="doc-td2" colspan="3"><input type="text"></input></td>
 				</tr>
 				<tr>
-					<td class="doc-td">ÀÏÁ¤</td>
+					<td class="doc-td">ì¼ì •</td>
 					<td class="doc-td2" colspan="3"><input type="text"></input></td>
 				</tr>
 				<tr>
-					<td class="doc-td">ÁÖ¿äÇà¼±Áö</td>
+					<td class="doc-td">ì£¼ìš”í–‰ì„ ì§€</td>
 					<td class="doc-td2" colspan="3"><input type="text"></input></td>
 				</tr>
 				<tr>
-					<td class="doc-td">´ëÃ¼±Ù¹«ÀÚ</td>
+					<td class="doc-td">ëŒ€ì²´ê·¼ë¬´ìž</td>
 					<td class="doc-td2" colspan="3"><input type="text"></input></td>
 				</tr>
 				<tr>
-					<td class="doc-td" colspan="2">½ÅÃ»»çÀ¯<br> (ÀÚ¼¼È÷)
+					<td class="doc-td" colspan="2">ì‹ ì²­ì‚¬ìœ <br> (ìžì„¸ížˆ)
 					</td>
 					<td class="doc-td2" colspan="3"><input type="text"></input></td>
 				</tr>
 				<tr>
-					<td class="doc-td" colspan="2">±ä±Þ¿¬¶ôÃ³</td>
+					<td class="doc-td" colspan="2">ê¸´ê¸‰ì—°ë½ì²˜</td>
 					<td class="doc-td2" colspan="3"><input type="text"></input></td>
 				</tr>
 				<tr>
-					<td class="doc-td" colspan="3">Âü°í»çÇ×</td>
+					<td class="doc-td" colspan="3">ì°¸ê³ ì‚¬í•­</td>
 					<td class="doc-td2" colspan="3"><input type="text"></input></td>
 				</tr>
 
 			</table>
 			<br>', 1);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '¾ç½Ä¹øÈ£101', '', 1);
+values(DOCSTY_SEQ.nextval, 'ì–‘ì‹ë²ˆí˜¸101', '', 1);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '¾ç½Ä¹øÈ£102', '', 2);
+values(DOCSTY_SEQ.nextval, 'ì–‘ì‹ë²ˆí˜¸102', '', 2);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '¾ç½Ä¹øÈ£103', '', 2);
+values(DOCSTY_SEQ.nextval, 'ì–‘ì‹ë²ˆí˜¸103', '', 2);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '¾ç½Ä¹øÈ£104', '', 3);
+values(DOCSTY_SEQ.nextval, 'ì–‘ì‹ë²ˆí˜¸104', '', 3);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '¾ç½Ä¹øÈ£105', '', 3);
+values(DOCSTY_SEQ.nextval, 'ì–‘ì‹ë²ˆí˜¸105', '', 3);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '¾ç½Ä¹øÈ£106', '', 4);
+values(DOCSTY_SEQ.nextval, 'ì–‘ì‹ë²ˆí˜¸106', '', 4);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '¾ç½Ä¹øÈ£107', '', 4);
+values(DOCSTY_SEQ.nextval, 'ì–‘ì‹ë²ˆí˜¸107', '', 4);
 
--- °áÀç µµÀå µî·Ï
+-- ê²°ìž¬ ë„ìž¥ ë“±ë¡
 insert into APPSTAMP
-values (APPSTAMP_SEQ.nextval, 101, '¾ÆÀÌÀ¯1.jpg');
+values (APPSTAMP_SEQ.nextval, 101, 'ì•„ì´ìœ 1.jpg');
 
---ÀüÀÚ °áÀç Á¤º¸ 
+--ì „ìž ê²°ìž¬ ì •ë³´ 
 
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '±â¾È¼­Å×½ºÆ®1', '±â¾È¼­ ³»¿ë1', 'N', '0', '0', 101, 100);
+values (ELIMP_SEQ.nextval, sysdate, 'ê¸°ì•ˆì„œí…ŒìŠ¤íŠ¸1', 'ê¸°ì•ˆì„œ ë‚´ìš©1', 'N', '0', '0', 101, 100);
 
 select * from elimp;
 
 
 
 
--- °Ô½ÃÆÇ Æú´õ
-INSERT INTO OFBOARDFOL VALUES(1, '°øÁö»çÇ×');
-INSERT INTO OFBOARDFOL VALUES(2, 'ÀÚ·á½Ç');
-INSERT INTO OFBOARDFOL VALUES(3, 'Ä¿¹Â´ÏÆ¼');
-INSERT INTO OFBOARDFOL VALUES(OFBOARDFOL_SEQ.nextval, '¿µ¾÷ º»ºÎ');
+-- ê²Œì‹œíŒ í´ë”
+INSERT INTO OFBOARDFOL VALUES(1, 'ê³µì§€ì‚¬í•­');
+INSERT INTO OFBOARDFOL VALUES(2, 'ìžë£Œì‹¤');
+INSERT INTO OFBOARDFOL VALUES(3, 'ì»¤ë®¤ë‹ˆí‹°');
+INSERT INTO OFBOARDFOL VALUES(OFBOARDFOL_SEQ.nextval, 'ì˜ì—… ë³¸ë¶€');
 
 
 

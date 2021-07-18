@@ -1,6 +1,8 @@
 package com.it.lylj.board.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,12 +14,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.it.lylj.board.model.BoardService;
 import com.it.lylj.board.model.BoardVO;
+import com.it.lylj.boardFile.model.BoardFileService;
+import com.it.lylj.boardFile.model.BoardFileVO;
 import com.it.lylj.boardFol.model.BoardFolService;
 import com.it.lylj.boardFol.model.BoardFolVO;
 import com.it.lylj.common.ConstUtil;
+import com.it.lylj.common.FileUploadUtil;
 import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.common.SearchVO;
 
@@ -31,7 +37,7 @@ public class BoardController {
 	
 	private final BoardService boardService;
 	private final BoardFolService boardFolService;
-	
+	private final BoardFileService boardFileService;
 	/*        메인        */
 	@RequestMapping("/boardMain")
 	public String main(Model model) {
@@ -67,24 +73,48 @@ public class BoardController {
 	}
 	
 	@PostMapping("/boardWrite")
-	public String write_post(@ModelAttribute BoardVO vo, Model model) {
+	public String write_post(@ModelAttribute BoardVO vo, @ModelAttribute BoardFileVO fileVo,
+			MultipartHttpServletRequest request, Model model) {
 		logger.info("게시판 등록 처리, 파라미터 vo={}", vo);
-		
-		/* 파일 업로드 처리*/
-		
-		
 		
 		/* 글등록 처리 */
 		int cnt=boardService.insertBoard(vo);
 		logger.info("게시판 등록 결과, cnt={}", cnt);
 		
+		/* 파일 업로드 처리*/
+		String fileName="", originalFileName="";
+		long fileSize=0;
+		
+		try {
+			List<Map<String, Object>> list = FileUploadUtil.fileUpload(request, ConstUtil.UPLOAD_FILE_FLAG);
+			for (int i = 0; i < list.size(); i++) {
+				Map<String, Object> map = list.get(i);
+				fileName = (String) map.get("fileName");
+				originalFileName=(String) map.get("originalFileName");
+				fileSize=(Long) map.get("fileSize");
+				logger.info("파일 업로드 성공, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName, fileSize);
+			}
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		fileVo.setBoardNo(vo.getBoardNo());
+		fileVo.setFileName(fileName);
+		fileVo.setOriginalFileName(originalFileName);
+		fileVo.setFileSize(fileSize);
+		logger.info("fileVo={}", fileVo);
+		int file = boardFileService.insertFile(fileVo);
+		logger.info("file={}", file);
+
+		String msg="등록을 실패하였습니다.", url="/board/boardMain";
 		if(cnt==0) {
 			model.addAttribute("msg", "등록을 실패하였습니다.");
 			model.addAttribute("url", "/board/boardMain");
+			
 			return "common/message";
 		}
 		
-		return "redirect:/board/boardDetail?boardNo="+vo.getBoardNo();
+		return "forward:/board/boardList?boardFolderNo="+vo.getBoardFolderNo();
 	}
 
 	/*        게시글 목록        */

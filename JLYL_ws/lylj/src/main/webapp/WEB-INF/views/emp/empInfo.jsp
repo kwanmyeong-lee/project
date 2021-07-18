@@ -48,7 +48,7 @@
 		 <div class="imgInfo">
 		 	<div class="row">
 	             <div class="thumbnail">
-	                  <img src="<c:url value='/resources/img/아이유1.jpg'/>" >
+	                  <img src="<c:url value='/resources/emp_images/${vo.empPhoto }'/>" >
 	               <div class="caption">
 	                  <h4>${vo.empName }</h4>
 	               </div>
