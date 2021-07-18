@@ -23,46 +23,64 @@
 #btcloseModal{
 	margin-top: 10px;
 }
+#emptyList td{
+	color : blue;
+	font-weight: bold;
+}
+.searchBox{
+	width: 500px;
+	margin-left: 40px;
+}
+.searchBox select{
+	text-align-last: center;
+   	text-align: center;
+}
 </style>
 
 <script type="text/javascript">
 	$(function() {
 		$("tbody #btLeave").click(function(){
 			$('#leaveModal').modal('show');
+			var delEmpNo = $(this).parent().prev().prev().prev().prev().prev().text();	
+			$('#modalEmpNo').val(delEmpNo);
+			
 		});
+		
 	});
 </script>
 	<div id="bookMainDiv">
-		<h3>주소록</h3>
+		<h3>사원목록</h3>
 		<br>
-		<div id="searchDiv">
-			<select>
-				<option></option>
-				<option>이름</option>
-				<option>전화번호</option>
-				<option>이메일</option>
-				<option>부서</option>
-				<option>직급</option>
-			</select>
-			<input type="text" id="searchTextBox">
-			<input type="submit" value="검색">
-		</div>
-		<div id="serviceDiv">
-		</div>
+		<div class="input-group mb-4 searchBox">
+			<div class="col-md-3 center">
+				<select class="form-control">
+					<option>-선택-</option>
+					<option>이름</option>
+					<option>전화번호</option>
+					<option>이메일</option>
+					<option>부서</option>
+					<option>직급</option>
+				</select>
+			</div>
+			<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" id="searchBox">
+			<button class="btn_ btn-primary btn-sm" type="button" id="btn_search"><i class="fa fa-search"></i></button>
+			</div>
 		<table>
 		    <colgroup>
 		       <col style="width:5%;" />
-		       <col style="width:18%;" />
-		       <col style="width:18%;" />
-		       <col style="width:18%;" />
-		       <col style="width:20%;" />      
-		       <col style="width:10%;" />      
-		       <col style="width:11%;" />      
+		       <col style="width:15%;" />
+		       <col style="width:9%;" />
+		       <col style="width:15%;" />
+		       <col style="width:15%;" />
+		       <col style="width:15%;" />      
+		       <col style="width:12%;" />      
+		       <col style="width:15%;" />      
 		    </colgroup>
 	        <thead>
 			    <tr id="thStyle">
 		            <th><input type="checkbox" name="chkAllMain"></th>
 		            <th>이름</th>
+		            <th>사원번호</th>
 		            <th>전화번호</th>
 		            <th>이메일</th>
 		            <th>부서</th>
@@ -71,24 +89,32 @@
 			    </tr>
 	        </thead>
 	        <tbody>
-		        <c:forEach var="i" begin="1" end="20">
-				    <tr id="tdStyle">
-			            <td><input type="checkbox"> </td>
-			            <td id="userNameTd"><img src="<c:url value='/resources/img/undraw_profile.svg'/>"> <span id="userNameSpan">테스트</span></td>
-			           	<td id="telTd" >010-3333-8888</td>
-			            <td id="emailTd" >yooh0201@gmail.com</td>
-			            <td id="" >웹 백엔드</td>
-			            <td id="" >사원</td>
-			            <td id="" >
-			            	<a href="<c:url value="/emp/empEdit"/>"><button type="button" class="btn btn-success" value="수정"><i class="fas fa-user-edit"></i></button></a>
-			            	<button type="button" class="btn btn-danger" id="btLeave" value="삭제"><i class="fas fa-user-minus"></i></button>
-			            </td>
-				    </tr>
-			    </c:forEach>
+	        	<c:if test="${empty empList }">
+	        		<tr id="emptyList">
+	        			<td colspan="6"></td>
+	        		</tr>
+	        	</c:if>
+	        	<c:if test="${!empty empList }">
+	        		<c:forEach var="empVo" items="${empList }">
+					    <tr id="tdStyle">
+				            <td><input type="checkbox" id="multiSelect"> </td>
+				            <td id="userNameTd"><img src="<c:url value='/resources/img/undraw_profile.svg'/>"> <span id="userNameSpan">${empVo.empName }</span></td>
+				            <td id="empNoTd" name="">${empVo.empNo }</td>
+				           	<td id="telTd" >${empVo.empTel }</td>
+				            <td class="emailTd" id="emailTd<>">${empVo.empEmail }</td>
+				            <td id="" >${empVo.departmentName }</td>
+				            <td id="" >${empVo.positionName }</td>
+				            <td id="" >
+				            	<a href="<c:url value="/emp/empEdit?empNo=${empVo.empNo }"/>"><button type="button" class="btn btn-success" value="수정"><i class="fas fa-user-edit"></i></button></a>
+				            	<button type="button" class="btn btn-danger" id="btLeave" value="삭제"><i class="fas fa-user-minus"></i></button>
+				            </td>
+					    </tr>
+					 </c:forEach>
+				</c:if>
 	        </tbody>
 		</table>
 		
-		<div id="pagingDiv">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
+	<div id="pagingDiv">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
 	</div>
 	
 	<!-- 퇴사등록 Modal -->
@@ -104,7 +130,7 @@
 	
 	      <!-- Modal body -->
  		 <div class="modal-body">
-		    <form name="findPwdfrm" id="findPwdfrm" method="post" action="<c:url value="/emp/leaveEmp"/>">
+		    <form name="findPwdfrm" id="findPwdfrm" method="post" action="<c:url value="/emp/leaveEmp?empNo="/>">
      	        <div class="row">
      	        	<div class="col-md-12">
      		        	<label class="form-label modalLabel" for="empNo">사원번호</label> 
@@ -114,13 +140,13 @@
                 <div class="row">
                 	 <div class="col-md-12">
 	                 	<label class="form-label modalLabel" for="modalEmpEmail">관리자번호</label> 
-	                 	<inut class="form-control" type="email" name="empEmail" id="modalEmpEmail" name="empName" value="" readonly="readonly">
+	                 	<input class="form-control" type="email" name="empEmail" id="modalEmpEmail" name="empName" value="${sessionScope.empNo }" readonly="readonly">
 	                 </div>
                 </div>
                 <div class="row">
                 	 <div class="col-md-12">
 	                 	<label class="form-label modalLabel" for="modalAdminPwd">관리자비밀번호</label> 
-	                 	<input class="form-control" type="email" name="empEmail" id="modalAdminPwd" name="empPwd" placeholder="Enter password">
+	                 	<input class="form-control" type="email" name="empEmail" id="modalAdminPwd" name="empPwd" placeholder="Enter password" readonly="readonly">
 	                 </div>
                 </div>
                 <br>

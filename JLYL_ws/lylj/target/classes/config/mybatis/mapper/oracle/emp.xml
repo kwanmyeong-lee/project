@@ -22,12 +22,13 @@
 	</select> 
 	
 	<select id="selectByEmpNo" parameterType="int" resultType="empVo">
-		select * from emp
+		select * from empView
 		where emp_no= #{empNo}
 	</select>
 
 	<select id="selectAllEmp" resultType="empVo">
-		select * from emp
+		select * from empView
+		order by emp_no desc
 	</select>
 	
 	<select id="selectstamp" resultType="map" parameterType="String">

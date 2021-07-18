@@ -33,5 +33,7 @@ public class EmpVO {
 	private Date empBirth; /* 생일 */
 	private int departmentNo; /* 부서번호 */
 	private int positionNo; /* 직급 번호 */ 
+	private String departmentName;
+	private String positionName;
 	
 }
