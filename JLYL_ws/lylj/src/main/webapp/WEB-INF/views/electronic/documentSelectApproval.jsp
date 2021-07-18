@@ -10,6 +10,9 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="<c:url value="/resources/dist/themes/default/style.min.css"/>" />
+<link
+	href="<c:url value="/resources/css/ele_document/ele_doc_main.css"/>"
+	rel="stylesheet">
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 <script src="<c:url value='/resources/dist/jstree.min.js'/>"></script>
@@ -33,9 +36,6 @@
 			$('#SimpleJSTree').jstree(true).search(node);
 		});
 
-		$('#reset').click(function() {
-			$('#stamp').html('');
-		});
 	});
 	function createJSTree(jsondata) {
 		$('#SimpleJSTree').jstree(
@@ -62,8 +62,8 @@
 		$
 				.ajax({
 					url : "<c:url value='/electronic/selectstamp'/>",
-					type : "get",
 					data : "userNo=" + userNo,
+					type : "get",
 					dataType : "json",
 					success : function(res) {
 						//{"EMP_NAME":"관명","STAMP_NAME":"아이유1.jpg","POSITION_NO":2,"STAMP_NO":1,"EMP_NO":101,"POSITION_NAME":"부장"}
@@ -120,79 +120,23 @@
 
 										},
 										error : function(data) {
-											alert("에러" + data)
+											alert("결재라인을 선택해주세요")
 										}
 									});
 
 						});
 
+		$('#reset').click(function() {
+			$('#stamp').html('');
+			no = [];
+		});
+		$('#no').click(function() {
+			no = [];
+			self.close();
+		});
+
 	});
 </script>
-
-<style type="text/css">
-#select-td {
-	padding-left: 100px;
-	padding-bottom: 15px;
-	padding-top: 15px;
-}
-
-#select-line {
-	width: 79px;
-	vertical-align: top;
-	display: table;
-	table-layout: fixed;
-	float: left;
-	margin-right: 4px;
-}
-
-#select-position {
-	display: table-cell;
-	text-align: center;
-	width: 79px;
-	float: left;
-	border: 1px solid black;
-}
-
-#select-name {
-	display: table-cell;
-	text-align: center;
-	width: 79px;
-	float: left;
-	height: 100px;
-	border: 1px solid black;
-}
-
-.selectLine {
-	padding: 10px;
-	margin: 3px;
-	height: 180px;
-}
-
-.selectDiv {
-	padding: 10px;
-	margin: 0 10px 0 10px;
-}
-
-.doc-table {
-	border-collapse: collapse;
-	border: 1px solid black;
-	width: 644px;
-	text-align: center;
-}
-
-.doc-td {
-	background: #D9E2F3;
-	padding: 10px;
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
-}
-
-.doc-td2 {
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
-	padding-left: 10px;
-}
-</style>
 
 </head>
 <body>
@@ -232,6 +176,7 @@
 		<div class="text-center mt-4">
 			<button id="ok" class="btn btn-light btn-outline-secondary mx-1 ">확인</button>
 			<button id="reset" class="btn btn-light btn-outline-secondary mx1">초기화</button>
+			<button id="no" class="btn btn-light btn-outline-secondary mx1">취소</button>
 		</div>
 	</div>
 	<div id="test"></div>

@@ -9,10 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.lylj.electronic.model.ElectronicService;
+import com.it.lylj.electronic.model.ElectronicVo;
 import com.it.lylj.electronicDocFol.model.ElectronicDocFolService;
 import com.it.lylj.electronicDocFol.model.ElectronicDocFolVO;
 import com.it.lylj.electronicDocSty.model.ElectronicDocStyService;
@@ -30,12 +34,12 @@ public class ElectronicController {
 	private final ElectronicDocFolService electronicDocFolService;
 	private final ElectronicDocStyService electronicDocStyService;
 	private final EmpService empService;
+	private final ElectronicService eletronicService;
 
 	@GetMapping("/electronicMain")
 	public void electronicMain(Model model) {
 		logger.info("전자결재 화면 보여주기");
 		model.addAttribute("navNo", 1);
-
 	}
 
 	@GetMapping("/documentSelect")
@@ -56,8 +60,14 @@ public class ElectronicController {
 	public void documentWrite(@RequestParam String styleNo, Model model) {
 		logger.info("양식 작성 페이지 보여주기 파라미터 문서 번호 ={}, vo ={}", styleNo);
 		ElectronicDocStyVO svo = electronicDocStyService.selectByStyleNo(styleNo);
-
 		model.addAttribute("svo", svo);
+	}
+	
+	@PostMapping("/documentWrite")
+	public String  documentWrite_post(@ModelAttribute ElectronicVo vo, Model model) {
+		logger.info("양식 등록 하기 파라미터 ElectronicVo={}", vo);
+		eletronicService.insertEle(vo);
+		
 	}
 
 	@GetMapping("/electronicDefaultList")
@@ -91,7 +101,7 @@ public class ElectronicController {
 
 	@ResponseBody
 	@RequestMapping("/list")
-	public List<OriVo> selectDocFol() {
+	public List<OriVo> selectDocFol() { //문서 트리뷰 보여주기
 		logger.info("문서 트리뷰 보여주기");
 
 		List<OriVo> olist = new ArrayList<>();
@@ -128,7 +138,7 @@ public class ElectronicController {
 
 	@ResponseBody
 	@RequestMapping("/selectstamp")
-	public Map<String, Object> selectstamp(@RequestParam String userNo) {
+	public Map<String, Object> selectstamp(@RequestParam String userNo) { //유저 번호로 도장 정보 가져오기 
 		logger.info("유저 번호로 유저 도장 정보 조회 파라미터 userNo = {}", userNo);
 
 		Map<String, Object> stampInfo = empService.selectstamp(userNo);
@@ -139,7 +149,7 @@ public class ElectronicController {
 
 	@ResponseBody
 	@RequestMapping("/selectstampList")
-	public List<Map<String, Object>> selectstampList(@RequestParam(value="empNo[]") List<String> empNo) {
+	public List<Map<String, Object>> selectstampList(@RequestParam(value="empNo[]") List<String> empNo) {// 유저 번로 배열로 도장 조회하기
 		logger.info("empNo={}", empNo);
 		 
 		List<Map<String, Object>> listmap = new ArrayList<Map<String,Object>>();
@@ -155,4 +165,6 @@ public class ElectronicController {
 		return listmap;
 
 	}
+	
+
 }
