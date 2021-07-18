@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -130,6 +131,10 @@ public class EmpController {
 		EmpVO vo = empService.selectByEmpNo(empNo);
 		logger.info("사원정보, 파라미터 vo={}",vo);
 		//3
+		//관리자 레벨일 경우 관리자 nav
+		if(vo.getEmpAdminLev()==1||vo.getEmpAdminLev()==2) {
+			model.addAttribute("navNo", 8);
+		}
 		
 		model.addAttribute("vo", vo);
 
@@ -137,15 +142,31 @@ public class EmpController {
 	}
 	
 	@GetMapping("/empEdit")
-	public void empEdit(Model model) {
-		logger.info("사원정보디테일 페이지");
-		model.addAttribute("navNo", 8);
+	public String empEdit(@RequestParam(defaultValue = "0") int empNo, HttpSession session ,Model model) {
+		logger.info("사원정보수정페이지, empNo={}", empNo);
+		int adminLev = (int)session.getAttribute("empAdminLev");
+		EmpVO empVo = empService.selectByEmpNo(empNo);
+		logger.info("사원정보수정페이지, adminLev={}", adminLev);
+		
+		// 관리레벨이 1, 2이면 관리자정보로
+		if(adminLev==1 || adminLev==2) {
+			model.addAttribute("navNo", 8);
+		}
+		
+		model.addAttribute("empVo", empVo);
+		
+		return "emp/empEdit";
 	}
 	
 	@GetMapping("/empList")
 	public void empList(Model model) {
 		logger.info("사원정보리스트 페이지");
+		
+		List<EmpVO> empList = empService.selectAllEmp();
+		logger.info("사원목록조회, empList.size()={}",empList.size());
 		model.addAttribute("navNo", 8);
+		model.addAttribute("empList", empList);
+		
 	}
 
 }
