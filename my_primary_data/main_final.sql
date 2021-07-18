@@ -1037,6 +1037,13 @@ on a.position_no = b.position_no;
 
 
 ------------------------- view ----------------------------------
+create or replace view empView
+as
+select e.*,d.department_name, p.position_name
+from emp e left join department d
+on e.department_no=d.department_no
+left join position p
+on e.position_no = p.position_no;
 
 -------------------------------------------------------------------------------------------
 
