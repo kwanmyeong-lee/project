@@ -35,6 +35,7 @@ DROP SEQUENCE DOCFOL_SEQ;
 DROP SEQUENCE APPSTAMP_SEQ;
 DROP SEQUENCE OFBOARD_SEQ;
 DROP SEQUENCE OFBOARDFOL_SEQ;
+DROP SEQUENCE ELIMP_SEQ;
 
 DROP VIEW selectstamp;
 
@@ -90,6 +91,14 @@ MAXVALUE 9999999999999999999999999999
 INCREMENT BY 1 
 START WITH 1 
 NOCACHE;
+
+CREATE SEQUENCE ELIMP_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
+
 ------------------------- SEQ ----------------------------------
 
 /* 사용자 */
@@ -1019,8 +1028,6 @@ on a.emp_No = b.emp_no
 position b
 on a.position_no = b.position_no;
 
-select * from selectstamp;
-
 
 ------------------------- view ----------------------------------
 
@@ -1095,7 +1102,7 @@ values(DOCFOL_SEQ.nextval, '문서폴더6');
 --SEQ strat 100
 select * from docsty;
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호1', '	<br>
+values(DOCSTY_SEQ.nextval, '양식번호100', '	<br>
 			<h2>휴가신청서</h2>
 
 			<table class="doc-table">
@@ -1152,23 +1159,32 @@ values(DOCSTY_SEQ.nextval, '양식번호1', '	<br>
 			</table>
 			<br>', 1);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호2', '', 1);
+values(DOCSTY_SEQ.nextval, '양식번호101', '', 1);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호3', '', 2);
+values(DOCSTY_SEQ.nextval, '양식번호102', '', 2);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호4', '', 2);
+values(DOCSTY_SEQ.nextval, '양식번호103', '', 2);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호5', '', 3);
+values(DOCSTY_SEQ.nextval, '양식번호104', '', 3);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호6', '', 3);
+values(DOCSTY_SEQ.nextval, '양식번호105', '', 3);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호7', '', 4);
+values(DOCSTY_SEQ.nextval, '양식번호106', '', 4);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호8', '', 4);
+values(DOCSTY_SEQ.nextval, '양식번호107', '', 4);
 
 -- 결재 도장 등록
 insert into APPSTAMP
 values (APPSTAMP_SEQ.nextval, 101, '아이유1.jpg');
+
+--전자 결재 정보 
+
+insert into ELIMP
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트1', '기안서 내용1', 'N', '0', '0', 101, 100);
+
+select * from elimp;
+
+
 
 
 -- 게시판 폴더
@@ -1176,9 +1192,6 @@ INSERT INTO OFBOARDFOL VALUES(1, '공지사항');
 INSERT INTO OFBOARDFOL VALUES(2, '자료실');
 INSERT INTO OFBOARDFOL VALUES(3, '커뮤니티');
 INSERT INTO OFBOARDFOL VALUES(OFBOARDFOL_SEQ.nextval, '영업 본부');
-
-
-
 
 
 

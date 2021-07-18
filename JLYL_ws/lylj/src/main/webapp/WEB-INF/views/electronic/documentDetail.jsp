@@ -10,6 +10,9 @@
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 <link href="<c:url value="/resources/css/boot_css/bootstrap.min.css"/>"
 	rel="stylesheet">
+<link
+	href="<c:url value="/resources/css/ele_document/ele_doc_main.css"/>"
+	rel="stylesheet">
 
 <script
 	src="<c:url value = "/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
@@ -32,69 +35,7 @@
 		})
 	});
 </script>
-<style type="text/css">
-#select-td {
-	padding-left: 100px;
-	padding-bottom: 15px;
-	padding-top: 15px;
-}
 
-#select-line {
-	width: 79px;
-	vertical-align: top;
-	display: table;
-	table-layout: fixed;
-	float: left;
-	margin-right: 4px;
-}
-
-#select-position {
-	display: table-cell;
-	text-align: center;
-	width: 79px;
-	float: left;
-	border: 1px solid black;
-}
-
-#select-name {
-	display: table-cell;
-	text-align: center;
-	width: 79px;
-	float: left;
-	height: 100px;
-	border: 1px solid black;
-}
-
-.selectLine {
-	padding: 10px;
-	margin: 3px;
-}
-
-.selectDiv {
-	padding: 10px;
-	margin: 0 10px 0 10px;
-}
-
-.doc-table {
-	border-collapse: collapse;
-	border: 1px solid black;
-	width: 644px;
-	text-align: center;
-}
-
-.doc-td {
-	background: #D9E2F3;
-	padding: 10px;
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
-}
-
-.doc-td2 {
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
-	padding-left: 10px;
-}
-</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -105,8 +46,10 @@
 		<br>
 		<div class="form-row">
 			<div class="form-group">
-				<button type="button" class="btn btn-light  btn-outline-secondary" id="ok">선택</button>
-				<button type="button" class="btn btn-light btn-outline-secondary" id="no">취소</button>
+				<button type="button" class="btn btn-light  btn-outline-secondary"
+					id="ok">선택</button>
+				<button type="button" class="btn btn-light btn-outline-secondary"
+					id="no">뒤로가기</button>
 			</div>
 		</div>
 	</div>

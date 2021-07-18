@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.it.lylj.electronic.model.ElectronicDAO">
+
+	<insert id="insertEle" parameterType="ElectronicVo">
+		<selectKey keyProperty="electronicNo" resultType="int"
+			order="BEFORE">
+			select ELIMP_SEQ.nextval from dual
+		</selectKey>
+		insert into ELIMP
+		values (#{electronicNo} , sysdate,
+		#{electronicTitle}, #{electronicContent}, #{electronicFileFlag},
+		#{electronicCompletFlag},
+		#{electronicEmergencyFlag}, #{empNo},
+		#{styleNo})
+
+	</insert>
+
+</mapper>
