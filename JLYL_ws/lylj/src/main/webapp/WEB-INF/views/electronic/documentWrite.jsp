@@ -43,25 +43,42 @@
 			self.close();
 		});
 		
-		$.ajax({
-			url: "<c:url value = 'electronic/documentWrite'/>",
-			type : "post",
-			data : "json",
-			
-			
+		$('input[name=submit]').click(function(){
+		            
+		            var dataArr = [];
+		 
+		            $('table input[type=text]').each(function(idx, item){
+		            
+		            	dataArr.push($(this).val());
+		            	
+		            });
+		            
+		            $('input[name=electronicContent]').val(dataArr);
+				
+		            $('form[name=docfrm]').prop('action','<c:url value="/electronic/documentWrite"/>');
+			        $('form[name=docfrm]').submit();
+			        
+			    
+				
 		});
 		
-	});
 	
+	});
 	
 </script>
 
 </head>
 <body>
-	<form action="/" method="post" enctype="multipart/form-data"
+	<form name="docfrm" method="post" enctype="multipart/form-data"
 		id="frm-form">
+
 		<input type="hidden" id="styleNo" value="${param.styleNo }"
-			name="styleNo">
+			name="styleNo"> <input type="hidden"
+			name="electronicFileFlag" value="N"> <input type="hidden"
+			name="electronicCompletFlag" value="N"> <input type="hidden"
+			name="electronicEmergencyFlag" value="N"> <input
+			type="hidden" name="empNo" value="101">
+
 		<div class="container" style="max-width: 1000px;">
 			<div class="shadow-sm p-3 mb-3 bg-light rounded ">
 				<h1>기안서</h1>
@@ -99,64 +116,7 @@
 				<!-- 문서 양식 시작 -->
 				<input type="hidden" name="electronicContent" value="">
 
-			<%-- 	${svo.styleContent} --%>
-				
-				<br>
-				<h2>휴가신청서</h2>
-
-				<table class="doc-table">
-					<tr>
-						<td class="doc-td" colspan="3">문서번호</td>
-						<td class="doc-td2"><input type="text"></td>
-						<td class="doc-td">작성일자</td>
-						<td class="doc-td2"><input type="text"></td>
-					</tr>
-					<tr>
-						<td class="doc-td" colspan="3">이 름</td>
-						<td class="doc-td2"><input type="text"></td>
-						<td class="doc-td">직 책</td>
-						<td class="doc-td2"><input type="text"></td>
-					</tr>
-					<tr>
-						<td class="doc-td" colspan="3">소속</td>
-						<td class="doc-td2"><input type="text"></td>
-						<td class="doc-td">부서</td>
-						<td class="doc-td2"><input type="text"></td>
-					</tr>
-					<tr>
-						<td class="doc-td" rowspan="6">신청 내용</td>
-						<td class="doc-td" rowspan="4">휴가신청서</td>
-						<td class="doc-td">종류</td>
-						<td class="doc-td2" colspan="3"><input type="text" class="doc-input2"></td>
-					</tr>
-					<tr>
-						<td class="doc-td">일정</td>
-						<td class="doc-td2" colspan="3"><input type="text" class="doc-input2"></td>
-					</tr>
-					<tr>
-						<td class="doc-td">주요행선지</td>
-						<td class="doc-td2" colspan="3"><input type="text" class="doc-input2"></td>
-					</tr>
-					<tr>
-						<td class="doc-td">대체근무자</td>
-						<td class="doc-td2" colspan="3"><input type="text" class="doc-input2"></td>
-					</tr>
-					<tr>
-						<td class="doc-td" colspan="2">신청사유<br> (자세히)
-						</td>
-						<td class="doc-td2" colspan="3"><input type="text" class="doc-input2"></td>
-					</tr>
-					<tr>
-						<td class="doc-td" colspan="2">긴급연락처</td>
-						<td class="doc-td2" colspan="3"><input type="text" class="doc-input2"></td>
-					</tr>
-					<tr>
-						<td class="doc-td" colspan="3">참고사항</td>
-						<td class="doc-td2" colspan="3"><input type="text" class="doc-input2"></td>
-					</tr>
-
-				</table>
-				<br>
+				${svo.styleContent}
 
 				<!-- 문서 양식 끝 -->
 

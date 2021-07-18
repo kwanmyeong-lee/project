@@ -7,12 +7,18 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ElectronicServiceImpl implements ElectronicService{
-	private final ElectronicDAO eletronicDao;
+	private final ElectronicDAO electronicDao;
 	
 	
 	@Override
 	public int insertEle(ElectronicVo vo) {
-		return eletronicDao.insertEle(vo);
+		return electronicDao.insertEle(vo);
+	}
+
+
+	@Override
+	public ElectronicVo selectByElectronicNo(int ElectronicNo) {
+		return electronicDao.selectByElectronicNo(ElectronicNo);
 	}
 
 }
