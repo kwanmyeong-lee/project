@@ -1,5 +1,9 @@
 package com.it.lylj.boFol.model;
 
-public interface BoFolService {
+import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+
+public interface BoFolService {
+	List<BoFolVO> selectAllBoFol(); 
 }

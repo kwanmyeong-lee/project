@@ -26,45 +26,28 @@ $(function() { // document ready
 
         resourceAreaWidth: '10%',
         defaultView: 'timelineDay',
-        resourceLabelText: 'Rooms',
+        resourceLabelText: '예약 대상',
         scrollTime: '00:00:00',
-        resources: [{
-                id: 'a',
-                title: 'Auditorium A'
-            },
-            {
-                id: 'b',
-                title: 'Auditorium B',
-                eventColor: 'green'
-            },
-            {
-                id: 'c',
-                title: 'Auditorium C',
-                eventColor: 'orange'
-            },
-            {
-                id: 'd',
-                title: 'Auditorium D',
-                children: [{
-                        id: 'd1',
-                        title: 'Room D1'
-                    },
-                    {
-                        id: 'd2',
-                        title: 'Room D2'
-                    }
-                ]
-            },
-            {
-                id: 'e',
-                title: 'Auditorium E'
-            },
-            {
-                id: 'f',
-                title: 'Auditorium F',
-                eventColor: 'red'
-            },
-        ],
+        resources: function(callback) {
+	
+    			$.ajax({
+                type: 'GET',
+                url: "calDraw",
+                dataType: "json",
+                success: function(data) {
+                    var events = [];
+                    $(data).each(function(index) {
+                        events.push({
+							id:data[index].bookingTargetNo,
+                            title: data[index].bookingTargetName,
+                        });
+
+                    });
+					
+                    callback(events);
+                }
+            });
+  		},
         events: [{
                 id: '1',
                 resourceId: 'b',

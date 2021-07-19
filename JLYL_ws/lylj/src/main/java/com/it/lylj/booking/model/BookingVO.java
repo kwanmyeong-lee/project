@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class BookingVO {
 	private int bookingNo;  /* 예약 번호 */
-	private int EMP_NO; /* 사원 번호 */
+	private int empNo; /* 사원 번호 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Timestamp bookingCurrent; /* 신청 시간 */
 	private String bookingStart; /* 예약 시간 */
