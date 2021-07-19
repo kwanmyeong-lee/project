@@ -205,15 +205,6 @@ public class EmpController {
 				url="/emp/empInfo?empNo="+empVo.getEmpNo();
 			}
 			
-            if(!list.isEmpty()) {
-            	if(oldFileName!=null && !oldFileName.isEmpty()) {
-            		File oldFile = new File(fileUploadUtil.getUploadPath(request,ConstUtil.UPLOAD_EMP_FLAG), oldFileName);
-            		if(oldFile.exists()) {
-            			boolean bool = oldFile.delete();
-            			logger.info("기존파일 삭제여부 : {}", bool);
-            		}
-            	}
-            }//
 		}else if(result==EmpService.PWD_DISAGREE) {
 			msg="비밀번호가 일치하지 않습니다";
 		}
