@@ -6,6 +6,9 @@ $(function() {
     $('#btn-write').click(function(){
 		location.href ="write";
 	});
+	
+    
+	
     $('#btn-add').click(function(){
 		if($('#addtitle').val()==""){
 			swal ( "" , "일정명을 입력하세요" ,  "error" )
@@ -61,7 +64,8 @@ $(function() {
                                 start:scheduleStart,
                                 end:scheduleEnd,
                                 allDay:(scheduleAllday=="true"),
-                                color:scheduleColor
+                                color:scheduleColor,
+                            	classNames:[data]
                           });
                         }
                           $('#myModal').modal('hide');
@@ -69,6 +73,7 @@ $(function() {
                     });
                  }
 	});
+	
 	$('#cal-add').click(function(){
 		$('#myModaladd').modal('show');
 	});
@@ -83,8 +88,7 @@ $(function() {
 							$(data).each(function(index) {
 								res+='<option value="'+data[index].scheduleFolderNo+'">'+data[index].scheduleFolderName+'</option>';
 							});
-							$('.del-select').html(res);
-                          $('#myModaladd').modal('hide');
+							$('.edit-select').html(res);
                       }
                     });
 		
@@ -102,14 +106,13 @@ $(function() {
 								res+='<option value="'+data[index].scheduleFolderNo+'">'+data[index].scheduleFolderName+'</option>';
 							});
 							$('.del-select').html(res);
-                          $('#myModaladd').modal('hide');
                       }
                     });
          $('#myModaldelete').modal('show');
 		
 	});
 	
-	$('.list-span').click(function(){
+	$(document).on("click",".list-span",function(){
 		var texts=$(this).next().val();
 		var event2 = calendar.getEventById(texts);
 		if($(this).prev('.ckSch').prop('checked')){
@@ -146,7 +149,8 @@ $(function() {
 		                            start: data[index].scheduleStart,
 		                            end: data[index].scheduleEnd,
 		                            allDay: (data[index].scheduleAllday=="true"),
-		                            color:data[index].scheduleColor
+		                            color:data[index].scheduleColor,
+                            		classNames:[data.list[index].scheduleNo]
                         		});
 
                     		});   
@@ -155,7 +159,7 @@ $(function() {
 			}
 	});
 	
-	$(".ckSch").change(function(){
+	$(document).on("change",".ckSch",function(){
 		var texts=$(this).next().next().val();
 		var event2 = calendar.getEventById(texts);
 		if(!$(this).prop('checked')){
@@ -188,7 +192,8 @@ $(function() {
 		                            start: data[index].scheduleStart,
 		                            end: data[index].scheduleEnd,
 		                            allDay: (data[index].scheduleAllday=="true"),
-		                            color:data[index].scheduleColor
+		                            color:data[index].scheduleColor,
+                            		classNames:[data.list[index].scheduleNo]
                         		});
 
                     		});   

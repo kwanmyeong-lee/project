@@ -16,6 +16,7 @@
     <select id="selectAllScFolderByEmpNo" parameterType="int" resultType="ScFolderVo">
         select * from scfolder
         where EMP_NO=#{empNo}
+        order by SCHEDULE_FOLDER_NO
     </select>
     
     <select id="selectScFolderByScFolderNo" parameterType="int" resultType="ScFolderVo">
@@ -27,6 +28,11 @@
 		delete from scfolder
 		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
 	</delete>
+	
+    <update id="updateScFolderByScFolderNo" parameterType="ScFolderVo">
+		update scfolder set SCHEDULE_FOLDER_NAME=#{scheduleFolderName}, SCHEDULE_FOLDER_COLOR=#{scheduleFolderColor}
+		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
+	</update>
 	
  </mapper>
 

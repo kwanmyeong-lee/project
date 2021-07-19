@@ -1,6 +1,8 @@
 package com.it.lylj.schedule.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,15 +34,17 @@ public class ScheduleController {
 	private final ScheduleService service;
 	private final ScFolderService sfService;
 	
+	
 	private static final Logger logger
 		=LoggerFactory.getLogger(ScheduleController.class);
 
 	@PostMapping("/insertSchedule")
 	@ResponseBody
+	@Transactional
 	public int insertSchedule(@RequestBody ScheduleVO scheduleVO) {
 		service.insertSchedule(scheduleVO);
-		
-		return 1;
+		int no = service.selectMaxScNoByEmpNo(scheduleVO.getEmpNo());
+		return no;
 	}//일정 추가
 	
 	@PostMapping("/insertScFolder")
@@ -55,14 +59,37 @@ public class ScheduleController {
 	@PostMapping("/deleteScFolder")
 	@ResponseBody
 	@Transactional
-	public List<ScFolderVO> deleteScFolder(@ModelAttribute ScFolderVO vo) {
-		logger.info("deleteScFolder 제거, 파라미터 scheduleFolderNo = {}", vo.getScheduleFolderNo());
+	public Map<String,Object> deleteScFolder(@ModelAttribute ScFolderVO vo) {
+		List<ScheduleVO> list = service.selectAllScheduleByScFolderNo(vo.getScheduleFolderNo());
 		sfService.deleteScFolderByScFolderNo(vo.getScheduleFolderNo());
 		service.deleteScheduleByScFolderNo(vo.getScheduleFolderNo());
 		List<ScFolderVO> sfList= sfService.selectAllScFolderByEmpNo(vo.getEmpNo());
 		
-		return sfList;
+		Map<String, Object> rmap = new HashMap<String, Object>();
+		rmap.put("sfList", sfList);
+		rmap.put("list", list);
+		
+		return rmap;
 	}//일정목록 제거
+	
+	@PostMapping("/updateScFolder")
+	@ResponseBody
+	@Transactional
+	public Map<String,Object> updateScFolder(@ModelAttribute ScFolderVO vo) {
+		ScheduleVO scvo= new ScheduleVO();
+		scvo.setScheduleFolderNo(vo.getScheduleFolderNo());
+		scvo.setScheduleColor(vo.getScheduleFolderColor());
+		service.updateScheduleByScFolderNo(scvo);
+		sfService.updateScFolderByScFolderNo(vo);
+		List<ScheduleVO> list = service.selectAllScheduleByScFolderNo(vo.getScheduleFolderNo());
+		List<ScFolderVO> sfList= sfService.selectAllScFolderByEmpNo(vo.getEmpNo());
+		
+		Map<String, Object> rmap = new HashMap<String, Object>();
+		rmap.put("sfList", sfList);
+		rmap.put("list", list);
+		
+		return rmap;
+	}//일정목록 수정
 	
 	@GetMapping("/scheduleMain")
 	public String Schedule(Model model, HttpServletRequest req){
@@ -98,7 +125,30 @@ public class ScheduleController {
 		
 		return list;
 		
-	}//ajax 일정 불러오기
+	}//ajax 전체 일정 불러오기
+	
+	@PostMapping("/selectScheduleByScheduleNo")
+	@ResponseBody
+	public Map<String,Object> selectScheduleByScheduleNo(@RequestBody int scheduleNo){
+		Map<String,Object> map = new HashMap<>();
+	
+		ScheduleVO scvo = service.selectScheduleByScheduleNo(scheduleNo);
+		ScFolderVO scfvo = sfService.selectScFolderByScFolderNo(scvo.getScheduleFolderNo());
+		map.put("scFolderName", scfvo.getScheduleFolderName());
+		map.put("scvo", scvo);
+		return map;
+		
+	}//ajax 일정 한개 불러오기
+	
+	@PostMapping("/deleteScheduleByScheduleNo")
+	@ResponseBody
+	public int deleteScheduleByScheduleNo(@RequestBody int scheduleNo){
+		logger.info("scheduleNo 업데이트, 파라미터 scheduleNo = {}", scheduleNo);
+		
+		service.deleteScheduleByScheduleNo(scheduleNo);
+		
+		return 1;
+	}//ajax 일정 한개 삭제하기
 	
 	@GetMapping("/listScFolder")
 	@ResponseBody
@@ -144,4 +194,15 @@ public class ScheduleController {
 		return "schedule/write";
 
 	}//일정등록 페이지
+	
+	@PostMapping("/write")
+	public String writeok(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
+		
+		
+		
+		return "redirect:/schedule/scheduleMain";
+		
+	}//일정등록
 }

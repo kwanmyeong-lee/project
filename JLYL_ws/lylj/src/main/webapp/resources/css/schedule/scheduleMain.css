@@ -27,7 +27,12 @@
 	width: 84px;
 }
 .labelTime3{
-	width: 84px;
+	float: left;
+	display: inline-block;
+}
+.contentDiv{
+	float: left;
+	display: inline-block;
 }
 .chk-span{
 	font-size: 15px;

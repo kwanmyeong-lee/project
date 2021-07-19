@@ -18,10 +18,10 @@ $(function(){
 							$(data).each(function(index) {
 								res+='<option value="'+data[index].scheduleFolderNo+'">'+data[index].scheduleFolderName+'</option>';
 							});
-							$('.del-select').html(res);
-                          $('#myModaladd').modal('hide');
+							$('.edit-select').html(res);
                       }
                     });
+		
 		$('#myModaledit').modal('show');
 	});
 	
@@ -36,10 +36,10 @@ $(function(){
 								res+='<option value="'+data[index].scheduleFolderNo+'">'+data[index].scheduleFolderName+'</option>';
 							});
 							$('.del-select').html(res);
-                          $('#myModaladd').modal('hide');
                       }
                     });
-		$('#myModaldelete').modal('show');
+         $('#myModaldelete').modal('show');
+		
 	});
 	
 	$('.list-span').click(function(){
@@ -48,5 +48,49 @@ $(function(){
 		}else{
 			$(this).prev('.ckSch').prop('checked',true)
 		}
+	});
+	
+	$('#btWrite').click(function(){
+			var startTimes = $('#startTime').val();
+           	var stnum= "#option-startTime"+startTimes;
+            var startTimes = $(stnum).text();
+            
+            var endTimes = $('#endTime').val();
+            var etnum= "#option-endTime"+endTimes;
+            var endTimes = $(etnum).text();
+            
+            var scheduleTitle = $('#addtitle').val();
+            var scheduleStart = $('#startDate').val()+" "+ startTimes;
+            var scheduleEnd = $('#endDate').val()+" "+ endTimes;
+            var scheduleAllday = $('.chk-day').prop('checked');
+
+            var scheduleFolderNo = $('#selectMycal').val();
+        	var scheduleColor = $('#myBestColor').val()
+            
+            var scheduleThemeNo =1;
+            var empNo = $('#empNo').val();
+            var scheduleContent=$('#scheduleContent').val();
+            
+            $.ajax({    
+                      type:'POST',
+                      url:"insertSchedule",
+                      data:JSON.stringify({
+							  scheduleTitle:scheduleTitle,
+                              scheduleStart:scheduleStart,
+                              scheduleEnd:scheduleEnd,
+                              scheduleAllday:scheduleAllday,
+                              scheduleThemeNo:scheduleThemeNo,
+                              scheduleFolderNo:scheduleFolderNo,
+                              empNo:empNo,
+                              scheduleColor:scheduleColor,
+                              scheduleContent:scheduleContent
+                      }),
+                      contentType: "application/json; charset=utf-8;",
+                      dataType: "json",
+                      success : function(data) {
+						swal("일정 등록 성공", "", "success");
+                         
+                      }
+           });
 	});
 });
