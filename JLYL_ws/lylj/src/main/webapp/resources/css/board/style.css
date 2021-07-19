@@ -373,6 +373,32 @@
     margin-top: 3px;
     font-weight: normal;
 }
+
+#upFile{
+	float: right;
+	color: white;
+	background: #36b9cc;
+	border: none;
+	border-radius: 3px;
+	margin: 0 20px 0 0;
+	font-size: 12px;
+	font-weight: bold;
+	width: 65px;	
+}
+#upFileList{
+	width: auto;
+	padding: 2px 0;
+}
+
+#upFileList > li {
+	width: auto;
+	font-size: 20px;	
+}
+
+.fileA{
+	font-size: 13px;
+}
+
 #borderDiv{
     border: 1px solid black;
     width: 1150px;

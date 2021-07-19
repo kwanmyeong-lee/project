@@ -58,8 +58,8 @@
 </script>
 <form enctype="multipart/form-data" method="post" class="writeForm" 
 	name="writeForm" action="<c:url value='/board/boardWrite'/>">
-	<input type="hidden" name="empNo" value="7"><!-- 사원번호 -->
-	<input type="hidden" name="boardWriter" value="테슽흐"><!-- 사원이름 -->
+	<input type="hidden" name="empNo" value="102"><!-- 사원번호 -->
+	<input type="hidden" name="boardWriter" value="파일첨부 테스트"><!-- 사원이름 -->
     <div class="wrtieDiv">
         <select name="boardFolderNo" id="boardSelect">
             <option value="">게시판을 선택해주세요.</option>

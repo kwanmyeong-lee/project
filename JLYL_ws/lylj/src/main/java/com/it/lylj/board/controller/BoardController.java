@@ -1,9 +1,15 @@
 package com.it.lylj.board.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.it.lylj.board.model.BoardService;
 import com.it.lylj.board.model.BoardVO;
@@ -27,6 +34,7 @@ import com.it.lylj.common.ConstUtil;
 import com.it.lylj.common.FileUploadUtil;
 import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.common.SearchVO;
+import com.it.lylj.common.Utility;
 
 import lombok.RequiredArgsConstructor;
 
@@ -86,29 +94,31 @@ public class BoardController {
 		String fileName="", originalFileName="";
 		long fileSize=0;
 		
-		try {
-			List<MultipartFile> flist = request.getFiles("upfile");
-			for(int f=0; f<flist.size(); f++) {
-				List<Map<String, Object>> list = FileUploadUtil.fileUpload(request, ConstUtil.UPLOAD_BOARD_FLAG);
-				for (int i = 0; i < list.size(); i++) {
-					Map<String, Object> map = list.get(i);
-					fileName = (String) map.get("fileName");
-					originalFileName=(String) map.get("originalFileName");
-					fileSize=(Long) map.get("fileSize");
-					logger.info("파일 업로드 성공, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName, fileSize);
+		List<MultipartFile> fileList = request.getFiles("upfile");
+		logger.info("fileList={}", fileList);
+		for(MultipartFile mf : fileList) {
+			if(mf.getOriginalFilename() != "") {
+				originalFileName = mf.getOriginalFilename();
+				fileSize = mf.getSize();
+				fileName = FileUploadUtil.getUniqueFileName(mf.getOriginalFilename());
+				
+				try {
+					mf.transferTo(new File(ConstUtil.BOARD_UPLOAD_PATH_TEST+"\\"+fileName));
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
 				}
-			}
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-		}
-		
-		fileVo.setBoardNo(vo.getBoardNo());
-		fileVo.setFileName(fileName);
-		fileVo.setOriginalFileName(originalFileName);
-		fileVo.setFileSize(fileSize);
-		logger.info("fileVo={}", fileVo);
-		int file = boardFileService.insertFile(fileVo);
-		logger.info("file={}", file);
+				
+				logger.info("파일 업로드 성공, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName, fileSize);
+				fileVo.setBoardNo(vo.getBoardNo());
+				fileVo.setFileName(fileName);
+				fileVo.setOriginalFileName(originalFileName);
+				fileVo.setFileSize(fileSize);
+				logger.info("fileVo={}", fileVo);
+				
+				int file = boardFileService.insertFile(fileVo);
+				logger.info("file={}", file);
+			}//if
+		}//fot
 
 		String msg="등록을 실패하였습니다.", url="/board/boardMain";
 		if(cnt==0) {
@@ -118,7 +128,7 @@ public class BoardController {
 			return "common/message";
 		}
 		
-		return "forward:/board/boardList?boardFolderNo="+vo.getBoardFolderNo();
+		return "redirect:/board/boardDetail?boardNo="+vo.getBoardNo();
 	}
 
 	/*        게시글 목록        */
@@ -187,16 +197,55 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardDetail")
-	public String detail(@RequestParam(defaultValue = "0")int boardNo, Model model) {
+	public String detail(@RequestParam(defaultValue = "0")int boardNo,
+			HttpServletRequest request ,Model model) {
 		logger.info("게시판 상세보기 페이지, 파라미터 boardNo={}", boardNo);
 		
 		BoardVO vo = boardService.selectByNo(boardNo);
 		logger.info("글 상세보기 조회, vo={}", vo);
 		
+		List<BoardFileVO> fileVo = boardFileService.selectByNo(boardNo);
+		logger.info("fileVo={}", fileVo);
 		model.addAttribute("vo", vo);
+		model.addAttribute("fileVo", fileVo);
 		model.addAttribute("navNo",6);
 
 		return "board/boardDetail";
+	}
+	
+	/* 상세보기 다운로드 처리 */
+	@RequestMapping("/download")
+	public void download(@RequestParam(defaultValue = "0")int boardFileNo,
+			HttpServletResponse response) throws Exception {
+		//1
+		logger.info("다운로드 처리, 파라미터 boardFileNo={}", boardFileNo);
+		
+		//2
+		BoardFileVO fileVO = boardFileService.selectByFileNo(boardFileNo);
+		logger.info("originalFileName={}", fileVO.getOriginalFileName());
+		
+		//3
+		String fileName = fileVO.getOriginalFileName();
+		String fileSaveName = fileVO.getFileName();
+		String filePath = ConstUtil.BOARD_UPLOAD_PATH_TEST+"\\";
+
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.setHeader("Content-Type", "application/octet-stream");
+		response.setHeader("Pragma", "no-cache;");
+		response.setHeader("Expires", "-1;");
+
+		OutputStream os = response.getOutputStream();
+		FileInputStream fis = new FileInputStream(filePath + fileSaveName);
+		
+		int readCount = 0;
+		byte[] buffer = new byte[1024];
+
+		while((readCount = fis.read(buffer)) != -1) {
+		  	os.write(buffer, 0, readCount);
+	    }
+		fis.close();
+		os.close();
 	}
 
 

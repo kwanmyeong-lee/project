@@ -24,6 +24,8 @@ public class SearchVO {
 	/* 게시판 폴더 번호 */
 	private int boardFolderNo;
     
+	
+	
     /**블럭당 보여질 페이지 수,  페이지 사이즈 */
     private int blockSize; // properties에서 설정
     
