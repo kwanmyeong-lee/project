@@ -25,37 +25,37 @@
 	
 	<select id="selectAllScheduleByEmpNo" parameterType="int" resultMap="cal_clob">
 		select * from calendar
-		where EMP_NO=#{empNo}
+		where EMP_NO=#{empNo} and SCHEDULE_THEME_NO=1
 	</select>
 	
 	<select id="selectScheduleByScheduleNo" parameterType="int" resultType="scheduleVO">
 		select * from calendar
-		where SCHEDULE_NO=#{scheduleNo}
+		where SCHEDULE_NO=#{scheduleNo} and SCHEDULE_THEME_NO=1
 	</select>
 	
 	<select id="selectMaxScNoByEmpNo" parameterType="int" resultType="int">
 		select MAX(SCHEDULE_NO) from calendar
-		where EMP_NO=#{empNo}
+		where EMP_NO=#{empNo} and SCHEDULE_THEME_NO=1
 	</select>
 	
 	<select id="selectAllScheduleByScFolderNo" parameterType="int" resultMap="cal_clob">
 		select * from calendar
-		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
+		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo} and SCHEDULE_THEME_NO=1
 	</select>
 	
 	<delete id="deleteScheduleByScFolderNo" parameterType="int">
 		delete from calendar
-		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
+		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo} and SCHEDULE_THEME_NO=1
 	</delete>
 	
 	<delete id="deleteScheduleByScheduleNo" parameterType="int">
 		delete from calendar
-		where SCHEDULE_NO=#{scheduleNo}
+		where SCHEDULE_NO=#{scheduleNo} and SCHEDULE_THEME_NO=1
 	</delete>
 	
 	<update id="updateScheduleByScFolderNo" parameterType="scheduleVO">
 		update calendar set SCHEDULE_COLOR=#{scheduleColor}
-		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
+		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo} and SCHEDULE_THEME_NO=1
 	</update>
 	
 	
