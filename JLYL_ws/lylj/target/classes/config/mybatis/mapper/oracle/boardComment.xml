@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.it.lylj.boardComment.model.BoardCommentDAO">
+	<insert id="insertComment" parameterType="boardCommentVo">
+		<selectKey keyProperty="boardCommentNo" resultType="int" order="BEFORE">
+			SELECT OFBOARDFILE_SEQ.nextval FROM dual
+		</selectKey>
+		INSERT INTO ofboardcomment(BOARD_COMMENT_NO, BOARD_NO, BOARD_COMMENT_CONTENT, BOARD_COMMENT_WRITER, BOARD_COMMENT_GROUP_NO)
+		VALUES(#{boardCommentNo}, #{boardNo}, #{boardCommentContent}, #{boardCommentWriter}, #{boardCommentGroupNo})
+	</insert>
+	
+	<select id="selectByNo" parameterType="int" resultType="boardFileVo">
+		SELECT * FROM ofboardfile
+		WHERE BOARD_NO=#{boardNo}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
