@@ -1,5 +1,6 @@
 package com.it.lylj.emp.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.eclipse.jdt.internal.compiler.lookup.VoidTypeBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.lylj.common.ConstUtil;
 import com.it.lylj.common.FileUploadUtil;
+import com.it.lylj.common.PaginationInfo;
+import com.it.lylj.common.SearchVO;
 import com.it.lylj.department.model.DepartmentService;
 import com.it.lylj.department.model.DepartmentVO;
 import com.it.lylj.emp.model.EmpService;
@@ -42,6 +46,7 @@ public class EmpController {
 	private final EmpService empService;
 	private final FileUploadUtil fileUploadUtil;
 	
+	//사원등록페이지
 	@GetMapping("/empWrite")
 	public String empWrite(Model model) {
 		//1
@@ -61,6 +66,7 @@ public class EmpController {
 		
 	}
 	
+	//사원등록처리
 	@PostMapping("/empWrite")
 	public String empWrite_post(@ModelAttribute EmpVO vo, HttpServletRequest request, Model model) {
 		//1
@@ -102,6 +108,8 @@ public class EmpController {
 		return "common/message";
 	}
 	
+	
+	//비밀번호 체크
 	@ResponseBody
 	@RequestMapping("/pwdCheck")
 	public boolean pwdCheck(@RequestParam String empPwd ) {
@@ -122,12 +130,13 @@ public class EmpController {
 		return chkPwd;
 	}
 
-
+	//사원정보 디테일
 	@GetMapping("/empInfo")
-	public String empinfo(@RequestParam(defaultValue = "0")int empNo , Model model) {
+	public String empinfo(@RequestParam(defaultValue = "0")int empNo,  Model model) {
 		//1
 		logger.info("사원정보디테일 페이지, 파라미터 empNo={}",empNo);
-		//2
+		
+		//vo 보내기
 		EmpVO vo = empService.selectByEmpNo(empNo);
 		logger.info("사원정보, 파라미터 vo={}",vo);
 		//3
@@ -141,6 +150,7 @@ public class EmpController {
 		return "emp/empInfo";
 	}
 	
+	//사원정보수정 페이지보기
 	@GetMapping("/empEdit")
 	public String empEdit(@RequestParam(defaultValue = "0") int empNo, HttpSession session ,Model model) {
 		logger.info("사원정보수정페이지, empNo={}", empNo);
@@ -158,14 +168,92 @@ public class EmpController {
 		return "emp/empEdit";
 	}
 	
-	@GetMapping("/empList")
-	public void empList(Model model) {
+	//사원정보 수정처리
+	@PostMapping("/empEdit")
+	public String empEdit_post(@ModelAttribute EmpVO empVo, @RequestParam String mEmpNo
+			, @RequestParam String mEmpPwd, HttpServletRequest request, @RequestParam String oldFileName, Model model) {
+		logger.info("사원정보 수정처리, vo={}", empVo);
+		
+		int result = empService.loginProc(Integer.parseInt(mEmpNo), mEmpPwd);
+		logger.info("정보확인,result={}",result);
+			
+		String msg="사원정보수정 실패", url="/emp/empEdit?empNo="+empVo.getEmpNo();
+		if(result==EmpService.LOGIN_OK) {
+			//파일 수정
+			String fileUrl="";
+			List<Map<String, Object>> list = null;
+			try {
+				list = fileUploadUtil.fileUpload(request, ConstUtil.UPLOAD_EMP_FLAG);
+				
+				for(int i=0; i<list.size();i++ ) {
+					Map<String, Object> map = list.get(i);
+					fileUrl = (String)map.get("fileName");
+				}
+				
+				logger.info("파일 업로드 성공, fileUrl={}",fileUrl);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			empVo.setEmpPhoto(fileUrl);
+			
+			//수정처리
+			int cnt = empService.updateEmp(empVo);
+			logger.info("사원정보수정여부 cnt={}",cnt);
+			if(cnt>0) {
+				msg="사원정보가 수정되었습니다.";
+				url="/emp/empInfo?empNo="+empVo.getEmpNo();
+			}
+			
+            if(!list.isEmpty()) {
+            	if(oldFileName!=null && !oldFileName.isEmpty()) {
+            		File oldFile = new File(fileUploadUtil.getUploadPath(request,ConstUtil.UPLOAD_EMP_FLAG), oldFileName);
+            		if(oldFile.exists()) {
+            			boolean bool = oldFile.delete();
+            			logger.info("기존파일 삭제여부 : {}", bool);
+            		}
+            	}
+            }//
+		}else if(result==EmpService.PWD_DISAGREE) {
+			msg="비밀번호가 일치하지 않습니다";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	//사원정보 리스트 보기
+	@RequestMapping("/empList")
+	public String empList(@ModelAttribute SearchVO searchVo , Model model) {
 		logger.info("사원정보리스트 페이지");
 		
-		List<EmpVO> empList = empService.selectAllEmp();
+		//2
+		//
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setBlockSize(ConstUtil.EMP_BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(ConstUtil.EMP_RECORD_COUNT);
+		
+		//
+		searchVo.setRecordCountPerPage(ConstUtil.EMP_RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		logger.info("searchVo={}",searchVo);
+		
+		List<EmpVO> empList = empService.selectAllEmpList(searchVo);
 		logger.info("사원목록조회, empList.size()={}",empList.size());
+		
+		int totalRecord = empService.selectTotalEmp(searchVo);
+		logger.info("totalRecord={}",totalRecord);
+		
+		pagingInfo.setTotalRecord(totalRecord);
+		
 		model.addAttribute("navNo", 8);
 		model.addAttribute("empList", empList);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		return "emp/empList";
 		
 	}
 

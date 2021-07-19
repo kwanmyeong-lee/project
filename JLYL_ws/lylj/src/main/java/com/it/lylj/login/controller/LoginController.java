@@ -20,19 +20,19 @@ import com.it.lylj.emp.model.EmpVO;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/login")
 @RequiredArgsConstructor
 public class LoginController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	private final EmpService empService;
 	
-	@GetMapping("/login")
-	public void login() {
+	@GetMapping("/")
+	public String login() {
 		logger.info("로그인 페이지");
+		return "login/login";
 	}
 	
-	@PostMapping("/login")
+	@PostMapping("/")
 	public String login_post(@RequestParam String empNo, @RequestParam String empPwd, 
 				@RequestParam(required = false) String chkSave, HttpServletRequest request, HttpServletResponse response,
 				Model model) {
