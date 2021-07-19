@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.it.lylj.board.model.BoardService;
@@ -86,13 +87,16 @@ public class BoardController {
 		long fileSize=0;
 		
 		try {
-			List<Map<String, Object>> list = FileUploadUtil.fileUpload(request, ConstUtil.UPLOAD_FILE_FLAG);
-			for (int i = 0; i < list.size(); i++) {
-				Map<String, Object> map = list.get(i);
-				fileName = (String) map.get("fileName");
-				originalFileName=(String) map.get("originalFileName");
-				fileSize=(Long) map.get("fileSize");
-				logger.info("파일 업로드 성공, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName, fileSize);
+			List<MultipartFile> flist = request.getFiles("upfile");
+			for(int f=0; f<flist.size(); f++) {
+				List<Map<String, Object>> list = FileUploadUtil.fileUpload(request, ConstUtil.UPLOAD_BOARD_FLAG);
+				for (int i = 0; i < list.size(); i++) {
+					Map<String, Object> map = list.get(i);
+					fileName = (String) map.get("fileName");
+					originalFileName=(String) map.get("originalFileName");
+					fileSize=(Long) map.get("fileSize");
+					logger.info("파일 업로드 성공, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName, fileSize);
+				}
 			}
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
