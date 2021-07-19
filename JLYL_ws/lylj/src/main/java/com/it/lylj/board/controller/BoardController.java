@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -229,7 +230,7 @@ public class BoardController {
 		String fileSaveName = fileVO.getFileName();
 		String filePath = ConstUtil.BOARD_UPLOAD_PATH_TEST+"\\";
 
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(fileName,"UTF-8") + "\"");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setHeader("Content-Type", "application/octet-stream");
 		response.setHeader("Pragma", "no-cache;");
