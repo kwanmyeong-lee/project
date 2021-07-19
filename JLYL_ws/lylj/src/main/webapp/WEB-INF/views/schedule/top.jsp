@@ -94,7 +94,7 @@
                             </div><!--Modal body--><div class="modal-body">
                                 <form name="ScFolderVO" id="listAdd">
                                     <label class="labelTime3">일정목록명</label><input type="text" class="scFolderText" name="scheduleFolderName" ><br>
-                                	<label class="labelTime3">색상</label><input type='color' name='scheduleFolderColor' value='#4ea0ec'>
+                                	<label class="labelTime3">색상</label><input type="color" name="scheduleFolderColor" value="#4ea0ec">
                                 	<input type="hidden" value="${sessionScope.empNo }" name="empNo" >    
                                 </form>
                             </div><!--Modal footer--><div class="modal-footer">
@@ -116,7 +116,7 @@
                                         <option value="${i.scheduleFolderNo }">${i.scheduleFolderName}</option>
                                         </c:forEach>
                                     </select><br><label class="labelTime3">일정목록명</label><input type="text" class="scFolderText" name="scheduleFolderName"><br>
-                                    <label class="labelTime3">색상</label><input type='color' name='scheduleFolderColor' value='#4ea0ec'> 
+                                    <label class="labelTime3">색상</label><input type="color" name="scheduleFolderColor" value="#4ea0ec"> 
                                     <input type="hidden" value="${sessionScope.empNo }" name="empNo" >
                                     </form>
                             </div><!--Modal footer--><div class="modal-footer">
