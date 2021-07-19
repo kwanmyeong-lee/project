@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.it.lylj.electronicReLine.model.ElectronicReLineDAO">
+
+	<insert id="insertReLine" parameterType="ElectronicReLineVo">
+		<selectKey keyProperty="receiveLineNo" resultType="int"
+			order="BEFORE">
+			select RELINE_SEQ.nextval from dual
+		</selectKey>
+		insert into RELINE
+		values (#{receiveLineNo}, #{electronicNo}, #{empNo},
+		#{receiveLineFlag})
+	</insert>
+	
+	<select id="selectByElectronicNo" parameterType="int" resultType="ElectronicReLineVo">
+		select * from RELINE
+		where ELECTRONIC_NO = #{electronicNo}
+	</select>
+	
+
+</mapper>

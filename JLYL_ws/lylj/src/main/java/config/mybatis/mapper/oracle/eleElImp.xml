@@ -17,10 +17,17 @@
 		#{styleNo})
 
 	</insert>
-	
-	<select id="selectByElectronicNo" parameterType="int" resultType="ElectronicVo">
-		select * from elimp 
+
+	<select id="selectByElectronicNo" parameterType="int"
+		resultType="ElectronicVo">
+		select * from elimp
 		where electronic_no= #{electronicNo}
+	</select>
+
+	<select id="selectMaxEleNo" parameterType="int" resultType="int">
+		select MAX(electronic_no) from elimp
+		where emp_no = #{empNo}
+
 	</select>
 
 </mapper>

@@ -108,7 +108,7 @@
 																		+ "</span><span id='select-name'>"
 																		+ val.EMP_NAME
 																		+ "<br>"
-																		+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span>";
+																		+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'apEmpNo'>";
 																$(
 																		opener.document)
 																		.find(

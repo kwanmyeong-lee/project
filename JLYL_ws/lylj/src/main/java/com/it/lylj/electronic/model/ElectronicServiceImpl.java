@@ -21,4 +21,10 @@ public class ElectronicServiceImpl implements ElectronicService{
 		return electronicDao.selectByElectronicNo(ElectronicNo);
 	}
 
+
+	@Override
+	public int selectMaxEleNo(int empNo) {
+		return electronicDao.selectMaxEleNo(empNo);
+	}
+
 }

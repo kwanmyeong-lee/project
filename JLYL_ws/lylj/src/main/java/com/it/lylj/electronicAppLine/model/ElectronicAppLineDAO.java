@@ -1,0 +1,13 @@
+package com.it.lylj.electronicAppLine.model;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface ElectronicAppLineDAO {
+	
+	int insertAppLine(ElectronicAppLineVo vo);
+	List<ElectronicAppLineVo> selectByElectronicNo(int ElectronicNo);
+
+}
