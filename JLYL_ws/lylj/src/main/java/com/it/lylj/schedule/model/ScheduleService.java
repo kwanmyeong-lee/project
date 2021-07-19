@@ -7,4 +7,9 @@ public interface ScheduleService {
 	int insertSchedule(ScheduleVO vo);
 	List<ScheduleVO> selectAllScheduleByEmpNo(int empNo);
 	List<ScheduleVO> selectAllScheduleByScFolderNo(int scheduleFolderNo);
+	int deleteScheduleByScFolderNo(int scheduleFolderNo);
+	int updateScheduleByScFolderNo(ScheduleVO vo);
+	ScheduleVO selectScheduleByScheduleNo(int scheduleNo);
+	int deleteScheduleByScheduleNo(int scheduleNo);
+	int selectMaxScNoByEmpNo(int empNo);
 }

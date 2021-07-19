@@ -17,9 +17,26 @@ $(function() {
         locale: "ko",
         nowIndicator: true,
         dayMaxEvents: true,
-        select: function(arg) {
+        select: function(arg) {	
+			$.ajax({    
+                      type:'get',
+                      url:"listScFolder",
+                      dataType: "json",
+                      success : function(data) {
+							var res="";
+							var resC="";
+							$(data).each(function(index) {
+								res+='<option value="'+data[index].scheduleFolderNo+'">'+data[index].scheduleFolderName+'</option>';
+								resC+='<input type="hidden" id="hiddenMycal'+data[index].scheduleFolderNo+'" value="'+data[index].scheduleFolderColor+'">';
+							});
+							
+							$('#selectFolcol').html(resC);
+							$('#selectMycal').html(res);
+                      }
+                    });
+                    
             $('#myModal').modal('show');
-
+			
             startD = moment(arg.start).format('YYYY-MM-DD HH');
             endD = moment(arg.end).format('YYYY-MM-DD HH');
             
@@ -82,16 +99,53 @@ $(function() {
         },
         droppable: true,
         drop: function(arg) {},
-        eventClick: function(arg) {
-            if (confirm("일정을 삭제하시겠습니까?")) {
-                arg.event.remove()
-            }
+        eventClick: function(arg) {	
+			$('#detailScheduleNo').text(arg.event.classNames);
+			var scheduleNo=$('#detailScheduleNo').text();
+			$.ajax({    
+                      type:'POST',
+                      url:"selectScheduleByScheduleNo",
+                      data:scheduleNo,
+                      contentType: "application/json; charset=utf-8;",
+                      dataType: "json",
+                      success : function(data) {
+							$('#detailStart').text("");
+							$('#detailEnd').text("");
+							$('#detailContent').html("");
+							$('#detailFolder').text("");
+							
+							$('#myDetailModal').modal('show');
+							$('#detailTitle').text(data.scvo.scheduleTitle);
+							$('#detailStart').text(data.scvo.scheduleStart);
+							$('#detailEnd').text(data.scvo.scheduleEnd);
+							$('#detailColor').val(data.scvo.scheduleColor);
+							$('#detailFolder').text(data.scFolderName);
+							if(data.scvo.scheduleContent!=null){
+								var content = data.scvo.scheduleContent.replace(/(?:\r\n|\r|\n)/g, '<br>');
+								$('#detailContent').html(content);
+							}
+                      }
+                    });
+            $('#btn-delete').click(function(){
+				$.ajax({    
+		                      type:'POST',
+		                      url:"deleteScheduleByScheduleNo",
+		                      data:scheduleNo,
+		                      contentType: "application/json; charset=utf-8;",
+		                      dataType: "json",
+		                      success : function(data) {
+									arg.event.remove();
+									$('#myDetailModal').modal('hide');
+		                      }
+		             });
+			});
+            
         },
         eventAdd: function(arg) {
 
         },
         eventChange: function(arg) {
-            AppCalendar.saveEvent("up", arg);
+	
         },
         eventRemove: function(arg) {
         },
@@ -112,7 +166,7 @@ $(function() {
                             end: data[index].scheduleEnd,
                             allDay: (data[index].scheduleAllday=="true"),
                             color:data[index].scheduleColor,
-                            className:"asd"
+                            classNames:[data[index].scheduleNo]
                         });
 
                     });
@@ -123,7 +177,6 @@ $(function() {
         },
         eventDidMount: function(info) {
  				 
-   				 var s=info.event.id;
 		}
         	
     });

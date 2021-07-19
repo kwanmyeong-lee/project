@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="top.jsp"%>
+<%@ include file="../inc/top.jsp"%>
 
 <!-- 달력 -->
 <link href='<c:url value="/resources/css/main.css"/>' rel="stylesheet" />
@@ -23,6 +23,7 @@
 <script src='<c:url value="/resources/js/schedule/main.js"/>'></script>
 <script src='<c:url value="/resources/js/schedule/schedule.js"/>'></script>
 <script src='<c:url value="/resources/js/schedule/datepicker.js"/>'></script>
+
 <link
 	href="<c:url value="/resources/css/schedule/scheduleMain.css"/>"
 	rel="stylesheet" type="text/css">
@@ -89,9 +90,11 @@
                  	<option value="${i.scheduleFolderNo}">${i.scheduleFolderName}</option>
                 </c:forEach>
         	</select>
+        	<div id="selectFolcol">
         		<c:forEach var="i" items="${sfList }">
 					<input type="hidden" id="hiddenMycal${i.scheduleFolderNo}" value="${i.scheduleFolderColor}">
                 </c:forEach>
+            </div>
         	<br>
         	
         </form>
@@ -102,6 +105,41 @@
         <button type="button" class="btn btn-info" id="btn-write">일정 상세 입력</button>
         <button type="button" class="btn btn-info" id="btn-add">등록</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 상세 Modal -->
+<div class="modal" id="myDetailModal" data-bs-backdrop="static">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">상세 일정</h4>
+        <input type="hidden" id="detailScheduleNo">
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form name="addform">
+        	<label class="labelTime2">일정명</label><span id="detailTitle"></span><br>
+        	<label	class="labelTime2">일시</label><span id="detailStart"></span>~<span id="detailEnd"></span><br>
+        	<label class="labelTime2">내 캘린더</label><span id="detailFolder"></span><br>
+        	<label class="labelTime2">색상</label><input type="color" id="detailColor" disabled="disabled"><br>
+        	<label class="labelTime2 labelTime4">상세 내용</label>
+        	<div class="contentDiv"><span id="detailContent"></span></div>
+        	<br>
+        </form>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" id="btn-delete">삭제</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
       </div>
 
     </div>

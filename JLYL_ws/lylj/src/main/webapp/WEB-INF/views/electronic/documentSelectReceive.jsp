@@ -10,6 +10,9 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="<c:url value="/resources/dist/themes/default/style.min.css"/>" />
+<link
+	href="<c:url value="/resources/css/ele_document/ele_doc_main.css"/>"
+	rel="stylesheet">
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 <script src="<c:url value='/resources/dist/jstree.min.js'/>"></script>
@@ -33,9 +36,6 @@
 			$('#SimpleJSTree').jstree(true).search(node);
 		});
 
-		$('#reset').click(function() {
-			$('#stamp').html('');
-		});
 	});
 	function createJSTree(jsondata) {
 		$('#SimpleJSTree').jstree(
@@ -55,7 +55,7 @@
 	}
 
 	var no = [];
-	
+
 	function selectEvetn(userNo) {
 		//선택 event
 		//보내줘야 할것이 이름, 사진
@@ -87,105 +87,59 @@
 
 	}
 	$(function() {
-		$('#ok').click(function() {
-			$.ajax({
-				url : "<c:url value ='/electronic/selectstampList'/>",
-				data : {
-					empNo : no
-				},
-				type : "post",
-				success : function(data) {
-					var styNo = $('#styno').val();
-					$.each(data, function(idx, val) {
-						var stampInfo = "<span id='select-line'><span id='select-position'>"
-							+ val.POSITION_NAME
-							+ "</span><span id='select-name'>"
-							+ val.EMP_NAME
-							+ "<br>"
-							+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span>";
-						$(opener.document).find("#Receive").append(stampInfo);
-					});
-					self.close();
-					
-				},
-				error : function(data) {
-					alert("에러" + data)
-				}
-			});
+		$('#ok')
+				.click(
+						function() {
+							$
+									.ajax({
+										url : "<c:url value ='/electronic/selectstampList'/>",
+										data : {
+											empNo : no
+										},
+										type : "post",
+										success : function(data) {
+											var styNo = $('#styno').val();
+											$
+													.each(
+															data,
+															function(idx, val) {
+																var stampInfo = "<span id='select-line'><span id='select-position'>"
+																		+ val.POSITION_NAME
+																		+ "</span><span id='select-name'>"
+																		+ val.EMP_NAME
+																		+ "<br>"
+																		+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'reEmpNo'>";
+																$(
+																		opener.document)
+																		.find(
+																				"#Receive")
+																		.append(
+																				stampInfo);
+															});
+											self.close();
 
+										},
+										error : function(data) {
+											alert("에러" + data)
+										}
+									});
+
+						});
+		$('#reset').click(function() {
+			$('#stamp').html('');
+			no = [];
+		});
+		$('#no').click(function() {
+			no = [];
+			self.close();
 		});
 
 	});
 </script>
 
-<style type="text/css">
-#select-td {
-	padding-left: 100px;
-	padding-bottom: 15px;
-	padding-top: 15px;
-}
-
-#select-line {
-	width: 79px;
-	vertical-align: top;
-	display: table;
-	table-layout: fixed;
-	float: left;
-	margin-right: 4px;
-}
-
-#select-position {
-	display: table-cell;
-	text-align: center;
-	width: 79px;
-	float: left;
-	border: 1px solid black;
-}
-
-#select-name {
-	display: table-cell;
-	text-align: center;
-	width: 79px;
-	float: left;
-	height: 100px;
-	border: 1px solid black;
-}
-
-.selectLine {
-	padding: 10px;
-	margin: 3px;
-	height: 180px;
-}
-
-.selectDiv {
-	padding: 10px;
-	margin: 0 10px 0 10px;
-}
-
-.doc-table {
-	border-collapse: collapse;
-	border: 1px solid black;
-	width: 644px;
-	text-align: center;
-}
-
-.doc-td {
-	background: #D9E2F3;
-	padding: 10px;
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
-}
-
-.doc-td2 {
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
-	padding-left: 10px;
-}
-</style>
-
 </head>
 <body>
-<input type="hidden" value="${param.styleNo }" id="styno">
+	<input type="hidden" value="${param.styleNo }" id="styno">
 	<div class="container">
 		<div class="row">
 			<hr>
@@ -221,6 +175,7 @@
 		<div class="text-center mt-4">
 			<button id="ok" class="btn btn-light btn-outline-secondary mx-1 ">확인</button>
 			<button id="reset" class="btn btn-light btn-outline-secondary mx1">초기화</button>
+			<button id="no" class="btn btn-light btn-outline-secondary mx1">취소</button>
 		</div>
 	</div>
 	<div id="test"></div>

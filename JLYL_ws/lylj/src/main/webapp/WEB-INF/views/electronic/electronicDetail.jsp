@@ -2,191 +2,178 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<script type="text/javascript"
-	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
-<link href="<c:url value="/resources/css/boot_css/bootstrap.min.css"/>"
-	rel="stylesheet">
-
-<script
-	src="<c:url value = "/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
-
-<style type="text/css">
-#select-td {
-	padding-left: 100px;
-	padding-bottom: 15px;
-	padding-top: 15px;
+<style>
+#divscheduleAdd {
+	margin-left: 11px;
 }
 
-#select-line {
-	width: 79px;
-	vertical-align: top;
-	display: table;
-	table-layout: fixed;
-	float: left;
-	margin-right: 4px;
-}
-
-#select-position {
-	display: table-cell;
-	text-align: center;
-	width: 79px;
-	float: left;
-	border: 1px solid black;
-}
-
-#select-name {
-	display: table-cell;
-	text-align: center;
-	width: 79px;
-	float: left;
-	height: 100px;
-	border: 1px solid black;
-}
-
-.selectLine {
-	padding: 10px;
-	margin: 3px;
-}
-
-.selectDiv {
-	padding: 10px;
-	margin: 0 10px 0 10px;
-}
-
-.doc-table {
-	border-collapse: collapse;
-	border: 1px solid black;
-	width: 644px;
-	text-align: center;
-}
-
-.doc-td {
-	background: #D9E2F3;
-	padding: 10px;
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
-}
-
-.doc-td2 {
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
-	padding-left: 10px;
+.btnSchAdd {
+	width: 93%;
 }
 </style>
 
+<link
+	href="<c:url value="/resources/css/ele_document/ele_doc_main.css"/>"
+	rel="stylesheet">
 
-	<div class="container" style="max-width: 1000px;">
-		<h1>기안서</h1>
-		<div style="text-align: right;">
-			<button type="button" class="btn btn-primary text-end">결재 하기</button>
-		</div>
-		<div
-			class="row align-items-start selectLine border border-5 border-secondary">
-			결 <br>재 <br>라 <br> 인
-			<div class="col selectDiv ">
-				<span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 <img style="width: 40px;"
-						alt="아이유" src="<c:url value="/resources/img/아이유1.jpg"/>">
-				</span>
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span>
-			</div>
+<script type="text/javascript">
+	$(function() {
 
-			수 <br>신 <br>라 <br> 인
-			<div class="col selectDiv ">
-				<span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span> <span id="select-line"> <span id="select-position">
-						대표이사 </span> <span id="select-name"> 이관명 </span>
-				</span>
-			</div>
-		</div>
+		$('#newDocument').click(
+				function() {
+					open('<c:url value="/electronic/documentSelect"/>',
+							'documentSelect', 'width=800,height=500');
+				});
 
+		window.onload = function() {
 
-		<form action="/" method="post" enctype="multipart/form-data"
-			id="frm-form"
-			style="margin-bottom: 100px; text-align: -webkit-center;">
+			var data = JSON.parse($('input[name=electronicContent]').val());
 
-			<!-- 문서 양식 -->
+			console.log(data);
+			data_cnt = data.length;
+			console.log(data_cnt);
 
-			<br>
-			<h2>휴가신청서</h2>
+			$.each(data, function(idx, item) {
+				console.log(item);
+				$('table input[type=text]').eq(idx).val(item);
+			});
+			$('table input[type=text]').prop('disabled', 'disabled');
+			$('table input[type=text]').prop('style',
+					' border : 0; background : white');
+		}
 
-			<table class="doc-table">
-				<tr>
-					<td class="doc-td" colspan="3">문서번호</td>
-					<td class="doc-td2"><input type="text"></input></td>
-					<td class="doc-td">작성일자</td>
-					<td class="doc-td2"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" colspan="3">이 름</td>
-					<td class="doc-td2"><input type="text"></input></td>
-					<td class="doc-td">직 책</td>
-					<td class="doc-td2"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" colspan="3">소속</td>
-					<td class="doc-td2"><input type="text"></input></td>
-					<td class="doc-td">부서</td>
-					<td class="doc-td2"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" rowspan="6">신청 내용</td>
-					<td class="doc-td" rowspan="4">휴가신청서</td>
-					<td class="doc-td">종류</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td">일정</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td">주요행선지</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td">대체근무자</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" colspan="2">신청사유<br> (자세히)
-					</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" colspan="2">긴급연락처</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
-				<tr>
-					<td class="doc-td" colspan="3">참고사항</td>
-					<td class="doc-td2" colspan="3"><input type="text"></input></td>
-				</tr>
+			var avoEmpNo = [];
+			var rvoEmpNo = [];
+			$('.avosum').each(function(idx, item){
+				var val = $(this).val();
+				avoEmpNo.push(val);
+			});
+				console.log(avoEmpNo);
+			
+			$('.rvosum').each(function(idx, item){
+				var val = $(this).val();
+				rvoEmpNo.push(val);
+			});
+				console.log(rvoEmpNo);
+				
+				
+				$
+				.ajax({
+					url : "<c:url value ='/electronic/selectstampList'/>",
+					data : {
+						empNo : avoEmpNo
+					},
+					type : "post",
+					success : function(data) {
+						$
+								.each(
+										data,
+										function(idx, val) {
+											var stampInfo = "<span id='select-line'><span id='select-position'>"
+													+ val.POSITION_NAME
+													+ "</span><span id='select-name'>"
+													+ val.EMP_NAME
+													+ "<br>"
+													+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'apEmpNo'>";
+											$('#Approval').append(stampInfo);
+										});
+					},
+					error : function(data) {
+						alert("오류")
+					}
+				});
+				$
+				.ajax({
+					url : "<c:url value ='/electronic/selectstampList'/>",
+					data : {
+						empNo : rvoEmpNo
+					},
+					type : "post",
+					success : function(data) {
+						$
+								.each(
+										data,
+										function(idx, val) {
+											var stampInfo = "<span id='select-line'><span id='select-position'>"
+													+ val.POSITION_NAME
+													+ "</span><span id='select-name'>"
+													+ val.EMP_NAME
+													+ "<br>"
+													+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'apEmpNo'>";
+											$('#Receive').append(stampInfo);
+										});
+					},
+					error : function(data) {
+						alert("오류")
+					}
+				});
+				
+				
+	});
+</script>
+<div class="container shadow p-3 mb-5 bg-white rounded">
 
-			</table>
-			<br>
-			<!-- 문서 양식끝 -->
-			<br>
-			<div >
-				<div class="form-group">
-					<input type="submit" name="submit" class="btn btn-primary">
-					<button type="button" class="btn btn-primary">임시 저장</button>
-					<button type="button" class="btn btn-primary">목록으로</button>
-					<button type="button" class="btn btn-primary">취소</button>
+	<form name="docfrm" method="post" enctype="multipart/form-data"
+		id="frm-form">
+
+		
+		<c:forEach var="avoEmp" items="${avo }">
+			<input type="hidden" class="avosum" value="${avoEmp.empNo }"> 
+		</c:forEach>
+		
+		<c:forEach var="rvoEmp" items="${rvo }">
+			<input type="hidden" class="rvosum" value="${rvoEmp.empNo }">
+		</c:forEach>
+		
+		<div class="container" style="max-width: 1000px;">
+			<div class="shadow-sm p-3 mb-3 bg-light rounded ">
+				<h1>기안서</h1>
+				<br>
+				<div class="mb-5">
+					<label for="title" class="form-label col-form-label-lg">[제목]</label>
+					<p class="align-middle fs-3" id="title">${vo.electronicTitle }
+					</p>
 				</div>
 			</div>
-		</form>
-	</div>
+			<div
+				class="row align-items-start selectLine border border-5 border-secondary">
+				결 <br>재 <br>라 <br> 인
+				<div class="col selectDiv " id="Approval"></div>
+
+				수 <br>신 <br>라 <br> 인
+				<div class="col selectDiv " id="Receive"></div>
+			</div>
+
+
+
+
+
+			<div style="margin-bottom: 100px; text-align: -webkit-center;">
+
+				<!-- 문서 양식 시작 -->
+				<input type="hidden" name="electronicContent"
+					value='${vo.electronicContent }'> ${styleContent}
+
+				<!-- 문서 양식 끝 -->
+
+				<div class="shadow-sm p-3 mb-2 bg-light rounded ">
+					<div class="form-group col-6">
+						<div class="input-group mb-3 ">
+							<input type="file" class="form-control" id="inputGroupFile02">
+						</div>
+					</div>
+					<br>
+					<div class="form-row" style="justify-content: center;">
+						<div class="form-group">
+							<input type="submit" name="submit"
+								class="btn btn-light btn-outline-secondary" value="승인">
+							<button type="button" class="btn btn-light btn-outline-secondary">보류</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
 
 <%@ include file="../inc/bottom.jsp"%>

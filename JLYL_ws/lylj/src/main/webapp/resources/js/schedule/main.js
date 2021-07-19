@@ -6,6 +6,9 @@ $(function() {
     $('#btn-write').click(function(){
 		location.href ="write";
 	});
+	
+    
+	
     $('#btn-add').click(function(){
 		if($('#addtitle').val()==""){
 			swal ( "" , "일정명을 입력하세요" ,  "error" )
@@ -53,32 +56,63 @@ $(function() {
                       contentType: "application/json; charset=utf-8;",
                       dataType: "json",
                       success : function(data) {
+						var listCheck = "#scFolNo"+scheduleFolderNo;
+						if($(listCheck).prev().prev().prop('checked')){
                           calendar.addEvent({
 							  id:scheduleFolderNo,
                               title:scheduleTitle,
                                 start:scheduleStart,
                                 end:scheduleEnd,
                                 allDay:(scheduleAllday=="true"),
-                                color:scheduleColor
+                                color:scheduleColor,
+                            	classNames:[data]
                           });
+                        }
                           $('#myModal').modal('hide');
                       }
                     });
                  }
 	});
+	
 	$('#cal-add').click(function(){
 		$('#myModaladd').modal('show');
 	});
 	
 	$('#cal-edit').click(function(){
+		$.ajax({    
+                      type:'get',
+                      url:"listScFolder",
+                      dataType: "json",
+                      success : function(data) {
+							var res="";
+							$(data).each(function(index) {
+								res+='<option value="'+data[index].scheduleFolderNo+'">'+data[index].scheduleFolderName+'</option>';
+							});
+							$('.edit-select').html(res);
+                      }
+                    });
+		
 		$('#myModaledit').modal('show');
 	});
 	
 	$('#cal-delete').click(function(){
-		$('#myModaldelete').modal('show');
+		$.ajax({    
+                      type:'get',
+                      url:"listScFolder",
+                      dataType: "json",
+                      success : function(data) {
+							var res="";
+							$(data).each(function(index) {
+								res+='<option value="'+data[index].scheduleFolderNo+'">'+data[index].scheduleFolderName+'</option>';
+							});
+							$('.del-select').html(res);
+                      }
+                    });
+         $('#myModaldelete').modal('show');
+		
 	});
 	
-	$('.list-span').click(function(){
+	$(document).on("click",".list-span",function(){
 		var texts=$(this).next().val();
 		var event2 = calendar.getEventById(texts);
 		if($(this).prev('.ckSch').prop('checked')){
@@ -115,7 +149,8 @@ $(function() {
 		                            start: data[index].scheduleStart,
 		                            end: data[index].scheduleEnd,
 		                            allDay: (data[index].scheduleAllday=="true"),
-		                            color:data[index].scheduleColor
+		                            color:data[index].scheduleColor,
+                            		classNames:[data[index].scheduleNo]
                         		});
 
                     		});   
@@ -124,7 +159,7 @@ $(function() {
 			}
 	});
 	
-	$(".ckSch").change(function(){
+	$(document).on("change",".ckSch",function(){
 		var texts=$(this).next().next().val();
 		var event2 = calendar.getEventById(texts);
 		if(!$(this).prop('checked')){
@@ -157,7 +192,8 @@ $(function() {
 		                            start: data[index].scheduleStart,
 		                            end: data[index].scheduleEnd,
 		                            allDay: (data[index].scheduleAllday=="true"),
-		                            color:data[index].scheduleColor
+		                            color:data[index].scheduleColor,
+                            		classNames:[data[index].scheduleNo]
                         		});
 
                     		});   

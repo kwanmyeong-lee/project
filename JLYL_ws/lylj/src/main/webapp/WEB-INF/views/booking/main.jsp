@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<%@ include file="../inc/top.jsp"%>
+<%@ include file="top.jsp"%>
 <script src='<c:url value="/resources/js/booking/top.js"/>'></script>
 
 <!-- 달력 -->

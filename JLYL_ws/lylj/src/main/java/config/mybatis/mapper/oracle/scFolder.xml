@@ -3,20 +3,37 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.it.lylj.scFolder.model.ScFolderDAO">
+    <insert id="insertDefaultScFolder" parameterType="int">
+        insert into scfolder
+        values(scfolder_seq.nextval, '(기본)일정', '#4ea0ec', #{empNo})
+    </insert>
+    
     <insert id="insertScFolder" parameterType="ScFolderVo">
         insert into scfolder
-        values(scfolder_seq.nextval, #{scheduleFolderName}, #{scheduleFolderColor}, #{empNo})
+        values(scfolder_seq.nextval, #{scheduleFolderName:VARCHAR}, #{scheduleFolderColor:VARCHAR}, #{empNo})
     </insert>
     
     <select id="selectAllScFolderByEmpNo" parameterType="int" resultType="ScFolderVo">
         select * from scfolder
         where EMP_NO=#{empNo}
+        order by SCHEDULE_FOLDER_NO
     </select>
     
     <select id="selectScFolderByScFolderNo" parameterType="int" resultType="ScFolderVo">
         select * from scfolder
         where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
     </select>
+    
+    <delete id="deleteScFolderByScFolderNo" parameterType="int">
+		delete from scfolder
+		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
+	</delete>
+	
+    <update id="updateScFolderByScFolderNo" parameterType="ScFolderVo">
+		update scfolder set SCHEDULE_FOLDER_NAME=#{scheduleFolderName}, SCHEDULE_FOLDER_COLOR=#{scheduleFolderColor}
+		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo}
+	</update>
+	
  </mapper>
 
 

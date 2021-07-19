@@ -12,8 +12,8 @@ public class ScFolderServiceImpl implements ScFolderService{
     private final ScFolderDAO dao;
 
     @Override
-    public int insertScFolder(ScFolderVO vo) {
-        return dao.insertScFolder(vo);
+    public int insertDefaultScFolder(int empNo) {
+        return dao.insertDefaultScFolder(empNo);
     }
 
     @Override
@@ -25,6 +25,22 @@ public class ScFolderServiceImpl implements ScFolderService{
 	public ScFolderVO selectScFolderByScFolderNo(int scheduleFolderNo) {
 		return dao.selectScFolderByScFolderNo(scheduleFolderNo);
 	}
+
+	@Override
+	public int insertScFolder(ScFolderVO vo) {
+		return dao.insertScFolder(vo);
+	}
+
+	@Override
+	public int deleteScFolderByScFolderNo(int scheduleFolderNo) {
+		return dao.deleteScFolderByScFolderNo(scheduleFolderNo);
+	}
+
+	@Override
+	public int updateScFolderByScFolderNo(ScFolderVO vo) {
+		return dao.updateScFolderByScFolderNo(vo);
+	}
+
 
 
     

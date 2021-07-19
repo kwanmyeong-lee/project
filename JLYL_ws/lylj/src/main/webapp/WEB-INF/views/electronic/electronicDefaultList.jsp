@@ -41,7 +41,7 @@
 							</label></td>
 							<td class="d-flex align-items-center">
 								<div class="pl-3 email">
-									<span>markotto@email.com</span> <span>Added: 01/03/2020</span>
+									<a href="<c:url value='/electronic/electronicDetail?ElectronicNo=7'/>"><span>markotto@email.com</span></a> <span>Added: 01/03/2020</span>
 								</div>
 							</td>
 							<td>Markotto89</td>
