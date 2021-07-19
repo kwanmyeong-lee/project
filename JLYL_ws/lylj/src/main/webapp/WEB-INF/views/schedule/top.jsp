@@ -109,14 +109,15 @@
                                 <h4 class="modal-title">일정목록수정</h4>
                                 <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                             </div><!--Modal body--><div class="modal-body">
-                                <form name="list-edit-form" >
+                                <form name="list-edit-form" id="listEd">
                                     <label class="labelTime3 ">일정목록</label>
-                                    <select class="edit-select">
+                                    <select class="edit-select" name="scheduleFolderNo">
                                     	<c:forEach var="i" items="${sfList }">
-                                        <option>${i.scheduleFolderName}</option>
+                                        <option value="${i.scheduleFolderNo }">${i.scheduleFolderName}</option>
                                         </c:forEach>
                                     </select><br><label class="labelTime3">일정목록명</label><input type="text" class="scFolderText" name="scheduleFolderName"><br>
                                     <label class="labelTime3">색상</label><input type='color' name='scheduleFolderColor' value='#4ea0ec'> 
+                                    <input type="hidden" value="${sessionScope.empNo }" name="empNo" >
                                     </form>
                             </div><!--Modal footer--><div class="modal-footer">
                                 <button type="button" class="btn btn-info" id="btnEdit">수정</button>

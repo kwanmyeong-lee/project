@@ -54,7 +54,7 @@ $(function() {
 	    
 	    $('#btnAdd').click(function(){
 		if($(this).parent().prev().find('input[name=scheduleFolderName]').val()==""){
-			swal ( "" , "일정목록명을 입력하세요" ,  "error" )
+			swal ( "" , "일정목록명을 입력하세요" ,  "error" );
 		}else{
 			$.ajax({    
                       type:'POST',
@@ -63,18 +63,80 @@ $(function() {
                       dataType: "json",
                       success : function(data) {
 							var res="";
-							$(data).each(function(index) {
+							var dataSize =-1; 
+							$(data).each(function() {
+								dataSize++;
+							});
 							res+='<li class="nav-item">'
 									+'<a class="nav-link" href="#"><input type="checkbox" class="ckSch" checked="checked">'
-                    				+'<span class="list-span">'+data[index].scheduleFolderName+'</span>'
-                    				+'<input type="hidden" id="scFolNo${i.scheduleFolderNo }" value="'+data[index].scheduleFolderName+'">'
+                    				+'<span class="list-span">'+data[dataSize].scheduleFolderName+'</span>'
+                    				+'<input type="hidden" id="scFolNo'+data[dataSize].scheduleFolderNo+'" value="'+data[dataSize].scheduleFolderNo+'">'
                     				+'</a></li>';
-							});
-							$('#scFolList').html(res);
+						  $('#scFolList').append(res);
                           $('#myModaladd').modal('hide');
+                          
+                          if($('#hWrite').text()=="일정등록"){
+							res="";
+							$(data).each(function(index) {
+								res+='<option value="'+data[index].scheduleFolderNo+'">'+data[index].scheduleFolderName+'</option>';
+							});
+							$('#selectMycal').html(res);
+						  }
                       }
                     });
               }
+		});
+		
+		$('#btnEdit').click(function(){
+			$.ajax({    
+                      type:'POST',
+                      url:"updateScFolder",
+                      data:$('#listEd').serializeArray(),
+                      dataType: "json",
+                      success : function(data) {
+							var res="";
+							var scFNo=$('#listEd').find('select[name=scheduleFolderNo]').val();
+							var scFoNo="#scFolNo"+scFNo;
+							var scFName=$('#listEd').find('input[name=scheduleFolderName]').val();
+							
+							res+='<input type="checkbox" class="ckSch" checked="checked">'
+                    				+'<span class="list-span">'+scFName+'</span>'
+                    				+'<input type="hidden" id="scFolNo'+scFNo
+                    				+'" value="'+scFNo+'">';
+							
+							$(scFoNo).parent().html(res);
+							
+							$(data.list).each(function(index) {
+								var texts = data.list[index].scheduleFolderNo;
+								event2 = calendar.getEventById(texts);
+								if(event2==null)
+									return;
+        		                event2.remove();
+                    		});
+                    		
+							$(data.list).each(function(index) {
+								calendar.addEvent({
+									id:data.list[index].scheduleFolderNo,
+		                            title: data.list[index].scheduleTitle,
+		                            start: data.list[index].scheduleStart,
+		                            end: data.list[index].scheduleEnd,
+		                            allDay: (data.list[index].scheduleAllday=="true"),
+		                            color:data.list[index].scheduleColor,
+                            		classNames:[data.list[index].scheduleNo]
+                        		});
+                    		});
+                    		
+                    		if($('#hWrite').text()=="일정등록"){
+							res="";
+							$(data.sfList).each(function(index) {
+								res+='<option value="'+data.sfList[index].scheduleFolderNo+'">'+data.sfList[index].scheduleFolderName+'</option>';
+							});
+							$('#selectMycal').html(res);
+						  	}
+							
+                          	$('#myModaledit').modal('hide');
+                      }
+                    });
 		});
 		
 		$('#btnDelete').click(function(){
@@ -85,16 +147,29 @@ $(function() {
                       dataType: "json",
                       success : function(data) {
 							var res="";
-							$(data).each(function(index) {
-							res+='<li class="nav-item">'
-									+'<a class="nav-link" href="#"><input type="checkbox" class="ckSch" checked="checked">'
-                    				+'<span class="list-span">'+data[index].scheduleFolderName+'</span>'
-                    				+'<input type="hidden" id="scFolNo${i.scheduleFolderNo }" value="'+data[index].scheduleFolderName+'">'
-                    				+'</a></li>';
+							var scFNo=$('#listDel').find('select[name=scheduleFolderNo]').val();
+							var scFoNo="#scFolNo"+scFNo;
+							var scFName=$('#listDel').find('input[name=scheduleFolderName]').val();
+							
+							$(scFoNo).parent().parent().remove();
+							
+							$(data.list).each(function(index) {
+								var texts = data.list[index].scheduleFolderNo;
+								event2 = calendar.getEventById(texts);
+								if(event2==null)
+									return;
+        		                event2.remove();
+                    		});  
+                    		
+                    		if($('#hWrite').text()=="일정등록"){
+							res="";
+							$(data.sfList).each(function(index) {
+								res+='<option value="'+data.sfList[index].scheduleFolderNo+'">'+data.sfList[index].scheduleFolderName+'</option>';
 							});
-							$('#scFolList').html(res);
-							calendar.rerenderEvents();
-                          $('#myModaldelete').modal('hide');
+							$('#selectMycal').html(res);
+						  	}
+                    		
+                          	$('#myModaldelete').modal('hide');
                       }
                     });
 		});

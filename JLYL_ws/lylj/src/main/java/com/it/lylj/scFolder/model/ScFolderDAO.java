@@ -11,4 +11,5 @@ public interface ScFolderDAO {
     public List<ScFolderVO> selectAllScFolderByEmpNo(int empNo);
     public ScFolderVO selectScFolderByScFolderNo(int scheduleFolderNo);
     public int deleteScFolderByScFolderNo(int scheduleFolderNo);
+    public int updateScFolderByScFolderNo(ScFolderVO vo);
 }

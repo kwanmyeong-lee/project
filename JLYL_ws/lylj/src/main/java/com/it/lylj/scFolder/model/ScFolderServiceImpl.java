@@ -36,6 +36,12 @@ public class ScFolderServiceImpl implements ScFolderService{
 		return dao.deleteScFolderByScFolderNo(scheduleFolderNo);
 	}
 
+	@Override
+	public int updateScFolderByScFolderNo(ScFolderVO vo) {
+		return dao.updateScFolderByScFolderNo(vo);
+	}
+
+
 
     
     
