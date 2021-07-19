@@ -29,7 +29,7 @@ DROP TABLE MAILFILE CASCADE CONSTRAINTS ;
 DROP TABLE BREAKDAY CASCADE CONSTRAINTS ;
 DROP TABLE BREAKTHEME CASCADE CONSTRAINTS ;
 DROP SEQUENCE EMP_SEQ;
-DROP SEQUENCE CALENDAR_SEQ;
+DROP SEQUENCE SCHEDULE_SEQ;
 DROP SEQUENCE DOCSTY_SEQ;
 DROP SEQUENCE DOCFOL_SEQ;
 DROP SEQUENCE APPSTAMP_SEQ;
@@ -64,7 +64,7 @@ INCREMENT BY 1
 START WITH 1 
 NOCACHE;
 
-CREATE SEQUENCE CALENDAR_SEQ
+CREATE SEQUENCE SCHEDULE_SEQ
 MINVALUE 1 
 MAXVALUE 9999999999999999999999999999 
 INCREMENT BY 1 
@@ -1149,7 +1149,7 @@ insert into sctheme values(2, '예약');
 insert into scfolder values(scfolder_seq.nextval, '(기본)일정', '#4ea0ec', 119);
 
 --일정정보
-insert into calendar values(calendar_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','red',1,1,119,null,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','red',1,1,119,null,'asd');
 
 --예약폴더
 insert into BOFOL  values(bofol_seq.nextval, '본사1층회의실');
