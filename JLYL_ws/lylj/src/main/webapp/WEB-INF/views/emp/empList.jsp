@@ -28,12 +28,34 @@
 	font-weight: bold;
 }
 .searchBox{
-	width: 500px;
+	width: 100%;
 	margin-left: 40px;
+}
+.textBox{
+	width: 300px;
+	float: left;
 }
 .searchBox select{
 	text-align-last: center;
    	text-align: center;
+}
+.frmSearch{
+	width: 500px;
+}
+.selectSearch{
+	float: left;
+}
+#btn_search{
+	height: 38px;
+}
+
+#listAll{
+	float: right;
+	margin-right: 44px;
+}
+#pagingDiv{
+	float: left;
+	margin-left: 40px;
 }
 </style>
 
@@ -46,25 +68,40 @@
 			
 		});
 		
+		$('#btn_search').click(function(){
+			if($('select[name=searchCondition]').val()=='' ||$('select[name=searchCondition]').val()==null){
+				alert('검색조건을 선택하세요');
+				event.preventDefault();
+				return false;
+			}
+		});
 	});
+	
+	function pagingProc(curPage){
+		$('input[name=currentPage]').val(curPage);
+		$('form[name=frmPage]').submit();	
+	}
 </script>
+
 	<div id="bookMainDiv">
 		<h3>사원목록</h3>
 		<br>
 		<div class="input-group mb-4 searchBox">
-			<div class="col-md-3 center">
-				<select class="form-control">
-					<option>-선택-</option>
-					<option>이름</option>
-					<option>전화번호</option>
-					<option>이메일</option>
-					<option>부서</option>
-					<option>직급</option>
-				</select>
-			</div>
-			<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" id="searchBox">
-			<button class="btn_ btn-primary btn-sm" type="button" id="btn_search"><i class="fa fa-search"></i></button>
-			</div>
+			<form class="frmSearch" name="frmSearch" method="post" action='<c:url value="/emp/empList"/>'>
+				<div class="col-md-3 selectSearch">
+					<select class="form-control" name="searchCondition">
+						<option value="">-선택-</option>
+						<option value="emp_Name">이름</option>
+						<option value="emp_Tel">전화번호</option>
+						<option value="emp_Email">이메일</option>
+						<option value="department_Name">부서</option>
+						<option value="position_Name">직급</option>
+					</select>
+				</div>
+				<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" id="searchBox" name="searchKeyword">
+				<button class="btn_ btn-primary btn-sm" type="submit" id="btn_search"><i class="fa fa-search"></i></button>
+			</form>
+		</div>
 		<table>
 		    <colgroup>
 		       <col style="width:5%;" />
@@ -98,7 +135,7 @@
 	        		<c:forEach var="empVo" items="${empList }">
 					    <tr id="tdStyle">
 				            <td><input type="checkbox" id="multiSelect"> </td>
-				            <td id="userNameTd"><img src="<c:url value='/resources/img/undraw_profile.svg'/>"> <span id="userNameSpan">${empVo.empName }</span></td>
+				            <td id="userNameTd"><img src="<c:url value='/resources/img/undraw_profile.svg'/>"><span id="userNameSpan"><a style="text-decoration: none; color: #858796;" href="<c:url value="/emp/empInfo?empNo=${empVo.empNo }"/>">${empVo.empName }</a></span></td>
 				            <td id="empNoTd" name="">${empVo.empNo }</td>
 				           	<td id="telTd" >${empVo.empTel }</td>
 				            <td class="emailTd" id="emailTd<>">${empVo.empEmail }</td>
@@ -113,8 +150,40 @@
 				</c:if>
 	        </tbody>
 		</table>
-		
-	<div id="pagingDiv">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
+	<!-- 페이징 -->
+	<!-- 페이징 처리 form -->
+<form action="<c:url value='/emp/empList'/>" 
+	name="frmPage" method="post">
+	<span><input type="hidden" name="currentPage">
+	<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+	<input type="hidden" name="searchKeyword" value="${param.searchKeyword }">
+	</span>	
+</form>
+	<div id="pagingDiv">
+		  <ul class="pagination">
+			  <c:if test="${pagingInfo.firstPage>1 }">
+				    <li class="page-item">
+				      <a class="page-link" href="#" onclick="pagingProc(${pagingInfo.firstPage-1})">이전</a>
+				    </li>
+			  </c:if>
+			  
+			  <c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
+			  	 <c:if test="${i==pagingInfo.currentPage }">
+				    <li class="page-item"><a class="page-link" href="#" onclick="pagingProc(${i})" style="color: blue;">${i }</a></li>
+				 </c:if>
+				 <c:if test="${i!=pagingInfo.currentPage }">
+				 	<li class="page-item"><a class="page-link" href="#" onclick="pagingProc(${i})">${i }</a></li>
+				 </c:if>				 
+			  </c:forEach>
+			  
+			  <c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
+				    <li class="page-item">
+				      <a class="page-link" href="#" onclick="pageProc(${pagingInfo.lastPage+1})">다음</a>
+				    </li>
+			  </c:if>
+		  </ul>
+	</div>
+			<a href="<c:url value="/emp/empList"/>"><button type="button" class="btn_ btn-primary btn-sm" id="listAll">전체목록</button></a>
 	</div>
 	
 	<!-- 퇴사등록 Modal -->

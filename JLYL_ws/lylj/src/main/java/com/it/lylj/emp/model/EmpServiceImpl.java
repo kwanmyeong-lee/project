@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.it.lylj.common.SearchVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -16,10 +18,7 @@ public class EmpServiceImpl implements EmpService{
 	
 	private final PasswordEncoder passwordEncoder;
 
-	 @Override
-	 public List<EmpVO> selectAllEmp() {
-		return empDao.selectAllEmp();
-	}
+
 	 
 	@Transactional
 	@Override
@@ -62,6 +61,26 @@ public class EmpServiceImpl implements EmpService{
 		Map<String, Object> map = empDao.selectstampList(empNo);
 		return map;
 		
+	}
+
+	@Override
+	public int selectTotalEmp(SearchVO searchVo) {
+		return empDao.selectTotalEmp(searchVo);
+	}
+
+	@Override
+	public List<EmpVO> selectAllEmpList(SearchVO searchVo) {
+		return empDao.selectAllEmpList(searchVo);
+	}
+
+	@Override
+	public List<EmpVO> selectAllEmp() {
+		return empDao.selectAllEmp();
+	}
+
+	@Override
+	public int updateEmp(EmpVO vo) {
+		return empDao.updateEmp(vo);
 	}
 
 }

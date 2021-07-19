@@ -178,7 +178,7 @@
 			<c:if test="${vo.empAdminLev==1 }">
 				<a href=""><button class="btn btn-secondary " type="submit">퇴사처리</button></a>
 			</c:if>
-			<button class="btn btn-secondary " type="button" >사원목록으로</button>
+			<a href="<c:url value='/emp/empList'/>"><button class="btn btn-secondary " type="button" >사원목록으로</button></a>
 			<a href="<c:url value="/index"/>"><button class="btn btn-secondary" type="submit">메인으로</button></a>
 		</div>
 	</div>

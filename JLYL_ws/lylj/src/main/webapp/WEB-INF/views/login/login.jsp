@@ -92,7 +92,7 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<form class="loginFrm" method="post" action="<c:url value="/login/login"/>">
+					<form class="loginFrm" method="post" action="<c:url value="/"/>">
 						<div class="card2 card border-0 px-4 py-5">
 							<div class="row mb-4 px-3">
 							</div>
