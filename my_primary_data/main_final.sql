@@ -1149,8 +1149,8 @@ insert into sctheme values(2, '예약');
 insert into scfolder values(scfolder_seq.nextval, '(기본)일정', '#4ea0ec', 119);
 
 --일정정보
-insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','red',1,1,119,null,'asd');
-
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',1,1,119,null,'asd');
+select * from calendar;
 --예약폴더
 insert into BOFOL  values(bofol_seq.nextval, '본사1층회의실');
 insert into BOFOL  values(bofol_seq.nextval, '본사5층회의실');
