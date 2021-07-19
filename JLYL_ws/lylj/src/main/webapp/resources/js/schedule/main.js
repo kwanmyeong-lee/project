@@ -150,7 +150,7 @@ $(function() {
 		                            end: data[index].scheduleEnd,
 		                            allDay: (data[index].scheduleAllday=="true"),
 		                            color:data[index].scheduleColor,
-                            		classNames:[data.list[index].scheduleNo]
+                            		classNames:[data[index].scheduleNo]
                         		});
 
                     		});   
@@ -193,7 +193,7 @@ $(function() {
 		                            end: data[index].scheduleEnd,
 		                            allDay: (data[index].scheduleAllday=="true"),
 		                            color:data[index].scheduleColor,
-                            		classNames:[data.list[index].scheduleNo]
+                            		classNames:[data[index].scheduleNo]
                         		});
 
                     		});   

@@ -129,7 +129,8 @@
         	<label class="labelTime2">일정명</label><span id="detailTitle"></span><br>
         	<label	class="labelTime2">일시</label><span id="detailStart"></span>~<span id="detailEnd"></span><br>
         	<label class="labelTime2">내 캘린더</label><span id="detailFolder"></span><br>
-        	<label class="labelTime2 labelTime3">상세 내용</label>
+        	<label class="labelTime2">색상</label><input type="color" id="detailColor" disabled="disabled"><br>
+        	<label class="labelTime2 labelTime4">상세 내용</label>
         	<div class="contentDiv"><span id="detailContent"></span></div>
         	<br>
         </form>

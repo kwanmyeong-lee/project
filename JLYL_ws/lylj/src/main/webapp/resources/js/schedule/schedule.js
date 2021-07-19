@@ -118,6 +118,7 @@ $(function() {
 							$('#detailTitle').text(data.scvo.scheduleTitle);
 							$('#detailStart').text(data.scvo.scheduleStart);
 							$('#detailEnd').text(data.scvo.scheduleEnd);
+							$('#detailColor').val(data.scvo.scheduleColor);
 							$('#detailFolder').text(data.scFolderName);
 							if(data.scvo.scheduleContent!=null){
 								var content = data.scvo.scheduleContent.replace(/(?:\r\n|\r|\n)/g, '<br>');
@@ -125,7 +126,6 @@ $(function() {
 							}
                       }
                     });
-                    
             $('#btn-delete').click(function(){
 				$.ajax({    
 		                      type:'POST',
