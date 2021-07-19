@@ -169,7 +169,8 @@
                     <div class="sidebar-brand-text mx-3">메인으로이동</div>
                 </a><!--Heading--><div class="scheduleAdd" id="divscheduleAdd">
                     <button type="button" class="btn btn-light btnSchAdd btnRentAdmin">예약/대여</button>
-                </div><!--Nav Item-Pages Collapse Menu--><li class="nav-item">
+                </div><!--Nav Item-Pages Collapse Menu-->
+                <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
                         <i class="far fa-calendar-minus"></i>
                         <span>본사1층회의실</span>
