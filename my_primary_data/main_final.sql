@@ -37,6 +37,8 @@ DROP SEQUENCE OFBOARD_SEQ;
 DROP SEQUENCE OFBOARDFOL_SEQ;
 DROP SEQUENCE ELIMP_SEQ;
 DROP SEQUENCE OFBOARDFILE_SEQ;
+DROP SEQUENCE APPLINE_SEQ;
+DROP SEQUENCE RELINE_SEQ;
 
 DROP VIEW selectstamp;
 
@@ -106,6 +108,22 @@ MAXVALUE 9999999999999999999999999999
 INCREMENT BY 1 
 START WITH 1
 NOCACHE;
+
+CREATE SEQUENCE APPLINE_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
+
+CREATE SEQUENCE RELINE_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
+
+
 ------------------------- SEQ ----------------------------------
 
 /* 사용자 */
@@ -1087,6 +1105,8 @@ insert into EMP values(EMP_SEQ.nextval, 'admin16', 'admin16', '010-3225-4091', '
 insert into EMP values(EMP_SEQ.nextval, 'admin17', 'admin17', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 3);
 insert into EMP values(EMP_SEQ.nextval, 'admin18', 'admin18', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
 
+insert into EMP values(EMP_SEQ.nextval, '관명쨩', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
+
 select * from emp;
 
 --달력테마
@@ -1198,16 +1218,40 @@ values(DOCSTY_SEQ.nextval, '양식번호107', '', 4);
 -- 결재 도장 등록
 insert into APPSTAMP
 values (APPSTAMP_SEQ.nextval, 101, '아이유1.jpg');
+insert into APPSTAMP
+values (APPSTAMP_SEQ.nextval, 102, '아이유1.jpg');
+insert into APPSTAMP
+values (APPSTAMP_SEQ.nextval, 103, '아이유1.jpg');
+insert into APPSTAMP
+values (APPSTAMP_SEQ.nextval, 104, '아이유1.jpg');
 
 --전자 결재 정보 
 
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트1', '기안서 내용1', 'N', '0', '0', 101, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트1', '기안서 내용1', 'N', '0', '0', 119, 100);
+insert into ELIMP
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트2', '기안서 내용2', 'N', '0', '0', 119, 100);
+insert into ELIMP
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트3', '기안서 내용3', 'N', '0', '0', 119, 100);
+insert into ELIMP
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트4', '기안서 내용4', 'N', '0', '0', 119, 100);
+insert into ELIMP
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트4', '기안서 내용4', 'N', '0', '0', 119, 100);
+insert into ELIMP
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트4', '기안서 내용4', 'N', '0', '0', 119, 100);
 
 select * from elimp;
 
+select MAX(electronic_no) from elimp
+where emp_no = 119;
 
+-- 결재 라인 
 
+select * from appline;
+
+-- 수신 라인
+
+select * from reline;
 
 -- 게시판 폴더
 INSERT INTO OFBOARDFOL VALUES(1, '공지사항');

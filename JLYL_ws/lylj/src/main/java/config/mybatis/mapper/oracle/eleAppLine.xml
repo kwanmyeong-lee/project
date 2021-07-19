@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.it.lylj.electronicAppLine.model.ElectronicAppLineDAO">
+
+	<insert id="insertAppLine" parameterType="ElectronicAppLineVo">
+		<selectKey keyProperty="approvalLineNo" resultType="int"
+			order="BEFORE">
+			select APPLINE_SEQ.nextval from dual
+		</selectKey>
+
+		insert into APPLINE
+		values (#{approvalLineNo}, #{electronicNo}, #{empNo},
+		#{approvalLineCompleteFlag}, #{approvalLineOrder})
+
+	</insert>
+	
+	<select id="selectByElectronicNo" parameterType="int" resultType="ElectronicAppLineVo">
+		select * from APPLINE
+		where ELECTRONIC_NO = #{electronicNo}
+	</select>
+
+</mapper>

@@ -52,15 +52,50 @@
 		            	dataArr.push($(this).val());
 		            	
 		            });
-		            
-		            $('input[name=electronicContent]').val(dataArr);
-				
-		            $('form[name=docfrm]').prop('action','<c:url value="/electronic/documentWrite"/>');
+		            var jsonData = JSON.stringify(dataArr);		            
+		            $('input[name=electronicContent]').val(jsonData);				
+		            $('form[name=docfrm]').prop('action','<c:url value="/electronic/documentWrite"/>');		         
+		            		            
+		    		ApempNoData = [];
+		    		RpempNoData = [];
+		    		
+		    		$('input[name=apEmpNo]').each(function(idx, item){
+		    			ApempNoData.push($(this).val()); // 유저 번호 배열 
+		    		});
+		    		$('input[name=reEmpNo]').each(function(idx, item){
+		    			RpempNoData.push($(this).val()); // 유저 번호 배열 
+		    		});
+		    		
+		    		$('input[name=AempNoData]').val(ApempNoData);
+		    		$('input[name=RempNoData]').val(RpempNoData);
+		    		
+		    		
 			        $('form[name=docfrm]').submit();
+		    		
+			   /*      
 			        
-			    
+		    		$.ajax({
+		    			url : "<c:url value='/electronic/insertAppLine'/>",
+		    			data : {
+							empNo : empNoData
+						},
+						type : "get",
+						dataType : "json",
+						success : function(res) {
+
+						},
+						error : function(xhr, status, error) {
+							alert("error!" + error);
+							alert(xhr.status);
+							alert(thrownError);
+						}
+		    		});
+		            
+		          */
 				
 		});
+		
+
 		
 	
 	});
@@ -71,13 +106,14 @@
 <body>
 	<form name="docfrm" method="post" enctype="multipart/form-data"
 		id="frm-form">
-
+	
 		<input type="hidden" id="styleNo" value="${param.styleNo }"
 			name="styleNo"> <input type="hidden"
 			name="electronicFileFlag" value="N"> <input type="hidden"
-			name="electronicCompletFlag" value="N"> <input type="hidden"
-			name="electronicEmergencyFlag" value="N"> <input
-			type="hidden" name="empNo" value="101">
+			name="electronicCompletFlag" value="0"> <input type="hidden"
+			name="electronicEmergencyFlag" value="0"> 
+			<input type="hidden" value="" name="AempNoData">
+			<input type="hidden" value="" name="RempNoData">
 
 		<div class="container" style="max-width: 1000px;">
 			<div class="shadow-sm p-3 mb-3 bg-light rounded ">
@@ -101,10 +137,15 @@
 			<div
 				class="row align-items-start selectLine border border-5 border-secondary">
 				결 <br>재 <br>라 <br> 인
+
+				<!-- 결재라인 박히는곳  -->
 				<div class="col selectDiv " id="Approval"></div>
 
 				수 <br>신 <br>라 <br> 인
+
+				<!-- 수신라인 박히는곳  -->
 				<div class="col selectDiv " id="Receive"></div>
+
 			</div>
 
 
