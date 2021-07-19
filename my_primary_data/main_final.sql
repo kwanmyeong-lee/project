@@ -39,6 +39,10 @@ DROP SEQUENCE ELIMP_SEQ;
 DROP SEQUENCE OFBOARDFILE_SEQ;
 DROP SEQUENCE APPLINE_SEQ;
 DROP SEQUENCE RELINE_SEQ;
+DROP SEQUENCE SCFOLDER_SEQ;
+DROP SEQUENCE BOFOL_SEQ;
+DROP SEQUENCE BOTARGET_SEQ;
+DROP SEQUENCE BOOKING_SEQ;
 
 DROP VIEW selectstamp;
 
@@ -53,7 +57,35 @@ INCREMENT BY 1
 START WITH 100 
 NOCACHE;
 
+CREATE SEQUENCE SCFOLDER_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
+
 CREATE SEQUENCE CALENDAR_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
+
+CREATE SEQUENCE BOFOL_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
+
+CREATE SEQUENCE BOTARGET_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
+
+CREATE SEQUENCE BOOKING_SEQ
 MINVALUE 1 
 MAXVALUE 9999999999999999999999999999 
 INCREMENT BY 1 
@@ -1111,11 +1143,29 @@ select * from emp;
 
 --달력테마
 insert into sctheme values(1, '일정');
+insert into sctheme values(2, '예약');
 
---달력
-insert into calendar values(calendar_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','red',1,1,1,null,'asd');
+--일정폴더
+insert into scfolder values(scfolder_seq.nextval, '(기본)일정', '#4ea0ec', 119);
 
+--일정정보
+insert into calendar values(calendar_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','red',1,1,119,null,'asd');
 
+--예약폴더
+insert into BOFOL  values(bofol_seq.nextval, '본사1층회의실');
+insert into BOFOL  values(bofol_seq.nextval, '본사5층회의실');
+insert into BOFOL  values(bofol_seq.nextval, '차량');
+insert into BOFOL  values(bofol_seq.nextval, '빔프로젝터');
+
+--예약대상
+insert into BOTARGET  values(botarget_seq.nextval, '대회의실',1);
+insert into BOTARGET  values(botarget_seq.nextval, '소회의실',1);
+insert into BOTARGET  values(botarget_seq.nextval, '대회의실',2);
+insert into BOTARGET  values(botarget_seq.nextval, '소회의실',2);
+insert into BOTARGET  values(botarget_seq.nextval, '7498아반떼',3);
+insert into BOTARGET  values(botarget_seq.nextval, '3929아반떼',3);
+insert into BOTARGET  values(botarget_seq.nextval, '빔프로젝터1',4);
+insert into BOTARGET  values(botarget_seq.nextval, '빔프로텍터2',4);
 
 --전자 결재 문서 폴더
 select * from docfol;
