@@ -8,15 +8,18 @@
 			SELECT OFBOARDFILE_SEQ.nextval FROM dual
 		</selectKey>
 		INSERT INTO ofboardfile(BOARD_FILE_NO, BOARD_NO, FILENAME, ORIGINALFILENAME, FILESIZE)
-		VALUES(#{boardFileNo}, #{boardNo}, #{fileName}, #{originalFileName}, #{fileSize})
+		VALUES(#{boardFileNo}, ${boardNo}, #{fileName}, #{originalFileName}, #{fileSize})
 	</insert>
 	
-	<!-- 
-	<select id="selectByNo" parameterType="int" resultType="">
+	<select id="selectByNo" parameterType="int" resultType="boardFileVo">
 		SELECT * FROM ofboardfile
-		WHERE board_no=#{boardNo}
+		WHERE BOARD_NO=#{boardNo}
 	</select>
-	 -->
+
+	<select id="selectByFileNo" parameterType="int" resultType="boardFileVo">
+		SELECT * FROM ofboardfile
+		WHERE BOARD_FILE_NO=#{boardFileNo}
+	</select>
 </mapper>
 
 

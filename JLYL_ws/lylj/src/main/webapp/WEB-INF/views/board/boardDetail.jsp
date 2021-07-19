@@ -48,7 +48,22 @@
 	            	&nbsp;<span id="likeCnt">: 13</span>
 			    </div>
 	    </div>
+	    <c:if test="${!empty fileVo}">
 	    <div id="borderDiv"></div>
+	    <!-- 첨부파일 -->
+		    <button id="upFile" type="button" data-bs-toggle="dropdown" >첨부파일</button>
+		    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink" id="upFileList">
+		    	<c:forEach var="file" items="${fileVo}">
+		    		<c:set var="filesize" value="${file.fileSize }" />
+		            <li><a class="dropdown-item fileA" href="<c:url value='/board/download?boardFileNo=${file.boardFileNo }'/>" >${file.originalFileName}</a></li>
+	            </c:forEach>
+	        </ul>
+        </c:if>
+        
+	    <c:if test="${empty fileVo }">
+	    	<div id="borderDiv"></div>
+        </c:if>
+        <!-- 글 내용 -->
 	   	<div id="contentTaDetail">${vo.boardContent }</div>
 	    <div id="borderDiv"></div>
     </div>
