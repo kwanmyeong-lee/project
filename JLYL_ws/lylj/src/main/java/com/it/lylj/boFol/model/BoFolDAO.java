@@ -1,5 +1,10 @@
 package com.it.lylj.boFol.model;
 
-public interface BoFolDAO {
+import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface BoFolDAO {
+	List<BoFolVO> selectAllBoFol(); 
 }

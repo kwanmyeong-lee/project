@@ -4,7 +4,9 @@
 
 <mapper namespace="com.it.lylj.boFol.model.BoFolDAO">
 	
-	
+	<select id="selectAllBoFol" resultType="boFolVo">
+		select * from bofol
+	</select>
 	
  </mapper>
 

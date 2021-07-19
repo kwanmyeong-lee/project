@@ -1,5 +1,7 @@
 package com.it.lylj.boTarget.model;
 
-public interface BoTargetService {
+import java.util.List;
 
+public interface BoTargetService {
+	List<BoTargetVO> selectAllBoTarget();
 }

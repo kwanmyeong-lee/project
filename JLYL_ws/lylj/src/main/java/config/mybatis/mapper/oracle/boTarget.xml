@@ -4,7 +4,9 @@
 
 <mapper namespace="com.it.lylj.boTarget.model.BoTargetDAO">
 	
-	
+	<select id="selectAllBoTarget" resultType="boTargetVo">
+		select * from botarget
+	</select>
 	
  </mapper>
 

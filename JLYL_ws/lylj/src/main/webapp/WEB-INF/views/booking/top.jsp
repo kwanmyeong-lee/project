@@ -168,56 +168,30 @@
                     <div class="sidebar-brand-icon rotate-n-15"></div>
                     <div class="sidebar-brand-text mx-3">메인으로이동</div>
                 </a><!--Heading--><div class="scheduleAdd" id="divscheduleAdd">
-                    <button type="button" class="btn btn-light btnSchAdd btnRentAdmin">예약/대여</button>
+                    <button type="button" class="btn btn-light btnSchAdd btnRentAdmin">예약/대여 관리</button>
                 </div><!--Nav Item-Pages Collapse Menu-->
+                
+                <c:forEach var="i" items="${boFolList }">
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse${i.bookingFolderNo }" aria-expanded="true" aria-controls="collapse1">
                         <i class="far fa-calendar-minus"></i>
-                        <span>본사1층회의실</span>
+                        <span>${i.bookingFolderName }</span>
                     </a>
-                    <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="collapse${i.bookingFolderNo }" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="assetInfo">대회의실</a>
-                            <a class="collapse-item" href="buttons">소회의실</a>
+                    	<c:forEach var="j" items="${boTargetList }">
+                    		<c:if test="${j.bookingFolderNo==i.bookingFolderNo }">
+                            <a class="collapse-item" href="assetInfo">${j.bookingTargetName }</a>
+                            <input type="hidden" class="asset-hidden" value="${j.bookingTargetNo }">
+                            </c:if>
+                        </c:forEach>
                         </div>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                        <i class="far fa-calendar-minus"></i>
-                        <span>본사5층회의실</span>
-                    </a>
-                    <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="buttons">대회의실</a>
-                            <a class="collapse-item" href="buttons">소회의실</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                        <i class="far fa-calendar-minus"></i>
-                        <span>차량</span>
-                    </a>
-                    <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="buttons">7498아반떼</a>
-                            <a class="collapse-item" href="buttons">3929아반떼</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                        <i class="far fa-calendar-minus"></i>
-                        <span>빔프로젝터</span>
-                    </a>
-                    <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="buttons">1번빔프로젝터</a>
-                            <a class="collapse-item" href="buttons">2번빔프로젝터</a>
-                        </div>
-                    </div>
-                </li><!--Divider--><hr class="sidebar-divider"><li class="nav-item">
+                </c:forEach>
+                
+                
+                <!--Divider--><hr class="sidebar-divider"><li class="nav-item">
                     <a class="nav-link" id="asset-add" href="#">
                         <i class="fas fa-plus"></i>
                         <span>자산추가</span>
