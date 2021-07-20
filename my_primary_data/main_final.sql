@@ -45,6 +45,8 @@ DROP SEQUENCE BOTARGET_SEQ;
 DROP SEQUENCE BOOKING_SEQ;
 
 DROP VIEW selectstamp;
+DROP VIEW apEleList;
+DROP VIEW reEleList;
 
 ------------------------- DROP ---------------------------------
 
@@ -1088,6 +1090,18 @@ position b
 on a.position_no = b.position_no;
 
 
+create or replace view apEleList AS
+select a.*, b.APPROVAL_LINE_COMPLETE_FLAG, b.emp_No as emp_No_ap from 
+elimp a join appline b 
+on a.electronic_no = b.electronic_no;
+
+create or replace view reEleList AS
+select a.*, b.RECEIVE_LINE_FLAG, b.emp_No as emp_No_re from 
+elimp a join reline b 
+on a.electronic_no = b.electronic_no;
+
+select * from apEleList;
+
 ------------------------- view ----------------------------------
 create or replace view empView
 as
@@ -1141,7 +1155,8 @@ insert into EMP values(EMP_SEQ.nextval, 'admin18', 'admin18', '010-3225-4091', '
 
 insert into EMP values(EMP_SEQ.nextval, '관명쨩', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
 insert into EMP values(EMP_SEQ.nextval, '기성쨩', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
-
+insert into EMP values(EMP_SEQ.nextval, '혁', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '준경', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
 
 select * from emp;
 
@@ -1304,19 +1319,19 @@ values (ELIMP_SEQ.nextval, sysdate, '기안서테스트8', '기안서 내용4', 
 insert into ELIMP
 values (ELIMP_SEQ.nextval, sysdate, '기안서테스트9', '기안서 내용4', 'N', '0', '0', 119, 100);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트10', '기안서 내용4', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트10', '기안서 내용4', 'N', '1', '0', 119, 100);
 
 select * from elimp;
 
 select MAX(electronic_no) from elimp
 where emp_no = 119;
 
-select b.APPROVAL_LINE_COMPLETE_FLAG from 
-elimp a join appline b 
-on a.electronic_no = b.electronic_no
-where b.emp_no = 120;
 
--- 결재 번호가 같고 그 결재에 내 번호가 있는 거에  
+
+
+
+
+-- 결재 번호가 같고 그 결재에 내 번호가 있는 거에 대한 승인 여부
 
 -- 결재 라인 
 
@@ -1342,11 +1357,16 @@ where ELECTRONIC_NO = 8 AND EMP_NO = 119;
 select * from reline;
 
 insert into reline
+values (APPLINE_SEQ.nextval , 6, 120, '1' );
+insert into reline
+values (APPLINE_SEQ.nextval , 7, 120, '1' );
+insert into reline
 values (APPLINE_SEQ.nextval , 8, 120, '1' );
 insert into reline
 values (APPLINE_SEQ.nextval , 9, 120, '0' );
 insert into reline
 values (APPLINE_SEQ.nextval , 10, 120, '0');
+
 
 
 -- 게시판 폴더

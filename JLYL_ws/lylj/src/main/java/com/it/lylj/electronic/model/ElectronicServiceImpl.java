@@ -1,6 +1,8 @@
 package com.it.lylj.electronic.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,29 @@ public class ElectronicServiceImpl implements ElectronicService {
 	public List<ElectronicVo> selectByEmpNo(int empNo) {
 		return electronicDao.selectByEmpNo(empNo);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectListByEmpNo(int empNo, String no) {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		if(no.equals("1")) {
+			list = electronicDao.selectListByEmpNo1(empNo);
+		}else if(no.equals("2")) {
+			list = electronicDao.selectListByEmpNo2(empNo);
+		}else if(no.equals("3")) {
+			list = electronicDao.selectListByEmpNo3(empNo);
+		}else if(no.equals("4")) {
+			list = electronicDao.selectListByEmpNo4(empNo);
+		}else if(no.equals("5")) {
+			
+		}else if(no.equals("6")) {
+			list = electronicDao.selectListByEmpNo6(empNo);
+		}
+		
+		
+		return list;
+		
+	}
+
 
 }

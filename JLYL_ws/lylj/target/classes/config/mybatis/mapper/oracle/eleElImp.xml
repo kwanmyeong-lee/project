@@ -37,6 +37,31 @@
 				where b.emp_no = #{empNo}
 	</select>
 	
+	<select id="selectListByEmpNo1" parameterType="int" resultType="map">
+		select * from apEleList
+		where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0
+	</select>
+	
+	<select id="selectListByEmpNo3" parameterType="int" resultType="map">
+		select * from apEleList
+		where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 1
+	</select>
+	
+	<select id="selectListByEmpNo6" parameterType="int" resultType="map">
+		select * from apEleList
+		where EMP_NO_AP = #{empNo} and ELECTRONIC_COMPLET_FLAG = 1
+	</select>
+	
+	<select id="selectListByEmpNo2" parameterType="int" resultType="map">
+		select * from reEleList
+		where EMP_NO_RE = #{empNo}
+	</select>
+	
+	<select id="selectListByEmpNo4" parameterType="int" resultType="map">
+		select * from elimp
+		where EMP_NO = ${empNo}
+	</select>
+	
 
 </mapper>
 
