@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.it.lylj.electronic.model.ElectronicVo;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -19,6 +21,11 @@ public class ElectronicAppLineServiceImpl implements ElectronicAppLineService{
 	@Override
 	public List<ElectronicAppLineVo> selectByElectronicNo(int ElectronicNo) {
 		return electronicAppLineDao.selectByElectronicNo(ElectronicNo);
+	}
+
+	@Override
+	public int AcceptUpdateAppLine(ElectronicVo vo) {
+		return electronicAppLineDao.AcceptUpdateAppLine(vo);
 	}
 
 }

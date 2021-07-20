@@ -24,43 +24,57 @@
 		<div class="col-md-12">
 			<div class="table-wrap">
 				<table class="table table-responsive-xl">
+					<colgroup>
+						<col style="width:10%" />
+						<col style="width:60%" />
+						<col style="width:20%" />
+						<col style="width:20%" />
+					</colgroup>
 					<thead>
 						<tr>
 							<th><label class="checkbox-wrap checkbox-primary"> <input
 									class="align-middle" type="checkbox">
 							</label></th>
-							<th>Email</th>
-							<th>Username</th>
-							<th>Status</th>
+							<th class="text-center">제목</th>
+							<th class="text-center">기안자 번호</th>
+							<th class="text-center">상태</th>
 						</tr>
 					</thead>
+					
 					<tbody>
-						<tr class="alert align-middle">
-							<td><label class="checkbox-wrap checkbox-primary"> <input
-									class="align-middle" type="checkbox">
-							</label></td>
-							<td class="d-flex align-items-center">
-								<div class="pl-3 email">
-									<a href="<c:url value='/electronic/electronicDetail?ElectronicNo=7'/>"><span>markotto@email.com</span></a> <span>Added: 01/03/2020</span>
-								</div>
-							</td>
-							<td>Markotto89</td>
-							<td class=""><span class="">결재 대기</span></td>
-						</tr>
-						<tr class="alert">
-							<td><label class="checkbox-wrap checkbox-primary"> <input
-									class="align-middle" type="checkbox">
-							</label></td>
-							<td class="d-flex align-items-center">
-								<div class="pl-3 email">
-									<span>markotto@email.com</span> <span>Added: 01/03/2020</span>
-								</div>
-							</td>
-							<td>Markotto89</td>
-							<td class=""><span class="">결재 대기</span></td>
-						</tr>
-
+						<c:if test="${empty List }">
+							<tr>
+								<td colspan="6" class="align_center">결재 대기 문서가 없습니다.</td>
+							</tr>
+						</c:if>
+						<c:if test="${!empty List }">
+							<c:forEach var="eleVo" items="${List }">
+								<tr class="alert align-middle">
+								
+									<!-- 반복 처리 구간 -->
+									
+										<td class="justify-content-center"><label class="checkbox-wrap checkbox-primary"> <input
+												class="align-middle" type="checkbox">
+										</label></td>
+										<td class="d-flex align-items-center justify-content-center">
+												<a href="<c:url value='/electronic/electronicDetail?ElectronicNo='/>${eleVo.electronicNo }"><span>${eleVo.electronicTitle }</span></a>
+										</td>
+										<td class="text-center">${eleVo.empNo }</td>
+										<td class="text-center"><span class="">
+											<c:if test="${eleVo.electronicCompletFlag eq '0' }">
+												처리중
+											</c:if>
+											<c:if test="${eleVo.electronicCompletFlag eq '1' }">
+												승인완료
+											</c:if>
+										</span></td>
+									<!-- 반복 처리 구간 -->
+									
+								</tr>
+							</c:forEach>
+						</c:if>	
 					</tbody>
+					
 				</table>
 				<div class=" bg-light text-dark col-md-12 row justify-content-center my-5">
 					페이징 처리 공간

@@ -1138,6 +1138,8 @@ insert into EMP values(EMP_SEQ.nextval, 'admin17', 'admin17', '010-3225-4091', '
 insert into EMP values(EMP_SEQ.nextval, 'admin18', 'admin18', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
 
 insert into EMP values(EMP_SEQ.nextval, '관명쨩', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '기성쨩', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-01-01', null, 3000, '1234-1234-1234', 1, '1993-06-14', 6, 4);
+
 
 select * from emp;
 
@@ -1251,19 +1253,19 @@ values(DOCSTY_SEQ.nextval, '양식번호100', '
 				</table>
 				<br>', 1);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호101', '', 1);
+values(DOCSTY_SEQ.nextval, '양식번호100', '', 1);
+insert into DOCSTY
+values(DOCSTY_SEQ.nextval, '양식번호101', '', 2);
 insert into DOCSTY
 values(DOCSTY_SEQ.nextval, '양식번호102', '', 2);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호103', '', 2);
+values(DOCSTY_SEQ.nextval, '양식번호103', '', 3);
 insert into DOCSTY
 values(DOCSTY_SEQ.nextval, '양식번호104', '', 3);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호105', '', 3);
+values(DOCSTY_SEQ.nextval, '양식번호105', '', 4);
 insert into DOCSTY
 values(DOCSTY_SEQ.nextval, '양식번호106', '', 4);
-insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호107', '', 4);
 
 -- 결재 도장 등록
 insert into APPSTAMP
@@ -1274,6 +1276,10 @@ insert into APPSTAMP
 values (APPSTAMP_SEQ.nextval, 103, '아이유1.jpg');
 insert into APPSTAMP
 values (APPSTAMP_SEQ.nextval, 104, '아이유1.jpg');
+insert into APPSTAMP
+values (APPSTAMP_SEQ.nextval, 119, '아이유1.jpg');
+insert into APPSTAMP
+values (APPSTAMP_SEQ.nextval, 120, '아이유1.jpg');
 
 --전자 결재 정보 
 
@@ -1286,28 +1292,80 @@ values (ELIMP_SEQ.nextval, sysdate, '기안서테스트3', '기안서 내용3', 
 insert into ELIMP
 values (ELIMP_SEQ.nextval, sysdate, '기안서테스트4', '기안서 내용4', 'N', '0', '0', 119, 100);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트4', '기안서 내용4', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트5', '기안서 내용4', 'N', '0', '0', 119, 100);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트4', '기안서 내용4', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트6', '기안서 내용4', 'N', '0', '0', 119, 100);
+insert into ELIMP
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트7', '기안서 내용4', 'N', '0', '0', 119, 100);
+insert into ELIMP
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트8', '기안서 내용4', 'N', '0', '0', 119, 100);
+insert into ELIMP
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트9', '기안서 내용4', 'N', '0', '0', 119, 100);
+insert into ELIMP
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트10', '기안서 내용4', 'N', '0', '0', 119, 100);
 
 select * from elimp;
 
 select MAX(electronic_no) from elimp
 where emp_no = 119;
 
+select b.APPROVAL_LINE_COMPLETE_FLAG from 
+elimp a join appline b 
+on a.electronic_no = b.electronic_no
+where b.emp_no = 120;
+
+-- 결재 번호가 같고 그 결재에 내 번호가 있는 거에  
+
 -- 결재 라인 
 
 select * from appline;
 
+insert into APPLINE
+values (APPLINE_SEQ.nextval , 8, 120, '0', 0 );
+insert into APPLINE
+values (APPLINE_SEQ.nextval , 8, 119, '0', 0 );
+insert into APPLINE
+values (APPLINE_SEQ.nextval , 8, 104, '0', 0 );
+insert into APPLINE
+values (APPLINE_SEQ.nextval , 9, 120, '0', 0 );
+insert into APPLINE
+values (APPLINE_SEQ.nextval , 10, 120, '0', 0 );
+
+update appline
+set APPROVAL_LINE_COMPLETE_FLAG = '0'
+where ELECTRONIC_NO = 8 AND EMP_NO = 119;
+
 -- 수신 라인
 
 select * from reline;
+
+insert into reline
+values (APPLINE_SEQ.nextval , 8, 120, '1' );
+insert into reline
+values (APPLINE_SEQ.nextval , 9, 120, '0' );
+insert into reline
+values (APPLINE_SEQ.nextval , 10, 120, '0');
+
 
 -- 게시판 폴더
 INSERT INTO OFBOARDFOL VALUES(1, '공지사항');
 INSERT INTO OFBOARDFOL VALUES(2, '자료실');
 INSERT INTO OFBOARDFOL VALUES(3, '커뮤니티');
 INSERT INTO OFBOARDFOL VALUES(OFBOARDFOL_SEQ.nextval, '영업 본부');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

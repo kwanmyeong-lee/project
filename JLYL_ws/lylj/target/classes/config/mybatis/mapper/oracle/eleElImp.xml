@@ -29,5 +29,26 @@
 		where emp_no = #{empNo}
 
 	</select>
+	
+	<select id="selectByEmpNo" resultType="ElectronicVo" parameterType="int">
+				select a.* from 
+				elimp a join appline b
+				on a.electronic_no = b.electronic_no
+				where b.emp_no = #{empNo}
+	</select>
+	
 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

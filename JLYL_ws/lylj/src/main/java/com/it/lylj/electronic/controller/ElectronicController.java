@@ -124,9 +124,13 @@ public class ElectronicController {
 		return "common/message";
 	}
 
-	@GetMapping("/electronicDefaultList")
-	public void electronicWait(Model model) {
-		logger.info("결재 리스트 보여주기 기본값 수정중!!!");
+	@GetMapping("/electronicList")
+	public void electronicWait(HttpSession session, Model model) {
+		String empNo = (String) session.getAttribute("empNo");
+		logger.info("결재 리스트 보여주기 파라미터 empNo={}", empNo);
+		List<ElectronicVo> List = eletronicService.selectByEmpNo(Integer.parseInt(empNo));
+		logger.info("결재 리스트 보여주기 결과 List={}", List);
+		model.addAttribute("List", List);
 		model.addAttribute("navNo", 1);
 	}
 
@@ -155,7 +159,23 @@ public class ElectronicController {
 		model.addAttribute("styleContent", styleContent);
 		// http://localhost:9091/lylj/electronic/electronicDetail?ElectronicNo=1
 	}
-
+	
+	@PostMapping("/AcceptUpdateAppLine")
+	public String AcceptUpdateAppLine(@ModelAttribute ElectronicVo vo, Model model) {
+		logger.info("AppLine 업데이트 파라미터 electronicVo={}", vo);
+		int cnt = electronicAppService.AcceptUpdateAppLine(vo);
+		String url = "/electronic/electronicList", msg = "승인 실패";
+		if(cnt>0) {
+			 msg = "승인 성공";
+		}
+		
+		model.addAttribute("msg", msg	);
+		model.addAttribute("url", url);
+		model.addAttribute("navNo", 1);
+		
+		return "common/message";
+	}
+	
 	@GetMapping("/documentDetail")
 	public String documentDetail(@RequestParam String styleNo, Model model) {
 		logger.info("양식 선택시 디테일 화면 보여주기 파라미터 ={}", styleNo);
@@ -234,5 +254,7 @@ public class ElectronicController {
 		return listmap;
 
 	}
+	
+	
 
 }
