@@ -26,4 +26,9 @@ public interface ConstUtil {
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값
 	int UPLOAD_EMP_FLAG=1;		//사원등록시 사원이미지 
 	int UPLOAD_BOARD_FLAG=2;	//자료실 없로드
+	
+	//예약 승인,대기,취소
+	int BOOKING_APP_FLAG=2;
+	int BOOKING_WAIT_FLAG=0;
+	int BOOKING_RETURN_FLAG=1;
 }

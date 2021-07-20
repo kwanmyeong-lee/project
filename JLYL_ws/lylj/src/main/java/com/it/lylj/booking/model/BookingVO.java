@@ -22,4 +22,5 @@ public class BookingVO {
 	private String bookingDelFlag; /* 취소 여부 */
 	private int bookingTargetNo; /* 예약 대상 번호 */
 	private String bookingContent; /* 예약 내용 */
+	private int scheduleNo; /* 예약 대상 번호 */
 }

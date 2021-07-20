@@ -173,15 +173,15 @@
                 
                 <c:forEach var="i" items="${boFolList }">
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse${i.bookingFolderNo }" aria-expanded="true" aria-controls="collapse1">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse${i.bookingFolderNo }" >
                         <i class="far fa-calendar-minus"></i>
                         <span>${i.bookingFolderName }</span>
                     </a>
-                    <div id="collapse${i.bookingFolderNo }" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="collapse${i.bookingFolderNo }" class="collapse" >
                         <div class="bg-white py-2 collapse-inner rounded">
                     	<c:forEach var="j" items="${boTargetList }">
                     		<c:if test="${j.bookingFolderNo==i.bookingFolderNo }">
-                            <a class="collapse-item" href="assetInfo">${j.bookingTargetName }</a>
+                            <a class="collapse-item" href="assetInfo?bookingTargetNo=${j.bookingTargetNo }&bookingFolderNo=${i.bookingFolderNo }">${j.bookingTargetName }</a>
                             <input type="hidden" class="asset-hidden" value="${j.bookingTargetNo }">
                             </c:if>
                         </c:forEach>
