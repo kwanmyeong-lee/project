@@ -138,10 +138,18 @@
 	$(function(){
 		
 		$('#ok').click(function(){
-			$('form[name=accecp]').submit();
+			$('form[name=apAccept]').submit();
 		});
 		
 		$('#cancel').click(function(){
+			history.back();
+		})
+		
+		$('#reOk').click(function(){
+			$('form[name=reAccept]').submit();
+		});
+		
+		$('#recancel').click(function(){
 			history.back();
 		})
 	});
@@ -149,7 +157,12 @@
 </script>
 <div class="container shadow p-3 mb-5 bg-white rounded">
 
-	<form name="accecp" method="post" action="<c:url value = '/electronic/AcceptUpdateAppLine'/>">
+	<form name="apAccept" method="post" action="<c:url value = '/electronic/AcceptUpdateAppLine?no=${param.no }'/>">
+			<input type="hidden" name="empNo" value="${sessionScope.empNo }">
+			<input type="hidden" name="electronicNo" value="${vo.electronicNo }">
+	</form>
+	
+	<form name="reAccept" method="post" action="<c:url value = '/electronic/AcceptUpdateReLine?no=${param.no }'/>">
 			<input type="hidden" name="empNo" value="${sessionScope.empNo }">
 			<input type="hidden" name="electronicNo" value="${vo.electronicNo }">
 	</form>
@@ -208,8 +221,14 @@
 					<br>
 					<div class="form-row" style="justify-content: center;">
 						<div class="form-group">
-							<button type="button" id="ok" class="btn btn-light btn-outline-secondary">승인</button>
-							<button type="button" id="cancel" class="btn btn-light btn-outline-secondary">보류</button>
+							<c:if test="${param.no eq '2' }">
+								<button type="button" id="reOk" class="btn btn-light btn-outline-secondary">받음</button>
+								<button type="button" id="recancel" class="btn btn-light btn-outline-secondary">안받음처리</button>
+							</c:if>
+							<c:if test="${param.no != '2' }">
+								<button type="button" id="ok" class="btn btn-light btn-outline-secondary">승인</button>
+								<button type="button" id="cancel" class="btn btn-light btn-outline-secondary">보류</button>
+							</c:if>
 						</div>
 					</div>
 				</div>

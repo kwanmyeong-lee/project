@@ -71,27 +71,7 @@
 		    		
 		    		
 			        $('form[name=docfrm]').submit();
-		    		
-			   /*      
-			        
-		    		$.ajax({
-		    			url : "<c:url value='/electronic/insertAppLine'/>",
-		    			data : {
-							empNo : empNoData
-						},
-						type : "get",
-						dataType : "json",
-						success : function(res) {
-
-						},
-						error : function(xhr, status, error) {
-							alert("error!" + error);
-							alert(xhr.status);
-							alert(thrownError);
-						}
-		    		});
-		            
-		          */
+		  
 				
 		});
 		

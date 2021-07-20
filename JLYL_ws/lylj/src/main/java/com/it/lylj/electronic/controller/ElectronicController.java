@@ -40,7 +40,7 @@ public class ElectronicController {
 	private final ElectronicDocFolService electronicDocFolService;
 	private final ElectronicDocStyService electronicDocStyService;
 	private final EmpService empService;
-	private final ElectronicService eletronicService;
+	private final ElectronicService electronicService;
 	private final ElectronicAppLineService electronicAppService;
 	private final ElectronicReLineService electronicReService;
 
@@ -77,7 +77,7 @@ public class ElectronicController {
 		logger.info("양식 등록 하기 파라미터 ElectronicVo={}", vo);
 		String empNo = (String) session.getAttribute("empNo");
 		vo.setEmpNo(Integer.parseInt(empNo));
-		int cnt = eletronicService.insertEle(vo);
+		int cnt = electronicService.insertEle(vo);
 		logger.info("세션에서 empNo={}", empNo);
 		logger.info("결재 라인 결재자 AempNoData={}", AempNoData);
 		logger.info("결재 라인 결재자 RempNoData={}", RempNoData);
@@ -88,7 +88,7 @@ public class ElectronicController {
 			url = "/electronic/documentSelect?no=" + 2;
 		}
 		
-		int electronicNo= eletronicService.selectMaxEleNo(Integer.parseInt(empNo));
+		int electronicNo= electronicService.selectMaxEleNo(Integer.parseInt(empNo));
 		logger.info("electronicNo={}", electronicNo);
 		
 		String[] ApEmpNo = AempNoData.split(",");
@@ -125,10 +125,13 @@ public class ElectronicController {
 	}
 
 	@GetMapping("/electronicList")
-	public void electronicWait(HttpSession session, Model model) {
+	public void electronicWait(@RequestParam String no, HttpSession session, Model model) {
+		logger.info("사이드바 선택 번호 no ={}", no);
 		String empNo = (String) session.getAttribute("empNo");
 		logger.info("결재 리스트 보여주기 파라미터 empNo={}", empNo);
-		List<ElectronicVo> List = eletronicService.selectByEmpNo(Integer.parseInt(empNo));
+		
+		List<Map<String, Object>> List = electronicService.selectListByEmpNo(Integer.parseInt(empNo), no);
+			
 		logger.info("결재 리스트 보여주기 결과 List={}", List);
 		model.addAttribute("List", List);
 		model.addAttribute("navNo", 1);
@@ -141,9 +144,9 @@ public class ElectronicController {
 	}
 
 	@GetMapping("/electronicDetail")
-	public void electronicDetail(@RequestParam int ElectronicNo, Model model) {
+	public void electronicDetail(@RequestParam int ElectronicNo, @RequestParam String no, Model model) {
 		logger.info("문서 선택시 디테일 화면 보여주기 파라미터 ElectronicNo={}", ElectronicNo);
-		ElectronicVo vo = eletronicService.selectByElectronicNo(ElectronicNo);
+		ElectronicVo vo = electronicService.selectByElectronicNo(ElectronicNo);
 		logger.info("vo={}", vo);
 		ElectronicDocStyVO svo = electronicDocStyService.selectByStyleNo(Integer.toString(vo.getStyleNo()));
 		String styleContent = svo.getStyleContent();
@@ -160,13 +163,31 @@ public class ElectronicController {
 		// http://localhost:9091/lylj/electronic/electronicDetail?ElectronicNo=1
 	}
 	
-	@PostMapping("/AcceptUpdateAppLine")
-	public String AcceptUpdateAppLine(@ModelAttribute ElectronicVo vo, Model model) {
+	@RequestMapping("/AcceptUpdateAppLine")
+	public String AcceptUpdateAppLine(@ModelAttribute ElectronicVo vo,@RequestParam String no, Model model) {
+		logger.info("리스트 번호 no ={}", no);
 		logger.info("AppLine 업데이트 파라미터 electronicVo={}", vo);
 		int cnt = electronicAppService.AcceptUpdateAppLine(vo);
-		String url = "/electronic/electronicList", msg = "승인 실패";
+		String url = "/electronic/electronicList?no="+no, msg = "승인 실패";
 		if(cnt>0) {
 			 msg = "승인 성공";
+		}
+		
+		model.addAttribute("msg", msg	);
+		model.addAttribute("url", url);
+		model.addAttribute("navNo", 1);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/AcceptUpdateReLine")
+	public String AcceptUpdateReLine(@ModelAttribute ElectronicVo vo,@RequestParam String no, Model model) {
+		logger.info("리스트 번호 no ={}", no);
+		logger.info("ReLine 업데이트 파라미터 electronicVo={}", vo);
+		int cnt = electronicReService.AcceptUpdateReLine(vo);
+		String url = "/electronic/electronicList?no="+no, msg = "수신 실패";
+		if(cnt>0) {
+			 msg = "수신 확인 성공";
 		}
 		
 		model.addAttribute("msg", msg	);
