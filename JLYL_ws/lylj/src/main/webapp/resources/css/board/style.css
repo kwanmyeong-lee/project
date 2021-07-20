@@ -374,6 +374,7 @@
     font-weight: normal;
 }
 
+
 #upFile{
 	float: right;
 	color: white;
@@ -386,6 +387,7 @@
 	width: 65px;	
 }
 #upFileList{
+	float: left;	
 	width: auto;
 	padding: 2px 0;
 }
@@ -427,12 +429,20 @@
     margin-right: 10px;
     font-size: 15px;
 }
-.replyAddDiv{
-	padding-left: 75px;	
+
+#replyAddDiv{
+	display: flex;
+	padding-top: 20px;
+}
+
+#replyAddDiv > .replyImg{
+	float: left;
+	margin: auto 20px;
 }
 
 .replyDiv{
 	display: flex;
+	margin-top: 20px;
 }
 
 .replyImg{
@@ -469,9 +479,19 @@
     margin-left:10px;
 }
 
-#commentTa{
+.commentTa{
     font-size: 16px;
     resize: none;
+}
+
+.userNameComm{
+	font-weight: bold;	
+	margin-left: 5px;
+}
+
+.contentComm{
+	font-size: 15px;
+	margin-top:7px;
 }
 
 #commentUp{
@@ -484,7 +504,14 @@
     font-size: 15px;
 }
 
-#replyBtn{
+.replyCancleBtn{
+	font-size: 15px;
+	margin-left: 10px; 
+	border-radius: 7px;
+	border: none;
+}
+
+.replyBtn{
 	font-size: 15px;
 	margin-left: 10px; 
 	border-radius: 7px;
