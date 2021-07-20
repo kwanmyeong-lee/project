@@ -29,10 +29,11 @@ public class AssiduityController {
 	
 	@GetMapping("/insertComTime")
 	@ResponseBody
-	public void insertComTime(AttendDayVO vo){
+	public int insertComTime(AttendDayVO vo){
 		
 		attendDayService.insertAttendDay(vo);
 		
+		return 1;
 	}//ajax 전체 일정 불러오기
 	
 	
