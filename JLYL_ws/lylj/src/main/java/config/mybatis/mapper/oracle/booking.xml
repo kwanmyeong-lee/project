@@ -3,8 +3,31 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.it.lylj.booking.model.BookingDAO">
+
+	<resultMap id="booking_clob" type="bookingVO">
+		    <result property="bookingNo" column="BOOKING_NO" />
+		    <result property="empNo" column="EMP_NO" />
+		    <result property="bookingCurrent" column="BOOKING_CURRENT" />
+		    <result property="bookingStart" column="BOOKING_START" />
+		    <result property="bookingEnd" column="BOOKING_END" />
+		    <result property="bookingAppFlag" column="BOOKING_APP_FLAG" />
+		    <result property="bookingDelFlag" column="BOOKING_DEL_FLAG" />
+		    <result property="bookingTargetNo" column="BOOKING_TARGET_NO" />
+		    <result property="bookingContent" column="BOOKING_CONTENT" jdbcType="CLOB" javaType="java.lang.String"/>
+		    <result property="scheduleNo" column="SCHEDULE_NO" />
+	</resultMap>
+
+	<insert id="insertBooking" parameterType="bookingVo">
+		insert into BOOKING
+		values(booking_seq.nextval, #{empNo}, sysdate, #{bookingStart}, #{bookingEnd},
+        #{bookingAppFlag:VARCHAR},#{bookingDelFlag:VARCHAR},#{bookingTargetNo},#{bookingContent:CLOB}, 
+        #{scheduleNo})
+    </insert>
 	
-	
+	<select id="selectAllBookingByEmpNo" parameterType="int" resultMap="booking_clob">
+		select * from booking
+		where EMP_NO=#{empNo}
+	</select>
 	
  </mapper>
 

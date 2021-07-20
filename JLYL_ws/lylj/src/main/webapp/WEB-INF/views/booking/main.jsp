@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <%@ include file="top.jsp"%>
 <script src='<c:url value="/resources/js/booking/top.js"/>'></script>
@@ -32,11 +33,7 @@
             <article>
                 <div class="main-div">
                     <h3 class="main-h1">자산 예약 현황</h3>
-                    <select class="asset">
-                    	<option>자산1</option>
-                    	<option>자산2</option>
-                    	<option>자산3</option>
-                    </select>
+                    
                     <br>
                     <br>
                         <div id='calendar'></div>
@@ -45,23 +42,48 @@
                         <h3 class="main-h1">내 예약/대여 현황</h3>
                         <table class="table table-hover main-table">
                             <colgroup>
+                                <col style="width: 15%;"/>
+                                <col style="width: 15%;"/>
+                                <col style="width: 40%;"/>
                                 <col style="width: 20%;"/>
-                                <col style="width: 20%;"/>
-                                <col style="width: 50%;"/>
                                 <col style="width: 10%;"/>
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th scope="col">자산</th>
                                     <th scope="col">이름</th>
-                                    <th scope="col">예약 시간</th>
+                                    <th scope="col">예약 기간</th>
+                                    <th scope="col">신청 날짜</th>
                                     <th scope="col">취소/반납</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td align="center" colspan="4">예약/대여 중인 항목이 없습니다.</td>
-                                </tr>
+								<c:if test="${fn:length(bookingList) <1 }">
+	                                <tr>
+	                                    <td align="center" colspan="4">예약/대여 중인 항목이 없습니다.</td>
+	                                </tr>
+                                </c:if>
+                                <c:if test="${fn:length(bookingList) >0 }">
+	                                <c:forEach var="i" items="${bookingList }">
+	                                <tr>
+	                                    <td >${boTargetList[i.bookingTargetNo-1].bookingTargetName}</td>
+	                                    <td >${empName}</td>
+	                                    <td >${i.bookingStart} ~ ${i.bookingEnd}</td>
+	                                    <td ><fmt:formatDate value="${i.bookingCurrent}" pattern="YYYY-MM-DD HH:mm:ss"/></td>
+	                                    <c:choose>
+	                                    	<c:when test="${bookingAppFlag==2}">
+	                                    		<td >승인</td>
+	                                    	</c:when>
+	                                    	<c:when test="${bookingAppFlag==1}">
+	                                    		<td >반려</td>
+	                                    	</c:when>
+	                                    	<c:otherwise>
+	                                    		<td >대기</td>
+	                                    	</c:otherwise>
+	                                    </c:choose>
+	                                </tr>
+	                                </c:forEach>
+                                </c:if>
                             </tbody>
                         </table>
                     </div>

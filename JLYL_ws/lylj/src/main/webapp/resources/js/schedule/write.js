@@ -71,8 +71,6 @@ $(function(){
             var empNo = $('#empNo').val();
             var scheduleContent=$('#scheduleContent').val();
             
-            alert(scheduleStart);
-            alert(scheduleEnd);
             $.ajax({    
                       type:'POST',
                       url:"insertSchedule",

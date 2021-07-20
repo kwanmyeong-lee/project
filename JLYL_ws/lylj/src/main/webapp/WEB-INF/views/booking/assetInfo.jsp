@@ -33,7 +33,11 @@
 <div >
 <article>
 <div>
-	<h1>대회의실</h1>
+	<h1>${boTargetList[bTNo-1].bookingTargetName}</h1>
+	<input type="hidden" class="bTNo" value="${bTNo }">
+	<input type="hidden" class="bFNo" value="${bFNo }">
+	<input type="hidden" class="empNo" value="${empNo }">
+	<input type="hidden" class="empName" value="${empName }">
 	<hr>
 </div>
 
@@ -64,7 +68,7 @@
         			<c:if test="${i%2 eq 1 }">
         				<c:set var ="sec" value="30"/>
         			</c:if>
-        			<option class="optionTime" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
+        			<option class="optionTime" id="option-startTime${i}" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
         		</c:forEach>
         	</select>
         	
@@ -76,14 +80,14 @@
         			<c:if test="${i%2 eq 1 }">
         				<c:set var ="sec" value="30"/>
         			</c:if>
-        			<option class="optionTime" id="option-endTime${i}" value="${i }"> <fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
+        			<option class="optionTime" id="option-endTime${i}" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
         		</c:forEach>
         	</select>
         	<input type="checkbox" class="chk-day"><span class="chk-span">종일</span>
         	<br>
         	
-        	<label class="labelTime">예약자</label><span>홍길동</span><br>
-        	<label class="labelTime labelTime2">예약목적</label><input type="text" id="addContent"><br>
+        	<label class="labelTime">예약자</label><span>${empName}</span><br>
+        	<label class="labelTime labelTime2">예약목적</label><input type="text" id="scheduleContent"><br>
         	<br>
         	
         </form>
@@ -92,7 +96,7 @@
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-info" id="btn-write">일정 상세 입력</button>
-        <button type="button" class="btn btn-info" id="btn-add">등록</button>
+        <button type="button" class="btn btn-info" id="btdd">등록</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
       </div>
 

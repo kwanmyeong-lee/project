@@ -12,4 +12,6 @@ public interface ScheduleService {
 	ScheduleVO selectScheduleByScheduleNo(int scheduleNo);
 	int deleteScheduleByScheduleNo(int scheduleNo);
 	int selectMaxScNoByEmpNo(int empNo);
+	List<ScheduleVO> selectAllScheduleByBTNo(int bookingTargetNo);
+	List<ScheduleVO> selectAllScheduleByScThemeNo(int scheduleThemeNo);
 }
