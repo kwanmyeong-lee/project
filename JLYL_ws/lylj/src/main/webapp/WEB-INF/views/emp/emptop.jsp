@@ -68,6 +68,15 @@
 .sidebar-divider{
 	color: black;
 }
+#adminMain{
+	height: 40px;
+	text-align: center;
+	text-decoration: none;
+	color: white;
+	font-weight: 300;
+	font-size: 1em;
+}
+
 </style>
 
 
@@ -81,23 +90,25 @@
 
 				<!-- 여기서부터 왼쪽 -->
 <!--Sidebar-Brand-->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value=" /index"/>">
+<a class="sidebar-brand d-flex align-items-center justify-content-center " href="<c:url value=" /index"/>">
 <div class="sidebar-brand-text mx-3">
 	메인으로이동
 </div>
 </a>
-<!--Heading-->
-<div class="scheduleAdd" id="topNavButton">
-	<a href="<c:url value="/emp/empWrite"/>"><button type="button" class="btn btn-light btnSchAdd" id="newDocument">사원등록</button></a>
-</div>
-<!--Divider-->
 <hr class="sidebar-divider d-none d-md-block">
+<!--Heading-->
+<a class="adminMain" id="adminMain" href="<c:url value="/admin"/>">
+<div class="sidebar-brand-text mx-3 ">
+	관리자메인
+</div>
+</a>
+<!--Divider-->
 <!--Nav Item-Pages Collapse Menu-->
 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#collapseOne" data-bs-toggle="collapse" role="button" aria-expanded="ture" aria-controls="collapseOne"><i class="fas fa-user-circle"></i><span>사원관리</span></a>
 <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 	<div class="bg-white py-2 collapse-inner rounded">
 		<a class="collapse-item" href="<c:url value='/emp/empList'/>">사원목록</a>
-        <a class="collapse-item" href="<c:url value='/email/emailTrashcan'/>">기타하나정도있음</a>
+        <a class="collapse-item" href="<c:url value='/emp/empWrite'/>">사원등록</a>
 	</div>
 </div>
 </li>
