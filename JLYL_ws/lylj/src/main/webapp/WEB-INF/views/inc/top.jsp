@@ -300,7 +300,7 @@
 						<li class="nav-item topNavText"><a class="nav-link"
 							href="<c:url value="/electronic/electronicMain"/>" id="testBt"
 							role="button"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">전자 결제</span>
+								class="mr-2 d-none d-lg-inline text-gray-600 small">전자 결재</span>
 						</a></li>
 						<li class="nav-item topNavText"><a class="nav-link"
 							href="<c:url value="/email/emailMain"/>" role="button"> <span
