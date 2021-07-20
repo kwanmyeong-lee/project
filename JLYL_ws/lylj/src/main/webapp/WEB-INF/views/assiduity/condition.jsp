@@ -8,6 +8,8 @@
 <!-- 달력 -->
 <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
 <script src='//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<!-- 팝업 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <link
 	href="<c:url value="/resources/css/assiduity/condition.css"/>"

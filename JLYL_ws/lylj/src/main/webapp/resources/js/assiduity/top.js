@@ -21,7 +21,7 @@ $(function() {
             $('#dayWorkTime').text(dayWorkTime);
 
         } else {
-            alert("출근을 하세요");
+            swal("출근을 해야합니다" ,  "" ,  "error" );
         }
     });
 
