@@ -234,21 +234,36 @@ $(function(){
 	
 	$('#btnCome').click(function(){
 		var now = $('#clockTime').text();
+		var ymd= new Date();
+		ymd= moment(ymd).format("YYYY-MM-DD");
 		
-		$('#comeTime').text(now);
-		$(this).prop("disabled",true);
-		var comeNum = hourMin(now);
+		var attendanceDayRegdate = ymd;
+		var empNo = $('.empNo').val();
+		var attendanceDayOnHour = ymd+" "+now
 		
-		var comef="#content-td"+comeNum;
-		
-		var nDate=new Date();
-		var weekNum= getWeekOfMonth(nDate);
-		var weekDay=moment(nDate).format('d');
-		
-		var parent="#content"+weekNum+"Div"+weekDay;
-		
-		$(parent).find(comef).css("background","blue");
-		
+		$.ajax({    
+            type:'get',
+            url:"insertComTime",
+            data:{empNo:empNo, attendanceDayOnHour:attendanceDayOnHour,
+            	attendanceDayRegdate:attendanceDayRegdate},
+            dataType: "json",
+            success : function(data) {
+ 
+        		$('#comeTime').text(now);
+        		$('#btnCome').prop("disabled",true);
+        		var comeNum = hourMin(now);
+        		
+        		var comef="#content-td"+comeNum;
+        		
+        		var nDate=new Date();
+        		var weekNum= getWeekOfMonth(nDate);
+        		var weekDay=moment(nDate).format('d');
+        		
+        		var parent="#content"+weekNum+"Div"+weekDay;
+        		
+        		$(parent).find(comef).css("background","blue");
+            }
+          });
 		
 		
 		
@@ -479,6 +494,9 @@ window.onload= function(){
         <div>
             <article>
                <h3>근태현황</h3>
+               <input type="hidden" class="empNo" value="${empNo }">
+			   <input type="hidden" class="empName" value="${empName }">
+			   
                <div class="now-div text-center">
                		<span class="now-span" id="nowLeft"><i class="fas fa-chevron-left"></i></span>
                		<span class="now-span" id="nowYearMonth"></span>

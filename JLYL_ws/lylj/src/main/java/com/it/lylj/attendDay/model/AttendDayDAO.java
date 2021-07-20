@@ -6,5 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface AttendDayDAO {
-	AttendDayVO selectAttendDayByRegdate(Date attendanceDayRegdate);
+	AttendDayVO selectAttendDayByRegdate(AttendDayVO vo);
+	int insertAttendDay(AttendDayVO vo);
 }
