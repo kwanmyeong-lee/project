@@ -92,7 +92,7 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<form class="loginFrm" method="post" action="<c:url value="/"/>">
+					<form class="loginFrm" method="post" action="<c:url value="/login/login"/>">
 						<div class="card2 card border-0 px-4 py-5">
 							<div class="row mb-4 px-3">
 							</div>
@@ -110,8 +110,8 @@
 							</div>
 							<div class="row px-3 mb-4">
 								<div class="custom-control custom-checkbox custom-control-inline">
-									<input id="chk1" type="checkbox" name="chkSave" class="custom-control-input"> 
-									<label for="chk1" name="chkSave" id="chkSave" class="custom-control-label text-sm">아이디 저장하기</label>
+									<input id="chk1" type="checkbox" name="chkSave" class="custom-control-input" <c:if test="${!empty cookie.ck_empNo}"> checked="checked" </c:if>>
+									<label for="chk1" id="chkSave" class="custom-control-label text-sm">아이디 저장하기</label>
 								</div>
 								<a href="#" id="findPwd" class="ml-auto mb-0 text-sm" >비밀번호찾기</a>
 							</div>
@@ -143,7 +143,7 @@
 	
 	      <!-- Modal body -->
  		 <div class="modal-body">
-		    <form name="findPwdfrm" id="findPwdfrm" method="post" action="<c:url value="emp/findPwd"/>">
+		    <form name="findPwdfrm" id="findPwdfrm" method="post" action="<c:url value="login/findPwd"/>">
      	        <div class="row px-3">
      		        <label class="mb-1" for="empNo">사원번호</label> 
 	                <input class="mb-4" type="text" name="empNo" id="modalEmpNo" placeholder="Enter employee number">

@@ -5,9 +5,9 @@
 <mapper namespace="com.it.lylj.emp.model.EmpDAO">
 	<!-- 검색조건 -->	
 	<sql id="searchWhere">
-		<if test="searchKeyword!=null and searchKeyword!=''">
-			where ${searchCondition}  like '%' || #{searchKeyword} || '%'
-		</if>
+	   <if test="searchKeyword!=null and searchKeyword!=''">
+		 and ${searchCondition}  like '%' || #{searchKeyword} || '%'
+	   </if>
 	</sql>
 	<!-- 사원등록 -->
 	<insert id="insertEmp" parameterType="empVo">
@@ -42,8 +42,9 @@
 		    select rownum as RNUM, A.*
 		    from
 		    (
-		    	select * from empView
-		       <include refid="searchWhere"/>
+		       select * from empView
+		       where EMP_RESDATE is null
+			   <include refid="searchWhere"/>
 		       order by emp_no desc
 		    )A
 		)
@@ -56,12 +57,14 @@
 	<!-- 사원정보 전체선택 2 -->
 	<select id="selectAllEmp"  resultType="empVo">
 		select * from empview
+		where EMP_RESDATE is null
 		order by EMP_NO		
 	</select>
 	
 	<!-- 사원 전체 수 -->
 	<select id="selectTotalEmp" parameterType="searchVo" resultType="int">
 		select count(*) from empView
+		where EMP_RESDATE is null
 		<include refid="searchWhere"/>
 	</select>
 	
@@ -83,7 +86,24 @@
 		select * from selectstamp
 		where emp_no = #{empNo}
 	</select>
-
+	
+	<update id="deleteEmp" parameterType="int">
+		update emp
+		set emp_resdate = sysdate
+		where emp_no = #{empNo}
+	</update>
+	
+	<select id="checkEmail" parameterType="int" resultType="String">
+		select emp_email from emp
+		where emp_no = #{empNo}
+	</select>
+	
+	<update id="updateTempPwd" parameterType="empVo">
+		update emp
+		set emp_pwd = #{empPwd}
+		where emp_no = #{empNo}
+	</update>
+	
 </mapper>
 
 

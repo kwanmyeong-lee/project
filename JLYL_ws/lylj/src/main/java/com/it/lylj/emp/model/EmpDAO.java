@@ -18,4 +18,7 @@ public interface EmpDAO {
 	Map<String, Object> selectstampList(String empNo);
 	int selectTotalEmp(SearchVO searchVo);
 	int updateEmp(EmpVO vo);
+	int deleteEmp(int empNo);
+	String checkEmail(int empNo);
+	int updateTempPwd(EmpVO vo);
 }

@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.eclipse.jdt.internal.compiler.lookup.VoidTypeBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +45,7 @@ public class EmpController {
 	private final DepartmentService departmentService;
 	private final EmpService empService;
 	private final FileUploadUtil fileUploadUtil;
+	private final PasswordEncoder passwordEncoder;
 	
 	//사원등록페이지
 	@GetMapping("/empWrite")
@@ -136,15 +137,13 @@ public class EmpController {
 		//1
 		logger.info("사원정보디테일 페이지, 파라미터 empNo={}",empNo);
 		
-		//vo 보내기
+		//
 		EmpVO vo = empService.selectByEmpNo(empNo);
 		logger.info("사원정보, 파라미터 vo={}",vo);
-		//3
-		//관리자 레벨일 경우 관리자 nav
-		if(vo.getEmpAdminLev()==1||vo.getEmpAdminLev()==2) {
-			model.addAttribute("navNo", 8);
-		}
 		
+		//3
+		
+		model.addAttribute("navNo", 8);
 		model.addAttribute("vo", vo);
 
 		return "emp/empInfo";
@@ -157,12 +156,9 @@ public class EmpController {
 		int adminLev = (int)session.getAttribute("empAdminLev");
 		EmpVO empVo = empService.selectByEmpNo(empNo);
 		logger.info("사원정보수정페이지, adminLev={}", adminLev);
-		
-		// 관리레벨이 1, 2이면 관리자정보로
-		if(adminLev==1 || adminLev==2) {
-			model.addAttribute("navNo", 8);
-		}
-		
+
+			
+		model.addAttribute("navNo", 8);
 		model.addAttribute("empVo", empVo);
 		
 		return "emp/empEdit";
@@ -203,6 +199,17 @@ public class EmpController {
 			if(cnt>0) {
 				msg="사원정보가 수정되었습니다.";
 				url="/emp/empInfo?empNo="+empVo.getEmpNo();
+				
+				//사진파일 수정시 기존파일 삭제
+				if(!list.isEmpty()) {
+	            	if(oldFileName!=null && !oldFileName.isEmpty()) {
+	            		File oldFile = new File(fileUploadUtil.getUploadPath(request,ConstUtil.UPLOAD_EMP_FLAG), oldFileName);
+	            		if(oldFile.exists()) {
+	            			boolean bool = oldFile.delete();
+	            			logger.info("기존파일 삭제여부 : {}", bool);
+	            		}
+	            	}
+	            }//
 			}
 			
 		}else if(result==EmpService.PWD_DISAGREE) {
@@ -245,6 +252,64 @@ public class EmpController {
 		model.addAttribute("pagingInfo", pagingInfo);
 		
 		return "emp/empList";
+		
+	}
+	
+	@PostMapping("/leaveEmp")
+	public String deleteEmp(@RequestParam String modalEmpNo, @RequestParam String modalAdmin, @RequestParam String modalAdminPwd, Model model) {
+		int delEmpNo = Integer.parseInt(modalEmpNo);
+		int adminEmpNo = Integer.parseInt(modalAdmin);
+		
+		logger.info("사원퇴사처리 삭제요청관리자, modalEmpNo={}, adminEmpNo={}",modalEmpNo, adminEmpNo);
+		logger.info("사원퇴사처리 삭제사원번호, modalEmpNo={}",modalEmpNo);
+
+		String msg = "", url= "";
+		int result = empService.loginProc(adminEmpNo, modalAdminPwd);
+		
+		if(result == EmpService.LOGIN_OK) {
+			int cnt = empService.deleteEmp(delEmpNo);
+			msg="퇴사되었습니다.";
+			url="/emp/empList";
+		}else {
+			msg="요청이 실패되었습니다.";
+			url="/emp/empList";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@PostMapping("/changePwd")
+	public String changePwd(@ModelAttribute EmpVO vo, @RequestParam String changeEmpPwd, Model model) {
+		logger.info("비밀번호변경, 변경요청 vo={}",vo);
+		
+		//2
+		String dbPwd = empService.selectPwd(vo.getEmpNo());
+		logger.info("비밀번호변경, 변경요청 dbPwd={}, changeEmpPwd={}",dbPwd,changeEmpPwd);
+		String msg ="", url="";
+		
+		if(passwordEncoder.matches(vo.getEmpPwd(), dbPwd)) {//dbpwd와 입력한 비밀번호가 동일하면
+			//변경요청
+			vo.setEmpPwd(changeEmpPwd);
+			int cnt = empService.updateTempPwd(vo);
+			
+			if(cnt>0) {
+				msg="비밀번호가 변경되었습니다. 로그아웃됩니다.";
+				url="/login/logout";
+			}else {
+				msg="비밀번호가 변경되지 않았습니다. 다시 시도해주세요";
+				url="/emp/empEdit?empNo="+vo.getEmpPwd();
+			}
+		}else {
+			msg="비밀번호가 다릅니다, 다시확인해주세요";
+			url="/emp/empEdit?empNo="+vo.getEmpPwd();
+		}
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "common/message";
 		
 	}
 
