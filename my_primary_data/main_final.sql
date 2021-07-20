@@ -43,6 +43,10 @@ DROP SEQUENCE SCFOLDER_SEQ;
 DROP SEQUENCE BOFOL_SEQ;
 DROP SEQUENCE BOTARGET_SEQ;
 DROP SEQUENCE BOOKING_SEQ;
+DROP SEQUENCE BREAKDAY_SEQ;
+DROP SEQUENCE ATTEND_SEQ;
+DROP SEQUENCE ATTENDDAY_SEQ;
+DROP SEQUENCE BREAKTHEME_SEQ;
 
 DROP VIEW selectstamp;
 DROP VIEW apEleList;
@@ -93,6 +97,35 @@ MAXVALUE 9999999999999999999999999999
 INCREMENT BY 1 
 START WITH 1 
 NOCACHE;
+
+CREATE SEQUENCE ATTENDDAY_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
+
+CREATE SEQUENCE ATTEND_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
+
+CREATE SEQUENCE BREAKTHEME_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
+
+CREATE SEQUENCE BREAKDAY_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
+
 
 CREATE SEQUENCE DOCSTY_SEQ
 MINVALUE 100
@@ -274,7 +307,7 @@ CREATE TABLE OFBOARD (
 	BOARD_TITLE VARCHAR2(255) NOT NULL, /* 제목 */
 	BOARD_CONTENT CLOB, /* 내용 */
 	BOARD_WRITER VARCHAR2(255) NOT NULL, /* 글쓴이 */
-	BOARD_HITS NUMBER, /* 조회수 */
+	BOARD_HITS NUMBER DEFAULT 1, /* 조회수 */
 	BOARD_DATE DATE DEFAULT SYSDATE, /* 작성일 */
 	BOARD_FOLDER_NO NUMBER /* 게시판 폴더 번호 */
 );
@@ -301,7 +334,8 @@ CREATE TABLE BOOKING (
 	BOOKING_APP_FLAG VARCHAR2(255) DEFAULT '0', /* 승인 여부 */
 	BOOKING_DEL_FLAG VARCHAR2(255) DEFAULT '0', /* 취소 여부 */
 	BOOKING_TARGET_NO NUMBER, /* 예약 대상 번호 */
-	BOOKING_CONTENT CLOB /* 예약 내용 */
+	BOOKING_CONTENT CLOB, /* 예약 내용 */
+	SCHEDULE_NO NUMBER DEFAULT 0 /* 달력 번호 */
 );
 
 CREATE UNIQUE INDEX PK_BOOKING
@@ -362,10 +396,9 @@ ALTER TABLE ELFILE
 CREATE TABLE DOCSTY (
 	STYLE_NO NUMBER NOT NULL, /* 양식번호 */
 	STYLE_NAME VARCHAR2(255) NOT NULL, /* 양식이름 */
-    STYLE_CONTENT CLOB, /* 양식내용 */
+	STYLE_CONTENT CLOB, /* 양식내용 */
 	FOLDER_NO NUMBER /* 문서 폴더 번호 */
 );
-
 
 CREATE UNIQUE INDEX PK_DOCSTY
 	ON DOCSTY (
@@ -385,7 +418,6 @@ CREATE TABLE APPSTAMP (
 	EMP_NO NUMBER, /* 사원 번호 */
 	STAMP_NAME VARCHAR2(255) NOT NULL /* 파일이름 */
 );
-
 
 CREATE UNIQUE INDEX PK_APPSTAMP
 	ON APPSTAMP (
@@ -463,7 +495,8 @@ CREATE TABLE ATTENDDAY (
 	ATTENDANCE_DAY_ON_HOUR DATE, /* 출근 시간 */
 	ATTENDANCE_DAY_OFF_HOUR DATE, /* 퇴근 시간 */
 	ATTENDANCE_DAY_WORK_HOUR DATE, /* 근무 시간 */
-	ATTENDANCE_DAY_HOLIDAY_FLAG VARCHAR2(255) DEFAULT 0 /* 휴일 여부 */
+	ATTENDANCE_DAY_HOLIDAY_FLAG VARCHAR2(255) DEFAULT 0, /* 휴일 여부 */
+	ATTENDANCE_DAY_REGDATE DATE NOT NULL /* 등록 날짜 */
 );
 
 CREATE UNIQUE INDEX PK_ATTENDDAY
@@ -695,9 +728,6 @@ CREATE TABLE DOCFOL (
 	FOLDER_NO NUMBER NOT NULL, /* 문서 폴더 번호 */
 	FOLDER_NAME VARCHAR(255) DEFAULT '기본' /* 문서 폴더 이름 */
 );
-select * from docfol;
-
-
 
 CREATE UNIQUE INDEX PK_DOCFOL
 	ON DOCFOL (
@@ -839,7 +869,7 @@ ALTER TABLE OFBOARD
 		REFERENCES OFBOARDFOL (
 			BOARD_FOLDER_NO
 		)
-        ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
 ALTER TABLE BOOKING
 	ADD
@@ -940,7 +970,7 @@ ALTER TABLE OFBOARDFILE
 		REFERENCES OFBOARD (
 			BOARD_NO
 		)
-        ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
 ALTER TABLE OFBOARDCOM
 	ADD
@@ -951,7 +981,7 @@ ALTER TABLE OFBOARDCOM
 		REFERENCES OFBOARD (
 			BOARD_NO
 		)
-        ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
 ALTER TABLE OFBOARDLIKE
 	ADD
@@ -962,7 +992,7 @@ ALTER TABLE OFBOARDLIKE
 		REFERENCES OFBOARD (
 			BOARD_NO
 		)
-        ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
 ALTER TABLE OFBOARDLIKE
 	ADD
@@ -1169,7 +1199,10 @@ insert into scfolder values(scfolder_seq.nextval, '(기본)일정', '#4ea0ec', 1
 
 --일정정보
 insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',1,1,119,null,'asd');
-select * from calendar;
+select * from calendar where SCHEDULE_THEME_NO=2;
+
+select * from calendar
+		where EMP_NO=119 and SCHEDULE_THEME_NO=2;
 --예약폴더
 insert into BOFOL  values(bofol_seq.nextval, '본사1층회의실');
 insert into BOFOL  values(bofol_seq.nextval, '본사5층회의실');
@@ -1185,6 +1218,26 @@ insert into BOTARGET  values(botarget_seq.nextval, '7498아반떼',3);
 insert into BOTARGET  values(botarget_seq.nextval, '3929아반떼',3);
 insert into BOTARGET  values(botarget_seq.nextval, '빔프로젝터1',4);
 insert into BOTARGET  values(botarget_seq.nextval, '빔프로텍터2',4);
+
+--예약정보
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',1,2,119,1,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',1,2,119,2,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',2,2,119,3,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',2,2,119,4,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',3,2,119,5,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',3,2,119,6,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',4,2,119,7,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',4,2,119,8,'asd');
+
+--예약정보
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,1,'asd', 2);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,2,'asd', 3);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,3,'asd', 4);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,4,'asd', 5);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,5,'asd', 6);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,6,'asd', 7);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,7,'asd', 8);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,8,'asd', 9);
 
 --전자 결재 문서 폴더
 select * from docfol;
