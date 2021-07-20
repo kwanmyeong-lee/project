@@ -27,6 +27,7 @@
 	<select id="selectAllBookingByEmpNo" parameterType="int" resultMap="booking_clob">
 		select * from booking
 		where EMP_NO=#{empNo}
+		order by BOOKING_NO desc
 	</select>
 	
  </mapper>

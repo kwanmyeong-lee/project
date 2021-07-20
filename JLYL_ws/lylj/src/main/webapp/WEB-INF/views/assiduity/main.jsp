@@ -9,6 +9,8 @@
 <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
 <script src='//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
+<!-- 팝업 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 <style>
@@ -248,6 +250,8 @@ $(function(){
 		$(parent).find(comef).css("background","blue");
 		
 		
+		
+		
 	});
 		
 	$('#btnLeave').click(function(){
@@ -278,7 +282,7 @@ $(function(){
 				$(parent).find(comef).css("background","blue");
 			}
 		}else{
-			alert("출근을 하세요");
+			swal("출근을 해야합니다" ,  "" ,  "error" );
 		}
 	});
 	
