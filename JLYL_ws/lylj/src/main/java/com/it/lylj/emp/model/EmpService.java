@@ -25,4 +25,11 @@ public interface EmpService {
 	Map<String, Object> selectstampList(String empNo);
 	int selectTotalEmp(SearchVO searchVo);
 	int updateEmp(EmpVO vo);
+	int deleteEmp(int empNo);
+	String checkEmail(int empNo);
+	int updateTempPwd(EmpVO vo);
+	String selectPwd(int empNo);
+	
+	//이메일발송
+	public void sendEmail(EmpVO vo);
 }

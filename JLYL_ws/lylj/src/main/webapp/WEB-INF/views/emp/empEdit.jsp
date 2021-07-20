@@ -75,8 +75,74 @@
 				
 			}
 			
-		}); 
+		});
+		
+		$('#bt_changePwd').click(function(){
+			$('#changePwdModal').modal('show');
+			$('#empPwd').val("");
+			$('#CheckChangePwd').val("");
+		});
 	});
+	
+	/* 핸드폰번호 - 자동생성 */
+	function chkHp(obj) { 
+		var number = obj.value.replace(/[^0-9]/g, ""); 
+		var phone = ""; 
+		if(number.length < 4) { 
+			return number; 
+		} else if(number.length < 7) { 
+			phone += number.substr(0, 3); 
+			phone += "-"; 
+			phone += number.substr(3);
+		} else if(number.length < 11) {
+			phone += number.substr(0, 3);
+			phone += "-"; phone += number.substr(3, 3);
+			phone += "-"; phone += number.substr(6);
+		} else { 
+			phone += number.substr(0, 3); 
+			phone += "-"; 
+			phone += number.substr(3, 4); 
+			phone += "-"; phone += number.substr(7); 
+		} 
+			obj.value = phone; 
+	}
+	
+	
+	/* 비밀번호 유효성 알림 */
+	$(function(){
+		$("#CheckChangePwd").keyup(function(){
+			if($('#changeEmpPwd').val().length>8){
+			 	if($('#changeEmpPwd').val()!=$('#CheckChangePwd').val()){
+			 		$('#checkPwd2').html('');
+			 		$('#checkPwd2').html('비밀번호가 일치하지 않습니다.');
+			 	}else{
+			 		$('#checkPwd2').html('');
+			 		$('#checkPwd2').html('비밀번호가 일치합니다.');
+			 	}
+			}
+		});
+	});
+
+	
+	/* 비밀번호체크 ajax */
+	function pwdCheck(changeEmpPwd){
+		$.ajax({
+			url:"<c:url value='/emp/pwdCheck'/>",
+			type:"POST",
+			data: {empPwd:changeEmpPwd},
+			success:function(res){
+				if(res==true){
+					$('#checkPwd').html("유효합니다.");
+				}else{
+					$('#checkPwd').html("최소 8자, 최소 하나의 문자가 포함되어야 합니다.");
+					
+				}
+			},
+			error:function(xhr,status,error){
+				alert("ajax에러");
+			}
+		});
+	}
 </script>
 
 <style type="text/css">
@@ -107,6 +173,10 @@
 	margin-left: 100px;
 	font-size: 0.9em;
 }
+.modalPWd{
+	color: blue;
+	font-size: 0.9em;
+}
 </style>
 
 	<div class="panel mainPanel">
@@ -123,13 +193,13 @@
 			  <div class="col-md-6">
 			  	<label for="empName" class="form-label">이름</label>
 			    <input type="text" class="form-control" id="empName" name="empName" value="${empVo.empName }" readonly="readonly">
-			  	<button type="button" class="btn btn-secondary btChangePwd">비밀번호변경하기</button>
+			  	<button type="button" class="btn btn-secondary btChangePwd" id="bt_changePwd">비밀번호변경하기</button>
 			  </div>
 		   </div>
 		   <div></div>
 	  		 <div class="col-md-6">
-	    		<label for="empTel" class="form-label">전화번호</label>
-	    		<input type="tel" class="form-control" id="empTel" name="empTel" value="${empVo.empTel }">
+	    		<label for="empTel" class="form-label">핸드폰번호</label>
+	    		<input type="tel" class="form-control" id="empTel" name="empTel" onkeyup="chkHp(this)" value="${empVo.empTel }">
 	  		</div>
 			 <div class="col-md-6">
 	    		<label for="empEmail" class="form-label">Email</label>
@@ -278,7 +348,7 @@
 			   	<span id ="red">정보를 수정하시겠습니까?<br></span>
 			</div>
 			<div></div>
-		    <form name="findPwdfrm" id="findPwdfrm" method="post" action="">
+		    <form name="frmEditModal" id="frmEditModal" method="post" action="">
      	        <div class="row">
      	        	<div class="col-md-12">
      		        	<label class="form-label modalLabel" for="empNo">사원번호 </label> 
@@ -301,6 +371,62 @@
 		  </div>
 	    </div>
 	  </div>
-	</div>	
+	</div>
+	
+	<!-- 비밀번호 수정 -->
+	<div class="modal" id="changePwdModal" data-bs-backdrop="static">
+	  <div class="modal-dialog ">
+	    <div class="modal-content">
+	
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">비밀번호수정하기</h4>
+	        <button type="button" class="close" data-bs-dismiss="modal" id="modalClose">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+ 		 <div class="modal-body">
+ 	        <div class="row">
+			   	<span >변경하실 비밀번호를 입력하세요<br><br></span>
+			</div>
+			<div></div>
+		    <form name="frmChangePwd" id="frmChangePwd" method="post" action="<c:url value="/emp/changePwd"/>">
+     	        <div class="row">
+     	        	<div class="col-md-12">
+     		        	<label class="form-label modalLabel" for="empNo">사원번호 </label> 
+	                	<input class="form-control" type="text" name="empNo" id="empNo" value="${empVo.empNo }" readonly="readonly">
+	                </div>
+                </div>
+                <div class="row">
+	              	<div class="col-md-12">
+	                	<label class="form-label modalLabel" for="empPwd">비밀번호</label> 
+	                	<input class="form-control" type="password" name="empPwd" id="empPwd">
+	                </div>
+                </div>
+                <div class="row">
+	            	<div class="col-md-12">
+		               	<label class="form-label modalLabel" for="modalEmpPwd">변경할 비밀번호</label> 
+		               	<input class="form-control" type="password" name="changeEmpPwd" id="changeEmpPwd" oninput="pwdCheck(changeEmpPwd.value)">
+		               	<span id="checkPwd" class="modalPWd"></span>
+		            </div>
+	            </div>
+	            <div class="row">
+		            <div class="col-md-12">
+		               	<label class="form-label modalLabel" for="modalEmpPwd">변경할 비밀번호 확인</label> 
+		               	<input class="form-control" type="password" name="CheckChangePwd" id="CheckChangePwd" >
+		               	<span id="checkPwd2" class="modalPWd"></span>
+		            </div>
+	            </div>
+                <br>
+				<hr>
+			 <div class="row px-3 buttonGroup">
+				<button type="submit" class="btn btn-info" id="bt_changePwdOk">변경</button>
+		        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="bt_closeModal">취소</button>
+		     </div>
+            </form>
+		  </div>
+	    </div>
+	  </div>
+	</div>
 
 <%@include file="../inc/bottom.jsp" %>

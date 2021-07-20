@@ -63,6 +63,7 @@
 	$(function() {
 		$("tbody #btLeave").click(function(){
 			$('#leaveModal').modal('show');
+			$('#modalAdminPwd').val("");
 			var delEmpNo = $(this).parent().prev().prev().prev().prev().prev().text();	
 			$('#modalEmpNo').val(delEmpNo);
 			
@@ -75,6 +76,7 @@
 				return false;
 			}
 		});
+		
 	});
 	
 	function pagingProc(curPage){
@@ -199,23 +201,23 @@
 	
 	      <!-- Modal body -->
  		 <div class="modal-body">
-		    <form name="findPwdfrm" id="findPwdfrm" method="post" action="<c:url value="/emp/leaveEmp?empNo="/>">
+		    <form name="findPwdfrm" id="findPwdfrm" method="post" action="<c:url value="/emp/leaveEmp"/>">
      	        <div class="row">
      	        	<div class="col-md-12">
      		        	<label class="form-label modalLabel" for="empNo">사원번호</label> 
-	                	<input class="form-control" type="text" name="empNo" id="modalEmpNo" placeholder="Enter employee number">
+	                	<input class="form-control" type="text" name="modalEmpNo" id="modalEmpNo" placeholder="Enter employee number">
 	                </div>
                 </div>
                 <div class="row">
                 	 <div class="col-md-12">
 	                 	<label class="form-label modalLabel" for="modalEmpEmail">관리자번호</label> 
-	                 	<input class="form-control" type="email" name="empEmail" id="modalEmpEmail" name="empName" value="${sessionScope.empNo }" readonly="readonly">
+	                 	<input class="form-control" type="email" name="modalAdmin" id="adminEmpNo" value="${sessionScope.empNo }" readonly="readonly">
 	                 </div>
                 </div>
                 <div class="row">
                 	 <div class="col-md-12">
 	                 	<label class="form-label modalLabel" for="modalAdminPwd">관리자비밀번호</label> 
-	                 	<input class="form-control" type="email" name="empEmail" id="modalAdminPwd" name="empPwd" placeholder="Enter password" readonly="readonly">
+	                 	<input class="form-control" type="password" name="modalAdminPwd" id="modalAdminPwd" placeholder="Enter password" >
 	                 </div>
                 </div>
                 <br>
@@ -223,7 +225,7 @@
 			   	<span id ="red">사원정보가 삭제됩니다. 신중히 클릭해주세요.</span>
 			</div><hr>
 			<div class="row px-3 buttonGroup">
-				<button type="submit" class="btn btn-info" id="btfindPwd">찾기</button>
+				<button type="submit" class="btn btn-info" id="btdeleteModal">삭제</button>
 		        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btcloseModal">취소</button>
 		    </div>
             </form>
