@@ -3,7 +3,13 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.it.lylj.emp.model.EmpDAO">
-
+	<!-- 검색조건 -->	
+	<sql id="searchWhere">
+	   <if test="searchKeyword!=null and searchKeyword!=''">
+		 and ${searchCondition}  like '%' || #{searchKeyword} || '%'
+	   </if>
+	</sql>
+	<!-- 사원등록 -->
 	<insert id="insertEmp" parameterType="empVo">
 		<selectKey keyProperty="empNo" resultType="int"
 			order="BEFORE">
@@ -16,21 +22,65 @@
 		#{empBirth},#{departmentNo},#{positionNo})
 	</insert>
 	
+	<!-- 비밀번호 -->
 	<select id="selectPwd" parameterType="int" resultType="String">
 		select emp_pwd from emp
 		where emp_no=#{empNo}
 	</select> 
 	
+	<!-- 사원번호로 정보선택 -->
 	<select id="selectByEmpNo" parameterType="int" resultType="empVo">
 		select * from empView
 		where emp_no= #{empNo}
 	</select>
 
-	<select id="selectAllEmp" resultType="empVo">
-		select * from empView
-		order by emp_no desc
+	<!-- 사원정보 전체선택 -->
+	<select id="selectAllEmpList" parameterType="searchVo" resultType="empVo">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		       select * from empView
+		       where EMP_RESDATE is null
+			   <include refid="searchWhere"/>
+		       order by emp_no desc
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
 	</select>
 	
+	<!-- 사원정보 전체선택 2 -->
+	<select id="selectAllEmp"  resultType="empVo">
+		select * from empview
+		where EMP_RESDATE is null
+		order by EMP_NO		
+	</select>
+	
+	<select id="selectAllEmpForEle" resultType="empVo">
+		select * from emp
+	</select>
+	
+	<!-- 사원 전체 수 -->
+	<select id="selectTotalEmp" parameterType="searchVo" resultType="int">
+		select count(*) from empView
+		where EMP_RESDATE is null
+		<include refid="searchWhere"/>
+	</select>
+	
+	<update id="updateEmp" parameterType="empVo">
+		update emp
+		set emp_tel=#{empTel}, emp_Email=#{empEmail}, emp_photo=#{empPhoto}, emp_zipcode=#{empZipcode}, 
+		    emp_address=#{empAddress}, emp_addressDetail=#{empAddressdetail}, emp_salary=#{empSalary}, emp_account=#{empAccount},
+		    emp_Admin_Lev=#{empAdminLev}, department_no=#{departmentNo}, position_No=#{positionNo}
+		where EMP_NO= #{empNo}
+	</update>
+	
+	<!-- 전자결재관련 -->
 	<select id="selectstamp" resultType="map" parameterType="String">
 		select * from selectstamp
 		where emp_no = #{userNo}
@@ -40,7 +90,24 @@
 		select * from selectstamp
 		where emp_no = #{empNo}
 	</select>
-
+	
+	<update id="deleteEmp" parameterType="int">
+		update emp
+		set emp_resdate = sysdate
+		where emp_no = #{empNo}
+	</update>
+	
+	<select id="checkEmail" parameterType="int" resultType="String">
+		select emp_email from emp
+		where emp_no = #{empNo}
+	</select>
+	
+	<update id="updateTempPwd" parameterType="empVo">
+		update emp
+		set emp_pwd = #{empPwd}
+		where emp_no = #{empNo}
+	</update>
+	
 </mapper>
 
 

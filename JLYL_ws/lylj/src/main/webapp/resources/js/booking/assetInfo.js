@@ -95,33 +95,33 @@ $(function() {
         droppable: true,
         drop: function(arg) {},
         eventClick: function(arg) {
-            if (confirm("일정을 삭제하시겠습니까?")) {
-                arg.event.remove()
-            }
         },
         eventAdd: function(arg) {
 
         },
         eventChange: function(arg) {
-            AppCalendar.saveEvent("up", arg);
         },
         eventRemove: function(arg) {
-            alert("삭제 완료");
         },
 
         events: function(info, successCallback, failureCallback) {
+			var bTNo = $('.bTNo').val();
             $.ajax({
-                type: 'GET',
-                url: "../schedule/listSchedule",
+                type: 'POST',
+                url: "calDrawByBTNo",
+                data:{bTNo:bTNo},
                 dataType: "json",
                 success: function(data) {
                     var events = [];
                     $(data).each(function(index) {
                         events.push({
-                            title: data[index].title,
-                            start: data[index].startDate,
-                            end: data[index].endDate,
-                            allDay: data[index].allday
+                            id:data[index].bookingTargetNo,
+                            title: data[index].scheduleTitle,
+                            start: data[index].scheduleStart,
+                            end: data[index].scheduleEnd,
+                            allDay: (data[index].scheduleAllday=="true"),
+                            color:data[index].scheduleColor,
+                            classNames:[data[index].scheduleNo]
                         });
 
                     });
@@ -133,10 +133,60 @@ $(function() {
     });
     calendar.render();
 
-    $('.add-button').click(function() {
-        allSave();
-    });
+  
+	$('#btdd').click(function(){
+		
+            var startTimes = $('#startTime').val();
+            var stnum= "#option-startTime"+startTimes;
+            var startTimes = $(stnum).text();
+            
+            var endTimes = $('#endTime').val();
+            var etnum= "#option-endTime"+endTimes;
+            var endTimes = $(etnum).text();
+            
+            var scheduleTitle = "["+$('.empNo').val()+"] "+$('.empName').val();
+            var scheduleStart = $('#startDate').val()+" "+ startTimes;
+            var scheduleEnd = $('#endDate').val()+" "+ endTimes;
+            var scheduleAllday = $('.chk-day').prop('checked');
 
+            var scheduleFolderNo = $('.bFNo').val();
+        	var scheduleColor = "#2b97a7";
+            
+            var scheduleThemeNo =2;
+            var empNo = $('.empNo').val();
+            var scheduleContent = $('#scheduleContent').val();
+            var bookingTargetNo = $('.bTNo').val();
+            $.ajax({    
+                      type:'POST',
+                      url:"insertSchedule",
+                      data:JSON.stringify({scheduleTitle:scheduleTitle,
+                              scheduleStart:scheduleStart,
+                              scheduleEnd:scheduleEnd,
+                              scheduleAllday:scheduleAllday,
+                              scheduleThemeNo:scheduleThemeNo,
+                              scheduleFolderNo:scheduleFolderNo,
+                              empNo:empNo,
+                              scheduleColor:scheduleColor,
+                              scheduleContent:scheduleContent,
+                              bookingTargetNo:bookingTargetNo
+                      }),
+                      contentType: "application/json; charset=utf-8;",
+                      dataType: "json",
+                      success : function(data) {
+                          calendar.addEvent({
+							    id:bookingTargetNo,
+	                            title: scheduleTitle,
+	                            start: scheduleStart,
+	                            end: scheduleEnd,
+	                            allDay: (scheduleAllday=="true"),
+	                            color:scheduleColor,
+	                            classNames:[data]
+                          });
+                          $('#myModal').modal('hide');
+                      }
+                    });
+                
+	});
 
 
 });

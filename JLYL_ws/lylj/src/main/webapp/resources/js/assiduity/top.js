@@ -1,29 +1,91 @@
 $(function() {
 
-    $('#btnCome').click(function() {
-        var now = $('#clockTime').text();
+    $('#btnCome').click(function(){
+		var now = $('#clockTime').text();
+		var ymd= new Date();
+		ymd= moment(ymd).format("YYYY-MM-DD");
+		
+		var attendanceDayRegdate = ymd;
+		var empNo = $('.empNo').val();
+		var attendanceDayOnHour = ymd+" "+now
+		
+		$.ajax({    
+            type:'get',
+            url:"insertComTime",
+            data:{empNo:empNo, attendanceDayOnHour:attendanceDayOnHour,
+            	attendanceDayRegdate:attendanceDayRegdate},
+            dataType: "json",
+            success : function(data) {
+ 
+        		$('#comeTime').text(now);
+        		$('#btnCome').prop("disabled",true);
+        		var comeNum = hourMin(now);
+        		
+        		var comef="#content-td"+comeNum;
+        		
+        		var nDate=new Date();
+        		var weekNum= getWeekOfMonth(nDate);
+        		var weekDay=moment(nDate).format('d');
+        		
+        		var parent="#content"+weekNum+"Div"+weekDay;
+        		
+        		$(parent).find(comef).css("background","blue");
+            }
+          });
+		
+		
+		
+	});
+		
+	$('#btnLeave').click(function(){
+		if($('#btnCome').prop("disabled")==true){
+			var now = $('#clockTime').text();
+			var cTime = $('#comeTime').text();
+			var dayWorkTime=workTime(cTime,now);
+			
+			var ymd= new Date();
+			ymd= moment(ymd).format("YYYY-MM-DD");
+			
+			var attendanceDayOffHour = ymd+" "+now;
+			var empNo = $('.empNo').val();
+			var attendanceDayWorkHour = ymd+" "+dayWorkTime;
+			var attendanceDayRegdate = ymd;
+			
+			
+			$.ajax({    
+	            type:'get',
+	            url:"updateLeaveTime",
+	            data:{empNo:empNo, attendanceDayOffHour:attendanceDayOffHour,
+	            	attendanceDayWorkHour:attendanceDayWorkHour,
+	            	attendanceDayRegdate:attendanceDayRegdate},
+	            dataType: "json",
+	            success : function(data) {
+	            	
+	            	$('#leaveTime').text(now);
+	    			$('#btnLeave').prop("disabled",true);
+	    			$('#dayWorkTime').text(dayWorkTime);
+	        		
+	        		var comeNum = hourMin(cTime);
+	    			var leaveNum = hourMin(now);
+	    			
+	    			
+	    			var nDate=new Date();
+	    			var weekNum= getWeekOfMonth(nDate);
+	    			var weekDay=moment(nDate).format('d');
+	    			
+	    			var parent="#content"+weekNum+"Div"+weekDay;
 
-        $('#comeTime').text(now);
-        $(this).prop("disabled", true);
-
-    });
-
-    $('#btnLeave').click(function() {
-        if ($('#btnCome').prop("disabled") == true) {
-            var now = $('#clockTime').text();
-            $('#leaveTime').text(now);
-            $(this).prop("disabled", true);
-
-            var cTime = $('#comeTime').text();
-            var lTime = $('#leaveTime').text();
-            var dayWorkTime = workTime(cTime, lTime);
-
-            $('#dayWorkTime').text(dayWorkTime);
-
-        } else {
-            alert("출근을 하세요");
-        }
-    });
+	    			for(var i=comeNum; i<=leaveNum; i++){
+	    				var comef="#content-td"+i;
+	    				$(parent).find(comef).css("background","blue");
+	    			}
+	            }
+	          });
+			
+		}else{
+			swal("출근을 해야합니다" ,  "" ,  "error" );
+		}
+	});
 
 
 

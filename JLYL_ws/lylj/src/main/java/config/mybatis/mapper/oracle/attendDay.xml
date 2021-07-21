@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.it.lylj.attendDay.model.AttendDayDAO">
+	<select id="selectAttendDayByRegdate" parameterType="attendDayVo" resultType="attendDayVo">
+		select * from ATTENDDAY 
+		where EMP_NO=${empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(#{attendanceDayRegdate})
+	</select>
+	
+	<insert id="insertAttendDay" parameterType="attendDayVo">
+		insert into ATTENDDAY 
+		values(ATTENDDAY_SEQ.nextval, #{empNo}, #{attendanceDayOnHour}, #{attendanceDayOffHour:DATE},
+		#{attendanceDayWorkHour:DATE},#{attendanceDayHolidayFlag:VARCHAR},#{attendanceDayRegdate})
+	</insert>
+	
+	<update id="updateAttendDayByOffHour" parameterType="attendDayVo">
+		update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=#{attendanceDayOffHour},
+		ATTENDANCE_DAY_WORK_HOUR=#{attendanceDayWorkHour}
+		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE =#{attendanceDayRegdate}
+	</update>
+	
+ </mapper>
+
+
+
+
+
+
+
+
+
