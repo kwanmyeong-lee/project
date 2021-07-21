@@ -9,6 +9,8 @@
 <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
 <script src='//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
+<!-- 팝업 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 <style>
@@ -232,20 +234,37 @@ $(function(){
 	
 	$('#btnCome').click(function(){
 		var now = $('#clockTime').text();
+		var ymd= new Date();
+		ymd= moment(ymd).format("YYYY-MM-DD");
 		
-		$('#comeTime').text(now);
-		$(this).prop("disabled",true);
-		var comeNum = hourMin(now);
+		var attendanceDayRegdate = ymd;
+		var empNo = $('.empNo').val();
+		var attendanceDayOnHour = ymd+" "+now
 		
-		var comef="#content-td"+comeNum;
+		$.ajax({    
+            type:'get',
+            url:"insertComTime",
+            data:{empNo:empNo, attendanceDayOnHour:attendanceDayOnHour,
+            	attendanceDayRegdate:attendanceDayRegdate},
+            dataType: "json",
+            success : function(data) {
+ 
+        		$('#comeTime').text(now);
+        		$('#btnCome').prop("disabled",true);
+        		var comeNum = hourMin(now);
+        		
+        		var comef="#content-td"+comeNum;
+        		
+        		var nDate=new Date();
+        		var weekNum= getWeekOfMonth(nDate);
+        		var weekDay=moment(nDate).format('d');
+        		
+        		var parent="#content"+weekNum+"Div"+weekDay;
+        		
+        		$(parent).find(comef).css("background","blue");
+            }
+          });
 		
-		var nDate=new Date();
-		var weekNum= getWeekOfMonth(nDate);
-		var weekDay=moment(nDate).format('d');
-		
-		var parent="#content"+weekNum+"Div"+weekDay;
-		
-		$(parent).find(comef).css("background","blue");
 		
 		
 	});
@@ -253,36 +272,91 @@ $(function(){
 	$('#btnLeave').click(function(){
 		if($('#btnCome').prop("disabled")==true){
 			var now = $('#clockTime').text();
-			$('#leaveTime').text(now);
-			$(this).prop("disabled",true);
-			
 			var cTime = $('#comeTime').text();
-			var lTime = $('#leaveTime').text();
-			var dayWorkTime=workTime(cTime,lTime);
+			var dayWorkTime=workTime(cTime,now);
 			
-			$('#dayWorkTime').text(dayWorkTime);
+			var ymd= new Date();
+			ymd= moment(ymd).format("YYYY-MM-DD");
+			
+			var attendanceDayOffHour = ymd+" "+now;
+			var empNo = $('.empNo').val();
+			var attendanceDayWorkHour = ymd+" "+dayWorkTime;
+			var attendanceDayRegdate = ymd;
 			
 			
-			var comeNum = hourMin("08:24:00");
-			var leaveNum = hourMin(now);
-			
-			
-			var nDate=new Date();
-			var weekNum= getWeekOfMonth(nDate);
-			var weekDay=moment(nDate).format('d');
-			
-			var parent="#content"+weekNum+"Div"+weekDay;
+			$.ajax({    
+	            type:'get',
+	            url:"updateLeaveTime",
+	            data:{empNo:empNo, attendanceDayOffHour:attendanceDayOffHour,
+	            	attendanceDayWorkHour:attendanceDayWorkHour,
+	            	attendanceDayRegdate:attendanceDayRegdate},
+	            dataType: "json",
+	            success : function(data) {
+	            	
+	            	$('#leaveTime').text(now);
+	    			$('#btnLeave').prop("disabled",true);
+	    			$('#dayWorkTime').text(dayWorkTime);
+	        		
+	        		var comeNum = hourMin(cTime);
+	    			var leaveNum = hourMin(now);
+	    			
+	    			
+	    			var nDate=new Date();
+	    			var weekNum= getWeekOfMonth(nDate);
+	    			var weekDay=moment(nDate).format('d');
+	    			
+	    			var parent="#content"+weekNum+"Div"+weekDay;
 
-			for(var i=comeNum; i<=leaveNum; i++){
-				var comef="#content-td"+i;
-				$(parent).find(comef).css("background","blue");
-			}
+	    			for(var i=comeNum; i<=leaveNum; i++){
+	    				var comef="#content-td"+i;
+	    				$(parent).find(comef).css("background","blue");
+	    			}
+	            }
+	          });
+			
 		}else{
-			alert("출근을 하세요");
+			swal("출근을 해야합니다" ,  "" ,  "error" );
 		}
 	});
 	
+	$('.content-link').click(function(){
+		var empNo = $('.empNo').val();
+		var attendanceDayRegdate= $(this).find('input[type=hidden]').eq(0).val();
+		var weekNum= $(this).find('input[type=hidden]').eq(1).val();
+		var weekDay= $(this).find('input[type=hidden]').eq(2).val();
+		
+		$.ajax({    
+            type:'get',
+            url:"selectAttendDayView",
+            data:{empNo:empNo, attendanceDayRegdate:attendanceDayRegdate},
+            dataType: "json",
+            success : function(data) {
+            	
+            	if(data!=null){
+            		
+	            	var cTime= new Date(data.attendanceDayOnHour);
+	            	var lTime= new Date(data.attendanceDayOffHour);
+	            	cTime= moment(cTime).format("HH:mm:ss");	
+	            	lTime= moment(lTime).format("HH:mm:ss");	
+	        		
+	        		var comeNum = hourMin(cTime);
+	    			var leaveNum = hourMin(lTime);
+	    			
+            		
+	    			
+	    			
+	    			
+	    			var parent="#content"+weekNum+"Div"+weekDay;
 	
+	    			for(var i=comeNum; i<=leaveNum; i++){
+	    				var comef="#content-td"+i;
+	    				$(parent).find(comef).css("background","blue");
+	    			}
+            	}
+            }
+          });
+		
+	});
 	
 });
 
@@ -377,6 +451,12 @@ function dayView(date){
 				$('#collapseOne1').find(d).children('span').text(num+" "+week[j]);
 				$('#collapseOne1').find(d).children('span').css("opacity","0.3");
 				
+				
+				var yyyymms = moment(pastDay).format('YYYY-MM');
+				$('#collapseOne1').find(d).children('input[type=hidden]').eq(0).val(yyyymms+"-"+num);
+				$('#collapseOne1').find(d).children('input[type=hidden]').eq(1).val(1);
+				$('#collapseOne1').find(d).children('input[type=hidden]').eq(2).val(j);
+				
 				if(week[j]=="일"){
 					$('#collapseOne1').find(d).children('span').css("color","red");
 				}else if(week[j]=="토"){
@@ -396,6 +476,12 @@ function dayView(date){
 		var d2 = ".content-date"+weekDay;
 		var num= moment(firstDay).format('DD');
 		$(d1).find(d2).children('span').text(num+" "+week[weekDay]);
+		
+		var yyyymms = moment(firstDay).format('YYYY-MM');
+		$(d1).find(d2).children('input[type=hidden]').eq(0).val(yyyymms+"-"+num);
+		$(d1).find(d2).children('input[type=hidden]').eq(1).val(weekNo);
+		$(d1).find(d2).children('input[type=hidden]').eq(2).val(weekDay);
+		
 		if(week[weekDay]=="일"){
 			$(d1).find(d2).children('span').css("color","red");
 		}else if(week[weekDay]=="토"){
@@ -420,6 +506,11 @@ function dayView(date){
 			
 			$(d1).find(d).children('span').text(num+" "+week[j]);
 			$(d1).find(d).children('span').css("opacity","0.3");
+			
+			var yyyymms = moment(futureDay).format('YYYY-MM');
+			$(d1).find(d).children('input[type=hidden]').eq(0).val(yyyymms+"-"+num);
+			$(d1).find(d).children('input[type=hidden]').eq(1).val(weekNoCheck);
+			$(d1).find(d).children('input[type=hidden]').eq(2).val(j);
 			
 			if(week[j]=="일"){
 				$(d1).find(d).children('span').css("color","red");
@@ -475,6 +566,9 @@ window.onload= function(){
         <div>
             <article>
                <h3>근태현황</h3>
+               <input type="hidden" class="empNo" value="${empNo }">
+			   <input type="hidden" class="empName" value="${empName }">
+			   
                <div class="now-div text-center">
                		<span class="now-span" id="nowLeft"><i class="fas fa-chevron-left"></i></span>
                		<span class="now-span" id="nowYearMonth"></span>
@@ -536,7 +630,12 @@ window.onload= function(){
 	      	<div class="content-link collapsed" 
 					data-bs-toggle="collapse" data-bs-target="#content${weekNo }Div${weekDay }"
 					aria-bs-expanded="true" aria-bs-controls="#content${weekNo }Div${weekDay }">
-				<div class="w-c content-date content-date${weekDay }"><span>일자</span></div>
+				<div class="w-c content-date content-date${weekDay }">
+					<span>일자</span>
+					<input type="hidden">
+					<input type="hidden">
+					<input type="hidden">
+				</div>
 	      		<div class="w-c content-start content-start${weekDay }"><span>일자</span></div>
 	      		<div class="w-c content-end content-end${weekDay }"><span>일자</span></div>
 	      		<div class="w-c content-all content-all${weekDay }"><span>일자</span></div>
@@ -555,7 +654,7 @@ window.onload= function(){
 						<c:forEach var="i" begin="0" end="47">
 	                   		<td id="content-td${i }"></td>
 						</c:forEach>
-					<td>
+					</tr>
 	            </table>
 	            </div>
 	        </div>

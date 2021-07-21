@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.it.lylj.schedule.model.ScheduleDAO">
-	<resultMap id="cal_clob" type="hashMap">
+	<resultMap id="cal_clob" type="scheduleVO">
 		    <result property="scheduleNo" column="SCHEDULE_NO" />
 		    <result property="scheduleTitle" column="SCHEDULE_TITLE" />
 		    <result property="scheduleStart" column="SCHEDULE_START" />
@@ -35,7 +35,7 @@
 	
 	<select id="selectMaxScNoByEmpNo" parameterType="int" resultType="int">
 		select MAX(SCHEDULE_NO) from calendar
-		where EMP_NO=#{empNo} and SCHEDULE_THEME_NO=1
+		where EMP_NO=#{empNo}
 	</select>
 	
 	<select id="selectAllScheduleByScFolderNo" parameterType="int" resultMap="cal_clob">
@@ -57,6 +57,17 @@
 		update calendar set SCHEDULE_COLOR=#{scheduleColor}
 		where SCHEDULE_FOLDER_NO=#{scheduleFolderNo} and SCHEDULE_THEME_NO=1
 	</update>
+	
+	
+	<select id="selectAllScheduleByBTNo" parameterType="int" resultMap="cal_clob">
+		select * from calendar
+		where BOOKING_TARGET_NO=#{bookingTargetNo} and SCHEDULE_THEME_NO=2
+	</select>
+	
+	<select id="selectAllScheduleByScThemeNo" parameterType="int" resultMap="cal_clob">
+		select * from calendar
+		where SCHEDULE_THEME_NO=#{scheduleThemeNo}
+	</select>
 	
 	
  </mapper>

@@ -51,5 +51,15 @@ public class ScheduleServieImpl implements ScheduleService{
 	public int selectMaxScNoByEmpNo(int empNo) {
 		return dao.selectMaxScNoByEmpNo(empNo);
 	}
+
+	@Override
+	public List<ScheduleVO> selectAllScheduleByBTNo(int bookingTargetNo) {
+		return dao.selectAllScheduleByBTNo(bookingTargetNo);
+	}
+
+	@Override
+	public List<ScheduleVO> selectAllScheduleByScThemeNo(int scheduleThemeNo) {
+		return dao.selectAllScheduleByScThemeNo(scheduleThemeNo);
+	}
 	
 }

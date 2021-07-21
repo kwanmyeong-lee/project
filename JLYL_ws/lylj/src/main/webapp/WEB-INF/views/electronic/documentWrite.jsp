@@ -44,61 +44,82 @@
 		});
 		
 		$('input[name=submit]').click(function(){
-		            
-		            var dataArr = [];
-		 
-		            $('table input[type=text]').each(function(idx, item){
-		            
-		            	dataArr.push($(this).val());
-		            	
-		            });
-		            var jsonData = JSON.stringify(dataArr);		            
-		            $('input[name=electronicContent]').val(jsonData);				
-		            $('form[name=docfrm]').prop('action','<c:url value="/electronic/documentWrite"/>');		         
-		            		            
-		    		ApempNoData = [];
-		    		RpempNoData = [];
-		    		
-		    		$('input[name=apEmpNo]').each(function(idx, item){
-		    			ApempNoData.push($(this).val()); // 유저 번호 배열 
-		    		});
-		    		$('input[name=reEmpNo]').each(function(idx, item){
-		    			RpempNoData.push($(this).val()); // 유저 번호 배열 
-		    		});
-		    		
-		    		$('input[name=AempNoData]').val(ApempNoData);
-		    		$('input[name=RempNoData]').val(RpempNoData);
-		    		
-		    		
-			        $('form[name=docfrm]').submit();
-		    		
-			   /*      
-			        
-		    		$.ajax({
-		    			url : "<c:url value='/electronic/insertAppLine'/>",
-		    			data : {
-							empNo : empNoData
-						},
-						type : "get",
-						dataType : "json",
-						success : function(res) {
-
-						},
-						error : function(xhr, status, error) {
-							alert("error!" + error);
-							alert(xhr.status);
-							alert(thrownError);
-						}
-		    		});
-		            
-		          */
+			
+			checkVal();
+	            
+            var dataArr = [];
+ 
+            $('table input[type=text]').each(function(idx, item){
+            
+            	dataArr.push($(this).val());
+            	
+            });
+            var jsonData = JSON.stringify(dataArr);		            
+            $('input[name=electronicContent]').val(jsonData);				
+            $('form[name=docfrm]').prop('action','<c:url value="/electronic/documentWrite"/>');		         
+            		            
+    		ApempNoData = [];
+    		RpempNoData = [];
+    		
+    		$('input[name=apEmpNo]').each(function(idx, item){
+    			ApempNoData.push($(this).val()); // 유저 번호 배열 
+    		});
+    		$('input[name=reEmpNo]').each(function(idx, item){
+    			RpempNoData.push($(this).val()); // 유저 번호 배열 
+    		});
+    		
+    		$('input[name=AempNoData]').val(ApempNoData);
+    		$('input[name=RempNoData]').val(RpempNoData);
+    		
+	        $('form[name=docfrm]').submit();
+		  
 				
 		});
 		
-
+		$('input[name=draft]').click(function(idx, item){
+				
+            var dataArr = [];
+   		 
+            $('table input[type=text]').each(function(idx, item){
+            
+            	dataArr.push($(this).val()); //문서 안에 내용 배열로
+            	
+            });
+            var jsonData = JSON.stringify(dataArr);
+            $('input[name=electronicContent]').val(jsonData);
+            $('form[name=docfrm]').prop('action','<c:url value="/electronic/documentWrite"/>');
+            		            
+    		ApempNoData = [];
+    		RpempNoData = [];
+    		
+    		$('input[name=apEmpNo]').each(function(idx, item){
+    			ApempNoData.push($(this).val()); // 결재자 유저 번호 배열 
+    		});
+    		$('input[name=reEmpNo]').each(function(idx, item){
+    			RpempNoData.push($(this).val()); // 수신자 유저 번호 배열 
+    		});
+    		
+    		$('input[name=AempNoData]').val(ApempNoData);
+    		$('input[name=RempNoData]').val(RpempNoData);
+    		$('input[name=electronicDraft]').val('1');
+    		
+    		
+	        $('form[name=docfrm]').submit();
+			
+		});
 		
 	
 	});
+	
+	function checkVal(){
+		
+		if($('#title').val().length == 0  ){
+			alert("제목을 입력해주세요");
+			event.preventDefault();
+			return false;
+		}
+		
+	};
 	
 </script>
 
@@ -114,6 +135,7 @@
 			name="electronicEmergencyFlag" value="0"> 
 			<input type="hidden" value="" name="AempNoData">
 			<input type="hidden" value="" name="RempNoData">
+			<input type="hidden" value="0" name="electronicDraft">
 
 		<div class="container" style="max-width: 1000px;">
 			<div class="shadow-sm p-3 mb-3 bg-light rounded ">
@@ -172,8 +194,8 @@
 						<div class="form-group">
 							<input type="submit" name="submit"
 								class="btn btn-light btn-outline-secondary">
-							<button type="button" class="btn btn-light btn-outline-secondary">임시
-								저장</button>
+							<input type="submit" name="draft" value="임시저장" class="btn btn-light btn-outline-secondary">
+								
 							<button type="button" id="cancel"
 								class="btn btn-light btn-outline-secondary">기안서 작성 취소</button>
 						</div>

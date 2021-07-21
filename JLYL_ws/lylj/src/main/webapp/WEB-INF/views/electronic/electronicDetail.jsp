@@ -17,33 +17,34 @@
 	rel="stylesheet">
 
 <script type="text/javascript">
+	$(function(){ // db 에 있는 content date 가져와서 배열로 돌린다음 배열 갯수만큼 input 에 넣어준다 
+		
+			window.onload = function() {
+			
+				var data = JSON.parse($('input[name=electronicContent]').val());
+			
+				console.log(data);
+				data_cnt = data.length;
+				console.log(data_cnt);
+			
+				$.each(data, function(idx, item) {
+					console.log(item);
+					$('table input[type=text]').eq(idx).val(item);
+				});
+				$('table input[type=text]').prop('disabled', 'disabled');
+				$('table input[type=text]').prop('style', ' border : 0; background : white');
+			}
+	})
 	$(function() {
 
-		$('#newDocument').click(
+			$('#newDocument').click(
 				function() {
 					open('<c:url value="/electronic/documentSelect"/>',
 							'documentSelect', 'width=800,height=500');
-				});
-
-		window.onload = function() {
-
-			var data = JSON.parse($('input[name=electronicContent]').val());
-
-			console.log(data);
-			data_cnt = data.length;
-			console.log(data_cnt);
-
-			$.each(data, function(idx, item) {
-				console.log(item);
-				$('table input[type=text]').eq(idx).val(item);
 			});
-			$('table input[type=text]').prop('disabled', 'disabled');
-			$('table input[type=text]').prop('style',
-					' border : 0; background : white');
-		}
 
-			var avoEmpNo = [];
-			var rvoEmpNo = [];
+			var avoEmpNo = []; // 결재자 배열
+			var rvoEmpNo = []; // 수신자 배열
 			$('.avosum').each(function(idx, item){
 				var val = $(this).val();
 				avoEmpNo.push(val);
@@ -56,6 +57,23 @@
 			});
 				console.log(rvoEmpNo);
 				
+				
+			var avoFlagsum = []; //결재 승인했는지 확인 용 flag
+			
+			$('.avoFlagsum').each(function(idx, item){
+				var val = $(this).val();
+				avoFlagsum.push(val);
+			});
+				console.log("avoFlagsum = "+avoFlagsum);
+			
+			var rvoFlagsum = []; // 수신 했는지 확인용 flag
+			
+			$('.rvoFlagsum').each(function(idx, item){
+				var val = $(this).val();
+				rvoFlagsum.push(val);
+			});
+				console.log("rvoFlagsum = "+rvoFlagsum);
+			
 				
 				$
 				.ajax({
@@ -73,13 +91,16 @@
 													+ val.POSITION_NAME
 													+ "</span><span id='select-name'>"
 													+ val.EMP_NAME
-													+ "<br>"
-													+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'apEmpNo'>";
+													+ "<br>"                         
+													+ "<img class='Astamp' style='width: 40px;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'apEmpNo'>";
 											$('#Approval').append(stampInfo);
+											if(avoFlagsum[idx] == '0'){
+												$('.Astamp').eq(idx).attr('style', 'display: none');
+											}
 										});
 					},
 					error : function(data) {
-						alert("오류")
+						alert("결재자 없음! 결재자가 없는게 말이됨? 나중에 이 오류 지워")
 					}
 				});
 				$
@@ -99,19 +120,68 @@
 													+ "</span><span id='select-name'>"
 													+ val.EMP_NAME
 													+ "<br>"
-													+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'apEmpNo'>";
+													+ "<img class='Rstamp'  style='width: 40px;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'apEmpNo'>";
 											$('#Receive').append(stampInfo);
+											if(rvoFlagsum[idx] == '0'){
+												$('.Rstamp').eq(idx).attr('style', 'display: none');
+											}
 										});
 					},
 					error : function(data) {
-						alert("오류")
+						alert("수신자 없음! 나중에 이 오류 지워")
 					}
 				});
-				
+	
 				
 	});
+	
+	$(function(){
+		
+		$('#ok').click(function(){ //결재 승인 
+			$('form[name=apAccept]').submit();
+		});
+		
+		$('#return').click(function(){ //결재 반려
+			$('form[name=apAccept]').submit();
+		});
+		
+		$('#cancel').click(function(){ // 결재 뒤로가기
+			history.back();
+		})
+		
+		$('#reOk').click(function(){ //수신 승인
+			$('form[name=reAccept]').submit();
+		});
+		
+		$('#recancel').click(function(){ //수신 뒤로가기
+			history.back();
+		})
+		
+		$('#ok_draft').click(function(){ //임시 저장문서 완료
+			$('form[name=apAccept]').submit();
+		});
+		
+		$('#cancel_draft').click(function(){ //임시 저장문서 뒤로가기
+			history.back();
+		})
+		
+	});
+	
 </script>
 <div class="container shadow p-3 mb-5 bg-white rounded">
+
+	<form name="apAccept" method="post" action="<c:url value = '/electronic/AcceptUpdateAppLine?no=${param.no }'/>">
+			<input type="hidden" name="empNo" value="${sessionScope.empNo }">
+			<input type="hidden" name="electronicNo" value="${vo.electronicNo }">
+	</form>
+	
+	<form name="reAccept" method="post" action="<c:url value = '/electronic/AcceptUpdateReLine?no=${param.no }'/>">
+			<input type="hidden" name="empNo" value="${sessionScope.empNo }">
+			<input type="hidden" name="electronicNo" value="${vo.electronicNo }">
+	</form>
+	<form name="" method="post" action="">
+	
+	</form>
 
 	<form name="docfrm" method="post" enctype="multipart/form-data"
 		id="frm-form">
@@ -119,10 +189,11 @@
 		
 		<c:forEach var="avoEmp" items="${avo }">
 			<input type="hidden" class="avosum" value="${avoEmp.empNo }"> 
+			<input type="hidden" class="avoFlagsum" value="${avoEmp.approvalLineCompleteFlag }"> 
 		</c:forEach>
-		
 		<c:forEach var="rvoEmp" items="${rvo }">
 			<input type="hidden" class="rvosum" value="${rvoEmp.empNo }">
+			<input type="hidden" class="rvoFlagsum" value="${rvoEmp.receiveLineFlag }"> 
 		</c:forEach>
 		
 		<div class="container" style="max-width: 1000px;">
@@ -152,6 +223,7 @@
 
 				<!-- 문서 양식 시작 -->
 				<input type="hidden" name="electronicContent"
+				
 					value='${vo.electronicContent }'> ${styleContent}
 
 				<!-- 문서 양식 끝 -->
@@ -165,9 +237,19 @@
 					<br>
 					<div class="form-row" style="justify-content: center;">
 						<div class="form-group">
-							<input type="submit" name="submit"
-								class="btn btn-light btn-outline-secondary" value="승인">
-							<button type="button" class="btn btn-light btn-outline-secondary">보류</button>
+							<c:if test="${param.no eq '2' }">
+								<button type="button" id="reOk" class="btn btn-light btn-outline-secondary">받음</button>
+								<button type="button" id="recancel" class="btn btn-light btn-outline-secondary">안받음처리</button>
+							</c:if>
+							<c:if test="${param.no != '2' and param.no eq '5'}">
+								<button type="button" id="ok_draft" class="btn btn-light btn-outline-secondary">작성 완료</button>
+								<button type="button" id="cancel_draft" class="btn btn-light btn-outline-secondary">뒤로가기</button>
+							</c:if>
+							<c:if test="${param.no != '2' and param.no != '5'}">
+								<button type="button" id="ok" class="btn btn-light btn-outline-secondary">승인</button>
+								<button type="button" id="cancel" class="btn btn-light btn-outline-secondary">보류</button>
+								<button type="button" id="return" class="btn btn-light btn-outline-secondary">반려</button>
+							</c:if>
 						</div>
 					</div>
 				</div>

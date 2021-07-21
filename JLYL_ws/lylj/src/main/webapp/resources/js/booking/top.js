@@ -1,8 +1,6 @@
 $(function(){
 $('.btnRentAdmin').click(function(){
 	location.href="rent";
-	
-	
 });
 
 $('#asset-add').click(function(){

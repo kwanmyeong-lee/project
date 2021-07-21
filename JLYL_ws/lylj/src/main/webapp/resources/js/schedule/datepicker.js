@@ -88,6 +88,9 @@ $(function() {
 		});
 		
 		$('#btnEdit').click(function(){
+			if($(this).parent().prev().find('input[name=scheduleFolderName]').val()==""){
+			swal ( "" , "일정목록명을 입력하세요" ,  "error" );
+		}else{
 			$.ajax({    
                       type:'POST',
                       url:"updateScFolder",
@@ -137,6 +140,7 @@ $(function() {
                           	$('#myModaledit').modal('hide');
                       }
                     });
+                }
 		});
 		
 		$('#btnDelete').click(function(){

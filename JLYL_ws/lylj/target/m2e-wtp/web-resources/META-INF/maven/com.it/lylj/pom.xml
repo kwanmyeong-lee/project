@@ -85,9 +85,17 @@
       </dependency>   
       <!-- spring security -->
        <dependency>
-		 <groupId>org.springframework.boot</groupId>
-		 <artifactId>spring-boot-starter-security</artifactId>
+			 <groupId>org.springframework.boot</groupId>
+			 <artifactId>spring-boot-starter-security</artifactId>
 	   </dependency>
+	   
+	   <!-- 메일 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.2</version>
+		</dependency>
+	   
 	</dependencies>
 
 	<build>

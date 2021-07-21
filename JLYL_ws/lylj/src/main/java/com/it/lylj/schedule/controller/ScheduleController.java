@@ -143,8 +143,6 @@ public class ScheduleController {
 	@PostMapping("/deleteScheduleByScheduleNo")
 	@ResponseBody
 	public int deleteScheduleByScheduleNo(@RequestBody int scheduleNo){
-		logger.info("scheduleNo 업데이트, 파라미터 scheduleNo = {}", scheduleNo);
-		
 		service.deleteScheduleByScheduleNo(scheduleNo);
 		
 		return 1;

@@ -61,9 +61,9 @@ $(function(){
             
             var scheduleTitle = $('#addtitle').val();
             var scheduleStart = $('#startDate').val()+" "+ startTimes;
-            var scheduleEnd = $('#endDate').val()+" "+ endTimes;
+            var scheduleEnd = $('#endDate').val()+" "+endTimes;
             var scheduleAllday = $('.chk-day').prop('checked');
-
+			
             var scheduleFolderNo = $('#selectMycal').val();
         	var scheduleColor = $('#myBestColor').val()
             

@@ -11,7 +11,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
 public class EmpVO {
 	private int empNo; /* 사원 번호 */
 	private String empName; /* 사원 이름 */

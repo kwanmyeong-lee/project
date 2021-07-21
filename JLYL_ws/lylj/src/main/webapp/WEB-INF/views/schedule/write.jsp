@@ -65,7 +65,7 @@
         			<c:if test="${i%2 eq 1 }">
         				<c:set var ="sec" value="30"/>
         			</c:if>
-        			<option class="optionTime" id="option-endTime${i}" value="${i }"> <fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
+        			<option class="optionTime" id="option-endTime${i}" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
         		</c:forEach>
         	</select>
         	<input type="checkbox" class="chk-day"><span class="chk-span">종일</span>
