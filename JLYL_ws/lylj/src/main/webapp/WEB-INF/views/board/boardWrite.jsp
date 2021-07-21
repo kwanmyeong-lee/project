@@ -32,6 +32,7 @@
 		
 	});
 	
+	window.onbeforeunload = function() {};
 	$(function(){
 		$('#inputGroupFileAddon04').click(function(){
 			$('#inputGroupFile04').val('');
