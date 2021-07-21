@@ -48,12 +48,15 @@ public class BoardCommentController {
 		logger.info("댓글 삭제 처리, 파라미터 boardCommentNo={}, boardNo={}", boardCommentNo, boardNo);
 		
 		int cnt = boardCommentService.deleteComm(boardCommentNo);
-		
+		logger.info("cnt={}", cnt);
 		String msg="댓글 삭제를 실패하였습니다.", url="/board/boardDetail?boardNo="+boardNo;
 		if(cnt>0) {
 			msg="댓글을 삭제하였습니다.";
 			url="/board/boardDetail?boardNo="+boardNo;
 		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 		
 		return "common/message";
 	}
