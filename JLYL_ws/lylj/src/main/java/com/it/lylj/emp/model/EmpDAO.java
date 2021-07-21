@@ -21,4 +21,5 @@ public interface EmpDAO {
 	int deleteEmp(int empNo);
 	String checkEmail(int empNo);
 	int updateTempPwd(EmpVO vo);
+	List<EmpVO>  selectAllEmpForEle();
 }

@@ -89,11 +89,6 @@
 			 <artifactId>spring-boot-starter-security</artifactId>
 	   </dependency>
 	   
-	   <dependency>
-	    	<groupId>com.oracle.ojdbc</groupId>
-	    	<artifactId>orai18n</artifactId>
-	   </dependency>
-	   
 	   <!-- 메일 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>

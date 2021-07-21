@@ -152,5 +152,10 @@ public class EmpServiceImpl implements EmpService{
 		return empDao.selectPwd(empNo);
 	}
 
+	@Override
+	public List<EmpVO>  selectAllEmpForEle() {
+		return empDao.selectAllEmpForEle();
+	}
+
 }
 

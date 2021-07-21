@@ -17,7 +17,7 @@
 	rel="stylesheet">
 
 <script type="text/javascript">
-	$(function(){
+	$(function(){ // db 에 있는 content date 가져와서 배열로 돌린다음 배열 갯수만큼 input 에 넣어준다 
 		
 			window.onload = function() {
 			
@@ -43,8 +43,8 @@
 							'documentSelect', 'width=800,height=500');
 			});
 
-			var avoEmpNo = [];
-			var rvoEmpNo = [];
+			var avoEmpNo = []; // 결재자 배열
+			var rvoEmpNo = []; // 수신자 배열
 			$('.avosum').each(function(idx, item){
 				var val = $(this).val();
 				avoEmpNo.push(val);
@@ -58,7 +58,7 @@
 				console.log(rvoEmpNo);
 				
 				
-			var avoFlagsum = [];
+			var avoFlagsum = []; //결재 승인했는지 확인 용 flag
 			
 			$('.avoFlagsum').each(function(idx, item){
 				var val = $(this).val();
@@ -66,7 +66,7 @@
 			});
 				console.log("avoFlagsum = "+avoFlagsum);
 			
-			var rvoFlagsum = [];
+			var rvoFlagsum = []; // 수신 했는지 확인용 flag
 			
 			$('.rvoFlagsum').each(function(idx, item){
 				var val = $(this).val();
@@ -137,21 +137,34 @@
 	
 	$(function(){
 		
-		$('#ok').click(function(){
+		$('#ok').click(function(){ //결재 승인 
 			$('form[name=apAccept]').submit();
 		});
 		
-		$('#cancel').click(function(){
+		$('#return').click(function(){ //결재 반려
+			$('form[name=apAccept]').submit();
+		});
+		
+		$('#cancel').click(function(){ // 결재 뒤로가기
 			history.back();
 		})
 		
-		$('#reOk').click(function(){
+		$('#reOk').click(function(){ //수신 승인
 			$('form[name=reAccept]').submit();
 		});
 		
-		$('#recancel').click(function(){
+		$('#recancel').click(function(){ //수신 뒤로가기
 			history.back();
 		})
+		
+		$('#ok_draft').click(function(){ //임시 저장문서 완료
+			$('form[name=apAccept]').submit();
+		});
+		
+		$('#cancel_draft').click(function(){ //임시 저장문서 뒤로가기
+			history.back();
+		})
+		
 	});
 	
 </script>
@@ -165,6 +178,9 @@
 	<form name="reAccept" method="post" action="<c:url value = '/electronic/AcceptUpdateReLine?no=${param.no }'/>">
 			<input type="hidden" name="empNo" value="${sessionScope.empNo }">
 			<input type="hidden" name="electronicNo" value="${vo.electronicNo }">
+	</form>
+	<form name="" method="post" action="">
+	
 	</form>
 
 	<form name="docfrm" method="post" enctype="multipart/form-data"
@@ -225,9 +241,14 @@
 								<button type="button" id="reOk" class="btn btn-light btn-outline-secondary">받음</button>
 								<button type="button" id="recancel" class="btn btn-light btn-outline-secondary">안받음처리</button>
 							</c:if>
-							<c:if test="${param.no != '2' }">
+							<c:if test="${param.no != '2' and param.no eq '5'}">
+								<button type="button" id="ok_draft" class="btn btn-light btn-outline-secondary">작성 완료</button>
+								<button type="button" id="cancel_draft" class="btn btn-light btn-outline-secondary">뒤로가기</button>
+							</c:if>
+							<c:if test="${param.no != '2' and param.no != '5'}">
 								<button type="button" id="ok" class="btn btn-light btn-outline-secondary">승인</button>
 								<button type="button" id="cancel" class="btn btn-light btn-outline-secondary">보류</button>
+								<button type="button" id="return" class="btn btn-light btn-outline-secondary">반려</button>
 							</c:if>
 						</div>
 					</div>

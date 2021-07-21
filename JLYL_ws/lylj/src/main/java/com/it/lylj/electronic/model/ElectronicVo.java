@@ -23,5 +23,6 @@ public class ElectronicVo {
 	private String electronicEmergencyFlag;
 	private int empNo;
 	private int styleNo;
+	private String electronicDraft;
 
 }

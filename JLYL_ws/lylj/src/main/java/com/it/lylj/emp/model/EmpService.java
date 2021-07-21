@@ -29,6 +29,7 @@ public interface EmpService {
 	String checkEmail(int empNo);
 	int updateTempPwd(EmpVO vo);
 	String selectPwd(int empNo);
+	List<EmpVO> selectAllEmpForEle();
 	
 	//이메일발송
 	public void sendEmail(EmpVO vo);

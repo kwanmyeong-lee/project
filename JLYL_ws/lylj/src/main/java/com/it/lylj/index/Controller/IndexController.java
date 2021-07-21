@@ -52,7 +52,7 @@ public class IndexController {
 		logger.info("메인 화면 보여주기");
 
 		List<OriVo> olist = new ArrayList<>();
-		List<EmpVO> elist = empService.selectAllEmp();
+		List<EmpVO> elist = empService.selectAllEmpForEle();
 		List<DepartmentVO> dlist = departmentService.selectAllDepartment();
 
 		for (int i = 0; i < elist.size(); i++) {

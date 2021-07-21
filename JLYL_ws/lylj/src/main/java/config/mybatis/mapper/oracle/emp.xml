@@ -61,6 +61,10 @@
 		order by EMP_NO		
 	</select>
 	
+	<select id="selectAllEmpForEle" resultType="empVo">
+		select * from emp
+	</select>
+	
 	<!-- 사원 전체 수 -->
 	<select id="selectTotalEmp" parameterType="searchVo" resultType="int">
 		select count(*) from empView

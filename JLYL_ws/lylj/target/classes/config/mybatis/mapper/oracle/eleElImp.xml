@@ -14,7 +14,7 @@
 		#{electronicTitle}, #{electronicContent}, #{electronicFileFlag},
 		#{electronicCompletFlag},
 		#{electronicEmergencyFlag}, #{empNo},
-		#{styleNo})
+		#{styleNo}, #{electronicDraft})
 
 	</insert>
 
@@ -39,28 +39,34 @@
 	
 	<select id="selectListByEmpNo1" parameterType="int" resultType="map">
 		select * from apEleList
-		where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0
+		where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0
 	</select>
 	
 	<select id="selectListByEmpNo3" parameterType="int" resultType="map">
 		select * from apEleList
-		where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 1
+		where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 1 and ELECTRONIC_DRAFT = 0
 	</select>
 	
 	<select id="selectListByEmpNo6" parameterType="int" resultType="map">
 		select * from apEleList
-		where EMP_NO_AP = #{empNo} and ELECTRONIC_COMPLET_FLAG = 1
+		where EMP_NO_AP = #{empNo} and ELECTRONIC_COMPLET_FLAG = 1 and ELECTRONIC_DRAFT = 0
 	</select>
 	
 	<select id="selectListByEmpNo2" parameterType="int" resultType="map">
 		select * from reEleList
-		where EMP_NO_RE = #{empNo}
+		where EMP_NO_RE = #{empNo} and ELECTRONIC_DRAFT = 0
 	</select>
 	
 	<select id="selectListByEmpNo4" parameterType="int" resultType="map">
 		select * from elimp
-		where EMP_NO = ${empNo}
+		where EMP_NO = ${empNo} and ELECTRONIC_DRAFT = 0
 	</select>
+	
+	<select id="selectListByEmpNo5" parameterType="int" resultType="map">
+		select * from elimp
+		where EMP_NO = ${empNo} and ELECTRONIC_DRAFT = 1
+	</select>
+	
 	
 
 </mapper>

@@ -46,7 +46,7 @@ public class ElectronicServiceImpl implements ElectronicService {
 		}else if(no.equals("4")) {
 			list = electronicDao.selectListByEmpNo4(empNo);
 		}else if(no.equals("5")) {
-			
+			list = electronicDao.selectListByEmpNo5(empNo);
 		}else if(no.equals("6")) {
 			list = electronicDao.selectListByEmpNo6(empNo);
 		}
