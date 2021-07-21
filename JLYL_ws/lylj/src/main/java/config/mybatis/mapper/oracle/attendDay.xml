@@ -3,9 +3,25 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.it.lylj.attendDay.model.AttendDayDAO">
+
 	<select id="selectAttendDayByRegdate" parameterType="attendDayVo" resultType="attendDayVo">
 		select * from ATTENDDAY 
 		where EMP_NO=${empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(#{attendanceDayRegdate})
+	</select>
+	
+	<select id="selectSumWeekWork" resultType="int">
+		select TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60))   from ATTENDDAY
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'d') and SYSDATE
+	</select>
+	
+	<select id="selectSumMonthWork" resultType="int">
+		select TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60))   from ATTENDDAY
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'MM') and SYSDATE
+	</select>
+	
+	<select id="selectSumWeekWorkByMonth" resultType="int" parameterType="hashmap">
+		select NVL(TRUNC(SUM((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0)   from ATTENDDAY
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TO_DATE(#{startDate:VARCHAR}) and TO_DATE(#{endDate:VARCHAR})
 	</select>
 	
 	<insert id="insertAttendDay" parameterType="attendDayVo">
@@ -19,6 +35,7 @@
 		ATTENDANCE_DAY_WORK_HOUR=#{attendanceDayWorkHour}
 		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE =#{attendanceDayRegdate}
 	</update>
+	
 	
  </mapper>
 

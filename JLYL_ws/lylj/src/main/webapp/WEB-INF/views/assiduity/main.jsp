@@ -342,18 +342,24 @@ $(function(){
 	        		var comeNum = hourMin(cTime);
 	    			var leaveNum = hourMin(lTime);
 	    			
-            		
-	    			
-	    			
-	    			
 	    			var parent="#content"+weekNum+"Div"+weekDay;
-	
+	    			
 	    			for(var i=comeNum; i<=leaveNum; i++){
 	    				var comef="#content-td"+i;
 	    				$(parent).find(comef).css("background","blue");
 	    			}
+	    			
             	}
+            },
+            error:function(request,status,error){
+            	var parent="#content"+weekNum+"Div"+weekDay;
+        		for(var i=0; i<=47; i++){
+    				var comef="#content-td"+i;
+    				$(parent).find(comef).css("background","white");
+    			}
             }
+
+            
           });
 		
 	});
@@ -613,7 +619,14 @@ window.onload= function(){
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne${weekNo }">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne${weekNo }" aria-bs-expanded="false" aria-bs-controls="collapseOne${weekNo }">
-        ${weekNo }주차<span class="bt-sp" id="weekNum${weekNo }">누적근무시간</span>
+        ${weekNo }주차
+        <c:if test="${weekTimelist.size()>=weekNo }">
+	        <c:set var="sumhour" value="${weekTimelist.get(weekNo-1)/3600 }"/>
+	        <c:set var="summin" value="${weekTimelist.get(weekNo-1)%60/60 }"/>
+	        <c:set var="sumsec" value="${weekTimelist.get(weekNo-1)%60%60 }"/>
+	        <span class="bt-sp"><fmt:formatNumber value='${sumhour}' pattern='00'/>h <fmt:formatNumber value='${summin}' pattern='00'/>m <fmt:formatNumber value='${sumsec}' pattern='00'/>s</span>
+        </c:if>
+        <span class="bt-sp" id="weekNum${weekNo }">누적근무시간</span>
       </button>
     </h2>
     <div id="collapseOne${weekNo }" class="accordion-collapse collapse" aria-labelledby="headingOne${weekNo }" data-bs-parent="#accordionExample">
