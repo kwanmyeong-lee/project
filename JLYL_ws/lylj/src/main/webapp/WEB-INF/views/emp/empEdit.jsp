@@ -53,12 +53,52 @@
 	}
 	
 	$(function(){
+		/* 유효성 */
+		$('')
+		
+		/* modal */
 		$('#bt_edit').click(function(){
 			$('#editModal').modal('show');
 		});
 		
 		$('#bt_editOk').click(function(){
-			if($('#modalEmpPwd').val().length<1){
+			if($('#empTel').val().length<1){
+				alert('핸드폰번호를 입력하세요');
+				$('#editModal').modal('hide');
+				$('#empTel').focus();
+				event.preventDefault();
+				return false;
+			}else if($('#empEmail').val().length<1){
+				alert('이메일주소를 입력하세요');
+				$('#editModal').modal('hide');
+				$('#empEmail').focus();
+				event.preventDefault();
+				return false;
+			}else if($('#empAddress').val().length<1){
+				alert('주소를 입력하세요');
+				$('#editModal').modal('hide');
+				$('#empEmail').focus();
+				event.preventDefault();
+				return false;
+			}else if($('#empAddressdetail').val().length<1){
+				alert('상세주소 입력하세요');
+				$('#editModal').modal('hide');
+				$('#empAddressdetail').focus();
+				event.preventDefault();
+				return false;
+			}else if($('#empSalary').val().length<1){
+				alert('급여를 입력하세요');
+				$('#editModal').modal('hide');
+				$('#empSalary').focus();
+				event.preventDefault();
+				return false;
+			}else if($('#empAccount').val().length<1){
+				alert('계좌번호를 입력하세요');
+				$('#editModal').modal('hide');
+				$('#empAccount').focus();
+				event.preventDefault();
+				return false;
+			}else if($('#modalEmpPwd').val().length<1){
 				alert('비밀번호를 입력하세요');
 				event.preventDefault();
 				return false;
@@ -373,7 +413,7 @@
 	  </div>
 	</div>
 	
-	<!-- 비밀번호 수정 -->
+	<!-- 비밀번호 수정 modal -->
 	<div class="modal" id="changePwdModal" data-bs-backdrop="static">
 	  <div class="modal-dialog ">
 	    <div class="modal-content">
