@@ -149,10 +149,10 @@ $(function(){
 });
 </script>
 <div id="commentBodyDiv">
-    <h4>댓글</h4>
-    <hr>
+    <h4 style="float:left;margin-right:10px;">댓글</h4><div class="commCnt">${vo.commentCnt}</div>
     <!-- 일반 댓글 쓰는 div -->
     <div id="commentAdd">
+    <hr>
 		<form name="frmCommentAdd" method="post" id="frmCommentAdd">
 			<input type="hidden" name="boardCommentWriter" value="tttt" id="commAddwriter">
 			<input type="hidden" name="boardNo" value="${param.boardNo }">

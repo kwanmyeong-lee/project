@@ -54,11 +54,9 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.deleteBoard(boardNo);
 	}
 
-	/*
-	 * @Override public int selectByFol(int boardFolderNo) { return
-	 * boardDao.selectByFol(boardFolderNo); }
-	 */
-
-	
+	@Override
+	public int updateCommentCnt(int boardNo) {
+		return boardDao.updateCommentCnt(boardNo);
+	}
 
 }

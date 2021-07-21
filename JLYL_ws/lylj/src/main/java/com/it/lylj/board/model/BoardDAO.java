@@ -18,4 +18,5 @@ public interface BoardDAO {
 	BoardVO selectByNo(int boardNo);
 	int updateBoard(BoardVO vo);
 	int deleteBoard(int boardNo);
+	int updateCommentCnt(int boardNo);
 }

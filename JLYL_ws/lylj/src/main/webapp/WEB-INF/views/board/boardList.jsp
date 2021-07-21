@@ -91,7 +91,7 @@
 		            <td class="userNameTd">${vo.boardWriter}</td>
 		            <td>
 		            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle}</a> 
-		            	<span>[6]</span> <!-- [ ] 안에 댓글 수 (###########) -->
+		            	<span>[${vo.commentCnt }]</span> <!-- [ ] 안에 댓글 수 (###########) -->
 		            	<c:if test="${vo.newImgTerm<12}">
 		            		<span class="newSpan">new</span> <!-- 시간계산으로 new 처리 !!!! -->
 		            	</c:if>
