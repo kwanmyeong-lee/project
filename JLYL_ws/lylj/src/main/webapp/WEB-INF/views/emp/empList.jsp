@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="emptop.jsp" %>
+<%@ include file="../inc/top.jsp"%>
 
 <link rel="stylesheet" href="<c:url value='/resources/css/addressBook/style.css'/>">
 <style type="text/css">
