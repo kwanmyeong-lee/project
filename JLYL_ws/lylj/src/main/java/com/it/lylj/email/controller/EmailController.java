@@ -25,4 +25,10 @@ public class EmailController {
 		logger.info("이메일쓰기 페이지");
 		model.addAttribute("navNo", 2);
 	}
+	
+	@RequestMapping("/emailDetail")
+	public void emailDetail(Model model) {
+		logger.info("emailDetail");
+		model.addAttribute("navNo", 2);
+	}
 }
