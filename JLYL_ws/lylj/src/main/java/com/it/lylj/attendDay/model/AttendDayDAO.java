@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AttendDayDAO {
 	AttendDayVO selectAttendDayByRegdate(AttendDayVO vo);
 	int insertAttendDay(AttendDayVO vo);
+	int updateAttendDayByOffHour(AttendDayVO vo);
 }
