@@ -504,6 +504,15 @@
     font-size: 15px;
 }
 
+#replyUp{
+	float: right;
+    width: 120px;
+    height: 80px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+}
 .replyCancleBtn{
 	font-size: 15px;
 	margin-left: 10px; 
