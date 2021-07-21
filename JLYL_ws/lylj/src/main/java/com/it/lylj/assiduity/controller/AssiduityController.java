@@ -34,12 +34,52 @@ public class AssiduityController {
 		attendDayService.insertAttendDay(vo);
 		
 		return 1;
-	}//ajax 전체 일정 불러오기
+	}//ajax 출근 입력하기
+	
+	@GetMapping("/updateLeaveTime")
+	@ResponseBody
+	public int updateLeaveTime(AttendDayVO vo){
+		
+		attendDayService.updateAttendDayByOffHour(vo);
+		
+		return 1;
+	}//ajax 근태 퇴근,근무시간 업데이트하기
+	
+	@GetMapping("/selectAttendDayView")
+	@ResponseBody
+	public AttendDayVO selectAttendDayView(AttendDayVO vo){
+		
+		AttendDayVO attendDayVo = attendDayService.selectAttendDayByRegdate(vo);
+		
+		return attendDayVo;
+	}//ajax 로그인된 사원의 특정 날짜 근태 정보 불러오기
 	
 	
 	
 	@GetMapping("/main")
 	public void main(Model model, HttpServletRequest req) {
+		model = topView(req,model);
+		
+	}//main 페이지
+	
+	@GetMapping("/annual")
+	public void annual(Model model, HttpServletRequest req) {
+		model = topView(req,model);
+	}//휴가 페이지
+	
+	@GetMapping("/condition")
+	public void condition(Model model, HttpServletRequest req) {
+		model = topView(req,model);
+	}//근태 현황 페이지
+	
+	@GetMapping("/stats")
+	public void stats(Model model, HttpServletRequest req) {
+		model = topView(req,model);
+	}//근태 통계 페이지
+	
+	
+	
+	public Model topView(HttpServletRequest req,Model model) {
 		Date today =new Date();
 		HttpSession session =req.getSession();
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
@@ -53,23 +93,6 @@ public class AssiduityController {
 		model.addAttribute("navNo",3);
 		model.addAttribute("attendDayVo", attendDayVo2);
 		
-	}//main 페이지
-	
-	@GetMapping("/annual")
-	public void annual(Model model) {
-		model.addAttribute("navNo",3);
-	}//휴가 페이지
-	
-	@GetMapping("/condition")
-	public void condition(Model model) {
-		model.addAttribute("navNo",3);
-	}//근태 현황 페이지
-	
-	@GetMapping("/stats")
-	public void stats(Model model) {
-		model.addAttribute("navNo",3);
-	}//근태 통계 페이지
-	
-	
-	
+		return model;
+	}
 }

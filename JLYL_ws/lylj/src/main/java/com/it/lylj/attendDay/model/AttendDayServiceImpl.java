@@ -22,4 +22,10 @@ public class AttendDayServiceImpl implements AttendDayService{
 	public int insertAttendDay(AttendDayVO vo) {
 		return dao.insertAttendDay(vo);
 	}
+
+
+	@Override
+	public int updateAttendDayByOffHour(AttendDayVO vo) {
+		return dao.updateAttendDayByOffHour(vo);
+	}
 }

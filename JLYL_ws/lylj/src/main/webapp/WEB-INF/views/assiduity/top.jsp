@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -72,18 +73,48 @@
 								<dd id="comeTime">--:--:--</dd></dl></li>
 							</c:when>
 							<c:otherwise>
-								<dd id="comeTime">${attendDayVo.attendanceDayOnHour}</dd></dl></li>
+								<dd id="comeTime"><fmt:formatDate value="${attendDayVo.attendanceDayOnHour}" pattern="HH:mm:ss"/></dd></dl></li>
 							</c:otherwise>
 						</c:choose>
-						<li class="commute-li"><dl class="commute-dl"><dt>퇴근시간</dd><dd id="leaveTime">--:--:--</dd></dl></li>
-						<li class="commute-li"><dl class="commute-dl"><dt>금일 근무시간</dd><dd id="dayWorkTime">--:--:--</dd></dl></li>
+						<li class="commute-li"><dl class="commute-dl"><dt>퇴근시간</dd>
+						<c:choose>
+							<c:when test="${empty attendDayVo.attendanceDayOffHour}">
+								<dd id="leaveTime">--:--:--</dd></dl></li>
+							</c:when>
+							<c:otherwise>
+								<dd id="leaveTime"><fmt:formatDate value="${attendDayVo.attendanceDayOffHour}" pattern="HH:mm:ss"/></dd></dl></li>
+							</c:otherwise>
+						</c:choose>						
+						<li class="commute-li"><dl class="commute-dl"><dt>금일 근무시간</dd>
+						<c:choose>
+							<c:when test="${empty attendDayVo.attendanceDayWorkHour}">
+								<dd id="dayWorkTime">--:--:--</dd></dl></li>
+							</c:when>
+							<c:otherwise>
+								<dd id="dayWorkTime"><fmt:formatDate value="${attendDayVo.attendanceDayWorkHour}" pattern="HH:mm:ss"/></dd></dl></li>
+							</c:otherwise>
+						</c:choose>	
+						
 					</ul>
 				</div>
 				
 				<div class="commute-div">
-					<button type="button" class="btn btn-light btn-commute" id="btnCome">출근하기</button>
-					<button type="button" class="btn btn-light btn-commute" id="btnLeave">퇴근하기</button>
-					
+					<c:choose>
+							<c:when test="${empty attendDayVo}">
+								<button type="button" class="btn btn-light btn-commute" id="btnCome">출근하기</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" class="btn btn-light btn-commute" id="btnCome" disabled="disabled">출근하기</button>
+							</c:otherwise>
+					</c:choose>
+					<c:choose>
+							<c:when test="${empty attendDayVo.attendanceDayOffHour}">
+								<button type="button" class="btn btn-light btn-commute" id="btnLeave">퇴근하기</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" class="btn btn-light btn-commute" id="btnLeave" disabled="disabled">퇴근하기</button>
+							</c:otherwise>
+					</c:choose>
 				</div>
 				<br>
 				
