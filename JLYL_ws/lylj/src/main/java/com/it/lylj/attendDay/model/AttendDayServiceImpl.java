@@ -10,9 +10,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AttendDayServiceImpl implements AttendDayService{
 	private final AttendDayDAO dao;
-	
+
+
 	@Override
-	public AttendDayVO selectAttendDayByRegdate(Date attendanceDayRegdate) {
-		return dao.selectAttendDayByRegdate(attendanceDayRegdate);
+	public AttendDayVO selectAttendDayByRegdate(AttendDayVO vo) {
+		return dao.selectAttendDayByRegdate(vo);
+	}
+
+
+	@Override
+	public int insertAttendDay(AttendDayVO vo) {
+		return dao.insertAttendDay(vo);
+	}
+
+
+	@Override
+	public int updateAttendDayByOffHour(AttendDayVO vo) {
+		return dao.updateAttendDayByOffHour(vo);
 	}
 }

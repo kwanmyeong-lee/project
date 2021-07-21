@@ -27,6 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.it.lylj.board.model.BoardService;
 import com.it.lylj.board.model.BoardVO;
+import com.it.lylj.boardComment.model.BoardCommentService;
+import com.it.lylj.boardComment.model.BoardCommentVO;
 import com.it.lylj.boardFile.model.BoardFileService;
 import com.it.lylj.boardFile.model.BoardFileVO;
 import com.it.lylj.boardFol.model.BoardFolService;
@@ -48,6 +50,8 @@ public class BoardController {
 	private final BoardService boardService;
 	private final BoardFolService boardFolService;
 	private final BoardFileService boardFileService;
+	private final BoardCommentService boardCommentService;
+	
 	/*        메인        */
 	@RequestMapping("/boardMain")
 	public String main(Model model) {
@@ -193,7 +197,7 @@ public class BoardController {
 		
 		int cnt = boardService.updateReadCount(boardNo);
 		logger.info("조회수 증가 처리, cnt={}", cnt);
-
+		
 		return "redirect:/board/boardDetail?boardNo="+boardNo;
 	}
 	
@@ -207,8 +211,13 @@ public class BoardController {
 		
 		List<BoardFileVO> fileVo = boardFileService.selectByNo(boardNo);
 		logger.info("fileVo={}", fileVo);
+		
+		List<BoardCommentVO> commList = boardCommentService.selectByNo(boardNo);
+		logger.info("댓글 목록 조회, commList={}", commList);
+		
 		model.addAttribute("vo", vo);
 		model.addAttribute("fileVo", fileVo);
+		model.addAttribute("commList", commList);
 		model.addAttribute("navNo",6);
 
 		return "board/boardDetail";

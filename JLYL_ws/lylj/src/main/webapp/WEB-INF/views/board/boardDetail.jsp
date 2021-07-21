@@ -55,7 +55,7 @@
 		    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink" id="upFileList">
 		    	<c:forEach var="file" items="${fileVo}">
 		    		<c:set var="filesize" value="${file.fileSize }" />
-		            <li><a class="dropdown-item fileA" href="<c:url value='/board/download?boardFileNo=${file.boardFileNo }'/>" >${file.originalFileName}</a></li>
+		            <li><a class="dropdown-item fileA" href="<c:url value='/board/download?boardFileNo=${file.boardFileNo }'/>" ><i class="fas fa-save"></i>&nbsp;&nbsp; ${file.originalFileName}</a></li>
 	            </c:forEach>
 	        </ul>
         </c:if>

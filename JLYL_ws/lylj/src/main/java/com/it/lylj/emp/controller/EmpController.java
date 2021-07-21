@@ -142,8 +142,6 @@ public class EmpController {
 		logger.info("사원정보, 파라미터 vo={}",vo);
 		
 		//3
-		
-		model.addAttribute("navNo", 8);
 		model.addAttribute("vo", vo);
 
 		return "emp/empInfo";
@@ -157,8 +155,6 @@ public class EmpController {
 		EmpVO empVo = empService.selectByEmpNo(empNo);
 		logger.info("사원정보수정페이지, adminLev={}", adminLev);
 
-			
-		model.addAttribute("navNo", 8);
 		model.addAttribute("empVo", empVo);
 		
 		return "emp/empEdit";
