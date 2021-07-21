@@ -28,6 +28,7 @@ DROP TABLE MAIL CASCADE CONSTRAINTS ;
 DROP TABLE MAILFILE CASCADE CONSTRAINTS ;
 DROP TABLE BREAKDAY CASCADE CONSTRAINTS ;
 DROP TABLE BREAKTHEME CASCADE CONSTRAINTS ;
+
 DROP SEQUENCE EMP_SEQ;
 DROP SEQUENCE SCHEDULE_SEQ;
 DROP SEQUENCE DOCSTY_SEQ;
@@ -37,12 +38,17 @@ DROP SEQUENCE OFBOARD_SEQ;
 DROP SEQUENCE OFBOARDFOL_SEQ;
 DROP SEQUENCE ELIMP_SEQ;
 DROP SEQUENCE OFBOARDFILE_SEQ;
+DROP SEQUENCE OFBOARDCOM_SEQ;
 DROP SEQUENCE APPLINE_SEQ;
 DROP SEQUENCE RELINE_SEQ;
 DROP SEQUENCE SCFOLDER_SEQ;
 DROP SEQUENCE BOFOL_SEQ;
 DROP SEQUENCE BOTARGET_SEQ;
 DROP SEQUENCE BOOKING_SEQ;
+DROP SEQUENCE BREAKDAY_SEQ;
+DROP SEQUENCE ATTEND_SEQ;
+DROP SEQUENCE ATTENDDAY_SEQ;
+DROP SEQUENCE BREAKTHEME_SEQ;
 
 DROP VIEW selectstamp;
 DROP VIEW apEleList;
@@ -94,6 +100,34 @@ INCREMENT BY 1
 START WITH 1 
 NOCACHE;
 
+CREATE SEQUENCE ATTENDDAY_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
+
+CREATE SEQUENCE ATTEND_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
+
+CREATE SEQUENCE BREAKTHEME_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
+
+CREATE SEQUENCE BREAKDAY_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
+
 CREATE SEQUENCE DOCSTY_SEQ
 MINVALUE 100
 MAXVALUE 9999999999999999999999999999 
@@ -143,6 +177,13 @@ INCREMENT BY 1
 START WITH 1
 NOCACHE;
 
+CREATE SEQUENCE OFBOARDCOM_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
+
 CREATE SEQUENCE APPLINE_SEQ
 MINVALUE 1
 MAXVALUE 9999999999999999999999999999 
@@ -158,7 +199,8 @@ START WITH 1
 NOCACHE;
 
 
-------------------------- SEQ ----------------------------------
+------------------------- SEQ -----------------------------------------
+-----------------------CREATE TABLE----------------------------------
 
 /* 사용자 */
 CREATE TABLE EMP (
@@ -203,7 +245,8 @@ CREATE TABLE ELIMP (
 	ELECTRONIC_COMPLET_FLAG VARCHAR2(255) DEFAULT '0', /* 완료여부 */
 	ELECTRONIC_EMERGENCY_FLAG VARCHAR2(255) DEFAULT '0', /* 긴급 여부 */
 	EMP_NO NUMBER, /* 기안자 */
-	STYLE_NO NUMBER /* 양식번호 */
+	STYLE_NO NUMBER, /* 양식번호 */
+	ELECTRONIC_DRAFT VARCHAR2(255) DEFAULT '0' /* 임시저장 여부 */
 );
 
 CREATE UNIQUE INDEX PK_ELIMP
@@ -274,7 +317,7 @@ CREATE TABLE OFBOARD (
 	BOARD_TITLE VARCHAR2(255) NOT NULL, /* 제목 */
 	BOARD_CONTENT CLOB, /* 내용 */
 	BOARD_WRITER VARCHAR2(255) NOT NULL, /* 글쓴이 */
-	BOARD_HITS NUMBER, /* 조회수 */
+	BOARD_HITS NUMBER DEFAULT 1, /* 조회수 */
 	BOARD_DATE DATE DEFAULT SYSDATE, /* 작성일 */
 	BOARD_FOLDER_NO NUMBER /* 게시판 폴더 번호 */
 );
@@ -301,7 +344,8 @@ CREATE TABLE BOOKING (
 	BOOKING_APP_FLAG VARCHAR2(255) DEFAULT '0', /* 승인 여부 */
 	BOOKING_DEL_FLAG VARCHAR2(255) DEFAULT '0', /* 취소 여부 */
 	BOOKING_TARGET_NO NUMBER, /* 예약 대상 번호 */
-	BOOKING_CONTENT CLOB /* 예약 내용 */
+	BOOKING_CONTENT CLOB, /* 예약 내용 */
+	SCHEDULE_NO NUMBER DEFAULT 0 /* 달력 번호 */
 );
 
 CREATE UNIQUE INDEX PK_BOOKING
@@ -343,7 +387,7 @@ CREATE TABLE ELFILE (
 	FILE_NAME VARCHAR2(255) NOT NULL, /* 파일이름 */
 	FILE_ORIGINALNAME VARCHAR2(255) NOT NULL, /* 원래파일이름 */
 	FILE_SIZE NUMBER NOT NULL, /* 파일용량 */
-	ELECTRONIC_NO NUMBER /* 문서번호 */
+	ELECTRONIC_NO NUMBER /* 문서번호 */	
 );
 
 CREATE UNIQUE INDEX PK_ELFILE
@@ -362,10 +406,9 @@ ALTER TABLE ELFILE
 CREATE TABLE DOCSTY (
 	STYLE_NO NUMBER NOT NULL, /* 양식번호 */
 	STYLE_NAME VARCHAR2(255) NOT NULL, /* 양식이름 */
-    STYLE_CONTENT CLOB, /* 양식내용 */
+	STYLE_CONTENT CLOB, /* 양식내용 */
 	FOLDER_NO NUMBER /* 문서 폴더 번호 */
 );
-
 
 CREATE UNIQUE INDEX PK_DOCSTY
 	ON DOCSTY (
@@ -385,7 +428,6 @@ CREATE TABLE APPSTAMP (
 	EMP_NO NUMBER, /* 사원 번호 */
 	STAMP_NAME VARCHAR2(255) NOT NULL /* 파일이름 */
 );
-
 
 CREATE UNIQUE INDEX PK_APPSTAMP
 	ON APPSTAMP (
@@ -463,7 +505,8 @@ CREATE TABLE ATTENDDAY (
 	ATTENDANCE_DAY_ON_HOUR DATE, /* 출근 시간 */
 	ATTENDANCE_DAY_OFF_HOUR DATE, /* 퇴근 시간 */
 	ATTENDANCE_DAY_WORK_HOUR DATE, /* 근무 시간 */
-	ATTENDANCE_DAY_HOLIDAY_FLAG VARCHAR2(255) DEFAULT 0 /* 휴일 여부 */
+	ATTENDANCE_DAY_HOLIDAY_FLAG VARCHAR2(255) DEFAULT 0, /* 휴일 여부 */
+	ATTENDANCE_DAY_REGDATE DATE NOT NULL /* 등록 날짜 */
 );
 
 CREATE UNIQUE INDEX PK_ATTENDDAY
@@ -695,9 +738,6 @@ CREATE TABLE DOCFOL (
 	FOLDER_NO NUMBER NOT NULL, /* 문서 폴더 번호 */
 	FOLDER_NAME VARCHAR(255) DEFAULT '기본' /* 문서 폴더 이름 */
 );
-select * from docfol;
-
-
 
 CREATE UNIQUE INDEX PK_DOCFOL
 	ON DOCFOL (
@@ -839,7 +879,7 @@ ALTER TABLE OFBOARD
 		REFERENCES OFBOARDFOL (
 			BOARD_FOLDER_NO
 		)
-        ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
 ALTER TABLE BOOKING
 	ADD
@@ -891,6 +931,7 @@ ALTER TABLE ELFILE
 			ELECTRONIC_NO
 		);
 
+
 ALTER TABLE DOCSTY
 	ADD
 		CONSTRAINT FK_DOCFOL_TO_DOCSTY
@@ -940,7 +981,7 @@ ALTER TABLE OFBOARDFILE
 		REFERENCES OFBOARD (
 			BOARD_NO
 		)
-        ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
 ALTER TABLE OFBOARDCOM
 	ADD
@@ -951,7 +992,7 @@ ALTER TABLE OFBOARDCOM
 		REFERENCES OFBOARD (
 			BOARD_NO
 		)
-        ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
 ALTER TABLE OFBOARDLIKE
 	ADD
@@ -962,7 +1003,7 @@ ALTER TABLE OFBOARDLIKE
 		REFERENCES OFBOARD (
 			BOARD_NO
 		)
-        ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
 ALTER TABLE OFBOARDLIKE
 	ADD
@@ -1073,6 +1114,9 @@ ALTER TABLE BREAKDAY
 		REFERENCES BREAKTHEME (
 			BREAKTHEME_NO
 		);
+
+
+
 
 
 ------------------------- view ---------------------------------
@@ -1301,25 +1345,25 @@ values (APPSTAMP_SEQ.nextval, 120, '아이유1.jpg');
 --전자 결재 정보 
 
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트1', '기안서 내용1', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트1', '기안서 내용1', 'N', '0', '0', 119, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트2', '기안서 내용2', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트2', '기안서 내용2', 'N', '0', '0', 119, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트3', '기안서 내용3', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트3', '기안서 내용3', 'N', '0', '0', 119, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트4', '기안서 내용4', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트4', '기안서 내용4', 'N', '0', '0', 119, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트5', '기안서 내용4', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트5', '기안서 내용4', 'N', '0', '0', 119, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트6', '기안서 내용4', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트6', '기안서 내용4', 'N', '0', '0', 119, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트7', '기안서 내용4', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트7', '기안서 내용4', 'N', '0', '0', 119, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트8', '기안서 내용4', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트8', '기안서 내용4', 'N', '0', '0', 119, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트9', '기안서 내용4', 'N', '0', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트9', '기안서 내용4', 'N', '0', '0', 119, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트10', '기안서 내용4', 'N', '1', '0', 119, 100);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트10', '기안서 내용4', 'N', '1', '0', 119, 100, default);
 
 select * from elimp;
 
@@ -1348,6 +1392,9 @@ values (APPLINE_SEQ.nextval , 9, 120, '0', 0 );
 insert into APPLINE
 values (APPLINE_SEQ.nextval , 10, 120, '0', 0 );
 
+delete APPLINE
+where ELECTRONIC_NO = 8 and EMP_NO = 120;
+
 update appline
 set APPROVAL_LINE_COMPLETE_FLAG = '0'
 where ELECTRONIC_NO = 8 AND EMP_NO = 119;
@@ -1368,7 +1415,6 @@ insert into reline
 values (APPLINE_SEQ.nextval , 10, 120, '0');
 
 
-
 -- 게시판 폴더
 INSERT INTO OFBOARDFOL VALUES(1, '공지사항');
 INSERT INTO OFBOARDFOL VALUES(2, '자료실');
@@ -1376,9 +1422,25 @@ INSERT INTO OFBOARDFOL VALUES(3, '커뮤니티');
 INSERT INTO OFBOARDFOL VALUES(OFBOARDFOL_SEQ.nextval, '영업 본부');
 
 
+--날짜별 근태 정보
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-21 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,null,null,0,'2021-07-21');
 
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-20 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-20 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-20 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-20');
 
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-19 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-19 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-19 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-19');
 
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-16 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-16 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-16 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-16');
+
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-15 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-15 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-15 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-15');
+
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-14 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-14 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-14 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-14');
+
+select * from attendday;
 
 
 

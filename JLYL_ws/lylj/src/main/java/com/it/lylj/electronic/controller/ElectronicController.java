@@ -67,7 +67,7 @@ public class ElectronicController {
 
 	@GetMapping("/documentWrite")
 	public void documentWrite(@RequestParam String styleNo, Model model) {
-		logger.info("양식 작성 페이지 보여주기 파라미터 문서 번호 ={}, vo ={}", styleNo);
+		logger.info("양식 작성 페이지 보여주기 파라미터 문서 번호 ={}", styleNo);
 		ElectronicDocStyVO svo = electronicDocStyService.selectByStyleNo(styleNo);
 		model.addAttribute("svo", svo);
 	}
@@ -75,9 +75,12 @@ public class ElectronicController {
 	@PostMapping("/documentWrite")
 	public String documentWrite_post(@ModelAttribute ElectronicVo vo, @RequestParam String AempNoData, @RequestParam String RempNoData , HttpSession session,  Model model) {
 		logger.info("양식 등록 하기 파라미터 ElectronicVo={}", vo);
+		
 		String empNo = (String) session.getAttribute("empNo");
 		vo.setEmpNo(Integer.parseInt(empNo));
+		
 		int cnt = electronicService.insertEle(vo);
+		
 		logger.info("세션에서 empNo={}", empNo);
 		logger.info("결재 라인 결재자 AempNoData={}", AempNoData);
 		logger.info("결재 라인 결재자 RempNoData={}", RempNoData);
@@ -105,6 +108,8 @@ public class ElectronicController {
 			
 		}
 		
+	
+		
 		String[] ReEmpNo = RempNoData.split(",");
 		for(int i =0; i<ReEmpNo.length;i++) {
 			String reempno = ReEmpNo[i];
@@ -123,6 +128,8 @@ public class ElectronicController {
 
 		return "common/message";
 	}
+
+	
 
 	@GetMapping("/electronicList")
 	public void electronicWait(@RequestParam String no, HttpSession session, Model model) {
@@ -163,7 +170,8 @@ public class ElectronicController {
 		// http://localhost:9091/lylj/electronic/electronicDetail?ElectronicNo=1
 	}
 	
-	@RequestMapping("/AcceptUpdateAppLine")
+	//결재 승인
+	@RequestMapping("/AcceptUpdateAppLine") 
 	public String AcceptUpdateAppLine(@ModelAttribute ElectronicVo vo,@RequestParam String no, Model model) {
 		logger.info("리스트 번호 no ={}", no);
 		logger.info("AppLine 업데이트 파라미터 electronicVo={}", vo);
@@ -180,6 +188,7 @@ public class ElectronicController {
 		return "common/message";
 	}
 	
+	//수신 승인
 	@RequestMapping("/AcceptUpdateReLine")
 	public String AcceptUpdateReLine(@ModelAttribute ElectronicVo vo,@RequestParam String no, Model model) {
 		logger.info("리스트 번호 no ={}", no);
@@ -196,6 +205,14 @@ public class ElectronicController {
 		
 		return "common/message";
 	}
+	
+	//결재라인 업데이트 => 삭제후 다시 등록 느낌?
+	
+	//수신라인 업데이트
+	
+	//내용 업데이트
+	
+	//기안서 올리기 => draft falg 만 바꾸면댐
 	
 	@GetMapping("/documentDetail")
 	public String documentDetail(@RequestParam String styleNo, Model model) {
