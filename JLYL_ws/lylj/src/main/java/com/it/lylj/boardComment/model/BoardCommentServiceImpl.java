@@ -30,4 +30,5 @@ public class BoardCommentServiceImpl implements BoardCommentService{
 	public int deleteComm(int boardCommentNo) {
 		return boardCommentDao.deleteComm(boardCommentNo);
 	}
+
 }

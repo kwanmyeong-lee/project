@@ -93,6 +93,12 @@
 	text-align: center;
 }
 
+.commCnt2{
+	float: left;
+	margin-left: 5px;
+	color: rgb(255, 60, 0);
+	font-weight: bold;
+}
 /*리스트 CSS*/
 #listBodyDiv{
 	display: flex;
@@ -419,6 +425,21 @@
 #commentBodyDiv{
     width: 1190px;
     padding: 20px;
+}
+
+.commCnt{
+	float: left;
+	width: 25px;
+	color: white;	
+	background: #36b9cc;
+	text-align: center;
+	font-weight: bold;
+	border-radius:50px;
+	margin-top: 5px;
+}
+
+#commentAdd{
+	clear: both;
 }
 
 .replyDivHr{

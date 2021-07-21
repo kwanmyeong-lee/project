@@ -30,6 +30,7 @@
 		SET BOARD_COMMENT_DEL_FLAG='Y'
 		WHERE BOARD_COMMENT_NO=#{boardCommentNo}
 	</update>
+	
 </mapper>
 
 
