@@ -30,6 +30,13 @@ $(function() {
         		var parent="#content"+weekNum+"Div"+weekDay;
         		
         		$(parent).find(comef).css("background","blue");
+            },
+            error:function(request,status,error){
+            	var parent="#content"+weekNum+"Div"+weekDay;
+        		for(var i=0; i<=47; i++){
+    				var comef="#content-td"+i;
+    				$(parent).find(comef).css("background","white");
+    			}
             }
           });
 		
