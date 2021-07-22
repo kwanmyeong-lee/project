@@ -138,7 +138,7 @@
 
 #listBodyDiv > table{
 	clear: both;
-    width: 1200px;
+    width: 100%;
     margin: 0 auto;
     color: #575757;
 }
@@ -471,6 +471,11 @@
 	margin-top: 20px;
 }
 
+.fa-reply{
+	transform: rotate(180deg);
+	color: #606060;	
+}
+
 .replyImg{
 	margin: auto 0;
 }
@@ -534,6 +539,7 @@
 	float: right;
     width: 120px;
     height: 80px;
+    margin-left: 30px;
     border-radius: 10px;
     text-align: center;
     font-weight: bold;

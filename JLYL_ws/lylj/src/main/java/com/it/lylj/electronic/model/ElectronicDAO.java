@@ -18,5 +18,8 @@ public interface ElectronicDAO {
 	List<Map<String, Object>> selectListByEmpNo2(int empNo);
 	List<Map<String, Object>> selectListByEmpNo4(int empNo);
 	List<Map<String, Object>> selectListByEmpNo5(int empNo);
+	List<Map<String, Object>> selectListByEmpNo7(int empNo);
+	int updateEle(ElectronicVo vo);
+	int updateEleReturn(int ElectronicNo);
 	
 }
