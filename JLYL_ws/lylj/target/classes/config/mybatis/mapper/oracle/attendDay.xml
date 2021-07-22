@@ -20,9 +20,23 @@
 		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'d') and SYSDATE
 	</select>
 	
+	<select id="selectSumWeekWorkEx" resultType="int">
+		select NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60)),0) from ATTENDDAY a
+		where ATTENDANCE_DAY_OFF_HOUR > to_date((select to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00' from ATTENDDAY b 
+        where a.ATTENDANCE_DAY_NO  = b.ATTENDANCE_DAY_NO   and ATTENDANCE_DAY_OFF_HOUR is not null ), 'yyyy-MM-dd hh24:mi:ss')
+        and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'d') and SYSDATE
+	</select>
+	
 	<select id="selectSumMonthWork" resultType="int">
 		select TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60))   from ATTENDDAY
 		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'MM') and SYSDATE
+	</select>
+	
+	<select id="selectSumMonthWorkEx" resultType="int">
+		select NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60)),0)   from ATTENDDAY a
+		where ATTENDANCE_DAY_OFF_HOUR > to_date((select to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00' from ATTENDDAY b 
+        where a.ATTENDANCE_DAY_NO  = b.ATTENDANCE_DAY_NO   and ATTENDANCE_DAY_OFF_HOUR is not null ), 'yyyy-MM-dd hh24:mi:ss')
+        and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'MM') and SYSDATE
 	</select>
 	
 	<select id="selectSumWeekWorkByMonth" resultType="int" parameterType="hashmap">

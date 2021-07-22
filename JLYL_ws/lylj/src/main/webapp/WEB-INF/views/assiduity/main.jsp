@@ -682,13 +682,19 @@ window.onload= function(){
                <div class="m-d">
                <div class="main-week-div">
                		<div class="week-div">
+	               		<c:set var="shour" value="${selectSumWeekWork/3600 }"/>
+		        		<c:set var="smin" value="${selectSumWeekWork%60/60 }"/>
+		      	  		<c:set var="ssec" value="${selectSumWeekWork%60%60 }"/>
                			<p class="week-p1">이번주 누적</p>
-               			<p class="week-p2" >000</p>
+               			<p class="week-p2" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                		<span class="divide-bar"></span>
                		<div class="week-div">
+               			<c:set var="shour" value="${selectSumMonthWorkEx/3600 }"/>
+		        		<c:set var="smin" value="${selectSumMonthWorkEx%60/60 }"/>
+		      	  		<c:set var="ssec" value="${selectSumMonthWorkEx%60%60 }"/>
                			<p class="week-p1">이번주 초과</p>
-               			<p class="week-p2" >000</p>
+               			<p class="week-p2" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                		<div class="week-div">
                			<p class="week-p1">이번주 잔여</p>
@@ -696,12 +702,18 @@ window.onload= function(){
                		</div>
                		<span class="divide-bar"></span>
                		<div class="week-div">
+               			<c:set var="shour" value="${selectSumMonthWork/3600 }"/>
+		        		<c:set var="smin" value="${selectSumMonthWork%60/60 }"/>
+		      	  		<c:set var="ssec" value="${selectSumMonthWork%60%60 }"/>
                			<p class="week-p1 week-pp">이번달 누적</p>
-               			<p class="week-p2 week-pp" >000</p>
+               			<p class="week-p2 week-pp" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                		<div class="week-div">
-               			<p class="week-p1 week-pp">이번달 연장</p>
-               			<p class="week-p2 week-pp" >000</p>
+               			<c:set var="shour" value="${selectSumMonthWorkEx/3600 }"/>
+		        		<c:set var="smin" value="${selectSumMonthWorkEx%60/60 }"/>
+		      	  		<c:set var="ssec" value="${selectSumMonthWorkEx%60%60 }"/>
+               			<p class="week-p1 week-pp">이번달 초과</p>
+               			<p class="week-p2 week-pp" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                </div>
                </div>
