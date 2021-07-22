@@ -2,6 +2,7 @@ package com.it.lylj.attendDay.model;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public interface AttendDayService {
 	AttendDayVO selectAttendDayByRegdate(AttendDayVO vo);
@@ -10,5 +11,6 @@ public interface AttendDayService {
 	int selectSumWeekWork();
 	int selectSumMonthWork();
 	int selectSumWeekWorkByMonth(HashMap<String, Object> map);
+	List<AttendDayVO> selectAttendMonth(HashMap<String, Object> map);
 
 }

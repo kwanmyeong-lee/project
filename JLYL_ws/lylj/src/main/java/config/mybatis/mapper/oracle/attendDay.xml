@@ -9,6 +9,12 @@
 		where EMP_NO=${empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(#{attendanceDayRegdate})
 	</select>
 	
+	<select id="selectAttendMonth" parameterType="hashmap" resultType="attendDayVo">
+		select * from ATTENDDAY 
+		where EMP_NO=${empNo} and ATTENDANCE_DAY_REGDATE between TO_DATE(#{firstDate:VARCHAR}) and TO_DATE(#{lastDate:VARCHAR})
+		order by ATTENDANCE_DAY_REGDATE
+	</select>
+	
 	<select id="selectSumWeekWork" resultType="int">
 		select TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60))   from ATTENDDAY
 		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'d') and SYSDATE
@@ -21,7 +27,7 @@
 	
 	<select id="selectSumWeekWorkByMonth" resultType="int" parameterType="hashmap">
 		select NVL(TRUNC(SUM((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0)   from ATTENDDAY
-		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TO_DATE(#{startDate:VARCHAR}) and TO_DATE(#{endDate:VARCHAR})
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TO_DATE(#{startDate:VARCHAR}) and TO_DATE(#{endDate:VARCHAR}) and EMP_NO=${empNo}
 	</select>
 	
 	<insert id="insertAttendDay" parameterType="attendDayVo">
