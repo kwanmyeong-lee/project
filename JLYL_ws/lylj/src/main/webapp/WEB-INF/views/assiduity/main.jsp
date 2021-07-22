@@ -213,6 +213,23 @@ $(function(){
 		
 		$('#nowYearMonth').text(pd);
 		dayView(pd);
+		
+		var empNo = $('.empNo').val();
+		
+		selectMonthAjax(empNo, pd);
+		
+		$.ajax({    
+	        type:'get',
+	        url:"selectMonthWorkTime",
+	        data:{empNo:empNo, selectDate:pd},
+	        dataType: "json",
+	        async : false,
+	        success : function(data) {
+	        	
+	        	
+	        }
+	      });
+		
 	});
 	
 	$('#nowRight').click(function(){
@@ -222,6 +239,10 @@ $(function(){
 
 		$('#nowYearMonth').text(pd);
 		dayView(pd);
+		
+		var empNo = $('.empNo').val();
+		
+		selectMonthAjax(empNo, pd);
 	});
 	
 	$('#todayYearMonth').click(function(){
@@ -230,6 +251,10 @@ $(function(){
 
 		$('#nowYearMonth').text(nd);
 		dayView(nd);
+		
+		var empNo = $('.empNo').val();
+		
+		selectMonthAjax(empNo, nd);
 	});
 	
 	$('#btnCome').click(function(){
@@ -420,6 +445,48 @@ function getWeekOfMonth(date){
 	var monthFirstDateDay = first.getDay();
 	
 	return Math.ceil((selectedDayOfMonth + monthFirstDateDay)/7);
+}
+
+function selectMonthAjax(empNo, pd){
+	$.ajax({    
+        type:'get',
+        url:"selectMonth",
+        data:{empNo:empNo, selectDate:pd},
+        dataType: "json",
+        async : false,
+        success : function(data) {
+        	var smNum= 0;
+        	
+        	for(var i=0; i<42; i++){
+        		var dayNumId = '#dayNum'+i;
+        		$(dayNumId).html("<span>--:--:--</span>");
+        		$(dayNumId).next().html("<span>--:--:--</span>");
+        		$(dayNumId).next().next().html("<span>--:--:--</span>");
+        		$(dayNumId).next().next().next().html("<span>--:--:--</span>");
+        		$(dayNumId).next().next().next().next().html("<span>--:--:--</span>");
+        		
+        		if(data.length>i){
+            		if(data[i].attendanceDayOnHour!=null){
+            			var tx =  moment(data[i].attendanceDayOnHour).format("HH:mm:ss");
+            			tx ="<span>"+tx+"</sapn>"
+            			$(dayNumId).html(tx);
+            		}
+            		if(data[i].attendanceDayOffHour!=null){
+            			var tx = moment(data[i].attendanceDayOffHour).format("HH:mm:ss");
+            			tx ="<span>"+tx+"</sapn>"
+            			$(dayNumId).next().html(tx);
+            		}
+            		if(data[i].attendanceDayWorkHour!=null){
+            			var tx =  moment(data[i].attendanceDayWorkHour).format("HH:mm:ss");
+            			tx ="<span>"+tx+"</sapn>"
+            			$(dayNumId).next().next().html(tx);
+            		}
+        		}
+      		
+        	}
+        	
+        }
+      });
 }
 
 function dayView(date){
@@ -614,6 +681,7 @@ window.onload= function(){
                		<li id="liCol1">정상</li>
                	</ul>
                </div>
+<c:set var="dayNum" value="0"/>
 <div class="accordion" id="accordionExample">
   <c:forEach var="weekNo" begin="1" end="6">
   <div class="accordion-item">
@@ -649,11 +717,47 @@ window.onload= function(){
 					<input type="hidden">
 					<input type="hidden">
 				</div>
-	      		<div class="w-c content-start content-start${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-end content-end${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-all content-all${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-detail content-detail${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-approval content-approval${weekDay }"><span>일자</span></div>
+				<c:choose>
+				<c:when test="${attendMonthList.size()-1 ge dayNum}">
+		      		<div class="w-c content-start content-start${weekDay }" id="dayNum${dayNum }">
+		      			<c:if test="${!empty attendMonthList.get(dayNum).attendanceDayOnHour}">
+		      				<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOnHour}" pattern="HH:mm:ss"/></span>
+		      			</c:if>
+		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayOnHour}">
+		      				<span>--:--:--</span>
+		      			</c:if>
+		      		</div>
+		      		<div class="w-c content-end content-end${weekDay }">
+		      			<c:if test="${!empty attendMonthList.get(dayNum).attendanceDayOffHour}">
+		      				<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOffHour}" pattern="HH:mm:ss"/></span>
+		      			</c:if>
+		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayOffHour}">
+		      				<span>--:--:--</span>
+		      			</c:if>
+		      		</div>
+		      		<div class="w-c content-all content-all${weekDay }">
+		      			<c:if test="${!empty attendMonthList.get(dayNum).attendanceDayWorkHour}">
+		      				<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayWorkHour}" pattern="HH:mm:ss"/></span>
+		      			</c:if>
+		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayWorkHour}">
+		      				<span>--:--:--</span>
+		      			</c:if>
+		      		</div>
+		      		<div class="w-c content-detail content-detail${weekDay }">
+		      			<span>${dayNum }</span>
+		      		</div>
+		      		<div class="w-c content-approval content-approval${weekDay }"><span>일자</span></div>
+		      		<c:set var="dayNum" value="${dayNum+1 }"/>
+	      		</c:when>
+	      		<c:when test="${attendMonthList.size()-1 lt dayNum && dayNum<42}">
+		      		<div class="w-c content-start content-start${weekDay }" id="dayNum${dayNum }"><span>--:--:--</span></div>
+		      		<div class="w-c content-end content-end${weekDay }"><span>--:--:--</span></div>
+		      		<div class="w-c content-all content-all${weekDay }"><span>--:--:--</span></div>
+		      		<div class="w-c content-detail content-detail${weekDay }"><span>${dayNum }</span></div>
+		      		<div class="w-c content-approval content-approval${weekDay }"><span>일자</span></div>
+		      		<c:set var="dayNum" value="${dayNum+1 }"/>
+	      		</c:when>
+	      		</c:choose>
 			</div>
 			<div id="content${weekNo }Div${weekDay }" class="content-collapse collapse" aria-labelledby="headingOne${weekNo }" data-bs-parent=".abody${weekNo }">
 				<div class="content-content">
