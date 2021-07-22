@@ -10,6 +10,7 @@ public interface ElectronicService {
 	int selectMaxEleNo(int empNo);
 	List<ElectronicVo> selectByEmpNo(int empNo);
 	List<Map<String, Object>> selectListByEmpNo(int empNo, String no);
-	
+	int updateEle(ElectronicVo vo);
+	int updateEleReturn(int ElectronicNo);
 	
 }

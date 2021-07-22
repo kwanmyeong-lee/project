@@ -20,12 +20,21 @@
 		where ELECTRONIC_NO = #{electronicNo}
 	</select>
 	
+	<select id="selectForCheckExist" parameterType="ElectronicReLineVo" resultType="int">
+		select count(*) from RELINE
+		where ELECTRONIC_NO = #{electronicNo} and EMP_NO = #{empNo}
+	</select>
+	
 	
 	<update id="AcceptUpdateReLine" parameterType="ElectronicVo">
-			update RELINE
-			set RECEIVE_LINE_FLAG = '1'
-			where ELECTRONIC_NO = #{electronicNo} AND EMP_NO = #{empNo}
+		update RELINE
+		set RECEIVE_LINE_FLAG = '1'
+		where ELECTRONIC_NO = #{electronicNo} AND EMP_NO = #{empNo}
 	</update>
 	
+	<delete id="deleteReLine" parameterType="ElectronicReLineVo">
+		delete RELINE
+		where EMP_NO = #{empNo} and ELECTRONIC_NO = #{electronicNo}
+	</delete>
 
 </mapper>

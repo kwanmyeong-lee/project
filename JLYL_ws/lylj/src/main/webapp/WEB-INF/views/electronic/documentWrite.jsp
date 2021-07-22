@@ -89,14 +89,14 @@
             $('input[name=electronicContent]').val(jsonData);
             $('form[name=docfrm]').prop('action','<c:url value="/electronic/documentWrite"/>');
             		            
-    		ApempNoData = [];
-    		RpempNoData = [];
+    		ApempNoData = []; //결재자 유저 번호 배열
+    		RpempNoData = []; //수싲낮 유저 번호 배열
     		
     		$('input[name=apEmpNo]').each(function(idx, item){
-    			ApempNoData.push($(this).val()); // 결재자 유저 번호 배열 
+    			ApempNoData.push($(this).val()); // 결재자 유저 번호 배열 주입
     		});
     		$('input[name=reEmpNo]').each(function(idx, item){
-    			RpempNoData.push($(this).val()); // 수신자 유저 번호 배열 
+    			RpempNoData.push($(this).val()); // 수신자 유저 번호 배열 주입
     		});
     		
     		$('input[name=AempNoData]').val(ApempNoData);
@@ -127,15 +127,19 @@
 <body>
 	<form name="docfrm" method="post" enctype="multipart/form-data"
 		id="frm-form">
-	
+
+		<!-- 문서 스타일을 가져오기위한 -->
 		<input type="hidden" id="styleNo" value="${param.styleNo }"
-			name="styleNo"> <input type="hidden"
-			name="electronicFileFlag" value="N"> <input type="hidden"
-			name="electronicCompletFlag" value="0"> <input type="hidden"
-			name="electronicEmergencyFlag" value="0"> 
-			<input type="hidden" value="" name="AempNoData">
-			<input type="hidden" value="" name="RempNoData">
-			<input type="hidden" value="0" name="electronicDraft">
+			name="styleNo">
+		<!-- 문서 상태를 확인하기 위한 -->
+		<input type="hidden" name="electronicFileFlag" value="N"> <input
+			type="hidden" name="electronicCompletFlag" value="0"> <input
+			type="hidden" name="electronicEmergencyFlag" value="0">
+		<!-- 결재자/수신자 db에 저장을 위한 -->
+		<input type="hidden" value="" name="AempNoData"> <input
+			type="hidden" value="" name="RempNoData">
+		<!-- 임시저장을 위한 -->
+		<input type="hidden" value="0" name="electronicDraft">
 
 		<div class="container" style="max-width: 1000px;">
 			<div class="shadow-sm p-3 mb-3 bg-light rounded ">
@@ -170,10 +174,6 @@
 
 			</div>
 
-
-
-
-
 			<div style="margin-bottom: 100px; text-align: -webkit-center;">
 
 				<!-- 문서 양식 시작 -->
@@ -193,9 +193,10 @@
 					<div class="form-row">
 						<div class="form-group">
 							<input type="submit" name="submit"
+								class="btn btn-light btn-outline-secondary"> <input
+								type="submit" name="draft" value="임시저장"
 								class="btn btn-light btn-outline-secondary">
-							<input type="submit" name="draft" value="임시저장" class="btn btn-light btn-outline-secondary">
-								
+
 							<button type="button" id="cancel"
 								class="btn btn-light btn-outline-secondary">기안서 작성 취소</button>
 						</div>

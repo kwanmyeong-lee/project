@@ -35,6 +35,9 @@
 			<c:if test="${param.no eq '6' }">
 				<h2 class="heading-section bg-light text-dark">결재 결재 완료 문서</h2>
 			</c:if>
+			<c:if test="${param.no eq '7' }">
+				<h2 class="heading-section bg-light text-dark">결재 반려 문서</h2>
+			</c:if>
 		</div>
 	</div>
 	<form action="" class="row gx-3 gy-2 ">
@@ -42,10 +45,10 @@
 			<div class="table-wrap">
 				<table class="table table-responsive-xl">
 					<colgroup>
-						<col style="width:10%" />
-						<col style="width:60%" />
-						<col style="width:20%" />
-						<col style="width:20%" />
+						<col style="width: 10%" />
+						<col style="width: 60%" />
+						<col style="width: 20%" />
+						<col style="width: 20%" />
 					</colgroup>
 					<thead>
 						<tr>
@@ -57,86 +60,79 @@
 							<th class="text-center">상태</th>
 						</tr>
 					</thead>
-					
+
 					<tbody>
 						<c:if test="${empty List }">
 							<tr>
-								<td colspan="6" class="align_center">결재 대기 문서가 없습니다.</td>
+								<td colspan="6" class="align_center">문서가 없습니다.</td>
 							</tr>
 						</c:if>
 						<c:if test="${!empty List }">
 							<c:forEach var="eleVo" items="${List }">
 								<tr class="alert align-middle">
-								
+
 									<!-- 반복 처리 구간 -->
-									
-										<td class="justify-content-center"><label class="checkbox-wrap checkbox-primary"> <input
-												class="align-middle" type="checkbox">
-										</label></td>
-										<td class="d-flex align-items-center justify-content-center">
-												<a href="<c:url value='/electronic/electronicDetail?ElectronicNo=${eleVo.ELECTRONIC_NO }&no=${param.no }'/>"><span>${eleVo.ELECTRONIC_TITLE }</span></a>
-										</td>
-										<td class="text-center">${eleVo.EMP_NO }</td>
-										<td class="text-center"><span class="">
-										
-										<c:if test="${param.no eq 1 }">
-											<c:if test="${eleVo.APPROVAL_LINE_COMPLETE_FLAG eq '0'}">
+
+									<td class="justify-content-center"><label
+										class="checkbox-wrap checkbox-primary"> <input
+											class="align-middle" type="checkbox">
+									</label></td>
+									<td class="d-flex align-items-center justify-content-center">
+										<a
+										href="<c:url value='/electronic/electronicDetail?ElectronicNo=${eleVo.ELECTRONIC_NO }&no=${param.no }'/>"><span>${eleVo.ELECTRONIC_TITLE }</span></a>
+									</td>
+									<td class="text-center">${eleVo.EMP_NO }</td>
+									<td class="text-center"><span class=""> <c:if
+												test="${param.no eq 1 }">
+												<c:if test="${eleVo.APPROVAL_LINE_COMPLETE_FLAG eq '0'}">
 												처리중(내가 승인 안한 상태)
 											</c:if>
-											<c:if test="${eleVo.APPROVAL_LINE_COMPLETE_FLAG eq '1'}">
+												<c:if test="${eleVo.APPROVAL_LINE_COMPLETE_FLAG eq '1'}">
 												승인(나만 승인한 상태)
 											</c:if>
-										</c:if>
-										
-										<c:if test="${param.no eq 2 }">
-											<c:if test="${eleVo.RECEIVE_LINE_FLAG eq '0'}">
+											</c:if> <c:if test="${param.no eq 2 }">
+												<c:if test="${eleVo.RECEIVE_LINE_FLAG eq '0'}">
 												수신 미확인
 											</c:if>
-											<c:if test="${eleVo.RECEIVE_LINE_FLAG eq '1'}">
+												<c:if test="${eleVo.RECEIVE_LINE_FLAG eq '1'}">
 												수신 확인
 											</c:if>
-										</c:if>
-										
-										<c:if test="${param.no eq 3 }">
-											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '0' }">
+											</c:if> <c:if test="${param.no eq 3 }">
+												<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '0' }">
 												처리중(모두 승인은 안한 상태)
 											</c:if>
-											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '1' }">
+												<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '1' }">
 												승인(모두 승인한 상태)
 											</c:if>
-										</c:if>
-										
-										<c:if test="${param.no eq 4 }">
-											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '0' }">
+											</c:if> <c:if test="${param.no eq 4 }">
+												<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '0' }">
 												처리중(모두 승인은 안한 상태)
 											</c:if>
-											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '1' }">
+												<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '1' }">
 												승인(모두 승인한 상태)
 											</c:if>
-										</c:if>
-										
-										<c:if test="${param.no eq 6 }">
-											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '0' }">
+											</c:if> <c:if test="${param.no eq 6 }">
+												<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '0' }">
 												처리중(모두 승인은 안한 상태)
 											</c:if>
-											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '1' }">
+												<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '1' }">
 												승인(모두 승인한 상태)
 											</c:if>
-										</c:if>
-											
-										</span></td>
-										
+											</c:if>
+
+									</span></td>
+
 									<!-- 반복 처리 구간 -->
-									
+
 								</tr>
 							</c:forEach>
-						</c:if>	
+						</c:if>
 					</tbody>
-					
+
 				</table>
-				<div class=" bg-light text-dark col-md-12 row justify-content-center my-5">
-					페이징 처리 공간
-				</div>
+				<div
+					class=" bg-light text-dark col-md-12 row justify-content-center my-5">
+					페이징 처리 공간</div>
 			</div>
 		</div>
 		<div class="col-md-12 row justify-content-center">
