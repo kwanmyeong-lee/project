@@ -17,4 +17,5 @@ public class BoardCommentVO {
 	private Timestamp boardCommentDate;
 	private String boardCommentDelflag;
 	private int boardCommentGroupNo;
+	private int boardCommentStepNo;
 }

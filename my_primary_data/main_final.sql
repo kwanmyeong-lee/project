@@ -550,7 +550,8 @@ CREATE TABLE OFBOARDCOM (
 	BOARD_COMMENT_WRITER VARCHAR2(255) NOT NULL, /* 글쓴이 */
 	BOARD_COMMENT_DATE DATE DEFAULT SYSDATE, /* 작성일 */
 	BOARD_COMMENT_DEL_FLAG VARCHAR2(255) DEFAULT '0', /* 삭제 여부 */
-	BOARD_COMMENT_GROUP_NO NUMBER /* 그룹 번호 */
+	BOARD_COMMENT_GROUP_NO NUMBER, /* 그룹 번호 */
+    BOARD_COMMENT_STEP_NO NUMBER DEFAULT '0'/* 단계 번호 */
 );
 
 CREATE UNIQUE INDEX PK_OFBOARDCOM
@@ -1214,7 +1215,10 @@ insert into scfolder values(scfolder_seq.nextval, '(기본)일정', '#4ea0ec', 1
 
 --일정정보
 insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',1,1,119,null,'asd');
-select * from calendar;
+select * from calendar where SCHEDULE_THEME_NO=2;
+
+select * from calendar
+		where EMP_NO=119 and SCHEDULE_THEME_NO=2;
 --예약폴더
 insert into BOFOL  values(bofol_seq.nextval, '본사1층회의실');
 insert into BOFOL  values(bofol_seq.nextval, '본사5층회의실');
@@ -1230,6 +1234,26 @@ insert into BOTARGET  values(botarget_seq.nextval, '7498아반떼',3);
 insert into BOTARGET  values(botarget_seq.nextval, '3929아반떼',3);
 insert into BOTARGET  values(botarget_seq.nextval, '빔프로젝터1',4);
 insert into BOTARGET  values(botarget_seq.nextval, '빔프로텍터2',4);
+
+--예약정보
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',1,2,119,1,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',1,2,119,2,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',2,2,119,3,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',2,2,119,4,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',3,2,119,5,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',3,2,119,6,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',4,2,119,7,'asd');
+insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',4,2,119,8,'asd');
+
+--예약정보
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,1,'asd', 2);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,2,'asd', 3);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,3,'asd', 4);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,4,'asd', 5);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,5,'asd', 6);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,6,'asd', 7);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,7,'asd', 8);
+insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,8,'asd', 9);
 
 --전자 결재 문서 폴더
 select * from docfol;

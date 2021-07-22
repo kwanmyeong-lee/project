@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,6 +37,13 @@ public class IndexController {
 	@RequestMapping("/index")
 	public void test() {
 		logger.info("메인페이지");
+	}
+	
+	@RequestMapping("/admin")
+	public String admin(Model model) {
+		logger.info("관리자페이지");
+		model.addAttribute("navNo", 8);
+		return "adminMain";
 	}
 
 	@ResponseBody
