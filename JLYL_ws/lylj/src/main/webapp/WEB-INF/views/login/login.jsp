@@ -102,7 +102,7 @@
 							</div>
 							<div class="row px-3">
 								<label class="mb-1">사원번호</label> 
-								<input class="mb-4 textGroup" type="text" name="empNo" id="empNo" placeholder="Enter employee number">
+								<input class="mb-4 textGroup" type="text" name="empNo" id="empNo" placeholder="Enter employee number" value="${cookie.ck_empNo.value }">
 							</div>
 							<div class="row px-3">
 								<label class="mb-1">비밀번호</label> 
