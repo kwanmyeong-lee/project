@@ -10,11 +10,6 @@ public class BoardLikeServiceImpl implements BoardLikeService {
 	private final BoardLikeDAO boardLikeDao;
 
 	@Override
-	public int firstInsert(int boardNo) {
-		return boardLikeDao.firstInsert(boardNo);
-	}
-
-	@Override
 	public int insertLike(BoardLikeVO likeVo) {
 		return boardLikeDao.insertLike(likeVo);
 	}
@@ -25,13 +20,12 @@ public class BoardLikeServiceImpl implements BoardLikeService {
 	}
 
 	@Override
-	public int selectLike(int boardNo) {
-		return boardLikeDao.selectLike(boardNo);
+	public int selectLikeCnt(int boardNo) {
+		return boardLikeDao.selectLikeCnt(boardNo);
 	}
 
 	@Override
-	public int selectByEmpNo(BoardLikeVO likeVo) {
-		// TODO Auto-generated method stub
-		return boardLikeDao.selectByEmpNo(likeVo);
+	public BoardLikeVO selectData(int boardNo) {
+		return boardLikeDao.selectData(boardNo);
 	}
 }

@@ -13,14 +13,14 @@
 		WHERE BOARD_NO=#{boardNo} and EMP_NO=#{empNo}
 	</delete>
 	
-	<select id="selectLikeCnt" parameterType="int" resultType="int">
-		SELECT (count(EMP_NO))as cnt FROM ofboardlike
+	<select id="selectLike" parameterType="int" resultType="int">
+		SELECT count(*) FROM ofboardlike
 		WHERE BOARD_NO=#{boardNo}
 	</select>
-	
-	<select id="selectData" parameterType="int" resultType="boardLikeVo">
-		SELECT * FROM ofboardlike
-		WHERE BOARD_NO=#{boardNo}
+
+	<select id="selectByEmpNo" parameterType="boardLikeVo" resultType="int">
+		SELECT count(*) FROM ofboardlike
+		WHERE BOARD_NO=#{boardNo} and EMP_NO=#{empNo}
 	</select>
 </mapper>
 

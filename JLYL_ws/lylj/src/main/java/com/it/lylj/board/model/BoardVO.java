@@ -21,6 +21,7 @@ public class BoardVO {
 	private int boardTheme;
 	private int boardFolderNo;
 	private int commentCnt;
+	private int likeCnt;
 	
 	private int newImgTerm;
 }

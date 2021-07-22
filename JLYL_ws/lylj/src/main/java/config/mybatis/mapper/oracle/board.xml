@@ -83,6 +83,18 @@
 		SET commentCnt=commentCnt+1
 		WHERE board_no=#{boardNo}
 	</update>
+	
+	<update id="updateLikeCntUp" parameterType="int">
+		UPDATE ofboard
+		SET LIKE_CNT=LIKE_CNT+1
+		WHERE board_no=#{boardNo}
+	</update>
+
+	<update id="updateLikeCntDown" parameterType="int">
+		UPDATE ofboard
+		SET LIKE_CNT=LIKE_CNT-1
+		WHERE board_no=#{boardNo}
+	</update>
 </mapper>
 
 

@@ -19,4 +19,6 @@ public interface BoardDAO {
 	int updateBoard(BoardVO vo);
 	int deleteBoard(int boardNo);
 	int updateCommentCnt(int boardNo);
+	int updateLikeCntUp(int boardNo);
+	int updateLikeCntDown(int boardNo);
 }
