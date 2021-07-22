@@ -77,6 +77,12 @@
 		DELETE ofboard
 		WHERE board_no=#{boardNo}
 	</delete>
+	
+	<update id="updateCommentCnt" parameterType="int">
+		UPDATE ofboard
+		SET commentCnt=commentCnt+1
+		WHERE board_no=#{boardNo}
+	</update>
 </mapper>
 
 

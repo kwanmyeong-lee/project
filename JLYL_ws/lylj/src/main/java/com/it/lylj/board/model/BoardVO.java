@@ -20,6 +20,7 @@ public class BoardVO {
 	private String boardDelFlag;
 	private int boardTheme;
 	private int boardFolderNo;
+	private int commentCnt;
 	
 	private int newImgTerm;
 }

@@ -3,206 +3,350 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="com.it.lylj.board.model.BoardVO" project="lylj" 
     file="/lylj/src/main/java/com/it/lylj/board/model/BoardVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="171" y="425"/>    
+    <position height="-1" width="-1" x="2067" y="1554"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="2" language="java" name="com.it.lylj.board.model.BoardDAO" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/board/model/BoardDAO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="457" y="901"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="3" language="java" name="com.it.lylj.board.model.BoardService" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/board/model/BoardService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="746" y="901"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <class id="4" language="java" name="com.it.lylj.board.model.BoardServiceImpl" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/board/model/BoardServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="457" y="155"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="com.it.lylj.board.controller.BoardController" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/board/controller/BoardController.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="804" y="215"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="6" language="java" name="com.it.lylj.emp.controller.EmpController" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/emp/controller/EmpController.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1367" y="210"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="7" language="java" name="com.it.lylj.emp.model.EmpDAO" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/emp/model/EmpDAO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1787" y="722"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <class id="8" language="java" name="com.it.lylj.emp.model.EmpServiceImpl" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/emp/model/EmpServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1768" y="176"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="9" language="java" name="com.it.lylj.emp.model.EmpService" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/emp/model/EmpService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1517" y="752"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <class id="10" language="java" name="com.it.lylj.emp.model.EmpVO" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/emp/model/EmpVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2050" y="655"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="11" language="java" name="com.it.lylj.schedule.controller.ScheduleController" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/schedule/controller/ScheduleController.java" binary="false" 
+  <class id="2" language="java" name="com.it.lylj.boardComment.controller.BoardCommentController" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/boardComment/controller/BoardCommentController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="521" y="1192"/>    
+    <position height="-1" width="-1" x="2332" y="1034"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="12" language="java" name="com.it.lylj.schedule.model.ScheduleDAO" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/schedule/model/ScheduleDAO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="944" y="1911"/>    
+  <interface id="3" language="java" name="com.it.lylj.board.model.BoardDAO" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/board/model/BoardDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3614" y="1355"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="13" language="java" name="com.it.lylj.schedule.model.ScheduleServieImpl" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/schedule/model/ScheduleServieImpl.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="955" y="1152"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="14" language="java" name="com.it.lylj.schedule.model.ScheduleService" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/schedule/model/ScheduleService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="529" y="1840"/>    
+  <interface id="4" language="java" name="com.it.lylj.board.model.BoardService" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/board/model/BoardService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3256" y="1542"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="15" language="java" name="com.it.lylj.schedule.model.ScheduleVO" project="lylj" 
-    file="/lylj/src/main/java/com/it/lylj/schedule/model/ScheduleVO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1311" y="1472"/>    
+  <class id="5" language="java" name="com.it.lylj.board.model.BoardServiceImpl" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/board/model/BoardServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3602" y="-995"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <realization id="16">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="9"/>  
+  <interface id="6" language="java" name="com.it.lylj.boardComment.model.BoardCommentService" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/boardComment/model/BoardCommentService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2560" y="1568"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="7" language="java" name="com.it.lylj.board.controller.BoardController" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/board/controller/BoardController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3039" y="1102"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.it.lylj.electronic.model.ElectronicServiceImpl" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronic/model/ElectronicServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="985" y="-353"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="9" language="java" name="com.it.lylj.electronic.model.ElectronicService" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronic/model/ElectronicService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1409" y="393"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="10" language="java" name="com.it.lylj.electronic.model.ElectronicVo" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronic/model/ElectronicVo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="218" y="-93"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="com.it.lylj.electronic.controller.ElectronicController" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronic/controller/ElectronicController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1784" y="-203"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="12" language="java" name="com.it.lylj.electronic.model.ElectronicDAO" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronic/model/ElectronicDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="967" y="443"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="13" language="java" name="com.it.lylj.electronicAppLine.model.ElectronicAppLineDAO" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicAppLine/model/ElectronicAppLineDAO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2608" y="442"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="14" language="java" name="com.it.lylj.electronicAppLine.model.ElectronicAppLineVo" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicAppLine/model/ElectronicAppLineVo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="574" y="-243"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="15" language="java" name="com.it.lylj.electronicAppLine.model.ElectronicAppLineService" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicAppLine/model/ElectronicAppLineService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2038" y="442"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="16" language="java" name="com.it.lylj.electronicAppLine.model.ElectronicAppLineServiceImpl" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicAppLine/model/ElectronicAppLineServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2674" y="16"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="17" language="java" name="com.it.lylj.electronicDocFol.model.ElectronicDocFolDAO" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicDocFol/model/ElectronicDocFolDAO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2654" y="-144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="18" language="java" name="com.it.lylj.electronicDocFol.model.ElectronicDocFolServiceImpl" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicDocFol/model/ElectronicDocFolServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2649" y="-378"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="19" language="java" name="com.it.lylj.electronicDocFol.model.ElectronicDocFolService" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicDocFol/model/ElectronicDocFolService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2651" y="-592"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="20" language="java" name="com.it.lylj.electronicDocFol.model.ElectronicDocFolVO" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicDocFol/model/ElectronicDocFolVO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="253" width="322" x="420" y="-15"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="21" language="java" name="com.it.lylj.electronicReLine.model.ElectronicReLineDAO" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicReLine/model/ElectronicReLineDAO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1430" y="-609"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="22" language="java" name="com.it.lylj.electronicReLine.model.ElectronicReLineServiceImpl" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicReLine/model/ElectronicReLineServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1421" y="-898"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="23" language="java" name="com.it.lylj.electronicReLine.model.ElectronicReLineService" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicReLine/model/ElectronicReLineService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1855" y="-609"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="24" language="java" name="com.it.lylj.electronicReLine.model.ElectronicReLineVo" project="lylj" 
+    file="/lylj/src/main/java/com/it/lylj/electronicReLine/model/ElectronicReLineVo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="356" width="304" x="420" y="257"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="25">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="15"/>  
   </realization>  
-  <association id="17">    
+  <association id="26">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="27" name="boardCommentService"/>      
+      <multiplicity id="28" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="29">    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="18" name="empDao"/>      
-      <multiplicity id="19" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="20">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="21" name="empService"/>      
-      <multiplicity id="22" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="23">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="24" name="dao"/>      
-      <multiplicity id="25" minimum="0" maximum="1"/>    
+      <attribute id="30" name="electronicDao"/>      
+      <multiplicity id="31" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="26">    
+  <association id="32">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="27" name="boardSerive">        
-        <position height="0" width="0" x="-495" y="-94"/>      
-      </attribute>      
-      <multiplicity id="28" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-495" y="-94"/>      
-      </multiplicity>    
+      <attribute id="33" name="boardDao"/>      
+      <multiplicity id="34" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="29">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="30" name="boardDao">        
-        <position height="0" width="0" x="-495" y="-94"/>      
-      </attribute>      
-      <multiplicity id="31" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-495" y="-94"/>      
-      </multiplicity>    
+  <association id="35">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="36" name="electronicAppService"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="32">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="3"/>  
-  </realization>  
-  <realization id="33">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="14"/>  
-  </realization>  
-  <association id="34">    
+  <association id="38">    
     <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="35" name="service"/>      
-      <multiplicity id="36" minimum="0" maximum="1"/>    
+      <attribute id="39" name="electronicService"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="41">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="42" name="electronicReLineDao"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="44">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="23"/>  
+  </realization>  
+  <association id="45">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="46" name="eleDao"/>      
+      <multiplicity id="47" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="48">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="49">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="50" name="boardCommentService"/>      
+      <multiplicity id="51" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="52">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <association id="53">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="54" name="electronicDocFolService"/>      
+      <multiplicity id="55" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="56">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <association id="57">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="58" name="boardService"/>      
+      <multiplicity id="59" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="60">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="61" name="electronicAppLineDao"/>      
+      <multiplicity id="62" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="63">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="64" name="electronicReService"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

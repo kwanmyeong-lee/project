@@ -60,7 +60,7 @@ public class BoardController {
 		List<BoardVO> noticeList = boardService.selectBoardMain(1);
 		List<BoardVO> referenceList = boardService.selectBoardMain(2);
 		List<BoardVO> communityList = boardService.selectBoardMain(3);
-
+		
 		logger.info("noticeList.size={}, referenceList.size={}, communityList.size={}", 
 				noticeList.size(), referenceList.size(), communityList.size());
 		

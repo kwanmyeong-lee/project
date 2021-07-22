@@ -20,4 +20,15 @@ public class BoardCommentServiceImpl implements BoardCommentService{
 	public List<BoardCommentVO> selectByNo(int boardNo) {
 		return boardCommentDao.selectByNo(boardNo);
 	}
+
+	@Override
+	public int insertReply(BoardCommentVO commVo) {
+		return boardCommentDao.insertReply(commVo);
+	}
+
+	@Override
+	public int deleteComm(int boardCommentNo) {
+		return boardCommentDao.deleteComm(boardCommentNo);
+	}
+
 }

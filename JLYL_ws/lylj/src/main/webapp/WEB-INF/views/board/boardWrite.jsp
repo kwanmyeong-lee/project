@@ -32,6 +32,7 @@
 		
 	});
 	
+	window.onbeforeunload = function() {};
 	$(function(){
 		$('#inputGroupFileAddon04').click(function(){
 			$('#inputGroupFile04').val('');
@@ -78,6 +79,7 @@
 		  <input multiple="multiple" type="file" class="form-control" name="upfile" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
 		  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"><i class="fas fa-trash-alt"></i></button>
 		</div>
+		<span style="margin-left:5px;font-size:14px;">※&nbsp; 파일크기 제한 : 10MB</span>
     </div>
 </form>
 <%@ include file="../inc/bottom.jsp" %>

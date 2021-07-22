@@ -93,6 +93,12 @@
 	text-align: center;
 }
 
+.commCnt2{
+	float: left;
+	margin-left: 5px;
+	color: rgb(255, 60, 0);
+	font-weight: bold;
+}
 /*리스트 CSS*/
 #listBodyDiv{
 	display: flex;
@@ -210,6 +216,7 @@
     width: 1000px;
 	padding: 20px;
 	margin: 0 auto;
+	margin-bottom: 20px;	
     background: white;
     border-radius: 15px;
     box-shadow: 0px 2px 20px #d0d0d0;
@@ -420,13 +427,32 @@
     padding: 20px;
 }
 
+.commCnt{
+	float: left;
+	width: 25px;
+	color: white;	
+	background: #36b9cc;
+	text-align: center;
+	font-weight: bold;
+	border-radius:50px;
+	margin-top: 5px;
+}
+
+#commentAdd{
+	clear: both;
+}
+
+.replyDivHr{
+	margin-top: 25px;
+}
 .commentDiv > hr{
     margin-top: 30px;
 }
 
-.commentDiv > #regdateComm{
+.commentDiv > .regdateComm{
     float: right;
     margin-right: 10px;
+    margin-bottom: 15px;
     font-size: 15px;
 }
 
@@ -459,7 +485,7 @@
 	width: 800px;
 }
 
-.replyDiv > div > #regdateComm{
+.replyDiv > div > .regdateReply{
     float: right;
     margin-right: 10px;
     font-size: 15px;
@@ -504,6 +530,15 @@
     font-size: 15px;
 }
 
+#replyUp{
+	float: right;
+    width: 120px;
+    height: 80px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+}
 .replyCancleBtn{
 	font-size: 15px;
 	margin-left: 10px; 

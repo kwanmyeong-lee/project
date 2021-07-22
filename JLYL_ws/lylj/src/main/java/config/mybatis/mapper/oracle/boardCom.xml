@@ -7,7 +7,7 @@
 		<selectKey keyProperty="boardCommentNo" resultType="int" order="BEFORE">
 			SELECT OFBOARDFILE_SEQ.nextval FROM dual
 		</selectKey>
-		INSERT INTO ofboardcomment(BOARD_COMMENT_NO, BOARD_NO, BOARD_COMMENT_CONTENT, BOARD_COMMENT_WRITER, BOARD_COMMENT_GROUP_NO)
+		INSERT INTO ofboardcom(BOARD_COMMENT_NO, BOARD_NO, BOARD_COMMENT_CONTENT, BOARD_COMMENT_WRITER, BOARD_COMMENT_GROUP_NO)
 		VALUES(#{boardCommentNo}, #{boardNo}, #{boardCommentContent}, #{boardCommentWriter}, #{boardCommentNo})
 	</insert>
 
@@ -15,16 +15,22 @@
 		<selectKey keyProperty="boardCommentNo" resultType="int" order="BEFORE">
 			SELECT OFBOARDFILE_SEQ.nextval FROM dual
 		</selectKey>
-		INSERT INTO ofboardcomment(BOARD_COMMENT_NO, BOARD_NO, BOARD_COMMENT_CONTENT, BOARD_COMMENT_WRITER, BOARD_COMMENT_GROUP_NO, BOARD_COMMENT_STEP_NO)
+		INSERT INTO ofboardcom(BOARD_COMMENT_NO, BOARD_NO, BOARD_COMMENT_CONTENT, BOARD_COMMENT_WRITER, BOARD_COMMENT_GROUP_NO, BOARD_COMMENT_STEP_NO)
 		VALUES(#{boardCommentNo}, #{boardNo}, #{boardCommentContent}, #{boardCommentWriter}, #{boardCommentGroupNo}, #{boardCommentStepNo})
 	</insert>
 	
 	<select id="selectByNo" parameterType="int" resultType="boardCommentVo">
 		SELECT * FROM ofboardcom
 		WHERE BOARD_NO = #{boardNo}
-		ORDER BY BOARD_COMMENT_NO, board_comment_step_no DESC
+		ORDER BY BOARD_COMMENT_GROUP_NO, board_comment_step_no, BOARD_COMMENT_DATE
 	</select>
 
+	<update id="deleteComm" parameterType="int">
+		UPDATE ofboardcom
+		SET BOARD_COMMENT_DEL_FLAG='Y'
+		WHERE BOARD_COMMENT_NO=#{boardCommentNo}
+	</update>
+	
 </mapper>
 
 

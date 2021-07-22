@@ -43,8 +43,8 @@
 				    <tr id="tdStyle">
 			            <td class="userNameTd">${vo.boardWriter }</td>
 			            <td>
-			            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle }</a> 
-			            	<span>[6]</span>
+			            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;">${vo.boardTitle }</a> 
+			            	<div class="commCnt2">[${vo.commentCnt }]</div>
 			            	<span class="newSpan">new</span>
 			            </td>
 			            <td class="regdateTd"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd"/></td>
@@ -82,7 +82,7 @@
 					            <td class="userNameTd">${vo.boardWriter }</td>
 					            <td>
 					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle }</a> 
-					            	<span>[6]</span>
+					            	<span>[${vo.commentCnt }]</span>
 					            	<span class="newSpan">new</span>
 					            </td>
 						    </tr>
@@ -118,7 +118,7 @@
 					            <td class="userNameTd">${vo.boardWriter }</td>
 					            <td>
 					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle }</a> 
-					            	<span>[6]</span>
+					            	<div class="commCnt">[${vo.commentCnt }]</div>
 					            	<span class="newSpan">new</span>
 					            </td>
 						    </tr>

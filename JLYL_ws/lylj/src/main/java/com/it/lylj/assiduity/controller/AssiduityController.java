@@ -1,12 +1,18 @@
 package com.it.lylj.assiduity.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.lylj.attendDay.model.AttendDayService;
 import com.it.lylj.attendDay.model.AttendDayVO;
+import com.it.lylj.schedule.controller.ScheduleController;
 import com.it.lylj.schedule.model.ScheduleVO;
 
 import lombok.RequiredArgsConstructor;
@@ -26,6 +33,9 @@ import lombok.RequiredArgsConstructor;
 public class AssiduityController {
 	private final AttendDayService attendDayService;
 	
+	private static final Logger logger
+	=LoggerFactory.getLogger(ScheduleController.class);
+
 	
 	@GetMapping("/insertComTime")
 	@ResponseBody
@@ -59,6 +69,40 @@ public class AssiduityController {
 	@GetMapping("/main")
 	public void main(Model model, HttpServletRequest req) {
 		model = topView(req,model);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Calendar cal = new GregorianCalendar();
+		int year = cal.get(Calendar.YEAR);
+		int month =cal.get(Calendar.MONTH);
+		int maxday = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		List<Integer> weekTimelist = new ArrayList<>(); 
+		Calendar startDate= new GregorianCalendar(year,month,1);
+		int firstDay = startDate.get(Calendar.DAY_OF_WEEK)-1;
+		int weekCheck=1;
+		for(int i=1; i<=maxday; i++) {
+			Calendar date=new GregorianCalendar(year,month,i);
+			int weekNum = (int)Math.ceil((i + firstDay)/7.0);
+			
+			if(weekCheck<weekNum) {
+				date.add(Calendar.DATE, -1);
+				HashMap<String, Object> map = new HashMap<>();
+				
+				map.put("startDate", sdf.format(startDate.getTime()));
+				map.put("endDate", sdf.format(date.getTime()));
+				
+				weekTimelist.add(attendDayService.selectSumWeekWorkByMonth(map));
+				startDate = new GregorianCalendar(year,month,i);
+				weekCheck++;
+			}else if(i==maxday) {
+				HashMap<String, Object> map = new HashMap<>();
+				map.put("startDate", sdf.format(startDate.getTime()));
+				map.put("endDate", sdf.format(date.getTime()));
+				
+				weekTimelist.add(attendDayService.selectSumWeekWorkByMonth(map));
+			}
+		}
+		
+		model.addAttribute("weekTimelist", weekTimelist);
 		
 	}//main 페이지
 	

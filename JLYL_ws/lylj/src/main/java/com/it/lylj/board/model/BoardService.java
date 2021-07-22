@@ -14,4 +14,5 @@ public interface BoardService {
 	BoardVO selectByNo(int boardNo);
 	int updateBoard(BoardVO vo);
 	int deleteBoard(int boardNo);
+	int updateCommentCnt(int boardNo);
 }
