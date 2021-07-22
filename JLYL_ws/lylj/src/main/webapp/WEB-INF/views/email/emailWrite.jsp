@@ -46,7 +46,40 @@
 #startTime{
 	width: 120px;
 }
-
+.fileBox{
+	width: 90%;
+	height: 150px;
+	overflow: scroll;
+}
+#dropZone{
+	width : 100%;
+	height: 100%;
+}
+#resultEmp{
+	margin-top: 1px;
+	position: absolute;
+	padding: 0 10px;
+	background: white;
+	border : 1px solid  #e7e7ea;
+	z-index: 1;
+}
+.item {
+	height: 1.8em;
+	width: 220px;
+	outline: none;
+}
+.item:hover {
+	color: #9baec8;
+}
+.text {
+	font-weight: bold;
+}
+.invisible {
+	display: none;
+}
+.searchNo{
+	font-weight: bold;
+}
 </style>
 
 <script>
@@ -101,7 +134,7 @@
 	            }
 	        });
 	    }
-	 // 파일 선택시
+	 	// 파일 선택시
 	    function selectFile(files){
 	        // 다중파일 등록
 	        if(files != null){
@@ -149,10 +182,11 @@
 	        var html = "";
 	        html += "<p id='fileTr_" + fIndex + "'>";
 	        html += "    <span class='left' >";
-	        html +=         fileName + " / " + fileSize + "MB "  + "<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02'>삭제</a>"
+	        html +=          fileName + " / " + fileSize + "(MB)"  + "<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn'><i class='fas fa-minus-circle'></i></a>"
 	        html += "    </span>"
 	        html += "</p>"
 	 		
+	        $('#fileDiv').append("");
 	        $('#fileDiv').append(html);
 	    }
 	 
@@ -209,17 +243,26 @@
 	                cache:false,
 	                success:function(result){
 	                    if(result.data.length > 0){
-	                        alert("성공");
+	                        alert("발송되었습니다");
 	                        location.reload();
 	                    }else{
-	                        alert("실패");
+	                        alert("전송실패");
 	                        location.reload();
 	                    }
 	                }
 	            });
 	        }
 	    }
+	    
 
+	    function searchEmpNo(target){
+	    	var empNo = target.value;
+	    	console.log(empNo);
+	    	if(empNo.length>0){
+	    		$('#resultEmp').show();		
+	    	}
+	    }
+	    
 </script>
 
 <div class="container emailContainer">
@@ -228,17 +271,22 @@
 				<br>
 				<hr>
 			<div class="form-group">	
-				<button type="submit" class="btn btn-secondary">보내기</button>
-				<button type="submit" class="btn btn-secondary">미리보기</button>
-				<button type="submit" class="btn btn-secondary">임시저장</button>
+				<button type="button" class="btn btn-secondary">보내기</button>
+				<button type="button" class="btn btn-secondary">미리보기</button>
+				<button type="button" class="btn btn-secondary">임시저장</button>
 			</div>
 			<form class="form-horizontal writefrm" role="form" method="post" enctype="multipart/form-data">
-				<input type="text" value="${sessionScope.empNo }">
+				<input type="hidden" name = "mailSend" value="${sessionScope.empNo }">
 				<div class="form-group firstFrm row">
 			    	<label for="to" class="col-sm-1 control-label">받는사람:</label>
 			    	<div class="col-sm-11">
-                        <input type="email" class="form-control select2-offscreen textBox" id="to" name="to" tabindex="-1">
+                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" onkeyup="searchEmpNo(this)">
                      	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
+						<div id="resultEmp">
+							<div class="item"><span class="searchNo"></span></div>
+							<div class="item">abd<span class="searchNo">re</span></div>
+							<div class="item">ddddd<span class="searchNo">re</span> sd</div>
+						</div>                        
 			    	</div>
 			  	</div>
 				<div class="form-group row">
@@ -262,9 +310,9 @@
 						</button>
 					</div><br><br>
 						<div class="collapse form-control select2-offscreen fileBox" id="collapseExample">
-		                      <div id="dropZone" >파일을 드래그 하세요. 
-						          <div id="fileDiv"></div>
-					          </div>
+		                      <div id="dropZone" class="dropZoneDiv"><span style="color: blue;">파일을 드래그 하세요.</span>
+						      	<p id="fileDiv"></p>
+		                      </div>
 						</div>
 			  	</div>
 				<div class="form-group">
