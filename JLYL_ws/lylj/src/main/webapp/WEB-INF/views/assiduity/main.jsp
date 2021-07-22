@@ -217,18 +217,9 @@ $(function(){
 		var empNo = $('.empNo').val();
 		
 		selectMonthAjax(empNo, pd);
+		selectMonthWorkTime(empNo, pd);
 		
-		$.ajax({    
-	        type:'get',
-	        url:"selectMonthWorkTime",
-	        data:{empNo:empNo, selectDate:pd},
-	        dataType: "json",
-	        async : false,
-	        success : function(data) {
-	        	
-	        	
-	        }
-	      });
+		
 		
 	});
 	
@@ -243,6 +234,7 @@ $(function(){
 		var empNo = $('.empNo').val();
 		
 		selectMonthAjax(empNo, pd);
+		selectMonthWorkTime(empNo, pd);
 	});
 	
 	$('#todayYearMonth').click(function(){
@@ -255,6 +247,7 @@ $(function(){
 		var empNo = $('.empNo').val();
 		
 		selectMonthAjax(empNo, nd);
+		selectMonthWorkTime(empNo, nd);
 	});
 	
 	$('#btnCome').click(function(){
@@ -286,6 +279,7 @@ $(function(){
         		
         		var parent="#content"+weekNum+"Div"+weekDay;
         		
+        		$(parent).prev().find('span').eq(1).text(now);
         		$(parent).find(comef).css("background","blue");
             }
           });
@@ -331,7 +325,9 @@ $(function(){
 	    			var weekDay=moment(nDate).format('d');
 	    			
 	    			var parent="#content"+weekNum+"Div"+weekDay;
-
+	    			$(parent).prev().find('span').eq(2).text(now);
+	    			$(parent).prev().find('span').eq(3).text(dayWorkTime);
+	    			
 	    			for(var i=comeNum; i<=leaveNum; i++){
 	    				var comef="#content-td"+i;
 	    				$(parent).find(comef).css("background","blue");
@@ -460,6 +456,7 @@ function selectMonthAjax(empNo, pd){
         	for(var i=0; i<42; i++){
         		var dayNumId = '#dayNum'+i;
         		$(dayNumId).html("<span>--:--:--</span>");
+        		$(dayNumId).css("color","#808080");
         		$(dayNumId).next().html("<span>--:--:--</span>");
         		$(dayNumId).next().next().html("<span>--:--:--</span>");
         		$(dayNumId).next().next().next().html("<span>--:--:--</span>");
@@ -470,6 +467,13 @@ function selectMonthAjax(empNo, pd){
             			var tx =  moment(data[i].attendanceDayOnHour).format("HH:mm:ss");
             			tx ="<span>"+tx+"</sapn>"
             			$(dayNumId).html(tx);
+            			var later = new Date(data[i].attendanceDayOnHour);
+            			later.setSeconds(0);
+            			later.setMinutes(0);
+            			later.setHours(9);
+            			if(new Date(data[i].attendanceDayOnHour)> later){
+            				$(dayNumId).css("color","#f14f4f");
+            			}
             		}
             		if(data[i].attendanceDayOffHour!=null){
             			var tx = moment(data[i].attendanceDayOffHour).format("HH:mm:ss");
@@ -483,6 +487,33 @@ function selectMonthAjax(empNo, pd){
             		}
         		}
       		
+        	}
+        	
+        }
+      });
+}
+
+function selectMonthWorkTime(empNo, pd){
+	$.ajax({    
+        type:'get',
+        url:"selectMonthWorkTime",
+        data:{empNo:empNo, selectDate:pd},
+        dataType: "json",
+        async : false,
+        success : function(data) {
+        	for(var i=0; i<6; i++){
+        		var tx = "#weekbtspan"+(i+1);
+        		$(tx).text("00h 00m 00s");
+        		if(data.length>i){
+        			var hour = "00"+Math.floor(data[i]/3600);
+        			var min = "00"+Math.floor(data[i]%60/60);
+        			var sec = "00"+Math.floor(data[i]%60%60);
+        			hour = hour.slice(-2);
+        			min = min.slice(-2);
+        			sec = sec.slice(-2);
+	        		$(tx).text(hour+"h "+min+"m "+sec+"s");
+        			
+        		}
         	}
         	
         }
@@ -688,12 +719,18 @@ window.onload= function(){
     <h2 class="accordion-header" id="headingOne${weekNo }">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne${weekNo }" aria-bs-expanded="false" aria-bs-controls="collapseOne${weekNo }">
         ${weekNo }주차
-        <c:if test="${weekTimelist.size()>=weekNo }">
+        <c:choose>
+        
+        <c:when test="${weekTimelist.size()>=weekNo }">
 	        <c:set var="sumhour" value="${weekTimelist.get(weekNo-1)/3600 }"/>
 	        <c:set var="summin" value="${weekTimelist.get(weekNo-1)%60/60 }"/>
 	        <c:set var="sumsec" value="${weekTimelist.get(weekNo-1)%60%60 }"/>
-	        <span class="bt-sp"><fmt:formatNumber value='${sumhour}' pattern='00'/>h <fmt:formatNumber value='${summin}' pattern='00'/>m <fmt:formatNumber value='${sumsec}' pattern='00'/>s</span>
-        </c:if>
+	        <span class="bt-sp" id="weekbtspan${weekNo }"><fmt:formatNumber value='${sumhour}' pattern='00'/>h <fmt:formatNumber value='${summin}' pattern='00'/>m <fmt:formatNumber value='${sumsec}' pattern='00'/>s</span>
+        </c:when>
+        <c:otherwise>
+        	<span class="bt-sp" id="weekbtspan${weekNo }"></span>
+        </c:otherwise>
+        </c:choose>
         <span class="bt-sp" id="weekNum${weekNo }">누적근무시간</span>
       </button>
     </h2>
