@@ -34,5 +34,4 @@ public class BoardLikeServiceImpl implements BoardLikeService {
 		// TODO Auto-generated method stub
 		return boardLikeDao.selectByEmpNo(likeVo);
 	}
-
 }

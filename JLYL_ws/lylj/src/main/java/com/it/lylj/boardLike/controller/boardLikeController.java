@@ -23,6 +23,7 @@ public class boardLikeController {
 	private final Logger logger=LoggerFactory.getLogger(boardLikeController.class);
 	
 	private final BoardLikeService boardLikeService;
+  
 	@ResponseBody
 	@RequestMapping(value = "/like/insert")
 	public int insert(@RequestParam(defaultValue = "0") int boardNo, HttpSession session) {

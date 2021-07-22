@@ -11,4 +11,6 @@ public interface ElectronicReLineDAO {
 	int insertReLine(ElectronicReLineVo vo);
 	List<ElectronicReLineVo> selectByElectronicNo(int ElectronicNo);
 	int AcceptUpdateReLine(ElectronicVo vo);
+	int deleteReLine(ElectronicReLineVo vo);
+	int selectForCheckExist(ElectronicReLineVo vo);
 }

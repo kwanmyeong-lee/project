@@ -28,4 +28,19 @@ public class ElectronicAppLineServiceImpl implements ElectronicAppLineService{
 		return electronicAppLineDao.AcceptUpdateAppLine(vo);
 	}
 
+	@Override
+	public int deleteAppLine(ElectronicAppLineVo vo) {
+		return electronicAppLineDao.deleteAppLine(vo);
+	}
+
+	@Override
+	public int selectForCheckExist(ElectronicAppLineVo vo) {
+		return electronicAppLineDao.selectForCheckExist(vo);
+	}
+
+	@Override
+	public ElectronicAppLineVo selectAppLineCheck(ElectronicVo vo) {
+		return electronicAppLineDao.selectAppLineCheck(vo);
+	}
+
 }

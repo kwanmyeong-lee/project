@@ -49,11 +49,22 @@ public class ElectronicServiceImpl implements ElectronicService {
 			list = electronicDao.selectListByEmpNo5(empNo);
 		}else if(no.equals("6")) {
 			list = electronicDao.selectListByEmpNo6(empNo);
+		}else if(no.equals("7")) {
+			list = electronicDao.selectListByEmpNo7(empNo);
 		}
-		
 		
 		return list;
 		
+	}
+
+	@Override
+	public int updateEle(ElectronicVo vo) {
+		return electronicDao.updateEle(vo);
+	}
+
+	@Override
+	public int updateEleReturn(int ElectronicNo) {
+		return electronicDao.updateEleReturn(ElectronicNo);
 	}
 
 

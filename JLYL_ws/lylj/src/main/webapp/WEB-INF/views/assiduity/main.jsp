@@ -213,6 +213,14 @@ $(function(){
 		
 		$('#nowYearMonth').text(pd);
 		dayView(pd);
+		
+		var empNo = $('.empNo').val();
+		
+		selectMonthAjax(empNo, pd);
+		selectMonthWorkTime(empNo, pd);
+		
+		
+		
 	});
 	
 	$('#nowRight').click(function(){
@@ -222,6 +230,11 @@ $(function(){
 
 		$('#nowYearMonth').text(pd);
 		dayView(pd);
+		
+		var empNo = $('.empNo').val();
+		
+		selectMonthAjax(empNo, pd);
+		selectMonthWorkTime(empNo, pd);
 	});
 	
 	$('#todayYearMonth').click(function(){
@@ -230,6 +243,11 @@ $(function(){
 
 		$('#nowYearMonth').text(nd);
 		dayView(nd);
+		
+		var empNo = $('.empNo').val();
+		
+		selectMonthAjax(empNo, nd);
+		selectMonthWorkTime(empNo, nd);
 	});
 	
 	$('#btnCome').click(function(){
@@ -261,6 +279,7 @@ $(function(){
         		
         		var parent="#content"+weekNum+"Div"+weekDay;
         		
+        		$(parent).prev().find('span').eq(1).text(now);
         		$(parent).find(comef).css("background","blue");
             }
           });
@@ -306,7 +325,9 @@ $(function(){
 	    			var weekDay=moment(nDate).format('d');
 	    			
 	    			var parent="#content"+weekNum+"Div"+weekDay;
-
+	    			$(parent).prev().find('span').eq(2).text(now);
+	    			$(parent).prev().find('span').eq(3).text(dayWorkTime);
+	    			
 	    			for(var i=comeNum; i<=leaveNum; i++){
 	    				var comef="#content-td"+i;
 	    				$(parent).find(comef).css("background","blue");
@@ -342,18 +363,24 @@ $(function(){
 	        		var comeNum = hourMin(cTime);
 	    			var leaveNum = hourMin(lTime);
 	    			
-            		
-	    			
-	    			
-	    			
 	    			var parent="#content"+weekNum+"Div"+weekDay;
-	
+	    			
 	    			for(var i=comeNum; i<=leaveNum; i++){
 	    				var comef="#content-td"+i;
 	    				$(parent).find(comef).css("background","blue");
 	    			}
+	    			
             	}
+            },
+            error:function(request,status,error){
+            	var parent="#content"+weekNum+"Div"+weekDay;
+        		for(var i=0; i<=47; i++){
+    				var comef="#content-td"+i;
+    				$(parent).find(comef).css("background","white");
+    			}
             }
+
+            
           });
 		
 	});
@@ -414,6 +441,83 @@ function getWeekOfMonth(date){
 	var monthFirstDateDay = first.getDay();
 	
 	return Math.ceil((selectedDayOfMonth + monthFirstDateDay)/7);
+}
+
+function selectMonthAjax(empNo, pd){
+	$.ajax({    
+        type:'get',
+        url:"selectMonth",
+        data:{empNo:empNo, selectDate:pd},
+        dataType: "json",
+        async : false,
+        success : function(data) {
+        	var smNum= 0;
+        	
+        	for(var i=0; i<42; i++){
+        		var dayNumId = '#dayNum'+i;
+        		$(dayNumId).html("<span>--:--:--</span>");
+        		$(dayNumId).css("color","#808080");
+        		$(dayNumId).next().html("<span>--:--:--</span>");
+        		$(dayNumId).next().next().html("<span>--:--:--</span>");
+        		$(dayNumId).next().next().next().html("<span>--:--:--</span>");
+        		$(dayNumId).next().next().next().next().html("<span>--:--:--</span>");
+        		
+        		if(data.length>i){
+            		if(data[i].attendanceDayOnHour!=null){
+            			var tx =  moment(data[i].attendanceDayOnHour).format("HH:mm:ss");
+            			tx ="<span>"+tx+"</sapn>"
+            			$(dayNumId).html(tx);
+            			var later = new Date(data[i].attendanceDayOnHour);
+            			later.setSeconds(0);
+            			later.setMinutes(0);
+            			later.setHours(9);
+            			if(new Date(data[i].attendanceDayOnHour)> later){
+            				$(dayNumId).css("color","#f14f4f");
+            			}
+            		}
+            		if(data[i].attendanceDayOffHour!=null){
+            			var tx = moment(data[i].attendanceDayOffHour).format("HH:mm:ss");
+            			tx ="<span>"+tx+"</sapn>"
+            			$(dayNumId).next().html(tx);
+            		}
+            		if(data[i].attendanceDayWorkHour!=null){
+            			var tx =  moment(data[i].attendanceDayWorkHour).format("HH:mm:ss");
+            			tx ="<span>"+tx+"</sapn>"
+            			$(dayNumId).next().next().html(tx);
+            		}
+        		}
+      		
+        	}
+        	
+        }
+      });
+}
+
+function selectMonthWorkTime(empNo, pd){
+	$.ajax({    
+        type:'get',
+        url:"selectMonthWorkTime",
+        data:{empNo:empNo, selectDate:pd},
+        dataType: "json",
+        async : false,
+        success : function(data) {
+        	for(var i=0; i<6; i++){
+        		var tx = "#weekbtspan"+(i+1);
+        		$(tx).text("00h 00m 00s");
+        		if(data.length>i){
+        			var hour = "00"+Math.floor(data[i]/3600);
+        			var min = "00"+Math.floor(data[i]%60/60);
+        			var sec = "00"+Math.floor(data[i]%60%60);
+        			hour = hour.slice(-2);
+        			min = min.slice(-2);
+        			sec = sec.slice(-2);
+	        		$(tx).text(hour+"h "+min+"m "+sec+"s");
+        			
+        		}
+        	}
+        	
+        }
+      });
 }
 
 function dayView(date){
@@ -608,12 +712,26 @@ window.onload= function(){
                		<li id="liCol1">정상</li>
                	</ul>
                </div>
+<c:set var="dayNum" value="0"/>
 <div class="accordion" id="accordionExample">
   <c:forEach var="weekNo" begin="1" end="6">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne${weekNo }">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne${weekNo }" aria-bs-expanded="false" aria-bs-controls="collapseOne${weekNo }">
-        ${weekNo }주차<span class="bt-sp" id="weekNum${weekNo }">누적근무시간</span>
+        ${weekNo }주차
+        <c:choose>
+        
+        <c:when test="${weekTimelist.size()>=weekNo }">
+	        <c:set var="sumhour" value="${weekTimelist.get(weekNo-1)/3600 }"/>
+	        <c:set var="summin" value="${weekTimelist.get(weekNo-1)%60/60 }"/>
+	        <c:set var="sumsec" value="${weekTimelist.get(weekNo-1)%60%60 }"/>
+	        <span class="bt-sp" id="weekbtspan${weekNo }"><fmt:formatNumber value='${sumhour}' pattern='00'/>h <fmt:formatNumber value='${summin}' pattern='00'/>m <fmt:formatNumber value='${sumsec}' pattern='00'/>s</span>
+        </c:when>
+        <c:otherwise>
+        	<span class="bt-sp" id="weekbtspan${weekNo }"></span>
+        </c:otherwise>
+        </c:choose>
+        <span class="bt-sp" id="weekNum${weekNo }">누적근무시간</span>
       </button>
     </h2>
     <div id="collapseOne${weekNo }" class="accordion-collapse collapse" aria-labelledby="headingOne${weekNo }" data-bs-parent="#accordionExample">
@@ -636,11 +754,47 @@ window.onload= function(){
 					<input type="hidden">
 					<input type="hidden">
 				</div>
-	      		<div class="w-c content-start content-start${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-end content-end${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-all content-all${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-detail content-detail${weekDay }"><span>일자</span></div>
-	      		<div class="w-c content-approval content-approval${weekDay }"><span>일자</span></div>
+				<c:choose>
+				<c:when test="${attendMonthList.size()-1 ge dayNum}">
+		      		<div class="w-c content-start content-start${weekDay }" id="dayNum${dayNum }">
+		      			<c:if test="${!empty attendMonthList.get(dayNum).attendanceDayOnHour}">
+		      				<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOnHour}" pattern="HH:mm:ss"/></span>
+		      			</c:if>
+		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayOnHour}">
+		      				<span>--:--:--</span>
+		      			</c:if>
+		      		</div>
+		      		<div class="w-c content-end content-end${weekDay }">
+		      			<c:if test="${!empty attendMonthList.get(dayNum).attendanceDayOffHour}">
+		      				<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOffHour}" pattern="HH:mm:ss"/></span>
+		      			</c:if>
+		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayOffHour}">
+		      				<span>--:--:--</span>
+		      			</c:if>
+		      		</div>
+		      		<div class="w-c content-all content-all${weekDay }">
+		      			<c:if test="${!empty attendMonthList.get(dayNum).attendanceDayWorkHour}">
+		      				<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayWorkHour}" pattern="HH:mm:ss"/></span>
+		      			</c:if>
+		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayWorkHour}">
+		      				<span>--:--:--</span>
+		      			</c:if>
+		      		</div>
+		      		<div class="w-c content-detail content-detail${weekDay }">
+		      			<span>${dayNum }</span>
+		      		</div>
+		      		<div class="w-c content-approval content-approval${weekDay }"><span>일자</span></div>
+		      		<c:set var="dayNum" value="${dayNum+1 }"/>
+	      		</c:when>
+	      		<c:when test="${attendMonthList.size()-1 lt dayNum && dayNum<42}">
+		      		<div class="w-c content-start content-start${weekDay }" id="dayNum${dayNum }"><span>--:--:--</span></div>
+		      		<div class="w-c content-end content-end${weekDay }"><span>--:--:--</span></div>
+		      		<div class="w-c content-all content-all${weekDay }"><span>--:--:--</span></div>
+		      		<div class="w-c content-detail content-detail${weekDay }"><span>${dayNum }</span></div>
+		      		<div class="w-c content-approval content-approval${weekDay }"><span>일자</span></div>
+		      		<c:set var="dayNum" value="${dayNum+1 }"/>
+	      		</c:when>
+	      		</c:choose>
 			</div>
 			<div id="content${weekNo }Div${weekDay }" class="content-collapse collapse" aria-labelledby="headingOne${weekNo }" data-bs-parent=".abody${weekNo }">
 				<div class="content-content">

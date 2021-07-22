@@ -15,9 +15,6 @@ $(function(){
 	});
 	
 	$(document).on('click', '#likeBtnChk2', function(){
-		$('#likeBtnChk2').hide();
-		$('#likeBtnChk1').show();
-		
 		var boardNo = $('#boardNo').val();
 		$.ajax({
 			type:"GET",
@@ -35,7 +32,7 @@ $(function(){
 	$(document).on('click', '#likeBtnChk1', function(){
 		$('#likeBtnChk1').hide();
 		$('#likeBtnChk2').show();
-		
+
 		var boardNo = $('#boardNo').val();
 		$.ajax({
 			type:"GET",

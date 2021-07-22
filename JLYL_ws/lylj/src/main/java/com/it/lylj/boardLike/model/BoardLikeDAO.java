@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface BoardLikeDAO {
+
 	int firstInsert(int boardNo);
 	int insertLike(BoardLikeVO likeVo);
 	int deleteLike(BoardLikeVO likeVo);

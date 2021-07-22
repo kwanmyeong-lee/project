@@ -12,4 +12,7 @@ public interface ElectronicAppLineDAO {
 	int insertAppLine(ElectronicAppLineVo vo);
 	List<ElectronicAppLineVo> selectByElectronicNo(int ElectronicNo);
 	int AcceptUpdateAppLine(ElectronicVo vo);
+	int deleteAppLine(ElectronicAppLineVo vo);
+	int selectForCheckExist(ElectronicAppLineVo vo);
+	ElectronicAppLineVo selectAppLineCheck(ElectronicVo vo);
 }

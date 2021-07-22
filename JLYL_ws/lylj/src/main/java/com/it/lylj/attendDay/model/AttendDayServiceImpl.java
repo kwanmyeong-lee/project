@@ -1,6 +1,8 @@
 package com.it.lylj.attendDay.model;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -28,4 +30,32 @@ public class AttendDayServiceImpl implements AttendDayService{
 	public int updateAttendDayByOffHour(AttendDayVO vo) {
 		return dao.updateAttendDayByOffHour(vo);
 	}
+
+
+	@Override
+	public int selectSumWeekWork() {
+		return dao.selectSumWeekWork();
+	}
+
+
+	@Override
+	public int selectSumMonthWork() {
+		return dao.selectSumMonthWork();
+	}
+
+
+	@Override
+	public int selectSumWeekWorkByMonth(HashMap<String, Object> map) {
+		return dao.selectSumWeekWorkByMonth(map);
+	}
+
+
+	@Override
+	public List<AttendDayVO> selectAttendMonth(HashMap<String, Object> map) {
+		return dao.selectAttendMonth(map);
+	}
+
+
+	
+
 }

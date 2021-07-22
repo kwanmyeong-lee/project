@@ -82,6 +82,7 @@ public class BoardController {
 	public void write(HttpSession session, Model model) {
 		logger.info("게시판 등록 페이지");
 		
+
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		String empName = (String)session.getAttribute("empName");
 		
