@@ -28,4 +28,14 @@ public class ElectronicReLineServiceImpl implements ElectronicReLineService{
 		return electronicReLineDao.AcceptUpdateReLine(vo);
 	}
 
+	@Override
+	public int deleteReLine(ElectronicReLineVo vo) {
+		return electronicReLineDao.deleteReLine(vo);
+	}
+
+	@Override
+	public int selectForCheckExist(ElectronicReLineVo vo) {
+		return electronicReLineDao.selectForCheckExist(vo);
+	}
+
 }

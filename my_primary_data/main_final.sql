@@ -1178,7 +1178,6 @@ insert into DEPARTMENT values(5,'인사팀');
 insert into DEPARTMENT values(6,'총무회계팀');
 
 --EMP
-
 insert into EMP values(EMP_SEQ.nextval, '기성쓰', 'admin', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1993-06-14', null, null);
 insert into EMP values(EMP_SEQ.nextval, '관명', 'admin1', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 2);
 insert into EMP values(EMP_SEQ.nextval, '혁', 'admin2', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 3);
@@ -1395,49 +1394,20 @@ select * from elimp;
 select MAX(electronic_no) from elimp
 where emp_no = 119;
 
+update elimp
+set ELECTRONIC_DRAFT =1
+where  ELECTRONIC_NO = 10;
 
-
-
-
-
--- 결재 번호가 같고 그 결재에 내 번호가 있는 거에 대한 승인 여부
+		select * from elimp
+		where EMP_NO = 120 and ELECTRONIC_COMPLET_FLAG = 2;
 
 -- 결재 라인 
 
 select * from appline;
 
-insert into APPLINE
-values (APPLINE_SEQ.nextval , 8, 120, '0', 0 );
-insert into APPLINE
-values (APPLINE_SEQ.nextval , 8, 119, '0', 0 );
-insert into APPLINE
-values (APPLINE_SEQ.nextval , 8, 104, '0', 0 );
-insert into APPLINE
-values (APPLINE_SEQ.nextval , 9, 120, '0', 0 );
-insert into APPLINE
-values (APPLINE_SEQ.nextval , 10, 120, '0', 0 );
-
-delete APPLINE
-where ELECTRONIC_NO = 8 and EMP_NO = 120;
-
-update appline
-set APPROVAL_LINE_COMPLETE_FLAG = '0'
-where ELECTRONIC_NO = 8 AND EMP_NO = 119;
-
 -- 수신 라인
 
 select * from reline;
-
-insert into reline
-values (APPLINE_SEQ.nextval , 6, 120, '1' );
-insert into reline
-values (APPLINE_SEQ.nextval , 7, 120, '1' );
-insert into reline
-values (APPLINE_SEQ.nextval , 8, 120, '1' );
-insert into reline
-values (APPLINE_SEQ.nextval , 9, 120, '0' );
-insert into reline
-values (APPLINE_SEQ.nextval , 10, 120, '0');
 
 
 -- 게시판 폴더

@@ -52,6 +52,11 @@
 		where EMP_NO_AP = #{empNo} and ELECTRONIC_COMPLET_FLAG = 1 and ELECTRONIC_DRAFT = 0
 	</select>
 	
+	<select id="selectListByEmpNo7" parameterType="int" resultType="map">
+		select * from elimp
+		where EMP_NO = #{empNo} and ELECTRONIC_COMPLET_FLAG = 2
+	</select>
+	
 	<select id="selectListByEmpNo2" parameterType="int" resultType="map">
 		select * from reEleList
 		where EMP_NO_RE = #{empNo} and ELECTRONIC_DRAFT = 0
@@ -67,8 +72,17 @@
 		where EMP_NO = ${empNo} and ELECTRONIC_DRAFT = 1
 	</select>
 	
+	<update id="updateEle" parameterType="ElectronicVo">
+		update elimp
+		set ELECTRONIC_TITLE = #{electronicTitle}, ELECTRONIC_CONTENT= #{electronicContent}, ELECTRONIC_FILE_FLAG = ${electronicFileFlag}, ELECTRONIC_EMERGENCY_FLAG= #{electronicEmergencyFlag}, ELECTRONIC_DRAFT= #{electronicDraft}
+		where ELECTRONIC_NO = #{electronicNo}
+	</update>
 	
-
+	<update id="updateEleReturn" parameterType="int">
+		update elimp
+		set ELECTRONIC_COMPLET_FLAG = '2'
+		where ELECTRONIC_NO = #{electronicNo}
+	</update>
 </mapper>
 
 

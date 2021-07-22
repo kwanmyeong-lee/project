@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,34 +45,40 @@ public class ElectronicController {
 	private final ElectronicAppLineService electronicAppService;
 	private final ElectronicReLineService electronicReService;
 
+	//전자결재 메인 보여주기
 	@GetMapping("/electronicMain")
 	public void electronicMain(Model model) {
 		logger.info("전자결재 화면 보여주기");
 		model.addAttribute("navNo", 1);
 	}
 
+	//문서 양식 선택화면 보여주기
 	@GetMapping("/documentSelect")
 	public void documentSty() {
 		logger.info("양식 선택 보여주기");
 	}
 
+	//결재자 라인 선택 화면 보여주기
 	@GetMapping("/documentSelectApproval")
 	public void documentSelectApproval() {
 		logger.info("결재라인 선택 화면 보여주기");
 	}
-
+	
+	//수신라인 선택화면 보여주기
 	@GetMapping("/documentSelectReceive")
 	public void documentSelectReceive() {
 		logger.info("결재라인 선택 화면 보여주기");
 	}
-
+	
+	//기안서 작성 페이지 보여주기
 	@GetMapping("/documentWrite")
 	public void documentWrite(@RequestParam String styleNo, Model model) {
 		logger.info("양식 작성 페이지 보여주기 파라미터 문서 번호 ={}", styleNo);
 		ElectronicDocStyVO svo = electronicDocStyService.selectByStyleNo(styleNo);
 		model.addAttribute("svo", svo);
 	}
-
+	
+	//기안서 작성 하기 
 	@PostMapping("/documentWrite")
 	public String documentWrite_post(@ModelAttribute ElectronicVo vo, @RequestParam String AempNoData, @RequestParam String RempNoData , HttpSession session,  Model model) {
 		logger.info("양식 등록 하기 파라미터 ElectronicVo={}", vo);
@@ -82,19 +89,31 @@ public class ElectronicController {
 		int cnt = electronicService.insertEle(vo);
 		
 		logger.info("세션에서 empNo={}", empNo);
-		logger.info("결재 라인 결재자 AempNoData={}", AempNoData);
-		logger.info("결재 라인 결재자 RempNoData={}", RempNoData);
+		logger.info("결재 라인  AempNoData={}", AempNoData);
+		logger.info("수신 라인  RempNoData={}", RempNoData);
 		
-		String url = "/electronic/documentSelect?no=" + 1, msg = "기안서 보내기 실패";
-		if (cnt > 0) {
-			msg = "기안서 보내기 성공";
-			url = "/electronic/documentSelect?no=" + 2;
+		String draftVal = vo.getElectronicDraft();
+		String url = "/electronic/documentSelect?no=" + 1, msg = "";
+		if(draftVal.equals("1")) {
+			if (cnt > 0) {
+				msg = "임시저장 성공";
+				url = "/electronic/documentSelect?no=" + 2;
+			}else {
+				msg = "임시저장 실패";
+			}
+		}else {
+			if (cnt > 0) {
+				msg = "기안서 보내기 성공";
+				url = "/electronic/documentSelect?no=" + 2;
+			}else {
+				msg= "기안서 보내기 실패";
+			}
 		}
 		
 		int electronicNo= electronicService.selectMaxEleNo(Integer.parseInt(empNo));
 		logger.info("electronicNo={}", electronicNo);
 		
-		String[] ApEmpNo = AempNoData.split(",");
+		String[] ApEmpNo = AempNoData.split(","); //결재자 번호 배열
 		
 		for(int i =0;i< ApEmpNo.length;i++) {
 			String apempno=  ApEmpNo[i];
@@ -104,13 +123,14 @@ public class ElectronicController {
 			avo.setElectronicNo(electronicNo); //문서 번호 
 			avo.setApprovalLineCompleteFlag("0");
 			
+			
 			int cnt2 = electronicAppService.insertAppLine(avo);
+			
 			
 		}
 		
-	
+		String[] ReEmpNo = RempNoData.split(","); // 수신자 번호 배열
 		
-		String[] ReEmpNo = RempNoData.split(",");
 		for(int i =0; i<ReEmpNo.length;i++) {
 			String reempno = ReEmpNo[i];
 			ElectronicReLineVo rvo = new ElectronicReLineVo();
@@ -118,11 +138,85 @@ public class ElectronicController {
 			rvo.setElectronicNo(electronicNo);
 			rvo.setReceiveLineFlag("0");
 			
+			
 			int cnt3 = electronicReService.insertReLine(rvo);
+			
 		
 		}
 		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 
+		return "common/message";
+	}
+	
+	//기안서 업데이트 하기
+	@RequestMapping("/documentUpdate")
+	public String documentUpdate(@ModelAttribute ElectronicVo vo, @RequestParam String AempNoData, @RequestParam String RempNoData , HttpSession session,  Model model) {
+	logger.info("양식 수정 하기 파라미터 ElectronicVo={}", vo);
+		
+		String empNo = (String) session.getAttribute("empNo");
+		vo.setEmpNo(Integer.parseInt(empNo));
+		
+		int cnt = electronicService.updateEle(vo); //기안서 업데이트
+		
+		logger.info("세션에서 empNo={}", empNo);
+		logger.info("결재 라인  AempNoData={}", AempNoData);
+		logger.info("수신 라인  RempNoData={}", RempNoData);
+		
+		int electronicNo= vo.getElectronicNo();
+		logger.info("electronicNo={}", electronicNo);
+		
+		if(AempNoData.length() !=0) {
+			
+			String[] ApEmpNo = AempNoData.split(",");
+			
+			for(int i =0;i< ApEmpNo.length;i++) {
+				String apempno=  ApEmpNo[i];
+				ElectronicAppLineVo avo = new ElectronicAppLineVo();
+				avo.setEmpNo(Integer.parseInt(apempno)); // 결재자 번호
+				avo.setApprovalLineOrder(i); //결재 자 순서 번호 
+				avo.setElectronicNo(electronicNo); //문서 번호 
+				avo.setApprovalLineCompleteFlag("0");
+				
+				if(electronicAppService.selectForCheckExist(avo) != 1) {
+					int cnt2 = electronicAppService.insertAppLine(avo);
+				}
+				
+			}
+		}
+		
+		if(RempNoData.length() !=0) {
+			
+			String[] ReEmpNo = RempNoData.split(",");
+			
+			for(int i =0; i<ReEmpNo.length;i++) {
+				String reempno = ReEmpNo[i];
+				ElectronicReLineVo rvo = new ElectronicReLineVo();
+				rvo.setEmpNo(Integer.parseInt(reempno));
+				rvo.setElectronicNo(electronicNo);
+				rvo.setReceiveLineFlag("0");
+				
+				if(electronicReService.selectForCheckExist(rvo) != 1) {
+					int cnt3 = electronicReService.insertReLine(rvo);
+				}
+			}
+		}
+		
+		String url = "/electronic/electronicList?no="+5, msg = "실패";
+		
+		if(vo.getElectronicDraft().equals("1")) { //아직 임시저장 문서
+			if (cnt > 0) {
+				msg = "기안서 수정 성공";
+				url = "/electronic/electronicList?no="+5;
+			}
+		}else {
+			if (cnt > 0) {
+				msg = "기안서 기안 성공";
+				url = "/electronic/electronicList?no="+5;
+			}
+		}
+		
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 
@@ -130,7 +224,7 @@ public class ElectronicController {
 	}
 
 	
-
+	//사이드 바에서 항목 선택시 리스트 보여주기
 	@GetMapping("/electronicList")
 	public void electronicWait(@RequestParam String no, HttpSession session, Model model) {
 		logger.info("사이드바 선택 번호 no ={}", no);
@@ -143,13 +237,15 @@ public class ElectronicController {
 		model.addAttribute("List", List);
 		model.addAttribute("navNo", 1);
 	}
-
+	
+	//자주쓰는 양식 디테일 보여주기
 	@GetMapping("/myDocument")
 	public void myDocument(Model model) {
 		logger.info("자주쓰는 양식 페이지 보여주기 ");
 		model.addAttribute("navNo", 1);
 	}
-
+	
+	//문서 선택시 문서 디테일 보여주기
 	@GetMapping("/electronicDetail")
 	public void electronicDetail(@RequestParam int ElectronicNo, @RequestParam String no, Model model) {
 		logger.info("문서 선택시 디테일 화면 보여주기 파라미터 ElectronicNo={}", ElectronicNo);
@@ -188,6 +284,68 @@ public class ElectronicController {
 		return "common/message";
 	}
 	
+	//결재 반려
+	@RequestMapping("/EleReturn")
+	public String EleReturn(@RequestParam int ElectronicNo, Model model) {
+		logger.info("결재 반려하기 파라미터 electronicNo ={}", ElectronicNo);
+		
+		int cnt = electronicService.updateEleReturn(ElectronicNo);
+		
+		String msg ="결재 반려 실패", url = "/electronic/electronicList?no="+1;
+		if(cnt>0) {
+			msg = "결재 반려 완료";
+		}
+		
+		model.addAttribute("url", url);
+		model.addAttribute("msg", msg);
+		
+		return "common/message";
+	}
+	
+	//결재자 삭제
+	@RequestMapping("deleteAppLine")
+	@ResponseBody
+	public int deleteAppLine(@RequestParam(value = "empNo[]") String[] empNo, @RequestParam String electronicNo) {
+		ElectronicAppLineVo vo = new ElectronicAppLineVo();
+		vo.setElectronicNo(Integer.parseInt(electronicNo));
+		
+		int result = 0;
+		for(int i =0;i<empNo.length;i++) {
+			logger.info("AppLine 삭제 파라미터 empNo={}", empNo[i]);
+			vo.setEmpNo(Integer.parseInt(empNo[i]));
+			int cnt  = electronicAppService.deleteAppLine(vo);
+			logger.info("AppLine 삭제 파라미터 vo ={}", vo);
+			if(cnt>0) {
+				logger.info("삭제 완료");
+				result = cnt;
+			}
+		}
+		return result;
+	}
+	
+	//수신자 삭제
+	@RequestMapping("deleteReLine")
+	@ResponseBody
+	public int deleteReLine(@RequestParam(value = "empNo[]") String[] empNo, @RequestParam String electronicNo) {
+		ElectronicReLineVo vo = new ElectronicReLineVo();
+		vo.setElectronicNo(Integer.parseInt(electronicNo));
+		
+		int result = 0;
+		for(int i =0;i<empNo.length;i++) {
+			logger.info("ReLine 삭제 파라미터 empNo={}", empNo[i]);
+			vo.setEmpNo(Integer.parseInt(empNo[i]));
+			int cnt  = electronicReService.deleteReLine(vo);
+			logger.info("ReLine 삭제 파라미터 vo ={}", vo);
+			if(cnt>0) {
+				logger.info("삭제 완료");
+				result = cnt;
+			}
+		}
+		return result;
+	}
+	
+	
+	
 	//수신 승인
 	@RequestMapping("/AcceptUpdateReLine")
 	public String AcceptUpdateReLine(@ModelAttribute ElectronicVo vo,@RequestParam String no, Model model) {
@@ -206,14 +364,8 @@ public class ElectronicController {
 		return "common/message";
 	}
 	
-	//결재라인 업데이트 => 삭제후 다시 등록 느낌?
 	
-	//수신라인 업데이트
-	
-	//내용 업데이트
-	
-	//기안서 올리기 => draft falg 만 바꾸면댐
-	
+	//양식 선택시 양식 미리보기 화면 보여주기
 	@GetMapping("/documentDetail")
 	public String documentDetail(@RequestParam String styleNo, Model model) {
 		logger.info("양식 선택시 디테일 화면 보여주기 파라미터 ={}", styleNo);
@@ -224,9 +376,10 @@ public class ElectronicController {
 
 	}
 
+	//문서 선택시 트리뷰로 보여주기
 	@ResponseBody
 	@RequestMapping("/list")
-	public List<OriVo> selectDocFol() { // 문서 트리뷰 보여주기
+	public List<OriVo> selectDocFol() { 
 		logger.info("문서 트리뷰 보여주기");
 
 		List<OriVo> olist = new ArrayList<>();
@@ -261,9 +414,10 @@ public class ElectronicController {
 
 	}
 
+	//유저번호로 유저 도장 정보 가져오기
 	@ResponseBody
 	@RequestMapping("/selectstamp")
-	public Map<String, Object> selectstamp(@RequestParam String userNo) { // 유저 번호로 도장 정보 가져오기
+	public Map<String, Object> selectstamp(@RequestParam String userNo) { 
 		logger.info("유저 번호로 유저 도장 정보 조회 파라미터 userNo = {}", userNo);
 
 		Map<String, Object> stampInfo = empService.selectstamp(userNo);
@@ -272,10 +426,11 @@ public class ElectronicController {
 
 	}
 
+	//유저번호배열로 유저 도장 조회하기 
 	@ResponseBody
 	@RequestMapping("/selectstampList")
-	public List<Map<String, Object>> selectstampList(@RequestParam(value = "empNo[]") List<String> empNo) {// 유저 번로 배열로
-																											// 도장 조회하기
+	public List<Map<String, Object>> selectstampList(@RequestParam(value = "empNo[]") List<String> empNo) {
+																											
 		logger.info("empNo={}", empNo);
 
 		List<Map<String, Object>> listmap = new ArrayList<Map<String, Object>>();

@@ -56,6 +56,7 @@ public class LoginController {
 	    	session.setAttribute("empNo",empNo);
 	    	session.setAttribute("empName", vo.getEmpName());
 	    	session.setAttribute("empAdminLev", vo.getEmpAdminLev());
+	    	session.setMaxInactiveInterval(120*60);
 	    	
 	    	//[쿠키]
 	    	Cookie ck = new Cookie("ck_empNo", empNo);
