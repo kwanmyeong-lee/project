@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,8 @@ import com.it.lylj.boardFile.model.BoardFileService;
 import com.it.lylj.boardFile.model.BoardFileVO;
 import com.it.lylj.boardFol.model.BoardFolService;
 import com.it.lylj.boardFol.model.BoardFolVO;
+import com.it.lylj.boardLike.model.BoardLikeService;
+import com.it.lylj.boardLike.model.BoardLikeVO;
 import com.it.lylj.common.ConstUtil;
 import com.it.lylj.common.FileUploadUtil;
 import com.it.lylj.common.PaginationInfo;
@@ -51,6 +54,7 @@ public class BoardController {
 	private final BoardFolService boardFolService;
 	private final BoardFileService boardFileService;
 	private final BoardCommentService boardCommentService;
+	private final BoardLikeService boardLikeService;
 	
 	/*        메인        */
 	@RequestMapping("/boardMain")
@@ -75,13 +79,18 @@ public class BoardController {
 	
 	/*        게시글 등록        */
 	@RequestMapping("/boardWrite")
-	public void write(Model model) {
+	public void write(HttpSession session, Model model) {
 		logger.info("게시판 등록 페이지");
+		
+		String empNo = (String)session.getAttribute("empNo");
+		String empName = (String)session.getAttribute("empName");
 		
 		/* 게시판 폴더 처리 */
 		List<BoardFolVO> boFol = boardFolService.selectBoardFol();
 		logger.info("게시판 폴더 조회, boFol.size={}", boFol.size());
 		
+		model.addAttribute("empNo", empNo);
+		model.addAttribute("empName", empName);
 		model.addAttribute("boFol", boFol);
 		model.addAttribute("navNo",6);
 	}
@@ -202,9 +211,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardDetail")
-	public String detail(@RequestParam(defaultValue = "0")int boardNo,
+	public String detail(@RequestParam(defaultValue = "0")int boardNo, HttpSession session,
 			HttpServletRequest request ,Model model) {
 		logger.info("게시판 상세보기 페이지, 파라미터 boardNo={}", boardNo);
+		
+		String empNo = (String)session.getAttribute("empNo");
+		String empName = (String)session.getAttribute("empName");
 		
 		BoardVO vo = boardService.selectByNo(boardNo);
 		logger.info("글 상세보기 조회, vo={}", vo);
@@ -215,9 +227,17 @@ public class BoardController {
 		List<BoardCommentVO> commList = boardCommentService.selectByNo(boardNo);
 		logger.info("댓글 목록 조회, commList={}", commList);
 		
+		BoardLikeVO likeVo = boardLikeService.selectData(boardNo);
+		
+		int likeCnt = boardLikeService.selectLikeCnt(boardNo);
+
+		model.addAttribute("empNo", Integer.parseInt(empNo));
+		model.addAttribute("empName", empName);
 		model.addAttribute("vo", vo);
 		model.addAttribute("fileVo", fileVo);
 		model.addAttribute("commList", commList);
+		model.addAttribute("likeCnt", likeCnt);
+		model.addAttribute("likeVo", likeVo);
 		model.addAttribute("navNo",6);
 
 		return "board/boardDetail";
