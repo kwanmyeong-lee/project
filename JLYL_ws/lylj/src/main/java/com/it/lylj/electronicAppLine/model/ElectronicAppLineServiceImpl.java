@@ -38,4 +38,9 @@ public class ElectronicAppLineServiceImpl implements ElectronicAppLineService{
 		return electronicAppLineDao.selectForCheckExist(vo);
 	}
 
+	@Override
+	public ElectronicAppLineVo selectAppLineCheck(ElectronicVo vo) {
+		return electronicAppLineDao.selectAppLineCheck(vo);
+	}
+
 }
