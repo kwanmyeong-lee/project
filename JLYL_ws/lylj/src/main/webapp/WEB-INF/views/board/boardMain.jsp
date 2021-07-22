@@ -81,8 +81,8 @@
 						    <tr id="tdStyle">
 					            <td class="userNameTd">${vo.boardWriter }</td>
 					            <td>
-					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle }</a> 
-					            	<span>[${vo.commentCnt }]</span>
+					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;">${vo.boardTitle }</a> 
+					            	<span class="commCnt2">[${vo.commentCnt }]</span>
 					            	<span class="newSpan">new</span>
 					            </td>
 						    </tr>
@@ -117,8 +117,8 @@
 						    <tr id="tdStyle">
 					            <td class="userNameTd">${vo.boardWriter }</td>
 					            <td>
-					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle }</a> 
-					            	<div class="commCnt">[${vo.commentCnt }]</div>
+					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;">${vo.boardTitle }</a> 
+					            	<div class="commCnt2">[${vo.commentCnt }]</div>
 					            	<span class="newSpan">new</span>
 					            </td>
 						    </tr>

@@ -19,19 +19,26 @@ $(function(){
 				+'<input type="hidden" name="boardNo" value="${param.boardNo }">'
 				+'<input type="hidden" name="boardCommentGroupNo" value="'+groupNo+'" id="boardReplyGroupNo">'
 				+'<input type="hidden" name="boardCommentStepNo" value="1" id="boardReplyStepNo">'
-				+'<textarea name="boardCommentContent" class="commentTa" cols="126" rows="3" id="boardReplyContent">'+'@'+writer+'&nbsp;</textarea>'
+				+'<textarea name="boardCommentContent" class="commentTa" cols="100" rows="3" id="boardReplyContent">'+'@'+writer+'&nbsp;</textarea>'
 				+'<button type="button" class="btn btn-primary" id="replyUp">등록</button>'
 				+'</form>');
 		$('.replyBtn').hide();
 		$('.replyCancleBtn').show();
 		$('#replyAddDiv').show();
-		$(this).next().next().next().next().next().append(form);
+		$(this).next().next().next().parent().append(form);
 	});
 	
 	$('.replyCancleBtn').click(function(){
 		$('.replyCancleBtn').hide();
 		$('.replyBtn').show();
 		$('#replyAddDiv').hide();
+	});
+	
+	$('.deleteBtn').click(function(){
+		var conf = confirm('댓글을 삭제하시겠습니까?');
+		if(!conf){
+			return false;
+		}
 	});
 
 	//게시판 번호
@@ -59,7 +66,8 @@ $(function(){
 			dataType:"json",
 			success:function(d){
 				$('#replyAddDiv').hide();
-				location.reload(true);
+				$("commentAllDiv").load(location.href+"#commentAllDiv");
+				
 			},
 			error:function(xhr, status, error){
 				alert("댓글 등록을 실패하였습니다." + error);
@@ -83,8 +91,8 @@ $(function(){
 			},				
 			dataType:"json",
 			success:function(data){
-				getReplies();
-				location.reload(true);
+				$("commentAllDiv").load(location.href+"#commentAllDiv");
+
 			},
 			error:function(xhr, status, error){
 				alert("댓글 등록을 실패하였습니다." + error);
@@ -92,6 +100,7 @@ $(function(){
 		});
 		
 	});
+	
 	
 });
 </script>
@@ -118,13 +127,16 @@ $(function(){
 				    <c:if test="${commVo.boardCommentDelflag == '0'}">
 			    		<div class="commentDiv">
 							<input type="hidden" name="boardNo" value="${commVo.boardCommentGroupNo }">
-					        <span class="userNameComm">${commVo.boardCommentWriter }</span> <button class="replyBtn">답글</button><button class="replyCancleBtn">취소</button>
-					        <button id="detialMenu2" type="button" data-bs-toggle="dropdown">
-					            <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
-					        </button>
-					        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
-					            <li><a class="dropdown-item" href="<c:url value='/comment/delete?boardCommentNo=${commVo.boardCommentNo}&boardNo=${commVo.boardNo }'/>">삭제</a></li>
-					        </ul><br>
+					        <span class="userNameComm">${commVo.boardCommentWriter }</span> <button class="replyBtn" type="button">답글</button><button class="replyCancleBtn">취소</button>
+					        <c:if test="${commVo.boardCommentWriter == empName}">
+						        <button id="detialMenu2" type="button" data-bs-toggle="dropdown">
+						            <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
+						        </button>
+						        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
+						            <li><a class="dropdown-item deleteBtn" href="<c:url value='/comment/delete?boardCommentNo=${commVo.boardCommentNo}&boardNo=${commVo.boardNo }'/>">삭제</a></li>
+						        </ul>
+						    </c:if>
+						    <br>
 					        <span class="contentComm">${commVo.boardCommentContent }</span><br><br>
 					        <span class="regdateComm"><fmt:formatDate value="${commVo.boardCommentDate }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 				        </div>
@@ -142,12 +154,14 @@ $(function(){
 				    		<div class="replyImg" style="width:55px;"><i class="fas fa-reply"></i></div>
 				    		<div>
 				    			<span class="userNameComm">${commVo.boardCommentWriter }</span>
-						        <button id="detialMenu2" type="button" data-bs-toggle="dropdown" style="flex-wrap: wrap;">
-						            <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
-						        </button>
+				    			<c:if test="${commVo.boardCommentWriter == empName}">
+							        <button id="detialMenu2" type="button" data-bs-toggle="dropdown" style="flex-wrap: wrap;">
+							            <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
+							        </button>
 						        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
 						            <li><a class="dropdown-item" href="<c:url value='/comment/delete?boardCommentNo=${commVo.boardCommentNo}&boardNo=${commVo.boardNo }'/>">삭제</a></li>
 						        </ul>
+						        </c:if>
 						        <br>
 						        <span class="contentComm" style="flex-wrap: wrap;">${commVo.boardCommentContent }</span><br><br>
 						        <span class="regdateReply"><fmt:formatDate value="${commVo.boardCommentDate }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
@@ -170,109 +184,70 @@ $(function(){
 	<div id="replyAddDiv"></div>    
     
 </div>
-<%-- 
-<div class="commentAllDiv">
-    <!-- commList가 없을 때 -->
-    <c:if test="${empty commList}">
-    	<div class="align_center">등록된 댓글이 없습니다.</div>
-    </c:if>
-    <!-- commList가 있을 때 -->
-    <c:if test="${!empty commList}">
-    <!-- 반복 시작 -->
-    	<c:forEach var="commVo" items="${commList}">
-    	<!-- stepNo=0 -->
-    	<c:if test="${commVo.boardCommentStepNo == 0 }">
-    		<div class="commentDiv">
-				<input type="hidden" name="boardNo" value="${commVo.boardCommentGroupNo }">
-		        <span class="userNameComm">${commVo.boardCommentWriter }</span> <button class="replyBtn">답글</button><button class="replyCancleBtn">취소</button>
-		        <button id="detialMenu2" type="button" data-bs-toggle="dropdown">
-		            <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
-		        </button>
-		        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
-		            <li><a class="dropdown-item" href="#">삭제</a></li>
-		        </ul><br>
-		        <span class="contentComm">${commVo.boardCommentContent }</span><br><br>
-		        <span id="regdateComm"><fmt:formatDate value="${commVo.boardCommentDate }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
-		        <hr>
-	        </div>
-        </c:if>
-    	<!-- stepNo>0 -->
-    	<c:if test="${commVo.boardCommentStepNo > 0 }">
-	    	<div class="replyDiv">
-	    		<div class="replyImg" style="width:55px;"><i class="fas fa-angle-double-right"></i></div>
-	    		<div>
-	    			<span class="userNameComm">${commVo.boardCommentWriter }</span>
-			        <button id="detialMenu2" type="button" data-bs-toggle="dropdown" style="flex-wrap: wrap;">
-			            <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
-			        </button>
-			        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
-			            <li><a class="dropdown-item" href="#">삭제</a></li>
-			        </ul>
-			        <br>
-			        <span class="contentComm" style="flex-wrap: wrap;">${commVo.boardCommentContent }</span><br><br>
-			        <span id="regdateComm"><fmt:formatDate value="${commVo.boardCommentDate }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
-			        <br>
-			        <hr class="replyDivHr" style="margin-top: 10px;">
-		        </div>
-		    </div>
-        </c:if>
-	    </c:forEach>
-    <!-- 반복 끝 -->
-	</c:if>
-   </div>
---%>
+<%-- function getReplies() {
 
+		  $.getJSON("/board/boardDetail?boardNo=" + BoardNo, function (data) {
+		      console.log(data);
+		      var str = "";
+		      $(data).each(function () {
+		        str += "<c:if test='${empty commList}'>";
+		    	str += "	<div style='text-align:center;'>등록된 댓글이 없습니다.</div>";
+			    str += "</c:if>";
+			    str += "<c:if test='${!empty commList}'>";
+			    str += "	<c:forEach var='commVo' items='${commList}'>";
+				str += "    	<c:if test='${commVo.boardCommentStepNo == 0 }'>";
+				str += "		    <c:if test='${commVo.boardCommentDelflag == '0'}'>";
+				str += "	    		<div class='commentDiv'>";
+				str += "					<input type='hidden' name='boardNo' value='${commVo.boardCommentGroupNo }'>";
+				str += "			        <span class='userNameComm'>${commVo.boardCommentWriter }</span> <button class='replyBtn'>답글</button><button class='replyCancleBtn'>취소</button>";
+				str += "			        <button id='detialMenu2' type='button' data-bs-toggle='dropdown'>";
+				str += "			            <img src='<c:url value='/resources/img/icons8_menu.png'/>' id='menuImg' alt='메뉴'/>";
+				str += "			        </button>";
+				str += "			        <ul class='dropdown-menu dropdown-menu-lg-end' aria-labelledby='dropdownMenuLink'>";
+				str += "			            <li><a class='dropdown-item' href='<c:url value='/comment/delete?boardCommentNo=${commVo.boardCommentNo}&boardNo=${commVo.boardNo }'/>'>삭제</a></li>";
+				str += "			        </ul><br>";
+				str += "			        <span class='contentComm'>${commVo.boardCommentContent }</span><br><br>";
+				str += "			        <span class='regdateComm'><fmt:formatDate value='${commVo.boardCommentDate }' pattern='yyyy-MM-dd HH:mm:ss'/></span>";
+				str += "		        </div>";
+				str += "	    		<hr style='color:white;'>";
+				str += "	        </c:if>";
+				str += "		    <c:if test='${commVo.boardCommentDelflag == 'Y'}'>";
+				str += "	    		<div class='commentDiv' style='height: 50px;'>";
+				str += "	    			<div style='margin: 40px 0 0 30px;'>삭제된 댓글 입니다.</div>";
+				str += "	    		</div>";
+				str += "	        </c:if>";
+				str += "        </c:if>";
+				str += "    	<c:if test='${commVo.boardCommentStepNo > 0 }'>";
+				str += "		    <c:if test='${commVo.boardCommentDelflag == '0'}'>";
+				str += "		    	<div class='replyDiv'>";
+				str += "		    		<div class='replyImg' style='width:55px;'><i class='fas fa-reply'></i></div>";
+				str += "		    		<div>";
+				str += "		    			<span class='userNameComm'>${commVo.boardCommentWriter }</span>";
+				str += "				        <button id='detialMenu2' type='button' data-bs-toggle='dropdown' style='flex-wrap: wrap;'>";
+				str += "				            <img src='<c:url value='/resources/img/icons8_menu.png'/>' id='menuImg' alt='메뉴'/>";
+				str += "				        </button>";
+				str += "				        <ul class='dropdown-menu dropdown-menu-lg-end' aria-labelledby='dropdownMenuLink'>";
+				str += "				            <li><a class='dropdown-item' href='<c:url value='/comment/delete?boardCommentNo=${commVo.boardCommentNo}&boardNo=${commVo.boardNo }'/>'>삭제</a></li>";
+				str += "				        </ul>";
+				str += "				        <br>";
+				str += "				        <span class='contentComm' style='flex-wrap: wrap;'>${commVo.boardCommentContent }</span><br><br>";
+				str += "			        <span class='regdateReply'><fmt:formatDate value='${commVo.boardCommentDate }' pattern='yyyy-MM-dd HH:mm:ss'/></span>";
+				str += "			        <br>";
+				str += "		        </div>";
+				str += "			    </div>";
+				str += "	        </c:if>";
+				str += "			    <c:if test='${commVo.boardCommentDelflag == 'Y'}'>";
+				str += "	    		<div class='replyDiv' style='height: 50px;'>";
+				str += "	    			<div class='replyImg' style='width:55px;'><i class='fas fa-reply'></i></div>";
+				str += "	    			<span style='margin: 10px 0 5px 20px;'>삭제된 댓글 입니다.</span>";
+				str += "	    		</div>";
+				str += "	        </c:if>";
+				str += "        </c:if>";
+				str += "		<hr>";
+				str += "    </c:forEach>";
+				str += "</c:if>";
+		      });
+		      $("#commentAllDiv").html(str);
+		  });
 
-<%-- 	//댓글 목록 출력 함수
-	function getReplies() {
-
-	  $.getJSON("/board/boardDetail?boardNo=" + BoardNo, function (data) {
-	      console.log(data);
-	      var str = "";
-	      $(data).each(function () {
-	        str += "<c:if test='${empty commList}'>"
-	    	str += " <div class='align_center'>등록된 댓글이 없습니다.</div>"
-	    	str += " </c:if>"
-	    	str +=  "<c:if test='${!empty commList}'>"
-	    	str += "	<c:forEach var='commVo' items='${commList}'>"
-	    	str += "	<c:if test='${commVo.boardCommentStepNo == 0 }'>"
-	    	str += "		<div class='commentDiv'>"
-	    	str += "			<input type='hidden' name='boardNo' value='${commVo.boardCommentGroupNo }'>"
-	    	str += "	        <span class='userNameComm'>${commVo.boardCommentWriter }</span> <button class='replyBtn'>답글</button><button class='replyCancleBtn'>취소</button>"
-	    	str += "	        <button id='detialMenu2' type='button' data-bs-toggle='dropdown'>"
-	    	str += "	            <img src='<c:url value='/resources/img/icons8_menu.png'/>' id='menuImg' alt='메뉴'/>"
-	    	str += "	        </button>"
-	    	str += "	        <ul class='dropdown-menu dropdown-menu-lg-end' aria-labelledby='dropdownMenuLink'>"
-	    	str += "	            <li><a class='dropdown-item' href='#'>삭제</a></li>"
-	    	str += "	        </ul><br>"
-	    	str += "	        <span class='contentComm'>${commVo.boardCommentContent }</span><br><br>"
-	    	str += "	        <span id='regdateComm'><fmt:formatDate value='${commVo.boardCommentDate }' pattern='yyyy-MM-dd HH:mm:ss'/></span>"
-	    	str += "        </div>"
-	    	str += "    </c:if>"
-	    	str += "	<c:if test='${commVo.boardCommentStepNo > 0 }'>"
-	    	str += "    	<div class='replyDiv'>"
-	    	str += "    		<div class='replyImg' style='width:55px;'><i class='fas fa-angle-double-right'></i></div>"
-	    	str += "    		<div>"
-	    	str += "    			<span class='userNameComm'>${commVo.boardCommentWriter }</span>"
-	    	str += "		        <button id='detialMenu2' type='button' data-bs-toggle='dropdown' style='flex-wrap: wrap;'>"
-	    	str += "		            <img src='<c:url value='/resources/img/icons8_menu.png'/>' id='menuImg' alt='메뉴'/>"
-	  		str += "		        </button>"
-	  		str += "		        <ul class='dropdown-menu dropdown-menu-lg-end' aria-labelledby='dropdownMenuLink'>"
-	  		str += "		            <li><a class='dropdown-item' href='#'>삭제</a></li>"
-	  		str += "		        </ul>"
-	  		str += "		        <br>"
-	  		str += "		        <span class='contentComm' style='flex-wrap: wrap;'>${commVo.boardCommentContent }</span><br><br>"
-	  		str += "		        <span id='regdateComm'><fmt:formatDate value='${commVo.boardCommentDate }' pattern='yyyy-MM-dd HH:mm:ss'/></span>"
-	  		str += "		        <br>"
-	  		str += "	        </div>"
-	  		str += "	    </div>"
-	  		str += "		<hr class='replyDivHr' style='margin-top: 10px;'>"	
-	  		str += "    </c:if>"
-	  		str += "    </c:forEach>"
-	  		str += "</c:if>";
-	      });
-	      $("#commentAllDiv").html(str);
-	  });
-
-	} --%>
-
+		} --%>
