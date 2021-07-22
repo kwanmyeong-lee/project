@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.it.lylj.boardLike.model.BoardLikeDAO">
+	<insert id="insertLike" parameterType="boardLikeVo">
+		INSERT INTO ofboardlike(BOARD_NO, EMP_NO)
+		VALUES(#{boardNo}, #{empNo})
+	</insert>
+
+	<delete id="deleteLike" parameterType="boardLikeVo">
+		DELETE ofboardlike
+		WHERE BOARD_NO=#{boardNo} and EMP_NO=#{empNo}
+	</delete>
+	
+	<select id="selectLike" parameterType="int" resultType="int">
+		SELECT count(*) FROM ofboardlike
+		WHERE BOARD_NO=#{boardNo}
+	</select>
+
+	<select id="selectByEmpNo" parameterType="boardLikeVo" resultType="int">
+		SELECT count(*) FROM ofboardlike
+		WHERE BOARD_NO=#{boardNo} and EMP_NO=#{empNo}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+

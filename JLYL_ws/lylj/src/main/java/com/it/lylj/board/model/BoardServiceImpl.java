@@ -59,4 +59,14 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.updateCommentCnt(boardNo);
 	}
 
+	@Override
+	public int updateLikeCntUp(int boardNo) {
+		return boardDao.updateLikeCntUp(boardNo);
+	}
+
+	@Override
+	public int updateLikeCntDown(int boardNo) {
+		return boardDao.updateLikeCntDown(boardNo);
+	}
+
 }

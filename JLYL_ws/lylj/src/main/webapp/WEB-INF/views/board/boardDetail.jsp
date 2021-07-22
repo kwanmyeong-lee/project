@@ -6,30 +6,56 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/board/style.css'/>">
 
 <script type="text/javascript">
-	$(function(){
-		$('#likeBtnChk1').hide();
+$(function(){
+	$('#boardDelete').click(function(){
+		var result = confirm('글을 삭제 하시겠습니까?');
+		if(!result){
+			return false;
+		}
+	});
+	
+	$(document).on('click', '#likeBtnChk2', function(){
+		$('#likeBtnChk2').hide();
+		$('#likeBtnChk1').show();
 		
-		$('#likeBtnChk1').click(function(){
-			$(this).hide();
-			$('#likeBtnChk2').show();
-		});
-		$('#likeBtnChk2').click(function(){
-			$(this).hide();
-			$('#likeBtnChk1').show();
-		});
-		
-		$('#boardDelete').click(function(){
-			var result = confirm('글을 삭제 하시겠습니까?');
-			if(!result){
-				return false;
+		var boardNo = $('#boardNo').val();
+		$.ajax({
+			type:"GET",
+			url:"<c:url value='/like/insert'/>",			
+			data:{
+				boardNo:boardNo
+			},				
+			dataType:"json",
+			success:function(cnt){
+				$('#likeCnt').text(cnt);
 			}
 		});
-		
 	});
+	
+	$(document).on('click', '#likeBtnChk1', function(){
+		$('#likeBtnChk1').hide();
+		$('#likeBtnChk2').show();
+		
+		var boardNo = $('#boardNo').val();
+		$.ajax({
+			type:"GET",
+			url:"<c:url value='/like/delete'/>",			
+			dataType:"json",
+			data:{
+				boardNo:boardNo
+			},	
+			success:function(cnt){
+				$('#likeCnt').text(cnt);
+			}
+		});
+	});
+});
 </script>
 <div id="detailBodyDiv">
 	<div id=detailDiv>
 	    <div id="titleDiv"> 
+	    	<input type="hidden" id="boardNo" value="${param.boardNo }">
+	    	<input type="hidden" id="empName" value="${empName }">
 	    	<span>${vo.boardTitle }</span>
 	    	<br>
 	        <a href="#" id="userNameSpan">${vo.boardWriter }</a>
@@ -43,9 +69,15 @@
 	                <li><a class="dropdown-item" href="<c:url value='/board/boardDelete?boardNo=${param.boardNo }&boardFolderNo=${vo.boardFolderNo}'/>" id="boardDelete">삭제</a></li>
 	            </ul>
 	            <div id="likeDiv">
-			        <button id="likeBtnChk2"><i class="fa fa-thumbs-up" ></i></button> 
-			        <button id="likeBtnChk1"><i class="fa fa-thumbs-up" ></i></button> 
-	            	&nbsp;<span id="likeCnt">: 13</span>
+	            	<c:if test="${selectEmpNo eq 0 }">
+			        	<button id="likeBtnChk2" type="button"><i class="fa fa-thumbs-up" ></i></button> 
+				        <button id="likeBtnChk1" type="button" style="display: none;"><i class="fa fa-thumbs-up" ></i></button> 
+			        </c:if>
+	            	<c:if test="${selectEmpNo eq 1 }">
+			        	<button id="likeBtnChk2" type="button" style="display: none;"><i class="fa fa-thumbs-up" ></i></button> 
+				        <button id="likeBtnChk1" type="button"><i class="fa fa-thumbs-up" ></i></button> 
+			        </c:if>
+	            	&nbsp;<span id="likeCnt">${likeCnt }</span>
 			    </div>
 	    </div>
 	    <c:if test="${!empty fileVo}">
