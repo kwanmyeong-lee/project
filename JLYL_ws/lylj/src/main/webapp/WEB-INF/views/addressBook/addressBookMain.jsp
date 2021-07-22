@@ -29,7 +29,7 @@
 		});
 		
 		/*전체 선택 처리*/
-		$('#userNameTd').click(function(){
+		$('#chkAllMain').click(function(){
 			$('#tdStyle td input[type=checkbox]').prop('checked',this.checked);			
 		});
 		

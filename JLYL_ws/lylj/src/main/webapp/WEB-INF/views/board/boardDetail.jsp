@@ -15,6 +15,8 @@ $(function(){
 	});
 	
 	$(document).on('click', '#likeBtnChk2', function(){
+		$('#likeBtnChk2').hide();
+		$('#likeBtnChk1').show();
 		var boardNo = $('#boardNo').val();
 		$.ajax({
 			type:"GET",
@@ -24,7 +26,7 @@ $(function(){
 			},				
 			dataType:"json",
 			success:function(cnt){
-				$('#likeCnt').text(cnt);
+				$('#likeCnt').text(': '+cnt);
 			}
 		});
 	});
@@ -42,7 +44,7 @@ $(function(){
 				boardNo:boardNo
 			},	
 			success:function(cnt){
-				$('#likeCnt').text(cnt);
+				$('#likeCnt').text(': '+cnt);
 			}
 		});
 	});
@@ -58,6 +60,7 @@ $(function(){
 	        <a href="#" id="userNameSpan">${vo.boardWriter }</a>
 	        <span id="readcountSpan">조회수 : ${vo.boardHits }</span>
 		    <span id="regdateSpan"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+		    <c:if test="${vo.empNo == empNo }">
 	            <button id="detialMenu" type="button" data-bs-toggle="dropdown" id="menuBtn">
 	                <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
 	            </button>
@@ -65,6 +68,7 @@ $(function(){
 	                <li><a class="dropdown-item" href="<c:url value='/board/boardEdit?boardNo=${param.boardNo }'/>">수정</a></li>
 	                <li><a class="dropdown-item" href="<c:url value='/board/boardDelete?boardNo=${param.boardNo }&boardFolderNo=${vo.boardFolderNo}'/>" id="boardDelete">삭제</a></li>
 	            </ul>
+	        </c:if>
 	            <div id="likeDiv">
 	            	<c:if test="${selectEmpNo eq 0 }">
 			        	<button id="likeBtnChk2" type="button"><i class="fa fa-thumbs-up" ></i></button> 
@@ -74,7 +78,7 @@ $(function(){
 			        	<button id="likeBtnChk2" type="button" style="display: none;"><i class="fa fa-thumbs-up" ></i></button> 
 				        <button id="likeBtnChk1" type="button"><i class="fa fa-thumbs-up" ></i></button> 
 			        </c:if>
-	            	&nbsp;<span id="likeCnt">${likeCnt }</span>
+	            	&nbsp;<span id="likeCnt">: ${likeCnt }</span>
 			    </div>
 	    </div>
 	    <c:if test="${!empty fileVo}">
