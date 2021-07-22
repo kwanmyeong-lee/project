@@ -28,7 +28,7 @@
 	</select>
 	
 	<update id="AcceptUpdateAppLine" parameterType="ElectronicVo">
-			update appline
+			update APPLINE
 			set APPROVAL_LINE_COMPLETE_FLAG = '1'
 			where ELECTRONIC_NO = #{electronicNo} AND EMP_NO = #{empNo}
 	</update>
@@ -37,5 +37,15 @@
 		delete APPLINE
 		where ELECTRONIC_NO = ${electronicNo} and EMP_NO = ${empNo}
 	</delete>
+	
+	<select id="selectAppLineCheck" parameterType="ElectronicVo" resultType="ElectronicAppLineVo">
+		select * from APPLINE
+		where APPROVAL_LINE_ORDER = (select APPROVAL_LINE_ORDER from appline
+		where ELECTRONIC_NO = #{electronicNo} and EMP_NO = ${empNo})-1 and ELECTRONIC_NO = #{electronicNo} 
+	
+	</select>
 
 </mapper>
+
+
+

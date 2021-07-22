@@ -271,8 +271,23 @@ public class ElectronicController {
 	public String AcceptUpdateAppLine(@ModelAttribute ElectronicVo vo,@RequestParam String no, Model model) {
 		logger.info("리스트 번호 no ={}", no);
 		logger.info("AppLine 업데이트 파라미터 electronicVo={}", vo);
-		int cnt = electronicAppService.AcceptUpdateAppLine(vo);
-		String url = "/electronic/electronicList?no="+no, msg = "승인 실패";
+		
+		int cnt = 0;
+		ElectronicAppLineVo evo = null;
+		if(electronicAppService.selectAppLineCheck(vo) != null ) {
+			evo = electronicAppService.selectAppLineCheck(vo); //내 앞사람이 승인을 했는지 안했는지 
+			logger.info("앞 라인 승인 여부 evo.getApprovalLineCompleteFlag()={}", evo.getApprovalLineCompleteFlag());
+			
+			if(evo.getApprovalLineCompleteFlag().equals("1")) { //앞사람이 승인을 했으면
+				cnt = electronicAppService.AcceptUpdateAppLine(vo);
+			}//앞사람이 승인을 안했으면
+			
+		}else { //앞사람이 없으면
+			cnt = electronicAppService.AcceptUpdateAppLine(vo);
+		}
+		
+		
+		String url = "/electronic/electronicList?no="+no, msg = "승인 순서가 아닙니다.";
 		if(cnt>0) {
 			 msg = "승인 성공";
 		}
