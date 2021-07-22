@@ -56,6 +56,18 @@ public class AttendDayServiceImpl implements AttendDayService{
 	}
 
 
+	@Override
+	public int selectSumWeekWorkEx() {
+		return dao.selectSumWeekWorkEx();
+	}
+
+
+	@Override
+	public int selectSumMonthWorkEx() {
+		return dao.selectSumMonthWorkEx();
+	}
+
+
 	
 
 }
