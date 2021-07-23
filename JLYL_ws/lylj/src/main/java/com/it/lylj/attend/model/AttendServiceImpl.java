@@ -14,4 +14,9 @@ public class AttendServiceImpl implements AttendService{
 		return dao.updateLateAttendByEmpNo(empNo);
 	}
 
+	@Override
+	public AttendVO selectAttendByEmpNo(int empNo) {
+		return dao.selectAttendByEmpNo(empNo);
+	}
+
 }
