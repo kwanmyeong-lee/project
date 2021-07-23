@@ -23,7 +23,9 @@ public class SearchVO {
 	
 	/* 게시판 폴더 번호 */
 	private int boardFolderNo;
-    
+	
+	/* 전자결재 결재문서의 유저 번호*/
+	private String empNo;
 	
 	
     /**블럭당 보여질 페이지 수,  페이지 사이즈 */
@@ -57,6 +59,7 @@ public class SearchVO {
     	this.recordCountPerPage = bean.recordCountPerPage;
     	this.dong=bean.dong;
     	this.boardFolderNo=bean.boardFolderNo;
+    	this.empNo=bean.empNo;
     }
 
     public String getSearchCondition() {
@@ -140,14 +143,24 @@ public class SearchVO {
 	public void setBoardFolderNo(int boardFolderNo) {
 		this.boardFolderNo = boardFolderNo;
 	}
+	
+
+	public String getEmpNo() {
+		return empNo;
+	}
+
+	public void setEmpNo(String empNo) {
+		this.empNo = empNo;
+	}
 
 	@Override
 	public String toString() {
 		return "SearchVO [searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", searchUseYn="
-				+ searchUseYn + ", currentPage=" + currentPage + ", dong=" + dong + ", blockSize=" + blockSize
-				+ ", firstRecordIndex=" + firstRecordIndex + ", lastRecordIndex=" + lastRecordIndex
-				+ ", recordCountPerPage=" + recordCountPerPage + ", boardFolderNo=" + boardFolderNo + "]";
+				+ searchUseYn + ", currentPage=" + currentPage + ", dong=" + dong + ", boardFolderNo=" + boardFolderNo
+				+ ", empNo=" + empNo + ", blockSize=" + blockSize + ", firstRecordIndex=" + firstRecordIndex
+				+ ", lastRecordIndex=" + lastRecordIndex + ", recordCountPerPage=" + recordCountPerPage + "]";
 	}
+
 
 	
 	

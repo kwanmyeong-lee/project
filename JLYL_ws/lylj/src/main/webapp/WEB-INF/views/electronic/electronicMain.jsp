@@ -4,20 +4,21 @@
 
 
 <style>
-	#divscheduleAdd{
-		margin-left: 11px;
+#divscheduleAdd {
+	margin-left: 11px;
+}
 
-	}
-	.btnSchAdd{
-		width: 93%;
-	}
-	
+.btnSchAdd {
+	width: 93%;
+}
 </style>
-<script type="text/javascript"> 
-	$(function(){
-		$('#newDocument').click(function(){
-			open('<c:url value="/electronic/documentSelect"/>', 'documentSelect', 'width=800,height=500');
-		});
+<script type="text/javascript">
+	$(function() {
+		$('#newDocument').click(
+				function() {
+					open('<c:url value="/electronic/documentSelect"/>',
+							'documentSelect', 'width=800,height=500');
+				});
 	});
 </script>
 
@@ -46,32 +47,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>아좀 빌려줘요</td>
-								<td>관명</td>
-								<td>2021-10-11</td>
-							</tr>
-							<tr>
-								<td>이래도 안빌려줘?</td>
-								<td>기성</td>
-								<td>2021-12-11</td>
-							</tr>
-							<tr>
-								<td>제발 !!!!</td>
-								<td>혁</td>
-								<td>2021-09-11</td>
-							</tr>
+							<c:if test="${empty ListAp }">
+								<tr>
+									<td colspan="3">항목이 없습니다.</td>
+								</tr>
+							</c:if>
+							<c:if test="${!empty ListAp }">
+								<c:forEach var="ap" items="${ListAp }">
+									<tr>
+										<td>${ap.ELECTRONIC_TITLE }</td>
+										<td>${ap.EMP_NO }</td>
+										<td><fmt:formatDate value="${ap.ELECTRONIC_DATE }"
+												pattern="yyyy-MM-dd" /></td>
+									</tr>
+								</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
-
 				</div>
 			</div>
 		</div>
-
 		<div class="col-lg-6">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold text-primary">결재 진행 목록</h6>
+					<h6 class="m-0 font-weight-bold text-primary">결재 수신 목록</h6>
 				</div>
 				<div class="card-body">
 					<table class="table table-hover">
@@ -88,21 +87,21 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>아좀 빌려줘요</td>
-								<td>돈</td>
-								<td>2021-10-11</td>
-							</tr>
-							<tr>
-								<td>이래도 안빌려줘?</td>
-								<td>너의 지갑</td>
-								<td>2021-12-11</td>
-							</tr>
-							<tr>
-								<td>제발 !!!!</td>
-								<td>너의 카드</td>
-								<td>2021-09-11</td>
-							</tr>
+							<c:if test="${empty ListRe }">
+								<tr>
+									<td colspan="3">항목이 없습니다.</td>
+								</tr>
+							</c:if>
+							<c:if test="${!empty ListRe }">
+								<c:forEach var="re" items="${ListRe }">
+									<tr>
+										<td>${re.ELECTRONIC_TITLE }</td>
+										<td>${re.EMP_NO }</td>
+										<td><fmt:formatDate value="${re.ELECTRONIC_DATE }"
+												pattern="yyyy-MM-dd" /></td>
+									</tr>
+								</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
 
@@ -132,21 +131,21 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>아좀 빌려줘요</td>
-								<td>돈</td>
-								<td>2021-10-11</td>
-							</tr>
-							<tr>
-								<td>이래도 안빌려줘?</td>
-								<td>너의 지갑</td>
-								<td>2021-12-11</td>
-							</tr>
-							<tr>
-								<td>제발 !!!!</td>
-								<td>너의 카드</td>
-								<td>2021-09-11</td>
-							</tr>
+							<c:if test="${empty ListFi }">
+								<tr>
+									<td colspan="3">항목이 없습니다.</td>
+								</tr>
+							</c:if>
+							<c:if test="${!empty ListFi }">
+								<c:forEach var="fi" items="${ListFi }">
+									<tr>
+										<td>${fi.ELECTRONIC_TITLE }</td>
+										<td>${fi.EMP_NO }</td>
+										<td><fmt:formatDate value="${fi.ELECTRONIC_DATE }"
+												pattern="yyyy-MM-dd" /></td>
+									</tr>
+								</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
 
