@@ -32,5 +32,6 @@ public interface ElectronicDAO {
 	int updateEleReturn(int ElectronicNo);
 	int updateEleComplete(int ElectronicNo);
 	List<Map<String, Object>> selectTopSty();
+	int upToDate(int ElectronicNo);
 	
 }
