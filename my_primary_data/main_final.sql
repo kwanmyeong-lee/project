@@ -1656,7 +1656,7 @@ to_date('2021-07-14 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-14 06:0
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-13 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-13 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-13 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-13');
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-12 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-to_date('2021-07-12 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-12 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-12');
+to_date('2021-07-12 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-12 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),2,'2021-07-12');
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-09 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-09 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-09 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-09');
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-08 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
@@ -1686,6 +1686,46 @@ to_date('2021-07-07 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-07 06:0
 
 
 commit;
+
+
+drop procedure updateAttendDay;
+
+
+create or replace procedure updateAttendDay 
+(
+
+	p_EMP_NO NUMBER, /* 사원 번호 */
+	p_ATTENDANCE_DAY_ON_HOUR DATE, /* 출근 시간 */
+	p_ATTENDANCE_DAY_OFF_HOUR DATE, /* 퇴근 시간 */
+	p_ATTENDANCE_DAY_WORK_HOUR DATE, /* 근무 시간 */
+	p_ATTENDANCE_DAY_REGDATE DATE
+)
+is
+
+    cnt number;
+begin
+    
+    IF p_ATTENDANCE_DAY_ON_HOUR < TO_DATE(TO_CHAR(p_ATTENDANCE_DAY_OFF_HOUR,'yyyy-mm-dd')||' 9:00:00','yyyy-mm-dd hh24:mi:ss') 
+        or p_ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(p_ATTENDANCE_DAY_OFF_HOUR,'yyyy-mm-dd')||' 18:00:00','yyyy-mm-dd hh24:mi:ss') 
+    THEN
+        update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=p_ATTENDANCE_DAY_OFF_HOUR,
+		ATTENDANCE_DAY_WORK_HOUR=p_ATTENDANCE_DAY_WORK_HOUR, ATTENDANCE_DAY_HOLIDAY_FLAG = 1
+		where EMP_NO=p_EMP_NO and ATTENDANCE_DAY_REGDATE =p_ATTENDANCE_DAY_REGDATE;
+    
+    ELSE
+        update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=p_ATTENDANCE_DAY_OFF_HOUR,
+		ATTENDANCE_DAY_WORK_HOUR=p_ATTENDANCE_DAY_WORK_HOUR, ATTENDANCE_DAY_HOLIDAY_FLAG = 0
+		where EMP_NO=p_EMP_NO and ATTENDANCE_DAY_REGDATE =p_ATTENDANCE_DAY_REGDATE;
+    END IF;
+    
+
+    commit;
+
+EXCEPTION
+    WHEN OTHERS THEN
+    raise_application_error(-20001, '근태 날짜 정보 업데이트 실패!');
+        ROLLBACK;
+end;
 
 
 
