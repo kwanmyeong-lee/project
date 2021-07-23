@@ -1667,10 +1667,17 @@ to_date('2021-07-07 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-07 06:0
 
 
 
+--휴가 종류
+insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'연차');
+insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'보상휴가');
 
-
-
-
+--휴가 정보
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-23', '2021-06-26','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-20', '2021-06-21','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-15', '2021-06-17','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-11', '2021-06-13','122','2');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-05', '2021-06-08','122','2');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-01', '2021-06-03','122','1');
 
 
 
