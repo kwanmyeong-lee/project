@@ -35,8 +35,11 @@ public class IndexController {
 	}
 
 	@RequestMapping("/index")
-	public void test() {
+	public void test(HttpSession session, Model model) {
 		logger.info("메인페이지");
+		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
+		
+		model.addAttribute("empNo", empNo);
 	}
 	
 	@RequestMapping("/admin")
