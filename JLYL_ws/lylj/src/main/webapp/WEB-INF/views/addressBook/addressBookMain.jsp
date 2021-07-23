@@ -14,23 +14,24 @@
 		});
 		
 		/* 주소록 수정 모달 */
-		$('.tdStyle').hover(function(){
-			$(this).css("background","rgb(240, 240, 240)");
-		}, function(){
-			$(this).css("background","none");
-		});
-		
-		/* 주소록 수정 모달 */
 		$(".userNameClick").click(function() {
 			$(".addressBookEditModal").fadeIn();
 		});
 		$(".bookCancleBtn").click(function() {
 			$(".addressBookEditModal").hide();
 		});
+
+		/* 주소록 마우스 이벤트 */
+		$('.tdStyle').hover(function(){
+			$(this).css("background","rgb(240, 240, 240)");
+		}, function(){
+			$(this).css("background","none");
+		});
+		
 		
 		/*전체 선택 처리*/
 		$('#chkAllMain').click(function(){
-			$('#tdStyle td input[type=checkbox]').prop('checked',this.checked);			
+			$('tbody td input[type=checkbox]').prop('checked',this.checked);			
 		});
 		
 	});
@@ -96,7 +97,6 @@
 		</div>
 		<div id="serviceDiv">
 			<button id="deleteBtn">삭제</button>
-			<button id="addMail">메일발송</button>
 		</div>
 		<table>
 		    <colgroup>
@@ -122,7 +122,6 @@
 				    <tr class="tdStyle">
 			            <td><input type="checkbox" class="chkBox"> </td>
 			            <td id="userNameTd" class="userNameClick">
-			            	<img src="<c:url value='/resources/img/undraw_profile.svg'/>"> 
 			            	<span id="userNameSpan">테스트</span> 
 		            	</td>
 			           	<td id="telTd" >010-3333-8888</td>
