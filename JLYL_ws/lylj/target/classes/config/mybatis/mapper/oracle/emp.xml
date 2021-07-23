@@ -108,6 +108,11 @@
 		where emp_no = #{empNo}
 	</update>
 	
+	<select id="selectSearchNum" parameterType="int" resultType="empVo" >
+		select * from emp
+		where emp_no like  #{searchNum} || '%'
+	</select>
+	
 </mapper>
 
 

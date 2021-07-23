@@ -157,5 +157,10 @@ public class EmpServiceImpl implements EmpService{
 		return empDao.selectAllEmpForEle();
 	}
 
+	@Override
+	public List<EmpVO> selectSearchNum(int searcNo) {
+		return empDao.selectSearchNum(searcNo);
+	}
+
 }
 

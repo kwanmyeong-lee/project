@@ -22,4 +22,5 @@ public interface EmpDAO {
 	String checkEmail(int empNo);
 	int updateTempPwd(EmpVO vo);
 	List<EmpVO>  selectAllEmpForEle();
+	List<EmpVO> selectSearchNum(int searcNo);
 }
