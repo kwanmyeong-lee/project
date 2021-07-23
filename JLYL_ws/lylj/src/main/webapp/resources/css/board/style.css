@@ -303,6 +303,10 @@
     border: none;
 }
 
+.likeBtnChk1{
+	color: red;
+}
+
 #detailBodyDiv{
     width: 1200px;
     height: auto;

@@ -470,7 +470,7 @@ function selectMonthAjax(empNo, pd){
             			var later = new Date(data[i].attendanceDayOnHour);
             			later.setSeconds(0);
             			later.setMinutes(0);
-            			later.setHours(9);
+            			later.setHours(10);
             			if(new Date(data[i].attendanceDayOnHour)> later){
             				$(dayNumId).css("color","#f14f4f");
             			}
@@ -506,8 +506,8 @@ function selectMonthWorkTime(empNo, pd){
         		$(tx).text("00h 00m 00s");
         		if(data.length>i){
         			var hour = "00"+Math.floor(data[i]/3600);
-        			var min = "00"+Math.floor(data[i]%60/60);
-        			var sec = "00"+Math.floor(data[i]%60%60);
+        			var min = "00"+Math.floor(data[i]%3600/60);
+        			var sec = "00"+Math.floor(data[i]%3600%60);
         			hour = hour.slice(-2);
         			min = min.slice(-2);
         			sec = sec.slice(-2);
@@ -682,26 +682,41 @@ window.onload= function(){
                <div class="m-d">
                <div class="main-week-div">
                		<div class="week-div">
+	               		<c:set var="shour" value="${Math.floor(selectSumWeekWork/3600) }"/>
+		        		<c:set var="smin" value="${Math.floor(selectSumWeekWork%3600/60) }"/>
+		      	  		<c:set var="ssec" value="${selectSumWeekWork%3600%60 }"/>
                			<p class="week-p1">이번주 누적</p>
-               			<p class="week-p2" >000</p>
+               			<p class="week-p2" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                		<span class="divide-bar"></span>
                		<div class="week-div">
+               			<c:set var="shour" value="${Math.floor(selectSumWeekWorkEx/3600) }"/>
+		        		<c:set var="smin" value="${Math.floor(selectSumWeekWorkEx%3600/60) }"/>
+		      	  		<c:set var="ssec" value="${selectSumWeekWorkEx%3600%60 }"/>
                			<p class="week-p1">이번주 초과</p>
-               			<p class="week-p2" >000</p>
+               			<p class="week-p2" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                		<div class="week-div">
+               			<c:set var="shour" value="${Math.floor(selectLeftTimeWeek/3600) }"/>
+		        		<c:set var="smin" value="${Math.floor(selectLeftTimeWeek%3600/60) }"/>
+		      	  		<c:set var="ssec" value="${selectLeftTimeWeek%3600%60 }"/>
                			<p class="week-p1">이번주 잔여</p>
-               			<p class="week-p2" >000</p>
+               			<p class="week-p2" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                		<span class="divide-bar"></span>
                		<div class="week-div">
+               			<c:set var="shour" value="${Math.floor(selectSumMonthWork/3600) }"/>
+		        		<c:set var="smin" value="${Math.floor(selectSumMonthWork%3600/60) }"/>
+		      	  		<c:set var="ssec" value="${selectSumMonthWork%3600%60 }"/>
                			<p class="week-p1 week-pp">이번달 누적</p>
-               			<p class="week-p2 week-pp" >000</p>
+               			<p class="week-p2 week-pp" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                		<div class="week-div">
-               			<p class="week-p1 week-pp">이번달 연장</p>
-               			<p class="week-p2 week-pp" >000</p>
+               			<c:set var="shour" value="${Math.floor(selectSumMonthWorkEx/3600) }"/>
+		        		<c:set var="smin" value="${Math.floor(selectSumMonthWorkEx%3600/60) }"/>
+		      	  		<c:set var="ssec" value="${selectSumMonthWorkEx%3600%60 }"/>
+               			<p class="week-p1 week-pp">이번달 초과</p>
+               			<p class="week-p2 week-pp" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                </div>
                </div>
@@ -722,9 +737,9 @@ window.onload= function(){
         <c:choose>
         
         <c:when test="${weekTimelist.size()>=weekNo }">
-	        <c:set var="sumhour" value="${weekTimelist.get(weekNo-1)/3600 }"/>
-	        <c:set var="summin" value="${weekTimelist.get(weekNo-1)%60/60 }"/>
-	        <c:set var="sumsec" value="${weekTimelist.get(weekNo-1)%60%60 }"/>
+	        <c:set var="sumhour" value="${Math.floor(weekTimelist.get(weekNo-1)/3600) }"/>
+	        <c:set var="summin" value="${Math.floor(weekTimelist.get(weekNo-1)%3600/60) }"/>
+	        <c:set var="sumsec" value="${weekTimelist.get(weekNo-1)%3600%60 }"/>
 	        <span class="bt-sp" id="weekbtspan${weekNo }"><fmt:formatNumber value='${sumhour}' pattern='00'/>h <fmt:formatNumber value='${summin}' pattern='00'/>m <fmt:formatNumber value='${sumsec}' pattern='00'/>s</span>
         </c:when>
         <c:otherwise>
@@ -758,7 +773,14 @@ window.onload= function(){
 				<c:when test="${attendMonthList.size()-1 ge dayNum}">
 		      		<div class="w-c content-start content-start${weekDay }" id="dayNum${dayNum }">
 		      			<c:if test="${!empty attendMonthList.get(dayNum).attendanceDayOnHour}">
-		      				<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOnHour}" pattern="HH:mm:ss"/></span>
+		      				<c:set var="lateCheck" value="${attendMonthList.get(dayNum).attendanceDayRegdate }"></c:set>
+		      				<c:set var="lateCheck" value="${lateCheck.getTime()+(10*60*60*1000)}"></c:set>
+		      				<c:if test="${lateCheck< attendMonthList.get(dayNum).attendanceDayOnHour.getTime() }">
+		      					<span style="color:#f14f4f;"><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOnHour}" pattern="HH:mm:ss"/></span>
+		      				</c:if>
+		      				<c:if test="${lateCheck>=attendMonthList.get(dayNum).attendanceDayOnHour.getTime() }">
+		      					<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOnHour}" pattern="HH:mm:ss"/></span>
+		      				</c:if>
 		      			</c:if>
 		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayOnHour}">
 		      				<span>--:--:--</span>

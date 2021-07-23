@@ -29,9 +29,9 @@ public class BoardCommentController {
 	public int commentWrite(@ModelAttribute BoardCommentVO commVo, @RequestParam(defaultValue = "0")int boardNo) {
 		logger.info("댓글 등록 처리, 파라미터 commVo={}", commVo);
 		
-		int cnt = boardCommentService.insertComment(commVo);
-		int commentCnt = boardDao.updateCommentCnt(boardNo);
-		return cnt;
+		int data = boardCommentService.insertComment(commVo);
+		boardDao.updateCommentCnt(boardNo);
+		return data;
 	}
 	
 	@ResponseBody
@@ -39,10 +39,10 @@ public class BoardCommentController {
 	public int replyWrite(@ModelAttribute BoardCommentVO commVo, @RequestParam(defaultValue = "0")int boardNo) {
 		logger.info("답변 등록 처리, 파라미터 commVo={}", commVo);
 		
-		int cnt = boardCommentService.insertReply(commVo);
-		int commentCnt = boardDao.updateCommentCnt(boardNo);
+		int data = boardCommentService.insertReply(commVo);
+		boardDao.updateCommentCnt(boardNo);
 		
-		return cnt;
+		return data;
 	}
 	
 	@RequestMapping("/comment/delete")

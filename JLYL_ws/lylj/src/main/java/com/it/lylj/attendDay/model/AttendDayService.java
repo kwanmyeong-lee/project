@@ -10,6 +10,9 @@ public interface AttendDayService {
 	int updateAttendDayByOffHour(AttendDayVO vo);
 	int selectSumWeekWork();
 	int selectSumMonthWork();
+	int selectSumWeekWorkEx();
+	int selectSumMonthWorkEx();
+	int selectLeftTimeWeek();
 	int selectSumWeekWorkByMonth(HashMap<String, Object> map);
 	List<AttendDayVO> selectAttendMonth(HashMap<String, Object> map);
 

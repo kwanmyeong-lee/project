@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.it.lylj.board.model.BoardService;
 import com.it.lylj.boardLike.model.BoardLikeService;
 import com.it.lylj.boardLike.model.BoardLikeVO;
 
@@ -23,7 +22,7 @@ public class boardLikeController {
 	private final Logger logger=LoggerFactory.getLogger(boardLikeController.class);
 	
 	private final BoardLikeService boardLikeService;
-  
+	
 	@ResponseBody
 	@RequestMapping(value = "/like/insert")
 	public int insert(@RequestParam(defaultValue = "0") int boardNo, HttpSession session) {
@@ -35,11 +34,8 @@ public class boardLikeController {
 		likeVo.setBoardNo(boardNo);
 		likeVo.setEmpNo(Integer.parseInt(empNo));
 		
-		boardLikeService.insertLike(likeVo);
-		
-		int cnt = boardLikeService.selectLike(boardNo);
-		
-		logger.info("좋아요 테이블에 사원추가");
+		int cnt = boardLikeService.insertLike(likeVo);
+		logger.info("좋아요 등록 처리, 파라미터 likeVo={}", boardNo);
 		
 		return cnt;
 	}
@@ -54,11 +50,9 @@ public class boardLikeController {
 		BoardLikeVO likeVo = new BoardLikeVO();
 		likeVo.setBoardNo(boardNo);
 		likeVo.setEmpNo(Integer.parseInt(empNo));
-
-		boardLikeService.deleteLike(likeVo);
 		
-		int cnt = boardLikeService.selectLike(boardNo);
-		logger.info("좋아요 테이블에서 삭제");
+		int cnt = boardLikeService.deleteLike(likeVo);
+		logger.info("좋아요 삭제 처리, 파라미터 likeVo={}", likeVo);
 		
 		return cnt;
 	}

@@ -10,4 +10,5 @@ import lombok.ToString;
 public class BoardLikeVO {
 	private int boardNo;
 	private int empNo;
+	private int cnt;
 }

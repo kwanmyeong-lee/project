@@ -82,7 +82,8 @@ public class BoardController {
 	public void write(HttpSession session, Model model) {
 		logger.info("게시판 등록 페이지");
 		
-		String empNo = (String)session.getAttribute("empNo");
+
+		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		String empName = (String)session.getAttribute("empName");
 		
 		/* 게시판 폴더 처리 */
@@ -132,9 +133,8 @@ public class BoardController {
 				int file = boardFileService.insertFile(fileVo);
 				logger.info("file={}", file);
 			}//if
-		}//fot
-
-		String msg="등록을 실패하였습니다.", url="/board/boardMain";
+		}//for
+		
 		if(cnt==0) {
 			model.addAttribute("msg", "등록을 실패하였습니다.");
 			model.addAttribute("url", "/board/boardMain");
@@ -215,29 +215,33 @@ public class BoardController {
 			HttpServletRequest request ,Model model) {
 		logger.info("게시판 상세보기 페이지, 파라미터 boardNo={}", boardNo);
 		
-		String empNo = (String)session.getAttribute("empNo");
+		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		String empName = (String)session.getAttribute("empName");
 		
 		BoardVO vo = boardService.selectByNo(boardNo);
 		logger.info("글 상세보기 조회, vo={}", vo);
 		
 		List<BoardFileVO> fileVo = boardFileService.selectByNo(boardNo);
-		logger.info("fileVo={}", fileVo);
+		logger.info("fileVo={}", fileVo.size());
 		
 		List<BoardCommentVO> commList = boardCommentService.selectByNo(boardNo);
-		logger.info("댓글 목록 조회, commList={}", commList);
+		logger.info("댓글 목록 조회, commList={}", commList.size());
 		
-		BoardLikeVO likeVo = boardLikeService.selectData(boardNo);
+		int likeCnt=boardLikeService.selectLike(boardNo);
 		
-		int likeCnt = boardLikeService.selectLikeCnt(boardNo);
-
-		model.addAttribute("empNo", Integer.parseInt(empNo));
+		BoardLikeVO likeVo=new BoardLikeVO();
+		likeVo.setBoardNo(boardNo);
+		likeVo.setEmpNo(empNo);
+		int selectEmpNo = boardLikeService.selectByEmpNo(likeVo);
+		logger.info("selectEmpNo={}",selectEmpNo);
+		
+		model.addAttribute("empNo", empNo);
 		model.addAttribute("empName", empName);
 		model.addAttribute("vo", vo);
 		model.addAttribute("fileVo", fileVo);
 		model.addAttribute("commList", commList);
 		model.addAttribute("likeCnt", likeCnt);
-		model.addAttribute("likeVo", likeVo);
+		model.addAttribute("selectEmpNo", selectEmpNo);
 		model.addAttribute("navNo",6);
 
 		return "board/boardDetail";
