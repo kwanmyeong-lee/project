@@ -246,6 +246,7 @@
 			$('input[name=RempNoData]').val(RpempNoData);    		
     		$('input[name=electronicDraft]').val("1");
     		
+    		checkVal();
 	        $('form[name=docfrm]').submit();
 	        
 		});
@@ -256,7 +257,7 @@
 
 		$('#ok_draft').click(function(){ // 임시저장문서 기안 
 			
-			checkVal();
+		
 	            
 	        var dataArr = [];
 	        
@@ -284,6 +285,7 @@
 			$('input[name=RempNoData]').val(RpempNoData);    		
     		$('input[name=electronicDraft]').val("0");
     		
+    		checkVal();
 	        $('form[name=docfrm]').submit();
 		  
 				
@@ -295,6 +297,12 @@
 		
 		if($('#title').val().length == 0  ){
 			alert("제목을 입력해주세요");
+			event.preventDefault();
+			return false;
+		}
+		
+		if(	$('input[name=AempNoData]').val().length == 0){
+			alert("결재자를 선택해주세요");
 			event.preventDefault();
 			return false;
 		}

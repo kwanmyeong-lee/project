@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.it.lylj.boardFol.model.BoardFolVO;
 import com.it.lylj.common.SearchVO;
 
 import lombok.RequiredArgsConstructor;

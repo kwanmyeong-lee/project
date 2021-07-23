@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.it.lylj.common.SearchVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -34,26 +36,50 @@ public class ElectronicServiceImpl implements ElectronicService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectListByEmpNo(int empNo, String no) {
+	public List<Map<String, Object>> selectListByEmpNo(SearchVO searchVo, String no) {
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		if(no.equals("1")) {
-			list = electronicDao.selectListByEmpNo1(empNo);
+			list = electronicDao.selectListByEmpNo1(searchVo);
 		}else if(no.equals("2")) {
-			list = electronicDao.selectListByEmpNo2(empNo);
+			list = electronicDao.selectListByEmpNo2(searchVo);
 		}else if(no.equals("3")) {
-			list = electronicDao.selectListByEmpNo3(empNo);
+			list = electronicDao.selectListByEmpNo3(searchVo);
 		}else if(no.equals("4")) {
-			list = electronicDao.selectListByEmpNo4(empNo);
+			list = electronicDao.selectListByEmpNo4(searchVo);
 		}else if(no.equals("5")) {
-			list = electronicDao.selectListByEmpNo5(empNo);
+			list = electronicDao.selectListByEmpNo5(searchVo);
 		}else if(no.equals("6")) {
-			list = electronicDao.selectListByEmpNo6(empNo);
+			list = electronicDao.selectListByEmpNo6(searchVo);
 		}else if(no.equals("7")) {
-			list = electronicDao.selectListByEmpNo7(empNo);
+			list = electronicDao.selectListByEmpNo7(searchVo);
 		}
 		
 		return list;
+		
+	}
+	
+	@Override
+	public int TotalSelectListByEmpNo(SearchVO searchVo, String no) {
+		
+		int cnt = 0;
+		if(no.equals("1")) {
+			cnt = electronicDao.TotalSelectListByEmpNo1(searchVo);
+		}else if(no.equals("2")) {
+			cnt = electronicDao.TotalSelectListByEmpNo2(searchVo);
+		}else if(no.equals("3")) {
+			cnt = electronicDao.TotalSelectListByEmpNo3(searchVo);
+		}else if(no.equals("4")) {
+			cnt = electronicDao.TotalSelectListByEmpNo4(searchVo);
+		}else if(no.equals("5")) {
+			cnt = electronicDao.TotalSelectListByEmpNo5(searchVo);
+		}else if(no.equals("6")) {
+			cnt = electronicDao.TotalSelectListByEmpNo6(searchVo);
+		}else if(no.equals("7")) {
+			cnt = electronicDao.TotalSelectListByEmpNo7(searchVo);
+		}
+		
+		return cnt;
 		
 	}
 
@@ -65,6 +91,21 @@ public class ElectronicServiceImpl implements ElectronicService {
 	@Override
 	public int updateEleReturn(int ElectronicNo) {
 		return electronicDao.updateEleReturn(ElectronicNo);
+	}
+
+	@Override
+	public int updateEleComplete(int ElectronicNo) {
+		return electronicDao.updateEleComplete(ElectronicNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectTopSty() {
+		return electronicDao.selectTopSty();
+	}
+
+	@Override
+	public int upToDate(int ElectronicNo) {
+		return electronicDao.upToDate(ElectronicNo);
 	}
 
 

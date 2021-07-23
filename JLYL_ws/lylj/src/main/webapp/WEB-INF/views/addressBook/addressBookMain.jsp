@@ -14,23 +14,24 @@
 		});
 		
 		/* 주소록 수정 모달 */
-		$('.tdStyle').hover(function(){
-			$(this).css("background","rgb(240, 240, 240)");
-		}, function(){
-			$(this).css("background","none");
-		});
-		
-		/* 주소록 수정 모달 */
 		$(".userNameClick").click(function() {
 			$(".addressBookEditModal").fadeIn();
 		});
 		$(".bookCancleBtn").click(function() {
 			$(".addressBookEditModal").hide();
 		});
+
+		/* 주소록 마우스 이벤트 */
+		$('.tdStyle').hover(function(){
+			$(this).css("background","rgb(240, 240, 240)");
+		}, function(){
+			$(this).css("background","none");
+		});
+		
 		
 		/*전체 선택 처리*/
 		$('#chkAllMain').click(function(){
-			$('#tdStyle td input[type=checkbox]').prop('checked',this.checked);			
+			$('tbody td input[type=checkbox]').prop('checked',this.checked);			
 		});
 		
 	});
@@ -67,6 +68,7 @@
 							<option>사원</option>
 							<option>팀장</option>
 							<option>관리자</option>
+							<option>관리자</option>
 						</select>
 						
 					</div>
@@ -88,7 +90,7 @@
 				<option>이름</option>
 				<option>전화번호</option>
 				<option>이메일</option>
-				<option>부서</option>
+				<option>카테고리</option>
 				<option>직급</option>
 			</select>
 			<input type="text" id="searchTextBox">
@@ -96,7 +98,6 @@
 		</div>
 		<div id="serviceDiv">
 			<button id="deleteBtn">삭제</button>
-			<button id="addMail">메일발송</button>
 		</div>
 		<table>
 		    <colgroup>
@@ -110,7 +111,7 @@
 	        <thead>
 			    <tr id="thStyle">
 		            <th><input type="checkbox" name="chkAllMain" id="chkAllMain"></th>
-		            <th>이름</th>
+		            <th><span style="padding-left: 15px;">이름</span></th>
 		            <th>전화번호</th>
 		            <th>이메일</th>
 		            <th>부서</th>
@@ -118,17 +119,16 @@
 			    </tr>
 	        </thead>
 	        <tbody>
-		        <c:forEach var="i" begin="1" end="20">
+		        <c:forEach var="bookVo" items="${bookList }">
 				    <tr class="tdStyle">
 			            <td><input type="checkbox" class="chkBox"> </td>
 			            <td id="userNameTd" class="userNameClick">
-			            	<img src="<c:url value='/resources/img/undraw_profile.svg'/>"> 
-			            	<span id="userNameSpan">테스트</span> 
+			            	<span id="userNameSpan">${bookVo.addressBookName }</span> 
 		            	</td>
-			           	<td id="telTd" >010-3333-8888</td>
-			            <td id="emailTd" >yooh0201@gmail.com</td>
-			            <td id="" >웹 백엔드</td>
-			            <td id="" >사원</td>
+			           	<td class="telTd" >${bookVo.addressBookTel }</td>
+			            <td class="emailTd" >${bookVo.addressBookMaile }</td>
+			            <td class="" >사원</td>
+			            <td class="position" >${bookVo.addressBookPosition }</td>
 				    </tr>
 			    </c:forEach>
 	        </tbody>

@@ -122,7 +122,7 @@ iframe {
 [ Table ]*/
 
 .limiter {
-  width: 1300px;
+  width: 1000px;
   margin: 0 auto;
 }
 
@@ -143,7 +143,7 @@ iframe {
 }
 
 .wrap-table100 {
-  width: 1170px;
+  width: 900px;
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -162,16 +162,17 @@ th, td {
 }
 
 .column1 {
-  width: 10%;
+  width: 40%;
   padding-left: 40px;
 }
-
+	
 .column2 {
-  width: 20%;
+  width: 40%;
+  padding-left: 60px;
 }
 
 .column3 {
-  width: 20%;
+  width: 60%;
 }
 
 .column4 {
