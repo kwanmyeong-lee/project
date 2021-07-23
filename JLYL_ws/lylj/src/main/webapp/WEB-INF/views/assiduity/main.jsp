@@ -470,7 +470,7 @@ function selectMonthAjax(empNo, pd){
             			var later = new Date(data[i].attendanceDayOnHour);
             			later.setSeconds(0);
             			later.setMinutes(0);
-            			later.setHours(9);
+            			later.setHours(10);
             			if(new Date(data[i].attendanceDayOnHour)> later){
             				$(dayNumId).css("color","#f14f4f");
             			}
@@ -690,15 +690,18 @@ window.onload= function(){
                		</div>
                		<span class="divide-bar"></span>
                		<div class="week-div">
-               			<c:set var="shour" value="${selectSumMonthWorkEx/3600 }"/>
-		        		<c:set var="smin" value="${selectSumMonthWorkEx%60/60 }"/>
-		      	  		<c:set var="ssec" value="${selectSumMonthWorkEx%60%60 }"/>
+               			<c:set var="shour" value="${selectSumWeekWorkEx/3600 }"/>
+		        		<c:set var="smin" value="${selectSumWeekWorkEx%60/60 }"/>
+		      	  		<c:set var="ssec" value="${selectSumWeekWorkEx%60%60 }"/>
                			<p class="week-p1">이번주 초과</p>
                			<p class="week-p2" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                		<div class="week-div">
+               			<c:set var="shour" value="${selectLeftTimeWeek/3600 }"/>
+		        		<c:set var="smin" value="${selectLeftTimeWeek%60/60 }"/>
+		      	  		<c:set var="ssec" value="${selectLeftTimeWeek%60%60 }"/>
                			<p class="week-p1">이번주 잔여</p>
-               			<p class="week-p2" >000</p>
+               			<p class="week-p2" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                		<span class="divide-bar"></span>
                		<div class="week-div">
@@ -770,7 +773,14 @@ window.onload= function(){
 				<c:when test="${attendMonthList.size()-1 ge dayNum}">
 		      		<div class="w-c content-start content-start${weekDay }" id="dayNum${dayNum }">
 		      			<c:if test="${!empty attendMonthList.get(dayNum).attendanceDayOnHour}">
-		      				<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOnHour}" pattern="HH:mm:ss"/></span>
+		      				<c:set var="lateCheck" value="${attendMonthList.get(dayNum).attendanceDayRegdate }"></c:set>
+		      				<c:set var="lateCheck" value="${lateCheck.getTime()+(10*60*60*1000)}"></c:set>
+		      				<c:if test="${lateCheck< attendMonthList.get(dayNum).attendanceDayOnHour.getTime() }">
+		      					<span style="color:#f14f4f;"><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOnHour}" pattern="HH:mm:ss"/></span>
+		      				</c:if>
+		      				<c:if test="${lateCheck>=attendMonthList.get(dayNum).attendanceDayOnHour.getTime() }">
+		      					<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOnHour}" pattern="HH:mm:ss"/></span>
+		      				</c:if>
 		      			</c:if>
 		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayOnHour}">
 		      				<span>--:--:--</span>
