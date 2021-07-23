@@ -16,6 +16,9 @@ import com.it.lylj.addBook.model.AddBookService;
 import com.it.lylj.addBook.model.AddBookVO;
 import com.it.lylj.addBookFol.model.AddBookFolService;
 import com.it.lylj.addBookFol.model.AddBookFolVO;
+import com.it.lylj.common.ConstUtil;
+import com.it.lylj.common.PaginationInfo;
+import com.it.lylj.common.SearchVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,19 +32,36 @@ public class AddBookController {
 	private final AddBookFolService addBookFolService;
 	
 	@RequestMapping("/addressBookMain")
-	public String bookMain(HttpSession session, Model model) {
+	public String bookMain(@ModelAttribute SearchVO searchVo, HttpSession session, Model model) {
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		logger.info("주소록 메인 페이지, 파라미터 empNo={}", empNo);
 		
+		/* 페이징 처리 */
+		PaginationInfo pagingInfo = new PaginationInfo();
+	    pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+	    pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+	    pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+	      
+	    searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+	    searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+	    searchVo.setEmpNo(Integer.toString(empNo));
+	    logger.info("페이지 번호 관련 셋팅 후 serachVo={}", searchVo);
+	    
 		/* 주소록 목록 조회 */
-		List<AddBookVO> bookList =addBookService.selectAllAddBook(empNo);
+		List<AddBookVO> bookList =addBookService.selectAllAddBook(searchVo);
 		logger.info("bookList.size()={}", bookList.size());
 		
+		int totalRecord = addBookService.selectAllTotalRecord(searchVo);
+	    logger.info("totalRecord="+totalRecord);
+	    pagingInfo.setTotalRecord(totalRecord);
+	    
 		/* top, 등록, 수정 카테고리 list처리 */
 		List<AddBookFolVO> bookFolList = addBookFolService.selectFol(empNo);
 		
+		model.addAttribute("empNo", empNo);
 		model.addAttribute("bookList", bookList);
 		model.addAttribute("bookFolList", bookFolList);
+		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("navNo", 5);
 		
 		return "addressBook/addressBookMain";
