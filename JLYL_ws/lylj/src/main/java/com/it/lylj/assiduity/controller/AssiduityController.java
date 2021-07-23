@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,8 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.lylj.attend.model.AttendService;
+import com.it.lylj.attend.model.AttendVO;
 import com.it.lylj.attendDay.model.AttendDayService;
 import com.it.lylj.attendDay.model.AttendDayVO;
+import com.it.lylj.breakDay.model.BreakDayService;
+import com.it.lylj.breakDay.model.BreakDayVO;
+import com.it.lylj.emp.model.EmpService;
+import com.it.lylj.emp.model.EmpVO;
 import com.it.lylj.schedule.controller.ScheduleController;
 import com.it.lylj.schedule.model.ScheduleVO;
 
@@ -36,6 +42,8 @@ import lombok.RequiredArgsConstructor;
 public class AssiduityController {
 	private final AttendDayService attendDayService;
 	private final AttendService attendService;
+	private final BreakDayService breakDayService;
+	private final EmpService empService;
 	
 	private static final Logger logger
 	=LoggerFactory.getLogger(ScheduleController.class);
@@ -294,6 +302,17 @@ public class AssiduityController {
 	@GetMapping("/annual")
 	public void annual(Model model, HttpServletRequest req) {
 		model = topView(req,model);
+		HttpSession session =req.getSession();
+		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
+		AttendVO attendVo = attendService.selectAttendByEmpNo(empNo);
+		List<Map<String,Object>> breakDayList = breakDayService.selectAllBREAKDAYByEmpNo(empNo);
+		EmpVO empVo = empService.selectByEmpNo(empNo);
+		
+		model.addAttribute("empVo", empVo);
+		model.addAttribute("attendVo", attendVo);
+		model.addAttribute("breakDayList", breakDayList);
+		
+		logger.info("brea ={}",breakDayList.get(0));
 	}//휴가 페이지
 	
 	@GetMapping("/condition")
