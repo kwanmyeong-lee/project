@@ -20,6 +20,7 @@
 	$(function(){
 		var styNo = $('#styleNo').val();
 		$('#selectAP').click(function(){
+			$('#Approval').html("");
 			window
 			.open(
 					'<c:url value = '/electronic/documentSelectApproval?styleNo='/>'+styNo,
@@ -27,6 +28,7 @@
 					'top=40, left=40, width=1000, height=1000, status=no, menubar=no, toolbar=no, resizable=no, directories=no, location=no');
 		});
 		$('#selectRC').click(function(){
+			$('#Receive').html("");
 			window
 			.open(
 					'<c:url value = '/electronic/documentSelectReceive?styleNo='/>'+styNo,
@@ -43,9 +45,9 @@
 			self.close();
 		});
 		
-		$('input[name=submit]').click(function(){
+		$('input[name=submit]').click(function(){ //기안서 보내기
 			
-			checkVal();
+		
 	            
             var dataArr = [];
  
@@ -58,8 +60,8 @@
             $('input[name=electronicContent]').val(jsonData);				
             $('form[name=docfrm]').prop('action','<c:url value="/electronic/documentWrite"/>');		         
             		            
-    		ApempNoData = [];
-    		RpempNoData = [];
+    		var ApempNoData = [];
+    		var RpempNoData = [];
     		
     		$('input[name=apEmpNo]').each(function(idx, item){
     			ApempNoData.push($(this).val()); // 유저 번호 배열 
@@ -68,15 +70,18 @@
     			RpempNoData.push($(this).val()); // 유저 번호 배열 
     		});
     		
+    		
     		$('input[name=AempNoData]').val(ApempNoData);
     		$('input[name=RempNoData]').val(RpempNoData);
     		
+    		
+    		checkVal();
 	        $('form[name=docfrm]').submit();
 		  
 				
 		});
 		
-		$('input[name=draft]').click(function(idx, item){
+		$('input[name=draft]').click(function(idx, item){ //기안서 임시저장
 				
             var dataArr = [];
    		 
@@ -103,7 +108,7 @@
     		$('input[name=RempNoData]').val(RpempNoData);
     		$('input[name=electronicDraft]').val('1');
     		
-    		
+    		checkVal();
 	        $('form[name=docfrm]').submit();
 			
 		});
@@ -115,6 +120,12 @@
 		
 		if($('#title').val().length == 0  ){
 			alert("제목을 입력해주세요");
+			event.preventDefault();
+			return false;
+		}
+		
+		if(	$('input[name=AempNoData]').val().length == 0){
+			alert("결재자를 선택해주세요");
 			event.preventDefault();
 			return false;
 		}
@@ -152,17 +163,17 @@
 				</div>
 
 				<button type="button"
-					class="btn btn-light btn-outline-secondary mx-2" id="selectAP">결재자
+					class="btn btn-light btn-outline-secondary mx-2" id="selectAP">결재자 다시
 					선택</button>
 				<button type="button"
 					class="btn btn-light btn-outline-secondary me-2"
-					style="margin-left: 340px;" id="selectRC">수신자 선택</button>
+					style="margin-left: 300px;" id="selectRC">수신자 다시 선택</button>
 				<button type="button" class="btn btn-light btn-outline-secondary"
-					style="margin-left: 250px;" id="clear">초기화</button>
+					style="margin-left: 200px;" id="clear">초기화</button>
 			</div>
 			<div
-				class="row align-items-start selectLine border border-5 border-secondary">
-				결 <br>재 <br>라 <br> 인
+				class="row align-items-start selectLine border border-5 border-secondary ">
+				결 <br>재 <br>라 <br> 인 
 
 				<!-- 결재라인 박히는곳  -->
 				<div class="col selectDiv " id="Approval"></div>

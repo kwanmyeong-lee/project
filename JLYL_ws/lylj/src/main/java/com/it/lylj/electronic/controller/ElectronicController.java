@@ -13,11 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.lylj.common.ConstUtil;
+import com.it.lylj.common.PaginationInfo;
+import com.it.lylj.common.SearchVO;
 import com.it.lylj.electronic.model.ElectronicService;
 import com.it.lylj.electronic.model.ElectronicVo;
 import com.it.lylj.electronicAppLine.model.ElectronicAppLineService;
@@ -47,8 +49,40 @@ public class ElectronicController {
 
 	//전자결재 메인 보여주기
 	@GetMapping("/electronicMain")
-	public void electronicMain(Model model) {
-		logger.info("전자결재 화면 보여주기");
+	public String electronicMain(HttpSession session, Model model) {
+	
+		String empNo = (String) session.getAttribute("empNo");
+		logger.info("결재 리스트 보여주기 파라미터 empNo={}", empNo);
+		SearchVO vo = new SearchVO();
+		vo.setEmpNo(empNo);
+
+		List<Map<String, Object>> ListAp = electronicService.selectListByEmpNo((vo), "1");
+		
+		List<Map<String, Object>> ListRe = electronicService.selectListByEmpNo((vo), "2");
+		
+		List<Map<String, Object>> ListFi = electronicService.selectListByEmpNo((vo), "6");
+			
+		logger.info("결재 대기 문서 보여주기  ListAp={}", ListAp);
+		logger.info("결재 수신 문서 보여주기  ListRe={}", ListRe);
+		logger.info("결재 완료 문서 보여주기  ListFi={}", ListFi);
+		
+		model.addAttribute("ListAp", ListAp);
+		model.addAttribute("ListRe", ListRe);
+		model.addAttribute("ListFi", ListFi);
+		
+		model.addAttribute("navNo", 1);
+		
+		return "electronic/electronicMain";
+		
+	}
+	
+	//자주쓰는 양식 리스트 보여주기
+	@GetMapping("/myDocument")
+	public void myDocument(Model model) {
+		logger.info("자주쓰는 양식 페이지 보여주기 ");
+		List<Map<String, Object>>  list = electronicService.selectTopSty();
+		
+		model.addAttribute("list", list);
 		model.addAttribute("navNo", 1);
 	}
 
@@ -128,20 +162,19 @@ public class ElectronicController {
 			
 			
 		}
-		
-		String[] ReEmpNo = RempNoData.split(","); // 수신자 번호 배열
-		
-		for(int i =0; i<ReEmpNo.length;i++) {
-			String reempno = ReEmpNo[i];
-			ElectronicReLineVo rvo = new ElectronicReLineVo();
-			rvo.setEmpNo(Integer.parseInt(reempno));
-			rvo.setElectronicNo(electronicNo);
-			rvo.setReceiveLineFlag("0");
+		if(RempNoData.length() > 0) {
 			
+			String[] ReEmpNo = RempNoData.split(","); // 수신자 번호 배열
 			
-			int cnt3 = electronicReService.insertReLine(rvo);
-			
-		
+			for(int i =0; i<ReEmpNo.length;i++) {
+				String reempno = ReEmpNo[i];
+				ElectronicReLineVo rvo = new ElectronicReLineVo();
+				rvo.setEmpNo(Integer.parseInt(reempno));
+				rvo.setElectronicNo(electronicNo);
+				rvo.setReceiveLineFlag("0");
+				
+				int cnt3 = electronicReService.insertReLine(rvo);
+			}
 		}
 		
 		model.addAttribute("msg", msg);
@@ -225,23 +258,36 @@ public class ElectronicController {
 
 	
 	//사이드 바에서 항목 선택시 리스트 보여주기
-	@GetMapping("/electronicList")
-	public void electronicWait(@RequestParam String no, HttpSession session, Model model) {
-		logger.info("사이드바 선택 번호 no ={}", no);
-		String empNo = (String) session.getAttribute("empNo");
+	@RequestMapping("/electronicList")
+	public void electronicWait(@RequestParam String no, HttpSession session,@ModelAttribute SearchVO searchVo, Model model) {
+		
+		String empNo = (String) session.getAttribute("empNo");		
 		logger.info("결재 리스트 보여주기 파라미터 empNo={}", empNo);
 		
-		List<Map<String, Object>> List = electronicService.selectListByEmpNo(Integer.parseInt(empNo), no);
+		/* 페이징 처리 */
+		PaginationInfo pagingInfo = new PaginationInfo();
+	    pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+	    pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+	    pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ELE);
+	      
+	    searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+	    searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ELE);
+	    searchVo.setEmpNo(empNo);
+	    
+		logger.info("사이드바 선택 번호 no ={}", no);
+		int cnt = electronicService.TotalSelectListByEmpNo(searchVo, no);
+	    
+	    pagingInfo.setTotalRecord(cnt);
+	    
+	    logger.info("페이지 번호 관련 셋팅 후 serachVo={}", searchVo);
+	    
+		List<Map<String, Object>> List = electronicService.selectListByEmpNo(searchVo, no);
+		
+	    logger.info("결재 리스트 보여주기 결과 List={}", List);
+
 			
-		logger.info("결재 리스트 보여주기 결과 List={}", List);
 		model.addAttribute("List", List);
-		model.addAttribute("navNo", 1);
-	}
-	
-	//자주쓰는 양식 디테일 보여주기
-	@GetMapping("/myDocument")
-	public void myDocument(Model model) {
-		logger.info("자주쓰는 양식 페이지 보여주기 ");
+		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("navNo", 1);
 	}
 	
@@ -286,10 +332,26 @@ public class ElectronicController {
 			cnt = electronicAppService.AcceptUpdateAppLine(vo);
 		}
 		
+		List<ElectronicAppLineVo> list= electronicAppService.selectByElectronicNo(vo.getElectronicNo());
+		
+		int sum = 0;
+		for(int i = 0;i<list.size();i++) {
+			ElectronicAppLineVo getList =list.get(i);
+			if(getList.getApprovalLineCompleteFlag().equals("1")) {
+				sum+=1;
+			}
+		}
+		int completeCnt = 0;
+		if(sum == list.size()) {
+			completeCnt = electronicService.updateEleComplete(vo.getElectronicNo());
+		}
 		
 		String url = "/electronic/electronicList?no="+no, msg = "승인 순서가 아닙니다.";
 		if(cnt>0) {
 			 msg = "승인 성공";
+		}
+		if(completeCnt>0) {
+			msg = "결재 최종 완료";
 		}
 		
 		model.addAttribute("msg", msg	);

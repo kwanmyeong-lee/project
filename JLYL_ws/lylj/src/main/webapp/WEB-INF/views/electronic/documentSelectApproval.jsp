@@ -73,6 +73,14 @@
 								+ res.EMP_NAME
 								+ "<br>"
 								+ "<img style='width: 40px; display: none;' alt='아이유' src='<c:url value='/resources/img/"+res.STAMP_NAME+"'/>'></span>";
+								
+						for(var i = 0;i<no.length;i++){
+							var noVal = no[i];
+							if(noVal == res.EMP_NO){
+								alert("중복선택은 불가능합니다.");
+								event.preventDefaule();
+							}
+						}	
 						$('#stamp').append(stampInfo);
 						no.push(res.EMP_NO);
 

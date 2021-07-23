@@ -1385,25 +1385,35 @@ values (ELIMP_SEQ.nextval, sysdate, '기안서테스트7', '기안서 내용4', 
 insert into ELIMP
 values (ELIMP_SEQ.nextval, sysdate, '기안서테스트8', '기안서 내용4', 'N', '0', '0', 119, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트9', '기안서 내용4', 'N', '0', '0', 119, 100, default);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트9', '기안서 내용4', 'N', '0', '0', 119, 103, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트10', '기안서 내용4', 'N', '1', '0', 119, 100, default);
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트10', '기안서 내용4', 'N', '1', '0', 119, 101, default);
+insert into ELIMP
+values (ELIMP_SEQ.nextval, sysdate, '기안서테스트11', '기안서 내용4', 'N', '1', '0', 119, 105, default);
+
 
 select * from elimp;
 
 select MAX(electronic_no) from elimp
 where emp_no = 119;
 
-update elimp
-set ELECTRONIC_DRAFT =1
-where  ELECTRONIC_NO = 10;
+select * from elimp
+where EMP_NO = 119 and rownum<6
+order by ELECTRONIC_DATE;
 
-		select * from elimp
-		where EMP_NO = 120 and ELECTRONIC_COMPLET_FLAG = 2;
+select STYLE_NO, ELECTRONIC_TITLE from 
+(
+    select * from elimp
+    order by ELECTRONIC_NO desc
+)
+where rownum<6;
 
 -- 결재 라인 
 
 select * from appline;
+
+		select * from APPLINE
+		where ELECTRONIC_NO = 11;
 
 -- 수신 라인
 

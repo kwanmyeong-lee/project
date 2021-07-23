@@ -4,6 +4,12 @@
 
 <mapper namespace="com.it.lylj.electronic.model.ElectronicDAO">
 
+	<sql id="searchWhere">
+		<if test="searchKeyword!=null and searchKeyword!=''">
+			AND ${searchCondition} like '%' || #{searchKeyword} || '%'
+		</if>
+	</sql>
+	
 	<insert id="insertEle" parameterType="ElectronicVo">
 		<selectKey keyProperty="electronicNo" resultType="int"
 			order="BEFORE">
@@ -31,45 +37,209 @@
 	</select>
 	
 	<select id="selectByEmpNo" resultType="ElectronicVo" parameterType="int">
-				select a.* from 
-				elimp a join appline b
-				on a.electronic_no = b.electronic_no
-				where b.emp_no = #{empNo}
+		select a.* from 
+		elimp a join appline b
+		on a.electronic_no = b.electronic_no
+		where b.emp_no = #{empNo}
+	</select>
+
+	<select id="TotalSelectListByEmpNo1" parameterType="searchVo" resultType="int">
+			select count(*) from apEleList
+			where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0
+			<include refid="searchWhere"></include>
+			order by ELECTRONIC_NO DESC
 	</select>
 	
-	<select id="selectListByEmpNo1" parameterType="int" resultType="map">
-		select * from apEleList
-		where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0
+	<select id="TotalSelectListByEmpNo2" parameterType="searchVo" resultType="int">
+			select count(*) from reEleList
+			where EMP_NO_RE = #{empNo} and ELECTRONIC_DRAFT = 0
+			<include refid="searchWhere"></include>
+			order by ELECTRONIC_NO DESC
 	</select>
 	
-	<select id="selectListByEmpNo3" parameterType="int" resultType="map">
-		select * from apEleList
-		where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 1 and ELECTRONIC_DRAFT = 0
+	<select id="TotalSelectListByEmpNo3" parameterType="searchVo" resultType="int">
+			select count(*) from apEleList
+			where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 1 and ELECTRONIC_DRAFT = 0
+			<include refid="searchWhere"></include>
+			order by ELECTRONIC_NO DESC
 	</select>
 	
-	<select id="selectListByEmpNo6" parameterType="int" resultType="map">
-		select * from apEleList
-		where EMP_NO_AP = #{empNo} and ELECTRONIC_COMPLET_FLAG = 1 and ELECTRONIC_DRAFT = 0
+	<select id="TotalSelectListByEmpNo4" parameterType="searchVo" resultType="int">
+			select count(*) from elimp
+			where EMP_NO = ${empNo} and ELECTRONIC_DRAFT = 0 and ELECTRONIC_COMPLET_FLAG = 0
+			<include refid="searchWhere"></include>
+			order by ELECTRONIC_NO DESC
 	</select>
 	
-	<select id="selectListByEmpNo7" parameterType="int" resultType="map">
-		select * from elimp
-		where EMP_NO = #{empNo} and ELECTRONIC_COMPLET_FLAG = 2
+	<select id="TotalSelectListByEmpNo5" parameterType="searchVo" resultType="int">
+			select count(*) from elimp
+			where EMP_NO = ${empNo} and ELECTRONIC_DRAFT = 1
+			<include refid="searchWhere"></include>
+			order by ELECTRONIC_NO DESC
 	</select>
 	
-	<select id="selectListByEmpNo2" parameterType="int" resultType="map">
-		select * from reEleList
-		where EMP_NO_RE = #{empNo} and ELECTRONIC_DRAFT = 0
+	<select id="TotalSelectListByEmpNo6" parameterType="searchVo" resultType="int">
+			select count(*) from elimp
+			where ELECTRONIC_COMPLET_FLAG = 1 and ELECTRONIC_DRAFT = 0
+			<include refid="searchWhere"></include>
+			order by ELECTRONIC_NO DESC
 	</select>
 	
-	<select id="selectListByEmpNo4" parameterType="int" resultType="map">
-		select * from elimp
-		where EMP_NO = ${empNo} and ELECTRONIC_DRAFT = 0
+	<select id="TotalSelectListByEmpNo7" parameterType="searchVo" resultType="int">
+			select count(*) from elimp
+			where EMP_NO = #{empNo} and ELECTRONIC_COMPLET_FLAG = 2
+			<include refid="searchWhere"></include>
+			order by ELECTRONIC_NO DESC
 	</select>
 	
-	<select id="selectListByEmpNo5" parameterType="int" resultType="map">
-		select * from elimp
-		where EMP_NO = ${empNo} and ELECTRONIC_DRAFT = 1
+	
+	<select id="selectListByEmpNo1" parameterType="searchVo" resultType="map">
+	
+		SELECT *
+		FROM
+		(
+			SELECT rownum as RNUM,A.*
+			from
+			(
+				select * from apEleList
+				where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0
+				<include refid="searchWhere"></include>
+				order by ELECTRONIC_NO DESC
+				
+			)A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+		
+	</select>
+	
+	<select id="selectListByEmpNo3" parameterType="searchVo" resultType="map">
+	
+		SELECT *
+		FROM
+		(
+			SELECT rownum as RNUM,A.*
+			from
+			(
+				select * from apEleList
+				where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 1 and ELECTRONIC_DRAFT = 0
+				<include refid="searchWhere"></include>
+				order by ELECTRONIC_NO DESC
+				
+			)A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+		
+	</select>
+	
+	<select id="selectListByEmpNo6" parameterType="searchVo" resultType="map">
+		
+		SELECT *
+		FROM
+		(
+			SELECT rownum as RNUM,A.*
+			from
+			(
+				select * from elimp
+				where ELECTRONIC_COMPLET_FLAG = 1 and ELECTRONIC_DRAFT = 0
+				<include refid="searchWhere"></include>
+				order by ELECTRONIC_NO DESC
+				
+			)A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="selectListByEmpNo7" parameterType="searchVo" resultType="map">
+		
+		SELECT *
+		FROM
+		(
+			SELECT rownum as RNUM,A.*
+			from
+			(
+				select * from elimp
+				where EMP_NO = #{empNo} and ELECTRONIC_COMPLET_FLAG = 2
+				<include refid="searchWhere"></include>
+				order by ELECTRONIC_NO DESC
+				
+			)A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="selectListByEmpNo2" parameterType="searchVo" resultType="map">
+	
+		SELECT *
+		FROM
+		(
+			SELECT rownum as RNUM,A.*
+			from
+			(
+				select * from reEleList
+				where EMP_NO_RE = #{empNo} and ELECTRONIC_DRAFT = 0
+				<include refid="searchWhere"></include>
+				order by ELECTRONIC_NO DESC
+				
+			)A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="selectListByEmpNo4" parameterType="searchVo" resultType="map">
+	
+		SELECT *
+		FROM
+		(
+			SELECT rownum as RNUM,A.*
+			from
+			(
+				select * from elimp
+				where EMP_NO = ${empNo} and ELECTRONIC_DRAFT = 0 and ELECTRONIC_COMPLET_FLAG = 0
+				<include refid="searchWhere"></include>
+				order by ELECTRONIC_NO DESC
+				
+			)A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="selectListByEmpNo5" parameterType="searchVo" resultType="map">
+		
+		SELECT *
+		FROM
+		(
+			SELECT rownum as RNUM,A.*
+			from
+			(
+				select * from elimp
+				where EMP_NO = ${empNo} and ELECTRONIC_DRAFT = 1
+				<include refid="searchWhere"></include>
+				order by ELECTRONIC_NO DESC
+				
+			)A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
 	</select>
 	
 	<update id="updateEle" parameterType="ElectronicVo">
@@ -83,6 +253,23 @@
 		set ELECTRONIC_COMPLET_FLAG = '2'
 		where ELECTRONIC_NO = #{electronicNo}
 	</update>
+	
+	<update id="updateEleComplete" parameterType="int">
+		update ELIMP
+		set ELECTRONIC_COMPLET_FLAG = '1'
+		where ELECTRONIC_NO = #{electronicNo}
+	</update>
+	
+	<select id="selectTopSty" resultType="map">
+		select STYLE_NO, ELECTRONIC_TITLE from 
+		(
+		    select * from ELIMP
+		    order by ELECTRONIC_NO desc
+		)
+		<![CDATA[where rownum<6]]>
+		
+	</select>
+	
 </mapper>
 
 

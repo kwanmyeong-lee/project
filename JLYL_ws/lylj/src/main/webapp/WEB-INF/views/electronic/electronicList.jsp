@@ -9,10 +9,23 @@
 							'documentSelect', 'width=800,height=500');
 				});
 	});
+	
+	function pageProc(curPage){
+	    $('input[name=currentPage]').val(curPage);
+	    $('form[name=frmPage]').submit();   
+	 }
 </script>
 
 <style type="text/css">
 </style>
+
+<!-- 페이징 처리를 위한 form -->
+<form
+	action="<c:url value='/electronic/electronicList?no=${param.no}'/>"
+	name="frmPage" method="post" id="frmPage">
+	<input type="hidden" name="currentPage"
+		value=${pagingInfo.currentPage }><br>
+</form>
 
 <div class="shadow-sm p-3 mb-5 bg-body align-middle mx-5 rounded">
 	<div class="row justify-content-center">
@@ -130,9 +143,33 @@
 					</tbody>
 
 				</table>
-				<div
-					class=" bg-light text-dark col-md-12 row justify-content-center my-5">
-					페이징 처리 공간</div>
+
+				<div id="">
+					<!-- 이전 블럭 -->
+					<c:if test="${pagingInfo.firstPage>1 }">
+						<a href="#" onclick="pageProc(${pagingInfo.firstPage-1})"> <i
+							class="fas fa-backward"></i>
+						</a>
+					</c:if>
+					<!-- 페이지 번호 -->
+					<c:forEach var="i" begin="${pagingInfo.firstPage }"
+						end="${pagingInfo.lastPage }">
+						<c:if test="${i==pagingInfo.currentPage }">
+							<a href="#">${i }</a>
+						</c:if>
+						<c:if test="${i!=pagingInfo.currentPage }">
+							<a href="#" onclick="pageProc(${i})">${i }</a>
+						</c:if>
+					</c:forEach>
+
+					<!-- 다음 블럭 -->
+					<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+						<a href="#" onclick="pageProc(${pagingInfo.lastPage+1})"> <i
+							class="fas fa-forward"></i>
+						</a>
+					</c:if>
+				</div>
+
 			</div>
 		</div>
 		<div class="col-md-12 row justify-content-center">
