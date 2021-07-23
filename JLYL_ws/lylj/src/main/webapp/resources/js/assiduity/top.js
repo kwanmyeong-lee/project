@@ -29,14 +29,8 @@ $(function() {
         		
         		var parent="#content"+weekNum+"Div"+weekDay;
         		
+        		$(parent).prev().find('span').eq(1).text(now);
         		$(parent).find(comef).css("background","blue");
-            },
-            error:function(request,status,error){
-            	var parent="#content"+weekNum+"Div"+weekDay;
-        		for(var i=0; i<=47; i++){
-    				var comef="#content-td"+i;
-    				$(parent).find(comef).css("background","white");
-    			}
             }
           });
 		
@@ -57,14 +51,16 @@ $(function() {
 			var empNo = $('.empNo').val();
 			var attendanceDayWorkHour = ymd+" "+dayWorkTime;
 			var attendanceDayRegdate = ymd;
-			
+			var attendanceDayOnHour = ymd+" "+cTime;
 			
 			$.ajax({    
 	            type:'get',
 	            url:"updateLeaveTime",
 	            data:{empNo:empNo, attendanceDayOffHour:attendanceDayOffHour,
 	            	attendanceDayWorkHour:attendanceDayWorkHour,
-	            	attendanceDayRegdate:attendanceDayRegdate},
+	            	attendanceDayRegdate:attendanceDayRegdate,
+	            	attendanceDayOnHour:attendanceDayOnHour
+	            },
 	            dataType: "json",
 	            success : function(data) {
 	            	
@@ -81,7 +77,9 @@ $(function() {
 	    			var weekDay=moment(nDate).format('d');
 	    			
 	    			var parent="#content"+weekNum+"Div"+weekDay;
-
+	    			$(parent).prev().find('span').eq(2).text(now);
+	    			$(parent).prev().find('span').eq(3).text(dayWorkTime);
+	    			
 	    			for(var i=comeNum; i<=leaveNum; i++){
 	    				var comef="#content-td"+i;
 	    				$(parent).find(comef).css("background","blue");
