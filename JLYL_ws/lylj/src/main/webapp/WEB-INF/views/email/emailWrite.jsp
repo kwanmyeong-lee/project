@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../inc/top.jsp" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <!-- include summernote css/js -->
 <link rel="stylesheet" href="<c:url value='/resources/css/summerNote_css/summernote-lite.css'/>">
 <script src="<c:url value='/resources/js/summernote-lite.js'/>"></script>
 <script src="<c:url value='/resources/js/lang/summernote-ko-KR.js'/>"></script>
-
 <!-- datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -25,6 +25,7 @@
 	width: 90%;
 	float:left;
 }
+
 .title{
 	float: left;
 	font-weight: bold;
@@ -92,149 +93,7 @@
 </style>
 
 <script>
-	var fileIndex=0;
-	var totalFileSize =0;
-	var fileList = new Array();
-	var fileSizeList = new Array();
-	var uploadSize = 10; // 10 메가바이트
-	var maxUploadSize = 50; // 최대 100메가
-	
-	 $(function (){
-	        // 파일 드롭 다운
-	        fileDropDown();
-	    });
-	 
-	    // 파일 드롭 다운
-	    function fileDropDown(){
-	        var dropZone = $("#dropZone");
-	        //Drag기능 
-	        dropZone.on('dragenter',function(e){
-	            e.stopPropagation();
-	            e.preventDefault();
-	            // 드롭다운 영역 css
-	            dropZone.css('background-color','#E3F2FC');
-	        });
-	        dropZone.on('dragleave',function(e){
-	            e.stopPropagation();
-	            e.preventDefault();
-	            // 드롭다운 영역 css
-	            dropZone.css('background-color','#FFFFFF');
-	        });
-	        dropZone.on('dragover',function(e){
-	            e.stopPropagation();
-	            e.preventDefault();
-	            // 드롭다운 영역 css
-	            dropZone.css('background-color','#E3F2FC');
-	        });
-	        dropZone.on('drop',function(e){
-	            e.preventDefault();
-	            // 드롭다운 영역 css
-	            dropZone.css('background-color','#FFFFFF');
-	            
-	            var files = e.originalEvent.dataTransfer.files;
-	            if(files != null){
-	                if(files.length < 1){
-	                    alert("폴더 업로드 불가");
-	                    return;
-	                }
-	                selectFile(files)
-	            }else{
-	                alert("ERROR");
-	            }
-	        });
-	    }
-	    
-	 	// 파일 선택시
-	    function selectFile(files){
-	        // 다중파일 등록
-	        if(files != null){
-	            for(var i = 0; i < files.length; i++){
-	                // 파일 이름
-	                var fileName = files[i].name;
-	                var fileNameArr = fileName.split("\.");
-	                // 확장자
-	                var ext = fileNameArr[fileNameArr.length - 1];
-	                // 파일 사이즈(단위 :MB)
-	                var fileSize = files[i].size / 1024 / 1024;
-	                
-	                if($.inArray(ext, ['exe', 'bat', 'sh', 'java', 'jsp', 'html', 'js', 'css', 'xml']) >= 0){
-	                    // 확장자 체크
-	                    alert("등록 불가 확장자");
-	                    break;
-	                }else if(fileSize > uploadSize){
-	                    // 파일 사이즈 체크
-	                    alert("용량 초과\n업로드 가능 용량 : " + uploadSize + " MB");
-	                    break;
-	                }else{
-	                    // 전체 파일 사이즈
-	                    totalFileSize += fileSize;
-	                    
-	                    // 파일 배열에 넣기
-	                    fileList[fileIndex] = files[i];
-	                    
-	                    // 파일 사이즈 배열에 넣기
-	                    fileSizeList[fileIndex] = fileSize;
-	 
-	                    // 업로드 파일 목록 생성
-	                    addFileList(fileIndex, fileName, fileSize);
-	                    // 파일 번호 증가
-	                    fileIndex++;
-	                }
-	            }
-	        }else{
-	            alert("ERROR");
-	        }
-	    }
-	 
-	    // 업로드 파일 목록 생성
-	    function addFileList(fIndex, fileName, fileSize){
-	        var html = "";
-	        html += "<p id='fileTr_" + fIndex + "'>";
-	        html += "    <span class='left' >";
-	        html +=          fileName + " / " + fileSize + "(MB)"  + "<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn'><i class='fas fa-minus-circle'></i></a>"
-	        html += "    </span>"
-	        html += "</p>"
-	 		
-	        $('#fileDiv').append("");
-	        $('#fileDiv').append(html);
-	    }
-	 
-	    // 업로드 파일 삭제
-	    function deleteFile(fIndex){
-	        // 전체 파일 사이즈 수정
-	        totalFileSize -= fileSizeList[fIndex];
-	        
-	        // 파일 배열에서 삭제
-	        delete fileList[fIndex];
-	        
-	        // 파일 사이즈 배열 삭제
-	        delete fileSizeList[fIndex];
-	        
-	        // 업로드 파일 테이블 목록에서 삭제
-	        $("#fileTr_" + fIndex).remove();
-	    }
-	 
-	    // 파일 등록
-	    function uploadFile(){
-	        // 등록할 파일 리스트
-	        var uploadFileList = Object.keys(fileList);
-	 
-	        // 파일이 있는지 체크
-	        if(uploadFileList.length == 0){
-	            // 파일등록 경고창
-	            alert("파일이 없습니다.");
-	            return;
-	        }//
-	        
-	        // 용량을 넘을 경우 업로드 불가
-	        if(totalFileSize > maxUploadSize){
-	            // 파일 사이즈 초과 경고창
-	            alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " MB");
-	            return;
-	        }//
-	        
-	    }
-	    
+	    /* 메일보내기 */
 	    $(function(){
 	    	$('#bt_sendMail').click(function(){
 	    		console.log("메일보내기")
@@ -257,18 +116,19 @@
 	    	});
 	    });
 	    
+	    /* 미리보기 */
 	    $(function(){
 	    	$('#bt_preview').click(function(){
-				$('input[name=emailDataFrm]').prop('action','<c:url value="/email/emailPreview"/>');
-				$('input[name=emailContentFrm]').prop('action','<c:url value="/email/emailPreview"/>');
-				$('input[name=emailDataFrm]').submit();
-				$('input[name=emailContentFrm]').submit();
-				
-	    		window.open('<c:url value="/email/emailPreview"/>','미리보기','width=500, height=700, status=no, menubar=no, toolbar=no, resizable=no')
+				var newWin = window.open("","preview",'width=500, height=700, status=no, menubar=no, toolbar=no, resizable=no');
+				var previewForm = document.emailDataFrm;
+				previewForm.action = "<c:url value='/email/emailPreview'/>";
+				previewForm.target = "preview";
+				previewForm.submit();
 	    	});
 	    });
 	    
-
+	    
+		/* 사원검색 검색 */
 	    $(function(){
 	   		$('#mailTake').keyup(function(){
 	   			$('#resultEmp').show();
@@ -311,7 +171,7 @@
 				<button type="button" class="btn btn-secondary" id="bt_preview">미리보기</button>
 				<button type="button" class="btn btn-secondary">임시저장</button>
 			</div>
-			<form class="form-horizontal writefrm" role="form" id="emailDataFrm" name="emailDataFrm" method="post">
+			<form class="form-horizontal writefrm" id="emailDataFrm" name="emailDataFrm" method="post">
 				<input type="hidden" name = "mailSend" value="${sessionScope.empNo }">
 				<input type="hidden" name = "mailEmpno" value="${sessionScope.empNo }">
 				<div class="form-group firstFrm row">
@@ -329,26 +189,7 @@
                          <input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1">
 			    	</div>
 			  	</div>
-			</form>
-			   
-          <!-- 	<form class="form-horizontal writefrm" id="emailFileFrm" name="emailFileFrm" method="post"> 
-			  	<div class="form-group row">
-			    	<label for="uploadFile" class="col-sm-1 control-label">파일첨부:</label>
-			    	<div class="col-sm-11">
-						<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-						   <i class="far fa-file"></i>
-						</button>
-					</div><br><br>
-					<div class="collapse form-control select2-offscreen fileBox" id="collapseExample">
-	                      <div id="dropZone">
-	                      	<span id="dropZoneSpan" >파일을 드래그 하세요.</span>
-					      	<p id="fileDiv"></p>
-	                      </div>
-					</div>
-			  	</div>
-			 </form> -->
-			 <form id="emailContent" name="emailContentFrm" method="post">
-					<div class="form-group">
+			  			<div class="form-group">
 						<textarea class="form-control message" id="summernote" name="mailContent"></textarea>
 					</div>
 					<div class="form-group row chkBook">
@@ -382,7 +223,25 @@
 		        			</span> 
 					   </div>
 				  	</div>
-			   </form>
+			</form>
+			   
+          <!-- 	<form class="form-horizontal writefrm" id="emailFileFrm" name="emailFileFrm" method="post"> 
+			  	<div class="form-group row">
+			    	<label for="uploadFile" class="col-sm-1 control-label">파일첨부:</label>
+			    	<div class="col-sm-11">
+						<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+						   <i class="far fa-file"></i>
+						</button>
+					</div><br><br>
+					<div class="collapse form-control select2-offscreen fileBox" id="collapseExample">
+	                      <div id="dropZone">
+	                      	<span id="dropZoneSpan" >파일을 드래그 하세요.</span>
+					      	<p id="fileDiv"></p>
+	                      </div>
+					</div>
+			  	</div>
+			 </form> -->
+			
 		</div>	
 </div>
 
