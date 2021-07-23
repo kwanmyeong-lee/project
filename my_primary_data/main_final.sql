@@ -1401,7 +1401,7 @@ select * from elimp
 where EMP_NO = 119 and rownum<6
 order by ELECTRONIC_DATE;
 
-select STYLE_NO from 
+select STYLE_NO, ELECTRONIC_TITLE from 
 (
     select * from elimp
     order by ELECTRONIC_NO desc
