@@ -6,23 +6,23 @@
 
 	<select id="selectAttendDayByRegdate" parameterType="attendDayVo" resultType="attendDayVo">
 		select * from ATTENDDAY 
-		where EMP_NO=${empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(#{attendanceDayRegdate})
+		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(#{attendanceDayRegdate})
 	</select>
 	
 	<select id="selectAttendMonth" parameterType="hashmap" resultType="attendDayVo">
 		select * from ATTENDDAY 
-		where EMP_NO=${empNo} and ATTENDANCE_DAY_REGDATE between TO_DATE(#{firstDate:VARCHAR}) and TO_DATE(#{lastDate:VARCHAR})
+		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE between TO_DATE(#{firstDate:VARCHAR}) and TO_DATE(#{lastDate:VARCHAR})
 		order by ATTENDANCE_DAY_REGDATE
 	</select>
 	
-	<select id="selectSumWeekWork" resultType="int">
-		select TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60))   from ATTENDDAY
-		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'d') and SYSDATE
+	<select id="selectSumWeekWork" parameterType="int" resultType="int">
+		select NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0)   from ATTENDDAY
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'d') and SYSDATE and EMP_NO=#{empNo}
 	</select>
 	
-	<select id="selectSumWeekWorkEx" resultType="int">
+	<select id="selectSumWeekWorkEx" parameterType="int" resultType="int">
 		<![CDATA[
-		SELECT SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+		SELECT NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
                         THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
                                   THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60
                                                                 -(ATTENDANCE_DAY_ON_HOUR  - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
@@ -36,22 +36,47 @@
                                   END
                         ELSE 0
                    END 
-            ) AS EXCESSTIME
+            ),0) AS EXCESSTIME
 
 		FROM ATTENDDAY 
 		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
-		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(SYSDATE,'d') AND SYSDATE
+		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(SYSDATE,'d') AND SYSDATE and EMP_NO=#{empNo}
+		
 		]]>
 	</select>
 	
-	<select id="selectSumMonthWork" resultType="int">
-		select TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60))   from ATTENDDAY
-		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'MM') and SYSDATE
+	<select id="selectDayWorkEx" parameterType="hashmap" resultType="int">
+		<![CDATA[
+		SELECT NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60
+                                                                -(ATTENDANCE_DAY_ON_HOUR  - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+                                  END 
+                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
+                                                                -(to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
+                                  ELSE NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
+                                  END
+                        ELSE 0
+                   END 
+            ),0) AS EXCESSTIME
+
+		FROM ATTENDDAY 
+		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
+		AND ATTENDANCE_DAY_REGDATE = #{selectDay} and EMP_NO=#{empNo}
+		]]>
 	</select>
 	
-	<select id="selectLeftTimeWeek" resultType="int">
+	<select id="selectSumMonthWork" parameterType="hashmap" resultType="int">
+		select NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0)   from ATTENDDAY
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{nowDate}),'MM') AND ADD_MONTHS( TRUNC(TO_DATE(#{nowDate}),'MM'), 1) AND EMP_NO=#{empNo}
+	</select>
+	
+	<select id="selectLeftTimeWeek" parameterType="int" resultType="int">
 		<![CDATA[
-		SELECT (40*60*60)-SUM(
+		SELECT (40*60*60)-NVL(SUM(
                         NVL((
                         CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
                         THEN TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
@@ -63,17 +88,17 @@
                         ELSE ATTENDANCE_DAY_ON_HOUR
                         END 
                         )*24*60*60,0)
-            ) AS EXCESSTIME
+            ),0) AS EXCESSTIME
 
 		FROM ATTENDDAY 
 		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
-		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(SYSDATE,'d') AND SYSDATE
+		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(SYSDATE,'d') AND SYSDATE and EMP_NO=#{empNo}
 		]]>
 	</select>
 	
-	<select id="selectSumMonthWorkEx" resultType="int">
+	<select id="selectSumMonthWorkEx" parameterType="hashmap" resultType="int">
 		<![CDATA[
-		SELECT SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+		SELECT NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
                         THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
                                   THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60
                                                                 -(ATTENDANCE_DAY_ON_HOUR  - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
@@ -87,11 +112,11 @@
                                   END
                         ELSE 0
                    END 
-            ) AS EXCESSTIME
+            ),0) AS EXCESSTIME
 
 		FROM ATTENDDAY 
 		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
-		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(SYSDATE,'MM') AND SYSDATE
+		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(TO_DATE(#{nowDate}),'MM') AND ADD_MONTHS( TRUNC(TO_DATE(#{nowDate}),'MM'), 1) AND EMP_NO=#{empNo}
 		]]>
 	</select>
 	
@@ -110,6 +135,18 @@
 		update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=#{attendanceDayOffHour},
 		ATTENDANCE_DAY_WORK_HOUR=#{attendanceDayWorkHour}
 		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE =#{attendanceDayRegdate}
+	</update>
+	
+	<parameterMap type="attendDayVo" id="updateAttendDayParam">
+		<parameter property="empNo" javaType="int" jdbcType="NUMERIC" mode="IN"/>
+		<parameter property="attendanceDayOnHour" javaType="Date" jdbcType="DATE" mode="IN"/>
+		<parameter property="attendanceDayOffHour" javaType="Date" jdbcType="DATE" mode="IN"/>
+		<parameter property="attendanceDayWorkHour" javaType="Date" jdbcType="DATE" mode="IN"/>
+		<parameter property="attendanceDayRegdate" javaType="Date" jdbcType="DATE" mode="IN"/>
+	</parameterMap>
+	
+	<update id="updateAttendDay" parameterMap="updateAttendDayParam">
+		call updateAttendDay(?,?,?,?,?)
 	</update>
 	
 	

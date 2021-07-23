@@ -1656,7 +1656,7 @@ to_date('2021-07-14 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-14 06:0
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-13 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-13 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-13 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-13');
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-12 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-to_date('2021-07-12 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-12 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-12');
+to_date('2021-07-12 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-12 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),2,'2021-07-12');
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-09 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-09 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-09 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-09');
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-08 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
@@ -1667,12 +1667,41 @@ to_date('2021-07-07 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-07 06:0
 
 
 
+--휴가 종류
+insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'연차');
+insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'보상휴가');
 
+--휴가 정보
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-23', '2021-06-26','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-20', '2021-06-21','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-15', '2021-06-17','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-11', '2021-06-13','122','2');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-05', '2021-06-08','122','2');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-01', '2021-06-03','122','1');
 
-
-
-
-
+--근태 정보
+insert into ATTEND values(ATTEND_seq.nextval, 122,default,12,2,30,7);
+insert into ATTEND values(ATTEND_seq.nextval, 101,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 102,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 103,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 104,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 105,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 106,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 107,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 108,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 109,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 110,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 111,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 112,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 113,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 114,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 115,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 116,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 117,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 118,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 119,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 120,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 121,default,default,default,default,default);
 
 
 
@@ -1686,6 +1715,46 @@ to_date('2021-07-07 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-07 06:0
 
 
 commit;
+
+
+drop procedure updateAttendDay;
+
+
+create or replace procedure updateAttendDay 
+(
+
+	p_EMP_NO NUMBER, /* 사원 번호 */
+	p_ATTENDANCE_DAY_ON_HOUR DATE, /* 출근 시간 */
+	p_ATTENDANCE_DAY_OFF_HOUR DATE, /* 퇴근 시간 */
+	p_ATTENDANCE_DAY_WORK_HOUR DATE, /* 근무 시간 */
+	p_ATTENDANCE_DAY_REGDATE DATE
+)
+is
+
+    cnt number;
+begin
+    
+    IF p_ATTENDANCE_DAY_ON_HOUR < TO_DATE(TO_CHAR(p_ATTENDANCE_DAY_OFF_HOUR,'yyyy-mm-dd')||' 9:00:00','yyyy-mm-dd hh24:mi:ss') 
+        or p_ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(p_ATTENDANCE_DAY_OFF_HOUR,'yyyy-mm-dd')||' 18:00:00','yyyy-mm-dd hh24:mi:ss') 
+    THEN
+        update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=p_ATTENDANCE_DAY_OFF_HOUR,
+		ATTENDANCE_DAY_WORK_HOUR=p_ATTENDANCE_DAY_WORK_HOUR, ATTENDANCE_DAY_HOLIDAY_FLAG = 1
+		where EMP_NO=p_EMP_NO and ATTENDANCE_DAY_REGDATE =p_ATTENDANCE_DAY_REGDATE;
+    
+    ELSE
+        update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=p_ATTENDANCE_DAY_OFF_HOUR,
+		ATTENDANCE_DAY_WORK_HOUR=p_ATTENDANCE_DAY_WORK_HOUR, ATTENDANCE_DAY_HOLIDAY_FLAG = 0
+		where EMP_NO=p_EMP_NO and ATTENDANCE_DAY_REGDATE =p_ATTENDANCE_DAY_REGDATE;
+    END IF;
+    
+
+    commit;
+
+EXCEPTION
+    WHEN OTHERS THEN
+    raise_application_error(-20001, '근태 날짜 정보 업데이트 실패!');
+        ROLLBACK;
+end;
 
 
 
