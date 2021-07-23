@@ -12,7 +12,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +33,6 @@ import com.it.lylj.boardFile.model.BoardFileService;
 import com.it.lylj.boardFile.model.BoardFileVO;
 import com.it.lylj.boardFol.model.BoardFolService;
 import com.it.lylj.boardFol.model.BoardFolVO;
-import com.it.lylj.boardLike.model.BoardLikeService;
-import com.it.lylj.boardLike.model.BoardLikeVO;
 import com.it.lylj.common.ConstUtil;
 import com.it.lylj.common.FileUploadUtil;
 import com.it.lylj.common.PaginationInfo;
@@ -54,7 +51,6 @@ public class BoardController {
 	private final BoardFolService boardFolService;
 	private final BoardFileService boardFileService;
 	private final BoardCommentService boardCommentService;
-	private final BoardLikeService boardLikeService;
 	
 	/*        메인        */
 	@RequestMapping("/boardMain")
@@ -68,9 +64,13 @@ public class BoardController {
 		logger.info("noticeList.size={}, referenceList.size={}, communityList.size={}", 
 				noticeList.size(), referenceList.size(), communityList.size());
 		
+		/* top 게시판 폴더 list 처리 */
+		List<BoardFolVO> otherFolder=boardFolService.otherFolder();
+		
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("referenceList", referenceList);
 		model.addAttribute("communityList", communityList);
+		model.addAttribute("otherFolder", otherFolder);
 		
 		model.addAttribute("navNo",6);
 
@@ -79,20 +79,19 @@ public class BoardController {
 	
 	/*        게시글 등록        */
 	@RequestMapping("/boardWrite")
-	public void write(HttpSession session, Model model) {
+	public void write(Model model) {
 		logger.info("게시판 등록 페이지");
-		
-
-		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
-		String empName = (String)session.getAttribute("empName");
 		
 		/* 게시판 폴더 처리 */
 		List<BoardFolVO> boFol = boardFolService.selectBoardFol();
 		logger.info("게시판 폴더 조회, boFol.size={}", boFol.size());
 		
-		model.addAttribute("empNo", empNo);
-		model.addAttribute("empName", empName);
+
+		/* top 게시판 폴더 list 처리 */
+		List<BoardFolVO> otherFolder=boardFolService.otherFolder();
+		
 		model.addAttribute("boFol", boFol);
+		model.addAttribute("otherFolder", otherFolder);
 		model.addAttribute("navNo",6);
 	}
 	
@@ -133,8 +132,9 @@ public class BoardController {
 				int file = boardFileService.insertFile(fileVo);
 				logger.info("file={}", file);
 			}//if
-		}//for
-		
+		}//fot
+
+		String msg="등록을 실패하였습니다.", url="/board/boardMain";
 		if(cnt==0) {
 			model.addAttribute("msg", "등록을 실패하였습니다.");
 			model.addAttribute("url", "/board/boardMain");
@@ -175,6 +175,9 @@ public class BoardController {
 		BoardFolVO boFol = boardFolService.selectByNo(boardFolderNo);
 		logger.info("게시판 종류 조회, boFol={}", boFol);
 		
+		/* top 게시판 폴더 list 처리 */
+		List<BoardFolVO> otherFolder=boardFolService.otherFolder();
+		
 		//2
 		List<BoardVO> list = boardService.selectBoard(searchVo);
 		logger.info("게시판 목록 조회, list.size={}", list.size());
@@ -186,6 +189,7 @@ public class BoardController {
 	    //3
 		model.addAttribute("boFol", boFol);
 		model.addAttribute("list", list);
+		model.addAttribute("otherFolder", otherFolder);
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("navNo", 6);
 
@@ -211,37 +215,27 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardDetail")
-	public String detail(@RequestParam(defaultValue = "0")int boardNo, HttpSession session,
+	public String detail(@RequestParam(defaultValue = "0")int boardNo,
 			HttpServletRequest request ,Model model) {
 		logger.info("게시판 상세보기 페이지, 파라미터 boardNo={}", boardNo);
-		
-		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
-		String empName = (String)session.getAttribute("empName");
 		
 		BoardVO vo = boardService.selectByNo(boardNo);
 		logger.info("글 상세보기 조회, vo={}", vo);
 		
 		List<BoardFileVO> fileVo = boardFileService.selectByNo(boardNo);
-		logger.info("fileVo={}", fileVo.size());
+		logger.info("fileVo={}", fileVo);
 		
 		List<BoardCommentVO> commList = boardCommentService.selectByNo(boardNo);
-		logger.info("댓글 목록 조회, commList={}", commList.size());
+		logger.info("댓글 목록 조회, commList={}", commList);
 		
-		int likeCnt=boardLikeService.selectLike(boardNo);
+
+		/* top 게시판 폴더 list 처리 */
+		List<BoardFolVO> otherFolder=boardFolService.otherFolder();
 		
-		BoardLikeVO likeVo=new BoardLikeVO();
-		likeVo.setBoardNo(boardNo);
-		likeVo.setEmpNo(empNo);
-		int selectEmpNo = boardLikeService.selectByEmpNo(likeVo);
-		logger.info("selectEmpNo={}",selectEmpNo);
-		
-		model.addAttribute("empNo", empNo);
-		model.addAttribute("empName", empName);
 		model.addAttribute("vo", vo);
 		model.addAttribute("fileVo", fileVo);
 		model.addAttribute("commList", commList);
-		model.addAttribute("likeCnt", likeCnt);
-		model.addAttribute("selectEmpNo", selectEmpNo);
+		model.addAttribute("otherFolder", otherFolder);
 		model.addAttribute("navNo",6);
 
 		return "board/boardDetail";
@@ -295,8 +289,12 @@ public class BoardController {
 		/* 수정페이지 값 받아오기 */
 		BoardVO vo = boardService.selectByNo(boardNo);
 		
+		/* top 게시판 폴더 list 처리 */
+		List<BoardFolVO> otherFolder=boardFolService.otherFolder();
+		
 		model.addAttribute("boFol", boFol);
 		model.addAttribute("vo", vo);
+		model.addAttribute("otherFolder", otherFolder);
 		model.addAttribute("navNo",6);
 
 		return "board/boardEdit";
