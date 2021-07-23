@@ -1,5 +1,6 @@
 package com.it.lylj.assiduity.controller;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +52,8 @@ public class AssiduityController {
 	@ResponseBody
 	public int updateLeaveTime(AttendDayVO vo){
 		
-		attendDayService.updateAttendDayByOffHour(vo);
+		attendDayService.updateAttendDay(vo);
+		
 		
 		return 1;
 	}//ajax 근태 퇴근,근무시간 업데이트하기
@@ -63,6 +66,30 @@ public class AssiduityController {
 		
 		return attendDayVo;
 	}//ajax 로그인된 사원의 특정 날짜 근태 정보 불러오기
+	
+	@GetMapping("/selectMonthSumTime")
+	@ResponseBody
+	public int selectMonthSumTime(int empNo,String nowDate){
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("empNo", empNo);
+		map.put("nowDate", nowDate);
+		int data = attendDayService.selectSumMonthWork(map);
+		
+		return data;
+	}//ajax 선택된 달의 누적근무
+	
+	@GetMapping("/selectMonthExTime")
+	@ResponseBody
+	public int selectMonthExTime(int empNo,String nowDate){
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("empNo", empNo);
+		map.put("nowDate", nowDate);
+		int data = attendDayService.selectSumMonthWorkEx(map);
+		
+		return data;
+	}//ajax 선택된 달의 초과 근무
 	
 	
 	@GetMapping("/selectMonthWorkTime")
@@ -232,12 +259,16 @@ public class AssiduityController {
 			
 		}
 		
+		HashMap<String, Object> map2 = new HashMap<>();
+		map2.put("empNo",empNo);
+		Date nowDate = new Date();
+		map2.put("nowDate", sdf.format(nowDate));
 		
-		int selectSumWeekWork = attendDayService.selectSumWeekWork();
-		int selectSumMonthWork = attendDayService.selectSumMonthWork();
-		int selectSumWeekWorkEx = attendDayService.selectSumWeekWorkEx();
-		int selectSumMonthWorkEx = attendDayService.selectSumMonthWorkEx();
-		int selectLeftTimeWeek = attendDayService.selectLeftTimeWeek();
+		int selectSumWeekWork = attendDayService.selectSumWeekWork(empNo);
+		int selectSumMonthWork = attendDayService.selectSumMonthWork(map2);
+		int selectSumWeekWorkEx = attendDayService.selectSumWeekWorkEx(empNo);
+		int selectSumMonthWorkEx = attendDayService.selectSumMonthWorkEx(map2);
+		int selectLeftTimeWeek = attendDayService.selectLeftTimeWeek(empNo);
 		
 		model.addAttribute("attendMonthList", attendMonthList);
 		model.addAttribute("weekTimelist", weekTimelist);

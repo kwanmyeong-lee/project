@@ -33,14 +33,14 @@ public class AttendDayServiceImpl implements AttendDayService{
 
 
 	@Override
-	public int selectSumWeekWork() {
-		return dao.selectSumWeekWork();
+	public int selectSumWeekWork(int empNo) {
+		return dao.selectSumWeekWork(empNo);
 	}
 
 
 	@Override
-	public int selectSumMonthWork() {
-		return dao.selectSumMonthWork();
+	public int selectSumMonthWork(HashMap<String, Object> map) {
+		return dao.selectSumMonthWork(map);
 	}
 
 
@@ -57,20 +57,32 @@ public class AttendDayServiceImpl implements AttendDayService{
 
 
 	@Override
-	public int selectSumWeekWorkEx() {
-		return dao.selectSumWeekWorkEx();
+	public int selectSumWeekWorkEx(int empNo) {
+		return dao.selectSumWeekWorkEx(empNo);
 	}
 
 
 	@Override
-	public int selectSumMonthWorkEx() {
-		return dao.selectSumMonthWorkEx();
+	public int selectSumMonthWorkEx(HashMap<String, Object> map) {
+		return dao.selectSumMonthWorkEx(map);
 	}
 
 
 	@Override
-	public int selectLeftTimeWeek() {
-		return dao.selectLeftTimeWeek();
+	public int selectLeftTimeWeek(int empNo) {
+		return dao.selectLeftTimeWeek(empNo);
+	}
+
+
+	@Override
+	public int selectDayWorkEx(HashMap<String, Object> map) {
+		return dao.selectDayWorkEx(map);
+	}
+
+
+	@Override
+	public int updateAttendDay(AttendDayVO vo) {
+		return dao.updateAttendDay(vo);
 	}
 
 
