@@ -56,6 +56,7 @@ DROP SEQUENCE ADDFOL_SEQ;
 DROP VIEW selectstamp;
 DROP VIEW apEleList;
 DROP VIEW reEleList;
+DROP VIEW breakDayView;
 
 ------------------------- DROP ---------------------------------
 
@@ -206,7 +207,7 @@ CREATE SEQUENCE ELFILE_SEQ
 MINVALUE 1
 MAXVALUE 9999999999999999999999999999 
 INCREMENT BY 1 
-START WITH 1
+START WITH 1;
 
 CREATE SEQUENCE ADDFOL_SEQ
 MINVALUE 1 
@@ -1189,6 +1190,17 @@ from emp e left join department d
 on e.department_no=d.department_no
 left join position p
 on e.position_no = p.position_no;
+
+--------------------------view----------------------------------
+create or replace view breakDayView
+as
+select e.*,d.BREAKTHEME_NAME , p.EMP_NAME
+from BREAKDAY  e left join BREAKTHEME  d
+on e.BREAKTHEME_NO =d.BREAKTHEME_NO 
+left join emp p
+on e.EMP_NO  = p.EMP_NO;
+
+select * from breakDayView;
 
 -------------------------------------------------------------------------------------------
 
