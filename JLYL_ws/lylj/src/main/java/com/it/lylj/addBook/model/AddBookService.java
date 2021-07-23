@@ -1,5 +1,8 @@
 package com.it.lylj.addBook.model;
 
-public interface AddBookService {
+import java.util.List;
 
+public interface AddBookService {
+	int insertAddBook(AddBookVO vo);
+	List<AddBookVO> selectAllAddBook(int empNo);
 }
