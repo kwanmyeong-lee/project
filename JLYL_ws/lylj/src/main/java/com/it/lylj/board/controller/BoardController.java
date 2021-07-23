@@ -2,13 +2,10 @@ package com.it.lylj.board.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.it.lylj.board.model.BoardService;
 import com.it.lylj.board.model.BoardVO;
@@ -37,7 +33,6 @@ import com.it.lylj.common.ConstUtil;
 import com.it.lylj.common.FileUploadUtil;
 import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.common.SearchVO;
-import com.it.lylj.common.Utility;
 
 import lombok.RequiredArgsConstructor;
 

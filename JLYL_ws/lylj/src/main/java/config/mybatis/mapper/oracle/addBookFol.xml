@@ -15,6 +15,14 @@
 		SELECT * FROM addfol
 		WHERE EMP_NO=#{empNo}
 	</select>
+	
+	<!-- <update id="">
+	
+	</update>
+	
+	<delete id="">
+	
+	</delete> -->
 </mapper>
 
 

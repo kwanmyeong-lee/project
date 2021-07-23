@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.it.lylj.boardFol.model.BoardFolVO;
 import com.it.lylj.common.SearchVO;
 
 @Mapper
