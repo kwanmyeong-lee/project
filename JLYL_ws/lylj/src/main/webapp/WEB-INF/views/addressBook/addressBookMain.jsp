@@ -29,12 +29,24 @@
 		});
 		
 		
-		/*전체 선택 처리*/
+		/* 전체 선택 처리 */
 		$('#chkAllMain').click(function(){
 			$('tbody td input[type=checkbox]').prop('checked',this.checked);			
 		});
 		
+		/* 검색 처리 */
+		$('form[name="frmSearch"]').submit(function(){
+				if($('select[name="searchCondition"]').val()==''){
+					$('#searchTextBox').val('');
+				}
+		});
+		
 	});
+	/* 페이징 처리 */
+	function pageProc(curPage){
+	    $('input[name=currentPage]').val(curPage);
+	    $('form[name=frmPage]').submit();   
+	 }
 </script>
 
 <div class="addressBookEditModal" id="topNavButton">
@@ -49,7 +61,8 @@
 					</div>
 					<div id="telInputDiv" class="boxDiv">
 						<label>번호</label><span class="splitSpan">:</span>
-						<input type="text" name="addressBook_tel" id="addressBook_tel" class="inputItems">
+						<input type="text" name="addressBook_tel" id="addressBook_tel" class="inputItems"><br>
+						<span class="infoSpan">※ 하이픈(-) 없이 입력하세요.(예: 01033338888)</span>
 					</div>
 					<div id="emailInputDiv" class="boxDiv">
 						<label>메일</label><span class="splitSpan">:</span>
@@ -85,25 +98,34 @@
 		<h3>주소록</h3>
 		<br>
 		<div id="searchDiv">
-			<select>
-				<option></option>
-				<option>이름</option>
-				<option>전화번호</option>
-				<option>이메일</option>
-				<option>카테고리</option>
-				<option>직급</option>
-			</select>
-			<input type="text" id="searchTextBox">
-			<input type="submit" value="검색">
+			<form name="frmSearch" method="post" 
+	         action='<c:url value="/addressBook/addressBookMain?empNo=${param.empNo }"/>'>
+				<select name="searchCondition" id="searchCondition">
+					<option value=""></option>
+					<option value="addressBook_name"
+					<c:if test="${param.searchCondition == 'addressBook_name' }">               
+		                  selected="selected"
+		            </c:if>
+		            >이름</option>
+					<option value="addressBook_tel"
+					<c:if test="${param.searchCondition == 'addressBook_tel' }">               
+		                  selected="selected"
+		            </c:if>
+		            >전화번호</option>
+					<option value="addressBook_maile"
+					<c:if test="${param.searchCondition == 'addressBook_maile' }">               
+		                  selected="selected"
+		            </c:if>
+		            >이메일</option>
+				</select>
+				<input type="text" name="searchKeyword" id="searchTextBox" value="${param.searchKeyword }">
+				<input type="submit" value="검색">
+			</form>
 		</div>
-		
-		<c:if test="${!empty param.searchKeyword }">
-		   <p id="searchP">검색어 : ${param.searchKeyword}, ${pagingInfo.totalRecord} 건 검색되었습니다.</p>
-		</c:if>
 		<!-- 페이징 처리를 위한 form -->
-		<form action="<c:url value='/board/boardList?boardFolderNo=${param.boardFolderNo}'/>" 
-		   name="frmPage" method="post" id="frmPage">
-		   <input type="hidden" name="boardFolderNo" value="${param.boardFolderNo }"><br>
+		<form action="<c:url value='/addressBook/addressBookMain?empNo=${param.empNo}'/>" 
+		   name="frmPage" method="post" id="frmPage" hidden="hidden">
+		   <input type="hidden" name="empNo" value="${empNo }"><br>
 		   <input type="hidden" name="currentPage" value=${pagingInfo.currentPage }><br>
 		   <input type="hidden" name="searchCondition" value="${param.searchCondition}"><br>
 		   <input type="hidden" name="searchKeyword" value="${param.searchKeyword}"><br>   
@@ -138,7 +160,8 @@
 			            <td id="userNameTd" class="userNameClick">
 			            	<span id="userNameSpan">${bookVo.addressBookName }</span> 
 		            	</td>
-			           	<td class="telTd" >${bookVo.addressBookTel }</td>
+		            	<c:set var="hp" value="${bookVo.addressBookTel }"></c:set>
+			           	<td class="telTd" >${fn:substring(hp,0,3)}-${fn:substring(hp,4,8)}-${fn:substring(hp,9,12)}</td>
 			            <td class="emailTd" >${bookVo.addressBookMaile }</td>
 			            <td class="" >사원</td>
 			            <td class="position" >${bookVo.addressBookPosition }</td>

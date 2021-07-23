@@ -21,6 +21,10 @@
 	width: 198px;
 }
 
+.infoSpan{
+	padding-left: 235px;
+	font-size: 13px;
+}
 /* 수정 모달 */
 .addressBookEditModal{
 	position: absolute;

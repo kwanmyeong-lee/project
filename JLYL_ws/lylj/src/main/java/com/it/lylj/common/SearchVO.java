@@ -27,6 +27,8 @@ public class SearchVO {
 	/* 전자결재 결재문서의 유저 번호*/
 	private String empNo;
 	
+	/* 주소록 폴더 번호 */
+	private int addressFolderNo;
 	
     /**블럭당 보여질 페이지 수,  페이지 사이즈 */
     private int blockSize; // properties에서 설정
