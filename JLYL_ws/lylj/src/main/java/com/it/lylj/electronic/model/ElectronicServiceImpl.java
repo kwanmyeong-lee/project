@@ -103,5 +103,10 @@ public class ElectronicServiceImpl implements ElectronicService {
 		return electronicDao.selectTopSty();
 	}
 
+	@Override
+	public int upToDate(int ElectronicNo) {
+		return electronicDao.upToDate(ElectronicNo);
+	}
+
 
 }

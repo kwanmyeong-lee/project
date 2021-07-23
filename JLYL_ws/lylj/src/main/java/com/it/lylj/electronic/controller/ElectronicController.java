@@ -267,7 +267,7 @@ public class ElectronicController {
 		/* 페이징 처리 */
 		PaginationInfo pagingInfo = new PaginationInfo();
 	    pagingInfo.setCurrentPage(searchVo.getCurrentPage());
-	    pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+	    pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ELE);
 	    pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ELE);
 	      
 	    searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
@@ -320,17 +320,21 @@ public class ElectronicController {
 		
 		int cnt = 0;
 		ElectronicAppLineVo evo = null;
+		int uptodate = 0;
 		if(electronicAppService.selectAppLineCheck(vo) != null ) {
 			evo = electronicAppService.selectAppLineCheck(vo); //내 앞사람이 승인을 했는지 안했는지 
 			logger.info("앞 라인 승인 여부 evo.getApprovalLineCompleteFlag()={}", evo.getApprovalLineCompleteFlag());
 			
 			if(evo.getApprovalLineCompleteFlag().equals("1")) { //앞사람이 승인을 했으면
 				cnt = electronicAppService.AcceptUpdateAppLine(vo);
+				uptodate = electronicService.upToDate(vo.getElectronicNo());
 			}//앞사람이 승인을 안했으면
 			
 		}else { //앞사람이 없으면
 			cnt = electronicAppService.AcceptUpdateAppLine(vo);
+			uptodate = electronicService.upToDate(vo.getElectronicNo());
 		}
+		logger.info("날짜 최시화 uptodate={}", uptodate);
 		
 		List<ElectronicAppLineVo> list= electronicAppService.selectByElectronicNo(vo.getElectronicNo());
 		

@@ -87,7 +87,7 @@
 	
 	<select id="TotalSelectListByEmpNo7" parameterType="searchVo" resultType="int">
 			select count(*) from elimp
-			where EMP_NO = #{empNo} and ELECTRONIC_COMPLET_FLAG = 2
+			where ELECTRONIC_COMPLET_FLAG = 2
 			<include refid="searchWhere"></include>
 			order by ELECTRONIC_NO DESC
 	</select>
@@ -104,7 +104,7 @@
 				select * from apEleList
 				where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0
 				<include refid="searchWhere"></include>
-				order by ELECTRONIC_NO DESC
+			    order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC
 				
 			)A
 		)
@@ -126,7 +126,7 @@
 				select * from apEleList
 				where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 1 and ELECTRONIC_DRAFT = 0
 				<include refid="searchWhere"></include>
-				order by ELECTRONIC_NO DESC
+				order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC
 				
 			)A
 		)
@@ -148,7 +148,7 @@
 				select * from elimp
 				where ELECTRONIC_COMPLET_FLAG = 1 and ELECTRONIC_DRAFT = 0
 				<include refid="searchWhere"></include>
-				order by ELECTRONIC_NO DESC
+				order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC
 				
 			)A
 		)
@@ -167,9 +167,9 @@
 			from
 			(
 				select * from elimp
-				where EMP_NO = #{empNo} and ELECTRONIC_COMPLET_FLAG = 2
+				where ELECTRONIC_COMPLET_FLAG = 2
 				<include refid="searchWhere"></include>
-				order by ELECTRONIC_NO DESC
+				order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC
 				
 			)A
 		)
@@ -190,7 +190,7 @@
 				select * from reEleList
 				where EMP_NO_RE = #{empNo} and ELECTRONIC_DRAFT = 0
 				<include refid="searchWhere"></include>
-				order by ELECTRONIC_NO DESC
+				order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC
 				
 			)A
 		)
@@ -211,7 +211,7 @@
 				select * from elimp
 				where EMP_NO = ${empNo} and ELECTRONIC_DRAFT = 0 and ELECTRONIC_COMPLET_FLAG = 0
 				<include refid="searchWhere"></include>
-				order by ELECTRONIC_NO DESC
+				order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC
 				
 			)A
 		)
@@ -232,7 +232,7 @@
 				select * from elimp
 				where EMP_NO = ${empNo} and ELECTRONIC_DRAFT = 1
 				<include refid="searchWhere"></include>
-				order by ELECTRONIC_NO DESC
+				order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC
 				
 			)A
 		)
@@ -250,7 +250,7 @@
 	
 	<update id="updateEleReturn" parameterType="int">
 		update elimp
-		set ELECTRONIC_COMPLET_FLAG = '2'
+		set ELECTRONIC_COMPLET_FLAG = '2', ELECTRONIC_DATE = sysdate
 		where ELECTRONIC_NO = #{electronicNo}
 	</update>
 	
@@ -269,6 +269,12 @@
 		<![CDATA[where rownum<6]]>
 		
 	</select>
+	
+	<update id="upToDate" parameterType="int">
+		update elimp
+		set ELECTRONIC_DATE = sysdate
+		where ELECTRONIC_NO = #{electronicNo}
+	</update>
 	
 </mapper>
 
