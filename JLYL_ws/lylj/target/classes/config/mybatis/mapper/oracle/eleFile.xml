@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.it.lylj.electronicFile.model.ElectronicFileDAO">
+
+	<insert id="insertFile" parameterType="ElectronicFileVo">
+		<selectKey keyProperty="fileNo" resultType="int" order="BEFORE">
+			select
+			ELFILE_SEQ.nextval from dual
+		</selectKey>
+		insert into ELFILE
+		values (#{fileNo}, #{fileName}, #{fileOriginalname},
+		#{fileSize},
+		#{electronicNo})
+	</insert>
+	
+	<select id="selectFileByEleNo" parameterType="int" resultType="ElectronicFileVo">
+		select * from ELFILE
+		where ELECTRONIC_NO = ${electronicNo}
+		
+	</select>
+	
+	<select id="selectFileByFileNo" parameterType="int" resultType="ElectronicFileVo">
+		select * from ELFILE
+		where FILE_NO = ${fileNo}
+	</select>
+
+</mapper>

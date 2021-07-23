@@ -49,6 +49,8 @@ DROP SEQUENCE BREAKDAY_SEQ;
 DROP SEQUENCE ATTEND_SEQ;
 DROP SEQUENCE ATTENDDAY_SEQ;
 DROP SEQUENCE BREAKTHEME_SEQ;
+DROP SEQUENCE ELFILE_SEQ;
+
 
 DROP VIEW selectstamp;
 DROP VIEW apEleList;
@@ -198,6 +200,12 @@ INCREMENT BY 1
 START WITH 1
 NOCACHE;
 
+CREATE SEQUENCE ELFILE_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
 
 ------------------------- SEQ -----------------------------------------
 -----------------------CREATE TABLE----------------------------------
@@ -1607,6 +1615,11 @@ select * from appline;
 -- 수신 라인
 
 select * from reline;
+
+--전자 결재 파일 
+ 
+select * from ELFILE;
+
 
 
 -- 게시판 폴더

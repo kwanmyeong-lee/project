@@ -414,10 +414,27 @@
 				<!-- 문서 양식 끝 -->
 
 				<div class="shadow-sm p-3 mb-2 bg-light rounded ">
-					<div class="form-group col-6">
-						<div class="input-group mb-3 ">
-							<input type="file" class="form-control" id="inputGroupFile02">
+					<div class="form-group col-3">
+						<div class="input-group mb-3 btn-group dropend">
+							  <!-- 첨부파일 -->
+						      <c:if test="${!empty fvo}">
+								    <button class="form-control" id="upFile" type="button" data-bs-toggle="dropdown" >첨부파일</button>
+								    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink" id="upFileList">
+								    	<c:forEach var="file" items="${fvo}">
+								    		<c:set var="filesize" value="${file.fileSize }" />
+								            <li><a class="dropdown-item" href="<c:url value = '/electronic/download?fileNo=${file.fileNo }'/>" ><i class="fas fa-save"></i>&nbsp;&nbsp; ${file.fileOriginalname}</a></li>
+							            </c:forEach>
+							        </ul>
+						        </c:if>
+						        
+							    <c:if test="${empty fvo }">
+							    	<div id="borderDiv"></div>
+						        </c:if>
+												
 						</div>
+						
+						
+						
 					</div>
 					<br>
 					<div class="form-row" style="justify-content: center;">

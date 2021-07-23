@@ -25,8 +25,9 @@
 							window
 									.open(
 											'<c:url value = '/electronic/documentWrite?styleNo='/>'+styNo,
-											'_blank ',
+											'_blank   ',
 											'top=40, left=40, width=1000, height=1000, status=no, menubar=no, toolbar=no, resizable=no, directories=no, location=no, resizable=no');
+											window.open('','_self').close();
 						});
 		
 		$('#no').click(function(){

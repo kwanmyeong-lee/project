@@ -7,7 +7,7 @@ public interface ConstUtil {
 	
 	// 전자 결재 
 	int RECORD_COUNT_ELE = 5; // 한 페이지에 보여줄 레코드 개수
-	int BLOCK_SIZE_ELE = 5; // 블럭크기
+	int BLOCK_SIZE_ELE = 4; // 블럭크기
 	
 	//사원리스트
 	int EMP_RECORD_COUNT = 10;
@@ -35,4 +35,11 @@ public interface ConstUtil {
 	int BOOKING_APP_FLAG=2;
 	int BOOKING_WAIT_FLAG=0;
 	int BOOKING_RETURN_FLAG=1;
+	
+	
+	
+	
+	//전자결재 파일 업로드 경로
+	String ELECTRONIC_UPLOAD_PATH = "electronic_upFile";
+	String ELECTRONIC_UPLOAD_PATH_REAL = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\electronic_upFile";
 }
