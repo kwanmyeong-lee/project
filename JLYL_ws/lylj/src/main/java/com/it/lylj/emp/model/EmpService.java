@@ -30,6 +30,7 @@ public interface EmpService {
 	int updateTempPwd(EmpVO vo);
 	String selectPwd(int empNo);
 	List<EmpVO> selectAllEmpForEle();
+	List<EmpVO> selectSearchNum(int searcNo);
 	
 	//이메일발송
 	public void sendEmail(EmpVO vo);

@@ -54,6 +54,10 @@
 #dropZone{
 	width : 100%;
 	height: 100%;
+	text-align: center;
+}
+#dropZone>#fileDiv{
+	text-align: left;
 }
 #resultEmp{
 	margin-top: 1px;
@@ -63,13 +67,14 @@
 	border : 1px solid  #e7e7ea;
 	z-index: 1;
 }
+
 .item {
 	height: 1.8em;
 	width: 220px;
 	outline: none;
 }
 .item:hover {
-	color: #9baec8;
+	color: red;
 }
 .text {
 	font-weight: bold;
@@ -80,6 +85,10 @@
 .searchNo{
 	font-weight: bold;
 }
+#dropZoneSpan{
+	color: blue;
+	font-size: 0.9em;
+}
 </style>
 
 <script>
@@ -87,8 +96,8 @@
 	var totalFileSize =0;
 	var fileList = new Array();
 	var fileSizeList = new Array();
-	var uploadSize = 50; //50메가바이트
-	var maxUploadSize = 100; // 최대 100메가
+	var uploadSize = 10; // 10 메가바이트
+	var maxUploadSize = 50; // 최대 100메가
 	
 	 $(function (){
 	        // 파일 드롭 다운
@@ -134,6 +143,7 @@
 	            }
 	        });
 	    }
+	    
 	 	// 파일 선택시
 	    function selectFile(files){
 	        // 다중파일 등록
@@ -167,7 +177,6 @@
 	 
 	                    // 업로드 파일 목록 생성
 	                    addFileList(fileIndex, fileName, fileSize);
-	 
 	                    // 파일 번호 증가
 	                    fileIndex++;
 	                }
@@ -215,53 +224,80 @@
 	            // 파일등록 경고창
 	            alert("파일이 없습니다.");
 	            return;
-	        }
+	        }//
 	        
-	        // 용량을 500MB를 넘을 경우 업로드 불가
+	        // 용량을 넘을 경우 업로드 불가
 	        if(totalFileSize > maxUploadSize){
 	            // 파일 사이즈 초과 경고창
 	            alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " MB");
 	            return;
-	        }
-	            
-	        if(confirm("등록 하시겠습니까?")){
-	            // 등록할 파일 리스트를 formData로 데이터 입력
-	            var form = $('#uploadForm');
-	            var formData = new FormData(form);
-	            for(var i = 0; i < uploadFileList.length; i++){
-	                formData.append('files', fileList[uploadFileList[i]]);
-	            }
-	            
-	            $.ajax({
-	                url:"<c:url value='/email/emailWrite'/>",
-	                data:formData,
-	                type:'POST',
-	                enctype:'multipart/form-data',
-	                processData:false,
-	                contentType:false,
-	                dataType:'json',
-	                cache:false,
-	                success:function(result){
-	                    if(result.data.length > 0){
-	                        alert("발송되었습니다");
-	                        location.reload();
-	                    }else{
-	                        alert("전송실패");
-	                        location.reload();
-	                    }
-	                }
-	            });
-	        }
+	        }//
+	        
 	    }
 	    
+	    $(function(){
+	    	$('#bt_sendMail').click(function(){
+	    		console.log("메일보내기")
+	    		/* 유효성검사 */
+	    		if($('#mailTake').val().length<1){
+	    			alert("수신자를 입력하세요");
+	    			$('#mailTake').focus();
+	    			event.preventDefault();
+	    			return false;
+	    		}else if($('#mailTitle').val().length<1){
+	    			alert("메일제목을 입력하세요");
+	    			$('#mailTitle').focus();
+	    			event.preventDefault();
+	    			return false;
+	    		}else if($('#summernote').val().length<1){
+	    			alert("내용을 입력하세요");
+	    			event.preventDefault();
+	    			return false;
+	    		}
+	    	});
+	    });
+	    
+	    $(function(){
+	    	$('#bt_preview').click(function(){
+				$('input[name=emailDataFrm]').prop('action','<c:url value="/email/emailPreview"/>');
+				$('input[name=emailContentFrm]').prop('action','<c:url value="/email/emailPreview"/>');
+				$('input[name=emailDataFrm]').submit();
+				$('input[name=emailContentFrm]').submit();
+				
+	    		window.open('<c:url value="/email/emailPreview"/>','미리보기','width=500, height=700, status=no, menubar=no, toolbar=no, resizable=no')
+	    	});
+	    });
+	    
 
-	    function searchEmpNo(target){
-	    	var empNo = target.value;
-	    	console.log(empNo);
-	    	if(empNo.length>0){
-	    		$('#resultEmp').show();		
-	    	}
-	    }
+	    $(function(){
+	   		$('#mailTake').keyup(function(){
+	   			$('#resultEmp').show();
+	   			var	searchNo = $('#mailTake').val();
+	            $.ajax({
+	                url: "../emp/searchEmp",
+	                	/*"<c:url value='/emp/searchEmp'/>",  */
+	                data: {searchNo:searchNo},
+	                type:'POST',
+	                dataType:'json',
+	                success:function(result){
+	                	var str = "";
+	                	for(var i=0;i<result.length;i++){
+	                		str+= '<div class="item">'+result[i].empNo+"("+result[i].empName+")"+'</div>'
+	                		if(i==5) break;
+	                	}
+	                	$('#resultEmp').html(str);
+	                }
+
+	            });
+	   		});
+	   		
+	   		$(document).on("click",".item",function(){
+	    		var resultNo = $(this).text();
+	    		$('#mailTake').val(resultNo);
+	    		$(this).parent().hide();
+	    	});
+	   		
+	    });
 	    
 </script>
 
@@ -271,37 +307,31 @@
 				<br>
 				<hr>
 			<div class="form-group">	
-				<button type="button" class="btn btn-secondary">보내기</button>
-				<button type="button" class="btn btn-secondary">미리보기</button>
+				<button type="button" class="btn btn-secondary" id="bt_sendMail">보내기</button>
+				<button type="button" class="btn btn-secondary" id="bt_preview">미리보기</button>
 				<button type="button" class="btn btn-secondary">임시저장</button>
 			</div>
-			<form class="form-horizontal writefrm" role="form" method="post" enctype="multipart/form-data">
+			<form class="form-horizontal writefrm" role="form" id="emailDataFrm" name="emailDataFrm" method="post">
 				<input type="hidden" name = "mailSend" value="${sessionScope.empNo }">
+				<input type="hidden" name = "mailEmpno" value="${sessionScope.empNo }">
 				<div class="form-group firstFrm row">
 			    	<label for="to" class="col-sm-1 control-label">받는사람:</label>
 			    	<div class="col-sm-11">
-                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" onkeyup="searchEmpNo(this)">
+                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
                      	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
-						<div id="resultEmp">
-							<div class="item"><span class="searchNo"></span></div>
-							<div class="item">abd<span class="searchNo">re</span></div>
-							<div class="item">ddddd<span class="searchNo">re</span> sd</div>
+						<div id="resultEmp" style="display: none;">
 						</div>                        
 			    	</div>
 			  	</div>
 				<div class="form-group row">
-			    	<label for="reference" class="col-sm-1 control-label emailcc">참조:</label>
-			    	<div class="col-sm-11">
-                    	<input type="email" class="form-control select2-offscreen textBox tx" id="reference" name="reference" tabindex="-1">
-			    	</div>
-			  	</div>
-			  	
-				<div class="form-group row">
 			    	<label for="bcc" class="col-sm-1 control-label">제목:</label>
 			    	<div class="col-sm-11">
-                         <input type="email" class="form-control select2-offscreen textBox tx" id="title" name="title" tabindex="-1">
+                         <input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1">
 			    	</div>
 			  	</div>
+			</form>
+			   
+          <!-- 	<form class="form-horizontal writefrm" id="emailFileFrm" name="emailFileFrm" method="post"> 
 			  	<div class="form-group row">
 			    	<label for="uploadFile" class="col-sm-1 control-label">파일첨부:</label>
 			    	<div class="col-sm-11">
@@ -309,49 +339,54 @@
 						   <i class="far fa-file"></i>
 						</button>
 					</div><br><br>
-						<div class="collapse form-control select2-offscreen fileBox" id="collapseExample">
-		                      <div id="dropZone" class="dropZoneDiv"><span style="color: blue;">파일을 드래그 하세요.</span>
-						      	<p id="fileDiv"></p>
-		                      </div>
-						</div>
+					<div class="collapse form-control select2-offscreen fileBox" id="collapseExample">
+	                      <div id="dropZone">
+	                      	<span id="dropZoneSpan" >파일을 드래그 하세요.</span>
+					      	<p id="fileDiv"></p>
+	                      </div>
+					</div>
 			  	</div>
-				<div class="form-group">
-					<textarea class="form-control message" id="summernote" ></textarea>
-				</div>
-				<div class="form-group row chkBook">
-					<span>
-				    	<label for="yesBook" class="col-sm-1 control-label">전송예약 : </label>
-		    			<div class="form-check form-check-inline">
-						  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="okBook" value="1">
-						  <label class="form-check-label" for="okBook">예</label>
-						</div>
-						<div class="form-check form-check-inline">
-						  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="notBook" value="2" checked="checked">
-						  <label class="form-check-label" for="notBook">아니요</label>
-						</div>
-					</span>
-			    </div>
-			    <div class="form-group row">
-			    	<div class="col-sm-11 row" id="setDate" >
-				    	<span>날짜 :
-				    	<input type="text" class="scheduleDate" name="startDate" id="startDate">
-				    	시간 :
-				    	<select class="selectTime" id="startTime" >
-			        		<c:forEach var="i" begin="0" end="47">
-			        			<c:set var="hour" value="${i/2 - i/2%1}"/>
-			        			<c:set var ="sec" value="00"/>
-			        			<c:if test="${i%2 eq 1 }">
-			        				<c:set var ="sec" value="30"/>
-			        			</c:if>
-			        			<option class="optionTime" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
-			        		</c:forEach>
-	        			</select>
-	        			</span> 
-				   </div>
-			  	</div>
-			</form>
+			 </form> -->
+			 <form id="emailContent" name="emailContentFrm" method="post">
+					<div class="form-group">
+						<textarea class="form-control message" id="summernote" name="mailContent"></textarea>
+					</div>
+					<div class="form-group row chkBook">
+						<span>
+					    	<label for="yesBook" class="col-sm-1 control-label">전송예약 : </label>
+			    			<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="okBook" value="1">
+							  <label class="form-check-label" for="okBook">예</label>
+							</div>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="notBook" value="2" checked="checked">
+							  <label class="form-check-label" for="notBook">아니요</label>
+							</div>
+						</span>
+				    </div>
+				    <div class="form-group row">
+				    	<div class="col-sm-11 row" id="setDate" >
+					    	<span>날짜 :
+					    	<input type="text" class="scheduleDate" name="startDate" id="startDate">
+					    	시간 :
+					    	<select class="selectTime" id="startTime" >
+				        		<c:forEach var="i" begin="0" end="47">
+				        			<c:set var="hour" value="${i/2 - i/2%1}"/>
+				        			<c:set var ="sec" value="00"/>
+				        			<c:if test="${i%2 eq 1 }">
+				        				<c:set var ="sec" value="30"/>
+				        			</c:if>
+				        			<option class="optionTime" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
+				        		</c:forEach>
+		        			</select>
+		        			</span> 
+					   </div>
+				  	</div>
+			   </form>
 		</div>	
 </div>
+
+
 <script>
 	$(document).ready(function() {
 		$('#summernote').summernote({

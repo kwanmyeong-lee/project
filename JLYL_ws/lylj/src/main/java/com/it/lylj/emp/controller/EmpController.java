@@ -308,6 +308,14 @@ public class EmpController {
 		return "common/message";
 		
 	}
+	
+	@ResponseBody
+	@RequestMapping("/searchEmp")
+	public List<EmpVO> searchEmp(@RequestParam(defaultValue = "0") int searchNo){
+		logger.info("searchNo={}",searchNo);
+		List<EmpVO> list = empService.selectSearchNum(searchNo);
+		return list;
+	}
 
 }
 
