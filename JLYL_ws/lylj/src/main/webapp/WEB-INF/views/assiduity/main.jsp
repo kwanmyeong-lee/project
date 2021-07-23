@@ -209,6 +209,7 @@ $(function(){
 	$('#nowLeft').click(function(){
 		var nd = new Date($('#nowYearMonth').text());
 		var pd = MinusMonth(nd);
+		var pd1 = moment(pd).format("YYYY-MM-DD");
 		pd= moment(pd).format("YYYY-MM");
 		
 		$('#nowYearMonth').text(pd);
@@ -218,7 +219,8 @@ $(function(){
 		
 		selectMonthAjax(empNo, pd);
 		selectMonthWorkTime(empNo, pd);
-		
+		selectMonthSumTime(empNo,pd1);
+		selectMonthExTime(empNo,pd1);
 		
 		
 	});
@@ -226,8 +228,9 @@ $(function(){
 	$('#nowRight').click(function(){
 		var nd = new Date($('#nowYearMonth').text());
 		var pd = AddMonth(nd);
+		var pd1 = moment(pd).format("YYYY-MM-DD");
 		pd= moment(pd).format("YYYY-MM");
-
+		
 		$('#nowYearMonth').text(pd);
 		dayView(pd);
 		
@@ -235,10 +238,13 @@ $(function(){
 		
 		selectMonthAjax(empNo, pd);
 		selectMonthWorkTime(empNo, pd);
+		selectMonthSumTime(empNo,pd1);
+		selectMonthExTime(empNo,pd1);
 	});
 	
 	$('#todayYearMonth').click(function(){
 		var nd = new Date();
+		var nd1 = moment(nd).format("YYYY-MM-DD");
 		nd= moment(nd).format("YYYY-MM");
 
 		$('#nowYearMonth').text(nd);
@@ -248,6 +254,8 @@ $(function(){
 		
 		selectMonthAjax(empNo, nd);
 		selectMonthWorkTime(empNo, nd);
+		selectMonthSumTime(empNo,nd1);
+		selectMonthExTime(empNo,nd1);
 	});
 	
 	$('#btnCome').click(function(){
@@ -301,14 +309,16 @@ $(function(){
 			var empNo = $('.empNo').val();
 			var attendanceDayWorkHour = ymd+" "+dayWorkTime;
 			var attendanceDayRegdate = ymd;
-			
+			var attendanceDayOnHour = ymd+" "+cTime;
 			
 			$.ajax({    
 	            type:'get',
 	            url:"updateLeaveTime",
 	            data:{empNo:empNo, attendanceDayOffHour:attendanceDayOffHour,
 	            	attendanceDayWorkHour:attendanceDayWorkHour,
-	            	attendanceDayRegdate:attendanceDayRegdate},
+	            	attendanceDayRegdate:attendanceDayRegdate,
+	            	attendanceDayOnHour:attendanceDayOnHour
+	            },
 	            dataType: "json",
 	            success : function(data) {
 	            	
@@ -460,7 +470,7 @@ function selectMonthAjax(empNo, pd){
         		$(dayNumId).next().html("<span>--:--:--</span>");
         		$(dayNumId).next().next().html("<span>--:--:--</span>");
         		$(dayNumId).next().next().next().html("<span>--:--:--</span>");
-        		$(dayNumId).next().next().next().next().html("<span>--:--:--</span>");
+        		$(dayNumId).next().next().next().next().html("<span></span>");
         		
         		if(data.length>i){
             		if(data[i].attendanceDayOnHour!=null){
@@ -484,13 +494,84 @@ function selectMonthAjax(empNo, pd){
             			var tx =  moment(data[i].attendanceDayWorkHour).format("HH:mm:ss");
             			tx ="<span>"+tx+"</sapn>"
             			$(dayNumId).next().next().html(tx);
+            			
+            			var amTime= new Date(data[i].attendanceDayRegdate).getTime()+(9*60*60*1000);
+                		var pmTime = new Date(data[i].attendanceDayRegdate).getTime()+(18*60*60*1000);
+                		var attendanceDayOffHour = new Date(data[i].attendanceDayOffHour).getTime();
+                		var attendanceDayOnHour = new Date(data[i].attendanceDayOnHour).getTime();
+                		var amExTime=0;
+                		var pmExTime=0;
+                		
+                		var allTime= new Date(data[i].attendanceDayWorkHour).getTime() - new Date(data[i].attendanceDayRegdate).getTime();
+                		
+                		
+                		
+                		if(attendanceDayOffHour>pmTime){
+                			if(attendanceDayOnHour>=pmTime){
+                				pmExTime = attendanceDayOffHour - attendanceDayOnHour;
+                			}else{
+                				pmExTime = attendanceDayOffHour - pmTime;
+                			}
+                		}//오후 초과 시간
+                		
+                		if(attendanceDayOnHour<amTime){
+                			if(attendanceDayOffHour<=amTime){
+                				amExTime = attendanceDayOffHour - attendanceDayOnHour;
+                			}else{
+                				amExTime = amTime - attendanceDayOnHour;
+                			}
+                		}//오전 초과 시간
+                		
+    					var normalTime = allTime - pmExTime - amExTime; //일과시간
+            			
+    					
+            			var allText ="<span>기본:";
+    					var allEx = amExTime + pmExTime;
+    					
+            			var nomalText =  miliHMS(normalTime);
+    					allText += nomalText;
+    					
+    					if(allEx !=0 ){
+    						var exText = miliHMS(allEx);
+    						allText+=" / 초과:" + exText;
+    					}
+    					
+    					allText+="</span>";
+    					
+            			$(dayNumId).next().next().next().html(allText);
+    					
             		}
+            		if(data[i].attendanceDayHolidayFlag !=0){
+            			var tx =  "<span>";
+            			if(data[i].attendanceDayHolidayFlag=='1'){
+            				tx+="대기</sapn>";
+            			}else if(data[i].attendanceDayHolidayFlag=='2'){
+            				tx+="승인</sapn>";
+            			}else if(data[i].attendanceDayHolidayFlag=='3'){
+            				tx+="취소</sapn>";
+            			}
+            			$(dayNumId).next().next().next().next().html(tx);
+            		}
+            		
+            		
+            		
         		}
       		
         	}
         	
         }
       });
+}
+
+function miliHMS(mili){
+	var hour = "00"+Math.floor(mili/1000/3600);
+	var min = "00"+Math.floor(mili/1000%3600/60);
+	var sec = "00"+Math.floor(mili/1000%3600%60);
+	hour = hour.slice(-2);
+	min = min.slice(-2);
+	sec = sec.slice(-2);
+	
+	return hour+"h "+min+"m "+sec+"s";
 }
 
 function selectMonthWorkTime(empNo, pd){
@@ -515,6 +596,34 @@ function selectMonthWorkTime(empNo, pd){
         			
         		}
         	}
+        	
+        }
+      });
+}
+function selectMonthSumTime(empNo, pd){
+	$.ajax({    
+        type:'get',
+        url:"selectMonthSumTime",
+        data:{empNo:empNo, nowDate:pd},
+        dataType: "json",
+        async : false,
+        success : function(data) {
+        	var tx = miliHMS(data*1000);
+        	$('#sumMonth').text(tx);
+        	
+        }
+      });
+}
+function selectMonthExTime(empNo, pd){
+	$.ajax({    
+        type:'get',
+        url:"selectMonthExTime",
+        data:{empNo:empNo, nowDate:pd},
+        dataType: "json",
+        async : false,
+        success : function(data) {
+        	var tx = miliHMS(data*1000);
+        	$('#exMonth').text(tx);
         	
         }
       });
@@ -658,11 +767,73 @@ function hourMin(time){
 	return num;
 }
 
+function exView(){
+	var dayNum = $('#exNum').val();
+	for(var i=0; i<dayNum; i++){
+		var dayNumId = '#dayNum'+i;
+		var DayWorkHour = Number($(dayNumId).next().next().find('input[type=hidden]').val());
+		
+		if(DayWorkHour!=0){			
+			DayWorkHour = Number($(dayNumId).next().next().find('input[type=hidden]').val());
+			var DayOffHour = Number($(dayNumId).next().find('input[type=hidden]').val());
+			var DayOnHour = Number($(dayNumId).find('input[type=hidden]').eq(1).val());
+			var DayRegdate = Number($(dayNumId).find('input[type=hidden]').eq(0).val());
+			
+			var amTime= DayRegdate+(9*60*60*1000);
+    		var pmTime = DayRegdate+(18*60*60*1000);
+    		var amExTime=0;
+    		var pmExTime=0;
+
+    		var allTime=DayWorkHour-DayRegdate;
+    	
+    
+    		
+    		if(DayOffHour>pmTime){
+    			if(DayOnHour>=pmTime){
+    				pmExTime = DayOffHour - DayOnHour;
+    			}else{
+    				pmExTime = DayOffHour - pmTime;
+    			}
+    		}//오후 초과 시간
+    		
+    		if(DayOnHour<amTime){
+    			if(DayOffHour<=amTime){
+    				amExTime = DayOffHour - DayOnHour;
+    			}else{
+    				amExTime = amTime - DayOnHour;
+    			}
+    		}//오전 초과 시간
+    		
+			var normalTime = allTime - pmExTime - amExTime; //일과시간
+			
+			
+			var allText ="<span>기본:";
+			var allEx = amExTime + pmExTime;
+			
+			var nomalText =  miliHMS(normalTime);
+			allText += nomalText;
+			
+			if(allEx !=0 ){
+				var exText = miliHMS(allEx);
+				allText+=" / 초과:" + exText;
+			}
+			
+			allText+="</span>";
+			
+			$(dayNumId).next().next().next().html(allText);
+			
+		}
+	}
+	
+	
+}
+
 var nowDates= new Date();
 window.onload= function(){
 	Clock();
 	NowYD();
 	dayView(nowDates);
+	exView();
 }
 
 </script>
@@ -708,15 +879,15 @@ window.onload= function(){
                			<c:set var="shour" value="${Math.floor(selectSumMonthWork/3600) }"/>
 		        		<c:set var="smin" value="${Math.floor(selectSumMonthWork%3600/60) }"/>
 		      	  		<c:set var="ssec" value="${selectSumMonthWork%3600%60 }"/>
-               			<p class="week-p1 week-pp">이번달 누적</p>
-               			<p class="week-p2 week-pp" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
+               			<p class="week-p1 week-pp">선택한 달 누적</p>
+               			<p class="week-p2 week-pp" id="sumMonth"><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                		<div class="week-div">
                			<c:set var="shour" value="${Math.floor(selectSumMonthWorkEx/3600) }"/>
 		        		<c:set var="smin" value="${Math.floor(selectSumMonthWorkEx%3600/60) }"/>
 		      	  		<c:set var="ssec" value="${selectSumMonthWorkEx%3600%60 }"/>
-               			<p class="week-p1 week-pp">이번달 초과</p>
-               			<p class="week-p2 week-pp" ><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
+               			<p class="week-p1 week-pp">선택한 달 초과</p>
+               			<p class="week-p2 week-pp" id="exMonth"><fmt:formatNumber value='${shour}' pattern='00'/>h <fmt:formatNumber value='${smin}' pattern='00'/>m <fmt:formatNumber value='${ssec}' pattern='00'/>s</p>
                		</div>
                </div>
                </div>
@@ -781,6 +952,8 @@ window.onload= function(){
 		      				<c:if test="${lateCheck>=attendMonthList.get(dayNum).attendanceDayOnHour.getTime() }">
 		      					<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOnHour}" pattern="HH:mm:ss"/></span>
 		      				</c:if>
+		      				<input type="hidden" value="${attendMonthList.get(dayNum).attendanceDayRegdate.getTime()}">
+		      				<input type="hidden" value="${attendMonthList.get(dayNum).attendanceDayOnHour.getTime()}">
 		      			</c:if>
 		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayOnHour}">
 		      				<span>--:--:--</span>
@@ -789,34 +962,57 @@ window.onload= function(){
 		      		<div class="w-c content-end content-end${weekDay }">
 		      			<c:if test="${!empty attendMonthList.get(dayNum).attendanceDayOffHour}">
 		      				<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayOffHour}" pattern="HH:mm:ss"/></span>
+		      				<input type="hidden" value="${attendMonthList.get(dayNum).attendanceDayOffHour.getTime()}">
 		      			</c:if>
-		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayOffHour}">
+		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayOffHour.getTime()}">
 		      				<span>--:--:--</span>
 		      			</c:if>
 		      		</div>
 		      		<div class="w-c content-all content-all${weekDay }">
 		      			<c:if test="${!empty attendMonthList.get(dayNum).attendanceDayWorkHour}">
 		      				<span><fmt:formatDate value="${attendMonthList.get(dayNum).attendanceDayWorkHour}" pattern="HH:mm:ss"/></span>
+		      				<input type="hidden" value="${attendMonthList.get(dayNum).attendanceDayWorkHour.getTime()}">
 		      			</c:if>
-		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayWorkHour}">
+		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayWorkHour.getTime()}">
 		      				<span>--:--:--</span>
+		      				<input type="hidden" value="0">
 		      			</c:if>
 		      		</div>
 		      		<div class="w-c content-detail content-detail${weekDay }">
-		      			<span>${dayNum }</span>
+		      			<span>--:--:--</span>
 		      		</div>
-		      		<div class="w-c content-approval content-approval${weekDay }"><span>일자</span></div>
+		      		<div class="w-c content-approval content-approval${weekDay }">
+		      			<c:if test="${!empty attendMonthList.get(dayNum).attendanceDayHolidayFlag}">
+		      				<c:if test="${attendMonthList.get(dayNum).attendanceDayHolidayFlag=='0'}">
+			      				<span></span>
+		      				</c:if>
+		      				<c:if test="${attendMonthList.get(dayNum).attendanceDayHolidayFlag=='1'}">
+			      				<span>대기</span>
+		      				</c:if>
+		      				<c:if test="${attendMonthList.get(dayNum).attendanceDayHolidayFlag=='2'}">
+			      				<span>승인</span>
+		      				</c:if>
+		      				<c:if test="${attendMonthList.get(dayNum).attendanceDayHolidayFlag=='3'}">
+			      				<span>취소</span>
+		      				</c:if>
+		      			</c:if>
+		      			<c:if test="${empty attendMonthList.get(dayNum).attendanceDayHolidayFlag}">
+		      				<span></span>
+		      			</c:if>
+		      		</div>
 		      		<c:set var="dayNum" value="${dayNum+1 }"/>
+		      		
 	      		</c:when>
 	      		<c:when test="${attendMonthList.size()-1 lt dayNum && dayNum<42}">
 		      		<div class="w-c content-start content-start${weekDay }" id="dayNum${dayNum }"><span>--:--:--</span></div>
 		      		<div class="w-c content-end content-end${weekDay }"><span>--:--:--</span></div>
 		      		<div class="w-c content-all content-all${weekDay }"><span>--:--:--</span></div>
-		      		<div class="w-c content-detail content-detail${weekDay }"><span>${dayNum }</span></div>
-		      		<div class="w-c content-approval content-approval${weekDay }"><span>일자</span></div>
+		      		<div class="w-c content-detail content-detail${weekDay }"><span>--:--:--</span></div>
+		      		<div class="w-c content-approval content-approval${weekDay }"><span></span></div>
 		      		<c:set var="dayNum" value="${dayNum+1 }"/>
 	      		</c:when>
 	      		</c:choose>
+	      		
 			</div>
 			<div id="content${weekNo }Div${weekDay }" class="content-collapse collapse" aria-labelledby="headingOne${weekNo }" data-bs-parent=".abody${weekNo }">
 				<div class="content-content">
@@ -840,7 +1036,7 @@ window.onload= function(){
   </div>
   </c:forEach>
 </div>
-
+<input type="hidden"  id="exNum" value="${attendMonthList.size()}">
             </article>
         </div>
             <%@ include file="bottom.jsp"%>
