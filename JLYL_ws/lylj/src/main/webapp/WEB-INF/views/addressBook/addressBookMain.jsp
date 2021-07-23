@@ -96,6 +96,19 @@
 			<input type="text" id="searchTextBox">
 			<input type="submit" value="검색">
 		</div>
+		
+		<c:if test="${!empty param.searchKeyword }">
+		   <p id="searchP">검색어 : ${param.searchKeyword}, ${pagingInfo.totalRecord} 건 검색되었습니다.</p>
+		</c:if>
+		<!-- 페이징 처리를 위한 form -->
+		<form action="<c:url value='/board/boardList?boardFolderNo=${param.boardFolderNo}'/>" 
+		   name="frmPage" method="post" id="frmPage">
+		   <input type="hidden" name="boardFolderNo" value="${param.boardFolderNo }"><br>
+		   <input type="hidden" name="currentPage" value=${pagingInfo.currentPage }><br>
+		   <input type="hidden" name="searchCondition" value="${param.searchCondition}"><br>
+		   <input type="hidden" name="searchKeyword" value="${param.searchKeyword}"><br>   
+		</form>
+		
 		<div id="serviceDiv">
 			<button id="deleteBtn">삭제</button>
 		</div>
@@ -134,7 +147,41 @@
 	        </tbody>
 		</table>
 		
-		<div id="pagingDiv">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
+		<div id="pagingDiv">
+			<nav aria-label="Page navigation example" id="pagingNav">
+			  <ul class="pagination">
+			  	<!-- 이전 블럭 -->
+			  	<c:if test="${pagingInfo.firstPage>1 }">
+				    <li class="page-item">
+				      <a class="page-link" href="#" aria-label="Previous" onclick="pageProc(${pagingInfo.firstPage-1})">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+			    </c:if>
+			    
+			    <!-- 페이지 번호 -->
+			    <c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
+				    <c:if test="${i==pagingInfo.currentPage }">
+				    	<li class="page-item active" aria-current="page">
+				    	<a class="page-link" href="#" style="background-color: #30a8b9;border-color: #f8f9fc;">${i }</a></li>
+				    </c:if>
+				    <c:if test="${i!=pagingInfo.currentPage }">
+				    	<li class="page-item">
+				    	<a class="page-link" href="#" onclick="pageProc(${i})" style="color:#a2a2a2;">${i }</a></li>
+				    </c:if>
+			    </c:forEach>
+			    
+			    <!-- 다음 블럭 -->
+			    <c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+				    <li class="page-item">
+				      <a class="page-link" href="#" aria-label="Next" onclick="pageProc(${pagingInfo.lastPage+1})">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+			    </c:if>
+			  </ul>
+			</nav>	
+		</div>
 	</div>
 
 <%@ include file="../inc/bottom.jsp" %>
