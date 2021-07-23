@@ -1418,36 +1418,27 @@ INSERT INTO OFBOARDFOL VALUES(OFBOARDFOL_SEQ.nextval, '영업 본부');
 
 
 --날짜별 근태 정보
-insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-21 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,null,null,0,'2021-07-21');
 
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-20 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-20 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-20 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-20');
-
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-19 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-19 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-19 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-19');
-
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-16 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-16 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-16 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-16');
-
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-15 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-15 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-15 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-15');
-
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-14 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-14 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-14 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-14');
-
-select * from attendday;
-
-
-
-
-
-
-
-
-
-
-
-
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-13 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-13 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-13 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-13');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-12 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-12 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-12 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-12');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-09 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-09 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-09 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-09');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-08 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-08 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-08 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-08');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-07 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-07 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-07 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-07');
 
 
 
