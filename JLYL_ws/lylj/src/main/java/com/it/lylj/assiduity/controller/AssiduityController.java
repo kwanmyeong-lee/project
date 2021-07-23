@@ -237,7 +237,7 @@ public class AssiduityController {
 		int selectSumMonthWork = attendDayService.selectSumMonthWork();
 		int selectSumWeekWorkEx = attendDayService.selectSumWeekWorkEx();
 		int selectSumMonthWorkEx = attendDayService.selectSumMonthWorkEx();
-		
+		int selectLeftTimeWeek = attendDayService.selectLeftTimeWeek();
 		
 		model.addAttribute("attendMonthList", attendMonthList);
 		model.addAttribute("weekTimelist", weekTimelist);
@@ -245,6 +245,7 @@ public class AssiduityController {
 		model.addAttribute("selectSumWeekWork", selectSumWeekWork);
 		model.addAttribute("selectSumMonthWorkEx", selectSumMonthWorkEx);
 		model.addAttribute("selectSumWeekWorkEx", selectSumWeekWorkEx);
+		model.addAttribute("selectLeftTimeWeek", selectLeftTimeWeek);
 	
 		
 	}//main 페이지

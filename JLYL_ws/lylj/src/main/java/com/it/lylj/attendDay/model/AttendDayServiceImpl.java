@@ -68,6 +68,12 @@ public class AttendDayServiceImpl implements AttendDayService{
 	}
 
 
+	@Override
+	public int selectLeftTimeWeek() {
+		return dao.selectLeftTimeWeek();
+	}
+
+
 	
 
 }
