@@ -1,5 +1,8 @@
 package com.it.lylj.attend.model;
 
-public interface AttendDAO {
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
+public interface AttendDAO {
+	int updateLateAttendByEmpNo(int empNo);
 }

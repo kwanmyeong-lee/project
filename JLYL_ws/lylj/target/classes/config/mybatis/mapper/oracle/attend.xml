@@ -3,8 +3,36 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.it.lylj.attend.model.AttendDAO">
+	<insert id="insertAttend" parameterType="int">
+		insert into attend
+		values(Attend_seq.nextval, #{empNo}, default, default,default,default,default)
+	</insert>
 	
+	<select id="selectAttendByEmpNo" parameterType="int" resultType="attendVo">
+		select * from attend
+		where EMP_NO = #{empNo}
+	</select>
 	
+	<update id="updateLateAttendByEmpNo" parameterType="int">
+		update attend set ATTENDANCE_LATE_COUNT = ATTENDANCE_LATE_COUNT+1 
+		where EMP_NO = #{empNo}
+	</update>
+	
+	<update id="updateAnnualAttendByEmpNo" parameterType="int">
+		update attend set ATTENDANCE_ANNUAL_USE = ATTENDANCE_ANNUAL_USE+1
+		where EMP_NO = #{empNo}
+	</update>
+	
+	<update id="updateRewardAttendByEmpNo" parameterType="int">
+		update attend set ATTENDANCE_REWARD_COUNT = ATTENDANCE_REWARD_COUNT-1, 
+		ATTENDANCE_REWARD_USE = ATTENDANCE_REWARD_USE+1
+		where EMP_NO = #{empNo}
+	</update>
+	
+	<update id="updateAddRewardAttendByEmpNo" parameterType="int">
+		update attend set ATTENDANCE_REWARD_COUNT = ATTENDANCE_REWARD_COUNT+1
+		where EMP_NO = #{empNo}
+	</update>
 	
  </mapper>
 
