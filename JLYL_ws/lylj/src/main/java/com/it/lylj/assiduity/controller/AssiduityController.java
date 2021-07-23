@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.lylj.attend.model.AttendService;
 import com.it.lylj.attendDay.model.AttendDayService;
 import com.it.lylj.attendDay.model.AttendDayVO;
 import com.it.lylj.schedule.controller.ScheduleController;
@@ -34,6 +35,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AssiduityController {
 	private final AttendDayService attendDayService;
+	private final AttendService attendService;
 	
 	private static final Logger logger
 	=LoggerFactory.getLogger(ScheduleController.class);
@@ -42,8 +44,16 @@ public class AssiduityController {
 	@GetMapping("/insertComTime")
 	@ResponseBody
 	public int insertComTime(AttendDayVO vo){
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		attendDayService.insertAttendDay(vo);
+		
+		Date comet= vo.getAttendanceDayOnHour();
+		Date regt= vo.getAttendanceDayRegdate();
+		
+		regt.setHours(10);
+		if(comet.getTime()>regt.getTime()) {
+			attendService.updateLateAttendByEmpNo(vo.getEmpNo());
+		}
 		
 		return 1;
 	}//ajax 출근 입력하기

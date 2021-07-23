@@ -1680,31 +1680,28 @@ insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-05', '2021-06-08','12
 insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-01', '2021-06-03','122','1');
 
 --근태 정보
-insert into ATTEND values(ATTEND_seq.nextval, 122,null,12,2,30,7);
-insert into ATTEND values(ATTEND_seq.nextval, 101,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 102,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 103,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 104,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 105,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 106,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 107,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 108,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 109,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 110,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 111,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 112,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 113,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 114,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 115,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 116,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 117,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 118,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 119,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 120,null,null,null,null,null);
-insert into ATTEND values(ATTEND_seq.nextval, 121,null,null,null,null,null);
-
-
-
+insert into ATTEND values(ATTEND_seq.nextval, 122,default,12,2,30,7);
+insert into ATTEND values(ATTEND_seq.nextval, 101,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 102,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 103,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 104,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 105,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 106,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 107,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 108,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 109,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 110,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 111,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 112,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 113,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 114,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 115,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 116,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 117,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 118,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 119,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 120,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 121,default,default,default,default,default);
 
 
 
