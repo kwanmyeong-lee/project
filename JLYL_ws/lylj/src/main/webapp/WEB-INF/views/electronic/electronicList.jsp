@@ -17,6 +17,44 @@
 </script>
 
 <style type="text/css">
+.page_wrap {
+	text-align: center;
+	font-size: 20px;
+}
+
+.page_nation {
+	display: inline-block;
+}
+
+.page_nation a {
+	display: block;
+	margin: 0 3px;
+	float: left;
+	border: 1px solid #e6e6e6;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	font-size: 13px;
+	color: #999999;
+	text-decoration: none;
+}
+
+.page_nation .arrow {
+	border: 1px solid #ccc;
+}
+
+.page_nation a.active {
+	background-color: #42454c;
+	color: #fff;
+	border: 1px solid #42454c;
+}
+
+.list_title {
+	color: #999999;
+	text-decoration: none;
+}
 </style>
 
 <!-- 페이징 처리를 위한 form -->
@@ -85,11 +123,12 @@
 
 								<!-- 반복 처리 구간 -->
 
-								<td class="d-flex  justify-content-center align-middle">
-									<a
+								<td
+									class="d-flex align-items-center justify-content-center align-middle pt-4">
+									<a class="list_title"
 									href="<c:url value='/electronic/electronicDetail?ElectronicNo=${eleVo.ELECTRONIC_NO }&no=${param.no }'/>"><span>${eleVo.ELECTRONIC_TITLE }</span></a>
 								</td>
-								<td class="text-center">${eleVo.EMP_NO }</td>
+								<td class="text-center pt-4">${eleVo.EMP_NO }</td>
 								<td class="text-center"><span class=""> <c:if
 											test="${param.no eq 1 }">
 											<c:if test="${eleVo.APPROVAL_LINE_COMPLETE_FLAG eq '0'}">
@@ -141,11 +180,12 @@
 		</div>
 	</div>
 
-	<div class="col-md-11 row justify-content-center py-4">
-		<div class="col-sm-2 mr-0">
+	<div class="col-md-16 row justify-content-center py-4 page_wrap">
+		<div class="col-sm-2 mr-0 page_nation" style="text-decoration: none;">
 			<!-- 이전 블럭 -->
 			<c:if test="${pagingInfo.firstPage>1 }">
-				<a href="#" onclick="pageProc(${pagingInfo.firstPage-1})"> <i
+				<a class="arrow" href="#"
+					onclick="pageProc(${pagingInfo.firstPage-1})"> <i
 					class="fas fa-backward"></i>
 				</a>
 			</c:if>
@@ -153,7 +193,7 @@
 			<c:forEach var="i" begin="${pagingInfo.firstPage }"
 				end="${pagingInfo.lastPage }">
 				<c:if test="${i==pagingInfo.currentPage }">
-					<a class="px-1" href="#">${i }</a>
+					<a class="px-1 active" href="#">${i }</a>
 				</c:if>
 				<c:if test="${i!=pagingInfo.currentPage }">
 					<a class="px-1" href="#" onclick="pageProc(${i})">${i }</a>
@@ -162,7 +202,8 @@
 
 			<!-- 다음 블럭 -->
 			<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-				<a href="#" onclick="pageProc(${pagingInfo.lastPage+1})"> <i
+				<a class="arrow" href="#"
+					onclick="pageProc(${pagingInfo.lastPage+1})"> <i
 					class="fas fa-forward"></i>
 				</a>
 			</c:if>
@@ -176,7 +217,7 @@
 				<label class="visually-hidden" for="specificSizeSelect">Preference</label>
 				<select class="form-select" id="searchCondition"
 					name="searchCondition">
-					<option selected>Choose...</option>
+					<option selected>선태하세요</option>
 					<option value="ELECTRONIC_TITLE"
 						<c:if test="${param.searchCondition == 'ELECTRONIC_TITLE' }">               
 	                  selected="selected"
@@ -194,7 +235,7 @@
 					placeholder="입력해주세요">
 			</div>
 			<div class="col-sm-1">
-				<button type="submit" class="btn btn-primary" id="searchBtn">Submit</button>
+				<button type="submit" class="btn btn-outline-secondary" id="searchBtn">검색</button>
 			</div>
 		</div>
 	</form>

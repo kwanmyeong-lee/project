@@ -15,6 +15,11 @@
 	});
 </script>
 <style type="text/css">
+
+.list_title {
+	color: #999999;
+	text-decoration: none;
+}
 </style>
 
 <div class="limiter">
@@ -46,7 +51,9 @@
 								<c:forEach var="eleSty" items="${list }">
 									<tr class="row100 body">
 										<td class="cell100 column2">${eleSty.STYLE_NO }</td>
-										<td class="cell100 column3"><a href="#">${eleSty.ELECTRONIC_TITLE }</a></td>
+										<td class="cell100 column3"><a class="list_title" href="<c:url value = '/electronic/documentDetail?styleNo=${eleSty.STYLE_NO }'/>" 
+										onclick="window.open(this.href, '_blank', 'top=40, left=40, width=1000, height=1000, status=no, menubar=no, toolbar=no, resizable=no, directories=no, location=no, resizable=no'); return false;"
+										>${eleSty.ELECTRONIC_TITLE }</a></td>
 									</tr>
 								</c:forEach>
 							</c:if>

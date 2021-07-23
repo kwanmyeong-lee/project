@@ -163,8 +163,8 @@
 				</div>
 
 				<button type="button"
-					class="btn btn-light btn-outline-secondary mx-2" id="selectAP">결재자 다시
-					선택</button>
+					class="btn btn-light btn-outline-secondary mx-2" id="selectAP">결재자
+					다시 선택</button>
 				<button type="button"
 					class="btn btn-light btn-outline-secondary me-2"
 					style="margin-left: 300px;" id="selectRC">수신자 다시 선택</button>
@@ -173,7 +173,7 @@
 			</div>
 			<div
 				class="row align-items-start selectLine border border-5 border-secondary ">
-				결 <br>재 <br>라 <br> 인 
+				결 <br>재 <br>라 <br> 인
 
 				<!-- 결재라인 박히는곳  -->
 				<div class="col selectDiv " id="Approval"></div>
@@ -196,9 +196,14 @@
 
 				<div class="shadow-sm p-3 mb-2 bg-light rounded ">
 					<div class="form-group col-6">
+
 						<div class="input-group mb-3 ">
-							<input type="file" class="form-control" id="inputGroupFile02">
+							<input multiple="multiple" type="file" class="form-control"
+								name="upfile" id="inputGroupFile02" aria-label="Upload">
 						</div>
+						<span style="margin-left: 5px; font-size: 14px;">※&nbsp;
+							파일크기 제한 : 50MB</span>
+
 					</div>
 					<br>
 					<div class="form-row">
