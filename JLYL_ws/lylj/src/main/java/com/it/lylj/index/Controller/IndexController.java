@@ -52,11 +52,11 @@ public class IndexController {
 	@ResponseBody
 	@RequestMapping("/inc/list")
 	public List<OriVo> selectOri() {
-		logger.info("메인 화면 보여주기");
+		logger.info("트리뷰 보여주기");
 
 		List<OriVo> olist = new ArrayList<>();
-		List<EmpVO> elist = empService.selectAllEmpForEle();
-		List<DepartmentVO> dlist = departmentService.selectAllDepartment();
+		List<EmpVO> elist = empService.selectAllEmpForEle(); //사용자
+		List<DepartmentVO> dlist = departmentService.selectAllDepartment(); //부서
 
 		for (int i = 0; i < elist.size(); i++) {
 
@@ -67,7 +67,6 @@ public class IndexController {
 				orivo.setParent("#");
 			} else {
 				orivo.setParent(Integer.toString(depNo));
-
 			}
 			orivo.setId(Integer.toString(empVo.getEmpNo()));
 			orivo.setText(empVo.getEmpName());
