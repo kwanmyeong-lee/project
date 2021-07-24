@@ -9,6 +9,10 @@ public interface ConstUtil {
 	int RECORD_COUNT_ELE = 5; // 한 페이지에 보여줄 레코드 개수
 	int BLOCK_SIZE_ELE = 4; // 블럭크기
 	
+	// 휴가 목록 
+	int RECORD_COUNT_ANN = 12; // 한 페이지에 보여줄 레코드 개수
+	int BLOCK_SIZE_ANN = 5; // 블럭크기
+	
 	//사원리스트
 	int EMP_RECORD_COUNT = 10;
 	int EMP_BLOCK_SIZE = 5;

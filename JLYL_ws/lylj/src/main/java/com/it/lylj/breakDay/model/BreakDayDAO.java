@@ -7,5 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface BreakDayDAO {
-	List<Map<String, Object>> selectAllBREAKDAYByEmpNo(int empNo);
+	List<BreakDayVO> selectAllBREAKDAYByEmpNo(int empNo);
 }

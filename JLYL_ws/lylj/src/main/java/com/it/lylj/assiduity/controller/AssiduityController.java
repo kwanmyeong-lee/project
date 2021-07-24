@@ -29,6 +29,8 @@ import com.it.lylj.attendDay.model.AttendDayService;
 import com.it.lylj.attendDay.model.AttendDayVO;
 import com.it.lylj.breakDay.model.BreakDayService;
 import com.it.lylj.breakDay.model.BreakDayVO;
+import com.it.lylj.common.ConstUtil;
+import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.emp.model.EmpService;
 import com.it.lylj.emp.model.EmpVO;
 import com.it.lylj.schedule.controller.ScheduleController;
@@ -305,14 +307,20 @@ public class AssiduityController {
 		HttpSession session =req.getSession();
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		AttendVO attendVo = attendService.selectAttendByEmpNo(empNo);
-		List<Map<String,Object>> breakDayList = breakDayService.selectAllBREAKDAYByEmpNo(empNo);
+		List<BreakDayVO> breakDayList = breakDayService.selectAllBREAKDAYByEmpNo(empNo);
 		EmpVO empVo = empService.selectByEmpNo(empNo);
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setCurrentPage(1);
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ANN);
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ANN);
+		pagingInfo.setTotalRecord(breakDayList.size());
 		
 		model.addAttribute("empVo", empVo);
 		model.addAttribute("attendVo", attendVo);
 		model.addAttribute("breakDayList", breakDayList);
+		model.addAttribute("pagingInfo", pagingInfo);
 		
-		logger.info("brea ={}",breakDayList.get(0));
+		
 	}//휴가 페이지
 	
 	@GetMapping("/condition")
