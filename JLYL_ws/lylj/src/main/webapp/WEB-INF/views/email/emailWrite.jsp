@@ -113,6 +113,11 @@
 	    			event.preventDefault();
 	    			return false;
 	    		}
+	    		
+	    		var sendFrm = document.emailDataFrm;
+	    		sendFrm.acton = "<c:url value='/email/emailWrite'/>";
+	    		sendFrm.method = "post";
+	    		sendFrm.submit();
 	    	});
 	    });
 	    
