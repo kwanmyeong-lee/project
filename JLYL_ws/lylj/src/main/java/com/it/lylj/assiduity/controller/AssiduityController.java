@@ -367,6 +367,9 @@ public class AssiduityController {
 	@GetMapping("/condition")
 	public void condition(Model model, HttpServletRequest req) {
 		model = topView(req,model);
+		
+		
+		
 	}//근태 현황 페이지
 	
 	@GetMapping("/stats")

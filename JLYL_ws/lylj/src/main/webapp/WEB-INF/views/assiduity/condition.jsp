@@ -38,7 +38,7 @@
 .time-text{
 	width: 50px;
 }
-ul{
+.condition-div ul{
 	list-style: none;
 	padding-left: 0;
 }
