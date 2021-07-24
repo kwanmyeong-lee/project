@@ -31,6 +31,7 @@
 .condition-td{
 	border-bottom:1px solid gray;
 	font-size: 13px;
+	max-width: 100px;
 }
 .select-form{
 	display: inline-block;
@@ -190,14 +191,35 @@
 											<li>초과:<fmt:formatNumber value='${shour}' pattern='##'/>h <fmt:formatNumber value='${smin}' pattern='##'/>m <fmt:formatNumber value='${ssec}' pattern='##'/>s</li>
 										</ul>
 									</td>
-								<c:forEach var="j" begin="0" end="6">
-									<td class="condition-td">
-										<p class="td-p">-</p>
-										<ul>
-											<li>0h 0m 0s</li>
-											<li>-</li>
-										</ul>
-									</td>
+								<c:forEach var="addDate" begin="0" end="6">									
+								<c:set var="dateCheck" value="0"/>
+									<c:forEach var="j" items="${conditionList}">
+										<c:if test="${nowMili+(24*60*60*addDate) == j.attendanceDayRegdate.getTime()/1000 && j.empNo==i.EMP_NO}">
+											<td class="condition-td">
+												<p class="td-p"><fmt:formatDate value="${j.attendanceDayOnHour}" pattern="HH:mm:dd"/> - <fmt:formatDate value="${j.attendanceDayOffHour}" pattern="HH:mm:dd"/></p>
+												<ul>
+													<c:set var="shour" value="${Math.floor(j.normalTimeDay/3600) }"/>
+									        		<c:set var="smin" value="${Math.floor(j.normalTimeDay%3600/60) }"/>
+									      	  		<c:set var="ssec" value="${j.normalTimeDay%3600%60 }"/>
+													<li><fmt:formatNumber value='${shour}' pattern='##'/>h <fmt:formatNumber value='${smin}' pattern='##'/>m <fmt:formatNumber value='${ssec}' pattern='##'/>s</li>
+													<c:set var="shour" value="${Math.floor(j.excessTimeDay/3600) }"/>
+									        		<c:set var="smin" value="${Math.floor(j.excessTimeDay%3600/60) }"/>
+									      	  		<c:set var="ssec" value="${j.excessTimeDay%3600%60 }"/>
+													<li><fmt:formatNumber value='${shour}' pattern='##'/>h <fmt:formatNumber value='${smin}' pattern='##'/>m <fmt:formatNumber value='${ssec}' pattern='##'/>s</li>
+												</ul>
+											</td>
+											<c:set var="dateCheck" value="${dateCheck+1}"/>
+										</c:if>
+									</c:forEach>
+								<c:if test="${dateCheck==0 }">
+										<td class="condition-td">
+											<p class="td-p">-</p>
+											<ul>
+												<li>0h 0m 0s</li>
+												<li>-</li>
+											</ul>
+										</td>
+								</c:if>
 								</c:forEach>
 						
 							</tr>

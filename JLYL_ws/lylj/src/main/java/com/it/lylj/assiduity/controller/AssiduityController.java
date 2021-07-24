@@ -375,13 +375,23 @@ public class AssiduityController {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("departmentNo", departmentNo);
 		map.put("selectDate", selectDate);
+		Calendar cal = new GregorianCalendar();
+		int nowDay =cal.get(Calendar.DAY_OF_WEEK)-1;
+		cal.add(Calendar.DATE, nowDay);
+		Date now = cal.getTime();
+		now.setHours(0);
+		now.setMinutes(0);
+		now.setSeconds(0);
+		long nowMili = now.getTime()/1000;
+		logger.info("now={}",nowMili);
+		
 		
 		List<Map<String,Object>> conditionSumList = attendDayService.selectSumConditionByGroup(map);
 		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByDepartMent(map);
 		
 		model.addAttribute("conditionList", conditionList);
 		model.addAttribute("conditionSumList", conditionSumList);
-		logger.info("conditionSumList={}",conditionSumList);
+		model.addAttribute("nowMili", nowMili);
 	}//근태 현황 페이지
 	
 	@GetMapping("/stats")
