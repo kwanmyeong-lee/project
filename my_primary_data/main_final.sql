@@ -59,6 +59,7 @@ DROP VIEW apEleList;
 DROP VIEW reEleList;
 DROP VIEW breakDayView;
 DROP VIEW empView;
+DROP VIEW emailView;
 
 ------------------------- DROP ---------------------------------
 
@@ -1190,6 +1191,12 @@ elimp a join reline b
 on a.electronic_no = b.electronic_no;
 
 select * from apEleList;
+
+create or replace view mailView
+as
+select m.* , e.emp_name
+from mail m join emp e
+on m.mail_empno = e.emp_no;
 
 ------------------------- view ----------------------------------
 create or replace view empView

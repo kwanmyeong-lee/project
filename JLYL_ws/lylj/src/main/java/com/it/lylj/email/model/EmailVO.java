@@ -2,6 +2,8 @@ package com.it.lylj.email.model;
 
 import java.sql.Timestamp;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,11 +16,13 @@ public class EmailVO {
 	private String mailTitle;		
 	private String mailContent;     
 	private String mailSend;         //EMPNO		 
-	private String mailTake;           
-	private Timestamp mailSenddate; 
+	private String mailTake;
+	private Timestamp mailSenddate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Timestamp mailReaddate; 
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Timestamp mailReserve;   
 	private String mailDelCheck;     
 	int mailEmpno;		    //EMPNO
-	
+	private String empName;
 }

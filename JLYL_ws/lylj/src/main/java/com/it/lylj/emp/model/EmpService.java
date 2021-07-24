@@ -31,7 +31,9 @@ public interface EmpService {
 	String selectPwd(int empNo);
 	List<EmpVO> selectAllEmpForEle();
 	List<EmpVO> selectSearchNum(int searcNo);
+	int selectCountByEmpNo(int empNo);
 	
-	//이메일발송
+	
+	//비밀번호이메일발송
 	public void sendEmail(EmpVO vo);
 }
