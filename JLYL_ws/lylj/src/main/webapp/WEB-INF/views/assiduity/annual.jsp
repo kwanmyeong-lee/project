@@ -24,10 +24,46 @@
 }	
 .ann-th{
 	border-bottom: 1px solid;
+	text-align: center;
 }
 .ann-td{
 	border-bottom: 1px solid;
+	text-align: center;
 }
+.page_wrap {
+	text-align: center;
+	font-size: 20px;
+}
+
+.page_nation {
+	display: inline-block;
+}
+
+.page_nation a {
+	display: block;
+	margin: 0 3px;
+	float: left;
+	border: 1px solid #e6e6e6;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	font-size: 13px;
+	color: #999999;
+	text-decoration: none;
+}
+
+.page_nation .arrow {
+	border: 1px solid #ccc;
+}
+
+.page_nation a.active {
+	background-color: #42454c;
+	color: #fff;
+	border: 1px solid #42454c;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -78,16 +114,45 @@
                </tr>
                <c:forEach var="i" items="${breakDayList }">
                		<tr>
-	               		<td class="ann-td">${empName}</td>
+	               		<td class="ann-td">${i.empName}</td>
 	               		<td class="ann-td">${empVo.departmentName}</td>
-	               		<td class="ann-td">${i.BREAKTHEME_NAME }</td>
-	               		<td class="ann-td"><fmt:formatDate value="${i.BREAKDAY_START}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${i.BREAKDAY_END}" pattern="yyyy-MM-dd"/></td>
-	               		<td class="ann-td">${i.beakdayEnd-i.beakdayStart}</td>
+	               		<td class="ann-td">${i.breakthemeName }</td>
+	               		<td class="ann-td"><fmt:formatDate value="${i.breakdayStart}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${i.breakdayEnd}" pattern="yyyy-MM-dd"/></td>
+	               		<td class="ann-td">${i.breakdayUse }</td>
                		</tr>
                </c:forEach>
                </table>
 				</div>
+				
+				<div class="col-md-16 row justify-content-center py-4 page_wrap">
+		<div class="col-sm-2 mr-0 page_nation" style="text-decoration: none;">
+			<!-- 이전 블럭 -->
+			<c:if test="${pagingInfo.firstPage>1 }">
+				<a class="arrow" href="#"> 
+				<i class="fas fa-backward"></i>
+				</a>
+			</c:if>
+			<!-- 페이지 번호 -->
+			<c:forEach var="i" begin="${pagingInfo.firstPage }"
+				end="${pagingInfo.lastPage }">
+				<c:if test="${i==pagingInfo.currentPage }">
+					<a class="px-1 active" href="#">${i }</a>
+				</c:if>
+				<c:if test="${i!=pagingInfo.currentPage }">
+					<a class="px-1" href="#" >${i }</a>
+				</c:if>
+			</c:forEach>
 
+			<!-- 다음 블럭 -->
+			<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+				<a class="arrow" href="#"> 
+				<i class="fas fa-forward"></i>
+				</a>
+			</c:if>
+		</div>
+	</div>
+				
+				
             </article>
         </div>
             <%@ include file="bottom.jsp"%>

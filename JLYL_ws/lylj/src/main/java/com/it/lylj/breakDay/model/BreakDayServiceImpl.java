@@ -14,7 +14,7 @@ public class BreakDayServiceImpl implements BreakDayService{
 
 
 	@Override
-	public List<Map<String, Object>> selectAllBREAKDAYByEmpNo(int empNo) {
+	public List<BreakDayVO> selectAllBREAKDAYByEmpNo(int empNo) {
 		return dao.selectAllBREAKDAYByEmpNo(empNo);
 	}
 	
