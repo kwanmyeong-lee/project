@@ -30,12 +30,20 @@
 }
 .condition-td{
 	border-bottom:1px solid gray;
+	font-size: 13px;
 }
 .select-form{
 	display: inline-block;
 }
 .time-text{
 	width: 50px;
+}
+ul{
+	list-style: none;
+	padding-left: 0;
+}
+.td-p{
+	font-size: 18px;
 }
 </style>
 
@@ -158,10 +166,28 @@
 						</tr>
 						<c:forEach var="i" begin="0" end="8">
 							<tr>
-									<td class="condition-td">이름</td>
-									<td class="condition-td">누적시간</td>
+									<td class="condition-td">
+										<p class="td-p">이름</p>
+										<ul>
+											<li>직급</li>
+											<li>부서</li>
+										</ul>
+									</td>
+									<td class="condition-td">
+										<p class="td-p">0h 0m 0s</p>
+										<ul>
+											<li>기본:0h 0m 0s</li>
+											<li>초과:0h 0m 0s</li>
+										</ul>
+									</td>
 								<c:forEach var="j" begin="0" end="6">
-									<td class="condition-td">a</td>
+									<td class="condition-td">
+										<p class="td-p">-</p>
+										<ul>
+											<li>0h 0m 0s</li>
+											<li>-</li>
+										</ul>
+									</td>
 								</c:forEach>
 						
 							</tr>

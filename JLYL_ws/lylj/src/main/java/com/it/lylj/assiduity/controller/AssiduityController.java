@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -110,6 +111,39 @@ public class AssiduityController {
 		
 		return data;
 	}//ajax 선택된 달의 초과 근무
+	
+	@GetMapping("/currentList")
+	@ResponseBody
+	public HashMap<String,Object> currentList(int empNo,int currentPage, int btCheck){
+		
+		if(btCheck==1) {
+			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN + 1;
+			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;
+		}else if(btCheck == 2) {
+			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN - 1;
+			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;			
+		}
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("empNo", empNo);
+		map.put("currentPage", currentPage);
+		
+		int TotalRecord = breakDayService.selectCntAllBREAKDAYByEmpNo(empNo);
+		List<BreakDayVO> breakdayList = breakDayService.selectAllBREAKDAYByEmpNo(map);
+		
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setCurrentPage(currentPage);
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ANN);
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ANN);
+		pagingInfo.setTotalRecord(TotalRecord);
+		
+		HashMap<String, Object> data = new HashMap<>();
+		logger.info("list={}",breakdayList);
+		data.put("pagingInfo", pagingInfo);
+		data.put("breakdayList", breakdayList);
+		
+		return data;
+	}//ajax 선택된 페이지로 
 	
 	
 	@GetMapping("/selectMonthWorkTime")
@@ -301,19 +335,26 @@ public class AssiduityController {
 		
 	}//main 페이지
 	
+	@Transactional
 	@GetMapping("/annual")
 	public void annual(Model model, HttpServletRequest req) {
 		model = topView(req,model);
 		HttpSession session =req.getSession();
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("empNo", empNo);
+		map.put("currentPage", 1);
+		
 		AttendVO attendVo = attendService.selectAttendByEmpNo(empNo);
-		List<BreakDayVO> breakDayList = breakDayService.selectAllBREAKDAYByEmpNo(empNo);
+		List<BreakDayVO> breakDayList = breakDayService.selectAllBREAKDAYByEmpNo(map);
 		EmpVO empVo = empService.selectByEmpNo(empNo);
 		PaginationInfo pagingInfo = new PaginationInfo();
+		int TotalRecord = breakDayService.selectCntAllBREAKDAYByEmpNo(empNo);
+		
 		pagingInfo.setCurrentPage(1);
 		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ANN);
 		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ANN);
-		pagingInfo.setTotalRecord(breakDayList.size());
+		pagingInfo.setTotalRecord(TotalRecord);
 		
 		model.addAttribute("empVo", empVo);
 		model.addAttribute("attendVo", attendVo);

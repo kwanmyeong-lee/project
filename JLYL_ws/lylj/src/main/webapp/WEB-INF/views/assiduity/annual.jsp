@@ -67,8 +67,95 @@
 </style>
 
 <script type="text/javascript">
+$(function(){
+	$(document).on('click','.px-1',function(){
+		var empNo = ${empNo};
+		var currentPage = $(this).text();
+		var btCheck =0;
+		
+		pagingAjax(empNo, currentPage, btCheck);
+	});
+	
+	$(document).on('click','.ar-forward',function(){
+		var currentPage = $('.px-1').eq(0).text();
+		var empNo = ${empNo};
+		var btCheck=1;
+		
+		pagingAjax(empNo, currentPage, btCheck);
+	});
+	
+	$(document).on('click','.ar-backward',function(){
+		var currentPage = $('.px-1').eq(0).text();
+		var empNo = ${empNo};
+		var btCheck=2;
+		
+		pagingAjax(empNo, currentPage, btCheck);
+	});
+	
+	
+	
+});
 
+function pagingAjax(empNo, currentPage, btCheck){
+	$.ajax({    
+        type:'get',
+        url:"currentList",
+        data:{empNo:empNo, 
+        	  currentPage:currentPage,
+        	  btCheck:btCheck},
+        dataType: "json",
+        success : function(data) {
+        	var str='';
+        	
+        	for(var i=0; i<data.breakdayList.length; i++){
+        		str+='<tr>';
+        		str+='<td class="ann-td">';
+        		str+=data.breakdayList[i].empName;
+        		str+='</td>';
+        		str+='<td class="ann-td">';
+        		str+="${empVo.departmentName}";
+        		str+='</td>';
+        		str+='<td class="ann-td">';
+        		str+=data.breakdayList[i].breakthemeName;
+        		str+='</td>';
+        		str+='<td class="ann-td">';
+        		str+=moment(data.breakdayList[i].breakdayStart).format('YYYY-MM-DD');
+        		str+=" ~ ";
+        		str+=moment(data.breakdayList[i].breakdayEnd).format('YYYY-MM-DD');
+        		str+='</td>';
+        		str+='<td class="ann-td">';
+        		str+=data.breakdayList[i].breakdayUse;
+        		str+='</td></tr>';
+        		
+        		
+        	}
+        	var pageStr="";
+        	<!-- 이전 블럭 -->
+        	if(data.pagingInfo.firstPage>1){
+        		pageStr+='<a class="arrow ar-backward" href="#"><i class="fas fa-backward"></i></a>'
+        	}
+			for(var i=data.pagingInfo.firstPage; i<=data.pagingInfo.lastPage; i++){
+				if(i==data.pagingInfo.currentPage){
+					pageStr+='<a class="px-1 active" href="#">';
+					pageStr+=i;
+					pageStr+='</a>';
+				}else{
+					pageStr+='<a class="px-1" href="#" >';
+					pageStr+=i;
+					pageStr+='</a>';
+				}
+			}
+			if(data.pagingInfo.lastPage<data.pagingInfo.totalPage){
+				pageStr+='<a class="arrow ar-forward" href="#"><i class="fas fa-forward"></i></a>'
+			}
 
+			
+        	
+        	$('.table-tbody').html(str);
+        	$('.page_nation').html(pageStr);
+        }
+      });
+}
 </script>
         <title>assiduitygMain</title>
         <div>
@@ -105,6 +192,7 @@
                </div>
                <div class="ann-div">
                <table class="ann-table">
+               <thead>
                <tr>
                		<th class="ann-th">이름</th>
                		<th class="ann-th">부서명</th>
@@ -112,6 +200,8 @@
                		<th class="ann-th">연차 사용기간</th>
                		<th class="ann-th">사용휴가일</th>
                </tr>
+               </thead>
+               <tbody class="table-tbody">
                <c:forEach var="i" items="${breakDayList }">
                		<tr>
 	               		<td class="ann-td">${i.empName}</td>
@@ -121,6 +211,7 @@
 	               		<td class="ann-td">${i.breakdayUse }</td>
                		</tr>
                </c:forEach>
+               </tbody>
                </table>
 				</div>
 				
@@ -128,7 +219,7 @@
 		<div class="col-sm-2 mr-0 page_nation" style="text-decoration: none;">
 			<!-- 이전 블럭 -->
 			<c:if test="${pagingInfo.firstPage>1 }">
-				<a class="arrow" href="#"> 
+				<a class="arrow ar-backward" href="#"> 
 				<i class="fas fa-backward"></i>
 				</a>
 			</c:if>
@@ -145,7 +236,7 @@
 
 			<!-- 다음 블럭 -->
 			<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-				<a class="arrow" href="#"> 
+				<a class="arrow ar-forward" href="#"> 
 				<i class="fas fa-forward"></i>
 				</a>
 			</c:if>
