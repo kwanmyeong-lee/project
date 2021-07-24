@@ -162,5 +162,10 @@ public class EmpServiceImpl implements EmpService{
 		return empDao.selectSearchNum(searcNo);
 	}
 
+	@Override
+	public int selectCountByEmpNo(int empNo) {
+		return empDao.selectCountByEmpNo(empNo);
+	}
+
 }
 

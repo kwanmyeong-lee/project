@@ -3,6 +3,7 @@ package com.it.lylj.attendDay.model;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface AttendDayService {
 	AttendDayVO selectAttendDayByRegdate(AttendDayVO vo);
@@ -17,5 +18,6 @@ public interface AttendDayService {
 	int selectSumWeekWorkByMonth(HashMap<String, Object> map);
 	List<AttendDayVO> selectAttendMonth(HashMap<String, Object> map);
 	int updateAttendDay(AttendDayVO vo);
-
+	Map<String,Object> selectSumConditionByGroup(HashMap<String, Object> map);
+	List<ConditionViewVO> selectAllConditionByDepartMent(HashMap<String, Object> map);
 }

@@ -23,7 +23,7 @@
 	.align_center {
 		text-align: center;
 	}
-	textarea[name=mailContent]{
+	div[name=mailContent]{
 		min-height: 200px;
 	}
 </style>	
@@ -35,6 +35,12 @@
 		<span class="title">미리보기</span>
 				<br>
 				<hr>
+				<div class="form-group firstFrm row">
+			    	<label for="mailTake" class="col-sm-1 control-label">보낸사람</label>
+			    	<div class="col-sm-11">
+                        <input type="text" class="form-control select2-offscreen textBox" id="mailsend" name="mailsend" tabindex="-1" readonly="readonly" value="${vo.mailSend}">
+					</div>                        
+			    </div>
 				<div class="form-group firstFrm row">
 			    	<label for="mailTake" class="col-sm-1 control-label">받는사람:</label>
 			    	<div class="col-sm-11">
@@ -67,13 +73,13 @@
 				</form> -->
 					<div class="form-group">
 						<label for="summernote" class="col-sm-1 control-label">내용:</label>
-						<textarea class="form-control message" id="summernote" name="mailContent" readonly="readonly">${vo.mailContent }</textarea>
+						<div class="form-control message" name="mailContent" readonly="readonly">${vo.mailContent }</div>
 					</div>
-				    <div class="form-group row">
+				  <!--   <div class="form-group row">
 				    	<div class="col-sm-11 row" id="setDate" >
 					    	<span>전송시간 : </span> 
 					   </div>
-				  	</div>
+				  	</div> -->
 			<div class="form-group align_center">	
 				<button type="button" class="btn btn-secondary" id="bt_confirm" onclick="self.close()">확인</button>
 			</div>
