@@ -164,20 +164,30 @@
 						<tr id="tableTr1">
 							
 						</tr>
-						<c:forEach var="i" begin="0" end="8">
+						<c:if test="${!empty conditionSumList}">
+						<c:forEach var="i" items="${conditionSumList}">
 							<tr>
 									<td class="condition-td">
-										<p class="td-p">이름</p>
+										<p class="td-p">${i.EMP_NAME}</p>
 										<ul>
-											<li>직급</li>
-											<li>부서</li>
+											<li>${i.POSITION_NAME}</li>
+											<li>${i.DEPARTMENT_NAME}</li>
 										</ul>
 									</td>
 									<td class="condition-td">
-										<p class="td-p">0h 0m 0s</p>
+										<c:set var="shour" value="${Math.floor(i.SUM_TIME/3600) }"/>
+		        						<c:set var="smin" value="${Math.floor(i.SUM_TIME%3600/60) }"/>
+		      	  						<c:set var="ssec" value="${i.SUM_TIME%3600%60 }"/>
+										<p class="td-p"><fmt:formatNumber value='${shour}' pattern='##'/>h <fmt:formatNumber value='${smin}' pattern='##'/>m <fmt:formatNumber value='${ssec}' pattern='##'/>s</p>
 										<ul>
-											<li>기본:0h 0m 0s</li>
-											<li>초과:0h 0m 0s</li>
+											<c:set var="shour" value="${Math.floor(i.NORMAL_TIME/3600) }"/>
+		        							<c:set var="smin" value="${Math.floor(i.NORMAL_TIME%3600/60) }"/>
+		      	  							<c:set var="ssec" value="${i.NORMAL_TIME%3600%60 }"/>
+											<li>기본:<fmt:formatNumber value='${shour}' pattern='##'/>h <fmt:formatNumber value='${smin}' pattern='##'/>m <fmt:formatNumber value='${ssec}' pattern='##'/>s</li>
+											<c:set var="shour" value="${Math.floor(i.EXCESS_TIME/3600) }"/>
+							        		<c:set var="smin" value="${Math.floor(i.EXCESS_TIME%3600/60) }"/>
+							      	  		<c:set var="ssec" value="${i.EXCESS_TIME%3600%60 }"/>
+											<li>초과:<fmt:formatNumber value='${shour}' pattern='##'/>h <fmt:formatNumber value='${smin}' pattern='##'/>m <fmt:formatNumber value='${ssec}' pattern='##'/>s</li>
 										</ul>
 									</td>
 								<c:forEach var="j" begin="0" end="6">
@@ -192,6 +202,12 @@
 						
 							</tr>
 						</c:forEach>
+						</c:if>
+						<c:if test="${empty conditionSumList}">
+							<tr>
+								<td colspan="9" align="center">정보 없음</td>
+							</tr>
+						</c:if>
 					</table>
 				</div>
 

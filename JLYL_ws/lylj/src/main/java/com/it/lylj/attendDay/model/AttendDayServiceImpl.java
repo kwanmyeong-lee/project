@@ -88,7 +88,7 @@ public class AttendDayServiceImpl implements AttendDayService{
 
 
 	@Override
-	public Map<String, Object> selectSumConditionByGroup(HashMap<String, Object> map) {
+	public List<Map<String, Object>> selectSumConditionByGroup(HashMap<String, Object> map) {
 		return dao.selectSumConditionByGroup(map);
 	}
 

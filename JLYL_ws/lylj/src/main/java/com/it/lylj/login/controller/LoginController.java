@@ -56,6 +56,7 @@ public class LoginController {
 	    	session.setAttribute("empNo",empNo);
 	    	session.setAttribute("empName", vo.getEmpName());
 	    	session.setAttribute("empAdminLev", vo.getEmpAdminLev());
+	    	session.setAttribute("departmentNo", vo.getDepartmentNo());
 	    	session.setMaxInactiveInterval(120*60);
 	    	
 	    	//[쿠키]
@@ -92,6 +93,7 @@ public class LoginController {
 		session.removeAttribute("empNo");
 		session.removeAttribute("empName");
 		session.removeAttribute("empAdminLev");
+		session.removeAttribute("departmentNo");
 		
 		return "redirect:/";
 	}

@@ -28,6 +28,7 @@ import com.it.lylj.attend.model.AttendService;
 import com.it.lylj.attend.model.AttendVO;
 import com.it.lylj.attendDay.model.AttendDayService;
 import com.it.lylj.attendDay.model.AttendDayVO;
+import com.it.lylj.attendDay.model.ConditionViewVO;
 import com.it.lylj.breakDay.model.BreakDayService;
 import com.it.lylj.breakDay.model.BreakDayVO;
 import com.it.lylj.common.ConstUtil;
@@ -366,10 +367,21 @@ public class AssiduityController {
 	
 	@GetMapping("/condition")
 	public void condition(Model model, HttpServletRequest req) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		model = topView(req,model);
+		HttpSession session =req.getSession();
+		int departmentNo = (Integer)session.getAttribute("departmentNo");
+		String selectDate = sdf.format(new Date());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("departmentNo", departmentNo);
+		map.put("selectDate", selectDate);
 		
+		List<Map<String,Object>> conditionSumList = attendDayService.selectSumConditionByGroup(map);
+		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByDepartMent(map);
 		
-		
+		model.addAttribute("conditionList", conditionList);
+		model.addAttribute("conditionSumList", conditionSumList);
+		logger.info("conditionSumList={}",conditionSumList);
 	}//근태 현황 페이지
 	
 	@GetMapping("/stats")
