@@ -3,10 +3,21 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.it.lylj.breakDay.model.BreakDayDAO">
-	<select id="selectAllBREAKDAYByEmpNo" parameterType="int" resultType="breakDayVO">
-		select * from BREAKDAYVIEW 
-		where emp_no = #{empNo}
+	<select id="selectAllBREAKDAYByEmpNo" parameterType="hashmap" resultType="breakDayVO">
+		<![CDATA[
+		select * from 
+			(select rownum as nums, e.* from BREAKDAYVIEW e)
+		where emp_no =#{empNo} and nums >12*(#{currentPage}-1) and nums<=12*#{currentPage}
+		order by nums desc
+		]]>
 	</select>
+	
+	<select id="selectCntAllBREAKDAYByEmpNo" parameterType="int" resultType="int">
+		select count(*) from  BREAKDAYVIEW
+		where emp_no =#{empNo} 
+	</select>
+	
+	
 	
 	
  </mapper>
