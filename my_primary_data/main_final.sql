@@ -1203,7 +1203,7 @@ on e.position_no = p.position_no;
 --------------------------view----------------------------------
 create or replace view breakDayView
 as
-select e.*,d.BREAKTHEME_NAME , p.EMP_NAME
+select e.*,d.BREAKTHEME_NAME , p.EMP_NAME, (e.BREAKDAY_END -e.BREAKDAY_START)+1 as breakday_use 
 from BREAKDAY  e left join BREAKTHEME  d
 on e.BREAKTHEME_NO =d.BREAKTHEME_NO 
 left join emp p
@@ -1706,13 +1706,19 @@ insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'연차');
 insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'보상휴가');
 
 --휴가 정보
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-23', '2021-06-26','122','1');
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-20', '2021-06-21','122','1');
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-15', '2021-06-17','122','1');
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-11', '2021-06-13','122','2');
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-05', '2021-06-08','122','2');
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-01', '2021-06-03','122','1');
-
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-01', '2021-06-02','122','2');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-05', '2021-06-06','122','2');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-08', '2021-06-09','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-11', '2021-06-12','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-13', '2021-06-13','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-15', '2021-06-16','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-18', '2021-06-19','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-21', '2021-06-22','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-23', '2021-06-24','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-27', '2021-06-29','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-07-01', '2021-07-03','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-07-05', '2021-07-06','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-07-10', '2021-07-12','122','1');
 --근태 정보
 insert into ATTEND values(ATTEND_seq.nextval, 122,default,12,2,30,7);
 insert into ATTEND values(ATTEND_seq.nextval, 101,default,default,default,default,default);
