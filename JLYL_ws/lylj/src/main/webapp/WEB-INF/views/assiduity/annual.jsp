@@ -202,6 +202,7 @@ function pagingAjax(empNo, currentPage, btCheck){
                </tr>
                </thead>
                <tbody class="table-tbody">
+               <c:if test="${!empty breakDayList }">
                <c:forEach var="i" items="${breakDayList }">
                		<tr>
 	               		<td class="ann-td">${i.empName}</td>
@@ -211,6 +212,12 @@ function pagingAjax(empNo, currentPage, btCheck){
 	               		<td class="ann-td">${i.breakdayUse }</td>
                		</tr>
                </c:forEach>
+               </c:if>
+               <c:if test="${empty breakDayList }">
+               		<tr>
+               			<td class="ann-td" colspan="5">사용 내역 없음</td>
+               		</tr>
+               </c:if>
                </tbody>
                </table>
 				</div>
