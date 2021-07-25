@@ -125,8 +125,8 @@
 		           	<td class="telTd" >${fn:substring(hp,0,3)}-${fn:substring(hp,3,7)}-${fn:substring(hp,7,11)}</td>
 		            <td class="emailTd" >${map['ADDRESSBOOK_MAILE']}</td>
 		            <td class="positionTd" >${map['ADDRESSBOOK_POSITION']}</td>
-		            <td class="officeNameTd" >${map['ADDRESSBOOK_OFFICE_NAME']}</td>
-	            	<c:set var="ofTel" value="${map['ADDRESSBOOK_OFFICE_TEL']}"></c:set>
+		            <td class="officeNameTd" >${map['ADDRESSBOOK_OFFICENAME']}</td>
+	            	<c:set var="ofTel" value="${map['ADDRESSBOOK_OFFICETEL']}"></c:set>
 		           	<td class="officeTelTd" >${fn:substring(ofTel,0,3)}-${fn:substring(ofTel,3,7)}-${fn:substring(ofTel,7,11)}</td>
 		            <td class="bookFolTd" >${map['ADDRESS_FOLDER_NAME']}</td>
 			    </tr>
