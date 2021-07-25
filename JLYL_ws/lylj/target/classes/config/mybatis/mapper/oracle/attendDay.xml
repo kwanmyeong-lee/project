@@ -3,7 +3,22 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.it.lylj.attendDay.model.AttendDayDAO">
-
+	<sql id="searchWhere">
+	   <if test="selectNum ==1 and timeNum ==1 and searchKeyword !=null and searchKeyword!=''">
+		 <![CDATA[
+		 where SUM_TIME > (60*60)*TO_NUMBER(#{searchKeyword})
+		 ]]>
+	   </if>
+	   <if test="selectNum==1 and timeNum==2 and searchKeyword!=null and searchKeyword!=''">
+		 <![CDATA[
+		 where SUM_TIME < (60*60)*TO_NUMBER(#{searchKeyword})
+		 ]]>
+	   </if>
+	   <if test="selectNum==2 and searchKeyword!=null and searchKeyword!=''">
+		 where EMP_NAME  like '%' || #{searchKeyword} || '%'
+	   </if>
+	</sql>
+	
 	<select id="selectAttendDayByRegdate" parameterType="attendDayVo" resultType="attendDayVo">
 		select * from ATTENDDAY 
 		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(#{attendanceDayRegdate})
@@ -37,7 +52,7 @@
                         ELSE 0
                    END 
             ),0) AS EXCESSTIME
-
+		
 		FROM ATTENDDAY 
 		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
 		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(SYSDATE,'d') AND SYSDATE and EMP_NO=#{empNo} AND ATTENDANCE_DAY_HOLIDAY_FLAG ='2'
@@ -153,7 +168,7 @@
 	
 	<select id="selectSumConditionByGroup" parameterType="hashmap" resultType="map">
 		<![CDATA[
-		select EMP_NO, DEPARTMENT_NAME, POSITION_NAME, EMP_NAME,
+		select * from (select EMP_NO, DEPARTMENT_NAME, POSITION_NAME, EMP_NAME,
 			NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0) as SUM_TIME,
             NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
                         THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
@@ -191,17 +206,20 @@
                    END 
             ),0) AS NORMAL_TIME
 		from conditionview
-		where department_no =#{departmentNo} and ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'d') and TO_DATE(#{selectDate},'yyyy-mm-dd')
-		group by EMP_NO,DEPARTMENT_NAME,POSITION_NAME, EMP_NAME
+		
+		where department_no =#{departmentNo} and ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'d') and TO_DATE(#{selectDate},'yyyy-mm-dd') 
+		group by EMP_NO,DEPARTMENT_NAME,POSITION_NAME, EMP_NAME)
 		]]>
+		<include refid="searchWhere"/>
+		
+		
 	</select>
 	
 	<select id="selectAllConditionByDepartMent" parameterType="hashmap" resultType="conditionViewVO">
-		<![CDATA[
 		select * from CONDITIONVIEW
 		where department_no =#{departmentNo} and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'d') and TO_DATE(#{selectDate},'yyyy-mm-dd')
 		order by ATTENDANCE_DAY_NO
-		]]>
+		
 	</select>
 	
  </mapper>

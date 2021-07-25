@@ -1,6 +1,7 @@
 package com.it.lylj.assiduity.controller;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -79,6 +80,29 @@ public class AssiduityController {
 		
 		return 1;
 	}//ajax 근태 퇴근,근무시간 업데이트하기
+	
+	@GetMapping("/conditionMonthView")
+	@ResponseBody
+	public HashMap<String,Object> conditionMonthView(int departmentNo, String selectDate, int selectNum,int timeNum, String searchKeyword){
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("departmentNo", departmentNo);
+		map.put("selectDate", selectDate);
+		map.put("selectNum", selectNum);
+		map.put("timeNum", timeNum);
+		map.put("searchKeyword", searchKeyword);
+		
+		
+		
+		List<Map<String,Object>> conditionSumList = attendDayService.selectSumConditionByGroup(map);
+		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByDepartMent(map);
+		
+		logger.info("conditionList={}",conditionList);
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("conditionSumList", conditionSumList);
+		data.put("conditionList", conditionList);
+		
+		return data;
+	}//ajax 근태 현황 목록
 	
 	@GetMapping("/selectAttendDayView")
 	@ResponseBody
@@ -375,6 +399,10 @@ public class AssiduityController {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("departmentNo", departmentNo);
 		map.put("selectDate", selectDate);
+		map.put("selectNum", 0);
+		map.put("timeNum", 0);
+		map.put("searchKeyword", 0);
+		
 		Calendar cal = new GregorianCalendar();
 		int nowDay =cal.get(Calendar.DAY_OF_WEEK)-1;
 		cal.add(Calendar.DATE, nowDay);
@@ -383,7 +411,6 @@ public class AssiduityController {
 		now.setMinutes(0);
 		now.setSeconds(0);
 		long nowMili = now.getTime()/1000;
-		logger.info("now={}",nowMili);
 		
 		
 		List<Map<String,Object>> conditionSumList = attendDayService.selectSumConditionByGroup(map);
