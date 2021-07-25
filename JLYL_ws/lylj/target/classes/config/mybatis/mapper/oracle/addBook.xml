@@ -17,14 +17,14 @@
 		VALUES(#{addressBookNo}, #{empNo}, #{addressBookName}, #{addressBookTel}, #{addressBookMaile}, #{addressBookPosition}, #{addressFolderNo})
 	</insert>
 	
-	<select id="selectAllAddBook" parameterType="searchVo" resultType="addBookVo">
+	<select id="selectAllAddBook" parameterType="searchVo" resultType="map">
 		SELECT *
 			FROM
 			(
 				SELECT rownum as RNUM,A.*
 				from
 				(
-					SELECT * FROM addbook
+					SELECT * FROM addBookView
 					WHERE EMP_NO=#{empNo}
 					<include refid="searchWhere"></include>
 					ORDER BY ADDRESSBOOK_NO DESC
@@ -42,6 +42,17 @@
 		WHERE EMP_NO=#{empNo}
 		<include refid="searchWhere"></include>
 	</select>
+	
+	<select id="selectByNo" parameterType="int" resultType="AddBookVo">
+		SELECT * FROM addbook
+		WHERE ADDRESSBOOK_NO=#{addressBookNo}
+	</select>
+	
+	<update id="updateAddBook" parameterType="AddBookVo">
+		UPDATE addbook
+		SET	ADDRESSBOOK_NAME=#{addressBookName}, ADDRESSBOOK_TEL=#{addressBookTel}, ADDRESSBOOK_MAILE=#{addressBookMaile}, ADDRESSBOOK_POSITION=#{addressBookPosition}, ADDRESS_FOLDER_NO=#{addressFolderNo}
+		WHERE ADDRESSBOOK_NO=#{addressBookNo}
+	</update>
 </mapper>
 
 
