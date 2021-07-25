@@ -59,6 +59,7 @@ public class AddBookController {
 	    
 		/* top, 등록, 수정 카테고리 list처리 */
 		List<AddBookFolVO> bookFolList = addBookFolService.selectFol(empNo);
+		logger.info("bookFolList.size={}", bookFolList.size());
 		
 		model.addAttribute("empNo", empNo);
 		model.addAttribute("bookList", bookList);

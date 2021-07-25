@@ -44,6 +44,14 @@
 					<option value="여자">여자</option>
 				</select>
 			</div>
+			<div id="officeNameInputBox"class="boxDiv">
+				<label>회사</label><span class="splitSpan">:</span>
+				<input type="text" name="addressBookOfficeName" id="addressBook_officeName" class="inputItems" value="${bookVo.addressBookOfficeName }">
+			</div>
+			<div id="officeNameInputBox"class="boxDiv">
+				<label>회사번호</label><span class="splitSpan">:</span>
+				<input type="text" name="addressBookOfficeTel" id="addressBook_officeTel" class="inputItems" value="${bookVo.addressBookOfficeTel }">
+			</div>
 			<div id="InputBox"class="boxDiv">
 				<label>카테고리</label><span class="splitSpan">:</span>
 				<select name="addressFolderNo" class="selectItem2">
