@@ -58,7 +58,7 @@
         <form name="addform">
         	<label class="labelTime labelTime2">일정명</label><input type="text" id="addtitle"><br>
         	<label	class="labelTime">일시</label>
-        	<input type="text" class="scheduleDate" name="startDate" id="startDate">
+        	<input type="text" class="scheduleDate" name="startDate" id="startDate" readonly="readonly">
         	<select class="selectTime" id="startTime">
         		<c:forEach var="i" begin="${selectEndTime }" end="47">
         			<c:set var="hour" value="${i/2 - i/2%1}"/>
@@ -70,7 +70,7 @@
         		</c:forEach>
         	</select>
         	
-        	<input type="text" class="scheduleDate" name="endDate" id="endDate">
+        	<input type="text" class="scheduleDate" name="endDate" id="endDate" readonly="readonly">
         	<select class="selectTime" id="endTime">
         		<c:forEach var="i" begin="0" end="47">
         			<c:set var="hour" value="${i/2 - i/2%1}"/>

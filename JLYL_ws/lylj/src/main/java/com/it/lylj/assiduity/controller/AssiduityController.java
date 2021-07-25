@@ -104,6 +104,26 @@ public class AssiduityController {
 		return data;
 	}//ajax 근태 현황 목록
 	
+	@GetMapping("/statsView")
+	@ResponseBody
+	public List<ConditionViewVO> statsView(int selectItem1,int selectItem2,int selectItem3, String searchEmp,
+											String searchDepart, String startDate,String endDate,String selectDate){
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("selectItem1", selectItem1);
+		map.put("selectItem2", selectItem2);
+		map.put("selectItem3", selectItem3);
+		map.put("searchEmp", searchEmp);
+		map.put("searchDepart", searchDepart);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		map.put("selectDate", selectDate);
+		
+		logger.info("startDate={}",startDate);
+		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByMonth(map);
+		
+		return conditionList;
+	}//ajax 근태 통계 목록
+	
 	@GetMapping("/selectAttendDayView")
 	@ResponseBody
 	public AttendDayVO selectAttendDayView(AttendDayVO vo){
@@ -424,6 +444,8 @@ public class AssiduityController {
 	@GetMapping("/stats")
 	public void stats(Model model, HttpServletRequest req) {
 		model = topView(req,model);
+		
+		
 	}//근태 통계 페이지
 	
 	
