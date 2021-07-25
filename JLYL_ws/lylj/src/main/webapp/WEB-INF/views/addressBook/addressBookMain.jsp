@@ -14,6 +14,11 @@
 			$(".addressBookModal").hide();
 		});
 		
+		/* 카테고리 수정 클릭 이벤트 */
+		$('.folBtn').click(function(){
+			window.open('<c:url value="/addressBook/bookFolInfo"/>','네이버','width=600, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+		});
+		
 		/* 주소록 마우스 이벤트 */
 		$('.tdStyle').hover(function(){
 			$(this).css("background","rgb(240, 240, 240)");
@@ -110,8 +115,8 @@
 			    <tr class="tdStyle">
 		            <td><input type="checkbox" class="chkBox"> </td>
 		            <td id="userNameTd" class="userNameClick">
-		            	<c:if test="${map['ADDRESSBOOK_GENDER'] == ''}">
-		            		<img alt="" src="<c:url value='/resources/img/profile_o.png'/>">
+		            	<c:if test="${map['ADDRESSBOOK_GENDER'] == null}">
+		            		<img alt="" src="<c:url value='/resources/img/profile_o.jpg'/>">
 		            	</c:if>
 		            	<c:if test="${map['ADDRESSBOOK_GENDER'] == '남자'}">
 		            		<img alt="남자" src="<c:url value='/resources/img/profile_m.png'/>">

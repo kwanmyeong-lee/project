@@ -26,6 +26,13 @@
 	font-size: 13px;
 }
 
+/* 등록 모달 카테고리 드랍다운 */
+.selectItem3{
+	margin-left: 20px;
+	width: 230px;
+	height: 35px;
+}
+
 /* 주소록 메인 */
 #bookMainDiv{
 	float: left;
