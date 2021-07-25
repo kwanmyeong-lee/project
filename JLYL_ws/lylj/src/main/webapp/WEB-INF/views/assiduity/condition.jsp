@@ -119,7 +119,6 @@
 			searchKeyword="";
 		}
 		
-		console.log("selectNum:"+selectNum+" timeNum:"+timeNum+" searchKeyword:"+searchKeyword);
 		$.ajax({
 			type:"get",
 			url:"conditionMonthView",

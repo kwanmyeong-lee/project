@@ -20,4 +20,5 @@ public interface AttendDayService {
 	int updateAttendDay(AttendDayVO vo);
 	List<Map<String,Object>> selectSumConditionByGroup(HashMap<String, Object> map);
 	List<ConditionViewVO> selectAllConditionByDepartMent(HashMap<String, Object> map);
+	List<ConditionViewVO> selectAllConditionByMonth(HashMap<String, Object> map);
 }
