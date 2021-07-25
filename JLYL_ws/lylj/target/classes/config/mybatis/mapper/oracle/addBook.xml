@@ -13,7 +13,7 @@
 		<selectKey keyProperty="addressBookNo" resultType="int" order="BEFORE">
 			SELECT ADDBOOK_SEQ.nextval FROM dual
 		</selectKey>
-		INSERT INTO addbook(ADDRESSBOOK_NO, EMP_NO, ADDRESSBOOK_NAME, ADDRESSBOOK_TEL, ADDRESSBOOK_MAILE, ADDRESSBOOK_POSITION, ADDRESSBOOK_OFFICENAME, ADDRESSBOOK_OFFICETEL, ADDRESSBOOK_GENDERADDRESS_FOLDER_NO)
+		INSERT INTO addbook(ADDRESSBOOK_NO, EMP_NO, ADDRESSBOOK_NAME, ADDRESSBOOK_TEL, ADDRESSBOOK_MAILE, ADDRESSBOOK_POSITION, ADDRESSBOOK_OFFICENAME, ADDRESSBOOK_OFFICETEL, ADDRESSBOOK_GENDER, ADDRESS_FOLDER_NO)
 		VALUES(#{addressBookNo}, #{empNo}, #{addressBookName}, #{addressBookTel}, #{addressBookMaile}, #{addressBookPosition}, #{addressBookOfficeName}, #{addressBookOfficeTel}, #{addressBookGender}, #{addressFolderNo})
 	</insert>
 	
@@ -50,7 +50,10 @@
 	
 	<update id="updateAddBook" parameterType="AddBookVo">
 		UPDATE addbook
-		SET	ADDRESSBOOK_NAME=#{addressBookName}, ADDRESSBOOK_TEL=#{addressBookTel}, ADDRESSBOOK_MAILE=#{addressBookMaile}, ADDRESSBOOK_POSITION=#{addressBookPosition}, ADDRESS_FOLDER_NO=#{addressFolderNo}
+		SET	ADDRESSBOOK_NAME=#{addressBookName}, ADDRESSBOOK_TEL=#{addressBookTel}, 
+			ADDRESSBOOK_MAILE=#{addressBookMaile}, ADDRESSBOOK_POSITION=#{addressBookPosition}, 
+			ADDRESSBOOK_OFFICENAME=#{addressBookOfficeName}, ADDRESSBOOK_OFFICETEL=#{addressBookOfficeTel},
+			ADDRESS_FOLDER_NO=#{addressFolderNo}, ADDRESSBOOK_GENDER=#{addressBookGender}
 		WHERE ADDRESSBOOK_NO=#{addressBookNo}
 	</update>
 </mapper>

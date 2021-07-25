@@ -143,12 +143,20 @@
 
 /* 주소록 등록 */
 #bookWriteDiv{
-	width: 700px;
+	width: 810px;
 	margin: 20px auto;
    	background: white;
 	padding: 50px 0;
    	border-radius: 15px;
     box-shadow: 0px 2px 20px #d0d0d0;
+}
+
+#addressBook_position1{
+	width: 195px;
+}
+
+#addressBook_officeTel1{
+	width: 365px;	
 }
 
 #bookWriteDiv > h4{
@@ -233,9 +241,9 @@ div > label{
 /* 주소록 수정 */
 #bookUpdateDiv{
 	width: 850px;
-	height: 600px;
+	height: 750px;
    	background: white;
-   	padding: 10px 0;
+   	padding: 20px 0;
    	margin: 0 auto;
    	border-radius: 15px;
    	box-shadow: 0px 2px 20px #d0d0d0;
@@ -263,6 +271,10 @@ div > label{
 
 #addressBook_position{
 	width: 210px;
+}
+
+#addressBook_officeTel{
+	width: 385px;
 }
 
 /* 카테고리 수정 */
