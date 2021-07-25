@@ -113,6 +113,9 @@
 	    			event.preventDefault();
 	    			return false;
 	    		}
+	    		var taker = document.getElementById(mailTake);
+	    		var title = document.getElementById(mailTitle);
+	    		console.log(taker,title);
 	    		
 	    		var sendFrm = document.emailDataFrm;
 	    		sendFrm.acton = "<c:url value='/email/emailWrite'/>";
@@ -182,7 +185,9 @@
 				<div class="form-group firstFrm row">
 			    	<label for="to" class="col-sm-1 control-label">받는사람:</label>
 			    	<div class="col-sm-11">
-                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
+                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1"
+                        <c:if test="${!empty emailVo}">value="${emailVo.mailSend}"  disabled="disabled"</c:if>
+                        >
                      	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
 						<div id="resultEmp" style="display: none;">
 						</div>                        
@@ -191,11 +196,23 @@
 				<div class="form-group row">
 			    	<label for="bcc" class="col-sm-1 control-label">제목:</label>
 			    	<div class="col-sm-11">
-                         <input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1">
+                         <input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1"
+                         <c:if test="${!empty emailVo}">value="re: ${emailVo.mailTitle}"  disabled="disabled"</c:if>
+                         >
 			    	</div>
 			  	</div>
 			  			<div class="form-group">
-						<textarea class="form-control message" id="summernote" name="mailContent"></textarea>
+						<textarea class="form-control message" id="summernote" name="mailContent">
+							<c:if test="${!empty emailVo}">
+								<br><br>
+								--------------------받은메일내용----------------------<br>
+								보낸사람 : ${emailVo.mailSend }<br>
+								제목 : ${emailVo.mailTitle}<br>
+								내용 :
+								&nbsp;${emailVo.mailContent }<br>
+								---------------------------------------------------------							
+							</c:if>
+						</textarea>
 					</div>
 					<div class="form-group row chkBook">
 						<span>

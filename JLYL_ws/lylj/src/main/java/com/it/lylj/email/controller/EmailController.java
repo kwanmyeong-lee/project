@@ -51,9 +51,17 @@ public class EmailController {
 	}
 	
 	@GetMapping("/emailWrite")
-	public void emailWrite(Model model) {
+	public void emailWrite(@RequestParam(defaultValue = "0")int mailNo, Model model) {
 		logger.info("이메일쓰기 페이지");
+		//파라미터가 있는경우
+		if(mailNo>0) {
+		   EmailVO emailVo = emailService.selectByMailNo(mailNo);
+		   model.addAttribute("emailVo", emailVo);
+		}
+		//파라미터가 없는경우(default)
 		model.addAttribute("navNo", 2);
+		
+	
 	}
 	
 	@PostMapping("/emailWrite")
@@ -94,10 +102,16 @@ public class EmailController {
 	}
 	
 	@RequestMapping("/emailDetail")
-	public void emailDetail(Model model) {
-		logger.info("emailDetail");
+	public void emailDetail(@RequestParam(defaultValue = "0") int mailNo ,Model model) {
+		logger.info("이메일 상세보기, 파라미터 mailNo={}",mailNo);
+		
+		EmailVO emailVo = emailService.selectByMailNo(mailNo);
+		
+		model.addAttribute("emailVo", emailVo);
 		model.addAttribute("navNo", 2);
+		
 	}
+	
 	@RequestMapping("/emailPreview")
 	public String emailPreview(@ModelAttribute EmailVO vo
 			, Model model) {

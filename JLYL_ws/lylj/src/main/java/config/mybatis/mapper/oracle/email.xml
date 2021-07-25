@@ -16,6 +16,11 @@
 		where mail_take=#{empNo}
 		order by MAIL_SENDDATE desc
 	</select>
+	
+	<select id="selectByMailNo" parameterType="int" resultType="emailVo">
+		select * from mail
+		where MAIL_NO=#{mailNo}
+	</select>
 </mapper>
 
 
