@@ -8,7 +8,7 @@
 	background: rgba(0, 0, 0, 0.2);
 	top: 0;
 	left: 0;
-	z-index: 1;
+	z-index: 10;
 	display: none;
 }
 
@@ -25,20 +25,8 @@
 	padding-left: 235px;
 	font-size: 13px;
 }
-/* 수정 모달 */
-.addressBookEditModal{
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.2);
-	top: 0;
-	left: 0;
-	z-index: 1;
-	display: none;
-}
 
 /* 주소록 메인 */
-
 #bookMainDiv{
 	float: left;
 	width: 95%;
@@ -139,12 +127,9 @@
 	border-radius: 30px;
 }
 
-#userNameTd{
-	cursor: pointer;
-}
-
-#userNameSpan{
+#nameA{
 	padding-left: 15px;
+	color: black;
 }
 
 #pagingDiv{
@@ -156,11 +141,10 @@
 	margin: 0 auto;
 }
 
-/* 주소록 등록, 수정 */
+/* 주소록 등록 */
 #bookWriteDiv{
-	float: left;
-	width: 50%;
-	margin: 20px 25%;
+	width: 700px;
+	margin: 20px auto;
    	background: white;
 	padding: 50px 0;
    	border-radius: 15px;
@@ -190,13 +174,18 @@
 	color: #373737;
 	font-size: 20px;
 	font-weight: bold;
-	
 }
 
-.selectItem{
+.selectItem1{
 	margin-left: 20px;
 	width: 100px;
-	height: 25px;
+	height: 35px;
+}
+
+.selectItem2{
+	margin-left: 20px;
+	width: 245px;
+	height: 35px;
 }
 
 div > label{
@@ -239,4 +228,62 @@ div > label{
 	border-radius: 10px;
 	border: none;
 	cursor: pointer;
+}
+
+/* 주소록 수정 */
+#bookUpdateDiv{
+	width: 850px;
+	height: 600px;
+   	background: white;
+   	padding: 10px 0;
+   	margin: 0 auto;
+   	border-radius: 15px;
+   	box-shadow: 0px 2px 20px #d0d0d0;
+}
+
+#bookUpdateDiv > h4{
+	color: #373737;
+	margin: 20px 0;
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;	
+}
+
+#bookUpdateDiv > div > label{
+	margin-left:150px;
+}
+
+#bookUpdateDiv > #telBox > #updateInfoSpan{
+	margin-left: 190px;
+}
+
+.folBtn{
+	margin-left:10px;
+}
+
+#addressBook_position{
+	width: 210px;
+}
+
+/* 카테고리 수정 */
+h2{
+	text-align: center;
+}
+#editDiv{
+	text-align: center;
+}
+
+.editLabel{
+	margin: 0;
+}
+
+.editSplitSpan{
+	margin: 0 20px;
+	font-size:17px;
+	font-weight: bold;
+}
+.selectItemEdit{
+	font-size: 18px;
+	width: 300px;
+	height: 30px;
 }
