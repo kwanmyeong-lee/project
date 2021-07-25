@@ -30,12 +30,21 @@
 }
 .condition-td{
 	border-bottom:1px solid gray;
+	font-size: 13px;
+	max-width: 100px;
 }
 .select-form{
 	display: inline-block;
 }
 .time-text{
 	width: 50px;
+}
+.condition-div ul{
+	list-style: none;
+	padding-left: 0;
+}
+.td-p{
+	font-size: 18px;
 }
 </style>
 
@@ -156,16 +165,71 @@
 						<tr id="tableTr1">
 							
 						</tr>
-						<c:forEach var="i" begin="0" end="8">
+						<c:if test="${!empty conditionSumList}">
+						<c:forEach var="i" items="${conditionSumList}">
 							<tr>
-									<td class="condition-td">이름</td>
-									<td class="condition-td">누적시간</td>
-								<c:forEach var="j" begin="0" end="6">
-									<td class="condition-td">a</td>
+									<td class="condition-td">
+										<p class="td-p">${i.EMP_NAME}</p>
+										<ul>
+											<li>${i.POSITION_NAME}</li>
+											<li>${i.DEPARTMENT_NAME}</li>
+										</ul>
+									</td>
+									<td class="condition-td">
+										<c:set var="shour" value="${Math.floor(i.SUM_TIME/3600) }"/>
+		        						<c:set var="smin" value="${Math.floor(i.SUM_TIME%3600/60) }"/>
+		      	  						<c:set var="ssec" value="${i.SUM_TIME%3600%60 }"/>
+										<p class="td-p"><fmt:formatNumber value='${shour}' pattern='##'/>h <fmt:formatNumber value='${smin}' pattern='##'/>m <fmt:formatNumber value='${ssec}' pattern='##'/>s</p>
+										<ul>
+											<c:set var="shour" value="${Math.floor(i.NORMAL_TIME/3600) }"/>
+		        							<c:set var="smin" value="${Math.floor(i.NORMAL_TIME%3600/60) }"/>
+		      	  							<c:set var="ssec" value="${i.NORMAL_TIME%3600%60 }"/>
+											<li>기본:<fmt:formatNumber value='${shour}' pattern='##'/>h <fmt:formatNumber value='${smin}' pattern='##'/>m <fmt:formatNumber value='${ssec}' pattern='##'/>s</li>
+											<c:set var="shour" value="${Math.floor(i.EXCESS_TIME/3600) }"/>
+							        		<c:set var="smin" value="${Math.floor(i.EXCESS_TIME%3600/60) }"/>
+							      	  		<c:set var="ssec" value="${i.EXCESS_TIME%3600%60 }"/>
+											<li>초과:<fmt:formatNumber value='${shour}' pattern='##'/>h <fmt:formatNumber value='${smin}' pattern='##'/>m <fmt:formatNumber value='${ssec}' pattern='##'/>s</li>
+										</ul>
+									</td>
+								<c:forEach var="addDate" begin="0" end="6">									
+								<c:set var="dateCheck" value="0"/>
+									<c:forEach var="j" items="${conditionList}">
+										<c:if test="${nowMili+(24*60*60*addDate) == j.attendanceDayRegdate.getTime()/1000 && j.empNo==i.EMP_NO}">
+											<td class="condition-td">
+												<p class="td-p"><fmt:formatDate value="${j.attendanceDayOnHour}" pattern="HH:mm:dd"/> - <fmt:formatDate value="${j.attendanceDayOffHour}" pattern="HH:mm:dd"/></p>
+												<ul>
+													<c:set var="shour" value="${Math.floor(j.normalTimeDay/3600) }"/>
+									        		<c:set var="smin" value="${Math.floor(j.normalTimeDay%3600/60) }"/>
+									      	  		<c:set var="ssec" value="${j.normalTimeDay%3600%60 }"/>
+													<li><fmt:formatNumber value='${shour}' pattern='##'/>h <fmt:formatNumber value='${smin}' pattern='##'/>m <fmt:formatNumber value='${ssec}' pattern='##'/>s</li>
+													<c:set var="shour" value="${Math.floor(j.excessTimeDay/3600) }"/>
+									        		<c:set var="smin" value="${Math.floor(j.excessTimeDay%3600/60) }"/>
+									      	  		<c:set var="ssec" value="${j.excessTimeDay%3600%60 }"/>
+													<li><fmt:formatNumber value='${shour}' pattern='##'/>h <fmt:formatNumber value='${smin}' pattern='##'/>m <fmt:formatNumber value='${ssec}' pattern='##'/>s</li>
+												</ul>
+											</td>
+											<c:set var="dateCheck" value="${dateCheck+1}"/>
+										</c:if>
+									</c:forEach>
+								<c:if test="${dateCheck==0 }">
+										<td class="condition-td">
+											<p class="td-p">-</p>
+											<ul>
+												<li>0h 0m 0s</li>
+												<li>-</li>
+											</ul>
+										</td>
+								</c:if>
 								</c:forEach>
 						
 							</tr>
 						</c:forEach>
+						</c:if>
+						<c:if test="${empty conditionSumList}">
+							<tr>
+								<td colspan="9" align="center">정보 없음</td>
+							</tr>
+						</c:if>
 					</table>
 				</div>
 

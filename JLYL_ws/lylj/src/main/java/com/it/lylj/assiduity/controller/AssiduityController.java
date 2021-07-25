@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +25,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.lylj.attend.model.AttendService;
+import com.it.lylj.attend.model.AttendVO;
 import com.it.lylj.attendDay.model.AttendDayService;
 import com.it.lylj.attendDay.model.AttendDayVO;
+import com.it.lylj.attendDay.model.ConditionViewVO;
+import com.it.lylj.breakDay.model.BreakDayService;
+import com.it.lylj.breakDay.model.BreakDayVO;
+import com.it.lylj.common.ConstUtil;
+import com.it.lylj.common.PaginationInfo;
+import com.it.lylj.emp.model.EmpService;
+import com.it.lylj.emp.model.EmpVO;
 import com.it.lylj.schedule.controller.ScheduleController;
 import com.it.lylj.schedule.model.ScheduleVO;
 
@@ -36,6 +46,8 @@ import lombok.RequiredArgsConstructor;
 public class AssiduityController {
 	private final AttendDayService attendDayService;
 	private final AttendService attendService;
+	private final BreakDayService breakDayService;
+	private final EmpService empService;
 	
 	private static final Logger logger
 	=LoggerFactory.getLogger(ScheduleController.class);
@@ -100,6 +112,39 @@ public class AssiduityController {
 		
 		return data;
 	}//ajax 선택된 달의 초과 근무
+	
+	@GetMapping("/currentList")
+	@ResponseBody
+	public HashMap<String,Object> currentList(int empNo,int currentPage, int btCheck){
+		
+		if(btCheck==1) {
+			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN + 1;
+			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;
+		}else if(btCheck == 2) {
+			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN - 1;
+			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;			
+		}
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("empNo", empNo);
+		map.put("currentPage", currentPage);
+		
+		int TotalRecord = breakDayService.selectCntAllBREAKDAYByEmpNo(empNo);
+		List<BreakDayVO> breakdayList = breakDayService.selectAllBREAKDAYByEmpNo(map);
+		
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setCurrentPage(currentPage);
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ANN);
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ANN);
+		pagingInfo.setTotalRecord(TotalRecord);
+		
+		HashMap<String, Object> data = new HashMap<>();
+		logger.info("list={}",breakdayList);
+		data.put("pagingInfo", pagingInfo);
+		data.put("breakdayList", breakdayList);
+		
+		return data;
+	}//ajax 선택된 페이지로 
 	
 	
 	@GetMapping("/selectMonthWorkTime")
@@ -291,14 +336,62 @@ public class AssiduityController {
 		
 	}//main 페이지
 	
+	@Transactional
 	@GetMapping("/annual")
 	public void annual(Model model, HttpServletRequest req) {
 		model = topView(req,model);
+		HttpSession session =req.getSession();
+		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("empNo", empNo);
+		map.put("currentPage", 1);
+		
+		AttendVO attendVo = attendService.selectAttendByEmpNo(empNo);
+		List<BreakDayVO> breakDayList = breakDayService.selectAllBREAKDAYByEmpNo(map);
+		EmpVO empVo = empService.selectByEmpNo(empNo);
+		PaginationInfo pagingInfo = new PaginationInfo();
+		int TotalRecord = breakDayService.selectCntAllBREAKDAYByEmpNo(empNo);
+		
+		pagingInfo.setCurrentPage(1);
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ANN);
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ANN);
+		pagingInfo.setTotalRecord(TotalRecord);
+		
+		model.addAttribute("empVo", empVo);
+		model.addAttribute("attendVo", attendVo);
+		model.addAttribute("breakDayList", breakDayList);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		
 	}//휴가 페이지
 	
 	@GetMapping("/condition")
 	public void condition(Model model, HttpServletRequest req) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		model = topView(req,model);
+		HttpSession session =req.getSession();
+		int departmentNo = (Integer)session.getAttribute("departmentNo");
+		String selectDate = sdf.format(new Date());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("departmentNo", departmentNo);
+		map.put("selectDate", selectDate);
+		Calendar cal = new GregorianCalendar();
+		int nowDay =cal.get(Calendar.DAY_OF_WEEK)-1;
+		cal.add(Calendar.DATE, nowDay);
+		Date now = cal.getTime();
+		now.setHours(0);
+		now.setMinutes(0);
+		now.setSeconds(0);
+		long nowMili = now.getTime()/1000;
+		logger.info("now={}",nowMili);
+		
+		
+		List<Map<String,Object>> conditionSumList = attendDayService.selectSumConditionByGroup(map);
+		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByDepartMent(map);
+		
+		model.addAttribute("conditionList", conditionList);
+		model.addAttribute("conditionSumList", conditionSumList);
+		model.addAttribute("nowMili", nowMili);
 	}//근태 현황 페이지
 	
 	@GetMapping("/stats")

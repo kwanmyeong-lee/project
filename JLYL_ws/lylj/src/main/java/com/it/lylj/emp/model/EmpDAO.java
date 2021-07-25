@@ -23,4 +23,5 @@ public interface EmpDAO {
 	int updateTempPwd(EmpVO vo);
 	List<EmpVO>  selectAllEmpForEle();
 	List<EmpVO> selectSearchNum(int searcNo);
+	int selectCountByEmpNo(int empNo);
 }

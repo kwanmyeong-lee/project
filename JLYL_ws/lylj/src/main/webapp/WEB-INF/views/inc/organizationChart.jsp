@@ -8,9 +8,15 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="<c:url value="/resources/dist/themes/default/style.min.css"/>" />
+<link rel="stylesheet"
+	href="<c:url value="/resources/themes/proton/style.min.css"/>" />
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
 <script src="<c:url value='/resources/dist/jstree.min.js'/>"></script>
+<style type="text/css">
+
+</style>
+
 <script type="text/javascript">
 	$(function() {
 		$.ajax({
@@ -35,10 +41,14 @@
 		$('#SimpleJSTree').jstree(
 				{
 					'core' : {
-						'data' : jsondata
+						'data' : jsondata,
+						'themes' : {
+							'name' : 'proton',
+							'responsive' : true
+						}
 					},
 					"plugins" : [ "themes", "json_data", "ui", "types", "crrm",
-							"cookies", "contextmenu", "search" ]
+							"cookies", "contextmenu", "search", "wholerow" ]
 				}).bind("select_node.jstree", function(event, data) {
 			if (data.instance.get_node(data.selected).id >= 100) {
 				console.log("select_node.jstree");
@@ -56,9 +66,8 @@
 </script>
 </head>
 <body>
-<body>
 	<div id="SimpleJSTree"></div>
-</body>
-</body>
 
+	
+</body>
 </html>

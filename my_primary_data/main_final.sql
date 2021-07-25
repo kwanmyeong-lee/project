@@ -49,12 +49,17 @@ DROP SEQUENCE BREAKDAY_SEQ;
 DROP SEQUENCE ATTEND_SEQ;
 DROP SEQUENCE ATTENDDAY_SEQ;
 DROP SEQUENCE BREAKTHEME_SEQ;
+DROP SEQUENCE ELFILE_SEQ;
 DROP SEQUENCE ADDBOOK_SEQ;
 DROP SEQUENCE ADDFOL_SEQ;
+DROP SEQUENCE MAIL_SEQ;
 
 DROP VIEW selectstamp;
 DROP VIEW apEleList;
 DROP VIEW reEleList;
+DROP VIEW breakDayView;
+DROP VIEW empView;
+DROP VIEW emailView;
 
 ------------------------- DROP ---------------------------------
 
@@ -200,6 +205,14 @@ INCREMENT BY 1
 START WITH 1
 NOCACHE;
 
+CREATE SEQUENCE ELFILE_SEQ
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1
+NOCACHE;
+
+
 CREATE SEQUENCE ADDFOL_SEQ
 MINVALUE 1 
 MAXVALUE 9999999999999999999999999999 
@@ -208,6 +221,13 @@ START WITH 1
 NOCACHE;
 
 CREATE SEQUENCE ADDBOOK_SEQ
+MINVALUE 1 
+MAXVALUE 9999999999999999999999999999 
+INCREMENT BY 1 
+START WITH 1 
+NOCACHE;
+
+CREATE SEQUENCE MAIL_SEQ
 MINVALUE 1 
 MAXVALUE 9999999999999999999999999999 
 INCREMENT BY 1 
@@ -286,7 +306,7 @@ CREATE TABLE MAIL (
 	MAIL_READDATE DATE, /* 읽은 날짜 */
 	MAIL_RESERVE DATE, /* 예약 날짜 */
 	MAIL_DEL_CHECK VARCHAR2(255) DEFAULT 0, /* 삭제 여부 */
-	MALI_EMPNO NUMBER NOT NULL /* 사원번호 */
+	MAIL_EMPNO NUMBER NOT NULL /* 사원번호 */
 );
 
 CREATE UNIQUE INDEX PK_MAIL
@@ -1173,6 +1193,12 @@ on a.electronic_no = b.electronic_no;
 
 select * from apEleList;
 
+create or replace view mailView
+as
+select m.* , e.emp_name
+from mail m join emp e
+on m.mail_empno = e.emp_no;
+
 ------------------------- view ----------------------------------
 create or replace view empView
 as
@@ -1182,6 +1208,107 @@ on e.department_no=d.department_no
 left join position p
 on e.position_no = p.position_no;
 
+--------------------------view----------------------------------
+create or replace view breakDayView
+as
+select e.*,d.BREAKTHEME_NAME , p.EMP_NAME, (e.BREAKDAY_END -e.BREAKDAY_START)+1 as breakday_use 
+from BREAKDAY  e left join BREAKTHEME  d
+on e.BREAKTHEME_NO =d.BREAKTHEME_NO 
+left join emp p
+on e.EMP_NO  = p.EMP_NO;
+
+select * from breakDayView;
+------------------------------view-------------------------------------
+create or replace view conditionView
+as
+select e.emp_name,d.department_name,d.department_no, p.position_name, a.*,
+NVL(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60
+                                                                -(ATTENDANCE_DAY_ON_HOUR  - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+                                  END 
+                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
+                                                                -(to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
+                                  ELSE NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
+                                  END
+                        ELSE 0
+                   END 
+            ,0) AS EXCESS_TIME_DAY,
+            NVL(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                                                                -to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+                                  WHEN ATTENDANCE_DAY_ON_HOUR >= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss') AND
+                                             ATTENDANCE_DAY_ON_HOUR < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60),0)
+                                  ELSE 0
+                                  END 
+                        WHEN ATTENDANCE_DAY_OFF_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss') AND
+                                   ATTENDANCE_DAY_OFF_HOUR  <= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR-to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+                                  WHEN ATTENDANCE_DAY_ON_HOUR  >= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
+                                  ELSE 0
+                                  END
+                        ELSE 0
+                   END 
+            ,0) AS NORMAL_TIME_DAY,
+            NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60),0) AS WORK_TIME_DAY
+            
+from ATTENDDAY  a left join emp e
+on a.emp_no=e.emp_no
+left join position p
+on e.position_no = p.position_no
+left join department d
+on d.department_no = e.department_no;
+
+select * from conditionview
+order by ATTENDANCE_DAY_NO;
+
+    select EMP_NO, DEPARTMENT_NAME, POSITION_NAME, EMP_NAME,
+			NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0) as SUM_TIME,
+            NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60
+                                                                -(ATTENDANCE_DAY_ON_HOUR  - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+                                  END 
+                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
+                                                                -(to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
+                                  ELSE NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
+                                  END
+                        ELSE 0
+                   END 
+            ),0) AS EXCESS_TIME,
+            NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                                                                -to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+                                  WHEN ATTENDANCE_DAY_ON_HOUR >= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss') AND
+                                             ATTENDANCE_DAY_ON_HOUR < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60),0)
+                                  ELSE 0
+                                  END 
+                        WHEN ATTENDANCE_DAY_OFF_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss') AND
+                                   ATTENDANCE_DAY_OFF_HOUR  <= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR-to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+                                  WHEN ATTENDANCE_DAY_ON_HOUR  >= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
+                                  ELSE 0
+                                  END
+                        ELSE 0
+                   END 
+            ),0) AS NORMAL_TIME
+		from conditionview
+		where department_no =6 and ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(sysdate,'d') and sysdate
+		group by emp_no,DEPARTMENT_NAME,POSITION_NAME, EMP_NAME;
 -------------------------------------------------------------------------------------------
 
 
@@ -1633,6 +1760,11 @@ select * from appline;
 
 select * from reline;
 
+--전자 결재 파일 
+ 
+select * from ELFILE;
+
+
 
 -- 게시판 폴더
 INSERT INTO OFBOARDFOL VALUES(1, '공지사항');
@@ -1642,43 +1774,149 @@ INSERT INTO OFBOARDFOL VALUES(OFBOARDFOL_SEQ.nextval, '영업 본부');
 
 
 --날짜별 근태 정보
-
-insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-20 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-to_date('2021-07-20 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-20 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-20');
-insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-19 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-to_date('2021-07-19 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-19 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-19');
-insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-16 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-to_date('2021-07-16 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-16 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-16');
-insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-15 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-to_date('2021-07-15 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-15 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-15');
-insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-14 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-to_date('2021-07-14 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-14 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-14');
-insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-13 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-to_date('2021-07-13 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-13 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-13');
-insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-12 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-to_date('2021-07-12 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-12 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),2,'2021-07-12');
-insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-09 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-to_date('2021-07-09 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-09 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-09');
-insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-08 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-to_date('2021-07-08 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-08 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-08');
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-07 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-07 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-07 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-07');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-08 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-08 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-08 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-08');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-09 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-09 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-09 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-09');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-12 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-12 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-12 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),2,'2021-07-12');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-13 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-13 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-13 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-13');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-14 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-14 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-14 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-14');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-15 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-15 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-15 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-15');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-16 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-16 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-16 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-16');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-19 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-19 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-19 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-19');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-20 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-20 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-20 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-20');
+
+
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-07 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-07 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-07 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-07');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-08 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-08 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-08 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-08');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-09 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-09 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-09 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-09');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-12 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-12 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-12 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),2,'2021-07-12');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-13 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-13 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-13 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-13');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-14 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-14 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-14 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-14');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-15 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-15 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-15 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-15');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-16 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-16 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-16 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-16');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-19 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-19 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-19 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-19');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-20 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-20 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-20 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-20');
 
 
 
 
+--
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-26 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-26 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-26');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-27 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-27 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-27 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-27');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-28 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-28 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-28 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),2,'2021-07-28');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-29 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
+
+
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-26 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-26 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-26');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-27 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-27 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-27 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-27');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-28 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-28 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-28 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),2,'2021-07-28');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-29 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
+
+insert into attendday values(attendday_seq.nextval,120, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
+insert into attendday values(attendday_seq.nextval,120, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-26 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-26 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-26');
+insert into attendday values(attendday_seq.nextval,120, to_date('2021-07-27 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-27 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-27 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-27');
+insert into attendday values(attendday_seq.nextval,120, to_date('2021-07-28 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-28 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-28 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),2,'2021-07-28');
+insert into attendday values(attendday_seq.nextval,120, to_date('2021-07-29 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
+insert into attendday values(attendday_seq.nextval,120, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
+
+insert into attendday values(attendday_seq.nextval,119, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
+insert into attendday values(attendday_seq.nextval,119, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-26 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-26 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-26');
+insert into attendday values(attendday_seq.nextval,119, to_date('2021-07-27 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-27 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-27 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-27');
+insert into attendday values(attendday_seq.nextval,119, to_date('2021-07-28 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-28 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-28 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),2,'2021-07-28');
+insert into attendday values(attendday_seq.nextval,119, to_date('2021-07-29 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
+insert into attendday values(attendday_seq.nextval,119, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
+
+insert into attendday values(attendday_seq.nextval,118, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
+insert into attendday values(attendday_seq.nextval,118, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-26 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-26 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-26');
+insert into attendday values(attendday_seq.nextval,118, to_date('2021-07-27 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-27 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-27 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-27');
+insert into attendday values(attendday_seq.nextval,118, to_date('2021-07-28 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-28 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-28 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),2,'2021-07-28');
+insert into attendday values(attendday_seq.nextval,118, to_date('2021-07-29 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
+insert into attendday values(attendday_seq.nextval,118, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
+
+insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
+insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-26 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-26 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-26');
+insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-27 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-27 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-27 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-27');
+insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-28 08:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-28 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-28 07:00:00', 'yyyy-mm-dd hh24:mi:ss'),2,'2021-07-28');
+insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-29 10:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
+insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
 --휴가 종류
 insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'연차');
 insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'보상휴가');
 
 --휴가 정보
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-23', '2021-06-26','122','1');
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-20', '2021-06-21','122','1');
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-15', '2021-06-17','122','1');
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-11', '2021-06-13','122','2');
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-05', '2021-06-08','122','2');
-insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-01', '2021-06-03','122','1');
-
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-01', '2021-06-02','122','2');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-05', '2021-06-06','122','2');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-08', '2021-06-09','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-11', '2021-06-12','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-13', '2021-06-13','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-15', '2021-06-16','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-18', '2021-06-19','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-21', '2021-06-22','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-23', '2021-06-24','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-27', '2021-06-29','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-07-01', '2021-07-03','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-07-05', '2021-07-06','122','1');
+insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-07-10', '2021-07-12','122','1');
 --근태 정보
 insert into ATTEND values(ATTEND_seq.nextval, 122,default,12,2,30,7);
 insert into ATTEND values(ATTEND_seq.nextval, 101,default,default,default,default,default);

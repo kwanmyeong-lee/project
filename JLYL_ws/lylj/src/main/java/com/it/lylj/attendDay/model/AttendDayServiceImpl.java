@@ -3,6 +3,7 @@ package com.it.lylj.attendDay.model;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -83,6 +84,18 @@ public class AttendDayServiceImpl implements AttendDayService{
 	@Override
 	public int updateAttendDay(AttendDayVO vo) {
 		return dao.updateAttendDay(vo);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> selectSumConditionByGroup(HashMap<String, Object> map) {
+		return dao.selectSumConditionByGroup(map);
+	}
+
+
+	@Override
+	public List<ConditionViewVO> selectAllConditionByDepartMent(HashMap<String, Object> map) {
+		return dao.selectAllConditionByDepartMent(map);
 	}
 
 

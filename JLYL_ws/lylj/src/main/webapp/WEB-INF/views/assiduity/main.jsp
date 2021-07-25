@@ -274,7 +274,13 @@ $(function(){
             	attendanceDayRegdate:attendanceDayRegdate},
             dataType: "json",
             success : function(data) {
- 
+ 				
+            	var coT = ymd+"T"+now
+            	coT= new Date(coT);
+            	var laT= ymd+"T"+"10:00:00";
+            	laT= new Date(laT);
+            	
+            	
         		$('#comeTime').text(now);
         		$('#btnCome').prop("disabled",true);
         		var comeNum = hourMin(now);
@@ -288,6 +294,9 @@ $(function(){
         		var parent="#content"+weekNum+"Div"+weekDay;
         		
         		$(parent).prev().find('span').eq(1).text(now);
+        		if(coT.getTime()>laT.getTime()){
+        			$(parent).prev().find('span').eq(1).css("color","#f14f4f");
+            	}
         		$(parent).find(comef).css("background","blue");
             }
           });
@@ -342,6 +351,54 @@ $(function(){
 	    				var comef="#content-td"+i;
 	    				$(parent).find(comef).css("background","blue");
 	    			}
+	    			
+	    			
+	    			
+	    			var amTime= new Date(ymd+"T00:00:00").getTime()+(9*60*60*1000);
+            		var pmTime = new Date(ymd+"T00:00:00").getTime()+(18*60*60*1000);
+            		var attendanceDayOffHour = new Date(ymd+"T"+now).getTime();
+            		var attendanceDayOnHour = new Date(ymd+"T"+cTime).getTime();
+            		var amExTime=0;
+            		var pmExTime=0;
+            		
+            		var allTime= new Date(ymd+"T"+dayWorkTime).getTime() - new Date(ymd+"T00:00:00").getTime();
+            		
+            		
+            		
+            		if(attendanceDayOffHour>pmTime){
+            			if(attendanceDayOnHour>=pmTime){
+            				pmExTime = attendanceDayOffHour - attendanceDayOnHour;
+            			}else{
+            				pmExTime = attendanceDayOffHour - pmTime;
+            			}
+            		}//오후 초과 시간
+            		
+            		if(attendanceDayOnHour<amTime){
+            			if(attendanceDayOffHour<=amTime){
+            				amExTime = attendanceDayOffHour - attendanceDayOnHour;
+            			}else{
+            				amExTime = amTime - attendanceDayOnHour;
+            			}
+            		}//오전 초과 시간
+            		
+					var normalTime = allTime - pmExTime - amExTime; //일과시간
+        			
+					
+        			var allText ="기본:";
+					var allEx = amExTime + pmExTime;
+					
+        			var nomalText =  miliHMS(normalTime);
+					allText += nomalText;
+					
+					if(allEx !=0 ){
+						var exText = miliHMS(allEx);
+						allText+=" / 초과:" + exText;
+					}
+					
+					$(parent).prev().find('span').eq(4).text(allText);
+					$(parent).prev().find('span').eq(5).text("대기");
+	    			
+	    			
 	            }
 	          });
 			

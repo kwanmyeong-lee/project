@@ -3,6 +3,7 @@ package com.it.lylj.attendDay.model;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,5 +21,7 @@ public interface AttendDayDAO {
 	int selectSumWeekWorkByMonth(HashMap<String, Object> map);
 	List<AttendDayVO> selectAttendMonth(HashMap<String, Object> map);
 	int updateAttendDay(AttendDayVO vo);
+	List<Map<String,Object>> selectSumConditionByGroup(HashMap<String, Object> map);
+	List<ConditionViewVO> selectAllConditionByDepartMent(HashMap<String, Object> map);
 
 }
