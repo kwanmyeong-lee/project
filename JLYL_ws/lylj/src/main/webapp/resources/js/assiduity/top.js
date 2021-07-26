@@ -147,7 +147,3 @@ function workTime(cTime, lTime) {
 
 
 var nowDates = new Date();
-window.onload = function() {
-    Clock();
-    NowYD();
-}
