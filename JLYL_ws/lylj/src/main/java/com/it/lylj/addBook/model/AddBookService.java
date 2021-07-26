@@ -11,4 +11,5 @@ public interface AddBookService {
 	int selectAllTotalRecord(SearchVO searchVo);
 	AddBookVO selectByNo(int addressBookNo);
 	int updateAddBook(AddBookVO vo);
+	int deleteAddBook(AddBookVO vo);
 }

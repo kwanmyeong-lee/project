@@ -56,6 +56,11 @@
 			ADDRESS_FOLDER_NO=#{addressFolderNo}, ADDRESSBOOK_GENDER=#{addressBookGender}
 		WHERE ADDRESSBOOK_NO=#{addressBookNo}
 	</update>
+	
+	<delete id="deleteAddBook" parameterType="AddBookVo">
+		DELETE addbook
+		WHERE ADDRESSBOOK_NO=#{addressBookNo}
+	</delete>
 </mapper>
 
 

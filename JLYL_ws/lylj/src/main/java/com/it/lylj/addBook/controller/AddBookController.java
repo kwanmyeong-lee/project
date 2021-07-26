@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.lylj.addBook.model.AddBookService;
 import com.it.lylj.addBook.model.AddBookVO;
@@ -104,6 +105,22 @@ public class AddBookController {
 		int cnt=addBookService.updateAddBook(vo);
 		
 		return "redirect:/addressBook/addressBookMain?empNo="+empNo;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/delete", produces = "application/json;charset=UTF-8")
+	public int delete(@RequestParam(value="checkBoxArr[]") List<String> checkBoxArr, 
+			@ModelAttribute AddBookVO vo) {
+		int result=0;
+		String checkNum="";
+		
+		for(String str : checkBoxArr) {
+			checkNum=str;
+			vo.setAddressBookNo(Integer.parseInt(checkNum));
+			addBookService.deleteAddBook(vo);
+		}
+		
+		return result;
 	}
 	
 }
