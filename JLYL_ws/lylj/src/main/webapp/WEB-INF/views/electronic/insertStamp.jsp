@@ -28,13 +28,20 @@
 
 	$(function() {
 		$('#ok').click(function() {
-			$('form[name=imgfrm]').submit();
+					
+			   if (confirm("등록후에는 변경이 불가능합니다.") == true) {
+					$('form[name=imgfrm]').submit();
+		        } else {
+		            alert("등록을 쉬소합니다");
+		        	self.close();
+		        }
 		});
 		
-		if(${cnt > 0}){
-			self.close();
+		if($('#returnCnt').val() == 1){
+			
 		}
 	});
+	
 </script>
 <style type="text/css">
 #image_container img {
@@ -45,6 +52,7 @@
 </style>
 </head>
 <body>
+	<input id="returnCnt" type="hidden" value="${param.cnt}">
 	<div class="container">
 		<div class="row">
 			<div class="shadow p-3 mb-5 bg-light rounded ">

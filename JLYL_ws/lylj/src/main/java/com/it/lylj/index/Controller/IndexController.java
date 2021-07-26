@@ -102,5 +102,12 @@ public class IndexController {
 		logger.info("empVo={}", empVo);
 		return empVo;
 	}
+	
+	
+	@RequestMapping("/mainWeather")
+	public void weather() {
+		logger.info("날씨보여주기");
+		
+	}
 
 }
