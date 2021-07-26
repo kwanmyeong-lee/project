@@ -171,6 +171,44 @@
 			
 		});
 		
+		$('#nowLeft').click(function(){
+			var nd = new Date($('#nowYearMonth').text());
+			var pd = MinusMonth(nd);
+			var pd1 = moment(pd).format("YYYY-MM-DD");
+			pd= moment(pd).format("YYYY-MM");
+			
+			$('#nowYearMonth').text(pd);
+			$('#sDate').val("");
+			$('#eDate').val("");
+			$('#termsBtn4').text("날짜:");
+			
+			statsViewAjax();
+		});
+		
+		$('#nowRight').click(function(){
+			var nd = new Date($('#nowYearMonth').text());
+			var pd = AddMonth(nd);
+			var pd1 = moment(pd).format("YYYY-MM-DD");
+			pd= moment(pd).format("YYYY-MM");
+			
+			$('#nowYearMonth').text(pd);
+			$('#sDate').val("");
+			$('#eDate').val("");
+			$('#termsBtn4').text("날짜:");
+			statsViewAjax();
+			
+		});
+		$('#todayYearMonth').click(function(){
+			NowYD();
+			$('#sDate').val("");
+			$('#eDate').val("");
+			$('#termsBtn4').text("날짜:");
+			statsViewAjax();
+			
+		});
+		
+		
+		
 		
 		$.datepicker.setDefaults({
 			
@@ -214,14 +252,14 @@
 		var selectItem1 =0;
 		var selectItem2 =0;
 		var selectItem3 =0;
-		
-		if($("#termsBtn2").css("display")=="block"){
+	
+		if($("#termsBtn2").css("display")=="inline-block"){
 			selectItem1=1;
 		}	
-		if($("#termsBtn3").css("display")=="block"){
+		if($("#termsBtn3").css("display")=="inline-block"){
 			selectItem2=1;
 		}	
-		if($("#termsBtn4").css("display")=="block"){
+		if($("#termsBtn4").css("display")=="inline-block"){
 			selectItem3=1;
 		}
 		var searchEmp = $('#sEmp').val();
@@ -229,6 +267,9 @@
 		var startDate = $('#sDate').val();
 		var endDate = $('#eDate').val();
 		var selectDate =$('#nowYearMonth').text()+"-01";
+		
+		
+		
 		$.ajax({
 			type:"get",
 			url:"statsView",
@@ -243,41 +284,142 @@
 			},
 			dataType:"json",
 			success: function(data){
+				var str = "";
+				var comeNum=0;
+				var leaveNum=0;
+				var absenceNum =0;
+				var excessNum=0;
+				if(data.conditionList.length>0){
+					for(var i=0; i<data.conditionList.length;i++){
+						str +='<tr>';
+						str +='<td class="ann-td">'+data.conditionList[i].empName+'</td>';
+						str +='<td class="ann-td">'+data.conditionList[i].departmentName+'</td>';
+						str +='<td class="ann-td">'+moment(data.conditionList[i].attendanceDayRegdate).format("YYYY-MM-DD")+'</td>';
+						str +='<td class="ann-td">'+moment(data.conditionList[i].attendanceDayOnHour).format("HH:mm:ss")+'</td>';
+						str +='<td class="ann-td">'+moment(data.conditionList[i].attendanceDayOffHour).format("HH:mm:ss")+'</td>';
+						str +='</tr>';
+						var reg = new Date(data.conditionList[i].attendanceDayRegdate);
+						var reg = new Date(data.conditionList[i].attendanceDayRegdate);
+						reg.setHours(10);
+						reg.setMinutes(0);
+						reg.setSeconds(0);
+						if(reg.getTime()<new Date(data.conditionList[i].attendanceDayOnHour).getTime()){
+							comeNum++;
+						}
+						reg.setHours(18);
+						if(reg.getTime()>new Date(data.conditionList[i].attendanceDayOffHour).getTime()){
+							leaveNum++;
+						}
+						
+						if(data.conditionList[i].excessTimeDay>0){
+							excessNum++;
+						}
+						
+						
+					}
+					var year = selectDate.substr(0,selectDate.indexOf("-"));
+					var month = selectDate.substr(selectDate.lastIndexOf("-")+1);
+					var sDay=1;
+					var eDay = new Date(year,month,0).getDate();
+					
+					if(startDate!=null && startDate!=""){
+						sDay= startDate.substr(startDate.lastIndexOf("-")+1);
+						eDay= endDate.substr(endDate.lastIndexOf("-")+1);
+					}
+					
+					var sumDay = Number(eDay)-Number(sDay)+1;
+					absenceNum = sumDay*data.empCnt-data.conditionList.length;
+	           		$('#pDataCheck').text(data.conditionList.length+"개의 정보가 있습니다.");
+	           		$('#absenceNum').text(absenceNum);
+	           		$('#leaveNum').text(leaveNum);
+	           		$('#comeNum').text(comeNum);
+	           		$('#excessNum').text(excessNum);
+	           		
+				}else{
+					str+='<tr><td colspan="5" align="center">정보 없음</td></tr>';
+					$('#pDataCheck').text("결과 없음");
+	           		$('#absenceNum').text(0);
+	           		$('#leaveNum').text(0);
+	           		$('#comeNum').text(0);
+	           		$('#excessNum').text(0);
+				}
 				
-				
+				$('#viewTBody').html(str);
 			}
 		});
 	}
+	
+	function AddMonth(date){
+		var now = new Date(date);
+		var year= moment(now).format('YYYY');
+		var month= moment(now).format('MM');
+		var lastDay= Number(moment(new Date(year,month,0)).format('DD'))+1;
+		var ptime= new Date(year,month-1,lastDay);
+		$('#startDate').datepicker("setDate",ptime);
+		$("#endDate").datepicker( "option", "minDate", $('#startDate').val() );	
+		$('#endDate').datepicker("setDate",ptime);
+		return ptime;
+	}
 
+	function MinusMonth(date){
+		var now = new Date(date);
+		var year= moment(now).format('YYYY');
+		var month= moment(now).format('MM');
+		var ptime= new Date(year,month-1,0);
+		$('#startDate').datepicker("setDate",ptime);
+		$("#endDate").datepicker( "option", "minDate", $('#startDate').val() );	
+		$('#endDate').datepicker("setDate",ptime);
+		return new Date(ptime);
+	}
+	
+	function NowYD(){
+		var ntime= new Date();
+		$('#startDate').datepicker("setDate","today");
+		$("#endDate").datepicker( "option", "minDate", $('#startDate').val() );	
+		$('#endDate').datepicker("setDate","today");
+		var yd= moment(ntime).format('YYYY-MM');
+		
+		$('#nowYearMonth').text(yd);
+	}
+	
+	window.onload = function() {
+	    Clock();
+	    NowYD();
+	    statsViewAjax();
+	}	
+	
 </script>
         <title>assiduitygMain</title>
         <div>
             <article>
                <h3>부서 근태통계</h3>
-               <div class="now-div text-center">
+               <div class="now-div text-center" >
+               		<span class="now-span" id="nowLeft"><i class="fas fa-chevron-left"></i></span>
                		<span class="now-span" id="nowYearMonth"></span>
+               		<span class="now-span" id="nowRight"><i class="fas fa-chevron-right"></i></span>
+               		<span class="now-span" id="todayYearMonth">이번 달</span>
                </div>
                <div class="m-d">
                <div class="main-week-div">
                		<div class="week-div">
                			<p class="week-p1 week-pp">늦은출근</p>
-               			<p class="week-p2 week-pp" >-</p>
+               			<p class="week-p2 week-pp" id="comeNum">-</p>
                		</div>
                		<div class="week-div">
                			<p class="week-p1 week-pp">이른퇴근</p>
-               			<p class="week-p2 week-pp" >-</p>
+               			<p class="week-p2 week-pp" id="leaveNum">-</p>
                		</div>
                		<div class="week-div">
                			<p class="week-p1 week-pp">결근</p>
-               			<p class="week-p2 week-pp" >-</p>
-               		</div>
+               			<p class="week-p2 week-pp" id="absenceNum">-</p>
+               		</div> 
                		<div class="week-div">
                			<p class="week-p1 week-pp">휴가</p>
                			<p class="week-p2 week-pp" >-</p>
                		</div>
                		<div class="week-div">
-               			<p class="week-p1 week-pp">연장근무</p>
-               			<p class="week-p2 week-pp" >-</p>
+               			<p class="week-p1 week-pp">초과근무</p>
+               			<p class="week-p2 week-pp" id="excessNum">-</p>
                		</div>
                </div>
                </div>
@@ -316,7 +458,7 @@
 	               		<button type="button" class="btn btn-light box-cancle">취소</button>
                		</div>
                
-               		<P>데이터 있습니다</P>
+               		<P id="pDataCheck">데이터 있습니다</P>
                		
                		
                
@@ -336,13 +478,11 @@
                		<th class="ann-th">출근</th>
                		<th class="ann-th">퇴근</th>
                </tr>
+               <tbody id="viewTBody">
                <tr>
-               		<td class="ann-td">1</td>
-               		<td class="ann-td">2</td>
-               		<td class="ann-td">3</td>
-               		<td class="ann-td">4</td>
-               		<td class="ann-td">5</td>
+               		
                </tr>
+               </tbody>
                </table>
 				</div>
 				

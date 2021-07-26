@@ -155,6 +155,11 @@ function pagingAjax(empNo, currentPage, btCheck){
         	$('.page_nation').html(pageStr);
         }
       });
+	
+}
+window.onload = function() {
+    Clock();
+    NowYD();
 }
 </script>
         <title>assiduitygMain</title>

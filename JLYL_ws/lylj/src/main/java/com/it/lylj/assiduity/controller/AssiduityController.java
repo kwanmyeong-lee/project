@@ -1,5 +1,6 @@
 package com.it.lylj.assiduity.controller;
 
+import java.io.Console;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -106,7 +107,7 @@ public class AssiduityController {
 	
 	@GetMapping("/statsView")
 	@ResponseBody
-	public List<ConditionViewVO> statsView(int selectItem1,int selectItem2,int selectItem3, String searchEmp,
+	public HashMap<String, Object> statsView(int selectItem1,int selectItem2,int selectItem3, String searchEmp,
 											String searchDepart, String startDate,String endDate,String selectDate){
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("selectItem1", selectItem1);
@@ -118,10 +119,17 @@ public class AssiduityController {
 		map.put("endDate", endDate);
 		map.put("selectDate", selectDate);
 		
-		logger.info("startDate={}",startDate);
-		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByMonth(map);
 		
-		return conditionList;
+		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByMonth(map);
+		int empCnt = attendDayService.selectCntConditionByMonth(map);
+		
+		logger.info("conditionList={}",conditionList);
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("conditionList", conditionList);
+		data.put("empCnt", empCnt);
+		
+		
+		return data;
 	}//ajax 근태 통계 목록
 	
 	@GetMapping("/selectAttendDayView")
@@ -425,7 +433,7 @@ public class AssiduityController {
 		
 		Calendar cal = new GregorianCalendar();
 		int nowDay =cal.get(Calendar.DAY_OF_WEEK)-1;
-		cal.add(Calendar.DATE, nowDay);
+		cal.add(Calendar.DATE, -nowDay);
 		Date now = cal.getTime();
 		now.setHours(0);
 		now.setMinutes(0);
@@ -435,7 +443,7 @@ public class AssiduityController {
 		
 		List<Map<String,Object>> conditionSumList = attendDayService.selectSumConditionByGroup(map);
 		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByDepartMent(map);
-		
+		logger.info("conditionList={}",conditionList);
 		model.addAttribute("conditionList", conditionList);
 		model.addAttribute("conditionSumList", conditionSumList);
 		model.addAttribute("nowMili", nowMili);

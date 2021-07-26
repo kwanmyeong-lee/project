@@ -20,16 +20,16 @@
 	</sql>
 	
 	<sql id="searchStats">
-	   <if test="selectItem1 == 1 and startDate!=null and startDate!=''" >
+	   <if test="selectItem3 == 1 and startDate!=null and startDate!=''" >
 		 <![CDATA[
 		 AND ATTENDANCE_DAY_REGDATE BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate})
 		 ]]>
 	   </if>
 	   <if test="selectItem2 == 1 and searchDepart!=null and searchDepart!=''">
-		 AND DEPARTMENT_NAME  like '%' || #{searchKeyword} || '%'
+		 AND DEPARTMENT_NAME  like '%' || #{searchDepart} || '%'
 	   </if>
-	   <if test="selectItem3 == 1 and searchEmp!=null and searchEmp!=''">
-		 AND EMP_NAME  like '%' || #{searchKeyword} || '%'
+	   <if test="selectItem1 == 1 and searchEmp!=null and searchEmp!=''">
+		 AND EMP_NAME  like '%' || #{searchEmp} || '%'
 	   </if>
 	</sql>
 	
@@ -238,7 +238,13 @@
 	
 	<select id="selectAllConditionByMonth" parameterType="hashmap" resultType="conditionViewVO">
 		select * from CONDITIONVIEW
-		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and TO_DATE(#{selectDate},'yyyy-mm-dd')
+		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
+		<include refid="searchStats"/>
+		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO
+	</select>
+	<select id="selectCntConditionByMonth" parameterType="hashmap" resultType="int">
+		select count(distinct(emp_name)) from CONDITIONVIEW
+		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
 		<include refid="searchStats"/>
 		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO
 	</select>
