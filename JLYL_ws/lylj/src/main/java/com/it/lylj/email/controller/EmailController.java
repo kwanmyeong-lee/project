@@ -50,7 +50,7 @@ public class EmailController {
 	public void emailWrite(@RequestParam(defaultValue = "0", required = false)int mailNo, @RequestParam(defaultValue = "0", required = false) String type
 			, Model model) {
 		logger.info("이메일쓰기 페이지");
-		//답장하기 파라미터(메일번호)가 있는경우
+		//답장,전달 확인 파라미터(메일번호)가 있는경우 처리
 		if(type.equals("re")) {
 		   EmailVO reEmailVo = emailService.selectByMailNo(mailNo);
 		   model.addAttribute("reEmailVo", reEmailVo);
