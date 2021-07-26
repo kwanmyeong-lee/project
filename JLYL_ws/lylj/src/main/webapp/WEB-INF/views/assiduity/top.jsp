@@ -54,8 +54,6 @@
             id="wrapper">
             <!-- Sidebar -->
             <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
-                <!-- 여기서부터 왼쪽 -->
-                <!-- 이 부분 부터 메인 top에 넣을 소스 -->
                 <!--Sidebar-Brand-->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value="/index"/>">
                     <div class="sidebar-brand-text mx-3">메인으로이동</div>
@@ -119,10 +117,9 @@
 				<br>
 				
 				<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-bs-toggle="collapse" data-bs-target="#collapse1"
-				aria-expanded="true" aria-controls="collapse1"> <i
-					class="far fa-calendar-minus"></i> <span>근태관리</span>
-			</a>  <div id="collapse1" class="collapse " aria-labelledby="headingOne" data-parent="#accordionSidebar">
+				data-bs-toggle="collapse" data-bs-target="#collapse1"> 
+				<i class="far fa-calendar-minus"></i> <span>근태관리</span>
+			</a>  <div id="collapse1" class="collapse ">
                     <div class="bg-white py-2 collapse-inner rounded ">
                         <a class="collapse-item" href="<c:url value='/assiduity/main'/>">내 근태 현황</a>
                         <a class="collapse-item" href="<c:url value='/assiduity/annual'/>">내 연차 내역</a>
@@ -130,10 +127,9 @@
                 </div> </li>
                 
                 <li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-bs-toggle="collapse" data-bs-target="#collapse2"
-				aria-expanded="true" aria-controls="collapse2"> <i
-					class="far fa-calendar-minus"></i> <span>부서 근태관리</span>
-			</a>  <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				data-bs-toggle="collapse" data-bs-target="#collapse2"> 
+				<i class="far fa-calendar-minus"></i> <span>부서 근태관리</span>
+			</a>  <div id="collapse2" class="collapse">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<c:url value='/assiduity/condition'/>">부서 근태현황</a>
                         <a class="collapse-item" href="<c:url value='/assiduity/stats'/>">부서 근태통계</a>

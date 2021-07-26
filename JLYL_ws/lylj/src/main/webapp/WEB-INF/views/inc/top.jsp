@@ -41,11 +41,11 @@
 		}else if(${navNo==2}){
 			$('#navSideBar')
 			.html(
-					'<!--Sidebar--><ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="topNavButton"><a href="<c:url value="/email/emailWrite"/>"><button type="button"class="btn btn-light btnSchAdd"id="newDocument">메일쓰기</button></a></div><!--Divider--><hr class="sidebar-divider d-none d-md-block"><!--Nav Item-Pages Collapse Menu--><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseOne"data-bs-toggle="collapse"role="button"aria-expanded="ture"aria-controls="collapseOne"><i class="far fa-edit"></i><span>메일함</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value="/email/emailList?empNo=${empNo}"/>">받은메일함</a><a class="collapse-item"href="<c:url value="/email/emailSand"/>">보낸메일함</a><a class="collapse-item"href="<c:url value='/email/emailTemporary'/>">임시보관함</a><a class="collapse-item"href="<c:url value='/email/emailBooking'/>">예약메일함</a><a class="collapse-item"href="<c:url value='/email/emailTrashcan'/>">휴지통</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseTwo"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="far fa-edit"></i><span>빠른검색</span></a><div id="collapseTwo"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">안읽은메일함</a><a class="collapse-item"href="buttons">중요메일함</a></div></div></li></ul>');
+					'<!--Sidebar--><ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="topNavButton"><a href="<c:url value="/email/emailWrite"/>"><button type="button"class="btn btn-light btnSchAdd"id="newDocument">메일쓰기</button></a></div><!--Divider--><hr class="sidebar-divider d-none d-md-block"><!--Nav Item-Pages Collapse Menu--><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseOne"data-bs-toggle="collapse"role="button"aria-expanded="ture"aria-controls="collapseOne"><i class="far fa-edit"></i><span>메일함</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value="/email/emailList?empNo=${empNo}&type=1"/>">받은메일함</a><a class="collapse-item"href="<c:url value="/email/emailList?empNo=${empNo}&type=2"/>">보낸메일함</a><a class="collapse-item"href="<c:url value="/email/emailList?empNo=${empNo}&type=3"/>">임시보관함</a><a class="collapse-item"href="<c:url value="/email/emailList?empNo=${empNo}&type=4"/>">예약메일함</a><a class="collapse-item"href="<c:url value="/email/emailList?empNo=${empNo}&type=5"/>">휴지통</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseTwo"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="far fa-edit"></i><span>빠른검색</span></a><div id="collapseTwo" class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value="/email/emailList?empNo=${empNo}&type=6"/>">안읽은메일함</a><a class="collapse-item"href="<c:url value="/email/emailList?empNo=${empNo}&type=7"/>">중요메일함</a></div></div></li></ul>');
 		}else if(${navNo==3}){
 			$('#navSideBar')
 			.html(
-					'<!--Sidebar--><ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="divscheduleAdd"><button type="button"class="btn btn-light btnSchAdd">일정등록</button></div><!--Nav Item-Pages Collapse Menu--><li class="nav-item"><a class="nav-link"href="#"><input type="checkbox"class="ckSch"checked="checked"><span class="list-span">(기본)일정</span></a></li><!--Nav Item--><li class="nav-item"><a class="nav-link"href="#"><input type="checkbox"class="ckSch"checked="checked"><span class="list-span">내일정</span></a></li><!--Divider--><hr class="sidebar-divider"><li class="nav-item"><a class="nav-link"id="cal-add"href="#"><i class="fas fa-plus"></i><span>일정목록추가</span></a><a class="nav-link"id="cal-edit"href="#"><i class="far fa-edit"></i><span>일정목록수정</span></a><a class="nav-link"id="cal-delete"href="#"><i class="far fa-trash-alt"></i><span>일정목록삭제</span></a></li><!--일정목록추가Modal--><div class="modal modal2"id="myModaladd"data-backdrop="static"><div class="modal-dialog modal-dialog2"><div class="modal-content"><!--Modal Header--><div class="modal-header"><h4 class="modal-title">일정목록추가</h4><button type="button"class="close"data-dismiss="modal">&times;</button></div><!--Modal body--><div class="modal-body"><form name="list-add-form"><label class="labelTime labelTime2">일정목록명</label><input type="text"id="addTitle"><br></form></div><!--Modal footer--><div class="modal-footer"><button type="button"class="btn btn-info"id="btnAdd">추가</button><button type="button"class="btn btn-danger"data-dismiss="modal">취소</button></div></div></div></div><!--일정목록수정Modal--><div class="modal modal2"id="myModaledit"data-backdrop="static"><div class="modal-dialog modal-dialog2"><div class="modal-content"><!--Modal Header--><div class="modal-header"><h4 class="modal-title">일정목록수정</h4><button type="button"class="close"data-dismiss="modal">&times;</button></div><!--Modal body--><div class="modal-body"><form name="list-edit-form"><label class="labelTime labelTime2">일정목록</label><select><option>(기본)내일정</option><option>zzz</option><option>zzz</option></select><br><label class="labelTime labelTime2">일정명</label><input type="text"id="editTitle"><br></form></div><!--Modal footer--><div class="modal-footer"><button type="button"class="btn btn-info"id="btnEdit">수정</button><button type="button"class="btn btn-danger"data-dismiss="modal">취소</button></div></div></div></div><!--일정목록삭제Modal--><div class="modal modal2"id="myModaldelete"data-backdrop="static"><div class="modal-dialog modal-dialog2 "><div class="modal-content"><!--Modal Header--><div class="modal-header"><h4 class="modal-title">일정목록삭제</h4><button type="button"class="close"data-dismiss="modal">&times;</button></div><!--Modal body--><div class="modal-body"><form name="list-del-form"><label class="labelTime labelTime2">일정목록</label><select><option>(기본)내일정</option><option>zzz</option><option>zzz</option></select><br></form></div><!--Modal footer--><div class="modal-footer"><button type="button"class="btn btn-info"id="btnDelete">삭제</button><button type="button"class="btn btn-danger"data-dismiss="modal">취소</button></div></div></div></div></ul>');
+					'<!--Sidebar--><ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><div id="clockDate"></div><div id="clockTime"></div><div><ul class="commute-ul"><li class="commute-li"><dl class="commute-dl"><dt>출근시간</dd><c:choose><c:when test="${empty attendDayVo}"><dd id="comeTime">--:--:--</dd></dl></li></c:when><c:otherwise><dd id="comeTime"><fmt:formatDate value="${attendDayVo.attendanceDayOnHour}" pattern="HH:mm:ss"/></dd></dl></li></c:otherwise></c:choose><li class="commute-li"><dl class="commute-dl"><dt>퇴근시간</dd><c:choose><c:when test="${empty attendDayVo.attendanceDayOffHour}"><dd id="leaveTime">--:--:--</dd></dl></li></c:when><c:otherwise><dd id="leaveTime"><fmt:formatDate value="${attendDayVo.attendanceDayOffHour}" pattern="HH:mm:ss"/></dd></dl></li></c:otherwise></c:choose><li class="commute-li"><dl class="commute-dl"><dt>금일근무시간</dd><c:choose><c:when test="${empty attendDayVo.attendanceDayWorkHour}"><dd id="dayWorkTime">--:--:--</dd></dl></li></c:when><c:otherwise><dd id="dayWorkTime"><fmt:formatDate value="${attendDayVo.attendanceDayWorkHour}" pattern="HH:mm:ss"/></dd></dl></li></c:otherwise></c:choose></ul></div><div class="commute-div"><c:choose><c:when test="${empty attendDayVo}"><button type="button" class="btn btn-light btn-commute" id="btnCome">출근하기</button></c:when><c:otherwise><button type="button" class="btn btn-light btn-commute" id="btnCome" disabled="disabled">출근하기</button></c:otherwise></c:choose><c:choose><c:when test="${empty attendDayVo.attendanceDayOffHour}"><button type="button" class="btn btn-light btn-commute" id="btnLeave">퇴근하기</button></c:when><c:otherwise><button type="button" class="btn btn-light btn-commute" id="btnLeave" disabled="disabled">퇴근하기</button></c:otherwise></c:choose></div><br><li class="nav-item"><a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse1"><i class="far fa-calendar-minus"></i><span>근태관리</span></a><div id="collapse1" class="collapse "><div class="bg-white py-2 collapse-inner rounded "><a class="collapse-item" href="<c:url value='/assiduity/main'/>">내근태현황</a><a class="collapse-item" href="<c:url value='/assiduity/annual'/>">내연차내역</a></div></div></li><li class="nav-item"><a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse2"><i class="far fa-calendar-minus"></i><span>부서근태관리</span></a><div id="collapse2" class="collapse"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item" href="<c:url value='/assiduity/condition'/>">부서근태현황</a><a class="collapse-item" href="<c:url value='/assiduity/stats'/>">부서근태통계</a></div></div></li></ul>');
 		}else if(${navNo==4}){
 			$('#navSideBar')
 			.html(
@@ -61,12 +61,12 @@
 		}else if(${navNo==7}){
 			$('#navSideBar')
 			.html(
-					'<!--Sidebar--><ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-icon rotate-n-15"></div><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><div class="scheduleAdd"id="divscheduleAdd"><button type="button"class="btn btn-light btnSchAdd btnRentAdmin">예약/대여</button></div><!--Nav Item-Pages Collapse Menu--><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse1"aria-expanded="true"aria-controls="collapse1"><i class="far fa-calendar-minus"></i><span>본사1층회의실</span></a><div id="collapse1"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="assetInfo">대회의실</a><a class="collapse-item"href="buttons">소회의실</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse2"aria-expanded="true"aria-controls="collapse2"><i class="far fa-calendar-minus"></i><span>본사5층회의실</span></a><div id="collapse2"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">대회의실</a><a class="collapse-item"href="buttons">소회의실</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse3"aria-expanded="true"aria-controls="collapse3"><i class="far fa-calendar-minus"></i><span>차량</span></a><div id="collapse3"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">7498아반떼</a><a class="collapse-item"href="buttons">3929아반떼</a></div></div></li><li class="nav-item"><a class="nav-link collapsed"href="#"data-bs-toggle="collapse"data-bs-target="#collapse4"aria-expanded="true"aria-controls="collapse4"><i class="far fa-calendar-minus"></i><span>빔프로젝터</span></a><div id="collapse4"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">1번빔프로젝터</a><a class="collapse-item"href="buttons">2번빔프로젝터</a></div></div></li><!--Divider--><hr class="sidebar-divider"><li class="nav-item"><a class="nav-link"id="asset-add"href="#"><i class="fas fa-plus"></i><span>자산추가</span></a><a class="nav-link"id="asset-edit"href="#"><i class="far fa-edit"></i><span>자산수정</span></a><a class="nav-link"id="asset-delete"href="#"><i class="far fa-trash-alt"></i><span>자산삭제</span></a></li><!--일정목록추가Modal--><div class="modal modal2"id="myModaladd"data-bs-backdrop="static"><div class="modal-dialog modal-dialog2"><div class="modal-content"><!--Modal Header--><div class="modal-header"><h4 class="modal-title">자산추가</h4><button type="button"class="close"data-bs-dismiss="modal">&times;</button></div><!--Modal body--><div class="modal-body"><form name="list-add-form"><label class="labelTime labelTime2">자산수정</label><input type="text"id="addTitle"><br></form></div><!--Modal footer--><div class="modal-footer"><button type="button"class="btn btn-info"id="btnAdd">추가</button><button type="button"class="btn btn-danger"data-bs-dismiss="modal">취소</button></div></div></div></div><!--일정목록수정Modal--><div class="modal modal2"id="myModaledit"data-bs-backdrop="static"><div class="modal-dialog modal-dialog2"><div class="modal-content"><!--Modal Header--><div class="modal-header"><h4 class="modal-title">자산삭제</h4><button type="button"class="close"data-bs-dismiss="modal">&times;</button></div><!--Modal body--><div class="modal-body"><form name="list-edit-form"><label class="labelTime labelTime2">일정목록</label><select><option>(기본)내일정</option><option>zzz</option><option>zzz</option></select><br><label class="labelTime labelTime2">일정명</label><input type="text"id="editTitle"><br></form></div><!--Modal footer--><div class="modal-footer"><button type="button"class="btn btn-info"id="btnEdit">수정</button><button type="button"class="btn btn-danger"data-bs-dismiss="modal">취소</button></div></div></div></div><!--일정목록삭제Modal--><div class="modal modal2"id="myModaldelete"data-bs-backdrop="static"><div class="modal-dialog modal-dialog2 "><div class="modal-content"><!--Modal Header--><div class="modal-header"><h4 class="modal-title">일정목록삭제</h4><button type="button"class="close"data-bs-dismiss="modal">&times;</button></div><!--Modal body--><div class="modal-body"><form name="list-del-form"><label class="labelTime labelTime2">일정목록</label><select><option>(기본)내일정</option><option>zzz</option><option>zzz</option></select><br></form></div><!--Modal footer--><div class="modal-footer"><button type="button"class="btn btn-info"id="btnDelete">삭제</button><button type="button"class="btn btn-danger"data-bs-dismiss="modal">취소</button></div></div></div></div><!--Sidebar Toggler(Sidebar)--><div class="text-center d-none d-md-inline"><button class="rounded-circle border-0"id="sidebarToggle"></button></div></ul>');
+					'<!--Sidebar--><ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value="/index"/>"><div class="sidebar-brand-icon rotate-n-15"></div><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><c:forEach var="i" items="${boFolList }"><li class="nav-item"><a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapse${i.bookingFolderNo }"><i class="far fa-calendar-minus"></i><span>${i.bookingFolderName}</span></a><div id="collapse${i.bookingFolderNo }" class="collapse"><div class="bg-white py-2 collapse-inner rounded"><c:forEach var="j" items="${boTargetList }"><c:if test="${j.bookingFolderNo==i.bookingFolderNo }"><a class="collapse-item" href="assetInfo?bookingTargetNo=${j.bookingTargetNo }&bookingFolderNo=${i.bookingFolderNo }">${j.bookingTargetName}</a><input type="hidden" class="asset-hidden" value="${j.bookingTargetNo }"></c:if></c:forEach></div></div></li></c:forEach></ul>');
 		/* 관리자 */
 		}else if(${navNo==8}){
 			$('#navSideBar')
 			.html(
-					'<!--Sidebar--><ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center "href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><hr class="sidebar-divider d-none d-md-block white"><!--Heading--><a class="adminMain"id="adminMain"href="<c:url value="/admin"/>"><div class="sidebar-brand-text mx-3 ">관리자메인</div></a><!--Divider--><!--Nav Item-Pages Collapse Menu--><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseOne"data-bs-toggle="collapse"role="button"aria-expanded="ture"aria-controls="collapseOne"><i class="fas fa-user-circle"></i><span>사원관리</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value='/emp/empList'/>">사원목록</a><a class="collapse-item"href="<c:url value='/emp/empWrite'/>">사원등록</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseTwo"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="fas fa-clipboard-list"></i><span>게시판관리</span></a><div id="collapseTwo"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">처리1</a><a class="collapse-item"href="buttons">처리2</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseThree"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="far fa-edit"></i><span>근태관리</span></a><div id="collapseThree"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">처리1</a><a class="collapse-item"href="buttons">처리2</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseFour"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="far fa-edit"></i><span>예약관리</span></a><div id="collapseFour"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">처리1</a><a class="collapse-item"href="buttons">처리2</a></div></div></li></ul>');
+					'<!--Sidebar--><ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center "href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><hr class="sidebar-divider d-none d-md-block white"><!--Heading--><a class="adminMain"id="adminMain"href="<c:url value="/admin"/>"><div class="sidebar-brand-text mx-3 ">관리자메인</div></a><!--Divider--><!--Nav Item-Pages Collapse Menu--><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseOne"data-bs-toggle="collapse"role="button"aria-expanded="ture"aria-controls="collapseOne"><i class="fas fa-user-circle"></i><span>사원관리</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value='/emp/empList'/>">사원목록</a><a class="collapse-item"href="<c:url value='/emp/empWrite'/>">사원등록</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseTwo"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="fas fa-clipboard-list"></i><span>게시판관리</span></a><div id="collapseTwo"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="buttons">처리1</a><a class="collapse-item"href="buttons">처리2</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseThree"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="far fa-edit"></i><span>근태관리</span></a><div id="collapseThree"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value='/assiduity/excess'/>">초과근무승인</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseFour"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="far fa-edit"></i><span>예약관리</span></a><div id="collapseFour"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value='/booking/rent'/>">예약승인</a><a class="collapse-item"href="<c:url value='/booking/property'/>">자산관리</a></div></div></li></ul>');
 		}
 		
 
@@ -229,7 +229,61 @@
 .modal-backdrop-aside{ /* display: block; 검은색레이어*/
 	display: none; /* background clickable */
 }
+#navSideBar{
+	background: #258493;
+}
 
+/*티틀*/
+
+#container {
+  color:#999;
+  text-transform: uppercase;
+  font-size:36px;
+  font-weight:bold;
+  width:30%;
+  bottom:50%;
+  display:block;
+  float: left;
+}
+
+#flip {
+  height:50px;
+  overflow:hidden;
+  
+}
+
+#flip > div > div {
+  color:#fff;
+  padding:4px 12px;
+  height:50px;
+  margin-bottom:45px;
+  display:inline-block;
+}
+
+#flip div:first-child {
+  animation: show 5s linear infinite;
+}
+
+#flip div div {
+  background:#42c58a;
+}
+#flip div:first-child div {
+  background:#4ec7f3;
+}
+#flip div:last-child div {
+  background:#DC143C;
+}
+
+@keyframes show {
+  0% {margin-top:-270px;}
+  5% {margin-top:-180px;}
+  33% {margin-top:-180px;}
+  38% {margin-top:-90px;}
+  66% {margin-top:-90px;}
+  71% {margin-top:0px;}
+  99.99% {margin-top:0px;}
+  100% {margin-top:-270px;}
+}
 
 /* 어사이드 */
 </style>
@@ -244,7 +298,7 @@
 				<ul
 					class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"
 					id="accordionSidebar">
-
+						
 
 					<!-- Sidebar - Brand -->
 					<a
@@ -312,11 +366,18 @@
 
 			<!-- Main Content -->
 			<div id="content">
-
+				
 				<!-- Topbar -->
 				<nav
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
+					
+					<div id=container>
+					  <div id=flip>
+					    <div><div>CSS</div></div>
+					    <div><div>어렵다</div></div>
+					    <div><div>무지하게</div></div>
+					  </div>
+					</div>
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">

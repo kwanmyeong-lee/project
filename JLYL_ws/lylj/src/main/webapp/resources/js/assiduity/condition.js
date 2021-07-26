@@ -258,3 +258,178 @@ function hourMin(time){
 	return num;
 }
 
+
+$(function(){
+		$('.condition-select').change(function(){
+			if($(this).val()=="1"){
+				$('.select-time').prop("hidden",false);
+				$('.select-name').prop("hidden",true);
+			}else if($(this).val()=="2"){
+				$('.select-time').prop("hidden",true);
+				$('.select-name').prop("hidden",false);
+			}else{
+				$('.select-time').prop("hidden",true);
+				$('.select-name').prop("hidden",true);
+				conditionMonthViewAjax();
+			}
+			$('#txTime').val('');
+			$('#txName').val('');
+		});
+		
+		$('#nowLeft1').click(function(){
+			var now = new Date($('#nowYearMonth1').text());
+			now.setDate(now.getDate()-1);
+			
+			conditionDate(now);
+			conditionMonthViewAjax();
+		});
+		
+		$('#nowRight1').click(function(){
+			var now = new Date($('#nowYearMonth2').text());
+			now.setDate(now.getDate()+1);
+			
+			conditionDate(now);
+			conditionMonthViewAjax();
+		});
+		$('#todayYearMonth1').click(function(){
+			var now = new Date();
+			
+			conditionDate(now);
+			conditionMonthViewAjax();
+		});
+		
+		$('.search-bt').click(function(){
+			conditionMonthViewAjax();
+		});
+		
+	});
+	
+	function conditionMonthViewAjax(){
+		var selectDate=$('#nowYearMonth2').text();
+		var departmentNo=$('#departmentNoHidden').val();
+		var selectNum = $('.condition-select').val();
+		var timeNum = $('#timeNum').val();
+		var searchKeyword=0;
+		if(selectNum=='2'){
+			searchKeyword=$('#txName').val();
+		}else if(selectNum=='1'){
+			searchKeyword=$('#txTime').val();
+		}else{
+			searchKeyword="";
+		}
+		
+		$.ajax({
+			type:"get",
+			url:"conditionMonthView",
+			data:{departmentNo:departmentNo,
+				selectDate: selectDate,
+				selectNum : selectNum,
+				timeNum : timeNum,
+				searchKeyword :searchKeyword},
+			dataType:"json",
+			success: function(data){
+				var str='';
+				var startDate=$('#nowYearMonth1').text();
+				if(data.conditionSumList.length!=0){
+					for(var i=0; i<data.conditionSumList.length; i++){
+						str+='<tr><td class="condition-td" scope="col"><p class="td-p">';
+						str+=data.conditionSumList[i].EMP_NAME;
+						str+='</p><ul><li>';
+						str+=data.conditionSumList[i].POSITION_NAME;
+						str+='</li><li>';
+						str+=data.conditionSumList[i].DEPARTMENT_NAME;
+						str+='</li></ul></td>';
+						str+='<td class="condition-td" scope="col">';
+						hour =Math.floor(data.conditionSumList[i].SUM_TIME/3600);
+						min =Math.floor(data.conditionSumList[i].SUM_TIME%3600/60);
+						sec =Math.floor(data.conditionSumList[i].SUM_TIME%3600%60);
+						str+='<p class="td-p">'+hour+'h '+min+'m '+sec+'s</p><ul>';
+						hour =Math.floor(data.conditionSumList[i].NORMAL_TIME/3600);
+						min =Math.floor(data.conditionSumList[i].NORMAL_TIME%3600/60);
+						sec =Math.floor(data.conditionSumList[i].NORMAL_TIME%3600%60);
+						str+='<li>기본:'+hour+'h '+min+'m '+sec+'s</li>';
+						hour =Math.floor(data.conditionSumList[i].EXCESS_TIME/3600);
+						min =Math.floor(data.conditionSumList[i].EXCESS_TIME%3600/60);
+						sec =Math.floor(data.conditionSumList[i].EXCESS_TIME%3600%60);
+						str+='<li>초과:'+hour+'h '+min+'m '+sec+'s</li></ul></td>';
+						
+						for(var k=0; k<=6; k++){
+							var dateCheck =0;
+					
+							var nowMili = new Date(startDate+"T00:00:00").getTime()/1000;
+							for(var j=0; j<data.conditionList.length; j++){
+								var nowSec = Number(nowMili)+Number(24*60*60*k);
+								if(nowSec
+										== new Date(data.conditionList[j].attendanceDayRegdate).getTime()/1000
+										&& data.conditionList[j].empNo == data.conditionSumList[i].EMP_NO){
+									if(nowSec+(10*60*60)<new Date(data.conditionList[j].attendanceDayOnHour).getTime()/1000){
+										str+='<td class="condition-td" scope="col"><p class="td-p" style="color:#f14f4f">';
+									}else{
+										str+='<td class="condition-td" scope="col"><p class="td-p">';
+									}
+									var onHour= moment(new Date(data.conditionList[j].attendanceDayOnHour)).format('HH:mm:ss');
+									var offHour= moment(new Date(data.conditionList[j].attendanceDayOffHour)).format('HH:mm:ss');
+									str+=onHour+'-'+offHour+'</p><ul>';
+									hour =Math.floor(data.conditionList[j].normalTimeDay/3600);
+									min =Math.floor(data.conditionList[j].normalTimeDay%3600/60);
+									sec =Math.floor(data.conditionList[j].normalTimeDay%3600%60);
+									str+='<li>기본:'+hour+'h '+min+'m '+sec+'s</li>';
+									hour =Math.floor(data.conditionList[j].excessTimeDay/3600);
+									min =Math.floor(data.conditionList[j].excessTimeDay%3600/60);
+									sec =Math.floor(data.conditionList[j].excessTimeDay%3600%60);
+									str+='<li>초과:'+hour+'h '+min+'m '+sec+'s</li></ul></td>';
+									dateCheck++;
+								}
+							}
+							if(dateCheck==0){
+								str+='<td class="condition-td" scope="col"><p class="td-p">-</p><ul><li>-</li><li>-</li></ul></td>';
+							}
+						}
+						str+='</tr>';
+					}
+				}else{
+					str+='<tr><td colspan="9" align="center">정보 없음</td></tr>';
+				}
+				$('#conTBody').html(str);
+				
+			}
+		});
+	}
+	function conditionDate(date){
+		var now = new Date(date);
+		var dayNum= moment(now).format("d");
+		
+		now.setDate(now.getDate()-dayNum);
+		var sDate= moment(now).format("YYYY-MM-DD");
+		$('#nowYearMonth1').text(sDate);
+		
+		var weekDay=['일','월','화','수','목','금','토'];
+		var str ='<th class="condition-th">이름</th>';
+		str+='<th class="condition-th">누적근무시간</th>';
+		
+		for(var i=0; i<7; i++){
+			var days= moment(now).format("DD");
+			var dayNo= moment(now).format("d");
+			str+='<th class="condition-th">'+days+weekDay[dayNo]+'</th>';
+			now.setDate(now.getDate()+1);
+		}
+		
+		$('#tableTr1').html(str);
+		$('#tableTr1').children().eq(2).css("color","#ff9898");
+		$('#tableTr1').children().eq(8).css("color","#8ba5f3");
+		
+		
+		now.setDate(now.getDate()-1);
+		var eDate= moment(now).format("YYYY-MM-DD");
+		$('#nowYearMonth2').text(eDate);
+		
+	}
+	
+	
+	var nowDates= new Date();
+	window.onload= function(){
+		Clock();
+		NowYD();
+		dayView(nowDates);
+		conditionDate(nowDates);
+	}

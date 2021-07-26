@@ -167,9 +167,7 @@
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value="/index"/>">
                     <div class="sidebar-brand-icon rotate-n-15"></div>
                     <div class="sidebar-brand-text mx-3">메인으로이동</div>
-                </a><!--Heading--><div class="scheduleAdd" id="divscheduleAdd">
-                    <button type="button" class="btn btn-light btnSchAdd btnRentAdmin">예약/대여 관리</button>
-                </div><!--Nav Item-Pages Collapse Menu-->
+                </a><!--Heading-->
                 
                 <c:forEach var="i" items="${boFolList }">
                 <li class="nav-item">
@@ -189,76 +187,6 @@
                     </div>
                 </li>
                 </c:forEach>
-                
-                
-                <!--Divider--><hr class="sidebar-divider"><li class="nav-item">
-                    <a class="nav-link" id="asset-add" href="#">
-                        <i class="fas fa-plus"></i>
-                        <span>자산추가</span>
-                    </a>
-                    <a class="nav-link" id="asset-edit" href="#">
-                        <i class="far fa-edit"></i>
-                        <span>자산수정</span>
-                    </a>
-                    <a class="nav-link" id="asset-delete" href="#">
-                        <i class="far fa-trash-alt"></i>
-                        <span>자산삭제</span>
-                    </a>
-                </li><!--일정목록추가Modal--><div class="modal modal2" id="myModaladd" data-bs-backdrop="static">
-                    <div class="modal-dialog modal-dialog2">
-                        <div class="modal-content"><!--Modal Header--><div class="modal-header">
-                                <h4 class="modal-title">자산추가</h4>
-                                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                            </div><!--Modal body--><div class="modal-body">
-                                <form name="list-add-form">
-                                    <label class="labelTime labelTime2">자산수정</label><input type="text" id="addTitle"><br></form>
-                            </div><!--Modal footer--><div class="modal-footer">
-                                <button type="button" class="btn btn-info" id="btnAdd">추가</button>
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--일정목록수정Modal--><div class="modal modal2" id="myModaledit" data-bs-backdrop="static">
-                    <div class="modal-dialog modal-dialog2">
-                        <div class="modal-content"><!--Modal Header--><div class="modal-header">
-                                <h4 class="modal-title">자산삭제</h4>
-                                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                            </div><!--Modal body--><div class="modal-body">
-                                <form name="list-edit-form">
-                                    <label class="labelTime labelTime2">일정목록</label>
-                                    <select>
-                                        <option>(기본)내일정</option>
-                                        <option>zzz</option>
-                                        <option>zzz</option>
-                                    </select><br><label class="labelTime labelTime2">일정명</label><input type="text" id="editTitle"><br></form>
-                            </div><!--Modal footer--><div class="modal-footer">
-                                <button type="button" class="btn btn-info" id="btnEdit">수정</button>
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--일정목록삭제Modal--><div class="modal modal2" id="myModaldelete" data-bs-backdrop="static">
-                    <div class="modal-dialog modal-dialog2 ">
-                        <div class="modal-content"><!--Modal Header--><div class="modal-header">
-                                <h4 class="modal-title">일정목록삭제</h4>
-                                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                            </div><!--Modal body--><div class="modal-body">
-                                <form name="list-del-form">
-                                    <label class="labelTime labelTime2">일정목록</label>
-                                    <select>
-                                        <option>(기본)내일정</option>
-                                        <option>zzz</option>
-                                        <option>zzz</option>
-                                    </select><br></form>
-                            </div><!--Modal footer--><div class="modal-footer">
-                                <button type="button" class="btn btn-info" id="btnDelete">삭제</button>
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--Sidebar Toggler(Sidebar)--><div class="text-center d-none d-md-inline">
-                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                </div>
             </ul>
             <!-- End of Sidebar -->
             <!-- Content Wrapper -->

@@ -14,9 +14,24 @@
 			$(".addressBookModal").hide();
 		});
 		
+		/* 등록 유효성 */
+		$('#bookWriteSubmit').click(function(){
+			if($('#addressBookName').val() == ''){
+				alert('이름을 입력하세요.');
+				return false;
+			}else if($('#addressBookTel').val() == ''){
+				alert('번호를 입력하세요.');
+				return false;
+			}else if($('#addressFolderNo').val() == ''){
+				alert('카테고리를 선택하세요.');
+				return false;
+			}
+		});
+		
+		
 		/* 카테고리 수정 클릭 이벤트 */
 		$('.folBtn').click(function(){
-			window.open('<c:url value="/addressBook/bookFolInfo"/>','네이버','width=600, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+			window.open('<c:url value="/bookFolInfo/main"/>','카테고리 정보','width=600, height=350, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 		});
 		
 		/* 주소록 마우스 이벤트 */
@@ -34,10 +49,12 @@
 		
 		/* 검색 처리 */
 		$('form[name="frmSearch"]').submit(function(){
-				if($('select[name="searchCondition"]').val()==''){
-					$('#searchTextBox').val('');
-				}
+			if($('select[name="searchCondition"]').val()==''){
+				$('#searchTextBox').val('');
+			}
 		});
+		
+		
 		
 	});
 	/* 페이징 처리 */
@@ -70,6 +87,11 @@
 	                  selected="selected"
 	            </c:if>
 	            >이메일</option>
+				<option value="addressBook_officeName"
+				<c:if test="${param.searchCondition == 'addressBook_officeName' }">               
+	                  selected="selected"
+	            </c:if>
+	            >회사</option>
 			</select>
 			<input type="text" name="searchKeyword" id="searchTextBox" value="${param.searchKeyword }">
 			<button type="submit" class="btn btn-outline-secondary" style="height: 32px;padding: 0 20px;">검색</button>
@@ -126,13 +148,11 @@
 		            	</c:if>
 		            	<a href="<c:url value='/addressBook/addressBookEdit?addressBookNo=${map["ADDRESSBOOK_NO"]}'/>" id="nameA">${map['ADDRESSBOOK_NAME']}</a> 
 	            	</td>
-	            	<c:set var="hp" value="${map['ADDRESSBOOK_TEL']}"></c:set>
-		           	<td class="telTd" >${fn:substring(hp,0,3)}-${fn:substring(hp,3,7)}-${fn:substring(hp,7,11)}</td>
+		           	<td class="telTd" >${map['ADDRESSBOOK_TEL']}</td>
 		            <td class="emailTd" >${map['ADDRESSBOOK_MAILE']}</td>
 		            <td class="positionTd" >${map['ADDRESSBOOK_POSITION']}</td>
 		            <td class="officeNameTd" >${map['ADDRESSBOOK_OFFICENAME']}</td>
-	            	<c:set var="ofTel" value="${map['ADDRESSBOOK_OFFICETEL']}"></c:set>
-		           	<td class="officeTelTd" >${fn:substring(ofTel,0,3)}-${fn:substring(ofTel,3,7)}-${fn:substring(ofTel,7,11)}</td>
+		           	<td class="officeTelTd" >${map['ADDRESSBOOK_OFFICETEL']}</td>
 		            <td class="bookFolTd" >${map['ADDRESS_FOLDER_NAME']}</td>
 			    </tr>
 		    </c:forEach>
