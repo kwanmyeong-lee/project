@@ -176,7 +176,7 @@ thead tr th{
 													<button id="bt_important2" class="btn bt_important2" style="display: none;"><i class="far fa-star"></i></button>
 												</td>
 												<td class="typeFile"><i class="far fa-file btn"></i></td>
-												<td class="typeName"> ${map['MAIL_SEND']} (${map['EMP_NAME']})</td>
+												<td class="typeName"> ${map['MAIL_SEND']}@lylj.net</td>
 												<td class="typeSubject"><a href="<c:url value="/email/emailDetail?mailNo=${ map['MAIL_NO']}"/>">${map['MAIL_TITLE']} </a></td>
 												<td class="typeTime"><fmt:formatDate value="${map['MAIL_SENDDATE'] }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 											</tr>

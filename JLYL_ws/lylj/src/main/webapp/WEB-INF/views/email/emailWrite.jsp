@@ -147,7 +147,7 @@
 	                success:function(result){
 	                	var str = "";
 	                	for(var i=0;i<result.length;i++){
-	                		str+= '<div class="item">'+result[i].empNo+"("+result[i].empName+")"+'</div>'
+	                		str+= '<div class="item">'+result[i].empNo+"@lylj.net("+result[i].empName+")"+'</div>'
 	                		if(i==5) break;
 	                	}
 	                	$('#resultEmp').html(str);
@@ -183,7 +183,7 @@
 			    	<label for="to" class="col-sm-1 control-label">받는사람:</label>
 			    	<div class="col-sm-11">
 				    	<c:if test="${!empty reEmailVo}">
-	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${reEmailVo.mailSend}"  readonly="readonly">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${reEmailVo.mailSend}@lylj.net"  readonly="readonly">
 	                    </c:if>
 	                    <c:if test="${!empty fwEmailVo}">
 	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">

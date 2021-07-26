@@ -20,7 +20,7 @@ public class EmailServiceImpl implements EmailService{
 	// 101(이름) 에서 이름 분리 
 	@Override
 	public String splitName(String taker) {
-		String[] splitTaker = taker.split("\\(");
+		String[] splitTaker = taker.split("@");
 		String emailTake = "";
 		for(int i=0;i<splitTaker.length;i++) {
 			emailTake = splitTaker[0];
