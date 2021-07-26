@@ -1315,14 +1315,15 @@ order by ATTENDANCE_DAY_NO;
 
 ------------------------------view-------------------------------------
 --예약
-create or replace view BREAKDAYView
+create or replace view BREAKVIEW
 as
 select b.* , f.emp_name
 from BREAKDAY b join emp f
-on b.EMP_NO  = f.EMP_NO ;
+on b.EMP_NO  = f.EMP_NO 
+left join department d
+on d.department_no = f.department_no;
 
-select count(*) from BREAKDAYView
-where emp_name='지은';
+select count(*) from BREAKview;
 
 
 ------------------------------view-------------------------------------
