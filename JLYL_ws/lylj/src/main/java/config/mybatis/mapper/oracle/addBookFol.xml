@@ -16,6 +16,11 @@
 		WHERE EMP_NO=#{empNo}
 	</select>
 	
+	<select id="selectByFolNo" parameterType="int" resultType="addBookFolVo">
+		SELECT * FROM addfol
+		WHERE ADDRESS_FOLDER_NO=#{addressFolderNo}
+	</select>
+	
 	<update id="updateFol" parameterType="addBookFolVo">
 		UPDATE addfol
 		SET ADDRESS_FOLDER_NAME=#{addressFolderName}

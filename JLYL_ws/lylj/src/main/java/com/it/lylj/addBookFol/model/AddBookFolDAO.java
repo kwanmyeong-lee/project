@@ -10,6 +10,7 @@ import com.it.lylj.addBook.model.AddBookVO;
 public interface AddBookFolDAO {
 	int insertFol(AddBookFolVO folVo);
 	List<AddBookFolVO> selectFol(int empNo);
+	AddBookFolVO selectByFolNo(int addressFolderNo);
 	int updateFol(AddBookFolVO folVo);
 	int deleteFol(AddBookFolVO folVo);
 }

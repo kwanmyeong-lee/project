@@ -15,4 +15,6 @@ public interface AddBookDAO {
 	AddBookVO selectByNo(int addressBookNo);
 	int updateAddBook(AddBookVO vo);
 	int deleteAddBook(AddBookVO vo);
+	List<Map<String, Object>> selectByFolNo(SearchVO searchVo);
+	int selectByFolNoTotalRecord(SearchVO searchVo);
 }
