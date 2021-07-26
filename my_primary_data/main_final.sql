@@ -615,6 +615,9 @@ CREATE TABLE ADDBOOK (
 	ADDRESSBOOK_TEL VARCHAR2(255) NOT NULL, /* 전화번호 */
 	ADDRESSBOOK_MAILE VARCHAR2(255), /* 이메일 */
 	ADDRESSBOOK_POSITION VARCHAR2(255), /* 직급 */
+    ADDRESSBOOK_OFFICENAME VARCHAR(255), /* 회사명 */
+    ADDRESSBOOK_OFFICETEL VARCHAR(255), /* 회사번호 */
+    ADDRESSBOOK_GENDER VARCHAR(255), /* 성별 */
 	ADDRESS_FOLDER_NO NUMBER NOT NULL/* 주소록 폴더 번호 */
 );
 
@@ -1309,10 +1312,16 @@ order by ATTENDANCE_DAY_NO;
 		from conditionview
 		where department_no =6 and ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(sysdate,'d') and sysdate
 		group by emp_no,DEPARTMENT_NAME,POSITION_NAME, EMP_NAME;
+------------------------------view-------------------------------------
+--주소록 + 주소록폴더
+create or replace view addBookView
+as
+select b.* , f.ADDRESS_FOLDER_NAME
+from addbook b join addfol f
+on b.address_folder_no = f.ADDRESS_FOLDER_no;
+select * from emp;
 -------------------------------------------------------------------------------------------
 
-
-select * from emp;
 ----직급
 insert into POSITION values(1, '사장');
 insert into POSITION values(2, '부장');

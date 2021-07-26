@@ -99,6 +99,12 @@ public class AttendDayServiceImpl implements AttendDayService{
 	}
 
 
+	@Override
+	public List<ConditionViewVO> selectAllConditionByMonth(HashMap<String, Object> map) {
+		return dao.selectAllConditionByMonth(map);
+	}
+
+
 	
 
 }

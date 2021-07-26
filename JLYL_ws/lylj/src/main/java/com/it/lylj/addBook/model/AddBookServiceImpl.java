@@ -1,6 +1,7 @@
 package com.it.lylj.addBook.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class AddBookServiceImpl implements AddBookService{
 	}
 
 	@Override
-	public List<AddBookVO> selectAllAddBook(SearchVO searchVo) {
+	public 	List<Map<String, Object>> selectAllAddBook(SearchVO searchVo) {
 		return addBookDao.selectAllAddBook(searchVo);
 	}
 
@@ -27,5 +28,17 @@ public class AddBookServiceImpl implements AddBookService{
 	public int selectAllTotalRecord(SearchVO searchVo) {
 		return addBookDao.selectAllTotalRecord(searchVo);
 	}
+
+	@Override
+	public AddBookVO selectByNo(int addressBookNo) {
+		return addBookDao.selectByNo(addressBookNo);
+	}
+	
+	@Override
+	public int updateAddBook(AddBookVO vo) {
+		return addBookDao.updateAddBook(vo);
+	}
+
+	
 
 }
