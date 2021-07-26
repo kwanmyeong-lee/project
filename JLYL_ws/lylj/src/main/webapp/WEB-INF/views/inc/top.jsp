@@ -89,6 +89,9 @@
 			}
 			
 		});
+		
+	
+
 	});
 </script>
 <style>
@@ -209,8 +212,7 @@
 	display: block;
 }
 /* 어사이드 */
-
-#adminMain{
+#adminMain {
 	height: 40px;
 	text-align: center;
 	text-decoration: none;
@@ -218,6 +220,18 @@
 	font-weight: 300;
 	font-size: 1em;
 }
+
+.modal-aside{
+	display: block; /* position: relative; */
+	pointer-events: none; /* background clickable */
+}
+
+.modal-backdrop-aside{ /* display: block; 검은색레이어*/
+	display: none; /* background clickable */
+}
+
+
+/* 어사이드 */
 </style>
 
 
@@ -225,70 +239,73 @@
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<div id="navSideBar">
-		<c:if test="${empty navNo}">
-		<!-- Sidebar -->
-			<ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
-		
-			
-				<!-- Sidebar - Brand -->
-				<a class="sidebar-brand d-flex align-items-center justify-content-center"
-					href="<c:url value="/index"/>">
-		
-					<div class="sidebar-brand-text mx-3" style="width: 768px;">IU</div>
-					<div>intranet user interface</div>
-				</a>
+			<c:if test="${empty navNo}">
+				<!-- Sidebar -->
+				<ul
+					class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"
+					id="accordionSidebar">
 
-				<div class="card">
-					<img src="<c:url value ="/resources/img/아이유1.jpg"/>"
-						class="card-img-top" alt="...">
-					<ol class="breadcrumb mt-3">
-						<li class="breadcrumb-item">오늘받은 메일</li>
-						<li class="breadcrumb-item"><a href="#">3개</a></li>
-					</ol>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item">오늘 일정</li>
-						<li class="breadcrumb-item"><a href="#">10개</a></li>
-					</ol>
-					<div class="card-body">
-						<button type="button" class="btn btn-outline-info btn-lg w-100">
-							<a href="#" class="card-link">메일 쓰기</a> <br>
-						</button>
-						<button type="button"
-							class="btn btn-outline-info btn-lg w-100 mt-3">
-							<a href="#" class="card-link">일정 등록</a> <br>
-						</button>
 
+					<!-- Sidebar - Brand -->
+					<a
+						class="sidebar-brand d-flex align-items-center justify-content-center"
+						href="<c:url value="/index"/>">
+
+						<div class="sidebar-brand-text mx-3" style="width: 768px;">IU</div>
+						<div>intranet user interface</div>
+					</a>
+
+					<div class="card">
+						<img src="<c:url value ="/resources/img/아이유1.jpg"/>"
+							class="card-img-top" alt="...">
+						<ol class="breadcrumb mt-3">
+							<li class="breadcrumb-item">오늘받은 메일</li>
+							<li class="breadcrumb-item"><a href="#">3개</a></li>
+						</ol>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">오늘 일정</li>
+							<li class="breadcrumb-item"><a href="#">10개</a></li>
+						</ol>
+						<div class="card-body">
+							<button type="button" class="btn btn-outline-info btn-lg w-100">
+								<a href="#" class="card-link">메일 쓰기</a> <br>
+							</button>
+							<button type="button"
+								class="btn btn-outline-info btn-lg w-100 mt-3">
+								<a href="#" class="card-link">일정 등록</a> <br>
+							</button>
+
+						</div>
 					</div>
-				</div>
-				<div class="card">
-					<div class="card-header">근태 관리</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">오늘 일한 시간
-							<p class="card-text" id="timeSize">12시간 50분</p>
-						</li>
-						<li class="list-group-item">출근 시간
-							<p class="card-text" id="timeSize">12시간 50분</p>
-						</li>
+					<div class="card">
+						<div class="card-header">근태 관리</div>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">오늘 일한 시간
+								<p class="card-text" id="timeSize">12시간 50분</p>
+							</li>
+							<li class="list-group-item">출근 시간
+								<p class="card-text" id="timeSize">12시간 50분</p>
+							</li>
 
-						<li class="list-group-item">퇴근 시간
-							<p class="card-text" id="timeSize">12시간 50분</p>
-						</li>
-					</ul>
-				</div>
+							<li class="list-group-item">퇴근 시간
+								<p class="card-text" id="timeSize">12시간 50분</p>
+							</li>
+						</ul>
+					</div>
 
 
-				<!-- Divider -->
-				<hr class="sidebar-divider d-none d-md-block">
+					<!-- Divider -->
+					<hr class="sidebar-divider d-none d-md-block">
 
-				<!-- Sidebar Toggler (Sidebar) -->
-				<div class="text-center d-none d-md-inline">
-					<button class="rounded-circle border-0" id="sidebarToggle"></button>
-				</div>
+					<!-- Sidebar Toggler (Sidebar) -->
+					<div class="text-center d-none d-md-inline">
+						<button class="rounded-circle border-0" id="sidebarToggle"></button>
+					</div>
 
-		</ul>
-		<!-- End of Sidebar -->
-		</c:if>
-	</div>
+				</ul>
+				<!-- End of Sidebar -->
+			</c:if>
+		</div>
 
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
@@ -355,9 +372,8 @@
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내정보
 								</a>
 								<c:if test="${empAdminLev==1||empAdminLev==2}">
-									<a class="dropdown-item" href="<c:url value='/admin'/>">
-										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-										관리자
+									<a class="dropdown-item" href="<c:url value='/admin'/>"> <i
+										class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 관리자
 									</a>
 								</c:if>
 
@@ -373,6 +389,7 @@
 
 				</nav>
 				<!-- End of Topbar -->
+				<!-- 조직도 시작 -->
 				<aside class="ori" id="ori">
 					<h3>
 						<span class="ori-span1"> <span id="ori-toggle"
