@@ -65,7 +65,7 @@ public class BookingController {
 	
 	@GetMapping("/rent")
 	public void rent(Model model) {
-		model = topModel(model);
+		model.addAttribute("navNo",8);
 	}//예약 관리 페이지
 	
 	@GetMapping("/calDraw")

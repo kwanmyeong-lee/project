@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<%@ include file="top.jsp"%>
+<%@ include file="../inc/top.jsp"%>
 <script src='<c:url value="/resources/js/booking/top.js"/>'></script>
 
 <!-- 달력 -->
