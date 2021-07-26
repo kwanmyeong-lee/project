@@ -39,9 +39,11 @@ public class EmailController {
 		model.addAttribute("navNo", 2);
 	}
 	
+	/* 받은메일함 */
 	@RequestMapping("/emailList")
 	public void emailList(@RequestParam int empNo, @ModelAttribute SearchVO searchVo ,Model model) {
 		logger.info("이메일 페이지, 파라미터 empNo={}",empNo);
+		searchVo.setEmpNo(Integer.toString(empNo));
 		//페이징처리
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
@@ -53,7 +55,36 @@ public class EmailController {
 		logger.info("이메일페이징, searchVo={}",searchVo);
 		
 		//리스트 
-		List<Map<String, Object>> list = emailService.selectMailList(Integer.toString(empNo));
+		List<Map<String, Object>> list = emailService.selectMailList(searchVo);
+		logger.info("이메일목록, list.size()={}", list.size());
+		
+		int totalRecord = emailService.totalRecordByEmailTake(Integer.toString(empNo));
+		logger.info("empNo={} ,totalRecord={}",empNo,totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		model.addAttribute("navNo", 2);
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+	}
+	
+	/* 보낸메일함 */
+	@RequestMapping("/emailSendList")
+	public void emailSendList(@RequestParam int empNo, @ModelAttribute SearchVO searchVo ,Model model) {
+		logger.info("이메일 페이지, 파라미터 empNo={}",empNo);
+		searchVo.setEmpNo(Integer.toString(empNo));
+		//페이징처리
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setBlockSize(ConstUtil.EMAIL_BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(ConstUtil.EMAIL_RECORD_COUNT);
+		
+		searchVo.setRecordCountPerPage(ConstUtil.EMAIL_RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		logger.info("이메일페이징, searchVo={}",searchVo);
+		
+		//리스트 
+		List<Map<String, Object>> list = emailService.selectMailList(searchVo);
 		logger.info("이메일목록, list.size()={}", list.size());
 		
 		int totalRecord = emailService.totalRecordByEmailTake(Integer.toString(empNo));

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.it.lylj.common.SearchVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,10 +31,6 @@ public class EmailServiceImpl implements EmailService{
 		return emailTake;
 	}
 
-	@Override
-	public List<Map<String, Object>> selectMailList(String taker) {
-		return emailDao.selectMailList(taker);
-	}
 
 	@Override
 	public EmailVO selectByMailNo(int mailNo) {
@@ -42,5 +40,15 @@ public class EmailServiceImpl implements EmailService{
 	@Override
 	public int totalRecordByEmailTake(String taker) {
 		return emailDao.totalRecordByEmailTake(taker);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectMailList(SearchVO searchVo) {
+		return emailDao.selectMailList(searchVo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectSendMailList(SearchVO searchVo) {
+		return emailDao.selectSendMailList(searchVo);
 	}
 }
