@@ -285,9 +285,24 @@ div > label{
 }
 
 /* 카테고리 수정 */
+#editBgDiv{
+	background: rgb(70, 171, 196);
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#editDiv{
+	margin: 20px;
+	padding: 10px;
+	padding-bottom: 30px;
+	background: white;
+	border-radius: 10px;	
+}
+
 h2{
 	text-align: center;
 }
+
 #editDiv{
 	text-align: center;
 }
@@ -305,4 +320,28 @@ h2{
 	font-size: 18px;
 	width: 300px;
 	height: 30px;
+}
+
+#folderInsertDiv{
+	text-align: center;
+}
+
+#addressFolderName{
+	height: 24px;
+}
+
+#folderEditBtn, #folderDeleteBtn{
+	height: 30px;	
+}
+
+#plusBtn{
+	font-size: 25px;
+	width: 50px;
+	height: 35px;
+	margin-left: 10px;
+	color: white;
+	background: #779cd9;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
 }

@@ -4,8 +4,8 @@
 
 <mapper namespace="com.it.lylj.addBookFol.model.AddBookFolDAO">
 	<insert id="insertFol" parameterType="addBookFolVo">
-		<selectKey keyProperty="addressFolederNo" resultType="int" order="BEFORE">
-			select ADDFOL_SEQ.nextval FROM dual
+		<selectKey keyProperty="addressFolderNo" resultType="int" order="BEFORE">
+			SELECT ADDFOL_SEQ.nextval FROM dual
 		</selectKey>
 		INSERT INTO addfol(ADDRESS_FOLDER_NO, EMP_NO, ADDRESS_FOLDER_NAME)
 		VALUES(#{addressFolderNo}, #{empNo}, #{addressFolderName})
@@ -16,13 +16,16 @@
 		WHERE EMP_NO=#{empNo}
 	</select>
 	
-	<!-- <update id="">
-	
+	<update id="updateFol" parameterType="addBookFolVo">
+		UPDATE addfol
+		SET ADDRESS_FOLDER_NAME=#{addressFolderName}
+		WHERE ADDRESS_FOLDER_NO=#{addressFolderNo} AND EMP_NO=#{empNo}
 	</update>
 	
-	<delete id="">
-	
-	</delete> -->
+	<delete id="deleteFol" parameterType="addBookFolVo">
+		DELETE addfol
+		WHERE ADDRESS_FOLDER_NO=#{addressFolderNo} AND EMP_NO=#{empNo}
+	</delete>
 </mapper>
 
 
