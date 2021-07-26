@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.it.lylj.electronicAppStamp.model.ElectronicAppStampDAO">
+	
+	<insert id="insertStamp" parameterType="ElectronicAppStampVo">
+	
+		<selectKey keyProperty="stampNo" resultType="int"
+			order="BEFORE">
+			select APPSTAMP_SEQ.nextval from dual
+		</selectKey>
+		insert into APPSTAMP
+		values (#{stampNo}, #{empNo}, #{stampName})
+		
+	</insert>
+
+</mapper>

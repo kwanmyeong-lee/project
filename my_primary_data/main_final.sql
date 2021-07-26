@@ -1312,6 +1312,20 @@ order by ATTENDANCE_DAY_NO;
 		from conditionview
 		where department_no =6 and ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(sysdate,'d') and sysdate
 		group by emp_no,DEPARTMENT_NAME,POSITION_NAME, EMP_NAME;
+
+------------------------------view-------------------------------------
+--예약
+create or replace view BREAKVIEW
+as
+select b.* , f.emp_name
+from BREAKDAY b join emp f
+on b.EMP_NO  = f.EMP_NO 
+left join department d
+on d.department_no = f.department_no;
+
+select count(*) from BREAKview;
+
+
 ------------------------------view-------------------------------------
 --주소록 + 주소록폴더
 create or replace view addBookView
@@ -1320,6 +1334,8 @@ select b.* , f.ADDRESS_FOLDER_NAME
 from addbook b join addfol f
 on b.address_folder_no = f.ADDRESS_FOLDER_no;
 select * from emp;
+
+
 -------------------------------------------------------------------------------------------
 
 ----직급
