@@ -18,7 +18,7 @@
 	</insert>
 	
 	<!-- 받은메일함 -->
-	<select id="selectMailList" parameterType="SearchVo" resultType="map">
+	<select id="selectTakeMailList" parameterType="SearchVo" resultType="map">
 		select *
 		from
 		(
@@ -58,9 +58,11 @@
 	</select>
 
 	<select parameterType="int" id="selectByMailNo" resultType="emailVo">
-		select * from mailwhere MAIL_NO=#{mailNo} 
+		select * from mail
+		where MAIL_NO=#{mailNo} 
 	</select>
 	
+	<!-- 항목별 메일 size() -->
 	<select id="totalRecordByEmailTake" parameterType="String" resultType="int">
 		select count(*) from mailView
 		where mail_take = #{mailSend}

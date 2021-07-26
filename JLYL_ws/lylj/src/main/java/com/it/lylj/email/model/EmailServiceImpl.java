@@ -1,5 +1,6 @@
 package com.it.lylj.email.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,18 +38,28 @@ public class EmailServiceImpl implements EmailService{
 		return emailDao.selectByMailNo(mailNo);
 	}
 
+
 	@Override
-	public int totalRecordByEmailTake(String taker) {
-		return emailDao.totalRecordByEmailTake(taker);
+	public List<Map<String, Object>> selectListByType(SearchVO searchVo, int type) {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		if(type==EmailService.TAKE_MAIL) {
+			list = emailDao.selectTakeMailList(searchVo);
+		}else if(type==EmailService.SEND_MAIL) {
+			list= emailDao.selectSendMailList(searchVo);
+		}
+		
+		return list;
 	}
 
 	@Override
-	public List<Map<String, Object>> selectMailList(SearchVO searchVo) {
-		return emailDao.selectMailList(searchVo);
-	}
-
-	@Override
-	public List<Map<String, Object>> selectSendMailList(SearchVO searchVo) {
-		return emailDao.selectSendMailList(searchVo);
+	public int totalRecordByType(String taker, int type) {
+		int totalRecord = 0;
+		if(type==EmailService.TAKE_MAIL) {
+			totalRecord = emailDao.totalRecordByEmailTake(taker);
+		}else if(type==EmailService.SEND_MAIL) {
+			totalRecord = emailDao.totalRecordByEmailSend(taker);
+		}
+		
+		return totalRecord;
 	}
 }
