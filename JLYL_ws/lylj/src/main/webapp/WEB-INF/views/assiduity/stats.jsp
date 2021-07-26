@@ -34,6 +34,7 @@
 	border-bottom: 1px solid;
 }
 
+
 /* stats-terms */
 .stats-terms2{
 	display: none;
@@ -49,6 +50,40 @@
 }
 #checkDiv2{
 	margin-left: 108px;
+}
+
+.page_wrap {
+	text-align: center;
+	font-size: 20px;
+}
+
+.page_nation {
+	display: inline-block;
+}
+
+.page_nation a {
+	display: block;
+	margin: 0 3px;
+	float: left;
+	border: 1px solid #e6e6e6;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	font-size: 13px;
+	color: #999999;
+	text-decoration: none;
+}
+
+.page_nation .arrow {
+	border: 1px solid #ccc;
+}
+
+.page_nation a.active {
+	background-color: #42454c;
+	color: #fff;
+	border: 1px solid #42454c;
 }
 
 </style>
@@ -149,14 +184,14 @@
 			$('#termsBtn2').text("부서원: "+searchEmpText);
 			$('#sEmp').val(searchEmpText);
 			
-			statsViewAjax();
+			statsViewAjax(1,0);
 		});
 		$('#btDepart').click(function(){
 			var searchDepartText = $("#searchDepart").val();
 			$('#termsBtn3').text("부서명: "+searchDepartText);
 			$('#sDepart').val(searchDepartText);
 			
-			statsViewAjax();
+			statsViewAjax(1,0);
 			
 		});
 		$('#btDate').click(function(){
@@ -166,7 +201,7 @@
 			$('#sDate').val(startDateText);
 			$('#eDate').val(endDateText);
 			
-			statsViewAjax();
+			statsViewAjax(1,0);
 					
 			
 		});
@@ -182,7 +217,7 @@
 			$('#eDate').val("");
 			$('#termsBtn4').text("날짜:");
 			
-			statsViewAjax();
+			statsViewAjax(1,0);
 		});
 		
 		$('#nowRight').click(function(){
@@ -195,7 +230,7 @@
 			$('#sDate').val("");
 			$('#eDate').val("");
 			$('#termsBtn4').text("날짜:");
-			statsViewAjax();
+			statsViewAjax(1,0);
 			
 		});
 		$('#todayYearMonth').click(function(){
@@ -203,11 +238,33 @@
 			$('#sDate').val("");
 			$('#eDate').val("");
 			$('#termsBtn4').text("날짜:");
-			statsViewAjax();
+			statsViewAjax(1,0);
 			
 		});
 		
+		$(document).on('click','.px-1',function(){
+			var empNo = ${empNo};
+			var currentPage = $(this).text();
+			var btCheck =0;
+			
+			statsViewAjax(currentPage, btCheck);
+		});
 		
+		$(document).on('click','.ar-forward',function(){
+			var currentPage = $('.px-1').eq(0).text();
+			var empNo = ${empNo};
+			var btCheck=1;
+			
+			statsViewAjax(currentPage, btCheck);
+		});
+		
+		$(document).on('click','.ar-backward',function(){
+			var currentPage = $('.px-1').eq(0).text();
+			var empNo = ${empNo};
+			var btCheck=2;
+			
+			statsViewAjax(currentPage, btCheck);
+		});
 		
 		
 		$.datepicker.setDefaults({
@@ -248,7 +305,7 @@
 	});
 	
 	
-	function statsViewAjax(){
+	function statsViewAjax(currentPage,btCheck){
 		var selectItem1 =0;
 		var selectItem2 =0;
 		var selectItem3 =0;
@@ -280,7 +337,9 @@
 				searchDepart :searchDepart,
 				startDate :startDate,
 				endDate :endDate,
-				selectDate : selectDate
+				selectDate : selectDate,
+				currentPage : currentPage,
+				btCheck : btCheck
 			},
 			dataType:"json",
 			success: function(data){
@@ -290,14 +349,17 @@
 				var absenceNum =0;
 				var excessNum=0;
 				if(data.conditionList.length>0){
-					for(var i=0; i<data.conditionList.length;i++){
+					for(var i=0; i<data.conditionList2.length;i++){
 						str +='<tr>';
-						str +='<td class="ann-td">'+data.conditionList[i].empName+'</td>';
-						str +='<td class="ann-td">'+data.conditionList[i].departmentName+'</td>';
-						str +='<td class="ann-td">'+moment(data.conditionList[i].attendanceDayRegdate).format("YYYY-MM-DD")+'</td>';
-						str +='<td class="ann-td">'+moment(data.conditionList[i].attendanceDayOnHour).format("HH:mm:ss")+'</td>';
-						str +='<td class="ann-td">'+moment(data.conditionList[i].attendanceDayOffHour).format("HH:mm:ss")+'</td>';
+						str +='<td class="ann-td">'+data.conditionList2[i].empName+'</td>';
+						str +='<td class="ann-td">'+data.conditionList2[i].departmentName+'</td>';
+						str +='<td class="ann-td">'+moment(data.conditionList2[i].attendanceDayRegdate).format("YYYY-MM-DD")+'</td>';
+						str +='<td class="ann-td">'+moment(data.conditionList2[i].attendanceDayOnHour).format("HH:mm:ss")+'</td>';
+						str +='<td class="ann-td">'+moment(data.conditionList2[i].attendanceDayOffHour).format("HH:mm:ss")+'</td>';
 						str +='</tr>';
+						
+					}
+					for(var i=0; i<data.conditionList.length;i++){
 						var reg = new Date(data.conditionList[i].attendanceDayRegdate);
 						var reg = new Date(data.conditionList[i].attendanceDayRegdate);
 						reg.setHours(10);
@@ -347,6 +409,30 @@
 				}
 				
 				$('#viewTBody').html(str);
+				
+				var pageStr="";
+	        	<!-- 이전 블럭 -->
+	        	if(data.pagingInfo.firstPage>1){
+	        		pageStr+='<a class="arrow ar-backward" href="#"><i class="fas fa-backward"></i></a>'
+	        	}
+				for(var i=data.pagingInfo.firstPage; i<=data.pagingInfo.lastPage; i++){
+					if(i==data.pagingInfo.currentPage){
+						pageStr+='<a class="px-1 active" href="#">';
+						pageStr+=i;
+						pageStr+='</a>';
+					}else{
+						pageStr+='<a class="px-1" href="#" >';
+						pageStr+=i;
+						pageStr+='</a>';
+					}
+				}
+				if(data.pagingInfo.lastPage<data.pagingInfo.totalPage){
+					pageStr+='<a class="arrow ar-forward" href="#"><i class="fas fa-forward"></i></a>'
+				}
+
+				
+	        	
+	        	$('.page_nation').html(pageStr);
 			}
 		});
 	}
@@ -387,7 +473,7 @@
 	window.onload = function() {
 	    Clock();
 	    NowYD();
-	    statsViewAjax();
+	    statsViewAjax(1,0);
 	}	
 	
 </script>
@@ -488,6 +574,34 @@
                </table>
 				</div>
 				
+				
+				<div class="col-md-16 row justify-content-center py-4 page_wrap">
+		<div class="col-sm-2 mr-0 page_nation" style="text-decoration: none;">
+			<!-- 이전 블럭 -->
+			<c:if test="${pagingInfo.firstPage>1 }">
+				<a class="arrow ar-backward" href="#"> 
+				<i class="fas fa-backward"></i>
+				</a>
+			</c:if>
+			<!-- 페이지 번호 -->
+			<c:forEach var="i" begin="${pagingInfo.firstPage }"
+				end="${pagingInfo.lastPage }">
+				<c:if test="${i==pagingInfo.currentPage }">
+					<a class="px-1 active" href="#">${i }</a>
+				</c:if>
+				<c:if test="${i!=pagingInfo.currentPage }">
+					<a class="px-1" href="#" >${i }</a>
+				</c:if>
+			</c:forEach>
+
+			<!-- 다음 블럭 -->
+			<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+				<a class="arrow ar-forward" href="#"> 
+				<i class="fas fa-forward"></i>
+				</a>
+			</c:if>
+		</div>
+	</div>
 
             </article>
         </div>
