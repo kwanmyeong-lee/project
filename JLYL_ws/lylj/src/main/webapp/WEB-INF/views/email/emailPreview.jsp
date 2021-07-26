@@ -24,8 +24,10 @@
 		text-align: center;
 	}
 	div[name=mailContent]{
-		min-height: 200px;
+		min-height: 300px;
+		overflow: auto;
 	}
+	
 </style>	
 </head>
 <body>
@@ -73,7 +75,7 @@
 				</form> -->
 					<div class="form-group">
 						<label for="summernote" class="col-sm-1 control-label">내용:</label>
-						<div class="form-control message" name="mailContent" readonly="readonly">${vo.mailContent }</div>
+						<div class="form-control message" name="mailContent" id="mailContent" readonly="readonly">${vo.mailContent }</div>
 					</div>
 				  <!--   <div class="form-group row">
 				    	<div class="col-sm-11 row" id="setDate" >

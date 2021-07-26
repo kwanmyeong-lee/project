@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.it.lylj.common.SearchVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,7 +22,7 @@ public class EmailServiceImpl implements EmailService{
 	// 101(이름) 에서 이름 분리 
 	@Override
 	public String splitName(String taker) {
-		String[] splitTaker = taker.split("\\(");
+		String[] splitTaker = taker.split("@");
 		String emailTake = "";
 		for(int i=0;i<splitTaker.length;i++) {
 			emailTake = splitTaker[0];
@@ -29,13 +31,24 @@ public class EmailServiceImpl implements EmailService{
 		return emailTake;
 	}
 
-	@Override
-	public List<Map<String, Object>> selectMailList(String taker) {
-		return emailDao.selectMailList(taker);
-	}
 
 	@Override
 	public EmailVO selectByMailNo(int mailNo) {
 		return emailDao.selectByMailNo(mailNo);
+	}
+
+	@Override
+	public int totalRecordByEmailTake(String taker) {
+		return emailDao.totalRecordByEmailTake(taker);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectMailList(SearchVO searchVo) {
+		return emailDao.selectMailList(searchVo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectSendMailList(SearchVO searchVo) {
+		return emailDao.selectSendMailList(searchVo);
 	}
 }

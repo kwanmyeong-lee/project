@@ -5,9 +5,14 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.it.lylj.common.SearchVO;
+
 @Mapper
 public interface EmailDAO {
 	int sendEmail(EmailVO vo);
-	List<Map<String, Object>> selectMailList(String taker);
+	List<Map<String, Object>> selectMailList(SearchVO searchVo);
+	List<Map<String, Object>> selectSendMailList(SearchVO searchVo);
 	EmailVO selectByMailNo(int mailNo);
+	int totalRecordByEmailTake(String taker);
+	
 }

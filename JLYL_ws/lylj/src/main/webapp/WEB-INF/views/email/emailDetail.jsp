@@ -54,13 +54,13 @@
 			   <div class="row mb-3">
 			     <label for="sender" class="col-sm-1 col-form-label">보낸사람 :</label>
 			     <div class="col-sm-11">
-			       <input type="text" class="form-control" id="sender" value="${emailVo.mailSend }" disabled="disabled">
+			       <input type="text" class="form-control" id="sender" value="${emailVo.mailSend }@lylj.net" disabled="disabled">
  			     </div>
  			   </div>
  			   <div class="row mb-3">
 			     <label for="receiver" class="col-sm-1 col-form-label">받는사람 :</label>
 			     <div class="col-sm-11">
-			       <input type="text" class="form-control" id="receiver" value="${emailVo.mailTake }" disabled="disabled">
+			       <input type="text" class="form-control" id="receiver" value="${emailVo.mailTake }@lylj.net" disabled="disabled">
  			     </div>
  			   </div>
  			   <div class="row mb-3">

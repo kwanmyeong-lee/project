@@ -110,7 +110,7 @@ public class EmpController {
 	}
 	
 	
-	//비밀번호 체크
+	/* 비밀번호 체크 */
 	@ResponseBody
 	@RequestMapping("/pwdCheck")
 	public boolean pwdCheck(@RequestParam String empPwd ) {
@@ -131,7 +131,7 @@ public class EmpController {
 		return chkPwd;
 	}
 
-	//사원정보 디테일
+	/* 사원정보 상세보기 */
 	@GetMapping("/empInfo")
 	public String empinfo(@RequestParam(defaultValue = "0")int empNo,  Model model) {
 		//1
@@ -147,7 +147,7 @@ public class EmpController {
 		return "emp/empInfo";
 	}
 	
-	//사원정보수정 페이지보기
+	/* 사원정보 수정페이지보기 */
 	@GetMapping("/empEdit")
 	public String empEdit(@RequestParam(defaultValue = "0") int empNo, HttpSession session ,Model model) {
 		logger.info("사원정보수정페이지, empNo={}", empNo);
@@ -160,7 +160,7 @@ public class EmpController {
 		return "emp/empEdit";
 	}
 	
-	//사원정보 수정처리
+	/* 사원정보 수정처리 */
 	@PostMapping("/empEdit")
 	public String empEdit_post(@ModelAttribute EmpVO empVo, @RequestParam String mEmpNo
 			, @RequestParam String mEmpPwd, HttpServletRequest request, @RequestParam String oldFileName, Model model) {
@@ -218,7 +218,7 @@ public class EmpController {
 		return "common/message";
 	}
 	
-	//사원정보 리스트 보기
+	/* 사원리스트 보기 */
 	@RequestMapping("/empList")
 	public String empList(@ModelAttribute SearchVO searchVo , Model model) {
 		logger.info("사원정보리스트 페이지");
