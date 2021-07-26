@@ -34,6 +34,7 @@ public class AddBookController {
 	private final AddBookService addBookService;
 	private final AddBookFolService addBookFolService;
 	
+	/* 주소록 메인 */
 	@RequestMapping("/addressBookMain")
 	public String bookMain(@ModelAttribute SearchVO searchVo, HttpSession session, Model model) {
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
@@ -71,6 +72,7 @@ public class AddBookController {
 		return "addressBook/addressBookMain";
 	}
 	
+	/* 주소록 등록 */
 	@RequestMapping("/write")
 	public String insert(@ModelAttribute AddBookVO vo, HttpSession session, Model model) {
 		logger.info("주소록 등록 처리, 파라미터 vo={}", vo);
@@ -82,6 +84,7 @@ public class AddBookController {
 		return "redirect:/addressBook/addressBookMain?empNo="+empNo;
 	}
 	
+	/* 주소록 수정(페이지) */
 	@RequestMapping("/addressBookEdit")
 	public void update(@RequestParam(defaultValue = "0")int addressBookNo, 
 			HttpSession session, Model model) {
@@ -98,6 +101,7 @@ public class AddBookController {
 		model.addAttribute("navNo", 5);
 	}
 	
+	/* 주소록 수정(처리) */
 	@RequestMapping("/update")
 	public String update_post(@ModelAttribute AddBookVO vo, HttpSession session) {
 		logger.info("주소록 수정 처리, 파라미터 vo={}", vo);
@@ -107,6 +111,7 @@ public class AddBookController {
 		return "redirect:/addressBook/addressBookMain?empNo="+empNo;
 	}
 	
+	/* 주소록 삭제 */
 	@ResponseBody
 	@RequestMapping(value="/delete", produces = "application/json;charset=UTF-8")
 	public int delete(@RequestParam(value="checkBoxArr[]") List<String> checkBoxArr, 
@@ -121,6 +126,50 @@ public class AddBookController {
 		}
 		
 		return result;
+	}
+	
+	/* 주소록 카테고리별 목록 */
+	@RequestMapping("/list")
+	public String selectFolNoList(@RequestParam(defaultValue = "0")int addressFolderNo, 
+			SearchVO searchVo, HttpSession session, Model model) {
+		logger.info("카테고리별 목록 조회, 파라미터 addressFolderNo={}", addressFolderNo);
+		
+		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
+		
+		/* 페이징 처리 */
+		PaginationInfo pagingInfo = new PaginationInfo();
+	    pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+	    pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE);
+	    pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+	      
+	    searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+	    searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT);
+	    searchVo.setAddressFolderNo(addressFolderNo);
+	    logger.info("페이지 번호 관련 셋팅 후 serachVo={}", searchVo);
+	    
+	    int totalRecord = addBookService.selectByFolNoTotalRecord(searchVo);
+	    logger.info("totalRecord="+totalRecord);
+	    pagingInfo.setTotalRecord(totalRecord);
+	    
+	    /* 목록조회 */
+	    List<Map<String, Object>> list = addBookService.selectByFolNo(searchVo);
+		logger.info("list.size()={}", list.size());
+		
+		/* 카테고리명 뿌려주기 위한 VO */
+		AddBookFolVO folVo = addBookFolService.selectByFolNo(addressFolderNo);
+		logger.info("folVo={}", folVo);
+		
+		/* top, 등록, 수정 카테고리 list처리 */
+		List<AddBookFolVO> bookFolList = addBookFolService.selectFol(empNo);
+		logger.info("bookFolList.size={}", bookFolList.size());
+		
+		model.addAttribute("list", list);
+		model.addAttribute("folVo", folVo);
+		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("bookFolList", bookFolList);
+		model.addAttribute("navNo", 5);
+		
+		return "addressBook/addressBookList";
 	}
 	
 }
