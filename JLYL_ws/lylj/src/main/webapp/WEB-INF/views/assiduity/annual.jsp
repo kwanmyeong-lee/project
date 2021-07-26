@@ -18,7 +18,6 @@
 	rel="stylesheet" type="text/css">
 <script src='<c:url value="/resources/js/assiduity/top.js"/>'></script>
 <script src='<c:url value="/resources/js/assiduity/annual.js"/>'></script>
-
         <title>assiduitygMain</title>
         <div>
             <article>
