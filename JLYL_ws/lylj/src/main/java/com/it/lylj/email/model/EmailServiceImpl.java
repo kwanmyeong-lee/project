@@ -46,20 +46,27 @@ public class EmailServiceImpl implements EmailService{
 			list = emailDao.selectTakeMailList(searchVo);
 		}else if(type==EmailService.SEND_MAIL) {
 			list= emailDao.selectSendMailList(searchVo);
+		}else if(type==EmailService.TEMP_MAIL) {
+			list= emailDao.selectTempsaveMailList(searchVo);
+		}else if(type==EmailService.BOOK_MAIL) {
+			list= emailDao.selectReservMailList(searchVo);
 		}
 		
 		return list;
 	}
 
 	@Override
-	public int totalRecordByType(String taker, int type) {
+	public int totalRecordByType(String empNo, int type) {
 		int totalRecord = 0;
 		if(type==EmailService.TAKE_MAIL) {
-			totalRecord = emailDao.totalRecordByEmailTake(taker);
+			totalRecord = emailDao.totalRecordByEmailTake(empNo);
 		}else if(type==EmailService.SEND_MAIL) {
-			totalRecord = emailDao.totalRecordByEmailSend(taker);
+			totalRecord = emailDao.totalRecordByEmailSend(empNo);
+		}else if(type==EmailService.TEMP_MAIL) {
+			totalRecord = emailDao.totalRecordByTempsave(empNo);
+		}else if(type==EmailService.BOOK_MAIL) {
+			totalRecord = emailDao.totalRecordByReserv(empNo);
 		}
-		
 		return totalRecord;
 	}
 }

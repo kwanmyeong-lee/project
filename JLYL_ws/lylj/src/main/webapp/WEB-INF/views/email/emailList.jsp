@@ -107,7 +107,29 @@ thead tr th{
 				<div class="grid-body emailBody">
 					<div class="row">
 						<div class="col-md-12">
-							<span class="grid-title title"><i class="fa fa-inbox"></i> 메일함</span>
+							<span class="grid-title title"><i class="fa fa-inbox"></i> 
+							<c:if test="${param.type eq 1 }">
+								받은메일함
+							</c:if>
+							<c:if test="${param.type eq '2' }">
+								보낸메일함
+							</c:if>
+							<c:if test="${param.type eq '3' }">
+								임시보관함
+							</c:if>
+							<c:if test="${param.type eq '4' }">
+								예약메일함
+							</c:if>
+							<c:if test="${param.type eq '5' }">
+								휴지통
+							</c:if>
+							<c:if test="${param.type eq '6' }">
+								안읽은 메일
+							</c:if>
+							<c:if test="${param.type eq '7' }">
+								중요 메일
+							</c:if>
+							</span>
 							<hr>
 							<form action="#" class="searchfrm" method="post" action="<c:url value='/email/emailList'/>">
 								<div class="input-group mb-4">
@@ -155,9 +177,15 @@ thead tr th{
 								            <th>읽음</th>
 								            <th>중요</th>
 								            <th>첨부</th>
-								            <th>보내는사람</th>
+								            <th>
+								            	<c:if test="${param.type eq '2' || param.type eq '3' || param.type eq '4' }">받는사람</c:if>
+								            	<c:if test="${param.type ne '2' && param.type ne '3' && param.type ne '4' }">보낸사람</c:if>
+								            </th>
 								            <th>제목</th>
-								            <th>보낸시간</th>
+								            <th>
+								            	<c:if test="${param.type eq '4'}">예약전송시간</c:if>
+								            	<c:if test="${param.type ne '4'}">보낸시간</c:if>
+								            </th>
 									    </tr>
 							        </thead>
 									<tbody>
@@ -181,9 +209,15 @@ thead tr th{
 													<button id="bt_important2" class="btn bt_important2" style="display: none;"><i class="far fa-star"></i></button>
 												</td>
 												<td class="typeFile"><i class="far fa-file btn"></i></td>
-												<td class="typeName"> ${map['MAIL_SEND']}@lylj.net</td>
+												<td class="typeName"> 
+													<c:if test="${param.type eq '2' || param.type eq '3' || param.type eq '4' }">${map['MAIL_TAKE']}@lylj.net</c:if>
+													<c:if test="${param.type ne '2' && param.type ne '3' && param.type ne '4' }">${map['MAIL_SEND']}@lylj.net</c:if>
+												</td>
 												<td class="typeSubject"><a href="<c:url value="/email/emailDetail?mailNo=${ map['MAIL_NO']}"/>">${map['MAIL_TITLE']} </a></td>
-												<td class="typeTime"><fmt:formatDate value="${map['MAIL_SENDDATE'] }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+												<td class="typeTime">
+												    <c:if test="${param.type eq '4'}"><fmt:formatDate value="${map['MAIL_RESERVE'] }" pattern="yyyy-MM-dd HH:mm:ss"/></c:if>
+												    <c:if test="${param.type ne '4'}"><fmt:formatDate value="${map['MAIL_SENDDATE'] }" pattern="yyyy-MM-dd HH:mm:ss"/></c:if>
+												</td>
 											</tr>
 										</c:forEach>
 									</c:if>

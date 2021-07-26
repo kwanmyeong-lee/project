@@ -110,20 +110,56 @@
 	    			event.preventDefault();
 	    			return false;
 	    		}
-	    		var taker = document.getElementById(mailTake);
-	    		var title = document.getElementById(mailTitle);
-	    		console.log(taker,title);
 	    		
-	    		var sendFrm = document.emailDataFrm;
-	    		sendFrm.acton = "<c:url value='/email/emailWrite'/>";
-	    		sendFrm.method = "post";
-	    		sendFrm.submit();
+	    		
+	    		//예약시간 셋팅
+	    		if($('#okBook').is(":checked")){
+	    			var bTime = $('select[name=bookTime]').val();
+	    			//${i/2 - i/2%1}
+ 	    			var hour = bTime/2 - bTime/2%1; 
+	    			var min = (bTime/2%1)*60;
+	    			if(hour<10){
+	    				hour="0"+hour;
+	    			}
+	    			if(min==0){
+	    				min="00";
+	    			}
+	    			
+					var reserv = $('#startDate').val() + " "+hour+":"+min+":"+"00";
+					console.log(reserv);
+					
+					$('input[name=mailReserve]').val(reserv);
+					
+	    		}else{
+	    			$('input[name=mailReserve]').val("");	
+	    		}
+	    		var sendMail = document.emailDataFrm;
+	    		sendMail.acton = "<c:url value='/email/emailWrite'/>";
+	    		sendMail.method = "post";
+	    		sendMail.submit();
+	    		
 	    	});
 	    });
 	    
 	    /* 임시저장 */
 	    $(function(){
 	    	$('#bt_tempSave').click(function(){
+	    		console.log("임시저장")
+	    		/* 유효성검사 */
+	    		if($('#mailTake').val().length<1){
+	    			alert("수신자를 입력하세요");
+	    			$('#mailTake').focus();
+	    			event.preventDefault();
+	    			return false;
+	    		}else if($('#mailTitle').val().length<1){
+	    			alert("메일제목을 입력하세요");
+	    			$('#mailTitle').focus();
+	    			event.preventDefault();
+	    			return false;
+	    		}
+	    		
+	    		$('input[name=mailTempsave]').val('T');
+	    		
 	    		var tempFrm = document.emailDataFrm;
 	    		tempFrm.acton = "<c:url value='/email/emailWrite'/>";
 	    		tempFrm.method = "post";
@@ -189,6 +225,7 @@
 			<form class="form-horizontal writefrm" id="emailDataFrm" name="emailDataFrm" method="post">
 				<input type="hidden" name = "mailSend" value="${sessionScope.empNo }">
 				<input type="hidden" name = "mailEmpno" value="${sessionScope.empNo }">
+				<input type="hidden" name = "mailTempsave">
 				<div class="form-group firstFrm row">
 			    	<label for="to" class="col-sm-1 control-label">받는사람:</label>
 			    	<div class="col-sm-11">
@@ -259,18 +296,20 @@
 						</span>
 				    </div>
 				    <div class="form-group row">
+					    <input type="hidden" id="mailReserve" name="mailReserve" value="">
 				    	<div class="col-sm-11 row" id="setDate" >
 					    	<span>날짜 :
-					    	<input type="text" class="scheduleDate" name="startDate" id="startDate">
+					    	<input type="text" class="scheduleDate" name="bookDate" id="startDate" readonly="readonly">
 					    	시간 :
-					    	<select class="selectTime" id="startTime" >
+					    	<select class="selectTime" id="startTime" name="bookTime" id="bookTime">
 				        		<c:forEach var="i" begin="0" end="47">
 				        			<c:set var="hour" value="${i/2 - i/2%1}"/>
+				        			<c:set var ="min" value="00"/>
 				        			<c:set var ="sec" value="00"/>
 				        			<c:if test="${i%2 eq 1 }">
-				        				<c:set var ="sec" value="30"/>
+				        				<c:set var ="min" value="30"/>
 				        			</c:if>
-				        			<option class="optionTime" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${sec }</option>
+				        			<option class="optionTime" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${min }:${sec }</option>
 				        		</c:forEach>
 		        			</select>
 		        			</span> 
