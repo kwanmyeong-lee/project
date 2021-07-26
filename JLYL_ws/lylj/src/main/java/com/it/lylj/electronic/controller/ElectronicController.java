@@ -134,7 +134,7 @@ public class ElectronicController {
 
 		// 파일 업로드
 		String fileName = "";
-		String msg = "도장 등록 실패", url = "/electronic/insertStamp";
+		String msg = "도장등록 실패 또는 이미 등록이 되어있습니다. ", url = "/electronic/insertStamp";
 		int cnt = 0;
 
 		List<MultipartFile> fileList = request.getFiles("upfile");
@@ -159,13 +159,15 @@ public class ElectronicController {
 				
 				if(cnt>0) {
 					msg = "도장 등록 성공";
+					url = "/electronic/insertStamp?cnt="+cnt;
 				}
+				logger.info("cnt={}", cnt);
 
 			} // if
 		} // for
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
-		model.addAttribute("cnt", cnt);
+		
 
 		return "common/message";
 	}

@@ -285,14 +285,6 @@
   100% {margin-top:-270px;}
 }
 
-p {
-  position:fixed;
-  width:100%;
-  bottom:30px;
-  font-size:12px;
-  color:#999;
-  margin-top:200px;
-}
 /* 어사이드 */
 </style>
 

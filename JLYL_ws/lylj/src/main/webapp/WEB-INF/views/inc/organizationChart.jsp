@@ -158,7 +158,6 @@ aside .modal-content {
 		<div class="modal-dialog ">
 			<div class="modal-content ">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">여기뭐꾸밀까...</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
@@ -174,9 +173,9 @@ aside .modal-content {
 						<label class="form-label">전화번호</label>
 						<p class="fs-3" id="userTel"></p>
 					</div>
-					<div class="modal-footer d-block">
+		<!-- 			<div class="modal-footer d-block">
 						<button type="button" id="close" class="btn btn-warning float-end">닫기</button>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
