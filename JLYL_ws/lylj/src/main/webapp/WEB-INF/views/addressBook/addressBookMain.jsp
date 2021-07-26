@@ -14,6 +14,21 @@
 			$(".addressBookModal").hide();
 		});
 		
+		/* 등록 유효성 */
+		$('#bookWriteSubmit').click(function(){
+			if($('#addressBookName').val() == ''){
+				alert('이름을 입력하세요.');
+				return false;
+			}else if($('#addressBookTel').val() == ''){
+				alert('번호를 입력하세요.');
+				return false;
+			}else if($('#addressFolderNo').val() == ''){
+				alert('카테고리를 선택하세요.');
+				return false;
+			}
+		});
+		
+		
 		/* 카테고리 수정 클릭 이벤트 */
 		$('.folBtn').click(function(){
 			window.open('<c:url value="/bookFolInfo/main"/>','카테고리 정보','width=600, height=350, toolbar=no, menubar=no, scrollbars=no, resizable=no');
@@ -38,6 +53,8 @@
 				$('#searchTextBox').val('');
 			}
 		});
+		
+		
 		
 	});
 	/* 페이징 처리 */
@@ -70,6 +87,11 @@
 	                  selected="selected"
 	            </c:if>
 	            >이메일</option>
+				<option value="addressBook_officeName"
+				<c:if test="${param.searchCondition == 'addressBook_officeName' }">               
+	                  selected="selected"
+	            </c:if>
+	            >회사</option>
 			</select>
 			<input type="text" name="searchKeyword" id="searchTextBox" value="${param.searchKeyword }">
 			<button type="submit" class="btn btn-outline-secondary" style="height: 32px;padding: 0 20px;">검색</button>

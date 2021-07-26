@@ -72,7 +72,7 @@
 						</div>
 						<div id="InputDiv" class="boxDiv">
 							<label>카테고리</label><span class="splitSpan">:</span>
-							<select name="addressFolderNo" class="selectItem">
+							<select name="addressFolderNo" class="selectItem" id="addressFolderNo">
 								<c:if test="${empty bookFolList}">
 								<option value="">선택하세요.</option>
 								</c:if>
