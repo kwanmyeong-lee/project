@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<%@ include file="top.jsp"%>
+<%@ include file="../inc/top.jsp"%>
 
 <!-- 달력 -->
 <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
@@ -218,4 +218,4 @@
 <input type="hidden"  id="exNum" value="${attendMonthList.size()}">
             </article>
         </div>
-            <%@ include file="bottom.jsp"%>
+            <%@ include file="../inc/bottom.jsp"%>
