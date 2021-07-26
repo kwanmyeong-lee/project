@@ -227,7 +227,7 @@ window.onload = function() {
                </table>
 				</div>
 				
-				<div class="col-md-16 row justify-content-center py-4 page_wrap">
+	<div class="col-md-16 row justify-content-center py-4 page_wrap">
 		<div class="col-sm-2 mr-0 page_nation" style="text-decoration: none;">
 			<!-- 이전 블럭 -->
 			<c:if test="${pagingInfo.firstPage>1 }">

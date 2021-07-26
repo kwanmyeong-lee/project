@@ -22,5 +22,7 @@ public interface AttendDayService {
 	List<ConditionViewVO> selectAllConditionByDepartMent(HashMap<String, Object> map);
 	List<ConditionViewVO> selectAllConditionByMonth(HashMap<String, Object> map);
 	int selectCntConditionByMonth(HashMap<String, Object> map);
+	int selectCntBreakDayByMonth(HashMap<String, Object> map);
+
 
 }

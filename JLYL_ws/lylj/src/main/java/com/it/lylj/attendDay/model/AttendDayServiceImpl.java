@@ -111,6 +111,12 @@ public class AttendDayServiceImpl implements AttendDayService{
 	}
 
 
+	@Override
+	public int selectCntBreakDayByMonth(HashMap<String, Object> map) {
+		return dao.selectCntBreakDayByMonth(map);
+	}
+
+
 	
 
 }
