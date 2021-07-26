@@ -17,6 +17,7 @@
 </style>
 
 <script type="text/javascript">
+	var empNo = "";
 	$(function() {
 		$.ajax({
 			async : true,
@@ -40,10 +41,14 @@
 		$('#close').click(function() {
 			$('#modalForm').modal('hide');
 		})
-		
-		$('#userEmail').click(function() {
-			location.href = "<c:url value = '/email/emailWrite'/>" 
-		})
+
+		$('#userEmail')
+				.click(
+						function() {
+							location.href = "<c:url value = '/email/emailWrite?empNo='/>"
+									+ empNo
+							colsole.log(empNo);
+						})
 	});
 	function createJSTree(jsondata) {
 		$('#SimpleJSTree').jstree(
@@ -87,8 +92,10 @@
 						$('#userimgDiv')
 								.html(
 										"<img src='<c:url value = '/resources/img/"+json.empPhoto+"/'/>'>");
-						$('#userEmail').html(json.empNo+"@lylj.net");
+						$('#userEmail').html(json.empNo + "@lylj.net");
 						$('#userTel').html(json.empTel);
+
+						empNo = json.empNo;
 					},
 					error : function(xhr, ajaxOptions, thrownError) {
 						alert(xhr.status);
@@ -96,7 +103,7 @@
 					}
 
 				});
-		
+
 	}
 </script>
 <style type="text/css">

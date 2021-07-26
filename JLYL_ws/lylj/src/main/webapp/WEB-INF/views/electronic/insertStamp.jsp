@@ -25,8 +25,20 @@
 		};
 		reader.readAsDataURL(event.target.files[0]);
 	}
-</script>
 
+	$(function() {
+		$('#ok').cliclk(function() {
+
+		});
+	});
+</script>
+<style type="text/css">
+#image_container img {
+	width: 40px;
+	align-items: center;
+	margin-top: 68px;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -35,20 +47,26 @@
 			<div class="shadow p-3 mb-5 bg-light rounded ">
 				<h2>결재시 입력될 도장을 선택해주세요</h2>
 			</div>
-			<div class="form-group col-6">
-				<div class="input-group mb-3 ">
-					<input multiple="multiple" type="file" class="form-control"
-						onchange="setThumbnail(event);" name="upfile"
-						id="inputGroupFile02" aria-label="Upload">
+			<form action="">
+				<div class="form-group col-6">
+					<div class="input-group mb-3 ">
+						<input multiple="multiple" type="file" class="form-control"
+							onchange="setThumbnail(event);" name="upfile"
+							id="inputGroupFile02" aria-label="Upload">
+					</div>
+					<span style="margin-left: 5px; font-size: 14px;">※&nbsp;
+						파일크기 제한 : 50MB</span>
+					<hr>
+					<h3>사용될 도장 미리보기입니다</h3>
 				</div>
-				<span style="margin-left: 5px; font-size: 14px;">※&nbsp; 파일크기
-					제한 : 50MB</span>
-				<hr>
-				<h3>사용될 도장 미리보기입니다</h3>
-
-			</div>
+			</form>
 			<div id="image_container"
-				style="border: 1px solid black; min-height: 180px; min-width: 180px;"></div>
+				style="border: 1px solid black; min-height: 180px; width: 300px; text-align: center;"></div>
+		</div>
+		<div class="row justify-content-center mt-5">
+			<div class="col-md-2">
+				<button type="button" id="ok" class="btn btn-success">Success</button>
+			</div>
 		</div>
 	</div>
 </body>

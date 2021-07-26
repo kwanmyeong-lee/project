@@ -100,7 +100,7 @@ public class ElectronicController {
 	}
 	
 	// 도장등록 화면 보여주기
-	@RequestMapping("/insertStamp")
+	@GetMapping("/insertStamp")
 	public void insertStamp() {
 		logger.info("도장 등록 페이지 보여주기");
 		
@@ -124,6 +124,13 @@ public class ElectronicController {
 		logger.info("결재라인 선택 화면 보여주기");
 	}
 
+	//도장 등록하기 
+	@PostMapping("/insertStamp")
+	public void insertStamp_post() {
+		logger.info("도장 등록 페이지 보여주기");
+		
+	}
+	
 	// 기안서 작성 페이지 보여주기
 	@GetMapping("/documentWrite")
 	public void documentWrite(@RequestParam String styleNo, Model model) {
