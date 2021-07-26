@@ -486,6 +486,12 @@ public class AssiduityController {
 		
 	}//근태 통계 페이지
 	
+	@GetMapping("/excess")
+	public void excess(Model model) {
+		model.addAttribute("navNo",8);
+		
+	}//초과근무 관리 페이지
+	
 	
 	
 	public Model topView(HttpServletRequest req,Model model) {
