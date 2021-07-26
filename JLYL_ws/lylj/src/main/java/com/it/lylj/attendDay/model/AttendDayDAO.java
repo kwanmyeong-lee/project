@@ -21,7 +21,8 @@ public interface AttendDayDAO {
 	int selectSumWeekWorkByMonth(HashMap<String, Object> map);
 	List<AttendDayVO> selectAttendMonth(HashMap<String, Object> map);
 	int updateAttendDay(AttendDayVO vo);
-	Map<String,Object> selectSumConditionByGroup(HashMap<String, Object> map);
+	List<Map<String,Object>> selectSumConditionByGroup(HashMap<String, Object> map);
 	List<ConditionViewVO> selectAllConditionByDepartMent(HashMap<String, Object> map);
+	List<ConditionViewVO> selectAllConditionByMonth(HashMap<String, Object> map);
 
 }

@@ -33,4 +33,9 @@ public class EmailServiceImpl implements EmailService{
 	public List<Map<String, Object>> selectMailList(String taker) {
 		return emailDao.selectMailList(taker);
 	}
+
+	@Override
+	public EmailVO selectByMailNo(int mailNo) {
+		return emailDao.selectByMailNo(mailNo);
+	}
 }

@@ -7,4 +7,5 @@ public interface EmailService {
 	int sendEmail(EmailVO vo);
 	String splitName(String taker);
 	List<Map<String, Object>> selectMailList(String taker);
+	EmailVO selectByMailNo(int mailNo);
 }

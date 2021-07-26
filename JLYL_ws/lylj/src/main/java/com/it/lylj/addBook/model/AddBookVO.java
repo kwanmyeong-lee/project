@@ -14,5 +14,8 @@ public class AddBookVO {
 	private String addressBookTel;
 	private String addressBookMaile;
 	private String addressBookPosition;
+	private String addressBookOfficeName;
+	private String addressBookOfficeTel;
+	private String addressBookGender;
 	private int addressFolderNo;
 }

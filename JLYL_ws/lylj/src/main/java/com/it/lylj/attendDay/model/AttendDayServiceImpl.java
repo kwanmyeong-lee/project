@@ -88,7 +88,7 @@ public class AttendDayServiceImpl implements AttendDayService{
 
 
 	@Override
-	public Map<String, Object> selectSumConditionByGroup(HashMap<String, Object> map) {
+	public List<Map<String, Object>> selectSumConditionByGroup(HashMap<String, Object> map) {
 		return dao.selectSumConditionByGroup(map);
 	}
 
@@ -96,6 +96,12 @@ public class AttendDayServiceImpl implements AttendDayService{
 	@Override
 	public List<ConditionViewVO> selectAllConditionByDepartMent(HashMap<String, Object> map) {
 		return dao.selectAllConditionByDepartMent(map);
+	}
+
+
+	@Override
+	public List<ConditionViewVO> selectAllConditionByMonth(HashMap<String, Object> map) {
+		return dao.selectAllConditionByMonth(map);
 	}
 
 
