@@ -39,6 +39,11 @@ public class AddBookServiceImpl implements AddBookService{
 		return addBookDao.updateAddBook(vo);
 	}
 
+	@Override
+	public int deleteAddBook(AddBookVO vo) {
+		return addBookDao.deleteAddBook(vo);
+	}
+
 	
 
 }
