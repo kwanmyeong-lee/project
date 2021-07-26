@@ -108,8 +108,10 @@ public class AssiduityController {
 	@GetMapping("/statsView")
 	@ResponseBody
 	public HashMap<String, Object> statsView(int selectItem1,int selectItem2,int selectItem3, String searchEmp,
-											String searchDepart, String startDate,String endDate,String selectDate){
+											String searchDepart, String startDate,String endDate,String selectDate,
+											int currentPage,int btCheck){
 		HashMap<String, Object> map = new HashMap<>();
+		HashMap<String, Object> map2 = new HashMap<>();
 		map.put("selectItem1", selectItem1);
 		map.put("selectItem2", selectItem2);
 		map.put("selectItem3", selectItem3);
@@ -119,17 +121,43 @@ public class AssiduityController {
 		map.put("endDate", endDate);
 		map.put("selectDate", selectDate);
 		
+		map2.put("selectItem1", selectItem1);
+		map2.put("selectItem2", selectItem2);
+		map2.put("selectItem3", selectItem3);
+		map2.put("searchEmp", searchEmp);
+		map2.put("searchDepart", searchDepart);
+		map2.put("startDate", startDate);
+		map2.put("endDate", endDate);
+		map2.put("selectDate", selectDate);
+		
+		if(btCheck==1) {
+			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN + 1;
+			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;
+		}else if(btCheck == 2) {
+			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN - 1;
+			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;			
+		}
+		map2.put("currentPage", currentPage);
 		
 		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByMonth(map);
+		List<ConditionViewVO> conditionList2 = attendDayService.selectAllConditionByMonth(map2);
 		int empCnt = attendDayService.selectCntConditionByMonth(map);
 		int breakCnt = attendDayService.selectCntBreakDayByMonth(map);
+		int TotalRecord = attendDayService.selectAllCntConditionByMonth(map);
+
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setCurrentPage(currentPage);
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ANN);
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ANN);
+		pagingInfo.setTotalRecord(TotalRecord);
 		
 		logger.info("conditionList={}",conditionList);
 		HashMap<String, Object> data = new HashMap<>();
 		data.put("conditionList", conditionList);
+		data.put("conditionList2", conditionList2);
 		data.put("empCnt", empCnt);
 		data.put("breakCnt", breakCnt);
-		
+		data.put("pagingInfo", pagingInfo);
 		
 		return data;
 	}//ajax 근태 통계 목록

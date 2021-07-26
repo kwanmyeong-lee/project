@@ -48,6 +48,13 @@
 	   </if>
 	</sql>
 	
+	<sql id="searchView">
+	   <if test="currentPage != 0 and currentPage!=null and currentPage!=''" >
+		 <![CDATA[ where nums >12*(#{currentPage}-1) and nums<=12*#{currentPage} ]]>
+	   </if>
+	   
+	</sql>
+	
 	<select id="selectAttendDayByRegdate" parameterType="attendDayVo" resultType="attendDayVo">
 		select * from ATTENDDAY 
 		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(#{attendanceDayRegdate})
@@ -252,11 +259,20 @@
 	</select>
 	
 	<select id="selectAllConditionByMonth" parameterType="hashmap" resultType="conditionViewVO">
-		select * from CONDITIONVIEW
+		select * from (select c.*, rownum as nums from CONDITIONVIEW c
 		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
 		<include refid="searchStats"/>
-		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO
+		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO)
+		<include refid="searchView"/>
 	</select>
+	<select id="selectAllCntConditionByMonth" parameterType="hashmap" resultType="int">
+		select count(*) from (select c.*, rownum as nums from CONDITIONVIEW c
+		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
+		<include refid="searchStats"/>
+		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO)
+		
+	</select>
+	
 	<select id="selectCntConditionByMonth" parameterType="hashmap" resultType="int">
 		select count(distinct(emp_name)) from CONDITIONVIEW
 		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
