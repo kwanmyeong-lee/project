@@ -87,7 +87,7 @@
 						$('#userimgDiv')
 								.html(
 										"<img src='<c:url value = '/resources/img/"+json.empPhoto+"/'/>'>");
-						$('#userEmail').html(json.empEmail);
+						$('#userEmail').html(json.empNo+"@lylj.net");
 						$('#userTel').html(json.empTel);
 					},
 					error : function(xhr, ajaxOptions, thrownError) {

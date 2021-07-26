@@ -98,6 +98,13 @@ public class ElectronicController {
 		model.addAttribute("list", list);
 		model.addAttribute("navNo", 1);
 	}
+	
+	// 도장등록 화면 보여주기
+	@RequestMapping("/insertStamp")
+	public void insertStamp() {
+		logger.info("도장 등록 페이지 보여주기");
+		
+	}
 
 	// 문서 양식 선택화면 보여주기
 	@GetMapping("/documentSelect")
