@@ -56,6 +56,8 @@
 	<div id="editBgDiv">
 		<div id="editDiv">
 			<h2>카테고리</h2><br>
+			<span id="warSpan">※ 확인버튼을 누르면 새로고침 되어 '주소록 등록'창의 경우<br> 입력한 정보가 삭제 되오니 주의하시기 바랍니다.</span><br>
+			<br>
 			<label class="editLabel">카테고리</label><span class="editSplitSpan">:</span>
 			<select name="addressFolderNo" class="selectItemEdit">
 				<option value="">선택하세요.</option>
@@ -65,23 +67,26 @@
 			</select>
 			<button type="button" id="plusBtn">+</button>
 			
-			<br><br><hr><br>
+			<br><br><hr>
 			
 			<form name="frmFolEdit" id="folEditFrm" hidden="hidden">
+				<h4>카테고리 수정</h4>
 				<input type="hidden" name="empNo" value="${empNo }">
 				<input type="hidden" name="addressFolderNo" id="addressFolderNo">
-				<input type="text" name="addressFolderName" id="addressFolderName">
-				<button type="button" id="folderEditBtn">카테고리 수정</button>
-				<button type="button" id="folderDeleteBtn">삭제</button>
+				<input type="text" name="addressFolderName" id="addressFolderName1" class="folderName">
+				<button type="button" id="folderEditBtn" class="editBtn">수정</button>
+				<button type="button" id="folderDeleteBtn" class="editBtn">삭제</button>
 			</form>
 			
 			<div id="folderInsertDiv" hidden="hidden">
 				<form action="<c:url value='/bookFolInfo/insert'/>">
+					<h4>카테고리 추가</h4>
 					<input type="hidden" name="empNo" value="${empNo }">
-					<input type="text" name="addressFolderName" id="addressFolderName">
-					<input type="submit" value="추가">
+					<input type="text" name="addressFolderName" id="addressFolderName2" class="folderName">
+					<input type="submit" value="추가" class="editBtn">
 				</form>
 			</div>
+			<br>
 			<input type="button" value="확인" id="selectBtn">
 		</div>
 	</div>
