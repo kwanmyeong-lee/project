@@ -13,9 +13,13 @@ public interface EmailDAO {
 	//메일 항복별 리스트 선택
 	List<Map<String, Object>> selectTakeMailList(SearchVO searchVo);
 	List<Map<String, Object>> selectSendMailList(SearchVO searchVo);
+	List<Map<String, Object>> selectTempsaveMailList(SearchVO searchVo);
+	List<Map<String, Object>> selectReservMailList(SearchVO searchVo);
 	//메일 항목별 size()
-	int totalRecordByEmailTake(String taker);
+	int totalRecordByEmailTake(String empNo);
 	int totalRecordByEmailSend(String empNo);
+	int totalRecordByTempsave(String empNo);
+	int totalRecordByReserv(String empNo);
 	
 	EmailVO selectByMailNo(int mailNo);
 }
