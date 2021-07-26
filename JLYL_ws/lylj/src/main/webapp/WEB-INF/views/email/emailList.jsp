@@ -68,17 +68,17 @@ thead tr th{
 			var result = confirm("읽음 처리하시겠습니까?");
 			if(result){
 				alert("읽음처리되었습니다");
-				$('#bt_read1').hide();
-				$('#bt_read2').show();
+				$(this).hide();
+				$(this).next().show();
 			}
 		});
 		
-		$('#bt_read2').click(function(){
+		$('.bt_read2').click(function(){
 			var result = confirm("안읽음 처리하시겠습니까?");
 			if(result){
 				alert("안읽음처리되었습니다");
-				$('#bt_read2').hide();
-				$('#bt_read1').show();
+				$(this).hide();
+				$(this).prev().show();
 			}
 		});
 		
