@@ -11,6 +11,7 @@
 		values (#{mailNo}, #{mailTitle},#{mailContent}, #{mailSend}, #{mailTake}, default,null,null,default, #{mailEmpno})
 	</insert>
 	
+	
 	<select id="selectMailList" parameterType="String" resultType="map">
 		select * from mailView
 		where mail_take=#{empNo}

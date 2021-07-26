@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.it.lylj.common.PaginationInfo;
+import com.it.lylj.common.SearchVO;
 import com.it.lylj.email.model.EmailService;
 import com.it.lylj.email.model.EmailVO;
 import com.it.lylj.emp.model.EmpService;
+import com.it.lylj.emp.model.EmpVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +31,7 @@ public class EmailController {
 	private final EmailService emailService;
 	private final EmpService empService;
 	
+	/* 이메일메인페이지 */
 	@RequestMapping("/emailMain")
 	public void emailMain(Model model) {
 		logger.info("이메일메인페이지");
@@ -35,9 +39,14 @@ public class EmailController {
 	}
 	
 	@RequestMapping("/emailList")
-	public void emailList(@RequestParam int empNo, Model model) {
+	public void emailList(@RequestParam int empNo, @ModelAttribute SearchVO searchVo ,Model model) {
 		logger.info("이메일 페이지, 파라미터 empNo={}",empNo);
+		//페이징처리
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setCurrentPage()
 		
+		
+		//리스트 
 		List<Map<String, Object>> list = emailService.selectMailList(Integer.toString(empNo));
 		logger.info("이메일 페이지, list.size()={}", list.size());
 		
@@ -46,10 +55,12 @@ public class EmailController {
 		
 	}
 	
+	/* 이메일쓰기 페이지 */
 	@GetMapping("/emailWrite")
-	public void emailWrite(@RequestParam(defaultValue = "0", required = false)int mailNo, @RequestParam(defaultValue = "0", required = false) String type
-			, Model model) {
+	public void emailWrite(@RequestParam(defaultValue = "0", required = false)int mailNo, @RequestParam(defaultValue = "0", required = false) int empNo, 
+			@RequestParam(defaultValue = "0", required = false) String type, Model model) {
 		logger.info("이메일쓰기 페이지");
+		
 		//답장,전달 확인 파라미터(메일번호)가 있는경우 처리
 		if(type.equals("re")) {
 		   EmailVO reEmailVo = emailService.selectByMailNo(mailNo);
@@ -59,9 +70,15 @@ public class EmailController {
 			model.addAttribute("fwEmailVo", fwEmailVo);
 		}
 		
+		if(empNo!=0) {
+			EmpVO empVo = empService.selectByEmpNo(empNo);
+			model.addAttribute("empVo", empVo);
+		}
+		
 		model.addAttribute("navNo", 2);
 	}
 	
+	/* 이메일쓰기 처리 */
 	@PostMapping("/emailWrite")
 	public String emailWrite_post(@ModelAttribute EmailVO emailVo, Model model) {
 		logger.info("이메일 전송, emailVo={}", emailVo);
@@ -99,6 +116,8 @@ public class EmailController {
 		return "common/message";
 	}
 	
+	
+	/* 이메일 상세보기 */
 	@RequestMapping("/emailDetail")
 	public void emailDetail(@RequestParam(defaultValue = "0") int mailNo ,Model model) {
 		logger.info("이메일 상세보기, 파라미터 mailNo={}",mailNo);
@@ -110,6 +129,7 @@ public class EmailController {
 		
 	}
 	
+	/* 미리보기 페이지 */
 	@RequestMapping("/emailPreview")
 	public String emailPreview(@ModelAttribute EmailVO vo
 			, Model model) {

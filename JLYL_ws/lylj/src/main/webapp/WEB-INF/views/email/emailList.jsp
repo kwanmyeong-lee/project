@@ -187,16 +187,30 @@ thead tr th{
 								</table>
 							</div>
 						<!-- 페이징 -->
-							<ul class="pagination">
-								<li class="disabled"><a href="#">«</a></li>
-								<li class="active"><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">»</a></li>
-							</ul>						
-						</div>
+						<div id="pagingDiv">
+							  <ul class="pagination">
+								  <c:if test="${pagingInfo.firstPage>1 }">
+									    <li class="page-item">
+									      <a class="page-link" href="#" onclick="pagingProc(${pagingInfo.firstPage-1})">이전</a>
+									    </li>
+								  </c:if>
+								  
+								  <c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
+								  	 <c:if test="${i==pagingInfo.currentPage }">
+									    <li class="page-item"><a class="page-link" href="#" onclick="pagingProc(${i})" style="color: blue;">${i }</a></li>
+									 </c:if>
+									 <c:if test="${i!=pagingInfo.currentPage }">
+									 	<li class="page-item"><a class="page-link" href="#" onclick="pagingProc(${i})">${i }</a></li>
+									 </c:if>				 
+								  </c:forEach>
+								  
+								  <c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
+									    <li class="page-item">
+									      <a class="page-link" href="#" onclick="pageProc(${pagingInfo.lastPage+1})">다음</a>
+									    </li>
+								  </c:if>
+							  </ul>
+						</div>				
 						<!-- END INBOX CONTENT -->
 						
 					</div>
