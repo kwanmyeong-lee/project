@@ -3,9 +3,6 @@ package com.it.lylj.email.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.lylj.email.model.EmailService;
 import com.it.lylj.email.model.EmailVO;
@@ -51,17 +47,19 @@ public class EmailController {
 	}
 	
 	@GetMapping("/emailWrite")
-	public void emailWrite(@RequestParam(defaultValue = "0")int mailNo, Model model) {
+	public void emailWrite(@RequestParam(defaultValue = "0", required = false)int mailNo, @RequestParam(defaultValue = "0", required = false) String type
+			, Model model) {
 		logger.info("이메일쓰기 페이지");
-		//파라미터가 있는경우
-		if(mailNo>0) {
-		   EmailVO emailVo = emailService.selectByMailNo(mailNo);
-		   model.addAttribute("emailVo", emailVo);
+		//답장,전달 확인 파라미터(메일번호)가 있는경우 처리
+		if(type.equals("re")) {
+		   EmailVO reEmailVo = emailService.selectByMailNo(mailNo);
+		   model.addAttribute("reEmailVo", reEmailVo);
+		}else if(type.equals("fw")) {
+			EmailVO fwEmailVo= emailService.selectByMailNo(mailNo);
+			model.addAttribute("fwEmailVo", fwEmailVo);
 		}
-		//파라미터가 없는경우(default)
-		model.addAttribute("navNo", 2);
 		
-	
+		model.addAttribute("navNo", 2);
 	}
 	
 	@PostMapping("/emailWrite")

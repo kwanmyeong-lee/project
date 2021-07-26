@@ -32,7 +32,7 @@
 }
 .emailContentPanel{
 	border: 1px solid #dedee2;
-	height: 300px;
+	min-height: 300px;
 }
 .emailContent{
 	padding: 10px;
@@ -46,7 +46,8 @@
 				<br>
 				<hr>
 			  <div class="form-group">	
-				 <a href="<c:url value='/email/emailWrite?mailNo=${param.mailNo }'/>"><button type="button" class="btn btn-secondary">답장</button></a>
+				 <a href="<c:url value='/email/emailWrite?mailNo=${param.mailNo }&type=re'/>"><button type="button" class="btn btn-secondary">답장</button></a>
+				 <a href="<c:url value='/email/emailWrite?mailNo=${param.mailNo }&type=fw'/>"><button type="button" class="btn btn-secondary">전달</button></a>
 				 <button type="button" class="btn btn-secondary">삭제</button>
 				 <span id="sendDate">보낸시간 : <fmt:formatDate value="${emailVo.mailSenddate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 			   </div>

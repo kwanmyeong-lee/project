@@ -86,10 +86,7 @@
 .searchNo{
 	font-weight: bold;
 }
-#dropZoneSpan{
-	color: blue;
-	font-size: 0.9em;
-}
+
 </style>
 
 <script>
@@ -185,32 +182,53 @@
 				<div class="form-group firstFrm row">
 			    	<label for="to" class="col-sm-1 control-label">받는사람:</label>
 			    	<div class="col-sm-11">
-                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1"
-                        <c:if test="${!empty emailVo}">value="${emailVo.mailSend}"  disabled="disabled"</c:if>
-                        >
-                     	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
-						<div id="resultEmp" style="display: none;">
+				    	<c:if test="${!empty reEmailVo}">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${reEmailVo.mailSend}"  readonly="readonly">
+	                    </c:if>
+	                    <c:if test="${!empty fwEmailVo}">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
+	                    </c:if>
+	                    <c:if test="${empty reEmailVo && empty fwEmailVo}">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
+	                    </c:if>
+	                     	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
+							<div id="resultEmp" style="display: none;">
 						</div>                        
 			    	</div>
 			  	</div>
 				<div class="form-group row">
 			    	<label for="bcc" class="col-sm-1 control-label">제목:</label>
 			    	<div class="col-sm-11">
-                         <input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1"
-                         <c:if test="${!empty emailVo}">value="re: ${emailVo.mailTitle}"  disabled="disabled"</c:if>
-                         >
+			    		<c:if test="${!empty reEmailVo}">
+                         	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" value="re: ${reEmailVo.mailTitle}"  readonly="readonly">
+			    		</c:if>
+                         <c:if test="${!empty fwEmailVo}">
+                         	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" value="fw: ${fwEmailVo.mailTitle}"  readonly="readonly">
+			    		</c:if>
+			    		<c:if test="${empty reEmailVo && empty fwEmailVo}">
+                         	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" >
+			    		</c:if>
 			    	</div>
 			  	</div>
 			  			<div class="form-group">
 						<textarea class="form-control message" id="summernote" name="mailContent">
-							<c:if test="${!empty emailVo}">
+							<c:if test="${!empty reEmailVo}">
 								<br><br>
-								--------------------받은메일내용----------------------<br>
-								보낸사람 : ${emailVo.mailSend }<br>
-								제목 : ${emailVo.mailTitle}<br>
+								---------------------------받은메일내용---------------------------<br>
+								보낸사람 : ${reEmailVo.mailSend }<br>
+								제목 : ${reEmailVo.mailTitle}<br>
 								내용 :
-								&nbsp;${emailVo.mailContent }<br>
-								---------------------------------------------------------							
+								&nbsp;${reEmailVo.mailContent }<br>
+								--------------------------------------------------------------------						
+							</c:if>
+							<c:if test="${!empty fwEmailVo}">
+								<br><br>
+								---------------------------받은메일내용---------------------------<br>
+								보낸사람 : ${fwEmailVo.mailSend }<br>
+								제목 : ${fwEmailVo.mailTitle}<br>
+								내용 :
+								&nbsp;${fwEmailVo.mailContent }<br>
+								--------------------------------------------------------------------						
 							</c:if>
 						</textarea>
 					</div>
