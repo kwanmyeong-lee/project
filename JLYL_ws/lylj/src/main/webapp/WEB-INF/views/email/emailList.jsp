@@ -113,7 +113,7 @@ thead tr th{
 								<div class="input-group mb-4">
 									<select class="form-control" name="searchCondition">
 										<option value="">-선택-</option>
-										<option value="mail_send">받는사람</option>
+										<option value="mail_send">바사람</option>
 										<option value="mail_title">제목</option>
 									</select>
 									<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" name="searchKeyword" id="searchBox">

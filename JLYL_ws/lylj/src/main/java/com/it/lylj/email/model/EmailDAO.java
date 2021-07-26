@@ -10,9 +10,12 @@ import com.it.lylj.common.SearchVO;
 @Mapper
 public interface EmailDAO {
 	int sendEmail(EmailVO vo);
-	List<Map<String, Object>> selectMailList(SearchVO searchVo);
+	//메일 항복별 리스트 선택
+	List<Map<String, Object>> selectTakeMailList(SearchVO searchVo);
 	List<Map<String, Object>> selectSendMailList(SearchVO searchVo);
-	EmailVO selectByMailNo(int mailNo);
+	//메일 항목별 size()
 	int totalRecordByEmailTake(String taker);
+	int totalRecordByEmailSend(String empNo);
 	
+	EmailVO selectByMailNo(int mailNo);
 }

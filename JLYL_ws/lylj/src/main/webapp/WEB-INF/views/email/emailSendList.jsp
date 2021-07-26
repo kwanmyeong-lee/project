@@ -63,37 +63,6 @@ thead tr th{
 </style>
 
 <script type="text/javascript">
-	$(function(){
-		$('.bt_read1').click(function(){
-			var result = confirm("읽음 처리하시겠습니까?");
-			if(result){
-				alert("읽음처리되었습니다");
-				$(this).hide();
-				$(this).next().show();
-			}
-		});
-		
-		$('.bt_read2').click(function(){
-			var result = confirm("안읽음 처리하시겠습니까?");
-			if(result){
-				alert("안읽음처리되었습니다");
-				$(this).hide();
-				$(this).prev().show();
-			}
-		});
-		
-		$('#bt_important1').click(function(){
-			$('#bt_important1').hide();
-			$('#bt_important2').show();
-		});
-		
-		$('#bt_important2').click(function(){
-			$('#bt_important2').hide();
-			$('#bt_important1').show();
-		});
-		
-	});
-	
 	function pagingProc(curPage){
 		$('input[name=currentPage]').val(curPage);
 		$('form[name=frmPage]').submit();	
@@ -113,7 +82,7 @@ thead tr th{
 								<div class="input-group mb-4">
 									<select class="form-control" name="searchCondition">
 										<option value="">-선택-</option>
-										<option value="mail_send">보낸사람</option>
+										<option value="mail_take">받는사람</option>
 										<option value="mail_title">제목</option>
 									</select>
 									<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" name="searchKeyword" id="searchBox">
@@ -155,7 +124,7 @@ thead tr th{
 								            <th>읽음</th>
 								            <th>중요</th>
 								            <th>첨부</th>
-								            <th>보내는사람</th>
+								            <th>받는사람</th>
 								            <th>제목</th>
 								            <th>보낸시간</th>
 									    </tr>
@@ -181,7 +150,7 @@ thead tr th{
 													<button id="bt_important2" class="btn bt_important2" style="display: none;"><i class="far fa-star"></i></button>
 												</td>
 												<td class="typeFile"><i class="far fa-file btn"></i></td>
-												<td class="typeName"> ${map['MAIL_SEND']}@lylj.net</td>
+												<td class="typeName"> ${map['MAIL_TAKE']}@lylj.net</td>
 												<td class="typeSubject"><a href="<c:url value="/email/emailDetail?mailNo=${ map['MAIL_NO']}"/>">${map['MAIL_TITLE']} </a></td>
 												<td class="typeTime"><fmt:formatDate value="${map['MAIL_SENDDATE'] }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 											</tr>
