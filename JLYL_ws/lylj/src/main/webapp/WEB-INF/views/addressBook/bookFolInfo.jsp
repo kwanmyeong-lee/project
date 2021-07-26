@@ -44,8 +44,12 @@
 			$('#folEditFrm').attr("action","<c:url value='/bookFolInfo/delete'/>").submit();
 		});
 		
-		
+		$('#selectBtn').click(function(){
+			opener.document.location.reload();
+			self.close();
+		});
 	});
+	
 </script>
 </head>
 <body>

@@ -4,6 +4,12 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/addressBook/style.css'/>">
 <script type="text/javascript">
 $(function() {
+
+	/* 등록 모달 이벤트 */
+	$('#newAddressBook').click(function(){
+		alert('주소록 수정 중에는 등록을 할 수 없습니다.');	
+	});
+	
 	/* 취소버튼 클릭 이벤트*/
 	$('.bookCancleBtn').click(function() {
 		history.back();
