@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="top.jsp"%>
+<%@ include file="../inc/top.jsp"%>
 
 
 <!-- datepicker -->
@@ -45,7 +45,7 @@
         	
         	<div class="afdiv">
         	<label	class="labelTime">일시</label>
-        	<input type="text" class="scheduleDate" name="startDate" id="startDate">
+        	<input type="text" class="scheduleDate" name="startDate" id="startDate" readonly="readonly">
         	<select class="selectTime" id="startTime">
         		<c:forEach var="i" begin="${selectEndTime }" end="47">
         			<c:set var="hour" value="${i/2 - i/2%1}"/>
@@ -57,7 +57,7 @@
         		</c:forEach>
         	</select>
         	
-        	<input type="text" class="scheduleDate" name="endDate" id="endDate">
+        	<input type="text" class="scheduleDate" name="endDate" id="endDate" readonly="readonly">
         	<select class="selectTime" id="endTime">
         		<c:forEach var="i" begin="0" end="47">
         			<c:set var="hour" value="${i/2 - i/2%1}"/>

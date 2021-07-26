@@ -19,6 +19,42 @@
 	   </if>
 	</sql>
 	
+	<sql id="searchStats">
+	   <if test="selectItem3 == 1 and startDate!=null and startDate!=''" >
+		 <![CDATA[
+		 AND ATTENDANCE_DAY_REGDATE BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate})
+		 ]]>
+	   </if>
+	   <if test="selectItem2 == 1 and searchDepart!=null and searchDepart!=''">
+		 AND DEPARTMENT_NAME  like '%' || #{searchDepart} || '%'
+	   </if>
+	   <if test="selectItem1 == 1 and searchEmp!=null and searchEmp!=''">
+		 AND EMP_NAME  like '%' || #{searchEmp} || '%'
+	   </if>
+	</sql>
+	
+	<sql id="searchBreak">
+	   <if test="selectItem3 == 1 and startDate!=null and startDate!=''" >
+		 <![CDATA[
+		 AND (BREAKDAY_START BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate}) OR 
+		 BREAKDAY_END BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate}))
+		 ]]>
+	   </if>
+	   <if test="selectItem2 == 1 and searchDepart!=null and searchDepart!=''">
+		 AND DEPARTMENT_NAME  like '%' || #{searchDepart} || '%'
+	   </if>
+	   <if test="selectItem1 == 1 and searchEmp!=null and searchEmp!=''">
+		 AND EMP_NAME  like '%' || #{searchEmp} || '%'
+	   </if>
+	</sql>
+	
+	<sql id="searchView">
+	   <if test="currentPage != 0 and currentPage!=null and currentPage!=''" >
+		 <![CDATA[ where nums >12*(#{currentPage}-1) and nums<=12*#{currentPage} ]]>
+	   </if>
+	   
+	</sql>
+	
 	<select id="selectAttendDayByRegdate" parameterType="attendDayVo" resultType="attendDayVo">
 		select * from ATTENDDAY 
 		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(#{attendanceDayRegdate})
@@ -220,6 +256,35 @@
 		where department_no =#{departmentNo} and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'d') and TO_DATE(#{selectDate},'yyyy-mm-dd')
 		order by ATTENDANCE_DAY_NO
 		
+	</select>
+	
+	<select id="selectAllConditionByMonth" parameterType="hashmap" resultType="conditionViewVO">
+		select * from (select c.*, rownum as nums from CONDITIONVIEW c
+		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
+		<include refid="searchStats"/>
+		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO)
+		<include refid="searchView"/>
+	</select>
+	<select id="selectAllCntConditionByMonth" parameterType="hashmap" resultType="int">
+		select count(*) from (select c.*, rownum as nums from CONDITIONVIEW c
+		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
+		<include refid="searchStats"/>
+		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO)
+		
+	</select>
+	
+	<select id="selectCntConditionByMonth" parameterType="hashmap" resultType="int">
+		select count(distinct(emp_name)) from CONDITIONVIEW
+		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
+		<include refid="searchStats"/>
+		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO
+	</select>
+	
+	<select id="selectCntBreakDayByMonth" parameterType="hashmap" resultType="int">
+		select count(*) from BREAKVIEW
+		where (BREAKDAY_START between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
+		OR BREAKDAY_END between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1))
+		<include refid="searchBreak"/>
 	</select>
 	
  </mapper>

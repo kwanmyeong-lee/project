@@ -3,26 +3,74 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.it.lylj.email.model.EmailDAO">
-	<insert id="sendEmail" parameterType="EmailVo">
-		<selectKey keyProperty="mailNo" resultType="int" order="BEFORE">
-			select mail_seq.nextval from dual
-		</selectKey>
-		insert into mail 
-		values (#{mailNo}, #{mailTitle},#{mailContent}, #{mailSend}, #{mailTake}, default,null,null,default, #{mailEmpno})
+	<!-- 검색조건 -->	
+	<sql id="searchWhere">
+	   <if test="searchKeyword!=null and searchKeyword!=''">
+		 and ${searchCondition}  like '%' || #{searchKeyword} || '%'
+	   </if>
+	</sql>
+	
+	<!-- 메일쓰기 -->
+	<insert parameterType="EmailVo" id="sendEmail">
+	<selectKey order="BEFORE" resultType="int" keyProperty="mailNo">select mail_seq.nextval from dual </selectKey>
+		insert into mail
+		values (#{mailNo}, #{mailTitle},#{mailContent}, #{mailSend}, #{mailTake}, default,null,null,default, #{mailEmpno}) 
 	</insert>
 	
-	<select id="selectMailList" parameterType="String" resultType="map">
-		select * from mailView
-		where mail_take=#{empNo}
-		order by MAIL_SENDDATE desc
+	<!-- 받은메일함 -->
+	<select id="selectTakeMailList" parameterType="SearchVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		       select * from mailView
+		       where MAIL_TAKE=#{empNo}
+			   <include refid="searchWhere"/>
+		       order by MAIL_SENDDATE desc 
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
 	</select>
+	
+	<!-- 보낸메일함 -->
+	<select id="selectSendMailList" parameterType="SearchVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		       select * from mailView
+		       where MAIL_SEND=#{empNo}
+			   <include refid="searchWhere"/>
+		       order by MAIL_SENDDATE desc 
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+
+	<select parameterType="int" id="selectByMailNo" resultType="emailVo">
+		select * from mail
+		where MAIL_NO=#{mailNo} 
+	</select>
+	
+	<!-- 항목별 메일 size() -->
+	<select id="totalRecordByEmailTake" parameterType="String" resultType="int">
+		select count(*) from mailView
+		where mail_take = #{mailSend}
+	</select>
+	
+	<select id="totalRecordByEmailSend" parameterType="String" resultType="int">
+		select count(*) from mailView
+		where mail_send = #{empNo}
+	</select>
+
 </mapper>
-
-
-
-
-
-
-
-
-

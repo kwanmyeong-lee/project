@@ -187,3 +187,43 @@
 	border-left: 1px solid black;
 	height: 35px;
 }
+.condition-div {
+	clear: both;
+	padding: 0;
+}
+
+.condition-table {
+	width: 100%;
+	border-top: 1px solid;
+}
+
+.condition-th {
+	border-bottom: 1px solid gray;
+}
+
+.condition-td {
+	border-bottom: 1px solid gray;
+	font-size: 13px;
+	max-width: 100px;
+}
+
+.condition-td2 {
+	max-width: 50px;
+}
+
+.select-form {
+	display: inline-block;
+}
+
+.time-text {
+	width: 50px;
+}
+
+.condition-div ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+.td-p {
+	font-size: 18px;
+}

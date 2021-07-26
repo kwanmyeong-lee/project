@@ -86,10 +86,7 @@
 .searchNo{
 	font-weight: bold;
 }
-#dropZoneSpan{
-	color: blue;
-	font-size: 0.9em;
-}
+
 </style>
 
 <script>
@@ -113,6 +110,9 @@
 	    			event.preventDefault();
 	    			return false;
 	    		}
+	    		var taker = document.getElementById(mailTake);
+	    		var title = document.getElementById(mailTitle);
+	    		console.log(taker,title);
 	    		
 	    		var sendFrm = document.emailDataFrm;
 	    		sendFrm.acton = "<c:url value='/email/emailWrite'/>";
@@ -120,6 +120,16 @@
 	    		sendFrm.submit();
 	    	});
 	    });
+	    
+	    /* 임시저장 */
+	    $(function(){
+	    	$('#bt_tempSave').click(function(){
+	    		var tempFrm = document.emailDataFrm;
+	    		tempFrm.acton = "<c:url value='/email/emailWrite'/>";
+	    		tempFrm.method = "post";
+	    		tempFrm.submit();
+	    	});
+	    }); 
 	    
 	    /* 미리보기 */
 	    $(function(){
@@ -147,7 +157,7 @@
 	                success:function(result){
 	                	var str = "";
 	                	for(var i=0;i<result.length;i++){
-	                		str+= '<div class="item">'+result[i].empNo+"("+result[i].empName+")"+'</div>'
+	                		str+= '<div class="item">'+result[i].empNo+"@lylj.net("+result[i].empName+")"+'</div>'
 	                		if(i==5) break;
 	                	}
 	                	$('#resultEmp').html(str);
@@ -174,7 +184,7 @@
 			<div class="form-group">	
 				<button type="button" class="btn btn-secondary" id="bt_sendMail">보내기</button>
 				<button type="button" class="btn btn-secondary" id="bt_preview">미리보기</button>
-				<button type="button" class="btn btn-secondary">임시저장</button>
+				<button type="button" class="btn btn-secondary" id="bt_tempSave">임시저장</button>
 			</div>
 			<form class="form-horizontal writefrm" id="emailDataFrm" name="emailDataFrm" method="post">
 				<input type="hidden" name = "mailSend" value="${sessionScope.empNo }">
@@ -182,20 +192,58 @@
 				<div class="form-group firstFrm row">
 			    	<label for="to" class="col-sm-1 control-label">받는사람:</label>
 			    	<div class="col-sm-11">
-                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
-                     	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
-						<div id="resultEmp" style="display: none;">
+				    	<c:if test="${!empty reEmailVo}">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${reEmailVo.mailSend}@lylj.net"  readonly="readonly">
+	                    </c:if>
+	                    <c:if test="${!empty fwEmailVo}">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
+	                    </c:if>
+	                    <c:if test="${!empty empVo}">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${empVo.empNo}@lylj.net(${empVo.empName})" readonly="readonly">
+	                    </c:if>
+	                    <c:if test="${empty reEmailVo && empty fwEmailVo && empty empVo}">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
+	                    </c:if>
+	                     	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
+							<div id="resultEmp" style="display: none;">
 						</div>                        
 			    	</div>
 			  	</div>
 				<div class="form-group row">
 			    	<label for="bcc" class="col-sm-1 control-label">제목:</label>
 			    	<div class="col-sm-11">
-                         <input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1">
+			    		<c:if test="${!empty reEmailVo}">
+                         	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" value="re: ${reEmailVo.mailTitle}"  readonly="readonly">
+			    		</c:if>
+                         <c:if test="${!empty fwEmailVo}">
+                         	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" value="fw: ${fwEmailVo.mailTitle}"  readonly="readonly">
+			    		</c:if>
+			    		<c:if test="${empty reEmailVo && empty fwEmailVo}">
+                         	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" >
+			    		</c:if>
 			    	</div>
 			  	</div>
 			  			<div class="form-group">
-						<textarea class="form-control message" id="summernote" name="mailContent"></textarea>
+						<textarea class="form-control message" id="summernote" name="mailContent">
+							<c:if test="${!empty reEmailVo}">
+								<br><br>
+								---------------------------받은메일내용---------------------------<br>
+								보낸사람 : ${reEmailVo.mailSend }<br>
+								제목 : ${reEmailVo.mailTitle}<br>
+								내용 :
+								&nbsp;${reEmailVo.mailContent }<br>
+								--------------------------------------------------------------------						
+							</c:if>
+							<c:if test="${!empty fwEmailVo}">
+								<br><br>
+								---------------------------받은메일내용---------------------------<br>
+								보낸사람 : ${fwEmailVo.mailSend }<br>
+								제목 : ${fwEmailVo.mailTitle}<br>
+								내용 :
+								&nbsp;${fwEmailVo.mailContent }<br>
+								--------------------------------------------------------------------						
+							</c:if>
+						</textarea>
 					</div>
 					<div class="form-group row chkBook">
 						<span>

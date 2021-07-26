@@ -32,7 +32,7 @@
 }
 .emailContentPanel{
 	border: 1px solid #dedee2;
-	height: 300px;
+	min-height: 300px;
 }
 .emailContent{
 	padding: 10px;
@@ -46,32 +46,27 @@
 				<br>
 				<hr>
 			  <div class="form-group">	
-				 <button type="button" class="btn btn-secondary">답장</button>
+				 <a href="<c:url value='/email/emailWrite?mailNo=${param.mailNo }&type=re'/>"><button type="button" class="btn btn-secondary">답장</button></a>
+				 <a href="<c:url value='/email/emailWrite?mailNo=${param.mailNo }&type=fw'/>"><button type="button" class="btn btn-secondary">전달</button></a>
 				 <button type="button" class="btn btn-secondary">삭제</button>
-				 <span id="sendDate">보낸시간</span>
+				 <span id="sendDate">보낸시간 : <fmt:formatDate value="${emailVo.mailSenddate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 			   </div>
 			   <div class="row mb-3">
 			     <label for="sender" class="col-sm-1 col-form-label">보낸사람 :</label>
 			     <div class="col-sm-11">
-			       <input type="text" class="form-control" id="sender">
+			       <input type="text" class="form-control" id="sender" value="${emailVo.mailSend }@lylj.net" disabled="disabled">
  			     </div>
  			   </div>
  			   <div class="row mb-3">
 			     <label for="receiver" class="col-sm-1 col-form-label">받는사람 :</label>
 			     <div class="col-sm-11">
-			       <input type="text" class="form-control" id="receiver">
- 			     </div>
- 			   </div>
- 			   <div class="row mb-3">
-			     <label for="refer" class="col-sm-1 col-form-label">참조 :</label>
-			     <div class="col-sm-11">
-			       <input type="email" class="form-control" id="refer">
+			       <input type="text" class="form-control" id="receiver" value="${emailVo.mailTake }@lylj.net" disabled="disabled">
  			     </div>
  			   </div>
  			   <div class="row mb-3">
 			     <label for="subject" class="col-sm-1 col-form-label">제목 :</label>
 			     <div class="col-sm-11">
-			       <input type="email" class="form-control" id="subject">
+			       <input type="email" class="form-control" id="subject" value="${emailVo.mailTitle }" disabled="disabled">
  			     </div>
  			   </div>
  			   <hr>
@@ -84,7 +79,7 @@
 					            <li><a class="dropdown-item fileA" href="<c:url value=''/>" ><i class="fas fa-save"></i>&nbsp;&nbsp;파일명</a></li>
 				        	</ul>
 				        </div>
-				        <div class="emailContent">메일내용들어갈 자리</div>
+				        <div class="emailContent" >${emailVo.mailContent}</div>
 			        </div>
 				</div>
 				

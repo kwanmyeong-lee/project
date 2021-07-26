@@ -3,9 +3,6 @@ package com.it.lylj.email.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,11 +12,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.lylj.common.ConstUtil;
+import com.it.lylj.common.PaginationInfo;
+import com.it.lylj.common.SearchVO;
 import com.it.lylj.email.model.EmailService;
 import com.it.lylj.email.model.EmailVO;
 import com.it.lylj.emp.model.EmpService;
+import com.it.lylj.emp.model.EmpVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,30 +32,68 @@ public class EmailController {
 	private final EmailService emailService;
 	private final EmpService empService;
 	
+	/* 이메일메인페이지 */
 	@RequestMapping("/emailMain")
 	public void emailMain(Model model) {
 		logger.info("이메일메인페이지");
 		model.addAttribute("navNo", 2);
 	}
 	
+	/* 메일함 */
 	@RequestMapping("/emailList")
-	public void emailList(@RequestParam int empNo, Model model) {
+	public void emailList(@RequestParam int empNo, @ModelAttribute SearchVO searchVo, @RequestParam(defaultValue = "0")int type, Model model) {
 		logger.info("이메일 페이지, 파라미터 empNo={}",empNo);
+		searchVo.setEmpNo(Integer.toString(empNo));
+		//페이징처리
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setBlockSize(ConstUtil.EMAIL_BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(ConstUtil.EMAIL_RECORD_COUNT);
 		
-		List<Map<String, Object>> list = emailService.selectMailList(Integer.toString(empNo));
-		logger.info("이메일 페이지, list.size()={}", list.size());
+		searchVo.setRecordCountPerPage(ConstUtil.EMAIL_RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		logger.info("이메일페이징, searchVo={}",searchVo);
+		
+		//리스트 
+		List<Map<String, Object>> list = emailService.selectListByType(searchVo,type);
+		logger.info("이메일목록, list.size()={}", list.size());
+		
+		int totalRecord = emailService.totalRecordByType(Integer.toString(empNo),type);
+		logger.info("empNo={} ,totalRecord={}",empNo,totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
 		
 		model.addAttribute("navNo", 2);
 		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
 		
 	}
 	
+	
+	
+	/* 이메일쓰기 페이지 */
 	@GetMapping("/emailWrite")
-	public void emailWrite(Model model) {
+	public void emailWrite(@RequestParam(defaultValue = "0", required = false)int mailNo, @RequestParam(defaultValue = "0", required = false) int empNo, 
+			@RequestParam(defaultValue = "0", required = false) String type, Model model) {
 		logger.info("이메일쓰기 페이지");
+		
+		//답장,전달 확인 파라미터(메일번호)가 있는경우 처리
+		if(type.equals("re")) {
+		   EmailVO reEmailVo = emailService.selectByMailNo(mailNo);
+		   model.addAttribute("reEmailVo", reEmailVo);
+		}else if(type.equals("fw")) {
+			EmailVO fwEmailVo= emailService.selectByMailNo(mailNo);
+			model.addAttribute("fwEmailVo", fwEmailVo);
+		}
+		
+		if(empNo!=0) {
+			EmpVO empVo = empService.selectByEmpNo(empNo);
+			model.addAttribute("empVo", empVo);
+		}
+		
 		model.addAttribute("navNo", 2);
 	}
 	
+	/* 이메일쓰기 처리 */
 	@PostMapping("/emailWrite")
 	public String emailWrite_post(@ModelAttribute EmailVO emailVo, Model model) {
 		logger.info("이메일 전송, emailVo={}", emailVo);
@@ -93,11 +131,20 @@ public class EmailController {
 		return "common/message";
 	}
 	
+	
+	/* 이메일 상세보기 */
 	@RequestMapping("/emailDetail")
-	public void emailDetail(Model model) {
-		logger.info("emailDetail");
+	public void emailDetail(@RequestParam(defaultValue = "0") int mailNo ,Model model) {
+		logger.info("이메일 상세보기, 파라미터 mailNo={}",mailNo);
+		
+		EmailVO emailVo = emailService.selectByMailNo(mailNo);
+		
+		model.addAttribute("emailVo", emailVo);
 		model.addAttribute("navNo", 2);
+		
 	}
+	
+	/* 미리보기 페이지 */
 	@RequestMapping("/emailPreview")
 	public String emailPreview(@ModelAttribute EmailVO vo
 			, Model model) {

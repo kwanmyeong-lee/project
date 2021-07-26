@@ -67,8 +67,7 @@
 </script>
 </head>
 <body>
-<body>
-<input type="text" value="${param.no }" id="check">
+<input type="hidden" value="${param.no }" id="check">
 	<div class="container">
 		<div class="row">
 			<hr>
@@ -95,7 +94,6 @@
 			</div>
 		</div>
 	</div>
-</body>
 </body>
 
 </html>

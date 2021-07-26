@@ -68,17 +68,17 @@ thead tr th{
 			var result = confirm("읽음 처리하시겠습니까?");
 			if(result){
 				alert("읽음처리되었습니다");
-				$('#bt_read1').hide();
-				$('#bt_read2').show();
+				$(this).hide();
+				$(this).next().show();
 			}
 		});
 		
-		$('#bt_read2').click(function(){
+		$('.bt_read2').click(function(){
 			var result = confirm("안읽음 처리하시겠습니까?");
 			if(result){
 				alert("안읽음처리되었습니다");
-				$('#bt_read2').hide();
-				$('#bt_read1').show();
+				$(this).hide();
+				$(this).prev().show();
 			}
 		});
 		
@@ -93,6 +93,11 @@ thead tr th{
 		});
 		
 	});
+	
+	function pagingProc(curPage){
+		$('input[name=currentPage]').val(curPage);
+		$('form[name=frmPage]').submit();	
+	}
 
 </script>
 <div class="container containerDiv">
@@ -104,15 +109,15 @@ thead tr th{
 						<div class="col-md-12">
 							<span class="grid-title title"><i class="fa fa-inbox"></i> 메일함</span>
 							<hr>
-							<form action="#" class="searchfrm" >
+							<form action="#" class="searchfrm" method="post" action="<c:url value='/email/emailList'/>">
 								<div class="input-group mb-4">
-									<select class="form-control">
-										<option>-선택-</option>
-										<option>보낸사람</option>
-										<option>제목</option>
+									<select class="form-control" name="searchCondition">
+										<option value="">-선택-</option>
+										<option value="mail_send">바사람</option>
+										<option value="mail_title">제목</option>
 									</select>
-									<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" id="searchBox">
-								  	<button class="btn_ btn-primary btn-sm" type="button" id="btn_search"><i class="fa fa-search"></i></button>
+									<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" name="searchKeyword" id="searchBox">
+								  	<button class="btn_ btn-primary btn-sm" type="submit" id="btn_search"><i class="fa fa-search"></i></button>
 								</div>
 							</form>
 							<div class="row">
@@ -176,8 +181,8 @@ thead tr th{
 													<button id="bt_important2" class="btn bt_important2" style="display: none;"><i class="far fa-star"></i></button>
 												</td>
 												<td class="typeFile"><i class="far fa-file btn"></i></td>
-												<td class="typeName"><a href="#"> ${map['MAIL_SEND']} (${map['EMP_NAME']})</a></td>
-												<td class="typeSubject"><a href="#">${map['MAIL_TITLE']} </a></td>
+												<td class="typeName"> ${map['MAIL_SEND']}@lylj.net</td>
+												<td class="typeSubject"><a href="<c:url value="/email/emailDetail?mailNo=${ map['MAIL_NO']}"/>">${map['MAIL_TITLE']} </a></td>
 												<td class="typeTime"><fmt:formatDate value="${map['MAIL_SENDDATE'] }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 											</tr>
 										</c:forEach>
@@ -186,17 +191,39 @@ thead tr th{
 								</tbody>
 								</table>
 							</div>
+						<!-- 페이징 form  -->
+						<form action="<c:url value='/email/emailList?empNo=${sessionScope.empNo }'/>" 
+							name="frmPage" method="post">
+							<span><input type="hidden" name="currentPage">
+							<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+							<input type="hidden" name="searchKeyword" value="${param.searchKeyword }">
+							</span>	
+						</form>
 						<!-- 페이징 -->
-							<ul class="pagination">
-								<li class="disabled"><a href="#">«</a></li>
-								<li class="active"><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">»</a></li>
-							</ul>						
-						</div>
+						<div id="pagingDiv">
+							  <ul class="pagination">
+								  <c:if test="${pagingInfo.firstPage>1 }">
+									    <li class="page-item">
+									      <a class="page-link" href="#" onclick="pagingProc(${pagingInfo.firstPage-1})">이전</a>
+									    </li>
+								  </c:if>
+								  
+								  <c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
+								  	 <c:if test="${i==pagingInfo.currentPage }">
+									    <li class="page-item"><a class="page-link" href="#" onclick="pagingProc(${i})" style="color: blue;">${i }</a></li>
+									 </c:if>
+									 <c:if test="${i!=pagingInfo.currentPage }">
+									 	<li class="page-item"><a class="page-link" href="#" onclick="pagingProc(${i})">${i }</a></li>
+									 </c:if>				 
+								  </c:forEach>
+								  
+								  <c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
+									    <li class="page-item">
+									      <a class="page-link" href="#" onclick="pageProc(${pagingInfo.lastPage+1})">다음</a>
+									    </li>
+								  </c:if>
+							  </ul>
+						</div>				
 						<!-- END INBOX CONTENT -->
 						
 					</div>

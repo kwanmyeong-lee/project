@@ -1269,49 +1269,17 @@ on e.position_no = p.position_no
 left join department d
 on d.department_no = e.department_no;
 
-select * from conditionview
-order by ATTENDANCE_DAY_NO;
+------------------------------view-------------------------------------
+--예약
+create or replace view BREAKVIEW
+as
+select b.* , f.emp_name, d.department_name
+from BREAKDAY b join emp f
+on b.EMP_NO  = f.EMP_NO 
+left join department d
+on d.department_no = f.department_no;
 
-    select EMP_NO, DEPARTMENT_NAME, POSITION_NAME, EMP_NAME,
-			NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0) as SUM_TIME,
-            NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60
-                                                                -(ATTENDANCE_DAY_ON_HOUR  - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
-                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
-                                  END 
-                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
-                                                                -(to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
-                                  ELSE NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
-                                  END
-                        ELSE 0
-                   END 
-            ),0) AS EXCESS_TIME,
-            NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                                                                -to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
-                                  WHEN ATTENDANCE_DAY_ON_HOUR >= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss') AND
-                                             ATTENDANCE_DAY_ON_HOUR < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60),0)
-                                  ELSE 0
-                                  END 
-                        WHEN ATTENDANCE_DAY_OFF_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss') AND
-                                   ATTENDANCE_DAY_OFF_HOUR  <= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR-to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
-                                  WHEN ATTENDANCE_DAY_ON_HOUR  >= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
-                                  ELSE 0
-                                  END
-                        ELSE 0
-                   END 
-            ),0) AS NORMAL_TIME
-		from conditionview
-		where department_no =6 and ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(sysdate,'d') and sysdate
-		group by emp_no,DEPARTMENT_NAME,POSITION_NAME, EMP_NAME;
+
 ------------------------------view-------------------------------------
 --주소록 + 주소록폴더
 create or replace view addBookView
@@ -1320,6 +1288,8 @@ select b.* , f.ADDRESS_FOLDER_NAME
 from addbook b join addfol f
 on b.address_folder_no = f.ADDRESS_FOLDER_no;
 select * from emp;
+
+
 -------------------------------------------------------------------------------------------
 
 ----직급
@@ -1339,10 +1309,10 @@ insert into DEPARTMENT values(5,'인사팀');
 insert into DEPARTMENT values(6,'총무회계팀');
 
 --EMP
-insert into EMP values(EMP_SEQ.nextval, '사장님', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1993-06-14', null, null);
-insert into EMP values(EMP_SEQ.nextval, '관명', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 2);
-insert into EMP values(EMP_SEQ.nextval, '혁', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 3);
-insert into EMP values(EMP_SEQ.nextval, '준경', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1993-06-14', 1, 4);
+insert into EMP values(EMP_SEQ.nextval, '사장님', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, '아이유1.jpg', 3000, '1234-1234-1234', 1, '1993-06-14', null, null);
+insert into EMP values(EMP_SEQ.nextval, '관명', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, '아이유1.jpg', 3000, '1234-1234-1234', 1, '1993-06-14', 1, 2);
+insert into EMP values(EMP_SEQ.nextval, '혁', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, '아이유1.jpg', 3000, '1234-1234-1234', 1, '1993-06-14', 1, 3);
+insert into EMP values(EMP_SEQ.nextval, '준경', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, '아이유1.jpg', 3000, '1234-1234-1234', 1, '1993-06-14', 1, 4);
 insert into EMP values(EMP_SEQ.nextval, '기성', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 2);
 insert into EMP values(EMP_SEQ.nextval, '아람', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 3);
 insert into EMP values(EMP_SEQ.nextval, '재민', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1993-06-14', 2, 4);

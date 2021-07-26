@@ -34,6 +34,8 @@ import com.it.lylj.electronic.model.ElectronicService;
 import com.it.lylj.electronic.model.ElectronicVo;
 import com.it.lylj.electronicAppLine.model.ElectronicAppLineService;
 import com.it.lylj.electronicAppLine.model.ElectronicAppLineVo;
+import com.it.lylj.electronicAppStamp.model.ElectronicAppStampService;
+import com.it.lylj.electronicAppStamp.model.ElectronicAppStampVo;
 import com.it.lylj.electronicDocFol.model.ElectronicDocFolService;
 import com.it.lylj.electronicDocFol.model.ElectronicDocFolVO;
 import com.it.lylj.electronicDocSty.model.ElectronicDocStyService;
@@ -59,6 +61,7 @@ public class ElectronicController {
 	private final ElectronicAppLineService electronicAppService;
 	private final ElectronicReLineService electronicReService;
 	private final ElectronicFileService electronicFileService;
+	private final ElectronicAppStampService stampService;
 
 	// 전자결재 메인 보여주기
 	@GetMapping("/electronicMain")
@@ -99,6 +102,13 @@ public class ElectronicController {
 		model.addAttribute("navNo", 1);
 	}
 
+	// 도장등록 화면 보여주기
+	@GetMapping("/insertStamp")
+	public void insertStamp() {
+		logger.info("도장 등록 페이지 보여주기");
+
+	}
+
 	// 문서 양식 선택화면 보여주기
 	@GetMapping("/documentSelect")
 	public void documentSty() {
@@ -117,6 +127,49 @@ public class ElectronicController {
 		logger.info("결재라인 선택 화면 보여주기");
 	}
 
+	// 도장 등록하기
+	@PostMapping("/insertStamp")
+	public String insertStamp_post(@ModelAttribute ElectronicAppStampVo stampVo , MultipartHttpServletRequest request, HttpSession session, Model model) {
+		logger.info("도장 등록 페이지 보여주기");
+
+		// 파일 업로드
+		String fileName = "";
+		String msg = "도장 등록 실패", url = "/electronic/insertStamp";
+		int cnt = 0;
+
+		List<MultipartFile> fileList = request.getFiles("upfile");
+		logger.info("fileList={}", fileList);
+		for (MultipartFile mf : fileList) {
+			if (mf.getOriginalFilename() != "") {
+				fileName = FileUploadUtil.getUniqueFileName(mf.getOriginalFilename());
+
+				try {
+					mf.transferTo(new File(ConstUtil.ELECTRONIC_STAMPUP_LOAD_PATH_REAL + "\\" + fileName));
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+				stampVo.setStampName(fileName);
+				String empNo =  (String) session.getAttribute("empNo");
+				stampVo.setEmpNo(Integer.parseInt(empNo));
+				logger.info("stampVo={}", stampVo);
+				
+				cnt = stampService.insertStamp(stampVo);
+				
+				logger.info("stampVo={}", stampVo);
+				
+				if(cnt>0) {
+					msg = "도장 등록 성공";
+				}
+
+			} // if
+		} // for
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		model.addAttribute("cnt", cnt);
+
+		return "common/message";
+	}
+
 	// 기안서 작성 페이지 보여주기
 	@GetMapping("/documentWrite")
 	public void documentWrite(@RequestParam String styleNo, Model model) {
@@ -128,8 +181,8 @@ public class ElectronicController {
 	// 기안서 작성 하기
 	@PostMapping("/documentWrite")
 	public String documentWrite_post(@ModelAttribute ElectronicVo vo, @RequestParam String AempNoData,
-			@RequestParam String RempNoData, @ModelAttribute ElectronicFileVo fileVo, MultipartHttpServletRequest request,
-			HttpSession session, Model model) {
+			@RequestParam String RempNoData, @ModelAttribute ElectronicFileVo fileVo,
+			MultipartHttpServletRequest request, HttpSession session, Model model) {
 		logger.info("양식 등록 하기 파라미터 ElectronicVo={}", vo);
 
 		String empNo = (String) session.getAttribute("empNo");
@@ -347,7 +400,7 @@ public class ElectronicController {
 		List<ElectronicAppLineVo> avo = electronicAppService.selectByElectronicNo(ElectronicNo);
 		List<ElectronicReLineVo> rvo = electronicReService.selectByElectronicNo(ElectronicNo);
 		logger.info("avo={}, rvo={}", avo, rvo);
-		List<ElectronicFileVo>  fvo= electronicFileService.selectFileByEleNo(ElectronicNo);
+		List<ElectronicFileVo> fvo = electronicFileService.selectFileByEleNo(ElectronicNo);
 
 		model.addAttribute("fvo", fvo);
 		model.addAttribute("avo", avo);
@@ -410,24 +463,24 @@ public class ElectronicController {
 
 		return "common/message";
 	}
-	
-	//파일 다운로드 처리
+
+	// 파일 다운로드 처리
 	@RequestMapping("/download")
-	public void download(@RequestParam(defaultValue = "0")int fileNo,
-			HttpServletResponse response) throws Exception {
-		//1
+	public void download(@RequestParam(defaultValue = "0") int fileNo, HttpServletResponse response) throws Exception {
+		// 1
 		logger.info("다운로드 처리, 파라미터 fileNo={}", fileNo);
-		
-		//2
+
+		// 2
 		ElectronicFileVo fileVO = electronicFileService.selectFileByFileNo(fileNo);
 		logger.info("originalFileName={}", fileVO.getFileOriginalname());
-		
-		//3
+
+		// 3
 		String fileName = fileVO.getFileOriginalname();
 		String fileSaveName = fileVO.getFileName();
-		String filePath = ConstUtil.ELECTRONIC_UPLOAD_PATH_REAL+"\\";
+		String filePath = ConstUtil.ELECTRONIC_UPLOAD_PATH_REAL + "\\";
 
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(fileName,"UTF-8") + "\"");
+		response.setHeader("Content-Disposition",
+				"attachment; filename=\"" + URLEncoder.encode(fileName, "UTF-8") + "\"");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setHeader("Content-Type", "application/octet-stream");
 		response.setHeader("Pragma", "no-cache;");
@@ -435,13 +488,13 @@ public class ElectronicController {
 
 		OutputStream os = response.getOutputStream();
 		FileInputStream fis = new FileInputStream(filePath + fileSaveName);
-		
+
 		int readCount = 0;
 		byte[] buffer = new byte[1024];
 
-		while((readCount = fis.read(buffer)) != -1) {
-		  	os.write(buffer, 0, readCount);
-	    }
+		while ((readCount = fis.read(buffer)) != -1) {
+			os.write(buffer, 0, readCount);
+		}
 		fis.close();
 		os.close();
 	}
