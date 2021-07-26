@@ -181,13 +181,6 @@
 	color: rgb(80, 80, 80);
 }
 
-#bookWriteDiv > p > #warSpan{
-	font-size: 15px;
-	font-weight: bold;
-	font-weight: bold;
-	color: rgb(255, 66, 66);
-}
-
 .boxDiv{
 	margin-bottom: 15px;
 }
@@ -342,7 +335,7 @@ h2{
 }
 
 .editBtn{
-	margin-top: 10px;
+	width: 50px;
 	height: 30px;
 	border-radius: 5px; 
 	border: none;
@@ -350,11 +343,27 @@ h2{
 
 #folderEditBtn{
 	color: white;
-	background: #8db9cb;
+	background: #4e73df;
+}
+
+#folderDeleteBtn{
+	background: #dddddd;
+}
+
+#folderInsertBtn{
+	color: white;
+	background: #779cd9;
 }
 
 .folderName{
 	font-size: 20px;
+}
+
+#warSpan{
+	font-size: 15px;
+	font-weight: bold;
+	font-weight: bold;
+	color: rgb(255, 66, 66);
 }
 
 #plusBtn{
