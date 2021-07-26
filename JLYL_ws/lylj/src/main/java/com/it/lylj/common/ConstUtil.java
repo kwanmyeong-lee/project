@@ -45,5 +45,10 @@ public interface ConstUtil {
 	
 	//전자결재 파일 업로드 경로
 	String ELECTRONIC_UPLOAD_PATH = "electronic_upFile";
-	String ELECTRONIC_UPLOAD_PATH_REAL = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\electronic_upFile";
+	String ELECTRONIC_UPLOAD_PATH_REAL = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\electonic_stamp_upfile";
+	
+	//전자결재 도장 업로드 경로
+	String ELECTRONIC_STAMP_UPLOAD_PATH = "electronic_upFile";
+	String ELECTRONIC_STAMPUP_LOAD_PATH_REAL = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\electonic_stamp_upfile";
+	
 }
