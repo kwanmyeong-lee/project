@@ -11,11 +11,14 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/addressBook/style.css'/>">
 
 
+
 <div id="bookMainDiv">
 	<button type="button" class="btn btn-outline-success">Success</button>
 <button type="button" class="btn btn-outline-danger">Danger</button>
 	
 </div>
+
+
 
 
 <%@ include file="../inc/bottom.jsp"%>
