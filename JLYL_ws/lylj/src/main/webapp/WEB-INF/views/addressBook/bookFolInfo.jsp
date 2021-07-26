@@ -58,7 +58,6 @@
 			<h2>카테고리</h2><br>
 			<span id="warSpan">※ 확인버튼을 누르면 새로고침 되어 '주소록 등록'창의 경우<br> 입력한 정보가 삭제 되오니 주의하시기 바랍니다.</span><br>
 			<br>
-			<label class="editLabel">카테고리</label><span class="editSplitSpan">:</span>
 			<select name="addressFolderNo" class="selectItemEdit">
 				<option value="">선택하세요.</option>
 				<c:forEach var="bookFol" items="${bookFolList}">
@@ -83,7 +82,7 @@
 					<h4>카테고리 추가</h4>
 					<input type="hidden" name="empNo" value="${empNo }">
 					<input type="text" name="addressFolderName" id="addressFolderName2" class="folderName">
-					<input type="submit" value="추가" class="editBtn">
+					<input type="submit" value="추가" id="folderInsertBtn" class="editBtn">
 				</form>
 			</div>
 			<br>

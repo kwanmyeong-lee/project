@@ -31,7 +31,7 @@
 		
 		/* 카테고리 수정 클릭 이벤트 */
 		$('.folBtn').click(function(){
-			window.open('<c:url value="/bookFolInfo/main"/>','카테고리 정보','width=600, height=415, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+			window.open('<c:url value="/bookFolInfo/main"/>','카테고리 정보','width=600, height=470, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 		});
 		
 		/* 주소록 마우스 이벤트 */
