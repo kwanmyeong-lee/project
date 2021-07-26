@@ -122,11 +122,13 @@ public class AssiduityController {
 		
 		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByMonth(map);
 		int empCnt = attendDayService.selectCntConditionByMonth(map);
+		int breakCnt = attendDayService.selectCntBreakDayByMonth(map);
 		
 		logger.info("conditionList={}",conditionList);
 		HashMap<String, Object> data = new HashMap<>();
 		data.put("conditionList", conditionList);
 		data.put("empCnt", empCnt);
+		data.put("breakCnt", breakCnt);
 		
 		
 		return data;

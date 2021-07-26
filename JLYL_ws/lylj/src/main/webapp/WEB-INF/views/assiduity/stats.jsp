@@ -334,6 +334,7 @@
 	           		$('#leaveNum').text(leaveNum);
 	           		$('#comeNum').text(comeNum);
 	           		$('#excessNum').text(excessNum);
+	           		$('#breakNum').text(data.breakCnt);
 	           		
 				}else{
 					str+='<tr><td colspan="5" align="center">정보 없음</td></tr>';
@@ -342,6 +343,7 @@
 	           		$('#leaveNum').text(0);
 	           		$('#comeNum').text(0);
 	           		$('#excessNum').text(0);
+	           		$('#breakNum').text(0);
 				}
 				
 				$('#viewTBody').html(str);
@@ -415,7 +417,7 @@
                		</div> 
                		<div class="week-div">
                			<p class="week-p1 week-pp">휴가</p>
-               			<p class="week-p2 week-pp" >-</p>
+               			<p class="week-p2 week-pp" id="breakNum">-</p>
                		</div>
                		<div class="week-div">
                			<p class="week-p1 week-pp">초과근무</p>
