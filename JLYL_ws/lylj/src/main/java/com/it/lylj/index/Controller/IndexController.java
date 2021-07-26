@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.lylj.department.model.DepartmentService;
@@ -70,6 +71,9 @@ public class IndexController {
 			}
 			orivo.setId(Integer.toString(empVo.getEmpNo()));
 			orivo.setText(empVo.getEmpName());
+			orivo.setUserEmail(empVo.getEmpEmail());
+			orivo.setUserTel(empVo.getEmpTel());
+			orivo.setUserImg(empVo.getEmpPhoto());
 			olist.add(orivo);
 		}
 
@@ -83,8 +87,20 @@ public class IndexController {
 
 			olist.add(orivo);
 		}
+		
+		logger.info("트리뷰 결과 olist={}", olist);
+		
 		return olist;
 
+	}
+	
+	@ResponseBody
+	@RequestMapping("/inc/getInfomation")
+	public EmpVO getInfomation(@RequestParam int EmpNo) {
+		logger.info("aside modal 에뿌려줄  유저 정보 가져오기 파라미터 EmpNo={} ", EmpNo);
+		EmpVO empVo = empService.selectByEmpNo(EmpNo);
+		logger.info("empVo={}", empVo);
+		return empVo;
 	}
 
 }

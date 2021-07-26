@@ -15,7 +15,6 @@
 	});
 </script>
 <style type="text/css">
-
 .list_title {
 	color: #999999;
 	text-decoration: none;
