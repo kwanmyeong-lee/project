@@ -8,4 +8,5 @@ public interface EmailService {
 	String splitName(String taker);
 	List<Map<String, Object>> selectMailList(String taker);
 	EmailVO selectByMailNo(int mailNo);
+	int totalRecordByEmailTake(String taker);
 }

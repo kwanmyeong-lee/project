@@ -38,4 +38,9 @@ public class EmailServiceImpl implements EmailService{
 	public EmailVO selectByMailNo(int mailNo) {
 		return emailDao.selectByMailNo(mailNo);
 	}
+
+	@Override
+	public int totalRecordByEmailTake(String taker) {
+		return emailDao.totalRecordByEmailTake(taker);
+	}
 }

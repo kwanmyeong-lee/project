@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.it.lylj.common.ConstUtil;
 import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.common.SearchVO;
 import com.it.lylj.email.model.EmailService;
@@ -43,15 +44,25 @@ public class EmailController {
 		logger.info("이메일 페이지, 파라미터 empNo={}",empNo);
 		//페이징처리
 		PaginationInfo pagingInfo = new PaginationInfo();
-		pagingInfo.setCurrentPage()
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setBlockSize(ConstUtil.EMAIL_BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(ConstUtil.EMAIL_RECORD_COUNT);
 		
+		searchVo.setRecordCountPerPage(ConstUtil.EMAIL_RECORD_COUNT);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		logger.info("이메일페이징, searchVo={}",searchVo);
 		
 		//리스트 
 		List<Map<String, Object>> list = emailService.selectMailList(Integer.toString(empNo));
-		logger.info("이메일 페이지, list.size()={}", list.size());
+		logger.info("이메일목록, list.size()={}", list.size());
+		
+		int totalRecord = emailService.totalRecordByEmailTake(Integer.toString(empNo));
+		logger.info("empNo={} ,totalRecord={}",empNo,totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
 		
 		model.addAttribute("navNo", 2);
 		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
 		
 	}
 	

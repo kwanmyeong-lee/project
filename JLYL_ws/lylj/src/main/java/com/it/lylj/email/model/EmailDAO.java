@@ -10,4 +10,5 @@ public interface EmailDAO {
 	int sendEmail(EmailVO vo);
 	List<Map<String, Object>> selectMailList(String taker);
 	EmailVO selectByMailNo(int mailNo);
+	int totalRecordByEmailTake(String taker);
 }

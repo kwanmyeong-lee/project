@@ -17,6 +17,11 @@ public interface ConstUtil {
 	int EMP_RECORD_COUNT = 10;
 	int EMP_BLOCK_SIZE = 5;
 	
+	//이메일목록
+	int EMAIL_RECORD_COUNT = 12;
+	int EMAIL_BLOCK_SIZE = 5;
+	
+	
 	// 파일 업로드 처리 관련 상수
 	String FILE_UPLOAD_TYPE = "emp";
 

@@ -93,6 +93,11 @@ thead tr th{
 		});
 		
 	});
+	
+	function pagingProc(curPage){
+		$('input[name=currentPage]').val(curPage);
+		$('form[name=frmPage]').submit();	
+	}
 
 </script>
 <div class="container containerDiv">
@@ -106,12 +111,12 @@ thead tr th{
 							<hr>
 							<form action="#" class="searchfrm" >
 								<div class="input-group mb-4">
-									<select class="form-control">
+									<select class="form-control" name="searchCondition">
 										<option>-선택-</option>
-										<option>보낸사람</option>
-										<option>제목</option>
+										<option value="mail_send">보낸사람</option>
+										<option value="mail_title">제목</option>
 									</select>
-									<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" id="searchBox">
+									<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" name="searchKeyword" id="searchBox">
 								  	<button class="btn_ btn-primary btn-sm" type="button" id="btn_search"><i class="fa fa-search"></i></button>
 								</div>
 							</form>
@@ -186,6 +191,14 @@ thead tr th{
 								</tbody>
 								</table>
 							</div>
+						<!-- 페이징 form  -->
+						<form action="<c:url value='/email/emailList?empNo=${sessionScope.empNo }'/>" 
+							name="frmPage" method="post">
+							<span><input type="hidden" name="currentPage">
+							<input type="hidden" name="searchCondition" value="${param.searchCondition}">
+							<input type="hidden" name="searchKeyword" value="${param.searchKeyword }">
+							</span>	
+						</form>
 						<!-- 페이징 -->
 						<div id="pagingDiv">
 							  <ul class="pagination">
