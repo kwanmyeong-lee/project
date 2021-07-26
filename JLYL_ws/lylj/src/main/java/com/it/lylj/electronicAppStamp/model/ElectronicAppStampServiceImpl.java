@@ -11,7 +11,17 @@ public class ElectronicAppStampServiceImpl implements ElectronicAppStampService{
 
 	@Override
 	public int insertStamp(ElectronicAppStampVo stampVo) {
-		return stampDao.insertStamp(stampVo);
+		
+		int empNo = stampVo.getEmpNo();
+		int result = 0;
+		ElectronicAppStampVo vo = stampDao.selectByEmpNo(empNo);
+		if(vo.getEmpNo() == empNo) {
+			result = 0;
+		}else {
+			result = stampDao.insertStamp(stampVo);
+		}
+		
+		return result;
 	}
 
 }

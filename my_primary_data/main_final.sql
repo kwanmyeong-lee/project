@@ -1551,6 +1551,8 @@ values (APPSTAMP_SEQ.nextval, 119, '아이유1.jpg');
 insert into APPSTAMP
 values (APPSTAMP_SEQ.nextval, 120, '아이유1.jpg');
 
+select * from APPSTAMP;
+
 --전자 결재 정보 
 
 insert into ELIMP
