@@ -229,8 +229,70 @@
 .modal-backdrop-aside{ /* display: block; 검은색레이어*/
 	display: none; /* background clickable */
 }
+#navSideBar{
+	background: #258493;
+}
 
+/*티틀*/
 
+#container {
+  color:#999;
+  text-transform: uppercase;
+  font-size:36px;
+  font-weight:bold;
+  width:30%;
+  bottom:50%;
+  display:block;
+  float: left;
+}
+
+#flip {
+  height:50px;
+  overflow:hidden;
+  
+}
+
+#flip > div > div {
+  color:#fff;
+  padding:4px 12px;
+  height:50px;
+  margin-bottom:45px;
+  display:inline-block;
+}
+
+#flip div:first-child {
+  animation: show 5s linear infinite;
+}
+
+#flip div div {
+  background:#42c58a;
+}
+#flip div:first-child div {
+  background:#4ec7f3;
+}
+#flip div:last-child div {
+  background:#DC143C;
+}
+
+@keyframes show {
+  0% {margin-top:-270px;}
+  5% {margin-top:-180px;}
+  33% {margin-top:-180px;}
+  38% {margin-top:-90px;}
+  66% {margin-top:-90px;}
+  71% {margin-top:0px;}
+  99.99% {margin-top:0px;}
+  100% {margin-top:-270px;}
+}
+
+p {
+  position:fixed;
+  width:100%;
+  bottom:30px;
+  font-size:12px;
+  color:#999;
+  margin-top:200px;
+}
 /* 어사이드 */
 </style>
 
@@ -244,7 +306,7 @@
 				<ul
 					class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"
 					id="accordionSidebar">
-
+						
 
 					<!-- Sidebar - Brand -->
 					<a
@@ -312,11 +374,18 @@
 
 			<!-- Main Content -->
 			<div id="content">
-
+				
 				<!-- Topbar -->
 				<nav
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
+					
+					<div id=container>
+					  <div id=flip>
+					    <div><div>CSS</div></div>
+					    <div><div>어렵다</div></div>
+					    <div><div>무지하게</div></div>
+					  </div>
+					</div>
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
