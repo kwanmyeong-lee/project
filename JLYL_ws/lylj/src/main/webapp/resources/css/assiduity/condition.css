@@ -17,6 +17,12 @@
 	color: white;
 	font-size: 13px;
 }
+#btnCome{
+	margin-right: 5px;
+}
+#btnLeave{
+	margin-left: 5px;
+}
 .commute-dl>dt{
 	display: inline;
 }

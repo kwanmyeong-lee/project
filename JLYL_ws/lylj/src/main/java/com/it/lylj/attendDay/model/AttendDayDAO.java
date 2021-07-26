@@ -27,5 +27,7 @@ public interface AttendDayDAO {
 	int selectCntConditionByMonth(HashMap<String, Object> map);
 	int selectCntBreakDayByMonth(HashMap<String, Object> map);
 	int selectAllCntConditionByMonth(HashMap<String, Object> map);
-
+	List<ConditionViewVO> selectAttendDayByFlag(int currentPage);
+	int selecCnttAttendDayByFlag();
+	int updateAttendDayByFlag(HashMap<String, Object> map);
 }

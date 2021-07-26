@@ -60,6 +60,17 @@
 		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(#{attendanceDayRegdate})
 	</select>
 	
+	<select id="selectAttendDayByFlag" parameterType="int" resultType="conditionViewVo">
+		select * from (select c.*, rownum as nums from conditionView c
+		where ATTENDANCE_DAY_HOLIDAY_FLAG ='1')
+		<![CDATA[ where nums >12*(#{currentPage}-1) and nums<=12*#{currentPage} ]]>
+	</select>
+	
+	<select id="selecCnttAttendDayByFlag" resultType="int">
+		select count(*) from conditionView 
+		where ATTENDANCE_DAY_HOLIDAY_FLAG ='1'
+	</select>
+	
 	<select id="selectAttendMonth" parameterType="hashmap" resultType="attendDayVo">
 		select * from ATTENDDAY 
 		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE between TO_DATE(#{firstDate:VARCHAR}) and TO_DATE(#{lastDate:VARCHAR})
@@ -187,6 +198,11 @@
 		update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=#{attendanceDayOffHour},
 		ATTENDANCE_DAY_WORK_HOUR=#{attendanceDayWorkHour}
 		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE =#{attendanceDayRegdate}
+	</update>
+	
+	<update id="updateAttendDayByFlag" parameterType="hashmap">
+		update ATTENDDAY set ATTENDANCE_DAY_HOLIDAY_FLAG =#{flag}
+		where ATTENDANCE_DAY_NO =#{attendanceDayNo}
 	</update>
 	
 	<parameterMap type="attendDayVo" id="updateAttendDayParam">
