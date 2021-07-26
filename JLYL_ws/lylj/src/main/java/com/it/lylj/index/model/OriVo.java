@@ -13,5 +13,8 @@ public class OriVo {
 	private String parent;
 	private String text;
 //	private String icon;
+	private String userTel;
+	private String userEmail;
+	private String userImg;
 	
 }

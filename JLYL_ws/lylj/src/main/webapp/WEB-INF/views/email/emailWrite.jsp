@@ -190,6 +190,11 @@
 	                    </c:if>
 	                     	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
 							<div id="resultEmp" style="display: none;">
+                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1"
+                        <c:if test="${!empty emailVo}">value="${emailVo.mailSend}"  disabled="disabled"</c:if>
+                        >
+                     	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
+						<div id="resultEmp" style="display: none;">
 						</div>                        
 			    	</div>
 			  	</div>
@@ -205,10 +210,15 @@
 			    		<c:if test="${empty reEmailVo && empty fwEmailVo}">
                          	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" >
 			    		</c:if>
+                         <input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1"
+                         <c:if test="${!empty emailVo}">value="re: ${emailVo.mailTitle}"  disabled="disabled"</c:if>
+                         >
+
 			    	</div>
 			  	</div>
 			  			<div class="form-group">
 						<textarea class="form-control message" id="summernote" name="mailContent">
+
 							<c:if test="${!empty reEmailVo}">
 								<br><br>
 								---------------------------받은메일내용---------------------------<br>
@@ -226,6 +236,15 @@
 								내용 :
 								&nbsp;${fwEmailVo.mailContent }<br>
 								--------------------------------------------------------------------						
+      					
+                <c:if test="${!empty emailVo}">
+								<br><br>
+								--------------------받은메일내용----------------------<br>
+								보낸사람 : ${emailVo.mailSend }<br>
+								제목 : ${emailVo.mailTitle}<br>
+								내용 :
+								&nbsp;${emailVo.mailContent }<br>
+								---------------------------------------------------------							
 							</c:if>
 						</textarea>
 					</div>

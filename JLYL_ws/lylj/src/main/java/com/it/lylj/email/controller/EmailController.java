@@ -60,7 +60,6 @@ public class EmailController {
 		}
 		
 		model.addAttribute("navNo", 2);
-		
 	}
 	
 	@PostMapping("/emailWrite")
