@@ -106,8 +106,4 @@ public class AddBookController {
 		return "redirect:/addressBook/addressBookMain?empNo="+empNo;
 	}
 	
-	@GetMapping("/bookFolInfo")
-	public void folInfo(@ModelAttribute AddBookFolVO folVo) {
-		logger.info("카테고리 수정 페이지, folVo={}", folVo);
-	}
 }
