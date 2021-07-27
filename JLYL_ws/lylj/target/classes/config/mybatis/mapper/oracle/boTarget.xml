@@ -6,7 +6,21 @@
 	
 	<select id="selectAllBoTarget" resultType="boTargetVo">
 		select * from botarget
+		order by BOOKING_TARGET_NAME
 	</select>
+	
+	<insert id="insertBoTarget" parameterType="BoTargetVO">
+		insert into BOTARGET 
+		values(BOTARGET_SEQ.nextval, #{bookingTargetName}, #{bookingFolderNo})
+	</insert>
+	<update id="updateBorTarget" parameterType="BoTargetVO">
+		update BOTARGET set BOOKING_TARGET_NAME =#{bookingTargetName }
+		where BOOKING_TARGET_NO = #{bookingTargetNo}
+	</update>
+	<delete id="deleteBorTarget" parameterType="int">
+		delete from BOTARGET 
+		where BOOKING_TARGET_NO = #{bookingTargetNo}
+	</delete>
 	
  </mapper>
 

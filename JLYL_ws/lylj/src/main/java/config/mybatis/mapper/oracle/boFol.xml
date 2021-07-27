@@ -5,9 +5,21 @@
 <mapper namespace="com.it.lylj.boFol.model.BoFolDAO">
 	
 	<select id="selectAllBoFol" resultType="boFolVo">
-		select * from bofol
+		select * from BOFOL
+		order by BOOKING_FOLDER_NAME
 	</select>
-	
+	<insert id="insertBoFol" parameterType="boFolVo">
+		insert into BOFOL 
+		values(BOFOL_SEQ.nextval, #{bookingFolderName})
+	</insert>
+	<update id="updateBoFol" parameterType="boFolVo">
+		update BOFOL set BOOKING_FOLDER_NAME  =#{bookingFolderName}
+		where BOOKING_FOLDER_NO = #{bookingFolderNo}
+	</update>
+	<delete id="deleteBoFol" parameterType="int">
+		delete from BOFOL 
+		where BOOKING_FOLDER_NO = #{bookingFolderNo}
+	</delete>
  </mapper>
 
 

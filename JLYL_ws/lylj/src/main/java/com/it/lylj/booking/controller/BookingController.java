@@ -72,6 +72,11 @@ public class BookingController {
 		model.addAttribute("navNo",8);
 	}//예약 관리 페이지
 	
+	@GetMapping("/property")
+	public void property(Model model) {
+		model.addAttribute("navNo",8);
+	}//예약 관리 페이지
+	
 	@GetMapping("/calDraw")
 	@ResponseBody
 	public List<BoTargetVO> calDraw(){
@@ -79,6 +84,54 @@ public class BookingController {
 		
 		return data;
 	}//ajax 모든타켓 가져오기
+	
+	@GetMapping("/targetSer")
+	@ResponseBody
+	public int targetSer(int ser, BoTargetVO vo){
+		
+		if(ser==1) {
+			boTargetService.insertBoTarget(vo);
+		}else if(ser==2) {
+			boTargetService.updateBorTarget(vo);
+		}else if(ser==3) {
+			boTargetService.deleteBorTarget(vo.getBookingTargetNo());
+		}
+		
+		return 1;
+	}//ajax 타켓  추가 수정 삭제
+	
+	@GetMapping("/folSer")
+	@ResponseBody
+	public int folSer(int ser, BoFolVO vo){
+		
+		if(ser==1) {
+			boFolservice.insertBoFol(vo);
+		}else if(ser==2) {
+			boFolservice.updateBoFol(vo);
+		}else if(ser==3) {
+			boFolservice.deleteBoFol(vo.getBookingFolderNo());
+		}
+		
+		return 1;
+	}//ajax 목록 추가 수정 삭제
+	
+	
+	@GetMapping("/propertySelView")
+	@ResponseBody
+	public HashMap<String, Object> propertySelView(int raCheck){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if(raCheck==0) {
+			List<BoFolVO> boFolList = boFolservice.selectAllBoFol();
+			map.put("boFolList", boFolList);
+			logger.info("boFolList={}",boFolList);
+		}else {
+			List<BoTargetVO> boTargetList = boTargetService.selectAllBoTarget();
+			map.put("boTargetList", boTargetList);
+			logger.info("boTargetList={}",boTargetList);
+		}
+		
+		return map;
+	}//ajax 타켓,목록 중 선택 가져오기
 	
 	@GetMapping("/selectAllApp")
 	@ResponseBody
