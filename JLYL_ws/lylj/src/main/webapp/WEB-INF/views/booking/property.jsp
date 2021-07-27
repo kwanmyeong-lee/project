@@ -13,45 +13,12 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
-.btn {
-  flex: 1 1 auto;
-  margin: 10px;
-  padding: 30px;
-  text-align: center;
-  text-transform: uppercase;
-  transition: 0.5s;
-  background-size: 200% auto;
-  color: white;
- /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
-  box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
- }
-
-.btn:hover {
-  background-position: right center; /* change the direction of the change here */
-}
-
-.btn-1 {
-  background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
-}
-
-.btn-2 {
-  background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 51%, #fbc2eb 100%);
-}
-
-.btn-3 {
-  background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);
-}
-
-.btn-4 {
-  background-image: linear-gradient(to right, #a1c4fd 0%, #c2e9fb 51%, #a1c4fd 100%);
-}
-
-.btn-5 {
-  background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 51%, #ffecd2 100%);
+.btns{
+	
 }
 .tt{
 	display: inline;
+	font-size: 27px;
 }
 </style>
 <script>
@@ -73,7 +40,7 @@ $(function(){
 			propertySelView(0,ob);
 	});
 	
-	$('.btn-1').click(function(){
+	$('.btns-1').click(function(){
 		if($('#addText1').val()=="" && $('#addText2').val()==""){
 			swal ( "" , "추가할 이름을 입력하세요" ,  "error" );
 		}else{
@@ -92,7 +59,7 @@ $(function(){
 		}
 	});
 	
-	$('.btn-2').click(function(){
+	$('.btns-2').click(function(){
 		if($('#editText').val()=="" || $('#editSel').val()==0 ){
 			swal ( "" , "수정대상/수정명을 입력하세요" ,  "error" );
 		}else{
@@ -110,7 +77,7 @@ $(function(){
 			}
 		}
 	});
-	$('.btn-3').click(function(){
+	$('.btns-3').click(function(){
 		if($('#delSel').val()==0){
 			swal ( "" , "삭제 대상을 고르세요" ,  "error" );
 		}else{
@@ -216,8 +183,7 @@ function folSer(ser, bookingFolderNo , bookingFolderName){
 
 <div id="bookMainDiv">
 <div class="container">
-  
-  <a class="btn btn-1">추가</a>
+  <i class="far fa-edit btns-1 btns fa-5x"></i>
   <div class="tt">
   	<input type="hidden" value="#addSel">
   	<input type="radio" value="0" name="radio-add" id="check1" checked="checked" value="0">목록
@@ -229,8 +195,8 @@ function folSer(ser, bookingFolderNo , bookingFolderName){
   	<input type="text" placeholder="자산명" id="addText2" style="display: none;">
   </div>
   <br>
-
-  <a class="btn btn-2">수정</a>
+  
+  <i class="fas fa-wrench btns-2 btns fa-5x"></i>
   <div class="tt">
   	<input type="hidden" value="#editSel">
   	<input type="radio" name="radio-edit" class="selFol" value="0">목록
@@ -241,8 +207,8 @@ function folSer(ser, bookingFolderNo , bookingFolderName){
   	<input type="text" id="editText" placeholder="수정명">
   </div>
   <br>
-
-  <a class="btn btn-3">삭제</a> 
+  
+  <i class="fas fa-trash-alt btns-3 btns fa-5x"></i>
   <div class="tt">
  	 <input type="hidden" value="#delSel">
   	<input type="radio" name="radio-del" class="selFol" value="0">목록

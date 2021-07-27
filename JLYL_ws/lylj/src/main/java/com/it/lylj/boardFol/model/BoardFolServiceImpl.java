@@ -31,5 +31,15 @@ public class BoardFolServiceImpl implements BoardFolService{
 		return boardFolDao.otherFolder();
 	}
 
+	@Override
+	public int updateBoardFol(BoardFolVO vo) {
+		return boardFolDao.updateBoardFol(vo);
+	}
+
+	@Override
+	public int deleteBoardFol(int boardFolderNo) {
+		return boardFolDao.deleteBoardFol(boardFolderNo);
+	}
+
 
 }
