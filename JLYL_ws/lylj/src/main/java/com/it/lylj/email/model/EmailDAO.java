@@ -32,5 +32,8 @@ public interface EmailDAO {
 	EmailVO selectByMailNo(int mailNo);
 	int deleteCompleteMail(int mailNo);
 	int updateReadDate(int mailNo);
+	int updateNotReadDate(int mailNo);
+	int updateInportant(int mailNo);
+	int updateNotInportant(int mailNo);
 	
 }

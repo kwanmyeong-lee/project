@@ -5,7 +5,7 @@
 <mapper namespace="com.it.lylj.boardFol.model.BoardFolDAO">
 	<insert id="insertBoardFol" parameterType="BoardVo">
 		<selectKey keyProperty="boardFolderNo" resultType="int" order="BEFORE">
-			SELECT OFBOARDFOL_SEQ.nextval FROM OFBOARDFOL 
+			SELECT OFBOARDFOL_SEQ.nextval FROM dual 
 		</selectKey>
 		insert into ofboardfol(BOARD_FOLDER_NO, BOARD_FOLDER_NAME)
 		values(#{boardFolderNo}, #{boardFolderName})
@@ -14,6 +14,17 @@
 	<select id="selectBoardFol" resultType="boardFolVo">
 		SELECT * FROM ofboardfol
 	</select>
+	
+	<update id="updateBoardFol" parameterType="boardFolVo">
+		UPDATE ofboardfol
+		SET BOARD_FOLDER_NAME = #{boardFolderName}
+		WHERE BOARD_FOLDER_NO = #{boardFolderNo}
+	</update>
+	
+	<delete id="deleteBoardFol" parameterType="int">
+		DELETE ofboardfol
+		WHERE BOARD_FOLDER_NO=#{boardFolderNo}
+	</delete>
 	
 	<select id="selectByNo" parameterType="int" resultType="boardFolVo">
 		SELECT * FROM ofboardfol
