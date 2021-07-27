@@ -3,6 +3,9 @@ package com.it.lylj.email.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.it.lylj.common.ConstUtil;
 import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.common.SearchVO;
+import com.it.lylj.email.model.EmailListVO;
 import com.it.lylj.email.model.EmailService;
 import com.it.lylj.email.model.EmailVO;
 import com.it.lylj.emp.model.EmpService;
@@ -156,4 +160,70 @@ public class EmailController {
 		model.addAttribute("vo", vo);
 		return "email/emailPreview";
 	}
+	
+	/* 메일 다중 삭제 */
+	@RequestMapping("/emailMultiDelete")
+	public String emailMultiDelete(@ModelAttribute EmailListVO listVo, HttpServletRequest request, HttpSession session, Model model) {
+		logger.info("메일 선택 삭제, listVo={}",listVo);
+		String empNo = (String)session.getAttribute("empNo");
+		List<EmailVO> list = listVo.getSelectedEmail();
+		
+		for(int i=0; i<list.size(); i++) {
+			EmailVO emailVo = list.get(i);
+			int mailNo = emailVo.getMailNo();
+			logger.info("i={},mailNo={}", i, mailNo);
+		}
+		
+		String msg ="휴지통으로 이동하지 못했습니다", url = "/email/emailList?type=5&empNo="+empNo; 
+		int cnt = emailService.deleteCheckMulti(list);
+		
+		if(cnt>0) {
+			msg ="휴지통으로 이동시켰습니다";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	
+	/* 메일 다중 완전 삭제 */
+	@RequestMapping("/emailMultiCompleteDel")
+	public String emailMultiCompleteDel(@ModelAttribute EmailListVO listVo, HttpServletRequest request, HttpSession session, Model model) {
+		logger.info("메일 선택 삭제, listVo={}",listVo);
+		String empNo = (String)session.getAttribute("empNo");
+		List<EmailVO> list = listVo.getSelectedEmail();
+		
+		for(int i=0; i<list.size(); i++) {
+			EmailVO emailVo = list.get(i);
+			int mailNo = emailVo.getMailNo();
+			logger.info("i={},mailNo={}", i, mailNo);
+		}
+		
+		String msg ="삭제 실패", url = "/email/emailMain"; 
+		int cnt = emailService.deleteCompleteMail(list);
+		
+		if(cnt>0) {
+			msg ="삭제 성공";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	/* 이메일 읽음처리 */
+	@RequestMapping("/emailRead")
+	public String emailRead(@RequestParam(defaultValue = "0") int mailNo, Model model) {
+		logger.info("읽음처리, mailNo={}",mailNo);
+		
+		int cnt = emailService.updateReadDate(mailNo);
+		logger.info("cnt={}",cnt);
+		
+		return "redirect:/email/emailDetail?mailNo="+mailNo;
+		
+	}
+	
 }

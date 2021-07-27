@@ -90,6 +90,13 @@
 			
 		});
 		
+		$('#intoChat').click(function(){
+			window
+			.open(
+					'<c:url value='/room'/>',
+					'_blank ',
+					'top=40, left=40, width=600, height=800, status=no, menubar=no, toolbar=no, resizable=no, directories=no, location=no, resizable=0, titlebar=no');
+		});
 	
 
 	});
@@ -413,10 +420,12 @@
 						<li class="nav-item topNavText"><a class="nav-link"
 							href="<c:url value='/booking/main'/>" role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">예약</span>
-						</a></li>
+						</a></li>		
 
 						<div class="topbar-divider d-none d-sm-block"></div>
-
+						<li class="nav-item " style="padding-top: 16px;">	
+							<button type="button" class="btn btn-dark" id="intoChat">채팅</button>
+						</li>
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow"><a
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"

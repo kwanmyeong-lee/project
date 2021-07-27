@@ -18,4 +18,5 @@ public interface ElectronicService {
 	int updateEleComplete(int ElectronicNo);
 	List<Map<String, Object>> selectTopSty();
 	int upToDate(int ElectronicNo);
+	List<ElectronicVo> selectUpdateToday(int empNo);
 }

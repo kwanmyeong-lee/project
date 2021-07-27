@@ -108,5 +108,10 @@ public class ElectronicServiceImpl implements ElectronicService {
 		return electronicDao.upToDate(ElectronicNo);
 	}
 
+	@Override
+	public List<ElectronicVo> selectUpdateToday(int empNo) {
+		return electronicDao.selectUpdateToday(empNo);
+	}
+
 
 }
