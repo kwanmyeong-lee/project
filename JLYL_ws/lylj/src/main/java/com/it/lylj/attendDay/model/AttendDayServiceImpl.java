@@ -123,6 +123,24 @@ public class AttendDayServiceImpl implements AttendDayService{
 	}
 
 
+	@Override
+	public List<ConditionViewVO> selectAttendDayByFlag(int currentPage) {
+		return dao.selectAttendDayByFlag(currentPage);
+	}
+
+
+	@Override
+	public int selecCnttAttendDayByFlag() {
+		return dao.selecCnttAttendDayByFlag();
+	}
+
+
+	@Override
+	public int updateAttendDayByFlag(HashMap<String, Object> map) {
+		return dao.updateAttendDayByFlag(map);
+	}
+
+
 	
 
 }

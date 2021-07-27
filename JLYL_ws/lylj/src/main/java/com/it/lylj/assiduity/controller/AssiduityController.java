@@ -82,6 +82,49 @@ public class AssiduityController {
 		return 1;
 	}//ajax 근태 퇴근,근무시간 업데이트하기
 	
+	@GetMapping("/updateExcess")
+	@ResponseBody
+	public int updateExcess(int attendanceDayNo, int flag){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("attendanceDayNo",attendanceDayNo);
+		map.put("flag",flag);
+		attendDayService.updateAttendDayByFlag(map);
+		
+		
+		return 1;
+	}//ajax 근태 퇴근,근무시간 업데이트하기
+	
+	
+	@GetMapping("/excessView")
+	@ResponseBody
+	public HashMap<String, Object> excessView(int btCheck, int currentPage){
+		HashMap<String, Object> map = new HashMap<>();
+		
+		if(btCheck==1) {
+			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN + 1;
+			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;
+		}else if(btCheck == 2) {
+			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN - 1;
+			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;			
+		}
+		
+		List<ConditionViewVO> conditionList= attendDayService.selectAttendDayByFlag(currentPage);
+		
+		map.put("conditionList", conditionList);
+		
+		int TotalRecord = attendDayService.selecCnttAttendDayByFlag();
+
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setCurrentPage(currentPage);
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ANN);
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ANN);
+		pagingInfo.setTotalRecord(TotalRecord);
+		map.put("pagingInfo", pagingInfo);
+		
+		logger.info("conditionList={}",conditionList);
+		return map;
+	}//ajax 초과근무 승인
+	
 	@GetMapping("/conditionMonthView")
 	@ResponseBody
 	public HashMap<String,Object> conditionMonthView(int departmentNo, String selectDate, int selectNum,int timeNum, String searchKeyword){
