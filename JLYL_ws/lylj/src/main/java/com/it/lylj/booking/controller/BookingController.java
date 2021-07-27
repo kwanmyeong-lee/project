@@ -44,6 +44,7 @@ public class BookingController {
 	private final BoTargetService boTargetService;
 	private final ScheduleService scService;
 	private final BookingService bookingService;
+	private final ScheduleService scheduleService;
 	
 	private static final Logger logger
 	=LoggerFactory.getLogger(ScheduleController.class);
@@ -164,11 +165,15 @@ public class BookingController {
 	
 	@GetMapping("/updateAppFlag")
 	@ResponseBody
-	public int updateAppFlag(int bookingNo, String bookingAppFlag){
+	public int updateAppFlag(int bookingNo, String bookingAppFlag, int scheduleNo){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("bookingNo", bookingNo);
 		map.put("bookingAppFlag", bookingAppFlag);
-			bookingService.updateBokkingByBookingNo(map);
+		bookingService.updateBokkingByBookingNo(map);
+		if(bookingAppFlag.equals("1")) {
+			scheduleService.deleteScheduleByScheduleNo(scheduleNo);
+		}
+		
 		return 1;
 	}//ajax AppFlag 업데이트
 	

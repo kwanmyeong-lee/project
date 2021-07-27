@@ -50,8 +50,9 @@
 	
 	<delete id="deleteScheduleByScheduleNo" parameterType="int">
 		delete from calendar
-		where SCHEDULE_NO=#{scheduleNo} and SCHEDULE_THEME_NO=1
+		where SCHEDULE_NO=#{scheduleNo}
 	</delete>
+	
 	
 	<update id="updateScheduleByScFolderNo" parameterType="scheduleVO">
 		update calendar set SCHEDULE_COLOR=#{scheduleColor}

@@ -1,13 +1,15 @@
 $(function(){
 	$(document).on("click",'.success',function(){ 
 		var bookingNo = $(this).prev().val();
+		var bookingNo = $(this).prev().prev().val();
 		var $its =$(this);
 		$.ajax({
 			type:"get",
 			url:"updateAppFlag",
 			data:{
 				bookingNo : bookingNo,
-				bookingAppFlag : "2"
+				bookingAppFlag : "2",
+				scheduleNo : scheduleNo 
 			},
 			dataType:"json",
 			success: function(data){
@@ -23,13 +25,15 @@ $(function(){
 	});
 	$(document).on("click",'.cancle',function(){ 
 		var bookingNo = $(this).prev().prev().val();
+		var scheduleNo = $(this).prev().prev().prev().val();
 		var $its =$(this);
 		$.ajax({
 			type:"get",
 			url:"updateAppFlag",
 			data:{
 				bookingNo : bookingNo,
-				bookingAppFlag : "1"
+				bookingAppFlag : "1",
+				scheduleNo : scheduleNo 
 			},
 			dataType:"json",
 			success: function(data){
@@ -48,13 +52,15 @@ $(function(){
 			
 			if($(this).prop("checked")){
 				var bookingNo=$(this).prev().val();
+				var scheduleNo=$(this).prev().prev().val();
 				var $its =$(this);
 				$.ajax({
 					type:"get",
 					url:"updateAppFlag",
 					data:{
 						bookingNo : bookingNo,
-						bookingAppFlag : "2"
+						bookingAppFlag : "2",
+						scheduleNo : scheduleNo 
 					},
 					dataType:"json",
 					success: function(data){
@@ -72,13 +78,15 @@ $(function(){
 			
 			if($(this).prop("checked")){
 				var bookingNo=$(this).prev().val();
+				var scheduleNo=$(this).prev().prev().val();
 				var $its =$(this);
 				$.ajax({
 					type:"get",
 					url:"updateAppFlag",
 					data:{
 						bookingNo : bookingNo,
-						bookingAppFlag : "1"
+						bookingAppFlag : "1",
+						scheduleNo : scheduleNo 
 					},
 					dataType:"json",
 					success: function(data){
@@ -139,7 +147,7 @@ function rentViewAjax(currentPage,btCheck){
 				
 				for(var i=0; i<data.bookingList.length; i++){
 					str+='<tr>';
-					str+='<td><input type="hidden" value="'+data.bookingList[i].bookingNo+'"><input type="checkbox" class="check"></td>';
+					str+='<td><input type="hidden" value="'+data.bookingList[i].scheduleNo+'"><input type="hidden" value="'+data.bookingList[i].bookingNo+'"><input type="checkbox" class="check"></td>';
 					str+='<td>'+data.bookingList[i].bookingTargetName+'</td>';
 					str+='<td>'+data.bookingList[i].empName+'</td>';
 					str+='<td>'+data.bookingList[i].bookingStart+' ~ '+data.bookingList[i].bookingEnd+'</td>';
