@@ -164,7 +164,7 @@
 		    from
 		    (
 		       select * from mailView
-		       where MAIL_TAKE = #{empNo} AND MAIL_IMPRORTANT = 'I' AND MAIL_TEMPSAVE IS NULL AND MAIL_RESERVE IS NULL AND MAIL_DEL_CHECK='0'
+		       where MAIL_TAKE = #{empNo} AND MAIL_IMPORTANT = 'I' AND MAIL_TEMPSAVE IS NULL AND MAIL_RESERVE IS NULL AND MAIL_DEL_CHECK='0'
 			   <include refid="searchWhere"/>
 		       order by MAIL_SENDDATE desc 
 		    )A
@@ -232,6 +232,27 @@
 	<update id="updateReadDate" parameterType="int">
 		update mail
 		set MAIL_READDATE = SYSDATE
+		where MAIL_NO = #{mailNo}
+	</update>
+	
+	<!-- 안읽음처리 -->
+	<update id="updateNotReadDate" parameterType="int">
+		update mail
+		set MAIL_READDATE = null
+		where MAIL_NO = #{mailNo}
+	</update>
+	
+	<!-- 중요업데이트 -->
+	<update id="updateInportant" parameterType="int">
+		update mail
+		set MAIL_IMPORTANT = 'I'
+		where MAIL_NO = #{mailNo}
+	</update>
+	
+	<!-- 안중요업데이트 -->
+	<update id="updateNotInportant" parameterType="int">
+		update mail
+		set MAIL_IMPORTANT = '0'
 		where MAIL_NO = #{mailNo}
 	</update>
 	
