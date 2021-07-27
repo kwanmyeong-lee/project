@@ -1,6 +1,38 @@
 @charset "EUC-KR";
 
-
+.fc-button-primary{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+.fc-button-primary:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+.fc-button-primary:before,.fc-button-primary:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+.fc-button-primary:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.fc-button-primary:hover:before,.fc-button-primary:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
 
 #calendar {
 	max-width: 1250px;
