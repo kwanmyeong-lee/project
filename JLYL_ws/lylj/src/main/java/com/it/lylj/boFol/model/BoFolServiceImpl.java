@@ -15,4 +15,19 @@ public class BoFolServiceImpl implements BoFolService{
 	public List<BoFolVO> selectAllBoFol() {
 		return dao.selectAllBoFol();
 	}
+
+	@Override
+	public int insertBoFol(BoFolVO vo) {
+		return dao.insertBoFol(vo);
+	}
+
+	@Override
+	public int updateBoFol(BoFolVO vo) {
+		return dao.updateBoFol(vo);
+	}
+
+	@Override
+	public int deleteBoFol(int bookingFolderNo) {
+		return dao.deleteBoFol(bookingFolderNo);
+	}
 }
