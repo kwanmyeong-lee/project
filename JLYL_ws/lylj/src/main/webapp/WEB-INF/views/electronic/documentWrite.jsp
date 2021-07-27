@@ -190,7 +190,7 @@
 				<!-- 문서 양식 시작 -->
 				<input type="hidden" name="electronicContent" value="">
 
-				${svo.styleContent}
+				${svo.styleContent} 
 
 				<!-- 문서 양식 끝 -->
 

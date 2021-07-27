@@ -71,6 +71,20 @@
 	border: 1px solid;
 }
 
+.doc-td3 {
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	padding-left: 10px;
+}
+
+.doc-td3  >  input{
+	margin: auto 3px;
+	border-color: rgb(147, 147, 147);
+	border: 1px solid;
+	width: 100px;
+}
+
 .doc-input2 {
 	width: 470px;
 }
+
