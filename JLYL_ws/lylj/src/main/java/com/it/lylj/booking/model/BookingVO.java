@@ -23,4 +23,6 @@ public class BookingVO {
 	private int bookingTargetNo; /* 예약 대상 번호 */
 	private String bookingContent; /* 예약 내용 */
 	private int scheduleNo; /* 예약 대상 번호 */
+	private String empName; /* 사원이름 */
+	private String bookingTargetName; /* 자원이름 */
 }

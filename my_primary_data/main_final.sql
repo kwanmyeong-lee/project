@@ -1271,7 +1271,7 @@ left join department d
 on d.department_no = e.department_no;
 
 ------------------------------view-------------------------------------
---예약
+--휴가
 create or replace view BREAKVIEW
 as
 select b.* , f.emp_name, d.department_name
@@ -1280,6 +1280,17 @@ on b.EMP_NO  = f.EMP_NO
 left join department d
 on d.department_no = f.department_no;
 
+------------------------------view-------------------------------------
+--예약
+create or replace view BOOKINGVIEW
+as
+select b.* , f.emp_name, t.BOOKING_TARGET_NAME 
+from BOOKING b join emp f
+on b.EMP_NO  = f.EMP_NO
+left join BOTARGET t
+on t.BOOKING_TARGET_NO = b.BOOKING_TARGET_NO;
+
+select * from bookingview;
 
 ------------------------------view-------------------------------------
 --주소록 + 주소록폴더
@@ -1934,6 +1945,9 @@ insert into ATTEND values(ATTEND_seq.nextval, 121,default,default,default,defaul
 
 
 
+
+
+
 commit;
 
 
@@ -1975,9 +1989,6 @@ EXCEPTION
     raise_application_error(-20001, '근태 날짜 정보 업데이트 실패!');
         ROLLBACK;
 end;
-
-
-
 
 
 

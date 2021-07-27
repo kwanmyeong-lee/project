@@ -65,19 +65,44 @@ h3{
 </style>
 <script>
 $(function(){
-	$(document).on("click",'#success',function(){ 
-		var attendanceDayNo = $(this).prev().val();
+	$(document).on("click",'.success',function(){ 
+		var bookingNo = $(this).prev().val();
+		var $its =$(this);
 		$.ajax({
 			type:"get",
-			url:"updateExcess",
+			url:"updateAppFlag",
 			data:{
-				attendanceDayNo : attendanceDayNo,
-				flag : 2
+				bookingNo : bookingNo,
+				bookingAppFlag : "2"
 			},
 			dataType:"json",
 			success: function(data){
-				$('#success').prop("disabled",true);
-				$('#cancle').prop("disabled",true);
+				$its.parent().parent().find('.check').prop("disabled",true);
+				$its.parent().parent().find('.check').prop("checked",false);
+				$its.prop("disabled",true);
+				$its.next().prop("disabled",true);
+					
+				
+			}
+		});
+		
+	});
+	$(document).on("click",'.cancle',function(){ 
+		var bookingNo = $(this).prev().prev().val();
+		var $its =$(this);
+		$.ajax({
+			type:"get",
+			url:"updateAppFlag",
+			data:{
+				bookingNo : bookingNo,
+				bookingAppFlag : "1"
+			},
+			dataType:"json",
+			success: function(data){
+				$its.parent().parent().find('.check').prop("disabled",true);
+				$its.parent().parent().find('.check').prop("checked",false);
+				$its.prop("disabled",true);
+				$its.prev().prop("disabled",true);
 					
 				
 			}
@@ -88,73 +113,85 @@ $(function(){
 		$('.check').each(function(){
 			
 			if($(this).prop("checked")){
-				var attendanceDayNo=$(this).prev().val();
+				var bookingNo=$(this).prev().val();
+				var $its =$(this);
 				$.ajax({
 					type:"get",
-					url:"updateExcess",
+					url:"updateAppFlag",
 					data:{
-						attendanceDayNo : attendanceDayNo,
-						flag : 2
+						bookingNo : bookingNo,
+						bookingAppFlag : "2"
 					},
 					dataType:"json",
 					success: function(data){
-						$('#success').prop("disabled",true);
-						$('#cancle').prop("disabled",true);
+						$its.prop("checked",false);
+						$its.prop("disabled",true);
+						$its.parent().parent().find('.success').prop("disabled",true);
+						$its.parent().parent().find('.cancle').prop("disabled",true);
 					}
 				});
 			}
 		});
 	});
-	$(document).on("click",'#cancle',function(){ 
+	$(document).on("click",'#cancleAll',function(){ 
 		$('.check').each(function(){
 			
 			if($(this).prop("checked")){
-				var attendanceDayNo=$(this).prev().val();
+				var bookingNo=$(this).prev().val();
+				var $its =$(this);
 				$.ajax({
 					type:"get",
-					url:"updateExcess",
+					url:"updateAppFlag",
 					data:{
-						attendanceDayNo : attendanceDayNo,
-						flag : 1
+						bookingNo : bookingNo,
+						bookingAppFlag : "1"
 					},
 					dataType:"json",
 					success: function(data){
-						$('#success').prop("disabled",true);
-						$('#cancle').prop("disabled",true);
+						$its.prop("checked",false);
+						$its.prop("disabled",true);
+						$its.parent().parent().find('.success').prop("disabled",true);
+						$its.parent().parent().find('.cancle').prop("disabled",true);
 					}
 				});
 			}
 		});
 	});
 	
+	
 	$(document).on('click','.px-1',function(){
 		var currentPage = $(this).text();
 		var btCheck =0;
+		rentViewAjax(currentPage,btCheck);
 		
 	});
 	
 	$(document).on('click','.ar-forward',function(){
 		var currentPage = $('.px-1').eq(0).text();
 		var btCheck=1;
-		
+		rentViewAjax(currentPage,btCheck);
 	});
 	
 	$(document).on('click','.ar-backward',function(){
 		var currentPage = $('.px-1').eq(0).text();
 		var btCheck=2;
-		
+		rentViewAjax(currentPage,btCheck);
 	});
 	
 	$(document).on('change','#checkAll',function(){
-			$('.check').prop("checked",this.checked);
+		$('.check').each(function(){
+			if($('.check').prop("disabled")==false){		
+				$('.check').prop("checked",$("#checkAll").prop("checked"));
+			}
+		});
 	});
 });
 
-function excessViewAjax(currentPage,btCheck){
+function rentViewAjax(currentPage,btCheck){
 	
 	$.ajax({
 		type:"get",
-		url:"excessView",
+		url:"selectAllApp",
 		data:{
 			currentPage : currentPage,
 			btCheck : btCheck
@@ -164,47 +201,37 @@ function excessViewAjax(currentPage,btCheck){
 			str="";
 			
 				
-			if(data.conditionList.length>0){
+			if(data.bookingList.length>0){
 				
-				for(var i="0"; i<data.conditionList.length; i++){
+				for(var i=0; i<data.bookingList.length; i++){
 					str+='<tr>';
-					str+='<td><input type="hidden" value="'+data.conditionList[i].attendanceDayNo+'"><input type="checkbox" class="check"></td>';
-					str+='<td>'+data.conditionList[i].empName+'</td>';
-					str+='<td>'+data.conditionList[i].departmentName+'</td>';
-					str+='<td>'+data.conditionList[i].positionName+'</td>';
-					var year = new Date(data.conditionList[i].attendanceDayOnHour).getFullYear();
-					var month = "00"+Math.floor(new Date(data.conditionList[i].attendanceDayOnHour).getMonth()+1);
-					var date = "00"+Math.floor(new Date(data.conditionList[i].attendanceDayOnHour).getDate());
+					str+='<td><input type="hidden" value="'+data.bookingList[i].bookingNo+'"><input type="checkbox" class="check"></td>';
+					str+='<td>'+data.bookingList[i].bookingTargetName+'</td>';
+					str+='<td>'+data.bookingList[i].empName+'</td>';
+					str+='<td>'+data.bookingList[i].bookingStart+' ~ '+data.bookingList[i].bookingEnd+'</td>';
+					var year = new Date(data.bookingList[i].bookingCurrent).getFullYear();
+					var month = "00"+Math.floor(new Date(data.bookingList[i].bookingCurrent).getMonth()+1);
+					var date = "00"+Math.floor(new Date(data.bookingList[i].bookingCurrent).getDate());
 					month = month.slice(-2);
 					date = date.slice(-2);
-					str+='<td>'+year+'-'+month+'-'+date+' (';
+					str+='<td>'+year+'-'+month+'-'+date+' ';
 					
-					var hour ="00"+new Date(data.conditionList[i].attendanceDayOnHour).getHours();
-					var min = "00"+Math.floor(new Date(data.conditionList[i].attendanceDayOnHour).getMinutes());
-					var sec = "00"+Math.floor(new Date(data.conditionList[i].attendanceDayOnHour).getSeconds());
+					var hour ="00"+new Date(data.bookingList[i].bookingCurrent).getHours();
+					var min = "00"+Math.floor(new Date(data.bookingList[i].bookingCurrent).getMinutes());
+					var sec = "00"+Math.floor(new Date(data.bookingList[i].bookingCurrent).getSeconds());
 					hour = hour.slice(-2);
 					min = min.slice(-2);
 					sec = sec.slice(-2);
-					str+=hour+':'+min+':'+sec+' ~ ';
+					str+=hour+':'+min+':'+sec+'</td>';
 					
-					hour ="00"+new Date(data.conditionList[i].attendanceDayOffHour).getHours();
-					min = "00"+Math.floor(new Date(data.conditionList[i].attendanceDayOffHour).getMinutes());
-					sec = "00"+Math.floor(new Date(data.conditionList[i].attendanceDayOffHour).getSeconds());
-					hour = hour.slice(-2);
-					min = min.slice(-2);
-					sec = sec.slice(-2);
-					str+=hour+':'+min+':'+sec+')</td>';
-					
-					var exTime= miliHMS(data.conditionList[i].excessTimeDay);
-					str+='<td>'+exTime+'</td>';
-					str+='<td class="ths"><input type="hidden" value="'+data.conditionList[i].attendanceDayNo+'"><button type="button" class="btn btn-outline-success btt" id="success">승인</button>';
-					str+='<button type="button" class="btn btn-outline-danger btt" id="cancle">거절</button></td>';
+					str+='<td class="ths"><input type="hidden" value="'+data.bookingList[i].bookingNo+'"><button type="button" class="btn btn-outline-success btt success" >승인</button>';
+					str+='<button type="button" class="btn btn-outline-danger btt cancle">거절</button></td>';
 					str+='</tr>';
 				}
 				
            		
 			}else{
-				str+='<tr><td colspan="7" align="center">승인 대기 없음</td></tr>';
+				str+='<tr><td colspan="6" align="center">예약 신청 없음</td></tr>';
            		
 			}
 			
@@ -248,6 +275,7 @@ function miliHMS(mili){
 }
 
 window.onload= function(){
+	rentViewAjax(1,0);
 }
 
 </script>
@@ -264,15 +292,17 @@ window.onload= function(){
 	   <col style="width: 5%;"/>
 	   <col style="width: 20%;"/>
 	   <col style="width: 10%;"/>
-	   <col style="width: 45%;"/>
+	   <col style="width: 30%;"/>
+	   <col style="width: 15%;"/>
 	   <col style="width: 20%;"/>
     </colgroup>
 	<tr>
 		<th><input type="checkbox" id="checkAll"></th>
 		<th>자산명</th>
 		<th>예약자</th>
-		<th>예약시간</th>
-		<th>승인/반려</th>
+		<th>예약기간</th>
+		<th>신청시간</th>
+		<th class="ths">승인/반려</th>
 	</tr>
 	<tbody id="excessTBody">
 		
