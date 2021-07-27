@@ -167,7 +167,7 @@ function rentViewAjax(currentPage,btCheck){
 					str+=hour+':'+min+':'+sec+'</td>';
 					
 					str+='<td class="ths"><input type="hidden" value="'+data.bookingList[i].bookingNo+'"><button type="button" class="btn btn-outline-success btt success" >승인</button>';
-					str+='<button type="button" class="btn btn-outline-danger btt cancle">거절</button></td>';
+					str+='<button type="button" class="btn btn-outline-danger btt cancle">반려</button></td>';
 					str+='</tr>';
 				}
 				
