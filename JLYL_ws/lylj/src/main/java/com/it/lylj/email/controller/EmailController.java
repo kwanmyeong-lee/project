@@ -3,6 +3,8 @@ package com.it.lylj.email.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.it.lylj.common.ConstUtil;
 import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.common.SearchVO;
+import com.it.lylj.email.model.EmailListVO;
 import com.it.lylj.email.model.EmailService;
 import com.it.lylj.email.model.EmailVO;
 import com.it.lylj.emp.model.EmpService;
@@ -155,5 +158,17 @@ public class EmailController {
 		logger.info("vo={}",vo);
 		model.addAttribute("vo", vo);
 		return "email/emailPreview";
+	}
+	
+	/* 메일 다중 삭제 */
+	@RequestMapping("emailMultiDelete")
+	public String emailMultiDelete(@ModelAttribute EmailListVO listVo, HttpServletRequest request, Model model) {
+		logger.info("메일 선택 삭제, listVo={}",listVo);
+		
+		List<EmailVO> list = listVo.getSelectedEmail();
+		
+		for(int i=0; i<list.size(); i++) {
+			
+		}
 	}
 }
