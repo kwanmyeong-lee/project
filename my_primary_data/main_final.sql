@@ -1421,12 +1421,13 @@ values(DOCSTY_SEQ.nextval, '양식번호100', '
 				<br>
 				<h2>휴가신청서</h2>
 
-				<table class="doc-table">
+						<table class="doc-table">
 					<tr>
-						<td class="doc-td" colspan="3">문서번호</td>
+
+						<td class="doc-td" colspan="3">작성일자</td>
 						<td class="doc-td2"><input type="text"></td>
-						<td class="doc-td">작성일자</td>
-						<td class="doc-td2"><input type="text"></td>
+						<td class="doc-td" >/</td>
+						<td class="doc-td2"><input type="hidden"></td>
 					</tr>
 					<tr>
 						<td class="doc-td" colspan="3">이 름</td>
@@ -1463,7 +1464,7 @@ values(DOCSTY_SEQ.nextval, '양식번호100', '
 							class="doc-input2"></td>
 					</tr>
 					<tr>
-						<td class="doc-td" colspan="2">신청사유<br> (자세히)
+						<td class="doc-td" colspan="2">신청사유
 						</td>
 						<td class="doc-td2" colspan="3"><input type="text"
 							class="doc-input2"></td>
@@ -1482,7 +1483,103 @@ values(DOCSTY_SEQ.nextval, '양식번호100', '
 				</table>
 				<br>', 1);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호100', '', 1);
+values(DOCSTY_SEQ.nextval, '양식번호100', '<br>
+				<h2>지출 기안서</h2>
+
+				<table class="doc-table">
+					<tr>
+
+						<td class="doc-td">작성일자</td>
+						<td class="doc-td2"><input type="text"></td>
+						<td class="doc-td">/</td>
+						<td class="doc-td2"><input type="hidden"></td>
+					</tr>
+					<tr>
+						<td class="doc-td">이 름</td>
+						<td class="doc-td2"><input type="text"></td>
+						<td class="doc-td">직 책</td>
+						<td class="doc-td2"><input type="text"></td>
+					</tr>
+					<tr>
+						<td class="doc-td">소속</td>
+						<td class="doc-td2"><input type="text"></td>
+						<td class="doc-td">부서</td>
+						<td class="doc-td2"><input type="text"></td>
+					</tr>
+				</table>
+				<br>
+				<table class="doc-table">
+					<tr>
+						<td class="doc-td">/</td>
+						<td class="doc-td">항목</td>
+						<td class="doc-td">내용</td>
+						<td class="doc-td">수량</td>
+						<td class="doc-td">단가</td>
+						<td class="doc-td">금액</td>
+					</tr>
+					<tr>
+						<td class="doc-td">/</td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+					</tr>
+					<tr>
+						<td class="doc-td">/</td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+					</tr>
+					<tr>
+						<td class="doc-td">/</td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+					</tr>
+					<tr>
+						<td class="doc-td">/</td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+					</tr>
+					<tr>
+						<td class="doc-td">/</td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+					</tr>
+					<tr>
+						<td class="doc-td">/</td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+					</tr>
+					<tr>
+						<td class="doc-td">/</td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+						<td class="doc-td3"><input type="text"></td>
+					</tr>
+					<tr>
+						<td class="doc-td">참고사항</td>
+						<td class="doc-td2" colspan="5"><input type="text"
+							class="doc-input2"></td>
+					</tr>
+				</table>
+				<br>', 1);
 insert into DOCSTY
 values(DOCSTY_SEQ.nextval, '양식번호101', '', 2);
 insert into DOCSTY
