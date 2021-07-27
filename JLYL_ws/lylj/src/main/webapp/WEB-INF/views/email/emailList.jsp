@@ -6,12 +6,12 @@
 
 <style>
 .containerDiv{
-	width: 1400px;
+	width: 100%;
 	height: 100%;
 	margin: 30px;
 }
 .panelDiv{
-	width: 1400px;
+	width: 2000px;
 	background: white;
 }
 .container *{
@@ -32,10 +32,11 @@
 	float: right;
 }
 .email{
-	width: 1350px;
-	height: 1100px;
-	margin-left: 3%;
+	min-height: 1000px;
+	width : 100%;
 	margin-top: 10px;
+	background: white;
+	padding: 30px;
 }
 .emailBody{
 	width: 95%;
@@ -53,12 +54,16 @@
 }
 thead tr th{
 	text-align: center;
+	font-size: 1.2em;
 }
 .typeCheck,.typeRead,.typeInportant,.typeFile,.typeName,.typeTime{
 	text-align: center;
+	font-size: 1.1em;
 }
 .typeName a,.typeSubject a{
 	text-decoration: none;
+	font-size: 1.1em;
+	color: #858796;
 }
 </style>
 
@@ -100,8 +105,7 @@ thead tr th{
 	}
 
 </script>
-<div class="container containerDiv">
-		<div class="panel panel-default panelDiv">
+	<div class="panel-default">
 		<!-- BEGIN INBOX -->
 			<div class="grid email">
 				<div class="grid-body emailBody">
@@ -273,7 +277,6 @@ thead tr th{
 				</div>
 			</div>
 		<!-- END INBOX -->
-	</div>
 </div>
 
 <%@ include file="../inc/bottom.jsp" %>
