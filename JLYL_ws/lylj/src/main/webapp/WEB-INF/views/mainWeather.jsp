@@ -1,24 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="<c:url value="/resources/css/boot_css/bootstrap.min.css"/>"
-	rel="stylesheet">
-<link href="<c:url value="/resources/css/sb-admin-2.min.css"/>"
-	rel="stylesheet">
-<script type="text/javascript"
-	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
-<%--아이콘 --%>
-<script defer
-	src="https://use.fontawesome.com/releases/v5.15.2/js/all.js"
-	integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF"
-	crossorigin="anonymous"></script>
 
 <script type="text/javascript">
 	$(function() {
@@ -110,13 +91,7 @@
 rain","icon":"10n"}],"base":"stations","main":{"temp":25.76,"feels_like":26.72,"temp_min":25.76,"temp_max":25.76,"pressure":1003,"humidity":89,"sea_level":1003,"grnd_level":1000},"visibility":10000,"wind":{"speed":6.02,"deg":113,"gust":9.78},"rain":{"1h":0.11},"clouds":{"all":100},"dt":1627301236,"sys":{"country":"KR","sunrise":1627245707,"sunset":1627295927},"timezone":32400,"id":1846266,"name":"Jeju
 City","cod":200} -->
 
-</head>
-<body>
-	<div class="container">
-		<div class="row justify-content-center m-3 p-3 text-center"
-			id="weatherBox" style="background-color: black; width: 600px;">
-			
-		</div>
-	</div>
-</body>
-</html>
+
+
+<div class="row justify-content-center m-3 p-3 text-center"
+	id="weatherBox" style="background-color: #e9f7ff; width: auto;"></div>
