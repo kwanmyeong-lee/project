@@ -1,6 +1,7 @@
 $(function(){
-	$(document).on("click",'#success',function(){ 
+	$(document).on("click",'.success',function(){ 
 		var attendanceDayNo = $(this).prev().val();
+		var $its =$(this);		
 		$.ajax({
 			type:"get",
 			url:"updateExcess",
@@ -10,10 +11,30 @@ $(function(){
 			},
 			dataType:"json",
 			success: function(data){
-				$('#success').prop("disabled",true);
-				$('#cancle').prop("disabled",true);
-					
-				
+				$its.parent().parent().find('.check').prop("disabled",true);
+				$its.parent().parent().find('.check').prop("checked",false);
+				$its.prop("disabled",true);
+				$its.next().prop("disabled",true);
+			}
+		});
+		
+	});
+	$(document).on("click",'.cancle',function(){ 
+		var attendanceDayNo = $(this).prev().prev().val();
+		var $its =$(this);
+		$.ajax({
+			type:"get",
+			url:"updateExcess",
+			data:{
+				attendanceDayNo : attendanceDayNo,
+				flag : 2
+			},
+			dataType:"json",
+			success: function(data){
+				$its.parent().parent().find('.check').prop("disabled",true);
+				$its.parent().parent().find('.check').prop("checked",false);
+				$its.prop("disabled",true);
+				$its.prev().prop("disabled",true);
 			}
 		});
 		
@@ -23,6 +44,7 @@ $(function(){
 			
 			if($(this).prop("checked")){
 				var attendanceDayNo=$(this).prev().val();
+				var $its =$(this);
 				$.ajax({
 					type:"get",
 					url:"updateExcess",
@@ -32,18 +54,21 @@ $(function(){
 					},
 					dataType:"json",
 					success: function(data){
-						$('#success').prop("disabled",true);
-						$('#cancle').prop("disabled",true);
+						$its.prop("checked",false);
+						$its.prop("disabled",true);
+						$its.parent().parent().find('.success').prop("disabled",true);
+						$its.parent().parent().find('.cancle').prop("disabled",true);
 					}
 				});
 			}
 		});
 	});
-	$(document).on("click",'#cancle',function(){ 
+	$(document).on("click",'#cancleAll',function(){ 
 		$('.check').each(function(){
 			
 			if($(this).prop("checked")){
 				var attendanceDayNo=$(this).prev().val();
+				var $its =$(this);
 				$.ajax({
 					type:"get",
 					url:"updateExcess",
@@ -53,8 +78,10 @@ $(function(){
 					},
 					dataType:"json",
 					success: function(data){
-						$('#success').prop("disabled",true);
-						$('#cancle').prop("disabled",true);
+						$its.prop("checked",false);
+						$its.prop("disabled",true);
+						$its.parent().parent().find('.success').prop("disabled",true);
+						$its.parent().parent().find('.cancle').prop("disabled",true);
 					}
 				});
 			}
@@ -83,7 +110,11 @@ $(function(){
 	});
 	
 	$(document).on('change','#checkAll',function(){
-			$('.check').prop("checked",this.checked);
+		$('.check').each(function(){
+			if($(this).prop("disabled")==false){		
+				$(this).prop("checked",$("#checkAll").prop("checked"));
+			}
+		});
 	});
 });
 
@@ -134,8 +165,8 @@ function excessViewAjax(currentPage,btCheck){
 					
 					var exTime= miliHMS(data.conditionList[i].excessTimeDay);
 					str+='<td>'+exTime+'</td>';
-					str+='<td class="ths"><input type="hidden" value="'+data.conditionList[i].attendanceDayNo+'"><button type="button" class="btn btn-outline-success btt" id="success">승인</button>';
-					str+='<button type="button" class="btn btn-outline-danger btt" id="cancle">거절</button></td>';
+					str+='<td class="ths"><input type="hidden" value="'+data.conditionList[i].attendanceDayNo+'"><button type="button" class="btn btn-outline-success btt success" >승인</button>';
+					str+='<button type="button" class="btn btn-outline-danger btt cancle">거절</button></td>';
 					str+='</tr>';
 				}
 				
