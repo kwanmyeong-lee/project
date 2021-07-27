@@ -155,18 +155,22 @@ public class SearchVO {
 		this.empNo = empNo;
 	}
 
+	public int getAddressFolderNo() {
+		return addressFolderNo;
+	}
+
+	public void setAddressFolderNo(int addressFolderNo) {
+		this.addressFolderNo = addressFolderNo;
+	}
+
 	@Override
 	public String toString() {
 		return "SearchVO [searchCondition=" + searchCondition + ", searchKeyword=" + searchKeyword + ", searchUseYn="
 				+ searchUseYn + ", currentPage=" + currentPage + ", dong=" + dong + ", boardFolderNo=" + boardFolderNo
-				+ ", empNo=" + empNo + ", blockSize=" + blockSize + ", firstRecordIndex=" + firstRecordIndex
-				+ ", lastRecordIndex=" + lastRecordIndex + ", recordCountPerPage=" + recordCountPerPage + "]";
+				+ ", empNo=" + empNo + ", addressFolderNo=" + addressFolderNo + ", blockSize=" + blockSize
+				+ ", firstRecordIndex=" + firstRecordIndex + ", lastRecordIndex=" + lastRecordIndex
+				+ ", recordCountPerPage=" + recordCountPerPage + "]";
 	}
 
-
-	
-	
-
-	
 }
  

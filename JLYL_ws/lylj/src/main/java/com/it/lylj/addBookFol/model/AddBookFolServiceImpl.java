@@ -24,6 +24,11 @@ public class AddBookFolServiceImpl implements AddBookFolService{
 	}
 
 	@Override
+	public AddBookFolVO selectByFolNo(int addressFolderNo) {
+		return addBookFolDao.selectByFolNo(addressFolderNo);
+	}
+	
+	@Override
 	public int updateFol(AddBookFolVO folVo) {
 		return addBookFolDao.updateFol(folVo);
 	}
@@ -32,6 +37,8 @@ public class AddBookFolServiceImpl implements AddBookFolService{
 	public int deleteFol(AddBookFolVO folVo) {
 		return addBookFolDao.deleteFol(folVo);
 	}
+
+	
 
 
 }

@@ -15,12 +15,14 @@
 		    <result property="bookingTargetNo" column="BOOKING_TARGET_NO" />
 		    <result property="bookingContent" column="BOOKING_CONTENT" jdbcType="CLOB" javaType="java.lang.String"/>
 		    <result property="scheduleNo" column="SCHEDULE_NO" />
+		    <result property="empName" column="EMP_NAME" />
+		    <result property="bookingTargetName" column="BOOKING_TARGET_NAME" />
 	</resultMap>
 
 	<insert id="insertBooking" parameterType="bookingVo">
 		insert into BOOKING
 		values(booking_seq.nextval, #{empNo}, sysdate, #{bookingStart}, #{bookingEnd},
-        #{bookingAppFlag:VARCHAR},#{bookingDelFlag:VARCHAR},#{bookingTargetNo},#{bookingContent:CLOB}, 
+        '0','0',#{bookingTargetNo},#{bookingContent:CLOB}, 
         #{scheduleNo})
     </insert>
 	
@@ -29,6 +31,23 @@
 		where EMP_NO=#{empNo}
 		order by BOOKING_NO desc
 	</select>
+	
+	<select id="selectAllBookingByAppFlag" parameterType="int" resultMap="booking_clob">
+		select * from (select b.*, rownum as nums from BOOKINGVIEW b
+		where BOOKING_APP_FLAG='0'
+		order by BOOKING_NO desc)
+		<![CDATA[ where nums >12*(#{currentPage}-1) and nums<=12*#{currentPage} ]]>
+	</select>
+	<select id="selectCntAllByAppFlag"  resultType="int">
+		select Count(*) from BOOKINGVIEW 
+		where BOOKING_APP_FLAG='0'
+		order by BOOKING_NO desc
+	</select>
+	
+	<update id="updateBokkingByBookingNo" parameterType="hashmap">
+		update booking set BOOKING_APP_FLAG = #{bookingAppFlag:VARCHAR}
+		where BOOKING_NO = #{bookingNo}
+	</update>
 	
  </mapper>
 

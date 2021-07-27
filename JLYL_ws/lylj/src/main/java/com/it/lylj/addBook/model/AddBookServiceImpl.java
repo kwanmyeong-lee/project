@@ -39,6 +39,21 @@ public class AddBookServiceImpl implements AddBookService{
 		return addBookDao.updateAddBook(vo);
 	}
 
+	@Override
+	public int deleteAddBook(AddBookVO vo) {
+		return addBookDao.deleteAddBook(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectByFolNo(SearchVO searchVo) {
+		return addBookDao.selectByFolNo(searchVo);
+	}
+
+	@Override
+	public int selectByFolNoTotalRecord(SearchVO searchVo) {
+		return addBookDao.selectByFolNoTotalRecord(searchVo);
+	}
+
 	
 
 }

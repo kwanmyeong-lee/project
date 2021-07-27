@@ -56,6 +56,35 @@
 			ADDRESS_FOLDER_NO=#{addressFolderNo}, ADDRESSBOOK_GENDER=#{addressBookGender}
 		WHERE ADDRESSBOOK_NO=#{addressBookNo}
 	</update>
+	
+	<delete id="deleteAddBook" parameterType="AddBookVo">
+		DELETE addbook
+		WHERE ADDRESSBOOK_NO=#{addressBookNo}
+	</delete>
+	
+	<select id="selectByFolNo" parameterType="searchVo" resultType="map">
+		SELECT *
+			FROM
+			(
+				SELECT rownum as RNUM,A.*
+				from
+				(
+					SELECT * FROM addBookView
+					WHERE ADDRESS_FOLDER_NO=#{addressFolderNo}
+					ORDER BY ADDRESSBOOK_NO DESC
+				)A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="selectByFolNoTotalRecord" parameterType="searchVo"
+		resultType="int">
+		SELECT count(*) FROM addbook
+		WHERE ADDRESS_FOLDER_NO=#{addressFolderNo}
+	</select>
 </mapper>
 
 

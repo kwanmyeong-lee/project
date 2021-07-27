@@ -15,6 +15,21 @@ public class BoTargetServiceImpl implements BoTargetService{
 	public List<BoTargetVO> selectAllBoTarget() {
 		return dao.selectAllBoTarget();
 	}
+
+	@Override
+	public int insertBoTarget(BoTargetVO vo) {
+		return dao.insertBoTarget(vo);
+	}
+
+	@Override
+	public int updateBorTarget(BoTargetVO vo) {
+		return dao.updateBorTarget(vo);
+	}
+
+	@Override
+	public int deleteBorTarget(int bookingTargetNo) {
+		return dao.deleteBorTarget(bookingTargetNo);
+	}
 	
 	
 }

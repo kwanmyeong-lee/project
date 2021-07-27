@@ -1,5 +1,6 @@
 package com.it.lylj.booking.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,12 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.lylj.attendDay.model.ConditionViewVO;
 import com.it.lylj.boFol.model.BoFolService;
 import com.it.lylj.boFol.model.BoFolVO;
 import com.it.lylj.boTarget.model.BoTargetService;
 import com.it.lylj.boTarget.model.BoTargetVO;
 import com.it.lylj.booking.model.BookingService;
 import com.it.lylj.booking.model.BookingVO;
+import com.it.lylj.common.ConstUtil;
+import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.emp.model.EmpDAO;
 import com.it.lylj.emp.model.EmpService;
 import com.it.lylj.emp.model.EmpVO;
@@ -68,6 +72,11 @@ public class BookingController {
 		model.addAttribute("navNo",8);
 	}//예약 관리 페이지
 	
+	@GetMapping("/property")
+	public void property(Model model) {
+		model.addAttribute("navNo",8);
+	}//예약 관리 페이지
+	
 	@GetMapping("/calDraw")
 	@ResponseBody
 	public List<BoTargetVO> calDraw(){
@@ -75,6 +84,93 @@ public class BookingController {
 		
 		return data;
 	}//ajax 모든타켓 가져오기
+	
+	@GetMapping("/targetSer")
+	@ResponseBody
+	public int targetSer(int ser, BoTargetVO vo){
+		
+		if(ser==1) {
+			boTargetService.insertBoTarget(vo);
+		}else if(ser==2) {
+			boTargetService.updateBorTarget(vo);
+		}else if(ser==3) {
+			boTargetService.deleteBorTarget(vo.getBookingTargetNo());
+		}
+		
+		return 1;
+	}//ajax 타켓  추가 수정 삭제
+	
+	@GetMapping("/folSer")
+	@ResponseBody
+	public int folSer(int ser, BoFolVO vo){
+		
+		if(ser==1) {
+			boFolservice.insertBoFol(vo);
+		}else if(ser==2) {
+			boFolservice.updateBoFol(vo);
+		}else if(ser==3) {
+			boFolservice.deleteBoFol(vo.getBookingFolderNo());
+		}
+		
+		return 1;
+	}//ajax 목록 추가 수정 삭제
+	
+	
+	@GetMapping("/propertySelView")
+	@ResponseBody
+	public HashMap<String, Object> propertySelView(int raCheck){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if(raCheck==0) {
+			List<BoFolVO> boFolList = boFolservice.selectAllBoFol();
+			map.put("boFolList", boFolList);
+			logger.info("boFolList={}",boFolList);
+		}else {
+			List<BoTargetVO> boTargetList = boTargetService.selectAllBoTarget();
+			map.put("boTargetList", boTargetList);
+			logger.info("boTargetList={}",boTargetList);
+		}
+		
+		return map;
+	}//ajax 타켓,목록 중 선택 가져오기
+	
+	@GetMapping("/selectAllApp")
+	@ResponseBody
+	public HashMap<String, Object> selectAllApp(int currentPage, int btCheck){
+		HashMap<String, Object> map = new HashMap<>();
+		
+		if(btCheck==1) {
+			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN + 1;
+			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;
+		}else if(btCheck == 2) {
+			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN - 1;
+			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;			
+		}
+		
+		List<BookingVO> bookingList= bookingService.selectAllBookingByAppFlag(currentPage); 
+		
+		map.put("bookingList", bookingList);
+		
+		int TotalRecord = bookingService.selectCntAllByAppFlag();
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setCurrentPage(currentPage);
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ANN);
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ANN);
+		pagingInfo.setTotalRecord(TotalRecord);
+		map.put("pagingInfo", pagingInfo);
+		
+		logger.info("bookingList={}",bookingList);
+		return map;
+	}//ajax 대기중인 예약 리스트 가져오기
+	
+	@GetMapping("/updateAppFlag")
+	@ResponseBody
+	public int updateAppFlag(int bookingNo, String bookingAppFlag){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bookingNo", bookingNo);
+		map.put("bookingAppFlag", bookingAppFlag);
+			bookingService.updateBokkingByBookingNo(map);
+		return 1;
+	}//ajax AppFlag 업데이트
 	
 	@PostMapping("/calDrawByBTNo")
 	@ResponseBody

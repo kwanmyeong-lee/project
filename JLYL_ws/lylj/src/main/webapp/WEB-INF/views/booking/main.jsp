@@ -71,10 +71,10 @@
 	                                    <td >${i.bookingStart} ~ ${i.bookingEnd}</td>
 	                                    <td ><fmt:formatDate value="${i.bookingCurrent}" pattern="YYYY-MM-DD HH:mm:ss"/></td>
 	                                    <c:choose>
-	                                    	<c:when test="${bookingAppFlag==2}">
+	                                    	<c:when test="${i.bookingAppFlag==2}">
 	                                    		<td >승인</td>
 	                                    	</c:when>
-	                                    	<c:when test="${bookingAppFlag==1}">
+	                                    	<c:when test="${i.bookingAppFlag==1}">
 	                                    		<td >반려</td>
 	                                    	</c:when>
 	                                    	<c:otherwise>

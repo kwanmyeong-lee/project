@@ -31,7 +31,7 @@
 		
 		/* 카테고리 수정 클릭 이벤트 */
 		$('.folBtn').click(function(){
-			window.open('<c:url value="/bookFolInfo/main"/>','카테고리 정보','width=600, height=350, toolbar=no, menubar=no, scrollbars=no, resizable=no');
+			window.open('<c:url value="/bookFolInfo/main"/>','카테고리 정보','width=600, height=470, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 		});
 		
 		/* 주소록 마우스 이벤트 */
@@ -45,7 +45,7 @@
 		/* 전체 선택 처리 */
 		$('#chkAllMain').click(function(){
 			$('tbody td input[type=checkbox]').prop('checked',this.checked);			
-		});
+		}); 
 		
 		/* 검색 처리 */
 		$('form[name="frmSearch"]').submit(function(){
@@ -54,7 +54,15 @@
 			}
 		});
 		
-		
+		/* 
+		$('#chkAllMain').change(function(){
+			if($('#chkAllMain').prop('checked')){
+				$('tbody td input[type=checkbox]').prop('checked',true);
+			} else {
+				$('tbody td input[type=checkbox]').prop('checked',false);
+			}
+		});
+ */		
 		
 	});
 	/* 페이징 처리 */
@@ -62,6 +70,29 @@
 	    $('input[name=currentPage]').val(curPage);
 	    $('form[name=frmPage]').submit();   
 	 }
+	
+	/* 선택 삭제 */
+	function folderDeleteClick(){
+	    var checkBoxArr = []; 
+	    $("tbody td input[type=checkbox]:checked").each(function() {
+	    checkBoxArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 담기
+	    console.log(checkBoxArr);
+	})
+
+	    $.ajax({
+	        type: "POST",
+	        url: "<c:url value='/addressBook/delete'/>",
+	        data: {
+	        checkBoxArr : checkBoxArr        // folder seq 값을 가지고 있음.
+	        },
+	        success: function(result){
+	      	  location.reload();
+	        },
+	        error: function(xhr, status, error) {
+	      	  alert(error);
+	       }  
+	    });
+	} 
 </script>
 
 <div id="bookMainDiv">
@@ -107,7 +138,7 @@
 	</form>
 	
 	<div id="serviceDiv">
-		<button id="deleteBtn">삭제</button>
+		<button id="deleteBtn" onclick="folderDeleteClick()" type="button">삭제</button>
 	</div>
 	<table>
 	    <colgroup>
@@ -135,7 +166,7 @@
         <tbody>
 	        <c:forEach var="map" items="${bookList }">
 			    <tr class="tdStyle">
-		            <td><input type="checkbox" class="chkBox"> </td>
+		            <td><input type="checkbox" class="chkBox" value="${map['ADDRESSBOOK_NO']}"> </td>
 		            <td id="userNameTd" class="userNameClick">
 		            	<c:if test="${map['ADDRESSBOOK_GENDER'] == null}">
 		            		<img alt="" src="<c:url value='/resources/img/profile_o.jpg'/>">
@@ -158,7 +189,6 @@
 		    </c:forEach>
         </tbody>
 	</table>
-	
 	<div id="pagingDiv">
 		<nav aria-label="Page navigation example" id="pagingNav">
 		  <ul class="pagination">

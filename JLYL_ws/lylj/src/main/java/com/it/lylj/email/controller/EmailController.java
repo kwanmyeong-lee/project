@@ -118,13 +118,17 @@ public class EmailController {
 		emailVo.setMailTake(emailTaker);
 		int cnt = emailService.sendEmail(emailVo);
 		logger.info("전송결과, ent={},emailVo={}",cnt,emailVo);
-		if(cnt>0) {
-			msg="메일이발송되었습니다";
-			url="/email/emailMain";
+		if(emailVo.getMailTempsave().equals("T")) {
+			msg="임시저장되었습니다.";
+			url="/email/emailList?empNo="+emailVo.getMailEmpno()+"&type=3";
 		}else {
-			msg="메일전송실패";
+			if(cnt>0) {
+				msg="메일이발송되었습니다";
+				url="/email/emailMain";
+			}else {
+				msg="메일전송실패";
+			}
 		}
-		
 		model.addAttribute("url", url);
 		model.addAttribute("msg", msg);
 		

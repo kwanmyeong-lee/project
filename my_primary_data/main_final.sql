@@ -299,11 +299,12 @@ ALTER TABLE ELIMP
 CREATE TABLE MAIL (
 	MAIL_NO NUMBER NOT NULL, /* 메일 번호 */
 	MAIL_TITLE VARCHAR2(255) NOT NULL, /* 제목 */
-	MAIL_CONTENT CLOB NOT NULL, /* 내용 */
+	MAIL_CONTENT CLOB, /* 내용 */
 	MAIL_SEND VARCHAR2(255) NOT NULL, /* 보낸사람 */
 	MAIL_TAKE VARCHAR2(255) NOT NULL, /* 받는사람 */
 	MAIL_SENDDATE DATE DEFAULT SYSDATE, /* 보낸 날짜 */
 	MAIL_READDATE DATE, /* 읽은 날짜 */
+    MAIL_TEMPSAVE VARCHAR2(255), /*임시저장*/
 	MAIL_RESERVE DATE, /* 예약 날짜 */
 	MAIL_DEL_CHECK VARCHAR2(255) DEFAULT 0, /* 삭제 여부 */
 	MAIL_EMPNO NUMBER NOT NULL /* 사원번호 */
@@ -1270,7 +1271,7 @@ left join department d
 on d.department_no = e.department_no;
 
 ------------------------------view-------------------------------------
---예약
+--휴가
 create or replace view BREAKVIEW
 as
 select b.* , f.emp_name, d.department_name
@@ -1279,6 +1280,17 @@ on b.EMP_NO  = f.EMP_NO
 left join department d
 on d.department_no = f.department_no;
 
+------------------------------view-------------------------------------
+--예약
+create or replace view BOOKINGVIEW
+as
+select b.* , f.emp_name, t.BOOKING_TARGET_NAME 
+from BOOKING b join emp f
+on b.EMP_NO  = f.EMP_NO
+left join BOTARGET t
+on t.BOOKING_TARGET_NO = b.BOOKING_TARGET_NO;
+
+select * from bookingview;
 
 ------------------------------view-------------------------------------
 --주소록 + 주소록폴더
@@ -1933,6 +1945,9 @@ insert into ATTEND values(ATTEND_seq.nextval, 121,default,default,default,defaul
 
 
 
+
+
+
 commit;
 
 
@@ -1974,9 +1989,6 @@ EXCEPTION
     raise_application_error(-20001, '근태 날짜 정보 업데이트 실패!');
         ROLLBACK;
 end;
-
-
-
 
 
 
