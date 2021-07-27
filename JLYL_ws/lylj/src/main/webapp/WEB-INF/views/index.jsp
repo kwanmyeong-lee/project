@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="inc/top.jsp"%>
 
+<link href='<c:url value="/resources/css/main.css"/>' rel="stylesheet" />
+<script src='<c:url value="/resources/js/main.js"/>'></script>
+<script src='<c:url value="/resources/js/scheduleMain.js"/>'></script>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 	<!-- Page Heading -->
@@ -176,26 +179,28 @@
 						<thead class="table-primary">
 							<tr>
 								<th scope="col">예약 내용</th>
-								<th scope="col">예약 대상</th>
-								<th scope="col">예약 날짜</th>
+								<th scope="col">자산명</th>
+								<th scope="col">예약한 날짜</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td>아좀 빌려줘요</td>
-								<td>돈</td>
-								<td>2021-10-11</td>
-							</tr>
-							<tr>
-								<td>이래도 안빌려줘?</td>
-								<td>너의 지갑</td>
-								<td>2021-12-11</td>
-							</tr>
-							<tr>
-								<td>제발 !!!!</td>
-								<td>너의 카드</td>
-								<td>2021-09-11</td>
-							</tr>
+						<tbody id="bookingTBody">
+							<c:if test="${bookingList.size() !=0 }">
+								<c:set var="checkNum" value="0"/>
+								<c:forEach var="i" begin="0" end="2">
+									<c:if test="${bookingList.size()>i}">
+										<tr>
+											<td>${bookingList.get(i).bookingContent}</td>
+											<td>${bookingList.get(i).bookingTargetName}</td>
+											<td><fmt:formatDate value="${bookingList.get(i).bookingCurrent}" pattern="yyyy-MM-dd"/> </td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</c:if>
+							<c:if test="${bookingList.size() ==0 }">
+								<tr>
+									<td colspan="3" align="center">금일 예약 내역이 없습니다.</td>
+								</tr>
+							</c:if>
 						</tbody>
 					</table>
 
@@ -206,7 +211,7 @@
 					<h6 class="m-0 font-weight-bold text-primary">오늘의 일정</h6>
 				</div>
 				<div class="card-body">
-					<h1>달력을 넣으면 좋알거같은데 모르겠음</h1>
+					<div id='calendar'></div>
 				</div>
 			</div>
 			<div class="card shadow mb-4">

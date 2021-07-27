@@ -9,5 +9,7 @@ public interface BookingService {
 	int insertBooking(BookingVO vo);
 	int updateBokkingByBookingNo(HashMap<String, Object> map);
 	int selectCntAllByAppFlag();
+	List<BookingVO> selectAllBookingViewByEmpNo(int emoNo);
+
 
 }

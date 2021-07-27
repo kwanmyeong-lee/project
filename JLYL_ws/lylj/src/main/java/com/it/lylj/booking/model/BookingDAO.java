@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface BookingDAO {
 	List<BookingVO> selectAllBookingByEmpNo(int empNo);
 	List<BookingVO> selectAllBookingByAppFlag(int currentPage);
+	List<BookingVO> selectAllBookingViewByEmpNo(int emoNo);
 	int insertBooking(BookingVO vo);
 	int updateBokkingByBookingNo(HashMap<String, Object> map);
 	int selectCntAllByAppFlag();
