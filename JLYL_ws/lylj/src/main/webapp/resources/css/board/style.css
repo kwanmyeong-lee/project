@@ -568,3 +568,82 @@
 }
 
 
+/* 관리자 - 게시판 관리 */
+#adminBoardFolDiv{
+	float: left;
+	width: 100%;
+	padding: 20px;
+	margin: 0 auto;
+	margin-bottom: 20px;	
+	padding-bottom: 40px;	
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 2px 20px #d0d0d0;
+}
+
+#adminBoardFolDiv > h3{
+	color: #3a3a3a;
+	font-weight: bold;
+	margin: 40px 0 0 40px;
+}
+
+#adminBoardTable{
+	float: left;
+	width: 40%;
+    color: #575757;
+    margin-left: 40px;
+}
+
+#noTd{
+	text-align: center;
+}
+
+.nameSpan > a{
+	color: black;
+}
+
+#adminInsert{
+	float: left;
+	width: 30%;
+	margin-left: 30px;
+	padding: 20px;
+	background: #d8e7ef;
+	border-radius: 5px;
+}
+
+#adminInsert > h5 {
+	text-align: center;
+	color: #3a3a3a;
+	font-weight: bold;
+	margin: 10px 0 40px 0;
+	padding: 10px;
+	background: white;
+	border-radius: 5px;
+}
+
+#adminInsert > form > #boardFolderName{
+	width: 85%;
+	height: 40px;	
+}
+
+#adminInsert > form > #plusBtn{
+	width: 10%;
+	height: 40px;
+	font-size:20px;
+	font-weight: bold;
+	margin-left: 10px;
+	border: none;
+	border-radius: 5px;
+	background: #0080ff;
+	color: white;
+}
+
+td > a > #xBoxBtn{
+	width: 30px;
+	height: 25px;
+	background: #f15f5a;
+	color: white;
+	border: none;
+	border-radius: 3px;
+	margin-right: 5px;
+}
