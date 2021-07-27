@@ -1,6 +1,9 @@
 package com.it.lylj.index.Controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.lylj.booking.model.BookingService;
+import com.it.lylj.booking.model.BookingVO;
 import com.it.lylj.department.model.DepartmentService;
 import com.it.lylj.department.model.DepartmentVO;
 import com.it.lylj.electronic.model.ElectronicService;
@@ -31,7 +36,8 @@ public class IndexController {
 	private final EmpService empService;
 	private final DepartmentService departmentService;
 	private final ElectronicService eleService;
-
+	private final BookingService bookingService;
+	
 	@RequestMapping("/inc/organizationChart")
 	public void organizationChart() {
 		logger.info("메인 화면 보여주기");
@@ -40,15 +46,32 @@ public class IndexController {
 
 	@RequestMapping("/index")
 	public void test(HttpSession session, Model model) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
 		logger.info("메인페이지");
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		
 		List<ElectronicVo> elist = eleService.selectUpdateToday(empNo);
+		List<BookingVO> bookingList2 = bookingService.selectAllBookingViewByEmpNo(empNo);
+		List<BookingVO> bookingList = new ArrayList<BookingVO>();
+		Date startDate;
+		Date endDate;
+		for(int i=0; i<bookingList2.size(); i++) {
+			try {
+				startDate = sdf.parse(bookingList2.get(i).getBookingStart());
+				endDate = sdf.parse(bookingList2.get(i).getBookingEnd());
+				if(startDate.getTime()<now.getTime() && now.getTime()<endDate.getTime()) {
+					bookingList.add(bookingList2.get(i));
+				}
+			} catch (ParseException e) {
+			}
+		}
 		
 		logger.info("elist={}", elist);
 		
 		model.addAttribute("elist", elist);
 		model.addAttribute("empNo", empNo);
+		model.addAttribute("bookingList", bookingList);
 	}
 	
 	@RequestMapping("/admin")
