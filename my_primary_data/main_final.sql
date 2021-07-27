@@ -307,7 +307,8 @@ CREATE TABLE MAIL (
     MAIL_TEMPSAVE VARCHAR2(255), /*임시저장*/
 	MAIL_RESERVE DATE, /* 예약 날짜 */
 	MAIL_DEL_CHECK VARCHAR2(255) DEFAULT 0, /* 삭제 여부 */
-	MAIL_EMPNO NUMBER NOT NULL /* 사원번호 */
+	MAIL_EMPNO NUMBER NOT NULL, /* 사원번호 */
+    MAIL_IMPRORTANT  VARCHAR2(255) DEFAULT 0 /*중요메일*/
 );
 
 CREATE UNIQUE INDEX PK_MAIL
@@ -1936,17 +1937,12 @@ insert into ATTEND values(ATTEND_seq.nextval, 119,default,default,default,defaul
 insert into ATTEND values(ATTEND_seq.nextval, 120,default,default,default,default,default);
 insert into ATTEND values(ATTEND_seq.nextval, 121,default,default,default,default,default);
 
-
-
-
-
-
-
-
-
-
-
-
+--메일 정보
+insert into mail values (mail_seq.nextVal, '메일제목1', '메일내용입니다1', '102', '100', default, null, null,null, default, 102, default);
+insert into mail values (mail_seq.nextval, '메일제목2', '메일내용입니다2', '102', '100', default, null, null,null, default, 102, default);
+insert into mail values (mail_seq.nextval, '메일제목3', '메일내용입니다3', '102', '100', default, null, null,null, default, 102, default);
+insert into mail values (mail_seq.nextval, '메일제목4', '메일내용입니다4', '102', '100', default, null, null,null, default, 102, default);
+insert into mail values (mail_seq.nextval, '메일제목5', '메일내용입니다5', '102', '100', default, null, null,null, default, 102, default);
 
 
 
