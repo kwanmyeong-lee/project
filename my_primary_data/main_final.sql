@@ -1936,11 +1936,11 @@ insert into ATTEND values(ATTEND_seq.nextval, 120,default,default,default,defaul
 insert into ATTEND values(ATTEND_seq.nextval, 121,default,default,default,default,default);
 
 --메일 정보
-insert into mail values (mail_seq.nextVal, '메일제목1','메일내용입니다1', '102', '100', default,null,null,default,102,default);
-insert into mail values (mail_seq.nextval, '메일제목2,'메일내용입니다2', '102', '100', default,null,null,null,default,102, default);
-insert into mail values (mail_seq.nextval, '메일제목3','메일내용입니다3', '102', '100', default,null,null,null,default,102, default);
-insert into mail values (mail_seq.nextval, '메일제목4','메일내용입니다4', '102', '100', default,null,null,null,default,102, default);
-insert into mail values (mail_seq.nextval, '메일제목5','메일내용입니다5', '102', '100', default,null,null,null,default,102, default);
+insert into mail values (mail_seq.nextVal, '메일제목1', '메일내용입니다1', '102', '100', default, null, null,null, default, 102, default);
+insert into mail values (mail_seq.nextval, '메일제목2', '메일내용입니다2', '102', '100', default, null, null,null, default, 102, default);
+insert into mail values (mail_seq.nextval, '메일제목3', '메일내용입니다3', '102', '100', default, null, null,null, default, 102, default);
+insert into mail values (mail_seq.nextval, '메일제목4', '메일내용입니다4', '102', '100', default, null, null,null, default, 102, default);
+insert into mail values (mail_seq.nextval, '메일제목5', '메일내용입니다5', '102', '100', default, null, null,null, default, 102, default);
 
 
 
