@@ -220,22 +220,53 @@ public class EmailController {
 		logger.info("읽음처리, mailNo={}",mailNo);
 		
 		int cnt = emailService.updateReadDate(mailNo);
-		logger.info("cnt={}",cnt);
+		logger.info("읽음처리 결과 cnt={}",cnt);
 		
 		return "redirect:/email/emailDetail?mailNo="+mailNo;
 		
 	}
-	
-	/* 이메일 읽음처리 */
-	@RequestMapping("/emailRead_bt")
-	public String emailRead_bt(@RequestParam(defaultValue = "0") int mailNo, @RequestParam(defaultValue = "0") int type , HttpSession session, Model model) {
-		logger.info("읽음처리, mailNo={}, type={}",mailNo, type);
+	@RequestMapping("/importantEmail")
+	public String updateInportantMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
+		logger.info("중요메일, mailNo={}",mailNo);
 		String empNo = (String)session.getAttribute("empNo");
-		int cnt = emailService.updateReadDate(mailNo);
-		logger.info("cnt={}",cnt);
+		
+		int cnt = emailService.updateInportant(mailNo);
+		logger.info("중요처리 결과 cnt={}",cnt);
 		
 		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
+	}
+	
+	@RequestMapping("/notImportantEmail")
+	public String updateNotInportantMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
+		logger.info("중요메일, mailNo={}",mailNo);
+		String empNo = (String)session.getAttribute("empNo");
 		
+		int cnt = emailService.updateNotInportant(mailNo);
+		logger.info("중요처리 결과 cnt={}",cnt);
+		
+		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
+	}
+	
+	@RequestMapping("/readMail")
+	public String readMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
+		logger.info("메일읽음처리, mailNo={}",mailNo);
+		String empNo = (String)session.getAttribute("empNo");
+		
+		int cnt = emailService.updateReadDate(mailNo);
+		logger.info("메일읽음 결과 cnt={}",cnt);
+		
+		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
+	}
+	
+	@RequestMapping("/notReadMail")
+	public String notReadMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
+		logger.info("메일안읽음처리, mailNo={}",mailNo);
+		String empNo = (String)session.getAttribute("empNo");
+		
+		int cnt = emailService.updateNotReadDate(mailNo);
+		logger.info("메일안읽음 결과 cnt={}",cnt);
+		
+		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
 	}
 	
 }

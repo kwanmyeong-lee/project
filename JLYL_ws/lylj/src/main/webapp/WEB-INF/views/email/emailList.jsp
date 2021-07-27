@@ -63,12 +63,6 @@ thead tr th{
 </style>
 
 <script type="text/javascript">
-	$(function(){
-		$('.bt_read1').click(function(){
-			var mailNo = $(this).next().val();
-			alert('읽음처리하시겠습니까?');
-		})
-	});
 	
 	$(function(){
 		$('#AllCheckbox').change(function(){
@@ -208,15 +202,19 @@ thead tr th{
 												<td class="typeCheck"><input type="checkbox" class="mailItem"/></td>
 												<td class="typeRead">
 													<c:if test="${empty map['MAIL_READDATE'] }">
-														<button id="bt_read1" class="btn bt_read1"><i class="far fa-envelope"></i></button>
+														<a class="btn" href="<c:url value='/email/readMail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-envelope"></i></a>
 													</c:if>
 													<c:if test="${!empty map['MAIL_READDATE']}">
-														<button id="bt_read2" class="btn bt_read2"><i class="far fa-envelope-open"></i></button>
+														<a class="btn" href="<c:url value='/email/notReadMail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-envelope-open"></i></a>
 													</c:if>
 												</td>
 												<td class="typeInportant">
-													<button id="bt_important1" class="btn bt_important1"><i class="fas fa-star"></i></button>
-													<button id="bt_important2" class="btn bt_important2" style="display: none;"><i class="far fa-star"></i></button>
+													<c:if test="${map['MAIL_IMPORTANT']=='I'}">
+														<a class="btn bt_important1" href="<c:url value='/email/notImportantEmail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="fas fa-star"></i></a>
+													</c:if>
+													<c:if test="${map['MAIL_IMPORTANT']=='0'}">
+														<a class="btn bt_important2" href="<c:url value='/email/importantEmail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-star"></i></a>
+													</c:if>
 												</td>
 												<td class="typeFile"><i class="far fa-file btn"></i></td>
 												<td class="typeName"> 

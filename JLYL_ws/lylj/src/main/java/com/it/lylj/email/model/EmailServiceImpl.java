@@ -117,4 +117,20 @@ public class EmailServiceImpl implements EmailService{
 	public int updateReadDate(int mailNo) {
 		return emailDao.updateReadDate(mailNo);
 	}
+
+	@Override
+	public int updateInportant(int mailNo) {
+		return emailDao.updateInportant(mailNo);
+	}
+
+	@Override
+	public int updateNotInportant(int mailNo) {
+		return emailDao.updateNotInportant(mailNo);
+	}
+
+	@Override
+	public int updateNotReadDate(int mailNo) {
+		return emailDao.updateNotReadDate(mailNo);
+	}
+	
 }
