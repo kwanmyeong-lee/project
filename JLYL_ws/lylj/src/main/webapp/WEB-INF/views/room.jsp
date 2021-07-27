@@ -23,8 +23,8 @@
 .container h1 {
 	text-align: left;
 	padding: 5px 5px 5px 15px;
-	color: #FFBB00;
-	border-left: 3px solid #FFBB00;
+	color: #3e9dff;
+	border-left: 3px solid #3e9dff;
 	margin-bottom: 20px;
 }
 
@@ -40,16 +40,16 @@
 }
 
 .roomList th {
-	border: 1px solid #FFBB00;
+	border: 1px solid #3e9dff;
 	background-color: #fff;
-	color: #FFBB00;
+	color: #3e9dff;
 }
 
 .roomList td {
-	border: 1px solid #FFBB00;
+	border: 1px solid #3e9dff;
 	background-color: #fff;
 	text-align: left;
-	color: #FFBB00;
+	color: #3e9dff;
 }
 
 .roomList .num {
@@ -67,7 +67,7 @@
 }
 
 button {
-	background-color: #FFBB00;
+	background-color: #3e9dff;
 	font-size: 14px;
 	color: #000;
 	border: 1px solid #000;

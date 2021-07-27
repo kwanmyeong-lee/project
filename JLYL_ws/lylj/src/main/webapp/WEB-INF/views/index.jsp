@@ -119,6 +119,44 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">최근 받은 기안서</h6>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<tbody>
+							<colgroup>
+								<col style="width: 60%;" />
+								<col style="width: 40%;" />
+							</colgroup>
+							<thead class="table-info">
+								<tr>
+									<th scope="col">제목</th>
+									<th scope="col">기안자 번호</th>
+								</tr>
+							</thead>
+							<c:if test="${empty elist }">
+								<tr>
+									<td class="name" colspan="2">최근 받은 기안서가 없습니다</td>
+								</tr>
+							</c:if>
+							<c:if test="${!empty elist}">
+								<c:forEach var="ele" items="${elist }">
+									<tr>
+										<td class="subject"><a href="<c:url value = '/electronic/electronicDetail?ElectronicNo='/>${ele.electronicNo }&no=1">${ele.electronicTitle } </a></td>
+										<td class="name">${ele.empNo }</td>
+									</tr>
+								</c:forEach>
+							</c:if>
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
 
 		</div>
 

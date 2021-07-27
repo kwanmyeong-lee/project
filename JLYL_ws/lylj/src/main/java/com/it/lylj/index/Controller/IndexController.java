@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.lylj.department.model.DepartmentService;
 import com.it.lylj.department.model.DepartmentVO;
+import com.it.lylj.electronic.model.ElectronicService;
+import com.it.lylj.electronic.model.ElectronicVo;
 import com.it.lylj.emp.model.EmpService;
 import com.it.lylj.emp.model.EmpVO;
 import com.it.lylj.index.model.OriVo;
@@ -28,6 +30,7 @@ public class IndexController {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	private final EmpService empService;
 	private final DepartmentService departmentService;
+	private final ElectronicService eleService;
 
 	@RequestMapping("/inc/organizationChart")
 	public void organizationChart() {
@@ -40,6 +43,11 @@ public class IndexController {
 		logger.info("메인페이지");
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		
+		List<ElectronicVo> elist = eleService.selectUpdateToday(empNo);
+		
+		logger.info("elist={}", elist);
+		
+		model.addAttribute("elist", elist);
 		model.addAttribute("empNo", empNo);
 	}
 	
