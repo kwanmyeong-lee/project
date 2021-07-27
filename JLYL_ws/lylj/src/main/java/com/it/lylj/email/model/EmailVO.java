@@ -27,4 +27,5 @@ public class EmailVO {
 	private String mailDelCheck;     
 	int mailEmpno;		    //EMPNO
 	private String empName;
+	private String mailImportant;
 }

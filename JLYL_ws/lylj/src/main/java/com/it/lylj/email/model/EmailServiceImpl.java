@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.it.lylj.common.SearchVO;
 
@@ -50,6 +51,12 @@ public class EmailServiceImpl implements EmailService{
 			list= emailDao.selectTempsaveMailList(searchVo);
 		}else if(type==EmailService.BOOK_MAIL) {
 			list= emailDao.selectReservMailList(searchVo);
+		}else if(type==EmailService.TRASH_MAIL) {
+			list= emailDao.selectTrashMailList(searchVo);
+		}else if(type==EmailService.NOTREAD_MAIL) {
+			list= emailDao.selectNotReadMailList(searchVo);
+		}else if(type==EmailService.IMPORTANT_MAIL) {
+			list= emailDao.selectImportantMailList(searchVo);
 		}
 		
 		return list;
@@ -66,7 +73,48 @@ public class EmailServiceImpl implements EmailService{
 			totalRecord = emailDao.totalRecordByTempsave(empNo);
 		}else if(type==EmailService.BOOK_MAIL) {
 			totalRecord = emailDao.totalRecordByReserv(empNo);
+		}else if(type==EmailService.TRASH_MAIL) {
+			totalRecord = emailDao.totalRecordByTrash(empNo);
+		}else if(type==EmailService.NOTREAD_MAIL) {
+			totalRecord = emailDao.totalCountByReadDate(empNo);
+		}else if(type==EmailService.IMPORTANT_MAIL) {
+			totalRecord = emailDao.totalCountByImportant(empNo);
 		}
 		return totalRecord;
+	}
+
+	@Override
+	@Transactional
+	public int deleteCheckMulti(List<EmailVO> list) {
+		int cnt = 0;		
+		for(EmailVO vo : list) {
+			int mailNo = vo.getMailNo();
+			
+			if(mailNo!=0) {
+				cnt = emailDao.deleteCheckMail(mailNo);
+			}
+		}//
+		
+		return cnt;
+	}
+
+	@Override
+	@Transactional
+	public int deleteCompleteMail(List<EmailVO> list) {
+		int cnt = 0;		
+		for(EmailVO vo : list) {
+			int mailNo = vo.getMailNo();
+			
+			if(mailNo!=0) {
+				cnt = emailDao.deleteCompleteMail(mailNo);
+			}
+		}//
+		
+		return cnt;
+	}
+
+	@Override
+	public int updateReadDate(int mailNo) {
+		return emailDao.updateReadDate(mailNo);
 	}
 }

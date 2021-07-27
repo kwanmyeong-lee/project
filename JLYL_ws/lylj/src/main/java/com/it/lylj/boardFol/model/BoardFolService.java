@@ -7,4 +7,6 @@ public interface BoardFolService {
 	List<BoardFolVO> selectBoardFol();
 	BoardFolVO selectByNo(int boardFolderNo);
 	List<BoardFolVO> otherFolder();
+	int updateBoardFol(BoardFolVO vo);
+	int deleteBoardFol(int boardFolderNo);
 }

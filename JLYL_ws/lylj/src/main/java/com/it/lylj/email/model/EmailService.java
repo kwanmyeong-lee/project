@@ -18,7 +18,9 @@ public interface EmailService {
 	int sendEmail(EmailVO vo);
 	String splitName(String taker);
 	List<Map<String, Object>> selectListByType(SearchVO searchVo, int type);
-
 	EmailVO selectByMailNo(int mailNo);
 	int totalRecordByType(String taker, int type);
+	int deleteCheckMulti(List<EmailVO> list);
+	int deleteCompleteMail(List<EmailVO> list);
+	int updateReadDate(int mailNo);
 }

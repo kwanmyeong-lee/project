@@ -15,11 +15,22 @@ public interface EmailDAO {
 	List<Map<String, Object>> selectSendMailList(SearchVO searchVo);
 	List<Map<String, Object>> selectTempsaveMailList(SearchVO searchVo);
 	List<Map<String, Object>> selectReservMailList(SearchVO searchVo);
+	List<Map<String, Object>> selectTrashMailList(SearchVO searchVo);
+	List<Map<String, Object>> selectNotReadMailList(SearchVO searchVo);
+	List<Map<String, Object>> selectImportantMailList(SearchVO searchVo);
 	//메일 항목별 size()
 	int totalRecordByEmailTake(String empNo);
 	int totalRecordByEmailSend(String empNo);
 	int totalRecordByTempsave(String empNo);
 	int totalRecordByReserv(String empNo);
+	int totalRecordByTrash(String empNo);
+	int totalCountByReadDate(String empNo);
+	int totalCountByImportant(String empNo);
 	
+	
+	int deleteCheckMail(int mailNo);
 	EmailVO selectByMailNo(int mailNo);
+	int deleteCompleteMail(int mailNo);
+	int updateReadDate(int mailNo);
+	
 }

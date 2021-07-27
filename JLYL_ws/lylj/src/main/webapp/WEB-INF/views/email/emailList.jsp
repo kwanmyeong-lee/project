@@ -27,7 +27,7 @@
 	font-size: 9px;
 }
 .searchfrm{
-	margin-left: 280px;
+	margin-left: 350px;
 	width: 450px;
 	float: right;
 }
@@ -41,7 +41,7 @@
 	width: 95%;
 }
 #searchBox{
-	width: 200px;
+	width: 220px;
 }
 #btn_search{
 	clear:both;
@@ -65,35 +65,41 @@ thead tr th{
 <script type="text/javascript">
 	$(function(){
 		$('.bt_read1').click(function(){
-			var result = confirm("읽음 처리하시겠습니까?");
-			if(result){
-				alert("읽음처리되었습니다");
-				$(this).hide();
-				$(this).next().show();
-			}
-		});
-		
-		$('.bt_read2').click(function(){
-			var result = confirm("안읽음 처리하시겠습니까?");
-			if(result){
-				alert("안읽음처리되었습니다");
-				$(this).hide();
-				$(this).prev().show();
-			}
-		});
-		
-		$('#bt_important1').click(function(){
-			$('#bt_important1').hide();
-			$('#bt_important2').show();
-		});
-		
-		$('#bt_important2').click(function(){
-			$('#bt_important2').hide();
-			$('#bt_important1').show();
-		});
-		
+			var mailNo = $(this).next().val();
+			alert('읽음처리하시겠습니까?');
+		})
 	});
 	
+	$(function(){
+		$('#AllCheckbox').change(function(){
+			$('.mailItem').prop("checked", this.checked );
+		});
+		
+		$('#multiDelete').click(function(){
+			if($('.mailItem').is(':checked')==false){ // check 없을 시
+				alert("삭제하실 메일을 선택해주세요");
+				return false;
+			}else{
+				$('form[name=mailFrm]').prop('action','<c:url value="/email/emailMultiDelete"/>');
+				$('form[name=mailFrm]').submit();
+			}
+		});
+		
+		$('#multiCompleteDelete').click(function(){
+			if($('.mailItem').is(':checked')==false){ // check 없을 시
+				alert("삭제하실 메일을 선택해주세요");
+				return false;
+			}else{
+				if($('.mailItem').is(':checked')==true){
+					confirm("완전히 삭제됩니다. 삭제하시겠습니까?");
+					$('form[name=mailFrm]').prop('action','<c:url value="/email/emailMultiCompleteDel"/>');
+					$('form[name=mailFrm]').submit();
+					
+				}
+			}
+		});
+	});
+
 	function pagingProc(curPage){
 		$('input[name=currentPage]').val(curPage);
 		$('form[name=frmPage]').submit();	
@@ -133,9 +139,9 @@ thead tr th{
 							<hr>
 							<form action="#" class="searchfrm" method="post" action="<c:url value='/email/emailList'/>">
 								<div class="input-group mb-4">
-									<select class="form-control" name="searchCondition">
+									<select class="form-control" name="searchCondition" style="width: 120px;">
 										<option value="">-선택-</option>
-										<option value="mail_send">바사람</option>
+										<option value="mail_send">받은/보낸사람</option>
 										<option value="mail_title">제목</option>
 									</select>
 									<input type="text" class="form-control select2-offscreen textBox" placeholder="Search keyword" name="searchKeyword" id="searchBox">
@@ -144,22 +150,19 @@ thead tr th{
 							</form>
 							<div class="row">
 								<div class="col-sm-10 buttonGroup">
-										<button type="button" class="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-											<input type="checkbox" class="selectBox" name="mailCheck" id="mailCheck"/>
-										</button>
-										<ul class="dropdown-menu" aria-labelledby="mailCheck">
-											<li><a href="#">전체선택</a></li>
-											<li><a href="#">읽은메일 선택</a></li>
-											<li><a href="#">중요메일 선택</a></li>
-											<li><a href="#">전체해제</a></li>
-										</ul>
 									<button type="button" class="btn btn-secondary">읽음</button>
-									<button type="button" class="btn btn-secondary">삭제</button>
+									<c:if test="${param.type ne '3' && param.type ne '4' && param.type ne '5'}">
+										<button type="button" class="btn btn-secondary" id="multiDelete">삭제</button>
+									</c:if>
+									<c:if test="${param.type eq '3' || param.type eq '4' || param.type eq '5'}">
+										<button type="button" class="btn btn-secondary" id="multiCompleteDelete">완전삭제</button>
+									</c:if>
 									<button type="button" class="btn btn-secondary">답장</button>
 									<button type="button" class="btn btn-secondary">전달</button>
 								</div>
 							</div>
 							<div></div>
+							<form name="mailFrm" method="post">
 							<div class="table-responsive">
 								<table class="table">
 									<colgroup>
@@ -173,7 +176,7 @@ thead tr th{
 									</colgroup>
 									<thead>
 									    <tr id="thStyle">
-								            <th><input type="checkbox" name="chkAllMain"></th>
+								            <th><input type="checkbox" id="AllCheckbox"></th>
 								            <th>읽음</th>
 								            <th>중요</th>
 								            <th>첨부</th>
@@ -197,12 +200,19 @@ thead tr th{
 									</c:if>
 									
 									<c:if test="${!empty list }">
+										<c:set var="idx" value="0"/>
 										<c:forEach var="map" items="${list }">
+											<input type="hidden" name="selectedEmail[${idx}].mailNo" value="${map['MAIL_NO'] }">
+											
 											<tr>
-												<td class="typeCheck"><input type="checkbox" /></td>
+												<td class="typeCheck"><input type="checkbox" class="mailItem"/></td>
 												<td class="typeRead">
-													<button id="bt_read1" class="btn bt_read1"><i class="far fa-envelope"></i></button>
-													<button id="bt_read2" class="btn bt_read2" style="display: none;"><i class="far fa-envelope-open"></i></button>
+													<c:if test="${empty map['MAIL_READDATE'] }">
+														<button id="bt_read1" class="btn bt_read1"><i class="far fa-envelope"></i></button>
+													</c:if>
+													<c:if test="${!empty map['MAIL_READDATE']}">
+														<button id="bt_read2" class="btn bt_read2"><i class="far fa-envelope-open"></i></button>
+													</c:if>
 												</td>
 												<td class="typeInportant">
 													<button id="bt_important1" class="btn bt_important1"><i class="fas fa-star"></i></button>
@@ -213,7 +223,7 @@ thead tr th{
 													<c:if test="${param.type eq '2' || param.type eq '3' || param.type eq '4' }">${map['MAIL_TAKE']}@lylj.net</c:if>
 													<c:if test="${param.type ne '2' && param.type ne '3' && param.type ne '4' }">${map['MAIL_SEND']}@lylj.net</c:if>
 												</td>
-												<td class="typeSubject"><a href="<c:url value="/email/emailDetail?mailNo=${ map['MAIL_NO']}"/>">${map['MAIL_TITLE']} </a></td>
+												<td class="typeSubject"><a href="<c:url value="/email/emailRead?mailNo=${map['MAIL_NO']}"/>" id="readMail">${map['MAIL_TITLE']} </a></td>
 												<td class="typeTime">
 												    <c:if test="${param.type eq '4'}"><fmt:formatDate value="${map['MAIL_RESERVE'] }" pattern="yyyy-MM-dd HH:mm:ss"/></c:if>
 												    <c:if test="${param.type ne '4'}"><fmt:formatDate value="${map['MAIL_SENDDATE'] }" pattern="yyyy-MM-dd HH:mm:ss"/></c:if>
@@ -225,6 +235,7 @@ thead tr th{
 								</tbody>
 								</table>
 							</div>
+						</form>
 						<!-- 페이징 form  -->
 						<form action="<c:url value='/email/emailList?empNo=${sessionScope.empNo }'/>" 
 							name="frmPage" method="post">

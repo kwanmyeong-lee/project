@@ -17,8 +17,14 @@
 		</selectKey>
 		insert into mail
 		values (#{mailNo}, #{mailTitle}, #{mailContent}, #{mailSend}, #{mailTake}, default, null, #{mailTempsave:VARCHAR},  
-			#{mailReserve:VARCHAR}, default, #{mailEmpno})
+			#{mailReserve:VARCHAR}, default, #{mailEmpno}, default)
 	</insert>
+	
+	<!-- 메일상세보기 - 메일 번호로 선택 -->
+	<select parameterType="int" id="selectByMailNo" resultType="emailVo">
+		select * from mail
+		where MAIL_NO=#{mailNo} 
+	</select>
 	
 	<!-- 받은메일함 -->
 	<select id="selectTakeMailList" parameterType="SearchVo" resultType="map">
@@ -29,7 +35,8 @@
 		    from
 		    (
 		       select * from mailView
-		       where MAIL_TAKE=#{empNo} and MAIL_TEMPSAVE IS NULL and MAIL_RESERVE is null
+		       where MAIL_TAKE = #{empNo} AND MAIL_TEMPSAVE IS NULL AND MAIL_RESERVE IS NULL AND MAIL_DEL_CHECK='0'
+		       and MAIL_DEL_CHECK = '0'
 			   <include refid="searchWhere"/>
 		       order by MAIL_SENDDATE desc 
 		    )A
@@ -49,7 +56,7 @@
 		    from
 		    (
 		       select * from mailView
-		       where MAIL_SEND=#{empNo} and MAIL_TEMPSAVE IS NULL and MAIL_RESERVE is null
+		       where MAIL_SEND = #{empNo} AND MAIL_TEMPSAVE IS NULL AND MAIL_RESERVE IS NULL AND MAIL_DEL_CHECK='0'
 			   <include refid="searchWhere"/>
 		       order by MAIL_SENDDATE desc 
 		    )A
@@ -69,7 +76,7 @@
 		    from
 		    (
 		       select * from mailView
-		       where MAIL_SEND=#{empNo} and MAIL_TEMPSAVE = 'T' and MAIL_RESERVE is null
+		       where MAIL_SEND = #{empNo} AND MAIL_TEMPSAVE = 'T' AND MAIL_RESERVE IS NULL AND MAIL_DEL_CHECK='0' 
 			   <include refid="searchWhere"/>
 		       order by MAIL_SENDDATE desc 
 		    )A
@@ -89,7 +96,75 @@
 		    from
 		    (
 		       select * from mailView
-		       where MAIL_SEND=#{empNo} and MAIL_RESERVE is not null
+		       where MAIL_SEND = #{empNo} AND MAIL_TEMPSAVE IS NULL AND MAIL_RESERVE IS NOT NULL AND MAIL_DEL_CHECK='0'
+		       and MAIL_DEL_CHECK = '0'
+			   <include refid="searchWhere"/>
+		       order by MAIL_SENDDATE desc 
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	<!-- 받은메일 = > 휴지통  -->
+	<select id="selectTrashMailList" parameterType="SearchVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+			    select * 
+			    from(
+			        select * from mailview
+	     			where mail_take=#{empNo} and mail_del_check='D'
+	     			<include refid="searchWhere"/>
+					union all
+					select * from mailview
+					where mail_send=#{empNo} and mail_del_check='D'
+					<include refid="searchWhere"/>
+				)
+				order by mail_senddate desc
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+
+	<!-- 안읽은 메일함 -->	
+	<select id="selectNotReadMailList" parameterType="SearchVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		       select * from mailView
+		       where MAIL_TAKE = #{empNo} and MAIL_READDATE IS NULL
+			   AND MAIL_TEMPSAVE IS NULL AND MAIL_RESERVE IS NULL AND MAIL_DEL_CHECK='0'
+			   <include refid="searchWhere"/>
+		       order by MAIL_SENDDATE desc 
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+		<!-- 안읽은 메일함 -->	
+	<select id="selectImportantMailList" parameterType="SearchVo" resultType="map">
+		select *
+		from
+		(
+		    select rownum as RNUM, A.*
+		    from
+		    (
+		       select * from mailView
+		       where MAIL_TAKE = #{empNo} AND MAIL_IMPRORTANT = 'I' AND MAIL_TEMPSAVE IS NULL AND MAIL_RESERVE IS NULL AND MAIL_DEL_CHECK='0'
 			   <include refid="searchWhere"/>
 		       order by MAIL_SENDDATE desc 
 		    )A
@@ -100,28 +175,64 @@
 		]]>
 	</select>
 
-	<select parameterType="int" id="selectByMailNo" resultType="emailVo">
-		select * from mail
-		where MAIL_NO=#{mailNo} 
-	</select>
 	
 	<!-- 항목별 메일 size() -->
 	<select id="totalRecordByEmailTake" parameterType="String" resultType="int">
 		select count(*) from mailView
-		where mail_take = #{mailSend} and MAIL_TEMPSAVE IS NULL and MAIL_RESERVE is null 
+		where MAIL_TAKE = #{empNo} AND MAIL_TEMPSAVE IS NULL AND MAIL_RESERVE IS NULL AND MAIL_DEL_CHECK='0' 
 	</select>
 	
 	<select id="totalRecordByEmailSend" parameterType="String" resultType="int">
 		select count(*) from mailView
-		where mail_send = #{empNo} and MAIL_TEMPSAVE IS NULL and MAIL_RESERVE is null 
+		where MAIL_SEND = #{empNo} AND MAIL_TEMPSAVE IS NULL AND MAIL_RESERVE IS NULL AND MAIL_DEL_CHECK='0' 
 	</select>
 	<select id="totalRecordByTempsave" parameterType="String" resultType="int">
 		select count(*) from mailView
 		where mail_send = #{empNo} and MAIL_TEMPSAVE = 'T'
 	</select>
-		<select id="totalRecordByReserv" parameterType="String" resultType="int">
+	<select id="totalRecordByReserv" parameterType="String" resultType="int">
 		select count(*) from mailView
 		where mail_send = #{empNo} and MAIL_RESERVE is not null 
 	</select>
-
+	<select id="totalRecordByTrash" parameterType="String" resultType="int">
+		select count(*) 
+		from 
+		(
+		    select * from mailview
+		    where mail_take=#{empNo} and mail_del_check='D'
+		    union all
+		    select * from mailview
+		    where mail_send=#{empNo} and mail_del_check='D'
+		)
+	</select>
+	<select id="totalCountByReadDate" parameterType="String" resultType="int">
+		select count(*) from mailView
+		where MAIL_TAKE = #{empNo} and MAIL_READDATE is null
+		AND MAIL_TEMPSAVE IS NULL AND MAIL_RESERVE IS NULL AND MAIL_DEL_CHECK='0'
+	</select>
+	<select id="totalCountByImportant" parameterType="String" resultType="int">
+		select count(*) from mailView
+		where MAIL_TAKE = #{empNo} and MAIL_IMPORTANT = 'I'
+		AND MAIL_TEMPSAVE IS NULL AND MAIL_RESERVE IS NULL AND MAIL_DEL_CHECK='0'
+	</select>
+	
+	
+	<!-- 메일삭제(휴지통으로) -->
+	<update id="deleteCheckMail" parameterType="int">
+		update mailView
+		set mail_del_check = 'D'
+		where mail_No = #{mailNo}
+	</update>
+	<!-- 메일 완전 삭제 -->
+	<delete id="deleteCompleteMail" parameterType="int">
+		delete mail where MAIL_NO = #{mailNo}
+	</delete>
+	
+	<!-- 읽음처리 -->
+	<update id="updateReadDate" parameterType="int">
+		update mail
+		set MAIL_READDATE = SYSDATE
+		where MAIL_NO = #{mailNo}
+	</update>
+	
 </mapper>
