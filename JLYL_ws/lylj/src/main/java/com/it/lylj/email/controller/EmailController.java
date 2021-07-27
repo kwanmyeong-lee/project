@@ -226,4 +226,16 @@ public class EmailController {
 		
 	}
 	
+	/* 이메일 읽음처리 */
+	@RequestMapping("/emailRead_bt")
+	public String emailRead_bt(@RequestParam(defaultValue = "0") int mailNo, @RequestParam(defaultValue = "0") int type , HttpSession session, Model model) {
+		logger.info("읽음처리, mailNo={}, type={}",mailNo, type);
+		String empNo = (String)session.getAttribute("empNo");
+		int cnt = emailService.updateReadDate(mailNo);
+		logger.info("cnt={}",cnt);
+		
+		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
+		
+	}
+	
 }

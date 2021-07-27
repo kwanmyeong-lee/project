@@ -64,7 +64,10 @@ thead tr th{
 
 <script type="text/javascript">
 	$(function(){
-
+		$('.bt_read1').click(function(){
+			var mailNo = $(this).next().val();
+			alert('읽음처리하시겠습니까?');
+		})
 	});
 	
 	$(function(){
@@ -200,7 +203,7 @@ thead tr th{
 										<c:set var="idx" value="0"/>
 										<c:forEach var="map" items="${list }">
 											<input type="hidden" name="selectedEmail[${idx}].mailNo" value="${map['MAIL_NO'] }">
-											<input type="hidden" name="mailNo" value="${map['MAIL_NO'] }">
+											
 											<tr>
 												<td class="typeCheck"><input type="checkbox" class="mailItem"/></td>
 												<td class="typeRead">
