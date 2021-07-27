@@ -1745,6 +1745,8 @@ values (ELIMP_SEQ.nextval, to_date('2021-07-24 09:12:12', 'yyyy-mm-dd hh24:mi:ss
 select * from elimp
 order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC;
 
+select * from elimp;
+
 -- 결재 라인 
 
 select * from appline;

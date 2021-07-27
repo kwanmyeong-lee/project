@@ -23,26 +23,30 @@
 .container h1 {
 	text-align: left;
 	padding: 5px 5px 5px 15px;
-	color: #FFBB00;
-	border-left: 3px solid #FFBB00;
+	color: #3e9dff;
+	border-left: 3px solid #3e9dff;
 	margin-bottom: 20px;
 }
 
 .chating {
-	background-color: #000;
+	background-color: #e5fffe;
 	width: 500px;
 	height: 500px;
 	overflow: auto;
 }
 
 .chating .me {
-	color: #F6F6F6;
+	color: #1c3148;
 	text-align: right;
+	font-size: 25px;
+	font-weight: bold;
 }
 
 .chating .others {
-	color: #FFE400;
+	color: #1c3148;
 	text-align: left;
+	font-size: 25px;
+	font-weight: bold;
 }
 
 input {
@@ -92,7 +96,7 @@ input {
 					
 					if (d.sessionId == $("#sessionId").val()) {
 						$("#chating").append(
-								"<p class='me'>나 :" + d.msg + "</p>");
+								"<p class='me'>" + d.msg + "</p>");
 					} else {
 						
 						alert("메시지 받음");

@@ -276,6 +276,17 @@
 		where ELECTRONIC_NO = #{electronicNo}
 	</update>
 	
+	<select id="selectUpdateToday" parameterType="int" resultType="ElectronicVo">
+		select A.* from 
+		<![CDATA[
+		(
+			select * from apEleList
+			where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0 and ELECTRONIC_DATE < sysdate +1 and ELECTRONIC_DATE > sysdate -1
+		    order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC
+		)A
+		where rownum < 6]]>
+	</select>
+	
 </mapper>
 
 
