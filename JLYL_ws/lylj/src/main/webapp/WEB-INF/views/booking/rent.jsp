@@ -180,8 +180,8 @@ $(function(){
 	
 	$(document).on('change','#checkAll',function(){
 		$('.check').each(function(){
-			if($('.check').prop("disabled")==false){		
-				$('.check').prop("checked",$("#checkAll").prop("checked"));
+			if($(this).prop("disabled")==false){		
+				$(this).prop("checked",$("#checkAll").prop("checked"));
 			}
 		});
 	});
