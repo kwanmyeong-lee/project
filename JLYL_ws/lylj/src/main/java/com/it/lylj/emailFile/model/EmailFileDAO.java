@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface EmailFileDAO {
 	int uploadEmailFile(EmailFileVO emailFileVo);
 	List<EmailFileVO> selectFileByMailNo(int mailNo);
+	EmailFileVO selectFileByFileNo(int fileNo);
 }

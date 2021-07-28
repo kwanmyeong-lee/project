@@ -220,7 +220,11 @@ thead tr th{
 														<a class="btn bt_important2" href="<c:url value='/email/importantEmail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-star"></i></a>
 													</c:if>
 												</td>
-												<td class="typeFile"><i class="far fa-file btn"></i></td>
+												<td class="typeFile">
+													<c:if test="${!empty map['FILE_ORIGIN_NAME'] }">
+														<i class="far fa-file btn"></i>
+													</c:if>
+												</td>
 												<td class="typeName"> 
 													<c:if test="${param.type eq '2' || param.type eq '3' || param.type eq '4' }">${map['MAIL_TAKE']}@lylj.net</c:if>
 													<c:if test="${param.type ne '2' && param.type ne '3' && param.type ne '4' }">${map['MAIL_SEND']}@lylj.net</c:if>

@@ -15,7 +15,12 @@
 		select * from mailFile
 		where MAIL_NO = #{mailNo}
 	</select>
-
+	
+	<select id="selectFileByFileNo" parameterType="int" resultType="emailFileVo">
+		select * from mailFile
+		where FILENO = #{fileNo}
+	</select>
+	
 </mapper>
 
 
