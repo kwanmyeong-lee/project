@@ -11,7 +11,9 @@ $(function() {
 	
     $('#btn-add').click(function(){
 		if($('#addtitle').val()==""){
-			swal ( "" , "일정명을 입력하세요" ,  "error" )
+			swal ( "" , "일정명을 입력하세요" ,  "error" );
+		}else if($('#selectMycal').val()=="" || $('#selectMycal').val()==null){
+			swal ( "" , "내 캘린더를 등록하세요" ,  "error" );
 		}else{
             /*var scheduleTitle = $('#addtitle').val();
             var scheduleStart = $('#startDate').val();
