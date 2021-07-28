@@ -30,9 +30,9 @@
 				<div class="card-body">
 					<table class="table table-hover">
 						<colgroup>
-							<col style="width: 60%;" />
+							<col style="width: 50%;" />
 							<col style="width: 20%;" />
-							<col style="width: 20%;" />
+							<col style="width: 30%;" />
 						</colgroup>
 						<thead class="table-primary">
 							<tr>
@@ -42,9 +42,20 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td colspan="3">항목이 없습니다.</td>
-							</tr>
+							<c:if test="${empty nrMailList}">
+								<tr>
+									<td colspan="3">항목이 없습니다.</td>
+								</tr>
+							</c:if>
+							<c:if test="${!empty nrMailList}">
+								<c:forEach var="nrVo" begin="1" end="5" items="${nrMailList }">
+									<tr>
+										<td>${nrVo.mailTitle}</td>
+										<td>${nrVo.mailSend}(${nrVo.empName})</td>
+										<td><fmt:formatDate value="${nrVo.mailSenddate}" pattern="yyyy-MM-dd HH:mm"/></td>
+									</tr>
+								</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
 				</div>
@@ -58,9 +69,9 @@
 				<div class="card-body">
 					<table class="table table-hover">
 						<colgroup>
-							<col style="width: 60%;" />
+							<col style="width: 50%;" />
 							<col style="width: 20%;" />
-							<col style="width: 20%;" />
+							<col style="width: 30%;" />
 						</colgroup>
 						<thead class="table-primary">
 							<tr>
@@ -70,9 +81,20 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:if test="${empty itMailList}">
 								<tr>
 									<td colspan="3">항목이 없습니다.</td>
 								</tr>
+							</c:if>
+							<c:if test="${!empty itMailList}">
+								<c:forEach var="itVo" begin="1" end="5" items="${itMailList }">
+									<tr>
+										<td>${itVo.mailTitle}</td>
+										<td>${itVo.mailSend}(${itVo.empName})</td>
+										<td><fmt:formatDate value="${itVo.mailSenddate}" pattern="yyyy-MM-dd HH:mm"/></td>
+									</tr>
+								</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
 
@@ -91,9 +113,9 @@
 				<div class="card-body">
 					<table class="table table-hover">
 						<colgroup>
-							<col style="width: 60%;" />
+							<col style="width: 50%;" />
 							<col style="width: 20%;" />
-							<col style="width: 20%;" />
+							<col style="width: 30%;" />
 						</colgroup>
 						<thead class="table-primary">
 							<tr>
@@ -103,9 +125,20 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:if test="${empty tpMailList}">
 								<tr>
 									<td colspan="3">항목이 없습니다.</td>
 								</tr>
+							</c:if>
+							<c:if test="${!empty tpMailList}">
+								<c:forEach var="tpVo" begin="1" end="5" items="${tpMailList }">
+									<tr>
+										<td>${tpVo.mailTitle}</td>
+										<td>${tpVo.mailTake}(${tpVo.empName})</td>
+										<td><fmt:formatDate value="${tpVo.mailSenddate}" pattern="yyyy-MM-dd HH:mm"/></td>
+									</tr>
+								</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
 
@@ -128,15 +161,26 @@
 						<thead class="table-primary">
 							<tr>
 								<th scope="col">제목</th>
-								<th scope="col">수신자</th>
+								<th scope="col">받는사람</th>
 								<th scope="col">작성시간</th>
 								<th scope="col">예약시간</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td colspan="4">항목이 없습니다.</td>
-							</tr>
+							<c:if test="${empty rvMailList}">
+								<tr>
+									<td colspan="4">항목이 없습니다.</td>
+								</tr>
+							</c:if>
+							<c:if test="${!empty rvMailList}">
+								<c:forEach var="rvVo" begin="1" end="5" items="${rvMailList }">
+									<tr>
+										<td>${rvVo.mailTitle}</td>
+										<td>${rvVo.mailTake}(${tpVo.empName})</td>
+										<td><fmt:formatDate value="${rvVo.mailSenddate}" pattern="yyyy-MM-dd HH:mm"/></td>
+									</tr>
+								</c:forEach>
+							</c:if>
 						</tbody>
 					</table>
 
