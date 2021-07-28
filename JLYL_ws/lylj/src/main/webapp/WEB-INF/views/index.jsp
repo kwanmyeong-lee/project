@@ -5,6 +5,11 @@
 <link href='<c:url value="/resources/css/main.css"/>' rel="stylesheet" />
 <script src='<c:url value="/resources/js/main.js"/>'></script>
 <script src='<c:url value="/resources/js/scheduleMain.js"/>'></script>
+<style>
+#calendar{
+max-height: 500px;
+}
+</style>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 	<!-- Page Heading -->
@@ -210,7 +215,7 @@
 				<div class="card-header py-3">
 					<h6 class="m-0 font-weight-bold text-primary">오늘의 일정</h6>
 				</div>
-				<div class="card-body">
+				<div class="card-body cal-body">
 					<div id='calendar'></div>
 				</div>
 			</div>
