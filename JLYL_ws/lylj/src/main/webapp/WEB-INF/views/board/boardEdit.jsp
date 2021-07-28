@@ -55,7 +55,7 @@
 		<button id="writeCancleBtn">취소</button>
         <textarea id="summernote" name="boardContent" class="summernote">${vo.boardContent }</textarea>
         <div class="input-group">
-		  <input multiple="multiple" type="file" class="form-control" name="upfile" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+		  <input multiple="multiple" type="file" class="form-control" name="upfile" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" value="${fileList }">
 		  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"><i class="fas fa-trash-alt"></i></button>
 		</div>
 		<span style="margin-left:5px;font-size:14px;">※&nbsp; 파일크기 제한 : 10MB</span>

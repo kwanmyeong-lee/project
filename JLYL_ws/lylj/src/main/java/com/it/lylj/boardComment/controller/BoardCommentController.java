@@ -24,25 +24,23 @@ public class BoardCommentController {
 	private final BoardCommentService boardCommentService;
 	private final BoardDAO boardDao;
 	
-	@ResponseBody
 	@PostMapping("/comment/commentWrite")
-	public int commentWrite(@ModelAttribute BoardCommentVO commVo, @RequestParam(defaultValue = "0")int boardNo) {
+	public String commentWrite(@ModelAttribute BoardCommentVO commVo, @RequestParam(defaultValue = "0")int boardNo) {
 		logger.info("댓글 등록 처리, 파라미터 commVo={}", commVo);
 		
-		int data = boardCommentService.insertComment(commVo);
+		boardCommentService.insertComment(commVo);
 		boardDao.updateCommentCnt(boardNo);
-		return data;
+		return "redirect:/board/boardDetail?boardNo="+boardNo;
 	}
 	
-	@ResponseBody
 	@PostMapping("/comment/replyWrite")
-	public int replyWrite(@ModelAttribute BoardCommentVO commVo, @RequestParam(defaultValue = "0")int boardNo) {
+	public String replyWrite(@ModelAttribute BoardCommentVO commVo, @RequestParam(defaultValue = "0")int boardNo) {
 		logger.info("답변 등록 처리, 파라미터 commVo={}", commVo);
 		
-		int data = boardCommentService.insertReply(commVo);
+		boardCommentService.insertReply(commVo);
 		boardDao.updateCommentCnt(boardNo);
 		
-		return data;
+		return "redirect:/board/boardDetail?boardNo="+boardNo;
 	}
 	
 	@RequestMapping("/comment/delete")

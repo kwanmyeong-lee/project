@@ -4,10 +4,23 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/addressBook/style.css'/>">
 <script type="text/javascript">
 $(function() {
-
 	/* 등록 모달 이벤트 */
 	$('#newAddressBook').click(function(){
 		alert('주소록 수정 중에는 등록을 할 수 없습니다.');	
+	});
+	
+	/* 수정버튼 클릭 이벤트 */
+	$('form[name=frmBookUpdate]').submit(function(){
+		if($('#addressBook_name').val() == ''){
+			alert('이름을 입력하세요.');	
+			return false;			
+		}else if($('#addressBook_tel').val() == ''){
+			alert('번호를 입력하세요.');	
+			return false;			
+		}else if($('#addressFolderNo').val() == ''){
+			alert('카테고리를 선택하세요.');	
+			return false;			
+		}
 	});
 	
 	/* 취소버튼 클릭 이벤트*/
@@ -58,7 +71,7 @@ $(function() {
 		</div>
 		<div id="InputBox"class="boxDiv">
 			<label>카테고리</label><span class="splitSpan">:</span>
-			<select name="addressFolderNo" class="selectItem2">
+			<select name="addressFolderNo" class="selectItem2" id="addressFolderNo">
 				<option value="">선택하세요.</option>
 				<c:forEach var="bookFol" items="${bookFolList}">
 					<option value="${bookFol.addressFolderNo}">${bookFol.addressFolderName}</option>
@@ -67,7 +80,7 @@ $(function() {
 			<button type="button" class="btn btn-outline-secondary folBtn" id="searchBtn">카테고리 수정</button>
 		</div>
 		<div id="btnItems">
-			<input type="submit"id="bookWriteSubmit"value="수정">
+			<input type="submit" id="bookWriteSubmit" value="수정">
 			<button class="bookCancleBtn" type="button">취소</button>
 		</div>
 	</div>

@@ -64,16 +64,16 @@
 	<table>
 	    <colgroup>
 	       <col style="width:7%;" />
-	       <col style="width:20%;" />
-	       <col style="width:53%;" />
+	       <col style="width:63%;" />
+	       <col style="width:10%;" />
 	       <col style="width:10%;" />
 	       <col style="width:10%;" />      
 	    </colgroup>
         <thead>
 		    <tr id="thStyle">
 	            <th>번호</th>
-	            <th>작성자</th>
 	            <th>제목</th>
+	            <th>작성자</th>
 	            <th>작성일</th>
 	            <th>조회수</th>
 		    </tr>
@@ -88,16 +88,18 @@
 	        <c:forEach var="vo" items="${list}">
 			    <tr id="tdStyle">
 		            <td class="no" style="text-align: center;">${vo.boardNo}</td>
-		            <td class="userNameTd">${vo.boardWriter}</td>
 		            <td>
-		            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA">${vo.boardTitle}</a> 
-		            	<span>[${vo.commentCnt }]</span> <!-- [ ] 안에 댓글 수 (###########) -->
+		            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="margin-left:20px;">${vo.boardTitle}</a> 
+		            	<c:if test="${vo.commentCnt > 0}">
+		            		<span>[${vo.commentCnt }]</span>
+		            	</c:if>
 		            	<c:if test="${vo.newImgTerm<12}">
-		            		<span class="newSpan">new</span> <!-- 시간계산으로 new 처리 !!!! -->
+		            		<span class="newSpan">new</span>
 		            	</c:if>
 		            </td>
+		            <td class="userNameTd">${vo.boardWriter}</td>
 		            <td class="regdateTd"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd"/></td>
-		            <td class="readCountTd">${vo.boardHits }</td> <!-- 조회수 컬럼 추가!!!! -->
+		            <td class="readCountTd">${vo.boardHits }</td>
 			    </tr>
 		    </c:forEach>
         </c:if>

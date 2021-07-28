@@ -70,11 +70,11 @@ $(function(){
 	            </ul>
 	        </c:if>
 	            <div id="likeDiv">
-	            	<c:if test="${selectEmpNo eq 0 }">
+	            	<c:if test="${selectByEmpNo eq 0 }">
 			        	<button id="likeBtnChk2" type="button"><i class="fa fa-thumbs-up" ></i></button> 
 				        <button id="likeBtnChk1" type="button" style="display: none;"><i class="fa fa-thumbs-up" ></i></button> 
 			        </c:if>
-	            	<c:if test="${selectEmpNo eq 1 }">
+	            	<c:if test="${selectByEmpNo eq 1 }">
 			        	<button id="likeBtnChk2" type="button" style="display: none;"><i class="fa fa-thumbs-up" ></i></button> 
 				        <button id="likeBtnChk1" type="button"><i class="fa fa-thumbs-up" ></i></button> 
 			        </c:if>
