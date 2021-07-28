@@ -245,12 +245,13 @@
 #container {
   color:#999;
   text-transform: uppercase;
-  font-size:36px;
+  font-size:24px;
   font-weight:bold;
-  width:30%;
+  width:40%;
   bottom:50%;
   display:block;
   float: left;
+  
 }
 
 #flip {
@@ -263,12 +264,12 @@
   color:#fff;
   padding:4px 12px;
   height:50px;
-  margin-bottom:45px;
+  margin-bottom:50px;
   display:inline-block;
 }
 
 #flip div:first-child {
-  animation: show 5s linear infinite;
+  animation: show 7s linear infinite;
 }
 
 #flip div div {
@@ -414,9 +415,9 @@
 					
 					<div id=container>
 					  <div id=flip>
-					    <div><div>CSS</div></div>
-					    <div><div>어렵다</div></div>
-					    <div><div>무지하게</div></div>
+					    <div><div>열정없이 사느니 차라리 죽는게 낫다</div></div>
+					    <div><div>이 사악한 세상에서 영원한 것은 없다</div></div>
+					    <div><div>지지마라 세상에도 나약한 내 자신에게도</div></div>
 					  </div>
 					</div>
 
