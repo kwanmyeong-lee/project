@@ -33,7 +33,11 @@
 <div >
 <article>
 <div>
-	<h1>${boTargetList[bTNo-1].bookingTargetName}</h1>
+	<c:forEach var="i" items="${boTargetList}" >
+		<c:if test="${i.bookingTargetNo==bTNo}">
+			<h1>${i.bookingTargetName}</h1>
+		</c:if>
+	</c:forEach>
 	<input type="hidden" class="bTNo" value="${bTNo }">
 	<input type="hidden" class="bFNo" value="${bFNo }">
 	<input type="hidden" class="empNo" value="${empNo }">
