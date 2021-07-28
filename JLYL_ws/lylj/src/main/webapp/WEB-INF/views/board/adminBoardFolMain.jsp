@@ -18,7 +18,8 @@ $(function(){
 	});
 	
 	$('#plusBtn').click(function(){
-		if($(this).prev().val() == ''){
+		var name1 = $.trim($(this).prev().val());
+		if(name1 == ''){
 			alert('카테고리명을 입력하세요.');
 			$(this).prev().focus();
 			return false;
@@ -26,7 +27,8 @@ $(function(){
 	});
 	
 	$('.adminEditBtn').click(function(){
-		if($(this).prev().val() == ''){
+		var name2 = $.trim($(this).prev().val());
+		if(name2 == ''){
 			alert('카테고리명을 입력하세요.');
 			$(this).prev().focus();
 			return false;
@@ -60,7 +62,9 @@ $(function(){
 					<tr id="tdStyle">
 						<td id="noTd">${boFol.boardFolderNo }</td>
 						<td>
-							<span class="nameSpan"><a href="#">${boFol.boardFolderName }</a></span>
+							<div class="nameSpan">
+								<a href="#">${boFol.boardFolderName }</a>
+							</div>
 							<div style="display: none;">
 								<form action="<c:url value='/adminBoard/update'/>">
 									<input type="hidden" name="boardFolderNo" value="${boFol.boardFolderNo }">
