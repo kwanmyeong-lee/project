@@ -2,8 +2,6 @@ package com.it.lylj.emailFile.model;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +20,11 @@ public class EmailFileServiceImpl implements EmailFileService{
 	@Override
 	public List<EmailFileVO> selectFileByMailNo(int mailNo) {
 		return emailFileDao.selectFileByMailNo(mailNo);
+	}
+
+	@Override
+	public EmailFileVO selectFileByFileNo(int fileNo) {
+		return emailFileDao.selectFileByFileNo(fileNo);
 	}
 
 }

@@ -28,4 +28,5 @@ public class EmailVO {
 	int mailEmpno;		    //EMPNO
 	private String empName;
 	private String mailImportant;
+	private int originMailNo;
 }

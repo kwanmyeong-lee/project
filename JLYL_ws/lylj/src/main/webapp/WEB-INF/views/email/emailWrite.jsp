@@ -234,7 +234,7 @@
 	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${reEmailVo.mailSend}@lylj.net"  readonly="readonly">
 	                    </c:if>
 	                    <c:if test="${!empty fwEmailVo}">
-	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
+	                        <input type="text" class="orm-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
 	                    </c:if>
 	                    <c:if test="${!empty empVo}">
 	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${empVo.empNo}@lylj.net(${empVo.empName})" readonly="readonly">
@@ -264,7 +264,10 @@
 			    		<label for="bcc" class="col-sm-1 control-label">첨부파일:</label>
 			  		<div class="col-sm-11">
 			    		<input type="file" multiple="multiple" name="upfile" class="form-control select2-offscreen textBox tx" >
-			    		<span style="margin-left: 95px; color: blue;">※&nbsp; 파일크기 제한 : 50MB</span>
+			    		<span style="margin-left: 95px; color: blue;">※&nbsp; 파일크기 제한 : 50MB</span><br>
+			    		<c:if test="${!empty fwEmailVo}">
+			    			<span style="margin-left: 95px; color: blue;">※&nbsp; 파일은 전달되지 않습니다.</span>
+			    		</c:if>
 			    	</div>
 			    </div>
 			  			<div class="form-group">

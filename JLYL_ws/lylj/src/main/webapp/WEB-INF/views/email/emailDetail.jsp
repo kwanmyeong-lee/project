@@ -49,7 +49,7 @@
 				 <a href="<c:url value='/email/emailWrite?mailNo=${param.mailNo }&type=re'/>"><button type="button" class="btn btn-secondary">답장</button></a>
 				 <a href="<c:url value='/email/emailWrite?mailNo=${param.mailNo }&type=fw'/>"><button type="button" class="btn btn-secondary">전달</button></a>
 				 <button type="button" class="btn btn-secondary">삭제</button>
-				 <span id="sendDate">보낸시간 : <fmt:formatDate value="${emailVo.mailSenddate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+				 <span id="sendDate">보낸시간 : ${emailVo.mailSenddate}</span>
 			   </div>
 			   <div class="row mb-3">
 			     <label for="sender" class="col-sm-1 col-form-label">보낸사람 :</label>
@@ -76,7 +76,14 @@
 				    		<!-- 첨부파일 -->
 					    	<button id="downloadFile" type="button" class="btn btn-info" data-bs-toggle="dropdown" >첨부파일</button>
 					    	<ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink" id="upFileList">
-					            <li><a class="dropdown-item fileA" href="<c:url value=''/>" ><i class="fas fa-save"></i>&nbsp;&nbsp;파일명</a></li>
+					    		<c:if test="${empty emailFileList}">
+					            	<li>&nbsp;첨부된 파일이 없습니다</li>
+					            </c:if>
+					            <c:if test="${!empty emailFileList}">
+					            	<c:forEach var="file" items="${emailFileList}">
+					            		<li><a class="dropdown-item fileA" href="<c:url value='/email/mailFileDown?fileNo=${file.fileNo}&fileOriginName=${file.fileOriginName} '/>" ><i class="fas fa-save"></i>&nbsp; ${file.fileOriginName}</a></li>
+					            	</c:forEach>
+					            </c:if>
 				        	</ul>
 				        </div>
 				        <div class="emailContent" >${emailVo.mailContent}</div>
