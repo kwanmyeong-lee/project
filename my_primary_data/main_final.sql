@@ -1209,9 +1209,11 @@ select * from apEleList;
 
 create or replace view mailView
 as
-select m.* , e.emp_name
+select m.* , e.emp_name, mf.file_origin_name
 from mail m join emp e
-on m.mail_empno = e.emp_no;
+on m.mail_empno = e.emp_no
+left join mailfile mf
+on m.mail_no = mf.mail_no;
 
 ------------------------- view ----------------------------------
 create or replace view empView
