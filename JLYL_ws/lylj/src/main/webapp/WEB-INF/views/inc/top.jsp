@@ -245,12 +245,13 @@
 #container {
   color:#999;
   text-transform: uppercase;
-  font-size:36px;
+  font-size:24px;
   font-weight:bold;
-  width:30%;
+  width:40%;
   bottom:50%;
   display:block;
   float: left;
+  
 }
 
 #flip {
@@ -263,22 +264,22 @@
   color:#fff;
   padding:4px 12px;
   height:50px;
-  margin-bottom:45px;
+  margin-bottom:50px;
   display:inline-block;
 }
 
 #flip div:first-child {
-  animation: show 5s linear infinite;
+  animation: show 7s linear infinite;
 }
 
 #flip div div {
-  background:#42c58a;
+  background: #ff859d;
 }
 #flip div:first-child div {
-  background:#4ec7f3;
+  background: #46ddff;
 }
 #flip div:last-child div {
-  background:#DC143C;
+  background: #89ffa8;
 }
 
 @keyframes show {
@@ -325,7 +326,7 @@
 						</ol>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item">오늘 일정</li>
-							<li class="breadcrumb-item"><a href="#">10개</a></li>
+							<li class="breadcrumb-item"><a href="#">${todayScheduleCnt}개</a></li>
 						</ol>
 						<div class="card-body">
 							<button type="button" class="btn btn-outline-info btn-lg w-100">
@@ -333,7 +334,7 @@
 							</button>
 							<button type="button"
 								class="btn btn-outline-info btn-lg w-100 mt-3">
-								<a href="#" class="card-link">일정 등록</a> <br>
+								<a href="<c:url value="/schedule/write"/>" class="card-link">일정 등록</a> <br>
 							</button>
 
 						</div>
@@ -341,16 +342,50 @@
 					<div class="card">
 						<div class="card-header">근태 관리</div>
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item">오늘 일한 시간
-								<p class="card-text" id="timeSize">12시간 50분</p>
-							</li>
-							<li class="list-group-item">출근 시간
-								<p class="card-text" id="timeSize">12시간 50분</p>
-							</li>
-
-							<li class="list-group-item">퇴근 시간
-								<p class="card-text" id="timeSize">12시간 50분</p>
-							</li>
+							<c:if test="${empty attendDayVO }">
+								<li class="list-group-item">오늘 일한 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+								<li class="list-group-item">출근 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+	
+								<li class="list-group-item">퇴근 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+							</c:if>
+							<c:if test="${!empty attendDayVO }">
+								<c:if test="${!empty attendDayVO.attendanceDayWorkHour}">
+								<li class="list-group-item">오늘 일한 시간
+									<p class="card-text" id="timeSize"><fmt:formatDate value="${attendDayVO.attendanceDayWorkHour}" pattern="HH시간 mm분"/></p>
+								</li>
+								</c:if>
+								<c:if test="${empty attendDayVO.attendanceDayWorkHour}">
+								<li class="list-group-item">오늘 일한 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+								</c:if>
+								<c:if test="${!empty attendDayVO.attendanceDayOnHour}">
+								<li class="list-group-item">출근 시간
+									<p class="card-text" id="timeSize"><fmt:formatDate value="${attendDayVO.attendanceDayOnHour}" pattern="HH시간 mm분"/></p>
+								</li>
+								</c:if>
+								<c:if test="${empty attendDayVO.attendanceDayOnHour}">
+								<li class="list-group-item">출근 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+								</c:if>
+								<c:if test="${!empty attendDayVO.attendanceDayOffHour}">
+								<li class="list-group-item">퇴근 시간
+									<p class="card-text" id="timeSize"><fmt:formatDate value="${attendDayVO.attendanceDayOffHour}" pattern="HH시간 mm분"/></p>
+								</li>
+								</c:if>
+								<c:if test="${empty attendDayVO.attendanceDayOffHour}">
+								<li class="list-group-item">퇴근 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+								</c:if>
+							</c:if>
 						</ul>
 					</div>
 
@@ -380,9 +415,9 @@
 					
 					<div id=container>
 					  <div id=flip>
-					    <div><div>CSS</div></div>
-					    <div><div>어렵다</div></div>
-					    <div><div>무지하게</div></div>
+					    <div><div>열정없이 사느니 차라리 죽는게 낫다</div></div>
+					    <div><div>이 사악한 세상에서 영원한 것은 없다</div></div>
+					    <div><div>지지마라 세상에도 나약한 내 자신에게도</div></div>
 					  </div>
 					</div>
 

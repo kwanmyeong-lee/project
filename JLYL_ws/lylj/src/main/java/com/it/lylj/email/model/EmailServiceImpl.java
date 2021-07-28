@@ -55,6 +55,8 @@ public class EmailServiceImpl implements EmailService{
 			list= emailDao.selectTrashMailList(searchVo);
 		}else if(type==EmailService.NOTREAD_MAIL) {
 			list= emailDao.selectNotReadMailList(searchVo);
+		}else if(type==EmailService.IMPORTANT_MAIL) {
+			list= emailDao.selectImportantMailList(searchVo);
 		}
 		
 		return list;
@@ -75,6 +77,8 @@ public class EmailServiceImpl implements EmailService{
 			totalRecord = emailDao.totalRecordByTrash(empNo);
 		}else if(type==EmailService.NOTREAD_MAIL) {
 			totalRecord = emailDao.totalCountByReadDate(empNo);
+		}else if(type==EmailService.IMPORTANT_MAIL) {
+			totalRecord = emailDao.totalCountByImportant(empNo);
 		}
 		return totalRecord;
 	}
@@ -113,4 +117,20 @@ public class EmailServiceImpl implements EmailService{
 	public int updateReadDate(int mailNo) {
 		return emailDao.updateReadDate(mailNo);
 	}
+
+	@Override
+	public int updateInportant(int mailNo) {
+		return emailDao.updateInportant(mailNo);
+	}
+
+	@Override
+	public int updateNotInportant(int mailNo) {
+		return emailDao.updateNotInportant(mailNo);
+	}
+
+	@Override
+	public int updateNotReadDate(int mailNo) {
+		return emailDao.updateNotReadDate(mailNo);
+	}
+	
 }

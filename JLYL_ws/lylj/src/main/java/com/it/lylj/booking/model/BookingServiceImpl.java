@@ -38,4 +38,9 @@ public class BookingServiceImpl implements BookingService{
 		return dao.selectCntAllByAppFlag();
 	}
 
+	@Override
+	public List<BookingVO> selectAllBookingViewByEmpNo(int emoNo) {
+		return dao.selectAllBookingViewByEmpNo(emoNo);
+	}
+
 }

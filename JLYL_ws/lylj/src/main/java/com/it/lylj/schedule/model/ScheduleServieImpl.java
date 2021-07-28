@@ -1,5 +1,6 @@
 package com.it.lylj.schedule.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -60,6 +61,11 @@ public class ScheduleServieImpl implements ScheduleService{
 	@Override
 	public List<ScheduleVO> selectAllScheduleByScThemeNo(int scheduleThemeNo) {
 		return dao.selectAllScheduleByScThemeNo(scheduleThemeNo);
+	}
+
+	@Override
+	public int selectCntScheduleByToday(HashMap<String, Object> map) {
+		return dao.selectCntScheduleByToday(map);
 	}
 	
 }

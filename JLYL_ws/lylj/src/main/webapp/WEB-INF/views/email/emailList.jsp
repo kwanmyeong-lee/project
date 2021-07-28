@@ -6,12 +6,12 @@
 
 <style>
 .containerDiv{
-	width: 1400px;
+	width: 100%;
 	height: 100%;
 	margin: 30px;
 }
 .panelDiv{
-	width: 1400px;
+	width: 2000px;
 	background: white;
 }
 .container *{
@@ -32,10 +32,11 @@
 	float: right;
 }
 .email{
-	width: 1350px;
-	height: 1100px;
-	margin-left: 3%;
+	min-height: 1000px;
+	width : 100%;
 	margin-top: 10px;
+	background: white;
+	padding: 30px;
 }
 .emailBody{
 	width: 95%;
@@ -53,19 +54,20 @@
 }
 thead tr th{
 	text-align: center;
+	font-size: 1.2em;
 }
 .typeCheck,.typeRead,.typeInportant,.typeFile,.typeName,.typeTime{
 	text-align: center;
+	font-size: 1.1em;
 }
 .typeName a,.typeSubject a{
 	text-decoration: none;
+	font-size: 1.1em;
+	color: #858796;
 }
 </style>
 
 <script type="text/javascript">
-	$(function(){
-
-	});
 	
 	$(function(){
 		$('#AllCheckbox').change(function(){
@@ -103,8 +105,7 @@ thead tr th{
 	}
 
 </script>
-<div class="container containerDiv">
-		<div class="panel panel-default panelDiv">
+	<div class="panel-default">
 		<!-- BEGIN INBOX -->
 			<div class="grid email">
 				<div class="grid-body emailBody">
@@ -200,22 +201,30 @@ thead tr th{
 										<c:set var="idx" value="0"/>
 										<c:forEach var="map" items="${list }">
 											<input type="hidden" name="selectedEmail[${idx}].mailNo" value="${map['MAIL_NO'] }">
-											<input type="hidden" name="mailNo" value="${map['MAIL_NO'] }">
+											
 											<tr>
 												<td class="typeCheck"><input type="checkbox" class="mailItem"/></td>
 												<td class="typeRead">
 													<c:if test="${empty map['MAIL_READDATE'] }">
-														<button id="bt_read1" class="btn bt_read1"><i class="far fa-envelope"></i></button>
+														<a class="btn" href="<c:url value='/email/readMail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-envelope"></i></a>
 													</c:if>
 													<c:if test="${!empty map['MAIL_READDATE']}">
-														<button id="bt_read2" class="btn bt_read2"><i class="far fa-envelope-open"></i></button>
+														<a class="btn" href="<c:url value='/email/notReadMail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-envelope-open"></i></a>
 													</c:if>
 												</td>
 												<td class="typeInportant">
-													<button id="bt_important1" class="btn bt_important1"><i class="fas fa-star"></i></button>
-													<button id="bt_important2" class="btn bt_important2" style="display: none;"><i class="far fa-star"></i></button>
+													<c:if test="${map['MAIL_IMPORTANT']=='I'}">
+														<a class="btn bt_important1" href="<c:url value='/email/notImportantEmail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="fas fa-star"></i></a>
+													</c:if>
+													<c:if test="${map['MAIL_IMPORTANT']=='0'}">
+														<a class="btn bt_important2" href="<c:url value='/email/importantEmail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-star"></i></a>
+													</c:if>
 												</td>
-												<td class="typeFile"><i class="far fa-file btn"></i></td>
+												<td class="typeFile">
+													<c:if test="${!empty map['FILE_ORIGIN_NAME'] }">
+														<i class="far fa-file btn"></i>
+													</c:if>
+												</td>
 												<td class="typeName"> 
 													<c:if test="${param.type eq '2' || param.type eq '3' || param.type eq '4' }">${map['MAIL_TAKE']}@lylj.net</c:if>
 													<c:if test="${param.type ne '2' && param.type ne '3' && param.type ne '4' }">${map['MAIL_SEND']}@lylj.net</c:if>
@@ -272,7 +281,6 @@ thead tr th{
 				</div>
 			</div>
 		<!-- END INBOX -->
-	</div>
 </div>
 
 <%@ include file="../inc/bottom.jsp" %>

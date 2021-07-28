@@ -45,7 +45,7 @@
 
 	<select id="TotalSelectListByEmpNo1" parameterType="searchVo" resultType="int">
 			select count(*) from apEleList
-			where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0
+			where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0 and ELECTRONIC_COMPLET_FLAG !=2
 			<include refid="searchWhere"></include>
 			order by ELECTRONIC_NO DESC
 	</select>
@@ -102,7 +102,7 @@
 			from
 			(
 				select * from apEleList
-				where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0
+				where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0 and ELECTRONIC_COMPLET_FLAG !=2
 				<include refid="searchWhere"></include>
 			    order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC
 				
@@ -260,10 +260,11 @@
 		where ELECTRONIC_NO = #{electronicNo}
 	</update>
 	
-	<select id="selectTopSty" resultType="map">
+	<select id="selectTopSty" parameterType="int" resultType="map">
 		select STYLE_NO, ELECTRONIC_TITLE from 
 		(
 		    select * from ELIMP
+		    where  EMP_NO = #{empNo}
 		    order by ELECTRONIC_NO desc
 		)
 		<![CDATA[where rownum<6]]>

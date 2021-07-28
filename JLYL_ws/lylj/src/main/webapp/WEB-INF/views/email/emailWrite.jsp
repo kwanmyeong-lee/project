@@ -133,6 +133,7 @@
 	    		}else{
 	    			$('input[name=mailReserve]').val("");	
 	    		}
+	    		
 	    		var sendMail = document.emailDataFrm;
 	    		sendMail.acton = "<c:url value='/email/emailWrite'/>";
 	    		sendMail.method = "post";
@@ -222,7 +223,7 @@
 				<button type="button" class="btn btn-secondary" id="bt_preview">미리보기</button>
 				<button type="button" class="btn btn-secondary" id="bt_tempSave">임시저장</button>
 			</div>
-			<form class="form-horizontal writefrm" id="emailDataFrm" name="emailDataFrm" method="post">
+			<form class="form-horizontal writefrm" id="emailDataFrm" name="emailDataFrm" method="post" enctype="multipart/form-data">
 				<input type="hidden" name = "mailSend" value="${sessionScope.empNo }">
 				<input type="hidden" name = "mailEmpno" value="${sessionScope.empNo }">
 				<input type="hidden" name = "mailTempsave">
@@ -233,7 +234,7 @@
 	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${reEmailVo.mailSend}@lylj.net"  readonly="readonly">
 	                    </c:if>
 	                    <c:if test="${!empty fwEmailVo}">
-	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
+	                        <input type="text" class="orm-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
 	                    </c:if>
 	                    <c:if test="${!empty empVo}">
 	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${empVo.empNo}@lylj.net(${empVo.empName})" readonly="readonly">
@@ -241,7 +242,6 @@
 	                    <c:if test="${empty reEmailVo && empty fwEmailVo && empty empVo}">
 	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
 	                    </c:if>
-	                     	<input type="button" class="btn_ btn-primary btn-sm bt_address" value="주소록">
 							<div id="resultEmp" style="display: none;">
 						</div>                        
 			    	</div>
@@ -260,6 +260,16 @@
 			    		</c:if>
 			    	</div>
 			  	</div>
+			  	<div class="form-group row">
+			    		<label for="bcc" class="col-sm-1 control-label">첨부파일:</label>
+			  		<div class="col-sm-11">
+			    		<input type="file" multiple="multiple" name="upfile" class="form-control select2-offscreen textBox tx" >
+			    		<span style="margin-left: 95px; color: blue;">※&nbsp; 파일크기 제한 : 50MB</span><br>
+			    		<c:if test="${!empty fwEmailVo}">
+			    			<span style="margin-left: 95px; color: blue;">※&nbsp; 파일은 전달되지 않습니다.</span>
+			    		</c:if>
+			    	</div>
+			    </div>
 			  			<div class="form-group">
 						<textarea class="form-control message" id="summernote" name="mailContent">
 							<c:if test="${!empty reEmailVo}">
@@ -316,24 +326,6 @@
 					   </div>
 				  	</div>
 			</form>
-			   
-          <!-- 	<form class="form-horizontal writefrm" id="emailFileFrm" name="emailFileFrm" method="post"> 
-			  	<div class="form-group row">
-			    	<label for="uploadFile" class="col-sm-1 control-label">파일첨부:</label>
-			    	<div class="col-sm-11">
-						<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-						   <i class="far fa-file"></i>
-						</button>
-					</div><br><br>
-					<div class="collapse form-control select2-offscreen fileBox" id="collapseExample">
-	                      <div id="dropZone">
-	                      	<span id="dropZoneSpan" >파일을 드래그 하세요.</span>
-					      	<p id="fileDiv"></p>
-	                      </div>
-					</div>
-			  	</div>
-			 </form> -->
-			
 		</div>	
 </div>
 
