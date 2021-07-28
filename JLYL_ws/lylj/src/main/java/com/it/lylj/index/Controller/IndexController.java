@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.lylj.attend.model.AttendService;
+import com.it.lylj.attend.model.AttendVO;
+import com.it.lylj.attendDay.model.AttendDayService;
+import com.it.lylj.attendDay.model.AttendDayVO;
 import com.it.lylj.booking.model.BookingService;
 import com.it.lylj.booking.model.BookingVO;
 import com.it.lylj.department.model.DepartmentService;
@@ -26,6 +31,7 @@ import com.it.lylj.electronic.model.ElectronicVo;
 import com.it.lylj.emp.model.EmpService;
 import com.it.lylj.emp.model.EmpVO;
 import com.it.lylj.index.model.OriVo;
+import com.it.lylj.schedule.model.ScheduleService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,6 +43,8 @@ public class IndexController {
 	private final DepartmentService departmentService;
 	private final ElectronicService eleService;
 	private final BookingService bookingService;
+	private final ScheduleService scheduleService;
+	private final AttendDayService attendDayService;
 	
 	@RequestMapping("/inc/organizationChart")
 	public void organizationChart() {
@@ -66,12 +74,29 @@ public class IndexController {
 			} catch (ParseException e) {
 			}
 		}
+		Date today = new Date();
+		today.setHours(0);
+		today.setMinutes(0);
+		today.setSeconds(0);
+		logger.info("strToday ={}",today);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("empNo", empNo);
+		map.put("nowDate", today);
+		int todayScheduleCnt= scheduleService.selectCntScheduleByToday(map);
+		AttendDayVO atdVO = new AttendDayVO();
+		atdVO.setEmpNo(empNo);
+		atdVO.setAttendanceDayRegdate(today);
+		AttendDayVO attendDayVO = attendDayService.selectAttendDayByRegdate(atdVO);
+		
+		
 		
 		logger.info("elist={}", elist);
 		
 		model.addAttribute("elist", elist);
 		model.addAttribute("empNo", empNo);
 		model.addAttribute("bookingList", bookingList);
+		model.addAttribute("todayScheduleCnt", todayScheduleCnt);
+		model.addAttribute("attendDayVO", attendDayVO);
 	}
 	
 	@RequestMapping("/admin")

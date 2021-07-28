@@ -1,5 +1,6 @@
 package com.it.lylj.schedule.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -16,5 +17,6 @@ public interface ScheduleDAO {
 	int deleteScheduleByScheduleNo(int scheduleNo);
 	int updateScheduleByScFolderNo(ScheduleVO vo);
 	int selectMaxScNoByEmpNo(int empNo);
+	int selectCntScheduleByToday(HashMap<String, Object> map);
 	
 }
