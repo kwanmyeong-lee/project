@@ -70,6 +70,11 @@
 		where SCHEDULE_THEME_NO=#{scheduleThemeNo}
 	</select>
 	
+	<select id="selectCntScheduleByToday" parameterType="hashmap" resultType="int">
+		select count(*) from calendar
+		where EMP_NO=#{empNo} and #{nowDate} between SCHEDULE_START and SCHEDULE_END
+	</select>
+	
 	
  </mapper>
 
