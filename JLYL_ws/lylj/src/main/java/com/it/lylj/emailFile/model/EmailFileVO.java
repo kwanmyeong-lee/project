@@ -8,9 +8,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class EmailFileVO {
-	private int fileno;
-	private int mailNo; // FK
-	private String filename;
-	private String fileoriginname;
-	private long filesize;  
+	private int fileNo;
+	private int mailNo;
+	private String fileName;
+	private String fileOriginName;
+	private long fileSize;
 }
