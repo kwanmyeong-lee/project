@@ -1,7 +1,7 @@
 $(function(){
 	$(document).on("click",'.success',function(){ 
 		var bookingNo = $(this).prev().val();
-		var bookingNo = $(this).prev().prev().val();
+		var scheduleNo = $(this).parent().parent().find('.hidden-scheduleNo').val();
 		var $its =$(this);
 		$.ajax({
 			type:"get",
@@ -25,7 +25,7 @@ $(function(){
 	});
 	$(document).on("click",'.cancle',function(){ 
 		var bookingNo = $(this).prev().prev().val();
-		var scheduleNo = $(this).prev().prev().prev().val();
+		var scheduleNo = $(this).parent().parent().find('.hidden-scheduleNo').val();
 		var $its =$(this);
 		$.ajax({
 			type:"get",
@@ -147,7 +147,7 @@ function rentViewAjax(currentPage,btCheck){
 				
 				for(var i=0; i<data.bookingList.length; i++){
 					str+='<tr>';
-					str+='<td><input type="hidden" value="'+data.bookingList[i].scheduleNo+'"><input type="hidden" value="'+data.bookingList[i].bookingNo+'"><input type="checkbox" class="check"></td>';
+					str+='<td><input type="hidden" class="hidden-scheduleNo" value="'+data.bookingList[i].scheduleNo+'"><input type="hidden" value="'+data.bookingList[i].bookingNo+'"><input type="checkbox" class="check"></td>';
 					str+='<td>'+data.bookingList[i].bookingTargetName+'</td>';
 					str+='<td>'+data.bookingList[i].empName+'</td>';
 					str+='<td>'+data.bookingList[i].bookingStart+' ~ '+data.bookingList[i].bookingEnd+'</td>';

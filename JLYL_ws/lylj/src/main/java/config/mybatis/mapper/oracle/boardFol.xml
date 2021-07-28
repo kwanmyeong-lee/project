@@ -22,7 +22,7 @@
 	</update>
 	
 	<delete id="deleteBoardFol" parameterType="int">
-		DELETE ofboardfol
+		DELETE ofboardfol CASCADE CONSTRAINTS
 		WHERE BOARD_FOLDER_NO=#{boardFolderNo}
 	</delete>
 	
