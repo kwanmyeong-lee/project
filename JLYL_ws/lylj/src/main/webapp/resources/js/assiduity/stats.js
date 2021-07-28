@@ -174,6 +174,10 @@ $(function(){
 			
 			statsViewAjax(currentPage, btCheck);
 		});
+		$('#xlsDown').click(function(){
+			var str = "../download/stats?selectDate="+$('#nowYearMonth').text();
+			location.href=str;
+		});
 		
 		
 		$.datepicker.setDefaults({
@@ -213,7 +217,6 @@ $(function(){
 		
 	});
 	
-	
 	function statsViewAjax(currentPage,btCheck){
 		var selectItem1 =0;
 		var selectItem2 =0;
@@ -233,7 +236,6 @@ $(function(){
 		var startDate = $('#sDate').val();
 		var endDate = $('#eDate').val();
 		var selectDate =$('#nowYearMonth').text()+"-01";
-		
 		
 		
 		$.ajax({
