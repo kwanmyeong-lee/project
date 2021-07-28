@@ -113,6 +113,13 @@
 			
 		});
 		
+	        let today = new Date();   
+	
+	        let year = today.getFullYear(); // 년도
+	        let month = today.getMonth() + 1;  // 월
+	        let date = today.getDate();  // 날짜
+	        
+	        $('#currentDate').val(year + '/' + month + '/' + date);
 	
 	});
 	
@@ -130,7 +137,9 @@
 			return false;
 		}
 		
+		
 	};
+		
 	
 </script>
 
@@ -189,9 +198,36 @@
 
 				<!-- 문서 양식 시작 -->
 				<input type="hidden" name="electronicContent" value="">
+				<br>
+				<h2>${svo.styleName }</h2>
+				<br>
+				<table class="doc-table">
+					<tr>
+						<td class="doc-td" colspan="3">작성일자</td>
+						<td class="doc-td2"><input type="text" id="currentDate" disabled="disabled"></td>
+						<td class="doc-td">부서</td>
+						<td class="doc-td2"><c:forEach var="ddvo" items="${dvo }">
+								<c:if test="${ddvo.departmentNo eq  evo.departmentNo}">
+									<input type="text" value="${ddvo.departmentName}" disabled="disabled">
+								</c:if>
+							</c:forEach></td>
+					</tr>
+					<tr>
+						<td class="doc-td" colspan="3">이 름</td>
+						<td class="doc-td2"><input type="text"
+							value="${evo.empName }" disabled="disabled"></td>
+						<td class="doc-td">직 책</td>
+						<c:forEach var="ppvo" items="${pvo }">
+							<c:if test="${ppvo.positionNo eq evo.positionNo }">
+								<td class="doc-td2"><input type="text"
+									value="${ppvo.positionName }" disabled="disabled"></td>
+							</c:if>
+						</c:forEach>
+					</tr>
+				</table>
 
-				${svo.styleContent} 
-
+				${svo.styleContent}
+				
 				<!-- 문서 양식 끝 -->
 
 				<div class="shadow-sm p-3 mb-2 bg-light rounded ">

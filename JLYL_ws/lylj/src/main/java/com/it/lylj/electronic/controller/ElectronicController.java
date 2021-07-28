@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -30,6 +31,8 @@ import com.it.lylj.common.ConstUtil;
 import com.it.lylj.common.FileUploadUtil;
 import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.common.SearchVO;
+import com.it.lylj.department.model.DepartmentService;
+import com.it.lylj.department.model.DepartmentVO;
 import com.it.lylj.electronic.model.ElectronicService;
 import com.it.lylj.electronic.model.ElectronicVo;
 import com.it.lylj.electronicAppLine.model.ElectronicAppLineService;
@@ -45,7 +48,10 @@ import com.it.lylj.electronicFile.model.ElectronicFileVo;
 import com.it.lylj.electronicReLine.model.ElectronicReLineService;
 import com.it.lylj.electronicReLine.model.ElectronicReLineVo;
 import com.it.lylj.emp.model.EmpService;
+import com.it.lylj.emp.model.EmpVO;
 import com.it.lylj.index.model.OriVo;
+import com.it.lylj.position.model.PositionService;
+import com.it.lylj.position.model.PositionVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -62,6 +68,8 @@ public class ElectronicController {
 	private final ElectronicReLineService electronicReService;
 	private final ElectronicFileService electronicFileService;
 	private final ElectronicAppStampService stampService;
+	private final DepartmentService departmentService;
+	private final PositionService positionService;
 
 	// 전자결재 메인 보여주기
 	@GetMapping("/electronicMain")
@@ -94,9 +102,10 @@ public class ElectronicController {
 
 	// 자주쓰는 양식 리스트 보여주기
 	@GetMapping("/myDocument")
-	public void myDocument(Model model) {
+	public void myDocument(HttpSession session , Model model) {
 		logger.info("자주쓰는 양식 페이지 보여주기 ");
-		List<Map<String, Object>> list = electronicService.selectTopSty();
+		String empNo= (String) session.getAttribute("empNo");
+		List<Map<String, Object>> list = electronicService.selectTopSty(Integer.parseInt(empNo));
 
 		model.addAttribute("list", list);
 		model.addAttribute("navNo", 1);
@@ -174,9 +183,17 @@ public class ElectronicController {
 
 	// 기안서 작성 페이지 보여주기
 	@GetMapping("/documentWrite")
-	public void documentWrite(@RequestParam String styleNo, Model model) {
+	public void documentWrite(@RequestParam String styleNo,HttpSession session ,Model model) {
 		logger.info("양식 작성 페이지 보여주기 파라미터 문서 번호 ={}", styleNo);
 		ElectronicDocStyVO svo = electronicDocStyService.selectByStyleNo(styleNo);
+		String empNo = (String) session.getAttribute("empNo");
+		EmpVO evo = empService.selectByEmpNo(Integer.parseInt(empNo));
+		List<DepartmentVO> dvo = departmentService.selectAllDepartment();
+		List<PositionVO> pvo = positionService.selectAllPosition();
+		
+		model.addAttribute("pvo", pvo);
+		model.addAttribute("dvo", dvo);
+		model.addAttribute("evo", evo);
 		model.addAttribute("svo", svo);
 	}
 
@@ -392,7 +409,7 @@ public class ElectronicController {
 
 	// 문서 선택시 문서 디테일 보여주기
 	@GetMapping("/electronicDetail")
-	public void electronicDetail(@RequestParam int ElectronicNo, @RequestParam String no, Model model) {
+	public void electronicDetail(@RequestParam int ElectronicNo, @RequestParam String no, HttpSession session , Model model) {
 		logger.info("문서 선택시 디테일 화면 보여주기 파라미터 ElectronicNo={}", ElectronicNo);
 		ElectronicVo vo = electronicService.selectByElectronicNo(ElectronicNo);
 		logger.info("vo={}", vo);
@@ -403,6 +420,16 @@ public class ElectronicController {
 		List<ElectronicReLineVo> rvo = electronicReService.selectByElectronicNo(ElectronicNo);
 		logger.info("avo={}, rvo={}", avo, rvo);
 		List<ElectronicFileVo> fvo = electronicFileService.selectFileByEleNo(ElectronicNo);
+		
+		String empNo =(String) session.getAttribute("empNo");
+		EmpVO evo = empService.selectByEmpNo(Integer.parseInt(empNo));
+		List<DepartmentVO> dvo = departmentService.selectAllDepartment();
+		List<PositionVO> pvo = positionService.selectAllPosition();
+		
+		model.addAttribute("pvo", pvo);
+		model.addAttribute("dvo", dvo);
+		model.addAttribute("evo", evo);
+		
 
 		model.addAttribute("fvo", fvo);
 		model.addAttribute("avo", avo);

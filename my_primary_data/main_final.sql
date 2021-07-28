@@ -1321,6 +1321,7 @@ insert into DEPARTMENT values(4,'개발팀');
 insert into DEPARTMENT values(5,'인사팀');
 insert into DEPARTMENT values(6,'총무회계팀');
 
+
 --EMP
 insert into EMP values(EMP_SEQ.nextval, '사장님', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, '아이유1.jpg', 3000, '1234-1234-1234', 1, '1993-06-14', null, null);
 insert into EMP values(EMP_SEQ.nextval, '관명', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, '아이유1.jpg', 3000, '1234-1234-1234', 1, '1993-06-14', 1, 2);
@@ -1417,30 +1418,10 @@ values(DOCFOL_SEQ.nextval, '문서폴더6');
 --SEQ strat 100
 select * from docsty;
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호100', '	
-				<br>
-				<h2>휴가신청서</h2>
-
-						<table class="doc-table">
-					<tr>
-
-						<td class="doc-td" colspan="3">작성일자</td>
-						<td class="doc-td2"><input type="text"></td>
-						<td class="doc-td" >/</td>
-						<td class="doc-td2"><input type="hidden"></td>
-					</tr>
-					<tr>
-						<td class="doc-td" colspan="3">이 름</td>
-						<td class="doc-td2"><input type="text"></td>
-						<td class="doc-td">직 책</td>
-						<td class="doc-td2"><input type="text"></td>
-					</tr>
-					<tr>
-						<td class="doc-td" colspan="3">소속</td>
-						<td class="doc-td2"><input type="text"></td>
-						<td class="doc-td">부서</td>
-						<td class="doc-td2"><input type="text"></td>
-					</tr>
+values(DOCSTY_SEQ.nextval, '휴가신청서', '				
+			
+                <br>
+            	<table class="doc-table">
 					<tr>
 						<td class="doc-td" rowspan="6">신청 내용</td>
 						<td class="doc-td" rowspan="4">휴가신청서</td>
@@ -1464,8 +1445,7 @@ values(DOCSTY_SEQ.nextval, '양식번호100', '
 							class="doc-input2"></td>
 					</tr>
 					<tr>
-						<td class="doc-td" colspan="2">신청사유
-						</td>
+						<td class="doc-td" colspan="2">신청사유</td>
 						<td class="doc-td2" colspan="3"><input type="text"
 							class="doc-input2"></td>
 					</tr>
@@ -1483,30 +1463,8 @@ values(DOCSTY_SEQ.nextval, '양식번호100', '
 				</table>
 				<br>', 1);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호100', '<br>
-				<h2>지출 기안서</h2>
-
-				<table class="doc-table">
-					<tr>
-
-						<td class="doc-td">작성일자</td>
-						<td class="doc-td2"><input type="text"></td>
-						<td class="doc-td">/</td>
-						<td class="doc-td2"><input type="hidden"></td>
-					</tr>
-					<tr>
-						<td class="doc-td">이 름</td>
-						<td class="doc-td2"><input type="text"></td>
-						<td class="doc-td">직 책</td>
-						<td class="doc-td2"><input type="text"></td>
-					</tr>
-					<tr>
-						<td class="doc-td">소속</td>
-						<td class="doc-td2"><input type="text"></td>
-						<td class="doc-td">부서</td>
-						<td class="doc-td2"><input type="text"></td>
-					</tr>
-				</table>
+values(DOCSTY_SEQ.nextval, '지출기안서', '<br>			
+			
 				<br>
 				<table class="doc-table">
 					<tr>
@@ -1845,9 +1803,11 @@ order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC;
 
 select * from elimp;
 
+
 -- 결재 라인 
 
 select * from appline;
+
 
 -- 수신 라인
 
