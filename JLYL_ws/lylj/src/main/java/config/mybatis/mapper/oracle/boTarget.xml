@@ -6,7 +6,7 @@
 	
 	<select id="selectAllBoTarget" resultType="boTargetVo">
 		select * from botarget
-		order by BOOKING_TARGET_NAME
+		order by BOOKING_TARGET_NO
 	</select>
 	
 	<insert id="insertBoTarget" parameterType="BoTargetVO">

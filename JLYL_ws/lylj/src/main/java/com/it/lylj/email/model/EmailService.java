@@ -23,4 +23,7 @@ public interface EmailService {
 	int deleteCheckMulti(List<EmailVO> list);
 	int deleteCompleteMail(List<EmailVO> list);
 	int updateReadDate(int mailNo);
+	int updateInportant(int mailNo);
+	int updateNotInportant(int mailNo);
+	int updateNotReadDate(int mailNo);
 }

@@ -154,7 +154,6 @@
 /* now-div */
 .now-div{
 	padding-bottom: 10px;
-	margin-top: 20px;
 }
 .now-span{
 	padding-left: 10px;
@@ -192,4 +191,9 @@
 .content-table td:nth-child(2n-1){
 	border-left: 1px solid black;
 	height: 35px;
+}
+.consDiv{
+	background-color: white;
+	border-radius: .35rem!important;
+	margin-bottom: 10px;
 }

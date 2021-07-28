@@ -17,7 +17,7 @@
 <div id="allDiv">
 <h3>예약승인</h3>
 <button type="button" class="btn btn-outline-success btt" id="successAll">(선택)승인</button>
-<button type="button" class="btn btn-outline-danger btt" id="cancleAll">(선택)거절</button>
+<button type="button" class="btn btn-outline-danger btt" id="cancleAll">(선택)반려</button>
 </div>
 <table>
 	<colgroup>

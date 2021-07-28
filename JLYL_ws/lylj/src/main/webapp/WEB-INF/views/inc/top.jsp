@@ -325,7 +325,7 @@
 						</ol>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item">오늘 일정</li>
-							<li class="breadcrumb-item"><a href="#">10개</a></li>
+							<li class="breadcrumb-item"><a href="#">${todayScheduleCnt}개</a></li>
 						</ol>
 						<div class="card-body">
 							<button type="button" class="btn btn-outline-info btn-lg w-100">
@@ -333,7 +333,7 @@
 							</button>
 							<button type="button"
 								class="btn btn-outline-info btn-lg w-100 mt-3">
-								<a href="#" class="card-link">일정 등록</a> <br>
+								<a href="<c:url value="/schedule/write"/>" class="card-link">일정 등록</a> <br>
 							</button>
 
 						</div>
@@ -341,16 +341,50 @@
 					<div class="card">
 						<div class="card-header">근태 관리</div>
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item">오늘 일한 시간
-								<p class="card-text" id="timeSize">12시간 50분</p>
-							</li>
-							<li class="list-group-item">출근 시간
-								<p class="card-text" id="timeSize">12시간 50분</p>
-							</li>
-
-							<li class="list-group-item">퇴근 시간
-								<p class="card-text" id="timeSize">12시간 50분</p>
-							</li>
+							<c:if test="${empty attendDayVO }">
+								<li class="list-group-item">오늘 일한 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+								<li class="list-group-item">출근 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+	
+								<li class="list-group-item">퇴근 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+							</c:if>
+							<c:if test="${!empty attendDayVO }">
+								<c:if test="${!empty attendDayVO.attendanceDayWorkHour}">
+								<li class="list-group-item">오늘 일한 시간
+									<p class="card-text" id="timeSize"><fmt:formatDate value="${attendDayVO.attendanceDayWorkHour}" pattern="HH시간 mm분"/></p>
+								</li>
+								</c:if>
+								<c:if test="${empty attendDayVO.attendanceDayWorkHour}">
+								<li class="list-group-item">오늘 일한 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+								</c:if>
+								<c:if test="${!empty attendDayVO.attendanceDayOnHour}">
+								<li class="list-group-item">출근 시간
+									<p class="card-text" id="timeSize"><fmt:formatDate value="${attendDayVO.attendanceDayOnHour}" pattern="HH시간 mm분"/></p>
+								</li>
+								</c:if>
+								<c:if test="${empty attendDayVO.attendanceDayOnHour}">
+								<li class="list-group-item">출근 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+								</c:if>
+								<c:if test="${!empty attendDayVO.attendanceDayOffHour}">
+								<li class="list-group-item">퇴근 시간
+									<p class="card-text" id="timeSize"><fmt:formatDate value="${attendDayVO.attendanceDayOffHour}" pattern="HH시간 mm분"/></p>
+								</li>
+								</c:if>
+								<c:if test="${empty attendDayVO.attendanceDayOffHour}">
+								<li class="list-group-item">퇴근 시간
+									<p class="card-text" id="timeSize">-- : --</p>
+								</li>
+								</c:if>
+							</c:if>
 						</ul>
 					</div>
 

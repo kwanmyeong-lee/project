@@ -1,5 +1,7 @@
 package com.it.lylj.email.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +17,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.it.lylj.common.ConstUtil;
+import com.it.lylj.common.FileUploadUtil;
 import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.common.SearchVO;
 import com.it.lylj.email.model.EmailListVO;
 import com.it.lylj.email.model.EmailService;
 import com.it.lylj.email.model.EmailVO;
+import com.it.lylj.emailFile.model.EmailFileService;
+import com.it.lylj.emailFile.model.EmailFileVO;
 import com.it.lylj.emp.model.EmpService;
 import com.it.lylj.emp.model.EmpVO;
 
@@ -35,6 +42,7 @@ public class EmailController {
 	private static final Logger logger = LoggerFactory.getLogger(EmailController.class);
 	private final EmailService emailService;
 	private final EmpService empService;
+	private final EmailFileService emailFileService;
 	
 	/* 이메일메인페이지 */
 	@RequestMapping("/emailMain")
@@ -99,7 +107,8 @@ public class EmailController {
 	
 	/* 이메일쓰기 처리 */
 	@PostMapping("/emailWrite")
-	public String emailWrite_post(@ModelAttribute EmailVO emailVo, Model model) {
+	public String emailWrite_post(@ModelAttribute EmailVO emailVo, @ModelAttribute EmailFileVO emailFileVo,
+		    MultipartHttpServletRequest request, Model model) {
 		logger.info("이메일 전송, emailVo={}", emailVo);
 		//1 파라미터처리
 		//사원번호 이름 분리작업
@@ -120,8 +129,43 @@ public class EmailController {
 			return "common/message";
 		}
 		emailVo.setMailTake(emailTaker);
+		//메일 전송처리
 		int cnt = emailService.sendEmail(emailVo);
 		logger.info("전송결과, ent={},emailVo={}",cnt,emailVo);
+		
+		//파일업로드처리
+		String fileName ="", originalFileName="";
+		long fileSize = 0;
+		
+		List<MultipartFile> fileList = request.getFiles("upfile");
+		logger.info("fileList={}",fileList);
+		
+		for(MultipartFile mf : fileList) {
+			if(mf.getOriginalFilename() != "") {
+				originalFileName = mf.getOriginalFilename();
+				fileSize = mf.getSize();
+				fileName = FileUploadUtil.getUniqueFileName(mf.getOriginalFilename());
+				
+				try {
+					mf.transferTo(new File(ConstUtil.EMAIL_UPLOAD_PATH_REAL+"\\"+fileName));
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+				
+				logger.info("파일 업로드 성공, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName, fileSize);
+				emailFileVo.setMailNo(emailVo.getMailNo());
+				emailFileVo.setFileName(fileName);
+				emailFileVo.setFileOriginName(originalFileName);
+				emailFileVo.setFileSize(fileSize);
+				
+				logger.info("emailFileVo={}",emailFileVo);
+				
+				int result = emailFileService.uploadEmailFile(emailFileVo);
+				logger.info("result={}", result);
+			}//if
+		}//for
+		
+		//처리
 		if(emailVo.getMailTempsave().equals("T")) {
 			msg="임시저장되었습니다.";
 			url="/email/emailList?empNo="+emailVo.getMailEmpno()+"&type=3";
@@ -142,14 +186,19 @@ public class EmailController {
 	
 	/* 이메일 상세보기 */
 	@RequestMapping("/emailDetail")
-	public void emailDetail(@RequestParam(defaultValue = "0") int mailNo ,Model model) {
+	public String emailDetail(@RequestParam(defaultValue = "0") int mailNo ,Model model) {
 		logger.info("이메일 상세보기, 파라미터 mailNo={}",mailNo);
 		
+		//메일내용선택
 		EmailVO emailVo = emailService.selectByMailNo(mailNo);
+		//메일에 저장된 파일선택
+		List<EmailFileVO> emailFileVo =emailFileService.selectFileByMailNo(mailNo);
 		
 		model.addAttribute("emailVo", emailVo);
+		model.addAttribute("emailVo", emailFileVo);
 		model.addAttribute("navNo", 2);
 		
+		return "email/emailDetail";
 	}
 	
 	/* 미리보기 페이지 */
@@ -220,22 +269,53 @@ public class EmailController {
 		logger.info("읽음처리, mailNo={}",mailNo);
 		
 		int cnt = emailService.updateReadDate(mailNo);
-		logger.info("cnt={}",cnt);
+		logger.info("읽음처리 결과 cnt={}",cnt);
 		
 		return "redirect:/email/emailDetail?mailNo="+mailNo;
 		
 	}
-	
-	/* 이메일 읽음처리 */
-	@RequestMapping("/emailRead_bt")
-	public String emailRead_bt(@RequestParam(defaultValue = "0") int mailNo, @RequestParam(defaultValue = "0") int type , HttpSession session, Model model) {
-		logger.info("읽음처리, mailNo={}, type={}",mailNo, type);
+	@RequestMapping("/importantEmail")
+	public String updateInportantMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
+		logger.info("중요메일, mailNo={}",mailNo);
 		String empNo = (String)session.getAttribute("empNo");
-		int cnt = emailService.updateReadDate(mailNo);
-		logger.info("cnt={}",cnt);
+		
+		int cnt = emailService.updateInportant(mailNo);
+		logger.info("중요처리 결과 cnt={}",cnt);
 		
 		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
+	}
+	
+	@RequestMapping("/notImportantEmail")
+	public String updateNotInportantMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
+		logger.info("중요메일, mailNo={}",mailNo);
+		String empNo = (String)session.getAttribute("empNo");
 		
+		int cnt = emailService.updateNotInportant(mailNo);
+		logger.info("중요처리 결과 cnt={}",cnt);
+		
+		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
+	}
+	
+	@RequestMapping("/readMail")
+	public String readMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
+		logger.info("메일읽음처리, mailNo={}",mailNo);
+		String empNo = (String)session.getAttribute("empNo");
+		
+		int cnt = emailService.updateReadDate(mailNo);
+		logger.info("메일읽음 결과 cnt={}",cnt);
+		
+		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
+	}
+	
+	@RequestMapping("/notReadMail")
+	public String notReadMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
+		logger.info("메일안읽음처리, mailNo={}",mailNo);
+		String empNo = (String)session.getAttribute("empNo");
+		
+		int cnt = emailService.updateNotReadDate(mailNo);
+		logger.info("메일안읽음 결과 cnt={}",cnt);
+		
+		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
 	}
 	
 }

@@ -10,10 +10,32 @@ $(function(){
 		$(this).next().show();
 	});
 	
+	$('.xBoxBtn').click(function(){
+		var conf = confirm('카테고리를 삭제하시겠습니까?');
+		if(!conf){
+			return false;
+		}
+	});
+	
+	$('#plusBtn').click(function(){
+		if($(this).prev().val() == ''){
+			alert('카테고리명을 입력하세요.');
+			$(this).prev().focus();
+			return false;
+		}
+	});
+	
+	$('.adminEditBtn').click(function(){
+		if($(this).prev().val() == ''){
+			alert('카테고리명을 입력하세요.');
+			$(this).prev().focus();
+			return false;
+		}
+	});
 });
 </script>
 <div id="adminBoardFolDiv">
-	<h3>게시판 관리</h3>
+	<h3>카테고리 관리</h3>
 	<br><br>
 	<table id="adminBoardTable">
 		<colgroup>
@@ -43,11 +65,11 @@ $(function(){
 								<form action="<c:url value='/adminBoard/update'/>">
 									<input type="hidden" name="boardFolderNo" value="${boFol.boardFolderNo }">
 									<input type="text" name="boardFolderName" value="${boFol.boardFolderName }">
-									<input type="submit" value="수정">
+									<button class="btn btn-success adminEditBtn"><i class="fas fa-check"></i></button>
 								</form>
 							</div>
 						</td>
-						<td><a href="<c:url value='/adminBoard/delete?boardFolderNo=${boFol.boardFolderNo}'/>"><input type="button" value="X" id="xBoxBtn"></a></td>
+						<td><a href="<c:url value='/adminBoard/delete?boardFolderNo=${boFol.boardFolderNo}'/>" class="xBoxBtn"><button type="button" class="btn btn-danger" id="xBoxBtn">X</button></a></td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -57,7 +79,7 @@ $(function(){
 		<h5>카테고리 추가</h5>
 		<form action="<c:url value='/adminBoard/insert'/>">
 			<input type="text" name="boardFolderName" id="boardFolderName">
-			<input type="submit" value="+" id="plusBtn">
+			<button class="btn btn-primary" id="plusBtn">+</button>
 		</form>
 	</div>
 </div>

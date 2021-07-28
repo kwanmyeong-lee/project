@@ -1,5 +1,6 @@
 package com.it.lylj.schedule.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ScheduleService {
@@ -14,4 +15,6 @@ public interface ScheduleService {
 	int selectMaxScNoByEmpNo(int empNo);
 	List<ScheduleVO> selectAllScheduleByBTNo(int bookingTargetNo);
 	List<ScheduleVO> selectAllScheduleByScThemeNo(int scheduleThemeNo);
+	int selectCntScheduleByToday(HashMap<String, Object> map);
+
 }
