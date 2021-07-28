@@ -155,3 +155,6 @@ table th {
 	border-radius: .35rem!important;
 	margin-bottom: 10px;
 }
+#xlsDown{
+	float: right;
+}
