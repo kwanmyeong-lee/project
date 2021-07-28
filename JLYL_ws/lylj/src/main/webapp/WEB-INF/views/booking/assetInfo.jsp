@@ -30,21 +30,20 @@
 
 
 
-<div >
-<article>
-<div>
+<div class="container-fluid ">
 	<c:forEach var="i" items="${boTargetList}" >
 		<c:if test="${i.bookingTargetNo==bTNo}">
-			<h1>${i.bookingTargetName}</h1>
+			<h1 class="h3 mb-4 text-gray-800">${i.bookingTargetName}</h1>
 		</c:if>
 	</c:forEach>
+<article class="consDiv shadow">
+<div>
 	<input type="hidden" class="bTNo" value="${bTNo }">
 	<input type="hidden" class="bFNo" value="${bFNo }">
 	<input type="hidden" class="empNo" value="${empNo }">
 	<input type="hidden" class="empName" value="${empName }">
-	<hr>
 </div>
-
+	<br>
 	<div id='calendar' style="position: relative;"></div>
 
 
@@ -108,7 +107,7 @@
   </div>
 </div>
 
-
+<br>
 </article>
 </div>
 

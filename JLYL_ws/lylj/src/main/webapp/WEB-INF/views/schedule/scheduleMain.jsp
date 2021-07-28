@@ -30,16 +30,15 @@
 
 
 
-<div >
-<article>
-<div>
-	<h3>일정목록</h3>
+<div class="container-fluid ">
+	<h3 class="h3 mb-4 text-gray-800">일정목록</h3>
+<article class="consDiv shadow">
+<div class="head-div">
 	<input type="hidden" id="empNo" value="${sessionScope.empNo }">
-	<hr>
 </div>
-
+	<br>
 	<div id='calendar' style="position: relative;"></div>
-
+	<br>
 
 	
 <!-- 달력 Modal -->

@@ -5,7 +5,8 @@
 }
 
 .main-div2{
-	width: 100%;
+	max-width: 85%;
+	margin: auto;
 }
 	
 .main-h1{
@@ -24,4 +25,9 @@
 	
 }
 
+.consDiv{
+	background-color: white;
+	border-radius: .35rem!important;
+	margin-bottom: 10px;
+}
 

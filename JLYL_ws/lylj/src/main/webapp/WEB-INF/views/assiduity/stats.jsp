@@ -27,9 +27,10 @@
 
 
         <title>assiduitygMain</title>
-        <div>
-            <article>
-               <h3>부서 근태통계</h3>
+        <div class="container-fluid">
+               <h3 class="h3 mb-4 text-gray-800">부서 근태통계</h3>
+            <article class="consDiv shadow">
+            <br>
                <input type="hidden" id="empNoHidden" value="${empNo }">
                <div class="now-div text-center" >
                		<span class="now-span" id="nowLeft"><i class="fas fa-chevron-left"></i></span>
@@ -65,6 +66,7 @@
                <input type="hidden" id="eDate" value="">
                <input type="hidden" id="sEmp" value="">
                <input type="hidden" id="sDepart" value="">
+               <div class="contentDivs">
                <div class="stats-terms" >
                		<button type="button" class="btn btn-outline-info stats-terms" id="termsBtn1">+조건 추가</button>
                		<button type="button" class="btn btn-outline-info stats-terms2 st-tr2" id="termsBtn2" >부서원:</button>
@@ -152,7 +154,7 @@
 			</c:if>
 		</div>
 	</div>
-
+	<br>
             </article>
         </div>
             <%@ include file="../inc/bottom.jsp"%>

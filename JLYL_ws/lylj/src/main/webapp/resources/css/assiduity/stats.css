@@ -146,3 +146,12 @@ table th {
     border-bottom: 0;
   }
 }
+.contentDivs{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.consDiv{
+	background-color: white;
+	border-radius: .35rem!important;
+	margin-bottom: 10px;
+}
