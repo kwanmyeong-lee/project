@@ -51,8 +51,24 @@ public class EmailController {
 	
 	/* 이메일메인페이지 */
 	@RequestMapping("/emailMain")
-	public void emailMain(Model model) {
+	public void emailMain(SearchVO searchVo, HttpSession session ,Model model) {
 		logger.info("이메일메인페이지");
+		String empNo = (String)session.getAttribute("empNo");
+		searchVo.setEmpNo(empNo);
+		List<EmailVO> nrMailList = emailService.selectNotRead(empNo);
+		List<EmailVO> itMailList = emailService.selectImportant(empNo);
+		List<EmailVO> tpMailList = emailService.selectTempSave(empNo);
+		List<EmailVO> rvMailList = emailService.selectReserve(empNo);
+		
+		logger.info("nrMailList={}",nrMailList);
+		logger.info("itMailList={}",itMailList);
+		logger.info("tpMailList={}",tpMailList);
+		logger.info("rvMailList={}",rvMailList);
+		
+		model.addAttribute("nrMailList", nrMailList);
+		model.addAttribute("itMailList", itMailList);
+		model.addAttribute("tpMailList", tpMailList);
+		model.addAttribute("rvMailList", rvMailList);
 		model.addAttribute("navNo", 2);
 	}
 	
