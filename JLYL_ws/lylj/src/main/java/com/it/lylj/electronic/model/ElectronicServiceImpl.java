@@ -98,10 +98,6 @@ public class ElectronicServiceImpl implements ElectronicService {
 		return electronicDao.updateEleComplete(ElectronicNo);
 	}
 
-	@Override
-	public List<Map<String, Object>> selectTopSty() {
-		return electronicDao.selectTopSty();
-	}
 
 	@Override
 	public int upToDate(int ElectronicNo) {
@@ -111,6 +107,11 @@ public class ElectronicServiceImpl implements ElectronicService {
 	@Override
 	public List<ElectronicVo> selectUpdateToday(int empNo) {
 		return electronicDao.selectUpdateToday(empNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectTopSty(int empNo) {
+		return electronicDao.selectTopSty(empNo);
 	}
 
 

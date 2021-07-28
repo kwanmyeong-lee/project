@@ -42,6 +42,11 @@
 		}
 	});
 	$(function() {
+		
+		$('#insertStamp').click(function(){
+			open('<c:url value="/electronic/insertStamp"/>',
+					'documentSelect', 'width=800,height=500');
+		});
 
 		$('#newDocument').click(
 				function() {
@@ -107,7 +112,7 @@
 										});
 					},
 					error : function(data) {
-						alert("결재자 없음! 결재자가 없는게 말이됨? 나중에 이 오류 지워");
+						colsole.log("결재자 없음! 결재자가 없는게 말이됨? 나중에 이 오류 지워");
 					}
 				});
 		$
@@ -137,7 +142,7 @@
 										});
 					},
 					error : function(data) {
-						alert("수신자 없음! 나중에 이 오류 지워")
+						console.log("수신자 없음! 나중에 이 오류 지워")
 					}
 				});
 		
@@ -291,6 +296,7 @@
 				
 		});
 		
+		
 	});
 	
 	function checkVal(){
@@ -409,6 +415,23 @@
 
 				<!-- 문서 양식 시작 -->
 
+				<br>
+				<h2>${svo.styleName }</h2>
+				<br>
+				<table class="doc-table">
+					<tr>
+						<td class="doc-td" colspan="3">작성일자</td>
+						<td class="doc-td2" style="width: 235px"><input type="text"></td>
+						<td class="doc-td">부서</td>
+						<td class="doc-td2" style="width: 235px"><input type="text"></td>
+					</tr>
+					<tr>
+						<td class="doc-td" colspan="3">이 름</td>
+						<td class="doc-td2"><input type="text"></td>
+						<td class="doc-td">직 책</td>
+						<td class="doc-td2"><input type="text"></td>
+					</tr>
+				</table>
 				${styleContent}
 
 				<!-- 문서 양식 끝 -->
@@ -416,25 +439,30 @@
 				<div class="shadow-sm p-3 mb-2 bg-light rounded ">
 					<div class="form-group col-3">
 						<div class="input-group mb-3 btn-group dropend">
-							  <!-- 첨부파일 -->
-						      <c:if test="${!empty fvo}">
-								    <button class="form-control" id="upFile" type="button" data-bs-toggle="dropdown" >첨부파일</button>
-								    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink" id="upFileList">
-								    	<c:forEach var="file" items="${fvo}">
-								    		<c:set var="filesize" value="${file.fileSize }" />
-								            <li><a class="dropdown-item" href="<c:url value = '/electronic/download?fileNo=${file.fileNo }'/>" ><i class="fas fa-save"></i>&nbsp;&nbsp; ${file.fileOriginalname}</a></li>
-							            </c:forEach>
-							        </ul>
-						        </c:if>
-						        
-							    <c:if test="${empty fvo }">
-							    	<div id="borderDiv"></div>
-						        </c:if>
-												
+							<!-- 첨부파일 -->
+							<c:if test="${!empty fvo}">
+								<button class="form-control" id="upFile" type="button"
+									data-bs-toggle="dropdown">첨부파일</button>
+								<ul class="dropdown-menu dropdown-menu-lg-end"
+									aria-labelledby="dropdownMenuLink" id="upFileList">
+									<c:forEach var="file" items="${fvo}">
+										<c:set var="filesize" value="${file.fileSize }" />
+										<li><a class="dropdown-item"
+											href="<c:url value = '/electronic/download?fileNo=${file.fileNo }'/>"><i
+												class="fas fa-save"></i>&nbsp;&nbsp;
+												${file.fileOriginalname}</a></li>
+									</c:forEach>
+								</ul>
+							</c:if>
+
+							<c:if test="${empty fvo }">
+								<div id="borderDiv"></div>
+							</c:if>
+
 						</div>
-						
-						
-						
+
+
+
 					</div>
 					<br>
 					<div class="form-row" style="justify-content: center;">
@@ -463,10 +491,10 @@
 							<c:if test="${param.no eq '1'}">
 								<button type="button" id="ok"
 									class="btn btn-light btn-outline-secondary">승인</button>
-								<button type="button"
-									class="btn btn-light btn-outline-secondary cancel">보류</button>
 								<button type="button" id="return"
 									class="btn btn-light btn-outline-secondary">반려</button>
+								<button type="button"
+									class="btn btn-light btn-outline-secondary cancel">뒤로가기</button>
 							</c:if>
 
 							<!-- 반려 문서일때 -->

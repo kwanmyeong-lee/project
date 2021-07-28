@@ -8,6 +8,11 @@
 					open('<c:url value="/electronic/documentSelect"/>',
 							'documentSelect', 'width=800,height=500');
 				});
+		
+		$('#insertStamp').click(function(){
+			open('<c:url value="/electronic/insertStamp"/>',
+					'documentSelect', 'width=800,height=500');
+		});
 	});
 	
 	function pageProc(curPage){

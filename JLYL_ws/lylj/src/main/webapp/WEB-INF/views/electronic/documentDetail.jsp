@@ -18,6 +18,11 @@
 	src="<c:url value = "/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
 <script type="text/javascript">
 	$(function() {
+		window.onload = function() {
+		$('table input[type=text]').prop('disabled', 'disabled');
+		$('table input[type=text]').prop('style',
+				' border : 0; background : white');
+		}
 		var styNo = $('#styleNo').val();
 		$('#ok')
 				.click(

@@ -24,8 +24,8 @@
 				createJSTree(json);
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
-				alert(xhr.status);
-				alert(thrownError);
+				console.log("문서선택에서 오류");
+				
 			}
 		});
 		$('#input-select-node').keyup(function() {
