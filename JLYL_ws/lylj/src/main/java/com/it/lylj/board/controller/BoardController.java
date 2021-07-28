@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,8 @@ import com.it.lylj.boardFile.model.BoardFileService;
 import com.it.lylj.boardFile.model.BoardFileVO;
 import com.it.lylj.boardFol.model.BoardFolService;
 import com.it.lylj.boardFol.model.BoardFolVO;
+import com.it.lylj.boardLike.model.BoardLikeService;
+import com.it.lylj.boardLike.model.BoardLikeVO;
 import com.it.lylj.common.ConstUtil;
 import com.it.lylj.common.FileUploadUtil;
 import com.it.lylj.common.PaginationInfo;
@@ -46,6 +49,7 @@ public class BoardController {
 	private final BoardFolService boardFolService;
 	private final BoardFileService boardFileService;
 	private final BoardCommentService boardCommentService;
+	private final BoardLikeService boardLikeService;
 	
 	/*        메인        */
 	@RequestMapping("/boardMain")
@@ -127,7 +131,7 @@ public class BoardController {
 				int file = boardFileService.insertFile(fileVo);
 				logger.info("file={}", file);
 			}//if
-		}//fot
+		}//for
 
 		String msg="등록을 실패하였습니다.", url="/board/boardMain";
 		if(cnt==0) {
@@ -211,8 +215,9 @@ public class BoardController {
 	
 	@RequestMapping("/boardDetail")
 	public String detail(@RequestParam(defaultValue = "0")int boardNo,
-			HttpServletRequest request ,Model model) {
+			HttpServletRequest request , HttpSession session, Model model) {
 		logger.info("게시판 상세보기 페이지, 파라미터 boardNo={}", boardNo);
+		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		
 		BoardVO vo = boardService.selectByNo(boardNo);
 		logger.info("글 상세보기 조회, vo={}", vo);
@@ -223,6 +228,12 @@ public class BoardController {
 		List<BoardCommentVO> commList = boardCommentService.selectByNo(boardNo);
 		logger.info("댓글 목록 조회, commList={}", commList);
 		
+		BoardLikeVO likeVo = new BoardLikeVO();
+		likeVo.setBoardNo(boardNo);
+		likeVo.setEmpNo(empNo);
+		int selectByEmpNo = boardLikeService.selectByEmpNo(likeVo);
+		
+		int likeCnt = boardLikeService.selectLike(boardNo);
 
 		/* top 게시판 폴더 list 처리 */
 		List<BoardFolVO> otherFolder=boardFolService.otherFolder();
@@ -231,6 +242,8 @@ public class BoardController {
 		model.addAttribute("fileVo", fileVo);
 		model.addAttribute("commList", commList);
 		model.addAttribute("otherFolder", otherFolder);
+		model.addAttribute("selectByEmpNo", selectByEmpNo);
+		model.addAttribute("likeCnt", likeCnt);
 		model.addAttribute("navNo",6);
 
 		return "board/boardDetail";
@@ -287,18 +300,56 @@ public class BoardController {
 		/* top 게시판 폴더 list 처리 */
 		List<BoardFolVO> otherFolder=boardFolService.otherFolder();
 		
+		/* 파일리스트 가져오기 */
+		List<BoardFileVO> fileList = boardFileService.selectByNo(boardNo);
+		
 		model.addAttribute("boFol", boFol);
 		model.addAttribute("vo", vo);
 		model.addAttribute("otherFolder", otherFolder);
+		model.addAttribute("fileList", fileList);
 		model.addAttribute("navNo",6);
 
 		return "board/boardEdit";
 	}
 	
 	@PostMapping("/boardEdit")
-	public String edit_post(@ModelAttribute BoardVO vo,Model model) {
+	public String edit_post(@RequestParam(defaultValue = "0")int boardNo, @ModelAttribute BoardVO vo, @ModelAttribute BoardFileVO fileVo, 
+			MultipartHttpServletRequest request, Model model) {
 		logger.info("게시판 글 수정 처리, 파라미터 vo={}", vo);
 		
+		/* 기존 첨부파일 삭제 */
+		boardFileService.deleteFile(boardNo);
+		
+		/* 파일 업로드 처리*/
+		String fileName="", originalFileName="";
+		long fileSize=0;
+		
+		List<MultipartFile> fileList = request.getFiles("upfile");
+		logger.info("fileList={}", fileList);
+		for(MultipartFile mf : fileList) {
+			if(mf.getOriginalFilename() != "") {
+				originalFileName = mf.getOriginalFilename();
+				fileSize = mf.getSize();
+				fileName = FileUploadUtil.getUniqueFileName(mf.getOriginalFilename());
+				
+				try {
+					mf.transferTo(new File(ConstUtil.BOARD_UPLOAD_PATH_TEST+"\\"+fileName));
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+				
+				logger.info("파일 업로드 성공, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName, fileSize);
+				fileVo.setBoardNo(vo.getBoardNo());
+				fileVo.setFileName(fileName);
+				fileVo.setOriginalFileName(originalFileName);
+				fileVo.setFileSize(fileSize);
+				logger.info("fileVo={}", fileVo);
+				
+				int file = boardFileService.insertFile(fileVo);
+				logger.info("file={}", file);
+			}//if
+		}//for
+
 		int cnt = boardService.updateBoard(vo);
 		logger.info("게시판 글 수정 처리 결과, cnt={}", cnt);
 		

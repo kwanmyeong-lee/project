@@ -20,6 +20,11 @@
 		SELECT * FROM ofboardfile
 		WHERE BOARD_FILE_NO=#{boardFileNo}
 	</select>
+	
+	<delete id="deleteFile" parameterType="int">
+		DELETE ofboardfile
+		WHERE BOARD_NO=#{boardNo}
+	</delete>
 </mapper>
 
 
