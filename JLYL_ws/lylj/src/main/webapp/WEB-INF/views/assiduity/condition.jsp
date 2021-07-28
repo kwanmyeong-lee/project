@@ -17,9 +17,10 @@
 <script src='<c:url value="/resources/js/assiduity/condition.js"/>'></script>
 
 <title>assiduitygMain</title>
-<div>
-	<article>
-		<h3>근태현황</h3>
+<div class="container-fluid ">
+		<h3 class="h3 mb-4 text-gray-800">근태현황</h3>
+	<article class="consDiv shadow">
+		<br>
 		<input type="hidden" id="departmentNoHidden" value="${departmentNo }">
 		<div class="now-div text-center">
 			<span class="now-span" id="nowLeft1"><i
@@ -30,7 +31,7 @@
 				class="now-span" id="todayYearMonth1">오늘</span>
 		</div>
 
-
+		<div id="cons-div">
 		<div>
 			<ul id="ulCol">
 				<li id="liCol2">지각</li>
@@ -186,7 +187,8 @@
 				</tbody>
 			</table>
 		</div>
-
+	</div>
+	<br>
 	</article>
 </div>
 <%@ include file="../inc/bottom.jsp"%>

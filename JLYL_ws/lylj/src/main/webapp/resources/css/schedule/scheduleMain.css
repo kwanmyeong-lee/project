@@ -119,5 +119,12 @@
 	color:blue;
 }
 
-
-
+.consDiv{
+	background-color: white;
+	border-radius: .35rem!important;
+	margin-bottom: 10px;
+}
+.head-div{
+	max-width: 78%;
+	margin: 0 auto;
+}

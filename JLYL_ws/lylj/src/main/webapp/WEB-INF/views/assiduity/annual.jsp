@@ -6,7 +6,6 @@
 <%@ include file="../inc/top.jsp"%>
 
 <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
-<script src='//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <!-- 팝업 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -19,9 +18,10 @@
 <script src='<c:url value="/resources/js/assiduity/top.js"/>'></script>
 <script src='<c:url value="/resources/js/assiduity/annual.js"/>'></script>
         <title>assiduitygMain</title>
-        <div>
-            <article>
-               <h3>내 연차 내역</h3>
+        <div class="container-fluid">
+               <h3 class="h3 mb-4 text-gray-800">내 연차 내역</h3>
+            <article class="consDiv shadow">
+            <hr>
                <input type="hidden" id="empNoHidden" value="${empNo}">
                <input type="hidden" id="departmentNameHidden" value="${empVo.departmentName}">
                <div class="now-div text-center">

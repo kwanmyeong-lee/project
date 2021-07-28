@@ -20,13 +20,12 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
-<div >
-<article>
-
+<div class="container-fluid">
+	<h1 id="hWrite" class="h3 mb-4 text-gray-800">일정등록</h1>
+<article class="container-fluid consDiv shadow">
+<br>
 <div>
-	<h1 id="hWrite">일정등록</h1>
 	<input type="hidden" id="empNo" value="${sessionScope.empNo }">
-	<hr>
 </div>
 
 <div>
@@ -92,6 +91,7 @@
         	<button type="button" class="btn btn-info" id="btWrite">확인</button>
         	<button type="button" class="btn btn-secondary" id="cancle" >취소</button>
         	</div>
+        	<br>
         </form>
       </div>
 </article>

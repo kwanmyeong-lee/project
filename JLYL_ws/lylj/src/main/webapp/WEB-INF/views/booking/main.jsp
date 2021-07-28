@@ -29,10 +29,11 @@
 	rel="stylesheet" type="text/css">
 
         <title>bookingMain</title>
-        <div>
-            <article>
+        <div class="container-fluid ">
+                    <h3 class="h3 mb-4 text-gray-800">자산 예약 현황</h3>
+            <article class="consDiv shadow">
+            <br>
                 <div class="main-div">
-                    <h3 class="main-h1">자산 예약 현황</h3>
                     
                     <br>
                     <br>
@@ -60,7 +61,7 @@
                             <tbody>
 								<c:if test="${fn:length(bookingList) <1 }">
 	                                <tr>
-	                                    <td align="center" colspan="4">예약/대여 중인 항목이 없습니다.</td>
+	                                    <td align="center" colspan="5">예약/대여 중인 항목이 없습니다.</td>
 	                                </tr>
                                 </c:if>
                                 <c:if test="${fn:length(bookingList) >0 }">
@@ -87,6 +88,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <br>
                 </article>
             </div>
             <%@ include file="../inc/bottom.jsp"%>

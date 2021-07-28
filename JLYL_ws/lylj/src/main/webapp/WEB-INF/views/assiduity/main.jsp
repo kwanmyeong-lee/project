@@ -17,9 +17,11 @@
 <script src='<c:url value="/resources/js/assiduity/main.js"/>'></script>
 
         <title>assiduitygMain</title>
-        <div>
+        <div class="container-fluid">
+               <h3 class="h3 mb-4 text-gray-800">근태현황</h3>
+        <div class="container-fluid consDiv shadow">
+        <br>
             <article>
-               <h3>근태현황</h3>
                <input type="hidden" class="empNo" value="${empNo }">
 			   <input type="hidden" class="empName" value="${empName }">
 			   
@@ -216,6 +218,8 @@
   </c:forEach>
 </div>
 <input type="hidden"  id="exNum" value="${attendMonthList.size()}">
+<br>
             </article>
+        </div>
         </div>
             <%@ include file="../inc/bottom.jsp"%>

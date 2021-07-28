@@ -73,6 +73,10 @@
 .fc-scrollgrid-sync-table > tbody> tr > td:nth-child(7) .fc-daygrid-day-number{
 	color:blue;
 }
-
+.consDiv{
+	background-color: white;
+	border-radius: .35rem!important;
+	margin-bottom: 10px;
+}
 
 
