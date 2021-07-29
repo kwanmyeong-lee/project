@@ -18,7 +18,7 @@
 
 	<select id="selectByEmpNo" parameterType="int" resultType="ElectronicAppStampVo">
 		select * from APPSTAMP
-		where EMP_NO = ${empNo}
+		where EMP_NO = #{empNo}
 	
 	</select>
 

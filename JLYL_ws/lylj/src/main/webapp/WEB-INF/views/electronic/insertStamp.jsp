@@ -38,8 +38,9 @@
 		});
 		
 		if($('#returnCnt').val() == 1){
-			
+			self.close();
 		}
+		
 	});
 	
 </script>
