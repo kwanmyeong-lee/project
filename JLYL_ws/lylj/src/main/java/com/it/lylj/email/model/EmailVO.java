@@ -21,12 +21,11 @@ public class EmailVO {
 	private Timestamp mailSenddate;
 	private String mailTempsave;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Timestamp mailReaddate; 
+	private Timestamp mailReaddate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private	Timestamp mailReserve;
+	private	Date mailReserve;
 	private String mailDelCheck;     
 	int mailEmpno;		    //EMPNO
 	private String empName;
 	private String mailImportant;
-	private int originMailNo;
 }

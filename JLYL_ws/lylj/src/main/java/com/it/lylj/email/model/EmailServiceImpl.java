@@ -113,6 +113,20 @@ public class EmailServiceImpl implements EmailService{
 	}
 
 	@Override
+	@Transactional
+	public int updateMultiReadDate(List<EmailVO> list) {
+		int cnt = 0;
+		for(EmailVO vo : list) {
+			int mailNo = vo.getMailNo();
+			
+			if(mailNo!=0) {
+				cnt=emailDao.updateReadDate(mailNo);
+			}
+		}
+		return cnt;
+	}
+	
+	@Override
 	public int updateReadDate(int mailNo) {
 		return emailDao.updateReadDate(mailNo);
 	}
@@ -151,6 +165,8 @@ public class EmailServiceImpl implements EmailService{
 	public List<EmailVO> selectReserve(String empNo) {
 		return emailDao.selectReserve(empNo);
 	}
+
+
 
 
 	

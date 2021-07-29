@@ -316,7 +316,6 @@ public class EmpController {
 		List<EmpVO> list = empService.selectSearchNum(searchNo);
 		return list;
 	}
-
 }
 
 
