@@ -244,7 +244,7 @@
 	
 	<update id="updateEle" parameterType="ElectronicVo">
 		update elimp
-		set ELECTRONIC_TITLE = #{electronicTitle}, ELECTRONIC_CONTENT= #{electronicContent}, ELECTRONIC_FILE_FLAG = ${electronicFileFlag}, ELECTRONIC_EMERGENCY_FLAG= #{electronicEmergencyFlag}, ELECTRONIC_DRAFT= #{electronicDraft}
+		set ELECTRONIC_TITLE = #{electronicTitle}, ELECTRONIC_CONTENT= #{electronicContent}, ELECTRONIC_FILE_FLAG = #{electronicFileFlag}, ELECTRONIC_EMERGENCY_FLAG= #{electronicEmergencyFlag}, ELECTRONIC_DRAFT= #{electronicDraft}
 		where ELECTRONIC_NO = #{electronicNo}
 	</update>
 	
