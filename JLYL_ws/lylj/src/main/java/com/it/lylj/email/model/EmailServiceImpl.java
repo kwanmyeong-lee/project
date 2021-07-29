@@ -39,7 +39,6 @@ public class EmailServiceImpl implements EmailService{
 		return emailDao.selectByMailNo(mailNo);
 	}
 
-
 	@Override
 	public List<Map<String, Object>> selectListByType(SearchVO searchVo, int type) {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
@@ -114,6 +113,20 @@ public class EmailServiceImpl implements EmailService{
 	}
 
 	@Override
+	@Transactional
+	public int updateMultiReadDate(List<EmailVO> list) {
+		int cnt = 0;
+		for(EmailVO vo : list) {
+			int mailNo = vo.getMailNo();
+			
+			if(mailNo!=0) {
+				cnt=emailDao.updateReadDate(mailNo);
+			}
+		}
+		return cnt;
+	}
+	
+	@Override
 	public int updateReadDate(int mailNo) {
 		return emailDao.updateReadDate(mailNo);
 	}
@@ -132,5 +145,29 @@ public class EmailServiceImpl implements EmailService{
 	public int updateNotReadDate(int mailNo) {
 		return emailDao.updateNotReadDate(mailNo);
 	}
+
+	@Override
+	public List<EmailVO> selectNotRead(String empNo) {
+		return emailDao.selectNotRead(empNo);
+	}
+
+	@Override
+	public List<EmailVO> selectImportant(String empNo) {
+		return emailDao.selectImportant(empNo);
+	}
+
+	@Override
+	public List<EmailVO> selectTempSave(String empNo) {
+		return emailDao.selectTempSave(empNo);
+	}
+
+	@Override
+	public List<EmailVO> selectReserve(String empNo) {
+		return emailDao.selectReserve(empNo);
+	}
+
+
+
+
 	
 }

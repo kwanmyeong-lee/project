@@ -59,6 +59,7 @@ public class IndexController {
 		logger.info("메인페이지");
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		
+		EmpVO empVO = empService.selectByEmpNo(empNo);
 		List<ElectronicVo> elist = eleService.selectUpdateToday(empNo);
 		List<BookingVO> bookingList2 = bookingService.selectAllBookingViewByEmpNo(empNo);
 		List<BookingVO> bookingList = new ArrayList<BookingVO>();
@@ -97,6 +98,7 @@ public class IndexController {
 		model.addAttribute("bookingList", bookingList);
 		model.addAttribute("todayScheduleCnt", todayScheduleCnt);
 		model.addAttribute("attendDayVO", attendDayVO);
+		model.addAttribute("empVO", empVO);
 	}
 	
 	@RequestMapping("/admin")

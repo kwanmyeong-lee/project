@@ -50,7 +50,7 @@
 	</select>
 	
 	<select id="selectBoardMain" parameterType="int" resultType="boardVo">
-		SELECT * FROM ofboard
+		SELECT bo.*, (sysdate - board_date)*24 as newImgTerm FROM ofboard bo
 		WHERE board_folder_no=#{boardFolderNo}
 		<include refid="rowNum"></include>
 		ORDER BY board_no desc

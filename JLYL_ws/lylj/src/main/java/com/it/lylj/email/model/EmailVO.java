@@ -21,7 +21,7 @@ public class EmailVO {
 	private Timestamp mailSenddate;
 	private String mailTempsave;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Timestamp mailReaddate; 
+	private Timestamp mailReaddate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private	Date mailReserve;
 	private String mailDelCheck;     

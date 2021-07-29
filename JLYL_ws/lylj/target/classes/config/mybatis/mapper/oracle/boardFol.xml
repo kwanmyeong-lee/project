@@ -13,6 +13,7 @@
 	
 	<select id="selectBoardFol" resultType="boardFolVo">
 		SELECT * FROM ofboardfol
+		ORDER BY BOARD_FOLDER_NO
 	</select>
 	
 	<update id="updateBoardFol" parameterType="boardFolVo">
@@ -22,7 +23,7 @@
 	</update>
 	
 	<delete id="deleteBoardFol" parameterType="int">
-		DELETE ofboardfol CASCADE CONSTRAINTS
+		DELETE ofboardfol
 		WHERE BOARD_FOLDER_NO=#{boardFolderNo}
 	</delete>
 	

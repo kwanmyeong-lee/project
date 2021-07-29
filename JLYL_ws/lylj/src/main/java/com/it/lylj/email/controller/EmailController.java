@@ -1,11 +1,16 @@
 package com.it.lylj.email.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -46,8 +52,24 @@ public class EmailController {
 	
 	/* 이메일메인페이지 */
 	@RequestMapping("/emailMain")
-	public void emailMain(Model model) {
+	public void emailMain(SearchVO searchVo, HttpSession session ,Model model) {
 		logger.info("이메일메인페이지");
+		String empNo = (String)session.getAttribute("empNo");
+		searchVo.setEmpNo(empNo);
+		List<EmailVO> nrMailList = emailService.selectNotRead(empNo);
+		List<EmailVO> itMailList = emailService.selectImportant(empNo);
+		List<EmailVO> tpMailList = emailService.selectTempSave(empNo);
+		List<EmailVO> rvMailList = emailService.selectReserve(empNo);
+		
+		logger.info("nrMailList={}",nrMailList);
+		logger.info("itMailList={}",itMailList);
+		logger.info("tpMailList={}",tpMailList);
+		logger.info("rvMailList={}",rvMailList);
+		
+		model.addAttribute("nrMailList", nrMailList);
+		model.addAttribute("itMailList", itMailList);
+		model.addAttribute("tpMailList", tpMailList);
+		model.addAttribute("rvMailList", rvMailList);
 		model.addAttribute("navNo", 2);
 	}
 	
@@ -69,6 +91,7 @@ public class EmailController {
 		//리스트 
 		List<Map<String, Object>> list = emailService.selectListByType(searchVo,type);
 		logger.info("이메일목록, list.size()={}", list.size());
+		
 		
 		int totalRecord = emailService.totalRecordByType(Integer.toString(empNo),type);
 		logger.info("empNo={} ,totalRecord={}",empNo,totalRecord);
@@ -94,7 +117,9 @@ public class EmailController {
 		   model.addAttribute("reEmailVo", reEmailVo);
 		}else if(type.equals("fw")) {
 			EmailVO fwEmailVo= emailService.selectByMailNo(mailNo);
+			List<EmailFileVO> fwEmailFileList = emailFileService.selectFileByMailNo(mailNo);
 			model.addAttribute("fwEmailVo", fwEmailVo);
+			model.addAttribute("fwEmailFileList", fwEmailFileList);
 		}
 		
 		if(empNo!=0) {
@@ -188,25 +213,67 @@ public class EmailController {
 	@RequestMapping("/emailDetail")
 	public String emailDetail(@RequestParam(defaultValue = "0") int mailNo ,Model model) {
 		logger.info("이메일 상세보기, 파라미터 mailNo={}",mailNo);
-		
 		//메일내용선택
 		EmailVO emailVo = emailService.selectByMailNo(mailNo);
+		logger.info("선택된 메일, emailVo={}",emailVo);
 		//메일에 저장된 파일선택
-		List<EmailFileVO> emailFileVo =emailFileService.selectFileByMailNo(mailNo);
+		List<EmailFileVO> emailFileList =emailFileService.selectFileByMailNo(mailNo);
 		
 		model.addAttribute("emailVo", emailVo);
-		model.addAttribute("emailVo", emailFileVo);
+		model.addAttribute("emailFileList", emailFileList);
 		model.addAttribute("navNo", 2);
 		
 		return "email/emailDetail";
 	}
 	
+	/* 파일다운로드 */
+	@RequestMapping("/mailFileDown")
+	public void emailFileDown(@RequestParam(defaultValue = "0") int fileNo, @RequestParam String fileOriginName, 
+			  HttpServletResponse response, Model model) throws Exception {
+		logger.info("파일 다운로드, fileNo={}, fileOriginName={}", fileNo, fileOriginName);
+		
+		// 파일선택
+		EmailFileVO fileVo = emailFileService.selectFileByFileNo(fileNo);
+		
+		String fileName = fileVo.getFileOriginName();
+		String savedFileName = fileVo.getFileName();
+		String filePath = ConstUtil.EMAIL_UPLOAD_PATH_REAL+"\\";
+		
+		response.setHeader("Content-Disposition",
+				"attachment; filename=\"" + URLEncoder.encode(fileName, "UTF-8") + "\"");
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.setHeader("Content-Type", "application/octet-stream");
+		response.setHeader("Pragma", "no-cache;");
+		response.setHeader("Expires", "-1;");
+
+		OutputStream os = response.getOutputStream();
+		FileInputStream fis = new FileInputStream(filePath + savedFileName);
+
+		int readCount = 0;
+		byte[] buffer = new byte[1024];
+
+		while ((readCount = fis.read(buffer)) != -1) {
+			os.write(buffer, 0, readCount);
+		}
+		fis.close();
+		os.close();
+		
+	}
+	
 	/* 미리보기 페이지 */
 	@RequestMapping("/emailPreview")
-	public String emailPreview(@ModelAttribute EmailVO vo
-			, Model model) {
-		logger.info("vo={}",vo);
+	public String emailPreview(String mailTitle, String mailTake, String mailContent, HttpSession session, Model model) {
+		String empNo = (String)session.getAttribute("empNo");
+		EmailVO vo = new EmailVO();
+		
+		vo.setMailEmpno(Integer.parseInt(empNo));
+		vo.setMailTake(mailTake);
+		vo.setMailTitle(mailTitle);
+		vo.setMailContent(mailContent);
+		logger.info("셋팅된 미리보기, vo={}",vo);
+		
 		model.addAttribute("vo", vo);
+		
 		return "email/emailPreview";
 	}
 	
@@ -239,10 +306,10 @@ public class EmailController {
 	
 	/* 메일 다중 완전 삭제 */
 	@RequestMapping("/emailMultiCompleteDel")
-	public String emailMultiCompleteDel(@ModelAttribute EmailListVO listVo, HttpServletRequest request, HttpSession session, Model model) {
+	public String emailMultiCompleteDel(@ModelAttribute EmailListVO listVo, Model model) {
 		logger.info("메일 선택 삭제, listVo={}",listVo);
-		String empNo = (String)session.getAttribute("empNo");
 		List<EmailVO> list = listVo.getSelectedEmail();
+		logger.info("list.size()={}",list.size());
 		
 		for(int i=0; i<list.size(); i++) {
 			EmailVO emailVo = list.get(i);
@@ -274,6 +341,24 @@ public class EmailController {
 		return "redirect:/email/emailDetail?mailNo="+mailNo;
 		
 	}
+	
+	/* 다중 이메일 읽음처리 */
+	@RequestMapping("/emailMultiRead")
+	public String emailMultiRead(@ModelAttribute EmailListVO listVo, HttpSession session,@RequestParam(defaultValue = "0")int type, Model model) {
+		logger.info("다중읽음처리, mailNo={}",listVo);
+		String empNo = (String)session.getAttribute("empNo");
+		
+		List<EmailVO> list = listVo.getSelectedEmail();
+		logger.info("다중읽음처리, list.size()={}",list.size());
+		
+		int cnt = emailService.updateMultiReadDate(list);
+		logger.info("다중읽음처리결과, cnt={}",cnt);
+		
+		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
+		
+	}
+	
+	
 	@RequestMapping("/importantEmail")
 	public String updateInportantMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
 		logger.info("중요메일, mailNo={}",mailNo);

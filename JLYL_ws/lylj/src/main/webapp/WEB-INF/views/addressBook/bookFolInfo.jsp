@@ -44,6 +44,7 @@
 			$('#folEditFrm').attr("action","<c:url value='/bookFolInfo/delete'/>").submit();
 		});
 		
+		/* 확인 버튼 */
 		$('#selectBtn').click(function(){
 			opener.document.location.reload();
 			self.close();

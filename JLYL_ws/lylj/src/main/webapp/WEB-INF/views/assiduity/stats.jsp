@@ -98,13 +98,12 @@
 	               		<button type="button" class="btn btn-light box-cancle">취소</button>
                		</div>
                
+             	<button  class="btn btn-outline-success" type="button" id="xlsDown" >엑셀 다운</button>
                		<P id="pDataCheck">데이터 있습니다</P>
                		
                		
                
                </div>
-               
-               
                
                <br>
                <br>

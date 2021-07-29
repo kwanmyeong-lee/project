@@ -26,4 +26,9 @@ public class BoardFileServiceImpl implements BoardFileService{
 		return boardFileDao.selectByFileNo(boardFileNo);
 	}
 
+	@Override
+	public int deleteFile(int boardNo) {
+		return boardFileDao.deleteFile(boardNo);
+	}
+
 }

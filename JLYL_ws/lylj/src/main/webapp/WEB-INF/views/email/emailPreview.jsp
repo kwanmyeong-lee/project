@@ -40,7 +40,7 @@
 				<div class="form-group firstFrm row">
 			    	<label for="mailTake" class="col-sm-1 control-label">보낸사람</label>
 			    	<div class="col-sm-11">
-                        <input type="text" class="form-control select2-offscreen textBox" id="mailsend" name="mailsend" tabindex="-1" readonly="readonly" value="${vo.mailSend}">
+                        <input type="text" class="form-control select2-offscreen textBox" id="mailsend" name="mailsend" tabindex="-1" readonly="readonly" value="${vo.mailEmpno}">
 					</div>                        
 			    </div>
 				<div class="form-group firstFrm row">
@@ -55,36 +55,13 @@
                          <input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" readonly="readonly" value="${vo.mailTitle }">
 			    	</div>
 			  	</div>
-			   
-          <!-- 	<form class="form-horizontal writefrm" id="emailFileFrm" name="emailFileFrm" method="post"> 
-				  	<div class="form-group row">
-				    	<label for="uploadFile" class="col-sm-1 control-label">파일첨부:</label>
-				    	<div class="col-sm-11">
-							<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-							   <i class="far fa-file"></i>
-							</button>
-						</div>
-						<br><br>
-						<div class="collapse form-control select2-offscreen fileBox" id="collapseExample">
-		                      <div id="dropZone">
-		                      	<span id="dropZoneSpan" >파일을 드래그 하세요.</span>
-						      	<p id="fileDiv"></p>
-		                      </div>
-						</div>
-				  	</div>
-				</form> -->
 					<div class="form-group">
 						<label for="summernote" class="col-sm-1 control-label">내용:</label>
 						<div class="form-control message" name="mailContent" id="mailContent" readonly="readonly">${vo.mailContent }</div>
 					</div>
-				  <!--   <div class="form-group row">
-				    	<div class="col-sm-11 row" id="setDate" >
-					    	<span>전송시간 : </span> 
-					   </div>
-				  	</div> -->
-			<div class="form-group align_center">	
-				<button type="button" class="btn btn-secondary" id="bt_confirm" onclick="self.close()">확인</button>
-			</div>
+				<div class="form-group align_center">	
+					<button type="button" class="btn btn-secondary" id="bt_confirm" onclick="self.close()">확인</button>
+				</div>
 		</div>	
 </div>
 </body>

@@ -21,14 +21,14 @@
 		<a href="<c:url value='/board/boardList?boardFolderNo=1'/>"><div class="moreBtn">더보기</div></a> 
 		<table>
 		    <colgroup>
-		       <col style="width:20%;" />
 		       <col style="width:70%;" />
+		       <col style="width:20%;" />
 		       <col style="width:10%;" />
 		    </colgroup>
 	        <thead>
 			    <tr id="thStyle">
-		            <th>작성자</th>
 		            <th>제목</th>
+		            <th>작성자</th>
 		            <th>작성일</th>
 			    </tr>
 	        </thead>
@@ -41,14 +41,18 @@
 	        	<c:if test="${!empty noticeList }">
 	        	<c:forEach var="vo" items="${noticeList}">
 				    <tr id="tdStyle">
-			            <td class="userNameTd">${vo.boardWriter }</td>
 			            <td>
-			            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;">${vo.boardTitle }</a> 
-			            	<div class="commCnt2">[${vo.commentCnt }]</div>
-			            	<span class="newSpan">new</span>
+			            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
+			            	<c:if test="${vo.commentCnt > 0}">
+			            		<div class="commCnt2">[${vo.commentCnt }]</div>
+			            	</c:if>
+			            	<c:if test="${vo.newImgTerm<24}">
+			            		<span class="newSpan">new</span>
+			            	</c:if>
 			            </td>
+			            <td class="userNameTd">${vo.boardWriter }</td>
 			            <td class="regdateTd"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd"/></td>
-              </tr>
+	                </tr>
 			    </c:forEach>
 			    </c:if>
 	        </tbody>
@@ -61,13 +65,13 @@
 			<a href="<c:url value='/board/boardList?boardFolderNo=2'/>"><div class="moreBtn">더보기</div></a>
 			<table>
 			    <colgroup>
-			       <col style="width:20%;" />
 			       <col style="width:70%;" />
+			       <col style="width:20%;" />
 			    </colgroup>
 		        <thead>
 				    <tr id="thStyle">
-			            <th>작성자</th>
 			            <th>제목</th>
+			            <th>작성자</th>
 				    </tr>
 		        </thead>
 		        <tbody>
@@ -79,12 +83,16 @@
 		        	<c:if test="${!empty referenceList }">
 				        <c:forEach var="vo" items="${referenceList }">
 						    <tr id="tdStyle">
-					            <td class="userNameTd">${vo.boardWriter }</td>
 					            <td>
-					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;">${vo.boardTitle }</a> 
-					            	<span class="commCnt2">[${vo.commentCnt }]</span>
-					            	<span class="newSpan">new</span>
+					            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
+					            	<c:if test="${vo.commentCnt > 0}">
+					            		<span class="commCnt2">[${vo.commentCnt }]</span>
+					            	</c:if>
+					            	<c:if test="${vo.newImgTerm<24}">
+					            		<span class="newSpan">new</span>
+					            	</c:if>
 					            </td>
+					            <td class="userNameTd">${vo.boardWriter }</td>
 						    </tr>
 					    </c:forEach>
 				    </c:if>
@@ -97,13 +105,13 @@
 			<a href="<c:url value='/board/boardList?boardFolderNo=3'/>"><div class="moreBtn">더보기</div></a>
 			<table>
 			    <colgroup>
-			       <col style="width:20%;" />
 			       <col style="width:70%;" />
+			       <col style="width:20%;" />
 			    </colgroup>
 		        <thead>
 				    <tr id="thStyle">
-			            <th>작성자</th>
 			            <th>제목</th>
+			            <th>작성자</th>
 				    </tr>
 		        </thead>
 		        <tbody>
@@ -115,12 +123,16 @@
 		        	<c:if test="${!empty communityList }">
 				        <c:forEach var="vo" items="${communityList }">
 						    <tr id="tdStyle">
-					            <td class="userNameTd">${vo.boardWriter }</td>
 					            <td>
-					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;">${vo.boardTitle }</a> 
-					            	<div class="commCnt2">[${vo.commentCnt }]</div>
-					            	<span class="newSpan">new</span>
+					            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>"class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
+					            	<c:if test="${vo.commentCnt > 0}">
+					            		<div class="commCnt2">[${vo.commentCnt }]</div>
+					            	</c:if>
+					            	<c:if test="${vo.newImgTerm<24}">
+					            		<span class="newSpan">new</span>
+					            	</c:if>
 					            </td>
+					            <td class="userNameTd">${vo.boardWriter }</td>
 						    </tr>
 					    </c:forEach>
 				    </c:if>

@@ -42,7 +42,7 @@
 
 	
 <!-- 달력 Modal -->
-<div class="modal" id="myModal" data-bs-backdrop="static">
+<div class="modal fade" id="myModal" data-bs-backdrop="static">
   <div class="modal-dialog ">
     <div class="modal-content">
 
@@ -111,7 +111,7 @@
 </div>
 
 <!-- 상세 Modal -->
-<div class="modal" id="myDetailModal" data-bs-backdrop="static">
+<div class="modal fade" id="myDetailModal" data-bs-backdrop="static">
   <div class="modal-dialog ">
     <div class="modal-content">
 
