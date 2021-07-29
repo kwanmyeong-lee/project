@@ -36,4 +36,10 @@ public interface EmailDAO {
 	int updateInportant(int mailNo);
 	int updateNotInportant(int mailNo);
 	
+	// 메인에 뿌려주기
+	List<EmailVO> selectNotRead(String empNo);
+	List<EmailVO> selectImportant(String empNo);
+	List<EmailVO> selectTempSave(String empNo);
+	List<EmailVO> selectReserve(String empNo);
+	
 }

@@ -58,6 +58,7 @@ public class AssiduityController {
 	@GetMapping("/insertComTime")
 	@ResponseBody
 	public int insertComTime(AttendDayVO vo){
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		attendDayService.insertAttendDay(vo);
 		
