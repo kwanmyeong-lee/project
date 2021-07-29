@@ -231,8 +231,8 @@ thead tr th{
 												</td>
 												<td class="typeSubject"><a href="<c:url value="/email/emailRead?mailNo=${map['MAIL_NO']}"/>" id="readMail">${map['MAIL_TITLE']} </a></td>
 												<td class="typeTime">
-												    <c:if test="${param.type eq '4'}"><fmt:formatDate value="${map['MAIL_RESERVE'] }" pattern="yyyy-MM-dd HH:mm:ss"/></c:if>
-												    <c:if test="${param.type ne '4'}"><fmt:formatDate value="${map['MAIL_SENDDATE'] }" pattern="yyyy-MM-dd HH:mm:ss"/></c:if>
+												    <c:if test="${param.type eq '4'}"><fmt:formatDate value="${map['MAIL_RESERVE'] }" pattern="yyyy-MM-dd HH:mm"/></c:if>
+												    <c:if test="${param.type ne '4'}"><fmt:formatDate value="${map['MAIL_SENDDATE'] }" pattern="yyyy-MM-dd HH:mm"/></c:if>
 												</td>
 											</tr>
 										</c:forEach>
@@ -243,7 +243,7 @@ thead tr th{
 							</div>
 						</form>
 						<!-- 페이징 form  -->
-						<form action="<c:url value='/email/emailList?empNo=${sessionScope.empNo }'/>" 
+						<form action="<c:url value='/email/emailList?empNo=${sessionScope.empNo }&type=${param.type}'/>" 
 							name="frmPage" method="post">
 							<span><input type="hidden" name="currentPage">
 							<input type="hidden" name="searchCondition" value="${param.searchCondition}">

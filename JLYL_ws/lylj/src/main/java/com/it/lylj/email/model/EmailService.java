@@ -18,6 +18,7 @@ public interface EmailService {
 	int sendEmail(EmailVO vo);
 	String splitName(String taker);
 	List<Map<String, Object>> selectListByType(SearchVO searchVo, int type);
+	//메인
 	EmailVO selectByMailNo(int mailNo);
 	int totalRecordByType(String taker, int type);
 	int deleteCheckMulti(List<EmailVO> list);
@@ -26,4 +27,10 @@ public interface EmailService {
 	int updateInportant(int mailNo);
 	int updateNotInportant(int mailNo);
 	int updateNotReadDate(int mailNo);
+	
+	// 메인에 뿌려주기
+	List<EmailVO> selectNotRead(String empNo);
+	List<EmailVO> selectImportant(String empNo);
+	List<EmailVO> selectTempSave(String empNo);
+	List<EmailVO> selectReserve(String empNo);
 }

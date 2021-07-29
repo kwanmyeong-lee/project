@@ -23,7 +23,7 @@ public class EmailVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Timestamp mailReaddate; 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private	Date mailReserve;
+	private	Timestamp mailReserve;
 	private String mailDelCheck;     
 	int mailEmpno;		    //EMPNO
 	private String empName;
