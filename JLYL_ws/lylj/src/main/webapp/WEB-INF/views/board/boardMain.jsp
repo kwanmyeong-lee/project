@@ -46,7 +46,9 @@
 			            	<c:if test="${vo.commentCnt > 0}">
 			            		<div class="commCnt2">[${vo.commentCnt }]</div>
 			            	</c:if>
-			            	<span class="newSpan">new</span>
+			            	<c:if test="${vo.newImgTerm<24}">
+			            		<span class="newSpan">new</span>
+			            	</c:if>
 			            </td>
 			            <td class="userNameTd">${vo.boardWriter }</td>
 			            <td class="regdateTd"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd"/></td>
@@ -86,7 +88,9 @@
 					            	<c:if test="${vo.commentCnt > 0}">
 					            		<span class="commCnt2">[${vo.commentCnt }]</span>
 					            	</c:if>
-					            	<span class="newSpan">new</span>
+					            	<c:if test="${vo.newImgTerm<24}">
+					            		<span class="newSpan">new</span>
+					            	</c:if>
 					            </td>
 					            <td class="userNameTd">${vo.boardWriter }</td>
 						    </tr>
@@ -124,7 +128,9 @@
 					            	<c:if test="${vo.commentCnt > 0}">
 					            		<div class="commCnt2">[${vo.commentCnt }]</div>
 					            	</c:if>
-					            	<span class="newSpan">new</span>
+					            	<c:if test="${vo.newImgTerm<24}">
+					            		<span class="newSpan">new</span>
+					            	</c:if>
 					            </td>
 					            <td class="userNameTd">${vo.boardWriter }</td>
 						    </tr>
