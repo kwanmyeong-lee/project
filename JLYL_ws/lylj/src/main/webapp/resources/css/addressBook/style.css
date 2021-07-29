@@ -162,7 +162,7 @@
 	width: 195px;
 }
 
-#addressBook_officeTel1{
+#addressBook_officeTel1, #addressBook_tel1{
 	width: 365px;	
 }
 
@@ -280,10 +280,23 @@ div > label{
 	width: 210px;
 }
 
-#addressBook_officeTel{
+#addressBook_officeTel, #addressBook_tel{
 	width: 385px;
 }
 
+.telSpan{
+	margin-left: 20px;
+}
+
+.telSpan > .inputItemTel{
+	width: 120px;
+	font-size: 20px; 
+}
+
+.telSpan > .inputItemOfTel{
+	width: 100px;
+	font-size: 20px;
+}
 /* 카테고리 수정 */
 #editBgDiv{
 	background: rgb(70, 171, 196);

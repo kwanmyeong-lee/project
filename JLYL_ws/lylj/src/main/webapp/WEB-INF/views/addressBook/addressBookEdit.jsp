@@ -11,15 +11,28 @@ $(function() {
 	
 	/* 수정버튼 클릭 이벤트 */
 	$('form[name=frmBookUpdate]').submit(function(){
+		var telRules = /^\d{3}-\d{3,4}-\d{4}$/;
+		var ofTelRules = /^\d{2,3}-\d{3,4}-\d{4}$/;
+
 		if($('#addressBook_name').val() == ''){
 			alert('이름을 입력하세요.');	
 			return false;			
 		}else if($('#addressBook_tel').val() == ''){
 			alert('번호를 입력하세요.');	
 			return false;			
-		}else if($('#addressFolderNo').val() == ''){
+		}else if($('.selectItem2').val() == ''){
 			alert('카테고리를 선택하세요.');	
 			return false;			
+		}else if(!telRules.test($('#addressBook_tel').val())){
+			alert('잘못된 \'전화번호\'입니다. 숫자, -를 포함한 숫자만 입력하세요.');
+			$('#addressBook_tel').focus();
+			return false;
+		}else if($('#addressBook_officeTel').val() > 0){
+			if(!ofTelRules.test($('#addressBook_officeTel').val())){
+				alert('잘못된 \'회사번호\'입니다. 숫자, -를 포함한 숫자만 입력하세요.');
+				$('#addressBook_officeTel').focus();
+				return false;
+			}
 		}
 	});
 	
@@ -32,6 +45,7 @@ $(function() {
 	$('.folBtn').click(function(){
 		window.open('<c:url value="/bookFolInfo/main"/>','카테고리 정보','width=600, height=470, toolbar=no, menubar=no, scrollbars=no, resizable=no');
 	});
+	
 });
 </script>
 
@@ -44,7 +58,7 @@ $(function() {
 			<input type="text" name="addressBookName" id="addressBook_name" class="inputItems" value="${bookVo.addressBookName }">
 		</div>
 		<div id="telBox" class="boxDiv">
-			<label>번호</label><span class="splitSpan">:</span>
+			<label>전화번호</label><span class="splitSpan">:</span>
 			<input type="text" name="addressBookTel" id="addressBook_tel" class="inputItems" value="${bookVo.addressBookTel }"><br>
 		</div>
 		<div id="emailBox" class="boxDiv">
@@ -74,7 +88,11 @@ $(function() {
 			<select name="addressFolderNo" class="selectItem2" id="addressFolderNo">
 				<option value="">선택하세요.</option>
 				<c:forEach var="bookFol" items="${bookFolList}">
-					<option value="${bookFol.addressFolderNo}">${bookFol.addressFolderName}</option>
+					<option value="${bookFol.addressFolderNo}"
+						<c:if test="${bookFol.addressFolderNo == bookVo.addressFolderNo   }">
+							selected="selected"
+						</c:if>
+					>${bookFol.addressFolderName}</option>
 				</c:forEach>
 			</select>
 			<button type="button" class="btn btn-outline-secondary folBtn" id="searchBtn">카테고리 수정</button>
