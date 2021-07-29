@@ -25,6 +25,11 @@ public class ElectronicFileServiceImpl implements ElectronicFileService{
 	public ElectronicFileVo selectFileByFileNo(int fileNo) {
 		return electronicFileDao.selectFileByFileNo(fileNo);
 	}
+
+	@Override
+	public int deleteFile(int electronicNo) {
+		return electronicFileDao.deleteFile(electronicNo);
+	}
 	
 	
 }

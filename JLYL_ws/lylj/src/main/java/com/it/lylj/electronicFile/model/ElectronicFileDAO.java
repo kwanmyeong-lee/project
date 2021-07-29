@@ -10,5 +10,5 @@ public interface ElectronicFileDAO {
 	int insertFile(ElectronicFileVo vo);
 	List<ElectronicFileVo> selectFileByEleNo(int electronicNo);
 	ElectronicFileVo selectFileByFileNo(int fileNo);
-
+	int deleteFile(int electronicNo);
 }

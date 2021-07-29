@@ -77,14 +77,29 @@ public class ElectronicController {
 
 		String empNo = (String) session.getAttribute("empNo");
 		logger.info("결재 리스트 보여주기 파라미터 empNo={}", empNo);
-		SearchVO vo = new SearchVO();
-		vo.setEmpNo(empNo);
+		SearchVO searchVo = new SearchVO();
+		searchVo.setEmpNo(empNo);
+		
+		logger.info("SearchVO searchVo={}", searchVo);
 
-		List<Map<String, Object>> ListAp = electronicService.selectListByEmpNo((vo), "1");
+		/* 페이징 처리 */
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ELE);
+		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ELE);
 
-		List<Map<String, Object>> ListRe = electronicService.selectListByEmpNo((vo), "2");
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ELE);
+		searchVo.setEmpNo(empNo);
 
-		List<Map<String, Object>> ListFi = electronicService.selectListByEmpNo((vo), "6");
+
+		
+		
+		List<Map<String, Object>> ListAp = electronicService.selectListByEmpNo((searchVo), "1");
+
+		List<Map<String, Object>> ListRe = electronicService.selectListByEmpNo((searchVo), "2");
+
+		List<Map<String, Object>> ListFi = electronicService.selectListByEmpNo((searchVo), "6");
 
 		logger.info("결재 대기 문서 보여주기  ListAp={}", ListAp);
 		logger.info("결재 수신 문서 보여주기  ListRe={}", ListRe);
@@ -159,6 +174,7 @@ public class ElectronicController {
 				}
 				stampVo.setStampName(fileName);
 				String empNo =  (String) session.getAttribute("empNo");
+				logger.info("empNo={}", empNo);
 				stampVo.setEmpNo(Integer.parseInt(empNo));
 				logger.info("stampVo={}", stampVo);
 				
@@ -234,19 +250,26 @@ public class ElectronicController {
 		int electronicNo = electronicService.selectMaxEleNo(Integer.parseInt(empNo));
 		logger.info("electronicNo={}", electronicNo);
 
-		String[] ApEmpNo = AempNoData.split(","); // 결재자 번호 배열
 
-		for (int i = 0; i < ApEmpNo.length; i++) {
-			String apempno = ApEmpNo[i];
-			ElectronicAppLineVo avo = new ElectronicAppLineVo();
-			avo.setEmpNo(Integer.parseInt(apempno)); // 결재자 번호
-			avo.setApprovalLineOrder(i); // 결재 자 순서 번호
-			avo.setElectronicNo(electronicNo); // 문서 번호
-			avo.setApprovalLineCompleteFlag("0");
-
-			int cnt2 = electronicAppService.insertAppLine(avo);
-
+		if (AempNoData.length() != 0) {
+			
+			String[] ApEmpNo = AempNoData.split(","); // 결재자 번호 배열
+			
+			for (int i = 0; i < ApEmpNo.length; i++) {
+				
+				String apempno = ApEmpNo[i];
+				ElectronicAppLineVo avo = new ElectronicAppLineVo();
+				avo.setEmpNo(Integer.parseInt(apempno)); // 결재자 번호
+				avo.setApprovalLineOrder(i); // 결재 자 순서 번호
+				avo.setElectronicNo(electronicNo); // 문서 번호
+				avo.setApprovalLineCompleteFlag("0");
+	
+				int cnt2 = electronicAppService.insertAppLine(avo);
+	
+			}
+		
 		}
+		
 		if (RempNoData.length() > 0) {
 
 			String[] ReEmpNo = RempNoData.split(","); // 수신자 번호 배열
@@ -301,8 +324,8 @@ public class ElectronicController {
 
 	// 기안서 업데이트 하기
 	@RequestMapping("/documentUpdate")
-	public String documentUpdate(@ModelAttribute ElectronicVo vo, @RequestParam String AempNoData,
-			@RequestParam String RempNoData, HttpSession session, Model model) {
+	public String documentUpdate(@ModelAttribute ElectronicVo vo, @RequestParam String AempNoData, MultipartHttpServletRequest request,
+			@ModelAttribute ElectronicFileVo fileVo, @RequestParam String RempNoData, HttpSession session, Model model) {
 		logger.info("양식 수정 하기 파라미터 ElectronicVo={}", vo);
 
 		String empNo = (String) session.getAttribute("empNo");
@@ -316,6 +339,7 @@ public class ElectronicController {
 
 		int electronicNo = vo.getElectronicNo();
 		logger.info("electronicNo={}", electronicNo);
+		
 
 		if (AempNoData.length() != 0) {
 
@@ -366,6 +390,38 @@ public class ElectronicController {
 				url = "/electronic/electronicList?no=" + 5;
 			}
 		}
+		
+		// 파일 업로드
+		String fileName = "", originalFileName = "";
+		long fileSize = 0;
+
+		List<MultipartFile> fileList = request.getFiles("upfile");
+		logger.info("fileList={}", fileList);
+		for (MultipartFile mf : fileList) {
+			if (mf.getOriginalFilename() != "") {
+				originalFileName = mf.getOriginalFilename();
+				fileSize = mf.getSize();
+				fileName = FileUploadUtil.getUniqueFileName(mf.getOriginalFilename());
+
+				try {
+					mf.transferTo(new File(ConstUtil.ELECTRONIC_UPLOAD_PATH_REAL + "\\" + fileName));
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+
+				logger.info("파일 업로드 성공, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName,
+						fileSize);
+				fileVo.setElectronicNo(electronicNo);
+				fileVo.setFileName(fileName);
+				fileVo.setFileOriginalname(originalFileName);
+				fileVo.setFileSize(fileSize);
+				logger.info("fileVo={}", fileVo);
+
+				int file = electronicFileService.insertFile(fileVo);
+				logger.info("file={}", file);
+			} // if
+		} // fot
+
 
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
@@ -689,5 +745,20 @@ public class ElectronicController {
 
 	}
 	
+	//기안서 파일 삭제 
+	@RequestMapping("/deleteFile")
+	@ResponseBody
+	public int deleteFile(@RequestParam int electronicNo) {
+		logger.info("파일 삭제 처리 파리미터 electronicNo ={}", electronicNo);
+		
+		int cnt = electronicFileService.deleteFile(electronicNo);
+		
+		return cnt;
+	}
 
 }
+
+
+
+
+
