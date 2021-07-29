@@ -42,11 +42,13 @@
 	        	<c:forEach var="vo" items="${noticeList}">
 				    <tr id="tdStyle">
 			            <td>
-			            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
+			            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
 			            	<c:if test="${vo.commentCnt > 0}">
 			            		<div class="commCnt2">[${vo.commentCnt }]</div>
 			            	</c:if>
-			            	<span class="newSpan">new</span>
+			            	<c:if test="${vo.newImgTerm<24}">
+			            		<span class="newSpan">new</span>
+			            	</c:if>
 			            </td>
 			            <td class="userNameTd">${vo.boardWriter }</td>
 			            <td class="regdateTd"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd"/></td>
@@ -82,11 +84,13 @@
 				        <c:forEach var="vo" items="${referenceList }">
 						    <tr id="tdStyle">
 					            <td>
-					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
+					            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
 					            	<c:if test="${vo.commentCnt > 0}">
 					            		<span class="commCnt2">[${vo.commentCnt }]</span>
 					            	</c:if>
-					            	<span class="newSpan">new</span>
+					            	<c:if test="${vo.newImgTerm<24}">
+					            		<span class="newSpan">new</span>
+					            	</c:if>
 					            </td>
 					            <td class="userNameTd">${vo.boardWriter }</td>
 						    </tr>
@@ -120,11 +124,13 @@
 				        <c:forEach var="vo" items="${communityList }">
 						    <tr id="tdStyle">
 					            <td>
-					            	<a href="<c:url value='/board/boardDetail?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
+					            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>"class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
 					            	<c:if test="${vo.commentCnt > 0}">
 					            		<div class="commCnt2">[${vo.commentCnt }]</div>
 					            	</c:if>
-					            	<span class="newSpan">new</span>
+					            	<c:if test="${vo.newImgTerm<24}">
+					            		<span class="newSpan">new</span>
+					            	</c:if>
 					            </td>
 					            <td class="userNameTd">${vo.boardWriter }</td>
 						    </tr>

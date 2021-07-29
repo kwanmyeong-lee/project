@@ -16,6 +16,9 @@
 		
 		/* 등록 유효성 */
 		$('#bookWriteSubmit').click(function(){
+			var telRules = /^\d{3}-\d{3,4}-\d{4}$/;
+			var ofTelRules = /^\d{2,3}-\d{3,4}-\d{4}$/;
+			
 			if($('#addressBookName').val() == ''){
 				alert('이름을 입력하세요.');
 				return false;
@@ -25,6 +28,16 @@
 			}else if($('#addressFolderNo').val() == ''){
 				alert('카테고리를 선택하세요.');
 				return false;
+			}else if(!telRules.test($('#addressBook_tel1').val())){
+				alert('잘못된 \'전화번호\'입니다. 숫자, -를 포함한 숫자만 입력하세요.');
+				$('#addressBook_tel').focus();
+				return false;
+			}else if($('#addressBook_officeTel1').val() > 0){
+				if(!ofTelRules.test($('#addressBook_officeTel').val())){
+					alert('잘못된 \'회사번호\'입니다. 숫자, -를 포함한 숫자만 입력하세요.');
+					$('#addressBook_officeTel').focus();
+					return false;
+				}
 			}
 		});
 		
@@ -54,15 +67,15 @@
 			}
 		});
 		
-		/* 
-		$('#chkAllMain').change(function(){
-			if($('#chkAllMain').prop('checked')){
-				$('tbody td input[type=checkbox]').prop('checked',true);
-			} else {
-				$('tbody td input[type=checkbox]').prop('checked',false);
+		/* 삭제 버튼 */
+		$('#deleteBtn').click(function(){
+			var confirm1 = confirm('선택한 주소록을 삭제하시겠습니까?');
+			if(!confirm1){
+				return false;
+			}else{
+				folderDeleteClick();
 			}
 		});
- */		
 		
 	});
 	/* 페이징 처리 */
@@ -89,7 +102,7 @@
 	      	  location.reload();
 	        },
 	        error: function(xhr, status, error) {
-	      	  alert(error);
+	      	  alert('주소록을 선택하지 않거나, 삭제 처리 중 오류가 발생하였습니다.');
 	       }  
 	    });
 	} 
@@ -138,13 +151,13 @@
 	</form>
 	
 	<div id="serviceDiv">
-		<button id="deleteBtn" onclick="folderDeleteClick()" type="button">삭제</button>
+		<button id="deleteBtn" type="button">삭제</button>
 	</div>
 	<table>
 	    <colgroup>
 	       <col style="width:5%;" />
-	       <col style="width:12.5%;" />
-	       <col style="width:15%;" />
+	       <col style="width:17.5%;" />
+	       <col style="width:10%;" />
 	       <col style="width:15%;" />
 	       <col style="width:10%;" />
 	       <col style="width:12.5%;" />

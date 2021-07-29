@@ -10,10 +10,52 @@
 max-height: 500px;
 }
 </style>
+<script type="text/javascript">
+	function getCookie() { 
+		var cookie = document.cookie; 
+		var empNo =${empNo};
+		var birthEmpNo ="birthYN"+empNo;
+		if (document.cookie != "") { 
+			var cookie_array = cookie.split("; "); 
+			for ( var index in cookie_array) { 
+				var cookie_name = cookie_array[index].split("="); 
+				if (cookie_name[0] == birthEmpNo) { 
+					return cookie_name[1]; 
+				} 
+			} 
+		} 
+		return ; 
+	} 
+	
+	function birthDay() { 
+		var empBirth = new Date($('#empBirth').val());
+		var empMonth = empBirth.getMonth();
+		var empday = empBirth.getDate();
+		
+		var nowDate = new Date();
+		var month = nowDate.getMonth();
+		var day = nowDate.getDate();
+
+		if(empMonth===month && empday===day){
+			var cookieCheck = getCookie();
+			if (cookieCheck != "N"){
+				window.open("birthDay","birthDay","width=600,height=500,toolbar=no,scrollbars=no");
+		
+			}
+		}
+	}
+
+
+window.onload= function(){
+	birthDay();
+}
+	
+</script>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 	<!-- Page Heading -->
 	<h1 class="h3 mb-4 text-gray-800">어서오세요 ${empName} 님</h1>
+	<input type="hidden"  value='<fmt:formatDate value="${empVO.empBirth }" pattern="yyyy-MM-dd"/>' id="empBirth">
 
 	<div class="row">
 

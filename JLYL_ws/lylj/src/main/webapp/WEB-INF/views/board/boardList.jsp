@@ -91,9 +91,9 @@
 		            <td>
 		            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="margin-left:20px;">${vo.boardTitle}</a> 
 		            	<c:if test="${vo.commentCnt > 0}">
-		            		<span>[${vo.commentCnt }]</span>
+		            		<span class="commCnt2" style="float: inherit;">[${vo.commentCnt }]</span>
 		            	</c:if>
-		            	<c:if test="${vo.newImgTerm<12}">
+		            	<c:if test="${vo.newImgTerm<24}">
 		            		<span class="newSpan">new</span>
 		            	</c:if>
 		            </td>
