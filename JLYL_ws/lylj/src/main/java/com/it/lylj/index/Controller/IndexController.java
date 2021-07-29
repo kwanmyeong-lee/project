@@ -28,6 +28,8 @@ import com.it.lylj.department.model.DepartmentService;
 import com.it.lylj.department.model.DepartmentVO;
 import com.it.lylj.electronic.model.ElectronicService;
 import com.it.lylj.electronic.model.ElectronicVo;
+import com.it.lylj.email.model.EmailService;
+import com.it.lylj.email.model.EmailVO;
 import com.it.lylj.emp.model.EmpService;
 import com.it.lylj.emp.model.EmpVO;
 import com.it.lylj.index.model.OriVo;
@@ -45,6 +47,7 @@ public class IndexController {
 	private final BookingService bookingService;
 	private final ScheduleService scheduleService;
 	private final AttendDayService attendDayService;
+	private final EmailService emailService;
 	
 	@RequestMapping("/inc/organizationChart")
 	public void organizationChart() {
@@ -89,9 +92,12 @@ public class IndexController {
 		atdVO.setAttendanceDayRegdate(today);
 		AttendDayVO attendDayVO = attendDayService.selectAttendDayByRegdate(atdVO);
 		
-		
-		
 		logger.info("elist={}", elist);
+
+		//안읽은 메일 선택
+		List<EmailVO> emailList = emailService.selectNotRead(Integer.toString(empNo));
+		
+		logger.info("index 안읽은 메일, emailList.size()={}",emailList.size());
 		
 		model.addAttribute("elist", elist);
 		model.addAttribute("empNo", empNo);
@@ -99,6 +105,7 @@ public class IndexController {
 		model.addAttribute("todayScheduleCnt", todayScheduleCnt);
 		model.addAttribute("attendDayVO", attendDayVO);
 		model.addAttribute("empVO", empVO);
+		model.addAttribute("emailList", emailList);
 	}
 	
 	@RequestMapping("/admin")

@@ -120,7 +120,7 @@ window.onload= function(){
 			<!-- Brand Buttons -->
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold text-primary">오늘 받은 메일</h6>
+					<h6 class="m-0 font-weight-bold text-primary">안읽은 메일함</h6>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
@@ -128,8 +128,8 @@ window.onload= function(){
 							<tbody>
 							<colgroup>
 								<col style="width: 20%;" />
-								<col style="width: 60%;" />
-								<col style="width: 20%;" />
+								<col style="width: 50%;" />
+								<col style="width: 30%;" />
 							</colgroup>
 							<thead class="table-info">
 								<tr>
@@ -138,31 +138,20 @@ window.onload= function(){
 									<th scope="col">보낸 날짜</th>
 								</tr>
 							</thead>
-							<tr>
-								<td class="name">Larry Gardner</td>
-								<td class="subject"><a href="#">Lorem ipsum dolor sit
-										amet, consectetur adipisicing elit, sed </a></td>
-								<td class="time">08:30 PM</td>
-							</tr>
-							<tr>
-								<td class="name">Larry Gardner</td>
-								<td class="subject"><a href="#">Lorem ipsum dolor sit
-										amet, consectetur adipisicing elit, sed </a></td>
-								<td class="time">08:30 PM</td>
-							</tr>
-							<tr>
-								<td class="name">Larry Gardner</td>
-								<td class="subject"><a href="#">Lorem ipsum dolor sit
-										amet, consectetur adipisicing elit, sed </a></td>
-								<td class="time">08:30 PM</td>
-							</tr>
-							<tr>
-								<td class="name">Larry Gardner</td>
-								<td class="subject"><a href="#">Lorem ipsum dolor sit
-										amet, consectetur adipisicing elit, sed </a></td>
-								<td class="time">08:30 PM</td>
-							</tr>
-
+								<c:if test="${empty emailList }">
+									<tr>
+										<td colspan="3" style="text-align: center;">모두 읽으셨습니다.</td>
+									</tr>
+								</c:if>
+								<c:if test ="${!empty emailList }">
+									<c:forEach var="list" items="${emailList }">
+										<tr>
+											<td>${list.mailSend}</td>
+											<td><a href="<c:url value='/email/emailDetail?mailNo=${list.mailNo }'/>">${list.mailTitle}</a></td>
+											<td><fmt:formatDate value="${list.mailSenddate}" pattern="yyyy-MM-dd HH:mm"/></td>
+										</tr>
+									</c:forEach>
+								</c:if>
 							</tbody>
 
 						</table>
