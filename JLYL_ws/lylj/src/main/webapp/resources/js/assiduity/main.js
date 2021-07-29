@@ -58,7 +58,7 @@ $(function(){
 		
 		var attendanceDayRegdate = ymd;
 		var empNo = $('.empNo').val();
-		var attendanceDayOnHour = ymd+" "+now
+		var attendanceDayOnHour = ymd+" "+now;
 		
 		$.ajax({    
             type:'get',
