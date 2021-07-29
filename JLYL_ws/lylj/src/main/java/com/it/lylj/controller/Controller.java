@@ -8,4 +8,8 @@ public class Controller {
 	public void birthDay() {
 		
 	}
+	@RequestMapping("/testone")
+	public void testone() {
+		
+	}
 }
