@@ -107,8 +107,11 @@
 				
 				var modalEmpNo = $('#modalEmpNo').val();
 				var modalEmpPwd = $('#modalEmpPwd').val();
+				var loginEmpNo = $('#loginEmpNo').val();
+				
 				$('#mEmpNo').val(modalEmpNo);
 				$('#mEmpPwd').val(modalEmpPwd);
+				$('#hiLoginEmpNo').val(loginEmpNo);
 				
 				$('form[name=frmEdit_to]').prop('action','<c:url value="/emp/empEdit"/>');
 				$('form[name=frmEdit_to]').submit();
@@ -228,12 +231,15 @@
 			<input type="hidden" name="mEmpNo" id="mEmpNo" >
 			<input type="hidden" name="mEmpPwd" id="mEmpPwd" >
 			<input type="hidden" name="empNo" value="${empVo.empNo }" >
+			<input type="hidden" name="loginEmpNo" id="hiLoginEmpNo">
 		   <div></div>
 		   <div class="row">
 			  <div class="col-md-6">
 			  	<label for="empName" class="form-label">이름</label>
 			    <input type="text" class="form-control" id="empName" name="empName" value="${empVo.empName }" readonly="readonly">
-			  	<button type="button" class="btn btn-secondary btChangePwd" id="bt_changePwd">비밀번호변경하기</button>
+			  	<c:if test="${empVo.empNo == sessionScope.empNo }">
+			  		<button type="button" class="btn btn-secondary btChangePwd" id="bt_changePwd">비밀번호변경하기</button>
+			  	</c:if>
 			  </div>
 		   </div>
 		   <div></div>
@@ -292,19 +298,19 @@
 		  	<div class="row">
 			  	<div class="col-md-4">
 					<label for="empSalary" class="form-label">봉급</label>
-				    <input type="text" class="form-control" id="empSalary" name="empSalary" placeholder="Salary" value="${empVo.empSalary }" <c:if test="${sessionScope.empAdminLev==3 }">  disabled="disabled"</c:if>>
+				    <input type="text" class="form-control" id="empSalary" name="empSalary" placeholder="Salary" value="${empVo.empSalary }" <c:if test="${sessionScope.empAdminLev==3 }">  readonly="readonly"</c:if>>
 				    
 			  	</div>
 			   	<div class="col-md-4">
 					<label for="empAccount" class="form-label">계좌번호</label>
-				    <input type="text" class="form-control" id="empAccount" name="empAccount" placeholder="Account" value="${empVo.empAccount }" <c:if test="${sessionScope.empAdminLev==3 }">  disabled="disabled"</c:if>>
+				    <input type="text" class="form-control" id="empAccount" name="empAccount" placeholder="Account" value="${empVo.empAccount }" <c:if test="${sessionScope.empAdminLev==3 }">  readonly="readonly"</c:if>>
 			  	</div>
 		  	</div>
 		  	<div><br></div>
 		  	<div class="row">
 				<div class="col-md-2">
 					<label class="form-label">관리자</label>
-				    <select class="form-control" name="empAdminLev" id="empAdminLev" <c:if test="${sessionScope.empAdminLev==3 }">  disabled="disabled"</c:if>>
+				    <select class="form-control" name="empAdminLev" id="empAdminLev" <c:if test="${sessionScope.empAdminLev==3 }">  readonly="readonly"</c:if>>
 				    	<option value="3" <c:if test="${empVo.empAdminLev==3}"> selected</c:if> 
 				    	>사원</option>
 				    	<option value="2" <c:if test="${empVo.empAdminLev==2}"> selected</c:if>
@@ -315,7 +321,7 @@
 			  	</div>
 		  	  <div class="col-md-2">
 			  	<label class="form-label" for="departmentNo">부서</label>
-				    <select class="form-control" id="departmentNo" name="departmentNo" <c:if test="${sessionScope.empAdminLev==3 }">  disabled="disabled"</c:if> >
+				    <select class="form-control" id="departmentNo" name="departmentNo" <c:if test="${sessionScope.empAdminLev==3 }">  readonly="readonly"</c:if> >
 			    		<option value='1'
 			    			<c:if test="${empVo.departmentNo=='1' }"> selected</c:if>
 							>전략기획팀</option>
@@ -338,7 +344,7 @@
 				</div>
 				<div class="col-md-2">
 				 	<label class="form-label" for="positionNo" >직급</label>
-				    <select class="form-control" id="positionNo" name="positionNo" <c:if test="${sessionScope.empAdminLev==3 }"> disabled="disabled"</c:if>>
+				    <select class="form-control" id="positionNo" name="positionNo" <c:if test="${sessionScope.empAdminLev==3 }"> readonly="readonly"</c:if>>
 				    		<option value="1" 
 				    			<c:if test="${empVo.positionNo=='1' }"> selected</c:if>
 				    		>사장</option>
@@ -392,6 +398,12 @@
      	        	<div class="col-md-12">
      		        	<label class="form-label modalLabel" for="empNo">사원번호 </label> 
 	                	<input class="form-control" type="text" name="modalEmpNo" id="modalEmpNo" value="${empVo.empNo }" readonly="readonly">
+	                </div>
+                </div>
+                <div class="row">
+     	        	<div class="col-md-12">
+     		        	<label class="form-label modalLabel" for="empNo">로그인 사원번호</label> 
+	                	<input class="form-control" type="text" name="loginEmpNo" id="loginEmpNo" value="${sessionScope.empNo }" readonly="readonly">
 	                </div>
                 </div>
                 <div class="row">
