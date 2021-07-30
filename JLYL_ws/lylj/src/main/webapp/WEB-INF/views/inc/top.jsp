@@ -322,7 +322,16 @@
 							class="card-img-top" alt="...">
 						<ol class="breadcrumb mt-3">
 							<li class="breadcrumb-item">안읽은 메일</li>
-							<li class="breadcrumb-item"><a href="<c:url value="/email/emailList?empNo=${sessionScope.empNo }&type=6"/>">${emailList.size() } 개</a></li>
+							<li class="breadcrumb-item">
+								<a href="<c:url value="/email/emailList?empNo=${sessionScope.empNo }&type=6"/>">
+									<c:if test="${emailList.size() eq '0'}">
+										0개
+									</c:if>	
+									<c:if test="${emailList.size() ne '0'}">
+										${emailList.size() }개
+									</c:if>	
+								</a>
+							</li>
 						</ol>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item">오늘 일정</li>

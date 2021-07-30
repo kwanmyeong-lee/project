@@ -117,9 +117,10 @@ public class EmailController {
 		   model.addAttribute("reEmailVo", reEmailVo);
 		}else if(type.equals("fw")) {
 			EmailVO fwEmailVo= emailService.selectByMailNo(mailNo);
-			List<EmailFileVO> fwEmailFileList = emailFileService.selectFileByMailNo(mailNo);
 			model.addAttribute("fwEmailVo", fwEmailVo);
-			model.addAttribute("fwEmailFileList", fwEmailFileList);
+		}else if(type.equals("sv")) {
+			EmailVO svEmailVo= emailService.selectByMailNo(mailNo);
+			model.addAttribute("svEmailVo", svEmailVo);
 		}
 		
 		if(empNo!=0) {
