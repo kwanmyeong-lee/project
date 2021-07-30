@@ -77,6 +77,16 @@
 			}
 		});
 		
+		
+		$('#btdeleteModal').click(function(){
+			if($('#modalAdminPwd').val().length<1){
+				alert("관리자 비밀번호를 입력하세요");
+				$('#modalAdminPwd').focus();
+				event.preventDefault();
+				return false;
+			}
+		});
+		
 	});
 	
 	function pagingProc(curPage){
@@ -106,7 +116,6 @@
 		</div>
 		<table>
 		    <colgroup>
-		       <col style="width:5%;" />
 		       <col style="width:15%;" />
 		       <col style="width:9%;" />
 		       <col style="width:15%;" />
@@ -117,7 +126,6 @@
 		    </colgroup>
 	        <thead>
 			    <tr id="thStyle">
-		            <th><input type="checkbox" name="chkAllMain"></th>
 		            <th>이름</th>
 		            <th>사원번호</th>
 		            <th>전화번호</th>
@@ -136,7 +144,6 @@
 	        	<c:if test="${!empty empList }">
 	        		<c:forEach var="empVo" items="${empList }">
 					    <tr id="tdStyle">
-				            <td><input type="checkbox" id="multiSelect"> </td>
 				            <td id="userNameTd"><img src="<c:url value='/resources/img/undraw_profile.svg'/>"><span id="userNameSpan"><a style="text-decoration: none; color: #858796;" href="<c:url value="/emp/empInfo?empNo=${empVo.empNo }"/>">${empVo.empName }</a></span></td>
 				            <td id="empNoTd" name="">${empVo.empNo }</td>
 				           	<td id="telTd" >${empVo.empTel }</td>
@@ -205,7 +212,7 @@
      	        <div class="row">
      	        	<div class="col-md-12">
      		        	<label class="form-label modalLabel" for="empNo">사원번호</label> 
-	                	<input class="form-control" type="text" name="modalEmpNo" id="modalEmpNo" placeholder="Enter employee number">
+	                	<input class="form-control" type="text" name="modalEmpNo" id="modalEmpNo" placeholder="Enter employee number" readonly="readonly">
 	                </div>
                 </div>
                 <div class="row">

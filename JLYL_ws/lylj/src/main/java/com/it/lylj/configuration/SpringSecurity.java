@@ -18,6 +18,10 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter{
          .csrf().disable()
          .cors().disable()
          .headers().frameOptions().disable();
+		 
+		 http
+		 .headers().cacheControl().disable();
+        
 	}
 	
 	@Bean
