@@ -13,13 +13,21 @@
 #navSideBar{
 	background-color: #383941;
 }
+.ageDiv{
+	float: left;
+	padding-right: 20px;
+}
+.jlDiv{
+	float:right;
+	padding-left: 20px;
+}
 .mainContainer{
 	width: 100%;
 	background: white;
 	padding: 20px;
 }
 .chartContainer{
-	text-align: center;
+min-height: 500px;
 }
 .infoTable tr{
 	padding: 10px;
@@ -44,19 +52,14 @@ font-weight: 300;
   background-size: cover;
 }
 	/*차트 Age 스타일 시작*/
-.ageDiv{
-	display: inline-block;
-	padding-right: 20px;
-}
+
 .highcharts-figure-age, .highcharts-figure-age .highcharts-data-table table {
  min-width: 600px; 
  max-width: 600px;
  margin: 1em;
 }
 
-#container {
-  height: 400px;
-}
+
 
 .highcharts-figure-age .highcharts-data-table table {
 	font-family: Verdana, sans-serif;
@@ -90,10 +93,7 @@ font-weight: 300;
 }
 	/*차트 Age 스타일 끝*/
 	/*차트 JL 스타일 끝*/
-.jlDiv{
-	display: inline-block;
-	padding-left: 20px;
-}
+
 .highcharts-figure-jl, .highcharts-figure-jl .highcharts-data-table table {
   min-width: 600px; 
   max-width: 600px;
@@ -126,6 +126,9 @@ font-weight: 300;
 }
 .highcharts-figure-jl .highcharts-data-table tr:hover {
   background: #f1f7ff;
+}
+.highcharts-figure-jl .highcharts-credits{
+	display: none;
 }
 	/*차트 JL 스타일 끝*/
 
@@ -188,7 +191,9 @@ font-weight: 300;
 				</tr>
 			</table>
 		</div>
-		<h3>차트</h3>
+		<div class="card-header py-3">
+			<h5 class="m-0 font-weight-bold">차트</h5>
+		</div>
 		<div class="mainContainer chartContainer">
 			<div class="ageDiv">
 			<figure class="highcharts-figure-age">
@@ -219,7 +224,7 @@ $.ajax({
 		    type: 'column'
 		  },
 		  title: {
-		    text: '회사 연령별 통계'
+		    text: '회사 연령대별 통계'
 		  },
 		  accessibility: {
 		    announceNewData: {
@@ -231,7 +236,7 @@ $.ajax({
 		  },
 		  yAxis: {
 		    title: {
-		      text: 'Total percent age group'
+		      text: '연령대별 총합 퍼센트'
 		    }
 		
 		  },
@@ -261,227 +266,10 @@ $.ajax({
 		    }
 		  ],
 		  drilldown: {
-		    series: [
-		      {
-		        name: "Chrome",
-		        id: "Chrome",
-		        data: [
-		          [
-		            "v65.0",
-		            0.1
-		          ],
-		          [
-		            "v64.0",
-		            1.3
-		          ],
-		          [
-		            "v63.0",
-		            53.02
-		          ],
-		          [
-		            "v62.0",
-		            1.4
-		          ],
-		          [
-		            "v61.0",
-		            0.88
-		          ],
-		          [
-		            "v60.0",
-		            0.56
-		          ],
-		          [
-		            "v59.0",
-		            0.45
-		          ],
-		          [
-		            "v58.0",
-		            0.49
-		          ],
-		          [
-		            "v57.0",
-		            0.32
-		          ],
-		          [
-		            "v56.0",
-		            0.29
-		          ],
-		          [
-		            "v55.0",
-		            0.79
-		          ],
-		          [
-		            "v54.0",
-		            0.18
-		          ],
-		          [
-		            "v51.0",
-		            0.13
-		          ],
-		          [
-		            "v49.0",
-		            2.16
-		          ],
-		          [
-		            "v48.0",
-		            0.13
-		          ],
-		          [
-		            "v47.0",
-		            0.11
-		          ],
-		          [
-		            "v43.0",
-		            0.17
-		          ],
-		          [
-		            "v29.0",
-		            0.26
-		          ]
-		        ]
-		      },
-		      {
-		        name: "Firefox",
-		        id: "Firefox",
-		        data: [
-		          [
-		            "v58.0",
-		            1.02
-		          ],
-		          [
-		            "v57.0",
-		            7.36
-		          ],
-		          [
-		            "v56.0",
-		            0.35
-		          ],
-		          [
-		            "v55.0",
-		            0.11
-		          ],
-		          [
-		            "v54.0",
-		            0.1
-		          ],
-		          [
-		            "v52.0",
-		            0.95
-		          ],
-		          [
-		            "v51.0",
-		            0.15
-		          ],
-		          [
-		            "v50.0",
-		            0.1
-		          ],
-		          [
-		            "v48.0",
-		            0.31
-		          ],
-		          [
-		            "v47.0",
-		            0.12
-		          ]
-		        ]
-		      },
-		      {
-		        name: "Internet Explorer",
-		        id: "Internet Explorer",
-		        data: [
-		          [
-		            "v11.0",
-		            6.2
-		          ],
-		          [
-		            "v10.0",
-		            0.29
-		          ],
-		          [
-		            "v9.0",
-		            0.27
-		          ],
-		          [
-		            "v8.0",
-		            0.47
-		          ]
-		        ]
-		      },
-		      {
-		        name: "Safari",
-		        id: "Safari",
-		        data: [
-		          [
-		            "v11.0",
-		            3.39
-		          ],
-		          [
-		            "v10.1",
-		            0.96
-		          ],
-		          [
-		            "v10.0",
-		            0.36
-		          ],
-		          [
-		            "v9.1",
-		            0.54
-		          ],
-		          [
-		            "v9.0",
-		            0.13
-		          ],
-		          [
-		            "v5.1",
-		            0.2
-		          ]
-		        ]
-		      },
-		      {
-		        name: "Edge",
-		        id: "Edge",
-		        data: [
-		          [
-		            "v16",
-		            2.6
-		          ],
-		          [
-		            "v15",
-		            0.92
-		          ],
-		          [
-		            "v14",
-		            0.4
-		          ],
-		          [
-		            "v13",
-		            0.1
-		          ]
-		        ]
-		      },
-		      {
-		        name: "Opera",
-		        id: "Opera",
-		        data: [
-		          [
-		            "v50.0",
-		            0.96
-		          ],
-		          [
-		            "v49.0",
-		            0.82
-		          ],
-		          [
-		            "v12.1",
-		            0.14
-		          ]
-		        ]
-		      }
-		    ]
+		    series: charts.ageDetailList
 		  }
 		});
-		
+		console.log(charts.ageDetailList);
 		
 		Highcharts.setOptions({
 			  colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {

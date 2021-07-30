@@ -31,6 +31,13 @@
 	<resultMap type="hashmap" id="ageEmp">
 		<result property="name" column="AGE" jdbcType="NUMERIC" javaType="int"/>
 		<result property="y" column="PER" jdbcType="NUMERIC" javaType="float"/>
+		<result property="drilldown" column="AGE" jdbcType="NUMERIC" javaType="int"/>
+	</resultMap>
+	
+	<resultMap type="hashmap" id="ageEmp2">
+		<result property="age" column="AGE" jdbcType="NUMERIC" javaType="int"/>
+		<result property="per" column="PER" jdbcType="NUMERIC" javaType="float"/>
+		<result property="ageGroup" column="AGEGROUP" jdbcType="NUMERIC" javaType="int"/>
 	</resultMap>
 	
 	<resultMap type="hashmap" id="joinLeave">
@@ -38,16 +45,18 @@
 		<result property="res" column="RES" jdbcType="NUMERIC" javaType="int"/>
 	</resultMap>
 	
-	<select id="selectAge" resultMap="ageEmp">
-		select age,ROUND(RATIO_TO_REPORT(COUNT(*)) OVER(),3)*100 as per
+	<select id="selectAge" resultMap="ageEmp2">
+		select age,ROUND(RATIO_TO_REPORT(COUNT(*)) OVER(),3)*100 as per, floor(age/10)*10 as ageGroup
 		from( select (to_char(sysdate, 'YYYY') - to_char(emp_birth,'YYYY')) as age from emp ) o
 		group by age
+		order by age
 	</select> 
 	
 	<select id="selectAgeGrop" resultMap="ageEmp">
 		select age, ROUND(RATIO_TO_REPORT(COUNT(*)) OVER(),3)*100 AS per
 		from( select floor((to_char(sysdate, 'YYYY') - to_char(emp_birth,'YYYY')) / 10) * 10 as age from emp ) o
 		group by age
+		order by age
 	</select> 
 	
 	<select id="selectJoinLeave" resultMap="joinLeave">
