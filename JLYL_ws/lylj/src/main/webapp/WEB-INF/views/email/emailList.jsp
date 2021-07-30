@@ -144,6 +144,25 @@ thead tr th{
 			console.log(mailNo);
 			location.href="<c:url value='/email/emailWrite?mailNo="+mailNo+"&type=fw'/>"
 		});
+		
+		/* 임시저장메일 보내기 */
+		$('#sendSaveMail').click(function(){
+			console.log("임시저장메일 보내기");
+			var len = $('input[type=checkbox]:checked').length;
+			console.log(len);
+			
+			if($('.mailItem').is(':checked')==false){ // check 없을 시
+				alert("메일을 선택해주세요");
+				return false;
+			}else if(len>=2){
+				alert("한개만 선택해주세요");
+				return false;
+			}
+			
+			var mailNo = $('input[type=checkbox]:checked').val();
+			console.log(mailNo);
+			location.href="<c:url value='/email/emailWrite?mailNo="+mailNo+"&type=sv'/>"
+		});
 	});
 
 	function pagingProc(curPage){
@@ -198,6 +217,9 @@ thead tr th{
 									<c:if test="${param.type eq '1' || param.type eq '6' || param.type eq '7'}">
 										<button type="button" class="btn btn-secondary" id="multiRead">읽음</button>
 									</c:if>
+									<c:if test="${param.type eq '3' }">
+										<button type="button" class="btn btn-secondary" id="sendSaveMail">보내기</button>
+									</c:if>
 									<c:if test="${param.type ne '5'}">
 										<button type="button" class="btn btn-secondary" id="multiDelete">삭제</button>
 									</c:if>
@@ -218,12 +240,12 @@ thead tr th{
 							<div class="table-responsive">
 								<table class="table">
 									<colgroup>
-								       <col style="width:5%;" />
-								       <col style="width:5%;" />
-								       <col style="width:5%;" />
-								       <col style="width:5%;" />
+								       <col style="width:6%;" />
+								       <col style="width:6%;" />
+								       <col style="width:6%;" />
+								       <col style="width:6%;" />
 								       <c:if test="${param.type eq '5' }"> 
-								      	 <col style="width:3%;" />
+								      	 <col style="width:6%;" />
 								       </c:if>
 								       <col style="width:20%;" />
 								       <col style="width:35%;" />
@@ -253,7 +275,12 @@ thead tr th{
 									<!-- 반복 -->
 									<c:if test="${empty list }">
 										<tr>
-											<td colspan="7" style="text-align: center;">메일함이 비어있습니다.</td>
+											<c:if test="${param.type eq '5' }">
+												<td colspan="8" style="text-align: center;">메일함이 비어있습니다.</td>
+											</c:if>
+											<c:if test="${param.type ne '5' }">
+												<td colspan="7" style="text-align: center;">메일함이 비어있습니다.</td>
+											</c:if>
 										</tr>
 									</c:if>
 									
@@ -290,7 +317,12 @@ thead tr th{
 												<c:if test="${param.type eq '5'}">
 													<td style="text-align: center;">${map['MAIL_TAKE']}@lylj.net</td>
 												</c:if>
-												<td class="typeSubject"><a href="<c:url value="/email/emailRead?mailNo=${map['MAIL_NO']}"/>" id="readMail">${map['MAIL_TITLE']} </a></td>
+												<c:if test="${param.type eq '3'}">
+													<td class="typeSubject"><a href="<c:url value="/email/emailWrite?mailNo=${map['MAIL_NO']}&type=sv"/>" id="readMail">${map['MAIL_TITLE']} </a></td>
+												</c:if>
+												<c:if test="${param.type ne '3'}">
+													<td class="typeSubject"><a href="<c:url value="/email/emailRead?mailNo=${map['MAIL_NO']}"/>" id="readMail">${map['MAIL_TITLE']} </a></td>
+												</c:if>
 												<td class="typeTime">
 												    <c:if test="${param.type eq '4'}"><fmt:formatDate value="${map['MAIL_RESERVE'] }" pattern="yyyy-MM-dd HH:mm"/></c:if>
 												    <c:if test="${param.type ne '4'}"><fmt:formatDate value="${map['MAIL_SENDDATE'] }" pattern="yyyy-MM-dd HH:mm"/></c:if>
