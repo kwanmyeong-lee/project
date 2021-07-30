@@ -241,10 +241,13 @@
 	                    <c:if test="${!empty fwEmailVo}">
 	                        <input type="text" class="orm-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
 	                    </c:if>
-	                    <c:if test="${!empty empVo}">
-	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${empVo.empNo}@lylj.net(${empVo.empName})" readonly="readonly">
+	                    <c:if test="${!empty svEmailVo}">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${svEmailVo.mailTake}@lylj.net">
 	                    </c:if>
-	                    <c:if test="${empty reEmailVo && empty fwEmailVo && empty empVo}">
+	                    <c:if test="${!empty empVo}">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${empVo.empNo}@lylj.net(${empVo.empName})" readonly="readonly" >
+	                    </c:if>
+	                    <c:if test="${empty reEmailVo && empty fwEmailVo && empty empVo && empty svEmailVo}">
 	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
 	                    </c:if>
 							<div id="resultEmp" style="display: none;">
@@ -260,7 +263,10 @@
                          <c:if test="${!empty fwEmailVo}">
                          	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" value="fw: ${fwEmailVo.mailTitle}"  readonly="readonly">
 			    		</c:if>
-			    		<c:if test="${empty reEmailVo && empty fwEmailVo}">
+			    		<c:if test="${!empty svEmailVo}">
+                         	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" value="${svEmailVo.mailTitle}">
+			    		</c:if>
+			    		<c:if test="${empty reEmailVo && empty fwEmailVo && empty svEmailVo}">
                          	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" >
 			    		</c:if>
 			    	</div>
@@ -294,6 +300,9 @@
 								내용 :
 								&nbsp;${fwEmailVo.mailContent }<br>
 								--------------------------------------------------------------------						
+							</c:if>
+							<c:if test="${!empty svEmailVo}">
+								${svEmailVo.mailContent }						
 							</c:if>
 						</textarea>
 					</div>

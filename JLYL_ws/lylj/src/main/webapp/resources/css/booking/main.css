@@ -30,4 +30,7 @@
 	border-radius: .35rem!important;
 	margin-bottom: 10px;
 }
+.fc-license-message{
+	display: none;
+}
 
