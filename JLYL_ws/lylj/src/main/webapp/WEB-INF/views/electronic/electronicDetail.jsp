@@ -274,8 +274,6 @@
 			$('input[name=AempNoData]').val(ApempNoData);
 			$('input[name=RempNoData]').val(RpempNoData);    		
     		$('input[name=electronicDraft]').val("1");
-    		$('input[name=electronicFileFlag]').val("N");
-    		
 
     		if($('#title').val().length == 0  ){
     			alert("제목을 입력해주세요");
@@ -284,7 +282,7 @@
     		}
 
     		if($('input[name=upfile]').val()){
-    			$('#electronicFileFlag').val('Y');
+    			$('input[name=electronicFileFlag]').val("Y");
     		}
     		
     		checkVal();
@@ -324,7 +322,10 @@
 			$('input[name=AempNoData]').val(ApempNoData);
 			$('input[name=RempNoData]').val(RpempNoData);    		
     		$('input[name=electronicDraft]').val("0");
-    		$('input[name=electronicFileFlag]').val("N");
+    		
+    		if($('input[name=upfile]').val()){
+    			$('input[name=electronicFileFlag]').val("Y");
+    		}    		
     		
     		if(checkVal() == false){
     			return false;
@@ -404,7 +405,7 @@
 			value='${vo.electronicContent }'> <input type="hidden"
 			name="electronicDraft" value="1">
 		<!-- 파일/ 긴급 처리 -->
-		<input type="hidden" name="electronicFileFlag"> <input
+		<input type="hidden" name="electronicFileFlag" value="N"> <input
 			type="hidden" name="electronicEmergencyFlag" value="0">
 		<!-- 파일/ 긴급 처리 -->
 

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -431,8 +432,7 @@ public class ElectronicController {
 
 	// 사이드 바에서 항목 선택시 리스트 보여주기
 	@RequestMapping("/electronicList")
-	public void electronicWait(@RequestParam String no, HttpSession session, @ModelAttribute SearchVO searchVo,
-			Model model) {
+	public void electronicWait(@RequestParam String no, HttpSession session, @ModelAttribute SearchVO searchVo, Model model) {
 
 		String empNo = (String) session.getAttribute("empNo");
 		logger.info("결재 리스트 보여주기 파라미터 empNo={}", empNo);
@@ -457,7 +457,33 @@ public class ElectronicController {
 		List<Map<String, Object>> List = electronicService.selectListByEmpNo(searchVo, no);
 
 		logger.info("결재 리스트 보여주기 결과 List={}", List);
+		
+		List<ElectronicAppLineVo> approList = new ArrayList<ElectronicAppLineVo>();
+		
+		for(int i =0;i<List.size();i++) {
+			Map<String, Object> mList = List.get(i);
+			String eleNo =   String.valueOf(mList.get("ELECTRONIC_NO"));
+			
+			logger.info("eleNo={}",eleNo);
+			
+			ElectronicVo evo = new ElectronicVo();
+			
+			evo.setElectronicNo(Integer.parseInt(eleNo));
+			evo.setEmpNo(Integer.parseInt(empNo));
+			logger.info("evo={}", evo);
+			if(electronicAppService.selectAppLineCheck(evo) ==null) {
+				ElectronicAppLineVo eevo = new ElectronicAppLineVo();
+				eevo.setElectronicNo(Integer.parseInt(eleNo));
+				eevo.setEmpNo(Integer.parseInt(empNo));
+				eevo.setApprovalLineCompleteFlag("1");
+				approList.add(eevo); // 내 앞사람이 승인을 했는지 안했는지
+			}else {
+				approList.add(electronicAppService.selectAppLineCheck(evo)); // 내 앞사람이 승인을 했는지 안했는지
+			}
+		}
+		logger.info("approList={}", approList);
 
+		model.addAttribute("approList", approList);
 		model.addAttribute("List", List);
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("navNo", 1);

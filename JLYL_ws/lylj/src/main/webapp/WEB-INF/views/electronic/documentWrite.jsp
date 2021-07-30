@@ -72,10 +72,10 @@
     		
     		$('input[name=AempNoData]').val(ApempNoData);
     		$('input[name=RempNoData]').val(RpempNoData);
+
     		if($('input[name=upfile]').val()){
-    			$('#electronicFileFlag').val('Y');
+    			$('input[name=electronicFileFlag]').val("Y");
     		}
-    		
     		
     		if(checkVal() == false){
     			return false;
@@ -122,7 +122,7 @@
     		
 
     		if($('input[name=upfile]').val()){
-    			$('#electronicFileFlag').val('Y');
+    			$('input[name=electronicFileFlag]').val("Y");
     		}
 
 	        $('form[name=docfrm]').submit();
@@ -136,7 +136,21 @@
 	        let date = today.getDate();  // 날짜
 	        
 	        $('#currentDate').val(year + '/' + month + '/' + date);
-	
+	        
+	    
+	    	$('#emergency').click(function(){
+	    		
+	    	    if(	$('#emergency').text() == "긴급설정"){
+		    		alert("긴급 설정 완료");
+		    		$('input[name=electronicEmergencyFlag]').val('1');
+		    	  	$('#emergency').text("긴급취소");
+		        }else{
+		     		alert("긴급 설정 취소");
+		    		$('input[name=electronicEmergencyFlag]').val('0');
+		    	  	$('#emergency').text("긴급설정");
+		        }
+	    		
+	    	});
 	});
 	
 	function checkVal(){
@@ -264,7 +278,7 @@
 								class="btn btn-light btn-outline-secondary"> <input
 								type="submit" name="draft" value="임시저장"
 								class="btn btn-light btn-outline-secondary">
-
+							<button type="button" class="btn btn-light btn-outline-secondary" id="emergency">긴급설정</button>
 							<button type="button" id="cancel"
 								class="btn btn-light btn-outline-secondary">기안서 작성 취소</button>
 						</div>
