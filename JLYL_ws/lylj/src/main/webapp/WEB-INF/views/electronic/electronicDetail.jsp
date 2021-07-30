@@ -276,15 +276,20 @@
     		$('input[name=electronicDraft]').val("1");
     		$('input[name=electronicFileFlag]').val("N");
     		
+
     		if($('#title').val().length == 0  ){
     			alert("제목을 입력해주세요");
     			event.preventDefault();
     			return false;
     		}
+
+    		if($('input[name=upfile]').val()){
+    			$('#electronicFileFlag').val('Y');
+    		}
     		
-		    $('form[name=docfrm]').submit();
-    	
-    	    		
+    		checkVal();
+	        $('form[name=docfrm]').submit();
+
 		});
 
 		$('#cancel_draft').click(function() { //임시저장문서 뒤로가기
