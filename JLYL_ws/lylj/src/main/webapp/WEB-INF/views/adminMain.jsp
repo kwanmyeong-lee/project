@@ -260,7 +260,7 @@ $.ajax({
 		
 		  series: [
 		    {
-		      name: "나이",
+		      name: "연령대",
 		      colorByPoint: true,
 		      data: charts.ageEmpGroup
 		    }
