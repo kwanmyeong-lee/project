@@ -126,7 +126,6 @@ public class IndexController {
 		List<HashMap<String, Object>> ageEmpGroup = empService.selectAgeGrop();
 		List<HashMap<String, Object>> joinLeave = empService.selectJoinLeave();
 		List<HashMap<String, Object>> comJL = new ArrayList<HashMap<String,Object>>();
-		
 		if(joinLeave==null || joinLeave.isEmpty()) {
 			HashMap<String, Object> jlmap = new HashMap<String, Object>();
 			jlmap.put("name", "정보없음");
@@ -149,7 +148,29 @@ public class IndexController {
 			comJL.add(jlmap2);
 		}
 		
+		List<HashMap<String, Object>> ageDetailList = new ArrayList<HashMap<String,Object>>();
 		
+		
+		for(int i=0; i<ageEmpGroup.size();i++) {
+			HashMap<String, Object> ageDetailMap = new HashMap<String, Object>();
+			List<HashMap<String, Object>> ageList = new ArrayList<HashMap<String, Object>>();
+			ageDetailMap.put("name", ageEmpGroup.get(i).get("name"));
+			ageDetailMap.put("id", ageEmpGroup.get(i).get("name"));
+			
+			for(int j=0; j<ageEmp.size();j++) {
+				if(ageEmpGroup.get(i).get("name")==ageEmp.get(j).get("ageGroup")) {
+					HashMap<String, Object> ageMap = new HashMap<String, Object>();				
+					ageMap.put("name", ageEmp.get(j).get("age"));
+					ageMap.put("y", ageEmp.get(j).get("per"));
+					ageList.add(ageMap);
+				}
+			}
+			
+			ageDetailMap.put("data", ageList);
+			ageDetailList.add(ageDetailMap);
+		}
+		
+		map.put("ageDetailList", ageDetailList);
 		map.put("ageEmpGroup", ageEmpGroup);
 		map.put("ageEmp", ageEmp);
 		map.put("comJL", comJL);
