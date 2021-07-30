@@ -143,7 +143,10 @@
 											test="${param.no eq 1 }">
 											<c:if test="${eleVo.APPROVAL_LINE_COMPLETE_FLAG eq '0'}">
 											처리중
-											<c:forEach var="appList" items="${approList }">
+
+												<c:forEach var="appList" items="${approList }">
+
+
 													<c:if test="${appList.electronicNo == eleVo.ELECTRONIC_NO}">
 														<c:if test="${appList.approvalLineCompleteFlag == 1 }">
 														(승인 순서입니다.)
