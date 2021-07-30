@@ -90,8 +90,9 @@
 </style>
 
 <script>
-	    /* 메일보내기 */
+
 	    $(function(){
+		    /* 메일보내기 */
 	    	$('#bt_sendMail').click(function(){
 	    		console.log("메일보내기")
 	    		/* 유효성검사 */
@@ -134,16 +135,14 @@
 	    			$('input[name=mailReserve]').val("");	
 	    		}
 	    		
-	    		var sendMail = document.emailDataFrm;
-	    		sendMail.acton = "<c:url value='/email/emailWrite'/>";
-	    		sendMail.method = "post";
-	    		sendMail.submit();
-	    		
+	    		var frm = document.emailDataFrm;
+	    		frm.action = "<c:url value='/email/emailWrite'/>";
+	    		frm.method = "post";
+	    		frm.target = "";
+	    		frm.submit();
 	    	});
-	    });
-	    
-	    /* 임시저장 */
-	    $(function(){
+	    	
+	    	/* 임시저장 */
 	    	$('#bt_tempSave').click(function(){
 	    		console.log("임시저장")
 	    		/* 유효성검사 */
@@ -161,22 +160,28 @@
 	    		
 	    		$('input[name=mailTempsave]').val('T');
 	    		
-	    		var tempFrm = document.emailDataFrm;
-	    		tempFrm.acton = "<c:url value='/email/emailWrite'/>";
-	    		tempFrm.method = "post";
-	    		tempFrm.submit();
+	    		temp = document.emailDataFrm;
+	    		temp.action = "<c:url value='/email/emailWrite'/>";
+				temp.target = "";
+	    		temp.method = "post";
+	    		temp.submit();
 	    	});
-	    }); 
+	    	
+	    });
+	    
+	    
+	    
 	    
 	    /* 미리보기 */
 	    $(function(){
 	    	$('#bt_preview').click(function(){
-				var newWin = window.open("","preview",'width=500, height=700, status=no, menubar=no, toolbar=no, resizable=no');
-				var previewForm = document.emailDataFrm;
-				previewForm.action = "<c:url value='/email/emailPreview'/>";
-				previewForm.target = "preview";
-				previewForm.submit();
-	    	});
+				var newWin = window.open("","preview",'width=500, height=750, status=no, menubar=no, toolbar=no, resizable=no');
+				preview = document.emailDataFrm;
+				preview.action = "<c:url value='/email/emailPreview'/>";
+				preview.target = "preview";
+				preview.submit();
+				return false;
+	    	}); 
 	    });
 	    
 	    
@@ -223,7 +228,7 @@
 				<button type="button" class="btn btn-secondary" id="bt_preview">미리보기</button>
 				<button type="button" class="btn btn-secondary" id="bt_tempSave">임시저장</button>
 			</div>
-			<form class="form-horizontal writefrm" id="emailDataFrm" name="emailDataFrm" method="post" enctype="multipart/form-data">
+			<form class="form-horizontal writefrm" id="emailDataFrm" name="emailDataFrm" enctype="multipart/form-data">
 				<input type="hidden" name = "mailSend" value="${sessionScope.empNo }">
 				<input type="hidden" name = "mailEmpno" value="${sessionScope.empNo }">
 				<input type="hidden" name = "mailTempsave">
@@ -236,10 +241,13 @@
 	                    <c:if test="${!empty fwEmailVo}">
 	                        <input type="text" class="orm-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
 	                    </c:if>
-	                    <c:if test="${!empty empVo}">
-	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${empVo.empNo}@lylj.net(${empVo.empName})" readonly="readonly">
+	                    <c:if test="${!empty svEmailVo}">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${svEmailVo.mailTake}@lylj.net">
 	                    </c:if>
-	                    <c:if test="${empty reEmailVo && empty fwEmailVo && empty empVo}">
+	                    <c:if test="${!empty empVo}">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${empVo.empNo}@lylj.net(${empVo.empName})" readonly="readonly" >
+	                    </c:if>
+	                    <c:if test="${empty reEmailVo && empty fwEmailVo && empty empVo && empty svEmailVo}">
 	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
 	                    </c:if>
 							<div id="resultEmp" style="display: none;">
@@ -255,7 +263,10 @@
                          <c:if test="${!empty fwEmailVo}">
                          	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" value="fw: ${fwEmailVo.mailTitle}"  readonly="readonly">
 			    		</c:if>
-			    		<c:if test="${empty reEmailVo && empty fwEmailVo}">
+			    		<c:if test="${!empty svEmailVo}">
+                         	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" value="${svEmailVo.mailTitle}">
+			    		</c:if>
+			    		<c:if test="${empty reEmailVo && empty fwEmailVo && empty svEmailVo}">
                          	<input type="text" class="form-control select2-offscreen textBox tx" id="mailTitle" name="mailTitle" tabindex="-1" >
 			    		</c:if>
 			    	</div>
@@ -290,6 +301,9 @@
 								&nbsp;${fwEmailVo.mailContent }<br>
 								--------------------------------------------------------------------						
 							</c:if>
+							<c:if test="${!empty svEmailVo}">
+								${svEmailVo.mailContent }						
+							</c:if>
 						</textarea>
 					</div>
 					<div class="form-group row chkBook">
@@ -309,9 +323,9 @@
 					    <input type="hidden" id="mailReserve" name="mailReserve" value="">
 				    	<div class="col-sm-11 row" id="setDate" >
 					    	<span>날짜 :
-					    	<input type="text" class="scheduleDate" name="bookDate" id="startDate" readonly="readonly">
+					    	<input type="text" class="scheduleDate" name="startDate" id="startDate" readonly="readonly">
 					    	시간 :
-					    	<select class="selectTime" id="startTime" name="bookTime" id="bookTime">
+					    	<select class="selectTime" id="startTime" name="bookTime">
 				        		<c:forEach var="i" begin="0" end="47">
 				        			<c:set var="hour" value="${i/2 - i/2%1}"/>
 				        			<c:set var ="min" value="00"/>
@@ -360,6 +374,8 @@
 				$('#setDate').hide();
 			}
 		});
+		
+		$("#startDate").datepicker( "option", "minDate", 0 );
 	});
 	
 </script>

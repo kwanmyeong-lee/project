@@ -148,6 +148,28 @@
 		
 		var eleNo =  $('input[name=electronicNo]').val(); //문서 번호
 		
+		$('#deleteUpFile').click(function(){
+			$.ajax({
+				url : "<c:url value = '/electronic/deleteFile?electronicNo='/>"+eleNo,
+						type : "get",
+							success : function(data){
+								if(data>0){
+									console.log("삭제 성공");
+									alert("삭제 성공");
+									$('#upLoadDisplay').css('display', 'block');
+									$('#fileBlock').css('display', 'none');
+								}else{
+									console.log("삭제 실패");
+									alert("삭제 실패");
+								}
+							},
+							error : function(){
+								console.log("삭제 실패");
+							}
+			});
+		
+		});
+		
 		$('#selectAP').click(function() { // 결재자 초기화를 위한 삭제 진행
 			if(avoEmpNo !=null){
 				$.ajax({
@@ -201,6 +223,9 @@
 					'top=40, left=40, width=1000, height=1000, status=no, menubar=no, toolbar=no, resizable=no, directories=no, location=no');
 			
 		});
+	
+
+		
 
 		var getStyle = $('#getStyle').val();
 
@@ -223,7 +248,6 @@
 		
 		$('#save_draft').click(function() { //임시저장문서 저장
 			
-			checkVal();
 	            
 	        var dataArr = [];
 	        
@@ -250,10 +274,22 @@
 			$('input[name=AempNoData]').val(ApempNoData);
 			$('input[name=RempNoData]').val(RpempNoData);    		
     		$('input[name=electronicDraft]').val("1");
+    		$('input[name=electronicFileFlag]').val("N");
+    		
+
+    		if($('#title').val().length == 0  ){
+    			alert("제목을 입력해주세요");
+    			event.preventDefault();
+    			return false;
+    		}
+
+    		if($('input[name=upfile]').val()){
+    			$('#electronicFileFlag').val('Y');
+    		}
     		
     		checkVal();
 	        $('form[name=docfrm]').submit();
-	        
+
 		});
 
 		$('#cancel_draft').click(function() { //임시저장문서 뒤로가기
@@ -262,7 +298,6 @@
 
 		$('#ok_draft').click(function(){ // 임시저장문서 기안 
 			
-		
 	            
 	        var dataArr = [];
 	        
@@ -289,9 +324,14 @@
 			$('input[name=AempNoData]').val(ApempNoData);
 			$('input[name=RempNoData]').val(RpempNoData);    		
     		$('input[name=electronicDraft]').val("0");
+    		$('input[name=electronicFileFlag]').val("N");
     		
-    		checkVal();
-	        $('form[name=docfrm]').submit();
+    		if(checkVal() == false){
+    			return false;
+    		}else{
+		        $('form[name=docfrm]').submit();
+    		}
+    		
 		  
 				
 		});
@@ -307,7 +347,7 @@
 			return false;
 		}
 		
-		if(	$('input[name=AempNoData]').val().length == 0){
+		if(	$('input[name=AempNoData]').val().length == 0 && $('#Approval').val().length == 0){
 			alert("결재자를 선택해주세요");
 			event.preventDefault();
 			return false;
@@ -364,7 +404,7 @@
 			value='${vo.electronicContent }'> <input type="hidden"
 			name="electronicDraft" value="1">
 		<!-- 파일/ 긴급 처리 -->
-		<input type="hidden" name="electronicFileFlag" value="0"> <input
+		<input type="hidden" name="electronicFileFlag"> <input
 			type="hidden" name="electronicEmergencyFlag" value="0">
 		<!-- 파일/ 긴급 처리 -->
 
@@ -437,12 +477,19 @@
 				<!-- 문서 양식 끝 -->
 
 				<div class="shadow-sm p-3 mb-2 bg-light rounded ">
-					<div class="form-group col-3">
-						<div class="input-group mb-3 btn-group dropend">
+					<div class="row justify-content-center " id="fileBlock">
+						<div class="col-2">
+							<c:if test="${!empty fvo}">
+								<button type="button"
+									class="btn btn-light btn-outline-secondary my-2 " id="deleteUpFile">첨부파일
+									전체 삭제</button>
+							</c:if>
+						</div>
+						<div class="col-2 dropend">
 							<!-- 첨부파일 -->
 							<c:if test="${!empty fvo}">
-								<button class="form-control" id="upFile" type="button"
-									data-bs-toggle="dropdown">첨부파일</button>
+								<button class="btn btn-light btn-outline-secondary my-2" id="upFile"
+									type="button" data-bs-toggle="dropdown">첨부파일</button>
 								<ul class="dropdown-menu dropdown-menu-lg-end"
 									aria-labelledby="dropdownMenuLink" id="upFileList">
 									<c:forEach var="file" items="${fvo}">
@@ -454,16 +501,34 @@
 									</c:forEach>
 								</ul>
 							</c:if>
-
-							<c:if test="${empty fvo }">
-								<div id="borderDiv"></div>
-							</c:if>
-
 						</div>
-
-
-
 					</div>
+					<!-- 첨부파일 -->
+
+					<c:if test="${empty fvo }">
+						<div id="borderDiv">
+							<div class="form-group col-6">
+								<div class="input-group mb-3 ">
+									<input multiple="multiple" type="file" class="form-control"
+										name="upfile" id="inputGroupFile02" aria-label="Upload">
+								</div>
+								<span style="margin-left: 5px; font-size: 14px;">※&nbsp;
+									파일크기 제한 : 50MB</span>
+							</div>
+						</div>
+					</c:if>
+					<div id="borderDiv">
+						<div class="form-group col-6" style="display: none;"
+							id="upLoadDisplay">
+							<div class="input-group mb-3 ">
+								<input multiple="multiple" type="file" class="form-control"
+									name="upfile" id="inputGroupFile02" aria-label="Upload">
+							</div>
+							<span style="margin-left: 5px; font-size: 14px;">※&nbsp;
+								파일크기 제한 : 50MB</span>
+						</div>
+					</div>
+
 					<br>
 					<div class="form-row" style="justify-content: center;">
 						<div class="form-group">

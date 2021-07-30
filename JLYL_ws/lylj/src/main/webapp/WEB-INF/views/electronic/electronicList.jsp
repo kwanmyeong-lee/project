@@ -131,7 +131,10 @@
 								<td
 									class="d-flex align-items-center justify-content-center align-middle pt-4">
 									<a class="list_title"
-									href="<c:url value='/electronic/electronicDetail?ElectronicNo=${eleVo.ELECTRONIC_NO }&no=${param.no }'/>"><span>${eleVo.ELECTRONIC_TITLE }</span></a>
+									href="<c:url value='/electronic/electronicDetail?ElectronicNo=${eleVo.ELECTRONIC_NO }&no=${param.no }'/>"><span>${eleVo.ELECTRONIC_TITLE }</span>
+									<c:if test="${eleVo.ELECTRONIC_FILE_FLAG eq 'Y' }">
+										<i class="fas fa-file"></i>
+									</c:if> </a>
 								</td>
 								<td class="text-center pt-4">${eleVo.EMP_NO }</td>
 								<td class="text-center"><span class=""> <c:if

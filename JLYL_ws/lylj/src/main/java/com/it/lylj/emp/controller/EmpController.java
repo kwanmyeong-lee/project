@@ -28,6 +28,8 @@ import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.common.SearchVO;
 import com.it.lylj.department.model.DepartmentService;
 import com.it.lylj.department.model.DepartmentVO;
+import com.it.lylj.email.model.EmailService;
+import com.it.lylj.email.model.EmailVO;
 import com.it.lylj.emp.model.EmpService;
 import com.it.lylj.emp.model.EmpVO;
 import com.it.lylj.position.model.PositionService;
@@ -46,6 +48,7 @@ public class EmpController {
 	private final EmpService empService;
 	private final FileUploadUtil fileUploadUtil;
 	private final PasswordEncoder passwordEncoder;
+	private final EmailService emailService;
 	
 	//사원등록페이지
 	@GetMapping("/empWrite")
@@ -141,8 +144,10 @@ public class EmpController {
 		EmpVO vo = empService.selectByEmpNo(empNo);
 		logger.info("사원정보, 파라미터 vo={}",vo);
 		
+		List<EmailVO> emailList = emailService.selectNotRead(Integer.toString(empNo));
 		//3
 		model.addAttribute("vo", vo);
+		model.addAttribute("emailList", emailList);
 
 		return "emp/empInfo";
 	}
@@ -162,11 +167,11 @@ public class EmpController {
 	
 	/* 사원정보 수정처리 */
 	@PostMapping("/empEdit")
-	public String empEdit_post(@ModelAttribute EmpVO empVo, @RequestParam String mEmpNo
+	public String empEdit_post(@ModelAttribute EmpVO empVo, @RequestParam String mEmpNo, @RequestParam String loginEmpNo
 			, @RequestParam String mEmpPwd, HttpServletRequest request, @RequestParam String oldFileName, Model model) {
 		logger.info("사원정보 수정처리, vo={}", empVo);
 		
-		int result = empService.loginProc(Integer.parseInt(mEmpNo), mEmpPwd);
+		int result = empService.loginProc(Integer.parseInt(loginEmpNo), mEmpPwd);
 		logger.info("정보확인,result={}",result);
 			
 		String msg="사원정보수정 실패", url="/emp/empEdit?empNo="+empVo.getEmpNo();
@@ -316,7 +321,6 @@ public class EmpController {
 		List<EmpVO> list = empService.selectSearchNum(searchNo);
 		return list;
 	}
-
 }
 
 

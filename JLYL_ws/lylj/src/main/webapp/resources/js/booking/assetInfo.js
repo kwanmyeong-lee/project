@@ -178,7 +178,7 @@ $(function() {
 	                            title: scheduleTitle,
 	                            start: scheduleStart,
 	                            end: scheduleEnd,
-	                            allDay: (scheduleAllday=="true"),
+	                            allDay: (scheduleAllday==true),
 	                            color:scheduleColor,
 	                            classNames:[data]
                           });

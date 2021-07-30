@@ -23,6 +23,7 @@ public interface EmailService {
 	int totalRecordByType(String taker, int type);
 	int deleteCheckMulti(List<EmailVO> list);
 	int deleteCompleteMail(List<EmailVO> list);
+	int updateMultiReadDate(List<EmailVO> list);
 	int updateReadDate(int mailNo);
 	int updateInportant(int mailNo);
 	int updateNotInportant(int mailNo);

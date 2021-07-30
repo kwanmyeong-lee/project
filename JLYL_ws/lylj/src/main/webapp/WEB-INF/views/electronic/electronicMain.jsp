@@ -35,7 +35,7 @@
 		<div class="col-lg-6">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold text-primary">전자결재 대기함</h6>
+					<h6 class="m-0 font-weight-bold text-primary">최근 전자결재 대기함</h6>
 				</div>
 				<div class="card-body">
 					<table class="table table-hover">
@@ -60,7 +60,7 @@
 							<c:if test="${!empty ListAp }">
 								<c:forEach var="ap" items="${ListAp }">
 									<tr>
-										<td>${ap.ELECTRONIC_TITLE }</td>
+										<td><a href="<c:url value = '/electronic/electronicDetail?ElectronicNo=${ap.ELECTRONIC_NO }&no=1'/>">${ap.ELECTRONIC_TITLE }</a></td>
 										<td>${ap.EMP_NO }</td>
 										<td><fmt:formatDate value="${ap.ELECTRONIC_DATE }"
 												pattern="yyyy-MM-dd" /></td>
@@ -75,7 +75,7 @@
 		<div class="col-lg-6">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold text-primary">결재 수신 목록</h6>
+					<h6 class="m-0 font-weight-bold text-primary">최근 결재 수신 목록</h6>
 				</div>
 				<div class="card-body">
 					<table class="table table-hover">
@@ -100,7 +100,7 @@
 							<c:if test="${!empty ListRe }">
 								<c:forEach var="re" items="${ListRe }">
 									<tr>
-										<td>${re.ELECTRONIC_TITLE }</td>
+										<td><a href="<c:url value = '/electronic/electronicDetail?ElectronicNo=${re.ELECTRONIC_NO }&no=2'/>">${re.ELECTRONIC_TITLE }</a></td>
 										<td>${re.EMP_NO }</td>
 										<td><fmt:formatDate value="${re.ELECTRONIC_DATE }"
 												pattern="yyyy-MM-dd" /></td>
@@ -119,7 +119,7 @@
 		<div class="col-lg-6">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold text-primary">결재 완료 목록</h6>
+					<h6 class="m-0 font-weight-bold text-primary">최근 결재 완료 목록</h6>
 				</div>
 				<div class="card-body">
 					<table class="table table-hover">
@@ -144,7 +144,7 @@
 							<c:if test="${!empty ListFi }">
 								<c:forEach var="fi" items="${ListFi }">
 									<tr>
-										<td>${fi.ELECTRONIC_TITLE }</td>
+										<td><a href="<c:url value = '/electronic/electronicDetail?ElectronicNo=${fi.ELECTRONIC_NO }&no=6'/>">${fi.ELECTRONIC_TITLE }</a></td>
 										<td>${fi.EMP_NO }</td>
 										<td><fmt:formatDate value="${fi.ELECTRONIC_DATE }"
 												pattern="yyyy-MM-dd" /></td>

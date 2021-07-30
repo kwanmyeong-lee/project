@@ -13,8 +13,9 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
-.btns{
-	
+#h33{
+	margin-top: 40px;
+	color : #3a3a3a;
 }
 .tt{
 	display: inline;
@@ -180,9 +181,11 @@ function folSer(ser, bookingFolderNo , bookingFolderName){
 }
 </script>
 
-
 <div id="bookMainDiv">
 <div class="container">
+	<h3 id="h33">자산관리</h3>
+  <br>
+  <br>
   <i class="far fa-edit btns-1 btns fa-5x"></i>
   <div class="tt">
   	<input type="hidden" value="#addSel">
@@ -195,7 +198,9 @@ function folSer(ser, bookingFolderNo , bookingFolderName){
   	<input type="text" placeholder="자산명" id="addText2" style="display: none;">
   </div>
   <br>
-  
+  <br>
+  <br>
+  <br>
   <i class="fas fa-wrench btns-2 btns fa-5x"></i>
   <div class="tt">
   	<input type="hidden" value="#editSel">
@@ -207,7 +212,9 @@ function folSer(ser, bookingFolderNo , bookingFolderName){
   	<input type="text" id="editText" placeholder="수정명">
   </div>
   <br>
-  
+  <br>
+  <br>
+  <br>
   <i class="fas fa-trash-alt btns-3 btns fa-5x"></i>
   <div class="tt">
  	 <input type="hidden" value="#delSel">
@@ -218,9 +225,10 @@ function folSer(ser, bookingFolderNo , bookingFolderName){
   	</select>
   </div>
   <br>
+  <br>
+  
+  
   
 </div>
 </div>
-
-
 <%@ include file="../inc/bottom.jsp"%>

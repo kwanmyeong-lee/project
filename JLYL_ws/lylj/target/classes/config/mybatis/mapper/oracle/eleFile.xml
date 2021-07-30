@@ -26,5 +26,10 @@
 		select * from ELFILE
 		where FILE_NO = ${fileNo}
 	</select>
+	
+	<delete id="deleteFile" parameterType="int">
+		delete ELFILE
+		where ELECTRONIC_NO = ${electronicNo}
+	</delete>
 
 </mapper>

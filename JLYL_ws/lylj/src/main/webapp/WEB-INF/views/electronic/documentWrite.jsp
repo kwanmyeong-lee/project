@@ -47,7 +47,6 @@
 		
 		$('input[name=submit]').click(function(){ //기안서 보내기
 			
-		
 	            
             var dataArr = [];
  
@@ -73,9 +72,15 @@
     		
     		$('input[name=AempNoData]').val(ApempNoData);
     		$('input[name=RempNoData]').val(RpempNoData);
+    		if($('input[name=upfile]').val()){
+    			$('#electronicFileFlag').val('Y');
+    		}
     		
     		
-    		checkVal();
+    		if(checkVal() == false){
+    			return false;
+    		};
+    		
 	        $('form[name=docfrm]').submit();
 		  
 				
@@ -108,7 +113,18 @@
     		$('input[name=RempNoData]').val(RpempNoData);
     		$('input[name=electronicDraft]').val('1');
     		
-    		checkVal();
+
+    		if($('#title').val().length == 0  ){
+    			alert("제목을 입력해주세요");
+    			event.preventDefault();
+    			return false;
+    		}    		
+    		
+
+    		if($('input[name=upfile]').val()){
+    			$('#electronicFileFlag').val('Y');
+    		}
+
 	        $('form[name=docfrm]').submit();
 			
 		});

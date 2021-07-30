@@ -321,17 +321,25 @@
 						<img src="<c:url value ="/resources/img/아이유1.jpg"/>"
 							class="card-img-top" alt="...">
 						<ol class="breadcrumb mt-3">
-							<li class="breadcrumb-item">오늘받은 메일</li>
-							<li class="breadcrumb-item"><a href="#">3개</a></li>
+							<li class="breadcrumb-item">안읽은 메일</li>
+							<li class="breadcrumb-item">
+								<a href="<c:url value="/email/emailList?empNo=${sessionScope.empNo }&type=6"/>">
+									<c:if test="${emailList.size() eq '0'}">
+										0개
+									</c:if>	
+									<c:if test="${emailList.size() ne '0'}">
+										${emailList.size() }개
+									</c:if>	
+								</a>
+							</li>
 						</ol>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item">오늘 일정</li>
 							<li class="breadcrumb-item"><a href="#">${todayScheduleCnt}개</a></li>
 						</ol>
 						<div class="card-body">
-							<button type="button" class="btn btn-outline-info btn-lg w-100">
-								<a href="#" class="card-link">메일 쓰기</a> <br>
-							</button>
+							<a href="<c:url value='/email/emailWrite'/>" class="card-link"><button type="button" class="btn btn-outline-info btn-lg w-100">메일 쓰기</button></a>
+
 							<button type="button"
 								class="btn btn-outline-info btn-lg w-100 mt-3">
 								<a href="<c:url value="/schedule/write"/>" class="card-link">일정 등록</a> <br>

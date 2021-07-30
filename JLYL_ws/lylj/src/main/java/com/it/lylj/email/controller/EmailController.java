@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -116,9 +117,10 @@ public class EmailController {
 		   model.addAttribute("reEmailVo", reEmailVo);
 		}else if(type.equals("fw")) {
 			EmailVO fwEmailVo= emailService.selectByMailNo(mailNo);
-			List<EmailFileVO> fwEmailFileList = emailFileService.selectFileByMailNo(mailNo);
 			model.addAttribute("fwEmailVo", fwEmailVo);
-			model.addAttribute("fwEmailFileList", fwEmailFileList);
+		}else if(type.equals("sv")) {
+			EmailVO svEmailVo= emailService.selectByMailNo(mailNo);
+			model.addAttribute("svEmailVo", svEmailVo);
 		}
 		
 		if(empNo!=0) {
@@ -261,10 +263,18 @@ public class EmailController {
 	
 	/* 미리보기 페이지 */
 	@RequestMapping("/emailPreview")
-	public String emailPreview(@ModelAttribute EmailVO vo
-			, Model model) {
-		logger.info("vo={}",vo);
+	public String emailPreview(String mailTitle, String mailTake, String mailContent, HttpSession session, Model model) {
+		String empNo = (String)session.getAttribute("empNo");
+		EmailVO vo = new EmailVO();
+		
+		vo.setMailEmpno(Integer.parseInt(empNo));
+		vo.setMailTake(mailTake);
+		vo.setMailTitle(mailTitle);
+		vo.setMailContent(mailContent);
+		logger.info("셋팅된 미리보기, vo={}",vo);
+		
 		model.addAttribute("vo", vo);
+		
 		return "email/emailPreview";
 	}
 	
@@ -297,10 +307,10 @@ public class EmailController {
 	
 	/* 메일 다중 완전 삭제 */
 	@RequestMapping("/emailMultiCompleteDel")
-	public String emailMultiCompleteDel(@ModelAttribute EmailListVO listVo, HttpServletRequest request, HttpSession session, Model model) {
+	public String emailMultiCompleteDel(@ModelAttribute EmailListVO listVo, Model model) {
 		logger.info("메일 선택 삭제, listVo={}",listVo);
-		String empNo = (String)session.getAttribute("empNo");
 		List<EmailVO> list = listVo.getSelectedEmail();
+		logger.info("list.size()={}",list.size());
 		
 		for(int i=0; i<list.size(); i++) {
 			EmailVO emailVo = list.get(i);
@@ -332,6 +342,24 @@ public class EmailController {
 		return "redirect:/email/emailDetail?mailNo="+mailNo;
 		
 	}
+	
+	/* 다중 이메일 읽음처리 */
+	@RequestMapping("/emailMultiRead")
+	public String emailMultiRead(@ModelAttribute EmailListVO listVo, HttpSession session,@RequestParam(defaultValue = "0")int type, Model model) {
+		logger.info("다중읽음처리, mailNo={}",listVo);
+		String empNo = (String)session.getAttribute("empNo");
+		
+		List<EmailVO> list = listVo.getSelectedEmail();
+		logger.info("다중읽음처리, list.size()={}",list.size());
+		
+		int cnt = emailService.updateMultiReadDate(list);
+		logger.info("다중읽음처리결과, cnt={}",cnt);
+		
+		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
+		
+	}
+	
+	
 	@RequestMapping("/importantEmail")
 	public String updateInportantMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
 		logger.info("중요메일, mailNo={}",mailNo);
