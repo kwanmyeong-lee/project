@@ -84,9 +84,10 @@ input:focus, textarea:focus {
 	-moz-box-shadow: none !important;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
-	border: 1px solid #304FFE;
+	border: 1px solid #2da6bb;
 	outline-width: 0
 }
+
 
 button:focus {
 	-moz-box-shadow: none !important;

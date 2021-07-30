@@ -20,7 +20,7 @@ public class MvcConfiguration implements WebMvcConfigurer{
 //		.addPathPatterns("/shop/cart/*", "/shop/order/*","/member/memberEdit","/member/memberOut");
 //		
 		registry.addInterceptor(new LoginInterceptor())
-		.excludePathPatterns("/login/login")
+		.excludePathPatterns("/login/login","/login/findPwd")
 		.addPathPatterns("/*/*");
 		
 		registry.addInterceptor(new LoginToLoginInterceptor())

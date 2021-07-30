@@ -20,11 +20,15 @@
 .logo{
 	height: 50px;
 }
-.buttonGroup{
-	padding: 10px;
-}
 .textGroup{
 	width:  500px; 
+}
+.buttonGroup{
+	margin-left: 115px; 
+}
+
+.modalButton{
+	margin-left: 30px;
 }
 </style>
 <script type="text/javascript">
@@ -66,10 +70,12 @@
 				alert('사원번호를 입력하세요');
 				$('#empNo').focus();
 				event.preventDefault();
+				return false;
 			}else if($('#empPwd').val().length<1){
 				alert('비밀번호를 입력하세요');
 				$('#empPwd').focus();
 				event.preventDefault();
+				return false;
 			}
 			
 		});
@@ -92,7 +98,7 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<form class="loginFrm" method="post" action="<c:url value="/login/login"/>">
+					<form class="loginFrm login-box login-box" method="post" action="<c:url value="/login/login"/>">
 						<div class="card2 card border-0 px-4 py-5">
 							<div class="row mb-4 px-3">
 							</div>
@@ -100,11 +106,11 @@
 							</div>
 							<div class="row px-3 mb-4">
 							</div>
-							<div class="row px-3">
+							<div class="row px-3 user-box">
 								<label class="mb-1">사원번호</label> 
 								<input class="mb-4 textGroup" type="text" name="empNo" id="empNo" placeholder="Enter employee number" value="${cookie.ck_empNo.value }">
 							</div>
-							<div class="row px-3">
+							<div class="row px-3 user-box">
 								<label class="mb-1">비밀번호</label> 
 								<input class="mb-4 textGroup" type="password" name="empPwd" id="empPwd" placeholder="Enter password">
 							</div>
@@ -113,7 +119,10 @@
 									<input id="chk1" type="checkbox" name="chkSave" class="custom-control-input" <c:if test="${!empty cookie.ck_empNo}"> checked="checked" </c:if>>
 									<label for="chk1" id="chkSave" class="custom-control-label text-sm">아이디 저장하기</label>
 								</div>
-								<a href="#" id="findPwd" class="ml-auto mb-0 text-sm" >비밀번호찾기</a>
+								<span style="margin-left: 120px;">						
+									<a href="#" id="findPwd" class="ml-auto mb-0 text-sm" >임시비밀번호발급</a> 
+									/ <a href="#" id="findPwd2" class="ml-auto mb-0 text-sm" >휴대폰인증</a>
+								</span>
 							</div>
 							<div class="row mb-3 px-3">
 								<button type="submit" class="btn btn-blue text-center" id="btLongin">로그인</button>
@@ -155,9 +164,9 @@
 			<div class="row px-3">
 			   	<span>등록한 E-mail로 임시비밀번호가 전송됩니다.</span>
 			</div><hr>
-			<div class="row px-3 buttonGroup">
-				<button type="submit" class="btn btn-info" id="btfindPwd">찾기</button>
-		        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btcloseModal">취소</button>
+			<div class="row px-4 buttonGroup">
+				<button type="submit" class="btn btn-info modalButton" id="btfindPwd">찾기</button>
+		        <button type="button" class="btn btn-danger modalButton" data-bs-dismiss="modal" id="btcloseModal">취소</button>
 		    </div>
             </form>
 		  </div>

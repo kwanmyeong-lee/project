@@ -41,6 +41,18 @@
 }
 </style>
 
+<script>
+	$(function(){
+		$('#leaveEmp').click(function(){
+			$('#leaveModal').modal('show');			
+		});
+		
+		$('#btdeleteModal').click(function(){
+			
+		});
+	});
+</script>
+
 	<div class="panel mainPanel">
 		 
 		<h3>사원정보</h3>
@@ -175,12 +187,60 @@
 		<div></div>
 		<div class="btGroup">
 			<a href="<c:url value='/emp/empEdit?empNo=${vo.empNo }'/>"><button class="btn btn-secondary " type="submit">수정</button></a>
-			<c:if test="${vo.empAdminLev==1 }">
-				<a href=""><button class="btn btn-secondary " type="submit">퇴사</button></a>
+			<c:if test="${vo.empAdminLev==1 || vo.empAdminLev==2}">
+				<button class="btn btn-secondary" id="leaveEmp" type="submit">퇴사</button>
 			</c:if>
-			<a href="<c:url value='/emp/empList'/>"><button class="btn btn-secondary " type="button" >사원목록으로</button></a>
+			<c:if test="${vo.empAdminLev==1 || vo.empAdminLev==2}">
+				<a href="<c:url value='/emp/empList'/>"><button class="btn btn-secondary " type="button" >사원목록으로</button></a>
+			</c:if>
 			<a href="<c:url value="/index"/>"><button class="btn btn-secondary" type="submit">메인으로</button></a>
 		</div>
+	</div>
+	
+	<!-- 퇴사등록 Modal -->
+	<div class="modal" id="leaveModal" data-bs-backdrop="static">
+	  <div class="modal-dialog ">
+	    <div class="modal-content">
+	
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">사원정보삭제</h4>
+	        <button type="button" class="close" data-bs-dismiss="modal" id="modalClose">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+ 		 <div class="modal-body">
+		    <form name="findPwdfrm" id="findPwdfrm" method="post" action="<c:url value="/emp/leaveEmp"/>">
+     	        <div class="row">
+     	        	<div class="col-md-12">
+     		        	<label class="form-label modalLabel" for="empNo">사원번호</label> 
+	                	<input class="form-control" type="text" name="modalEmpNo" id="modalEmpNo" placeholder="Enter employee number" readonly="readonly" value="${vo.empNo }">
+	                </div>
+                </div>
+                <div class="row">
+                	 <div class="col-md-12">
+	                 	<label class="form-label modalLabel" for="modalEmpEmail">관리자번호</label> 
+	                 	<input class="form-control" type="email" name="modalAdmin" id="adminEmpNo" value="${sessionScope.empNo }" readonly="readonly">
+	                 </div>
+                </div>
+                <div class="row">
+                	 <div class="col-md-12">
+	                 	<label class="form-label modalLabel" for="modalAdminPwd">관리자비밀번호</label> 
+	                 	<input class="form-control" type="password" name="modalAdminPwd" id="modalAdminPwd" placeholder="Enter password" >
+	                 </div>
+                </div>
+                <br>
+			<div class="row px-3">
+			   	<span id ="red">사원정보가 삭제됩니다. 신중히 클릭해주세요.</span>
+			</div><hr>
+			<div class="row px-3 buttonGroup">
+				<button type="submit" class="btn btn-info" id="btdeleteModal">삭제</button>
+		        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btcloseModal">취소</button>
+		    </div>
+            </form>
+		  </div>
+	    </div>
+	  </div>
 	</div>
 	
 
