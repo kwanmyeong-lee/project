@@ -1,5 +1,6 @@
 package com.it.lylj.emp.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,4 +25,7 @@ public interface EmpDAO {
 	List<EmpVO>  selectAllEmpForEle();
 	List<EmpVO> selectSearchNum(int searcNo);
 	int selectCountByEmpNo(int empNo);
+	List<HashMap<String, Object>> selectAge();
+	List<HashMap<String, Object>> selectAgeGrop();
+	List<HashMap<String, Object>> selectJoinLeave();
 }
