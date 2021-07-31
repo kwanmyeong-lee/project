@@ -118,6 +118,7 @@ public class IndexController {
 		
 		return "adminMain";
 	}
+	
 	@ResponseBody
 	@GetMapping("/chartList")
 	public HashMap<String, Object> chartList(){
@@ -177,6 +178,7 @@ public class IndexController {
 		return map;
 	}
 
+	
 	@ResponseBody
 	@RequestMapping("/inc/list")
 	public List<OriVo> selectOri() {
