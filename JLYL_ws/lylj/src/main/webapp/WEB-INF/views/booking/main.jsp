@@ -70,7 +70,7 @@
 	                                    <td >${boTargetList[i.bookingTargetNo-1].bookingTargetName}</td>
 	                                    <td >${empName}</td>
 	                                    <td >${i.bookingStart} ~ ${i.bookingEnd}</td>
-	                                    <td ><fmt:formatDate value="${i.bookingCurrent}" pattern="YYYY-MM-DD HH:mm:ss"/></td>
+	                                    <td ><fmt:formatDate value="${i.bookingCurrent}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	                                    <c:choose>
 	                                    	<c:when test="${i.bookingAppFlag==2}">
 	                                    		<td >승인</td>
