@@ -33,6 +33,12 @@ public class LoginController {
 		return "login/login";
 	}
 	
+	//테스트
+	@RequestMapping("/testLogin")
+	public void testpage() {
+		
+	}
+	
 	@PostMapping("/login/login")
 	public String login_post(@RequestParam String empNo, @RequestParam String empPwd, 
 				@RequestParam(required = false) String chkSave, HttpServletRequest request, HttpServletResponse response,
