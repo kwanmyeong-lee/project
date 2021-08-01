@@ -217,6 +217,10 @@
 		call updateAttendDay(?,?,?,?,?)
 	</update>
 	
+	<update id="updateAutoOffHour" >
+		call updateAutoOffHour()
+	</update>
+	
 	
 	<select id="selectSumConditionByGroup" parameterType="hashmap" resultType="map">
 		<![CDATA[
