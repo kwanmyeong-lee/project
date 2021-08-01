@@ -1922,8 +1922,6 @@ insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-19 09:1
 to_date('2021-07-19 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-19 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-19');
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-20 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-20 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-20 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-20');
-
-
 insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-07 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-07 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-07 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-07');
 insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-08 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
@@ -1944,11 +1942,6 @@ insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-19 09:1
 to_date('2021-07-19 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-19 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-19');
 insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-20 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-20 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-20 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-20');
-
-
-
-
---
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
@@ -1961,8 +1954,6 @@ insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-29 10:1
 to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
 insert into attendday values(attendday_seq.nextval,122, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
-
-
 insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
 insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
@@ -1975,7 +1966,6 @@ insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-29 10:1
 to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
 insert into attendday values(attendday_seq.nextval,121, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
-
 insert into attendday values(attendday_seq.nextval,120, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
 insert into attendday values(attendday_seq.nextval,120, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
@@ -1988,7 +1978,6 @@ insert into attendday values(attendday_seq.nextval,120, to_date('2021-07-29 10:1
 to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
 insert into attendday values(attendday_seq.nextval,120, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
-
 insert into attendday values(attendday_seq.nextval,119, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
 insert into attendday values(attendday_seq.nextval,119, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
@@ -2001,7 +1990,6 @@ insert into attendday values(attendday_seq.nextval,119, to_date('2021-07-29 10:1
 to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
 insert into attendday values(attendday_seq.nextval,119, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
-
 insert into attendday values(attendday_seq.nextval,118, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
 insert into attendday values(attendday_seq.nextval,118, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
@@ -2014,7 +2002,6 @@ insert into attendday values(attendday_seq.nextval,118, to_date('2021-07-29 10:1
 to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
 insert into attendday values(attendday_seq.nextval,118, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
-
 insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-25 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-25 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-25 04:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-25');
 insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-26 11:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
@@ -2027,6 +2014,14 @@ insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-29 10:1
 to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
 insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
+
+
+insert into attendday values(attendday_seq.nextval,117, to_date('2021-08-01 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+null,null,0,'2021-08-01');
+select * from attendday;
+
+
+
 
 --휴가 종류
 insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'연차');
@@ -2145,12 +2140,29 @@ EXCEPTION
 end;
 
 
+---자동 퇴근
+create or replace procedure updateAutoOffHour 
+is
 
 
+begin
+        update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-mm-dd')||' 18:00:00','yyyy-mm-dd hh24:mi:ss'),
+		ATTENDANCE_DAY_WORK_HOUR=TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-mm-dd')||' 18:00:00','yyyy-mm-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR+ATTENDANCE_DAY_REGDATE
+		where ATTENDANCE_DAY_OFF_HOUR IS NULL and ATTENDANCE_DAY_REGDATE =TRUNC(SYSDATE)
+        AND ATTENDANCE_DAY_ON_HOUR < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-mm-dd')||' 18:00:00','yyyy-mm-dd hh24:mi:ss') ;
+        
+        delete from ATTENDDAY 
+        WHERE ATTENDANCE_DAY_OFF_HOUR IS NULL;
+    
+    
 
+    commit;
 
-
-
+EXCEPTION
+    WHEN OTHERS THEN
+    raise_application_error(-20001, '근태 날짜 정보 업데이트 실패!');
+        ROLLBACK;
+end;
 
 
 

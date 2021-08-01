@@ -141,6 +141,12 @@ public class AttendDayServiceImpl implements AttendDayService{
 	}
 
 
+	@Override
+	public int updateAutoOffHour() {
+		return dao.updateAutoOffHour();
+	}
+
+
 	
 
 }
