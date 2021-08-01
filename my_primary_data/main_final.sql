@@ -2016,9 +2016,7 @@ insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-30 09:1
 to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
 
 
-insert into attendday values(attendday_seq.nextval,117, to_date('2021-08-01 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
-null,null,0,'2021-08-01');
-select * from attendday;
+
 
 
 

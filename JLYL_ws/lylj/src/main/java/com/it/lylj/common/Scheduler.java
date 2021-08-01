@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class Scheduler {
 	private static final Logger logger = LoggerFactory.getLogger(EmailController.class);
 	private final AttendDayService attendDayService;
+	
 	@Scheduled(cron= "30 59 23 * * *")
 	public void updateAttendDayOffHour(){
 		attendDayService.updateAutoOffHour();
