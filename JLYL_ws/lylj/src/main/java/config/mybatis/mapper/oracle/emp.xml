@@ -28,6 +28,46 @@
 		where emp_no=#{empNo}
 	</select> 
 	
+	<resultMap type="hashmap" id="ageEmp">
+		<result property="name" column="AGE" jdbcType="NUMERIC" javaType="int"/>
+		<result property="y" column="PER" jdbcType="NUMERIC" javaType="float"/>
+		<result property="drilldown" column="AGE" jdbcType="NUMERIC" javaType="int"/>
+	</resultMap>
+	
+	<resultMap type="hashmap" id="ageEmp2">
+		<result property="age" column="AGE" jdbcType="NUMERIC" javaType="int"/>
+		<result property="per" column="PER" jdbcType="NUMERIC" javaType="float"/>
+		<result property="ageGroup" column="AGEGROUP" jdbcType="NUMERIC" javaType="int"/>
+	</resultMap>
+	
+	<resultMap type="hashmap" id="joinLeave">
+		<result property="reg" column="REG" jdbcType="NUMERIC" javaType="int"/>
+		<result property="res" column="RES" jdbcType="NUMERIC" javaType="int"/>
+	</resultMap>
+	
+	<select id="selectAge" resultMap="ageEmp2">
+		select age,ROUND(RATIO_TO_REPORT(COUNT(*)) OVER(),3)*100 as per, floor(age/10)*10 as ageGroup
+		from( select (to_char(sysdate, 'YYYY') - to_char(emp_birth,'YYYY')) as age from emp ) o
+		group by age
+		order by age
+	</select> 
+	
+	<select id="selectAgeGrop" resultMap="ageEmp">
+		select age, ROUND(RATIO_TO_REPORT(COUNT(*)) OVER(),3)*100 AS per
+		from( select floor((to_char(sysdate, 'YYYY') - to_char(emp_birth,'YYYY')) / 10) * 10 as age from emp ) o
+		group by age
+		order by age
+	</select> 
+	
+	<select id="selectJoinLeave" resultMap="joinLeave">
+		select count(EMP_REGDATE) as reg, count(EMP_RESDATE ) as res from emp
+		where EMP_REGDATE between TRUNC(sysdate,'MM') and ADD_MONTHS( TRUNC(sysdate,'MM'), 1)
+		OR EMP_RESDATE between TRUNC(sysdate,'MM') and ADD_MONTHS( TRUNC(sysdate,'MM'), 1)
+	</select> 
+	
+	
+	
+	
 	<!-- 사원번호로 정보선택 -->
 	<select id="selectByEmpNo" parameterType="int" resultType="empVo">
 		select * from empView

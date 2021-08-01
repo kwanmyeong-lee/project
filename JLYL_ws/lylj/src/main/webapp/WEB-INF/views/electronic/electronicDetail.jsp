@@ -15,6 +15,12 @@
 <link
 	href="<c:url value="/resources/css/ele_document/ele_doc_main.css"/>"
 	rel="stylesheet">
+<script type="text/javascript"
+	src="<c:url value='/resources/js/bluebird.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/html2canvas.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/jspdf.min.js'/>"></script>
 
 <script type="text/javascript">
 	$(function() { // db 에 있는 content 를 가져와서 배열로 돌린다음 배열 갯수만큼 input 에 넣어준다 
@@ -40,6 +46,40 @@
 						' border : 0; background : white');
 			}
 		}
+		
+		$('#savePdf').click(function() { // pdf저장 button id
+			
+		    	html2canvas($("#pdfLine")).then(canvas => {
+		    		  // base64 url 로 변환
+		    		  var imgData = canvas.toDataURL('image/jpeg');
+
+		    		  var imgWidth = 190; // 이미지 가로 길이(mm) A4 기준
+		    		  var pageHeight = imgWidth * 1.414; // 출력 페이지 세로 길이 계산 A4 기준
+		    		  var imgHeight = canvas.height * imgWidth / canvas.width;
+		    		  var heightLeft = imgHeight;
+		    		  var margin = 0;
+
+		    		  var doc = new jsPDF('p', 'mm', 'a4');
+		    		  var position = 0;
+
+		    		  // 첫 페이지 출력
+		    		  doc.addImage(imgData, 'jpeg', margin, position, imgWidth, imgHeight);
+		    		  heightLeft -= pageHeight;
+
+		    		  // 한 페이지 이상일 경우 루프 돌면서 출력
+		    		  while (heightLeft >= 20) {
+		    		    position = heightLeft - imgHeight;
+		    		    doc.addPage();
+		    		    doc.addImage(imgData, 'jpeg', margin, position, imgWidth, imgHeight);
+		    		    heightLeft -= pageHeight;
+		    		  }
+
+		    		  // 파일 저장
+		    		  doc.save('sample.pdf');
+		    		});
+
+		});
+		
 	});
 	$(function() {
 		
@@ -274,8 +314,6 @@
 			$('input[name=AempNoData]').val(ApempNoData);
 			$('input[name=RempNoData]').val(RpempNoData);    		
     		$('input[name=electronicDraft]').val("1");
-    		$('input[name=electronicFileFlag]').val("N");
-    		
 
     		if($('#title').val().length == 0  ){
     			alert("제목을 입력해주세요");
@@ -284,7 +322,7 @@
     		}
 
     		if($('input[name=upfile]').val()){
-    			$('#electronicFileFlag').val('Y');
+    			$('input[name=electronicFileFlag]').val("Y");
     		}
     		
     		checkVal();
@@ -324,7 +362,10 @@
 			$('input[name=AempNoData]').val(ApempNoData);
 			$('input[name=RempNoData]').val(RpempNoData);    		
     		$('input[name=electronicDraft]').val("0");
-    		$('input[name=electronicFileFlag]').val("N");
+    		
+    		if($('input[name=upfile]').val()){
+    			$('input[name=electronicFileFlag]').val("Y");
+    		}    		
     		
     		if(checkVal() == false){
     			return false;
@@ -358,7 +399,7 @@
 		
 
 </script>
-<div class="container shadow p-3 mb-5 bg-white rounded">
+<div class="container shadow p-3 mb-5 bg-white rounded"  id="pdfLine">
 
 	<!-- 결재자 승인을 위한 form -->
 	<!-- 수신사 삭제를 위한 form -->
@@ -404,7 +445,7 @@
 			value='${vo.electronicContent }'> <input type="hidden"
 			name="electronicDraft" value="1">
 		<!-- 파일/ 긴급 처리 -->
-		<input type="hidden" name="electronicFileFlag"> <input
+		<input type="hidden" name="electronicFileFlag" value="N"> <input
 			type="hidden" name="electronicEmergencyFlag" value="0">
 		<!-- 파일/ 긴급 처리 -->
 
@@ -481,15 +522,15 @@
 						<div class="col-2">
 							<c:if test="${!empty fvo}">
 								<button type="button"
-									class="btn btn-light btn-outline-secondary my-2 " id="deleteUpFile">첨부파일
-									전체 삭제</button>
+									class="btn btn-light btn-outline-secondary my-2 "
+									id="deleteUpFile">첨부파일 전체 삭제</button>
 							</c:if>
 						</div>
 						<div class="col-2 dropend">
 							<!-- 첨부파일 -->
 							<c:if test="${!empty fvo}">
-								<button class="btn btn-light btn-outline-secondary my-2" id="upFile"
-									type="button" data-bs-toggle="dropdown">첨부파일</button>
+								<button class="btn btn-light btn-outline-secondary my-2"
+									id="upFile" type="button" data-bs-toggle="dropdown">첨부파일</button>
 								<ul class="dropdown-menu dropdown-menu-lg-end"
 									aria-labelledby="dropdownMenuLink" id="upFileList">
 									<c:forEach var="file" items="${fvo}">
@@ -571,6 +612,10 @@
 								<button type="button"
 									class="btn btn-light btn-outline-secondary cancel">뒤로가기</button>
 							</c:if>
+								<button type="button" id="savePdf"
+									class="btn btn-light btn-outline-secondary">PDF 다운로드</button>
+							
+							
 						</div>
 					</div>
 				</div>

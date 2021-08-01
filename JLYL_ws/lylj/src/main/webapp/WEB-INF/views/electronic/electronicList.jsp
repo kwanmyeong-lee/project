@@ -132,47 +132,60 @@
 									class="d-flex align-items-center justify-content-center align-middle pt-4">
 									<a class="list_title"
 									href="<c:url value='/electronic/electronicDetail?ElectronicNo=${eleVo.ELECTRONIC_NO }&no=${param.no }'/>"><span>${eleVo.ELECTRONIC_TITLE }</span>
-									<c:if test="${eleVo.ELECTRONIC_FILE_FLAG eq 'Y' }">
-										<i class="fas fa-file"></i>
-									</c:if> </a>
+										<c:if test="${eleVo.ELECTRONIC_FILE_FLAG eq 'Y' }">
+											<i class="fas fa-file"></i>
+										</c:if> <c:if test="${eleVo.ELECTRONIC_EMERGENCY_FLAG eq '1' }">
+											<i class="fas fa-exclamation-triangle"></i>
+										</c:if> </a>
 								</td>
 								<td class="text-center pt-4">${eleVo.EMP_NO }</td>
 								<td class="text-center"><span class=""> <c:if
 											test="${param.no eq 1 }">
 											<c:if test="${eleVo.APPROVAL_LINE_COMPLETE_FLAG eq '0'}">
-												처리중(내가 승인 안한 상태)
+											처리중
+
+												<c:forEach var="appList" items="${approList }">
+
+
+													<c:if test="${appList.electronicNo == eleVo.ELECTRONIC_NO}">
+														<c:if test="${appList.approvalLineCompleteFlag == 1 }">
+														(승인 순서입니다.)
+														</c:if>
+													</c:if>
+												</c:forEach>
+
 											</c:if>
 											<c:if test="${eleVo.APPROVAL_LINE_COMPLETE_FLAG eq '1'}">
-												승인(나만 승인한 상태)
-											</c:if>
+											승인
+										</c:if>
 										</c:if> <c:if test="${param.no eq 2 }">
 											<c:if test="${eleVo.RECEIVE_LINE_FLAG eq '0'}">
-												수신 미확인
-											</c:if>
+											수신 미확인
+										</c:if>
 											<c:if test="${eleVo.RECEIVE_LINE_FLAG eq '1'}">
-												수신 확인
-											</c:if>
+											수신 확인
+										</c:if>
 										</c:if> <c:if test="${param.no eq 3 }">
 											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '0' }">
-												처리중(모두 승인은 안한 상태)
-											</c:if>
+											처리중
+										</c:if>
 											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '1' }">
-												승인(모두 승인한 상태)
-											</c:if>
+											승인
+										</c:if>
 										</c:if> <c:if test="${param.no eq 4 }">
 											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '0' }">
-												처리중(모두 승인은 안한 상태)
-											</c:if>
+											처리중
+										</c:if>
 											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '1' }">
-												승인(모두 승인한 상태)
-											</c:if>
+											승인
+										</c:if>
 										</c:if> <c:if test="${param.no eq 6 }">
 											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '0' }">
-												처리중(모두 승인은 안한 상태)
-											</c:if>
+											처리중
+										</c:if>
 											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '1' }">
-												승인(모두 승인한 상태)
-											</c:if>
+											승인
+										</c:if>
 										</c:if>
 
 								</span></td>
@@ -243,10 +256,12 @@
 					placeholder="입력해주세요">
 			</div>
 			<div class="col-sm-1">
-				<button type="submit" class="btn btn-outline-secondary" id="searchBtn">검색</button>
+				<button type="submit" class="btn btn-outline-secondary"
+					id="searchBtn">검색</button>
 			</div>
 		</div>
 	</form>
 
 </div>
+
 <%@ include file="../inc/bottom.jsp"%>

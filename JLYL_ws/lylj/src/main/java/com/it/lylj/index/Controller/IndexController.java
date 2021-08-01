@@ -10,10 +10,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -111,10 +113,72 @@ public class IndexController {
 	@RequestMapping("/admin")
 	public String admin(Model model) {
 		logger.info("관리자페이지");
+		
 		model.addAttribute("navNo", 8);
+		
 		return "adminMain";
 	}
+	
+	@ResponseBody
+	@GetMapping("/chartList")
+	public HashMap<String, Object> chartList(){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<HashMap<String, Object>> ageEmp = empService.selectAge();
+		List<HashMap<String, Object>> ageEmpGroup = empService.selectAgeGrop();
+		List<HashMap<String, Object>> joinLeave = empService.selectJoinLeave();
+		List<HashMap<String, Object>> comJL = new ArrayList<HashMap<String,Object>>();
+		if(joinLeave==null || joinLeave.isEmpty()) {
+			HashMap<String, Object> jlmap = new HashMap<String, Object>();
+			jlmap.put("name", "정보없음");
+			jlmap.put("y", 100);
+			comJL.add(jlmap);
+		}else {
+			HashMap<String, Object> jlmap = new HashMap<String, Object>();
+			HashMap<String, Object> jlmap2 = new HashMap<String, Object>();
+			int jcnt = (int)joinLeave.get(0).get("reg");
+			int lcnt = (int)joinLeave.get(0).get("res");
+			int jper = (int)((float)jcnt/(jcnt+lcnt)*10000)/100;
+			int lper = (int)((float)lcnt/(jcnt+lcnt)*10000)/100;
+			logger.info("jper={}",jper);
+			logger.info("lper={}",lper);
+			jlmap.put("name", "입사");
+			jlmap.put("y", jper);
+			jlmap2.put("name", "퇴사");
+			jlmap2.put("y", lper);
+			comJL.add(jlmap);
+			comJL.add(jlmap2);
+		}
+		
+		List<HashMap<String, Object>> ageDetailList = new ArrayList<HashMap<String,Object>>();
+		
+		
+		for(int i=0; i<ageEmpGroup.size();i++) {
+			HashMap<String, Object> ageDetailMap = new HashMap<String, Object>();
+			List<HashMap<String, Object>> ageList = new ArrayList<HashMap<String, Object>>();
+			ageDetailMap.put("name", ageEmpGroup.get(i).get("name"));
+			ageDetailMap.put("id", ageEmpGroup.get(i).get("name"));
+			
+			for(int j=0; j<ageEmp.size();j++) {
+				if(ageEmpGroup.get(i).get("name")==ageEmp.get(j).get("ageGroup")) {
+					HashMap<String, Object> ageMap = new HashMap<String, Object>();				
+					ageMap.put("name", ageEmp.get(j).get("age"));
+					ageMap.put("y", ageEmp.get(j).get("per"));
+					ageList.add(ageMap);
+				}
+			}
+			
+			ageDetailMap.put("data", ageList);
+			ageDetailList.add(ageDetailMap);
+		}
+		
+		map.put("ageDetailList", ageDetailList);
+		map.put("ageEmpGroup", ageEmpGroup);
+		map.put("ageEmp", ageEmp);
+		map.put("comJL", comJL);
+		return map;
+	}
 
+	
 	@ResponseBody
 	@RequestMapping("/inc/list")
 	public List<OriVo> selectOri() {

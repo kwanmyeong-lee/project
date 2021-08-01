@@ -1314,14 +1314,6 @@ on b.address_folder_no = f.ADDRESS_FOLDER_no;
 select * from emp;
 
 
-------------------------------view-------------------------------------
-select age, count(*) as cnt
-from( select floor((to_char(sysdate, 'YYYY') - to_char(emp_birth,'YYYY')) / 10) * 10 as age from emp ) o
-group by age;
-
-select age, count(*) as cnt
-from( select (to_char(sysdate, 'YYYY') - to_char(emp_birth,'YYYY')) as age from emp ) o
-group by age;
 -------------------------------------------------------------------------------------------
 
 ----직급
@@ -1397,6 +1389,20 @@ insert into EMP values(EMP_SEQ.nextval, '코동', '$2a$10$50mL18dBG6mblQkrPe34h.
 insert into EMP values(EMP_SEQ.nextval, '토동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1959-07-29', 6, 4);
 insert into EMP values(EMP_SEQ.nextval, '포동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
 
+insert into EMP values(EMP_SEQ.nextval, '그동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-07-01', null, null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '느동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-07-01', null, null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '드동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-07-05', null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '르동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-07-01', null, null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '므동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-07-01', null, null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '브동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-07-05', null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '스동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-07-01', null, null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '으동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-07-01', null, null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '즈동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-07-05', null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '츠동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-07-01', null, null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '크동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-07-01', null, null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '트동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-07-05', null, 3000, '1234-1234-1234', 1, '1953-07-29', 6, 4);
+
+
 select * from emp;
 
 --달력테마
@@ -1404,14 +1410,12 @@ insert into sctheme values(1, '일정');
 insert into sctheme values(2, '예약');
 
 --일정폴더
-insert into scfolder values(scfolder_seq.nextval, '(기본)일정', '#4ea0ec', 119);
+insert into scfolder values(scfolder_seq.nextval, '(기본)일정', '#4ea0ec', 103);
 
 --일정정보
-insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',1,1,119,null,'asd');
-select * from calendar where SCHEDULE_THEME_NO=2;
+insert into calendar values(schedule_seq.nextval, '면접준비', '2021-08-15', '2021-08-20', 'true','#183754',1,1,103,null,'기술 면접, 자기소개서 확인');
 
-select * from calendar
-		where EMP_NO=119 and SCHEDULE_THEME_NO=2;
+
 --예약폴더
 insert into BOFOL  values(bofol_seq.nextval, '본사1층회의실');
 insert into BOFOL  values(bofol_seq.nextval, '본사5층회의실');
@@ -1429,14 +1433,24 @@ insert into BOTARGET  values(botarget_seq.nextval, '빔프로젝터1',4);
 insert into BOTARGET  values(botarget_seq.nextval, '빔프로텍터2',4);
 
 --예약정보
-insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',1,2,119,1,'asd');
-insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',1,2,119,2,'asd');
-insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',2,2,119,3,'asd');
-insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',2,2,119,4,'asd');
-insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',3,2,119,5,'asd');
-insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',3,2,119,6,'asd');
-insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',4,2,119,7,'asd');
-insert into calendar values(schedule_seq.nextval, 'test', '2021-07-17', '2021-07-20', 'true','#183754',4,2,119,8,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17', '2021-07-20', 'true','#4ea0ec',1,2,119,1,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17', '2021-07-20', 'true','#4ea0ec',1,2,119,2,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17', '2021-07-20', 'true','#4ea0ec',2,2,119,3,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17', '2021-07-20', 'true','#4ea0ec',2,2,119,4,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17', '2021-07-20', 'true','#4ea0ec',3,2,119,5,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17', '2021-07-20', 'true','#4ea0ec',3,2,119,6,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17', '2021-07-20', 'true','#4ea0ec',4,2,119,7,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17', '2021-07-20', 'true','#4ea0ec',4,2,119,8,'asd');
+
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15', '2021-08-18', 'true','#4ea0ec',1,2,103,1,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15', '2021-08-18', 'true','#4ea0ec',1,2,103,2,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15', '2021-08-18', 'true','#4ea0ec',2,2,103,3,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15', '2021-08-18', 'true','#4ea0ec',2,2,103,4,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15', '2021-08-18', 'true','#4ea0ec',3,2,103,5,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15', '2021-08-18', 'true','#4ea0ec',3,2,103,6,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15', '2021-08-18', 'true','#4ea0ec',4,2,103,7,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15', '2021-08-18', 'true','#4ea0ec',4,2,103,8,'asd');
+
 
 --예약정보
 insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,1,'asd', 2);
@@ -1447,6 +1461,16 @@ insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021
 insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,6,'asd', 7);
 insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,7,'asd', 8);
 insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,8,'asd', 9);
+
+insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,1,'asd', 10);
+insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,2,'asd', 11);
+insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,3,'asd', 12);
+insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,4,'asd', 13);
+insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,5,'asd', 14);
+insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,6,'asd', 15);
+insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,7,'asd', 16);
+insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,8,'asd', 17);
+
 
 --전자 결재 문서 폴더 
 select * from docfol;
@@ -2003,6 +2027,7 @@ insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-29 10:1
 to_date('2021-07-29 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-29 05:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-29');
 insert into attendday values(attendday_seq.nextval,117, to_date('2021-07-30 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
 to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:00:00', 'yyyy-mm-dd hh24:mi:ss'),0,'2021-07-30');
+
 --휴가 종류
 insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'연차');
 insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'보상휴가');
@@ -2021,6 +2046,7 @@ insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-27', '2021-06-29','12
 insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-07-01', '2021-07-03','122','1');
 insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-07-05', '2021-07-06','122','1');
 insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-07-10', '2021-07-12','122','1');
+
 --근태 정보
 insert into ATTEND values(ATTEND_seq.nextval, 122,default,12,2,30,7);
 insert into ATTEND values(ATTEND_seq.nextval, 101,default,default,default,default,default);
