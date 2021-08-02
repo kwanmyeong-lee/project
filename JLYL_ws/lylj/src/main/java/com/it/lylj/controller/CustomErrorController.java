@@ -24,7 +24,7 @@ public class CustomErrorController implements ErrorController {
 	private final String ERROR_404_PAGE_PATH = "error/404"; 
 	private final String ERROR_500_PAGE_PATH = "error/500"; 
 	private final String ERROR_ETC_PAGE_PATH = "error/error";
-	@RequestMapping("/errors") 
+	@RequestMapping("/error") 
 	public String handleError(HttpServletRequest request, Model model) { 
 		// 에러 코드를 획득한다. 
 		logger.info("asd");

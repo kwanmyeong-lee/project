@@ -104,7 +104,8 @@
 		<div class="table-wrap">
 			<table class="table table-responsive-xl">
 				<colgroup>
-					<col style="width: 60%" />
+					<col style="width: 50%" />
+					<col style="width: 10%" />
 					<col style="width: 20%" />
 					<col style="width: 20%" />
 				</colgroup>
@@ -113,6 +114,7 @@
 						<th class="text-center">제목</th>
 						<th class="text-center">기안자 번호</th>
 						<th class="text-center">상태</th>
+						<th class="text-center">날짜</th>
 					</tr>
 				</thead>
 
@@ -124,12 +126,12 @@
 					</c:if>
 					<c:if test="${!empty List }">
 						<c:forEach var="eleVo" items="${List }">
-							<tr class="alert align-middle">
+							<tr class="alert align-middle border-top border-bottom">
 
 								<!-- 반복 처리 구간 -->
 
 								<td
-									class="d-flex align-items-center justify-content-center align-middle pt-4">
+									class="text-center pt-3">
 									<a class="list_title"
 									href="<c:url value='/electronic/electronicDetail?ElectronicNo=${eleVo.ELECTRONIC_NO }&no=${param.no }'/>"><span>${eleVo.ELECTRONIC_TITLE }</span>
 										<c:if test="${eleVo.ELECTRONIC_FILE_FLAG eq 'Y' }">
@@ -138,8 +140,8 @@
 											<i class="fas fa-exclamation-triangle"></i>
 										</c:if> </a>
 								</td>
-								<td class="text-center pt-4">${eleVo.EMP_NO }</td>
-								<td class="text-center"><span class=""> <c:if
+								<td class="text-center pt-3 ">${eleVo.EMP_NO }</td>
+								<td class="text-center pt-3"><span class=""> <c:if
 											test="${param.no eq 1 }">
 											<c:if test="${eleVo.APPROVAL_LINE_COMPLETE_FLAG eq '0'}">
 											처리중
@@ -187,9 +189,15 @@
 											승인
 										</c:if>
 										</c:if>
+										 <c:if test="${param.no eq 7 }">
+											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '2' }">
+											반려
+										</c:if>
+										</c:if>
 
 								</span></td>
-
+								<td class="text-center pt-3">
+							<fmt:formatDate value="${eleVo.ELECTRONIC_DATE }" pattern="yyyy-MM-dd / HH:mm"/>	</td>
 								<!-- 반복 처리 구간 -->
 
 							</tr>

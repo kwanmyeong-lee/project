@@ -48,7 +48,7 @@
 							<tr>
 								<th scope="col">제목</th>
 								<th scope="col">기안자</th>
-								<th scope="col">기안 날짜</th>
+								<th scope="col">날짜</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -88,7 +88,7 @@
 							<tr>
 								<th scope="col">제목</th>
 								<th scope="col">기안자</th>
-								<th scope="col">기안 날짜</th>
+								<th scope="col">날짜</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -132,7 +132,7 @@
 							<tr>
 								<th scope="col">제목</th>
 								<th scope="col">기안자</th>
-								<th scope="col">기안 날짜</th>
+								<th scope="col">날짜</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -147,6 +147,47 @@
 										<td><a href="<c:url value = '/electronic/electronicDetail?ElectronicNo=${fi.ELECTRONIC_NO }&no=6'/>">${fi.ELECTRONIC_TITLE }</a></td>
 										<td>${fi.EMP_NO }</td>
 										<td><fmt:formatDate value="${fi.ELECTRONIC_DATE }"
+												pattern="yyyy-MM-dd" /></td>
+									</tr>
+								</c:forEach>
+							</c:if>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">최근 반려 목록</h6>
+				</div>
+				<div class="card-body">
+					<table class="table table-hover">
+						<colgroup>
+							<col style="width: 60%;" />
+							<col style="width: 20%;" />
+							<col style="width: 20%;" />
+						</colgroup>
+						<thead class="table-primary">
+							<tr>
+								<th scope="col">제목</th>
+								<th scope="col">기안자</th>
+								<th scope="col">날짜</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:if test="${empty ListReturn }">
+								<tr>
+									<td colspan="3">항목이 없습니다.</td>
+								</tr>
+							</c:if>
+							<c:if test="${!empty ListReturn }">
+								<c:forEach var="Return" items="${ListReturn }">
+									<tr>
+										<td><a href="<c:url value = '/electronic/electronicDetail?ElectronicNo=${Return.ELECTRONIC_NO }&no=6'/>">${Return.ELECTRONIC_TITLE }</a></td>
+										<td>${Return.EMP_NO }</td>
+										<td><fmt:formatDate value="${Return.ELECTRONIC_DATE }"
 												pattern="yyyy-MM-dd" /></td>
 									</tr>
 								</c:forEach>
