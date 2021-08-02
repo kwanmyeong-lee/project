@@ -20,7 +20,7 @@ public interface EmailService {
 	List<Map<String, Object>> selectListByType(SearchVO searchVo, int type);
 	//메인
 	EmailVO selectByMailNo(int mailNo);
-	int totalRecordByType(String taker, int type);
+	int totalRecordByType(SearchVO searchVo, int type);
 	int deleteCheckMulti(List<EmailVO> list);
 	int deleteCompleteMail(List<EmailVO> list);
 	int updateMultiReadDate(List<EmailVO> list);

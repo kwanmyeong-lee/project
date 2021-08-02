@@ -93,7 +93,7 @@ public class EmailController {
 		logger.info("이메일목록, list.size()={}", list.size());
 		
 		
-		int totalRecord = emailService.totalRecordByType(Integer.toString(empNo),type);
+		int totalRecord = emailService.totalRecordByType(searchVo,type);
 		logger.info("empNo={} ,totalRecord={}",empNo,totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
 		
@@ -229,9 +229,8 @@ public class EmailController {
 	
 	/* 파일다운로드 */
 	@RequestMapping("/mailFileDown")
-	public void emailFileDown(@RequestParam(defaultValue = "0") int fileNo, @RequestParam String fileOriginName, 
-			  HttpServletResponse response, Model model) throws Exception {
-		logger.info("파일 다운로드, fileNo={}, fileOriginName={}", fileNo, fileOriginName);
+	public void emailFileDown(@RequestParam(defaultValue = "0") int fileNo, HttpServletResponse response, Model model) throws Exception {
+		logger.info("파일 다운로드, fileNo={}, fileOriginName={}", fileNo);
 		
 		// 파일선택
 		EmailFileVO fileVo = emailFileService.selectFileByFileNo(fileNo);
@@ -256,9 +255,9 @@ public class EmailController {
 		while ((readCount = fis.read(buffer)) != -1) {
 			os.write(buffer, 0, readCount);
 		}
+		
 		fis.close();
 		os.close();
-		
 	}
 	
 	/* 미리보기 페이지 */

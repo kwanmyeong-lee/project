@@ -60,46 +60,43 @@
 		 <div class="imgInfo">
 		 	<div class="row">
 	             <div class="thumbnail">
-	                  <img src="<c:url value='/resources/emp_images/${vo.empPhoto }'/>" >
+	                  <img src="<c:url value='/resources/emp_images/${paramEmpVo.empPhoto }'/>" >
 	               <div class="caption">
-	                  <h4>${vo.empName }</h4>
+	                  <h4>${paramEmpVo.empName }</h4>
 	               </div>
 	           </div>
 	       </div>
 		 </div>
 		  <div class="col-md-6">
 		  	<label for="empName" class="form-label">이름</label>
-		    <input type="text" class="form-control" placeholder="name" id="empName" name="empName" value="${vo.empName}" readonly="readonly">
+		    <input type="text" class="form-control" placeholder="name" id="empName" name="empName" value="${paramEmpVo.empName}" readonly="readonly">
 		 </div>
   		 <div class="col-md-6">
     		<label for="empTel" class="form-label">전화번호</label>
-    		<input type="tel" class="form-control" id="empTel" name="empTel" value="${vo.empTel }" readonly="readonly">
+    		<input type="tel" class="form-control" id="empTel" name="empTel" value="${paramEmpVo.empTel }" readonly="readonly">
   		</div>
   		<div class="col-md-6">
 		  	<label for="empNo" class="form-label">사원번호</label>
-		    <input type="text" class="form-control"  id="empNo" name="empNo" value="${vo.empNo }" readonly="readonly">
+		    <input type="text" class="form-control"  id="empNo" name="empNo" value="${paramEmpVo.empNo }" readonly="readonly">
 		 </div>
 		 <div class="col-md-6">
     		<label for="empEmail" class="form-label">Email</label>
-    		<input type="email" class="form-control" id="empEmail" name="empEmail" value="${vo.empEmail }" readonly="readonly">
+    		<input type="email" class="form-control" id="empEmail" name="empEmail" value="${paramEmpVo.empEmail }" readonly="readonly">
   		</div>
   		<div class="col-md-6">
     		<label for="empZipcode" class="form-label">우편번호</label>
-    		<input type="text" class="form-control sample6_postcode" id="empZipcode" name="empZipcode" value="${vo.empZipcode }"  readonly="readonly">
+    		<input type="text" class="form-control sample6_postcode" id="empZipcode" name="empZipcode" value="${paramEmpVo.empZipcode }"  readonly="readonly">
   		</div>
-  		<div class="col-md-4">
-	  		<input type="button" class="btn btn-secondary" onclick="bt_zipcode()" id="btZipcode" value="우편번호 찾기">
-	  	</div>
 
 	  	<div class="col-md-8">
 			<label for="empAddress" class="form-label">주소</label>
-		    <input type="text" class="form-control" id="empAddress" name="empAddress" value="${vo.empAddress }" aria-label="address" readonly="readonly">
+		    <input type="text" class="form-control" id="empAddress" name="empAddress" value="${paramEmpVo.empAddress }" aria-label="address" readonly="readonly">
 	  	</div>
 	  	<div></div>
 	   	<div class="row">
 	   		<div class="col-md-6">
 				<label for="empAddressdetail" class="form-label">상세주소</label>
-		    	<input type="text" class="form-control" id="empAddressdetail" name="empAddressdetail" value="${vo.empAddressdetail }" aria-label="adressDetail" readonly="readonly">
+		    	<input type="text" class="form-control" id="empAddressdetail" name="empAddressdetail" value="${paramEmpVo.empAddressdetail }" aria-label="adressDetail" readonly="readonly">
 	  		</div>
 	  	</div>
 	  	<div>
@@ -110,28 +107,28 @@
 	  	<div class="row">
 		  	<div class="col-md-5">
 				<label for="empRegdate" class="form-label">입사일</label>
-			    <input type="text" class="form-control" id="empRegdate" name="empRegdate" value='<fmt:formatDate value="${vo.empRegdate }" pattern="YYYY-MM-dd"/>' readonly="readonly">
+			    <input type="text" class="form-control" id="empRegdate" name="empRegdate" value='<fmt:formatDate value="${paramEmpVo.empRegdate }" pattern="YYYY-MM-dd"/>' readonly="readonly">
 		  	</div>
 		  	<div class="col-md-5">
 		  		<label for="empBirth" class="form-label">생일</label>
-			    <input type="text" class="form-control" id="empBirth" name="empBirth" value='<fmt:formatDate value="${vo.empBirth }" pattern="YYYY-MM-dd"/>' readonly="readonly">
+			    <input type="text" class="form-control" id="empBirth" name="empBirth" value='<fmt:formatDate value="${paramEmpVo.empBirth }" pattern="YYYY-MM-dd"/>' readonly="readonly">
 		  	</div>
 	  	</div>
 		   	<div class="col-md-5">
 				<label for="empAccount" class="form-label">계좌번호</label>
-			    <input type="text" class="form-control" id="empAccount" name="empAccount" value="${vo.empAccount }"  readonly="readonly">
+			    <input type="text" class="form-control" id="empAccount" name="empAccount" value="${paramEmpVo.empAccount }"  readonly="readonly">
 		  	</div>
 		  	
 	  	<div class="row">
-			<c:if test="${vo.empAdminLev==1 }">
+			<c:if test="${sessionScope.empAdminLev == 1 || sessionScope.empAdminLev == 2}">
 				<div class="col-md-2">
 					<label class="form-label">관리자</label>
 				    <select class="form-control" name="empAdminLev" id="empAdminLev" disabled>
-				    	<option value="3" <c:if test="${vo.empAdminLev==3}"> selected</c:if> 
+				    	<option value="3" <c:if test="${paramEmpVo.empAdminLev==3}"> selected</c:if> 
 				    	>사원</option>
-				    	<option value="2" <c:if test="${vo.empAdminLev==2}"> selected</c:if>
+				    	<option value="2" <c:if test="${paramEmpVo.empAdminLev==2}"> selected</c:if>
 				    	>팀장</option>
-				    	<option value="1" <c:if test="${vo.empAdminLev==1}"> selected</c:if>
+				    	<option value="1" <c:if test="${paramEmpVo.empAdminLev==1}"> selected</c:if>
 				    	>관리자</option>
 				    </select>
 			  	</div>
@@ -140,22 +137,22 @@
 			  	<label class="form-label" for="departmentNo">부서</label>
 				    <select class="form-control" id="departmentNo" name="departmentNo"  disabled>
 			    		<option value='1'
-			    			<c:if test="${vo.departmentNo=='1' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.departmentNo=='1' }"> selected</c:if>
 							>전략기획팀</option>
 			    		<option value='2'
-			    			<c:if test="${vo.departmentNo=='2' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.departmentNo=='2' }"> selected</c:if>
 			    			>영업팀</option>
 			    		<option value='3'
-			    			<c:if test="${vo.departmentNo=='3' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.departmentNo=='3' }"> selected</c:if>
 			    			>마케팅팀</option>
 			    		<option value='4'
-			    			<c:if test="${vo.departmentNo=='4' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.departmentNo=='4' }"> selected</c:if>
 			    			>개발팀</option>
 			    		<option value='5'
-			    			<c:if test="${vo.departmentNo=='5' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.departmentNo=='5' }"> selected</c:if>
 			    			>인사팀</option>
 			    		<option value='6'
-			    			<c:if test="${vo.departmentNo=='6' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.departmentNo=='6' }"> selected</c:if>
 			    			>총무회계팀</option>
 				    </select>
 				 </div>
@@ -163,22 +160,22 @@
 			 	<label class="form-label" for="positionNo" >직급</label>
 			    <select class="form-control" id="positionNo" name="positionNo" disabled>
 			    		<option value="1" 
-			    			<c:if test="${vo.positionNo=='1' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.positionNo=='1' }"> selected</c:if>
 			    		>사장</option>
 			    		<option value="2" 
-			    			<c:if test="${vo.positionNo=='2' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.positionNo=='2' }"> selected</c:if>
 			    		>부장</option>
 			    		<option value="3" 
-			    			<c:if test="${vo.positionNo=='3' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.positionNo=='3' }"> selected</c:if>
 			    		>과장</option>
 			    		<option value="4" 
-			    			<c:if test="${vo.positionNo=='4' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.positionNo=='4' }"> selected</c:if>
 			    		>대리</option>
 			    		<option value="5" 
-			    			<c:if test="${vo.positionNo=='5' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.positionNo=='5' }"> selected</c:if>
 			    		>주임</option>
 			    		<option value="6" 
-			    			<c:if test="${vo.positionNo=='6' }"> selected</c:if>
+			    			<c:if test="${paramEmpVo.positionNo=='6' }"> selected</c:if>
 			    		>사원</option>
 			    </select>
 			 </div>
@@ -186,7 +183,7 @@
 
 		<div></div>
 		<div class="btGroup">
-			<a href="<c:url value='/emp/empEdit?empNo=${vo.empNo }'/>"><button class="btn btn-secondary " type="submit">수정</button></a>
+			<a href="<c:url value='/emp/empEdit?empNo=${paramEmpVo.empNo }'/>"><button class="btn btn-secondary " type="submit">수정</button></a>
 			<c:if test="${sessionScope.empAdminLev == '1' || sessionScope.empAdminLev == '2' }">
 				<button class="btn btn-secondary" id="leaveEmp" type="submit">퇴사</button>
 			</c:if>

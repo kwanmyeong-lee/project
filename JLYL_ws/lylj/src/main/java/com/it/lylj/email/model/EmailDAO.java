@@ -19,13 +19,13 @@ public interface EmailDAO {
 	List<Map<String, Object>> selectNotReadMailList(SearchVO searchVo);
 	List<Map<String, Object>> selectImportantMailList(SearchVO searchVo);
 	//메일 항목별 size()
-	int totalRecordByEmailTake(String empNo);
-	int totalRecordByEmailSend(String empNo);
-	int totalRecordByTempsave(String empNo);
-	int totalRecordByReserv(String empNo);
-	int totalRecordByTrash(String empNo);
-	int totalCountByReadDate(String empNo);
-	int totalCountByImportant(String empNo);
+	int totalRecordByEmailTake(SearchVO searchVo);
+	int totalRecordByEmailSend(SearchVO searchVo);
+	int totalRecordByTempsave(SearchVO searchVo);
+	int totalRecordByReserv(SearchVO searchVo);
+	int totalRecordByTrash(SearchVO searchVo);
+	int totalCountByReadDate(SearchVO searchVo);
+	int totalCountByImportant(SearchVO searchVo);
 	
 	
 	int deleteCheckMail(int mailNo);

@@ -4,8 +4,8 @@
 <!-- 카카오우편번호 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
-	/* 전체 유효성검사 */
 	$(function(){
+		/* 전체 유효성검사 */
 		$('#btAddEmp').click(function(){
 	          if($('#empName').val().length<1){
 	             alert('이름을 입력하세요');
@@ -80,6 +80,16 @@
 			      $('#positionNo').focus();
 			      event.preventDefault(); 
 			  }
+	  		/* 스플릿하여 이미지확장자가 아닐 시 alert 해주기 */
+	  		if( $("#empPhoto").val() != "" ){
+	  			var ext = $('#empPhoto').val().split('.').pop().toLowerCase();
+	  		     if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+	  				 alert('이미지 파일만 업로드 할수 있습니다.');
+				      $('#empPhoto').focus();
+				      event.preventDefault(); 
+	  				 return false;
+	  			}
+	  		}
 	      
 		});
 		
@@ -117,25 +127,29 @@
 		});
 	}
 	
-	/* 핸드폰번호 - 자동생성 */
+	/* 핸드폰번호 - 자동생성 '-'포함 총 13자리 기준
+	   idx : 01234567890
+	   번호 : 01012341234
+	*/
 	function chkHp(obj) { 
-		var number = obj.value.replace(/[^0-9]/g, ""); 
+		var number = obj.value.replace(/[^0-9]/g, "");  
 		var phone = ""; 
-		if(number.length < 4) { 
+		if(number.length < 4) { 						 
 			return number; 
-		} else if(number.length < 7) { 
-			phone += number.substr(0, 3); 
-			phone += "-"; 
-			phone += number.substr(3);
+		} else if(number.length < 7) {   				
+			phone += number.substr(0, 3); 				
+			phone += "-"; 								
+			phone += number.substr(3); 
 		} else if(number.length < 11) {
 			phone += number.substr(0, 3);
 			phone += "-"; phone += number.substr(3, 3);
 			phone += "-"; phone += number.substr(6);
-		} else { 
-			phone += number.substr(0, 3); 
-			phone += "-"; 
-			phone += number.substr(3, 4); 
-			phone += "-"; phone += number.substr(7); 
+		} else { 						  
+			phone += number.substr(0, 3); // 010
+			phone += "-"; 				  // 010- 
+			phone += number.substr(3, 4); // 010-1234
+			phone += "-"; 				  // 010-1234-
+			phone += number.substr(7);    // 010-1234-1234
 		} 
 			obj.value = phone; 
 			
@@ -250,7 +264,7 @@
 	  		</div>
 	  	  	<div class="col-md-11">
 				<label for="empPhoto" class="form-label">사원사진첨부</label>
-			    <input type="file" class="form-control infoGroup" id="empPhoto" name="uploadFile" >
+			    <input type="file" class="form-control infoGroup" id="empPhoto" name="uploadFile" accept=".gif, .jpg, .png">
 		  	</div>
 	  		<div class="col-md-6">
 	    		<label for="empZipcode" class="form-label">우편번호</label>

@@ -70,7 +70,8 @@
 		});
 		
 		$('#btn_search').click(function(){
-			if($('select[name=searchCondition]').val()=='' ||$('select[name=searchCondition]').val()==null){
+			console.log('검색');
+			if($('select[name=searchCondition]').val()=='' || $('select[name=searchCondition]').val()==null){
 				alert('검색조건을 선택하세요');
 				event.preventDefault();
 				return false;
@@ -187,7 +188,7 @@
 			  
 			  <c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
 				    <li class="page-item">
-				      <a class="page-link" href="#" onclick="(${pagingInfo.lastPage+1})">다음</a>
+				      <a class="page-link" href="#" onclick="pagingProc(${pagingInfo.lastPage+1})">다음</a>
 				    </li>
 			  </c:if>
 		  </ul>
