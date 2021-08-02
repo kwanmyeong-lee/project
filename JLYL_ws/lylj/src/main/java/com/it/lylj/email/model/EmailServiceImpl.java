@@ -166,6 +166,11 @@ public class EmailServiceImpl implements EmailService{
 		return emailDao.selectReserve(empNo);
 	}
 
+	@Override
+	public int totalCountByReadDateMain(int mailNo) {
+		return emailDao.totalCountByReadDateMain(mailNo);
+	}
+
 
 
 

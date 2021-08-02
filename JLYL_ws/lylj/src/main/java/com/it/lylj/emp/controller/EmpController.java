@@ -196,8 +196,8 @@ public class EmpController {
 		logger.info("elist={}", elist);
 
 		//안읽은 메일 선택
-		List<EmailVO> emailList = emailService.selectNotRead(Integer.toString(empNo));
-		logger.info("index 안읽은 메일, emailList.size()={}",emailList.size());
+		int mailCount = emailService.totalCountByReadDateMain(empNo);
+		logger.info("index 안읽은 메일, mailCount={}",mailCount);
 
 		//파라미터로 넘어온 정보
 		EmpVO paramEmpVo = empService.selectByEmpNo(empNo);
@@ -208,7 +208,7 @@ public class EmpController {
 		model.addAttribute("todayScheduleCnt", todayScheduleCnt);
 		model.addAttribute("attendDayVO", attendDayVO);
 		model.addAttribute("empVO", empVO);
-		model.addAttribute("emailList", emailList);
+		model.addAttribute("mailCount", mailCount);
 		model.addAttribute("paramEmpVo", paramEmpVo);
 
 		return "emp/empInfo";

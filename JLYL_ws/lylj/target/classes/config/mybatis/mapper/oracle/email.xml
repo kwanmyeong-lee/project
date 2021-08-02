@@ -270,6 +270,12 @@
 		<include refid="searchWhere"/>
 	</select>
 	
+	<select id="totalCountByReadDateMain" parameterType="int" resultType="int">
+		select count(*) from mailView
+		where MAIL_TAKE = #{empNo} and MAIL_READDATE is null
+		AND MAIL_TEMPSAVE IS NULL AND <![CDATA[ MAIL_RESERVE<=SYSDATE ]]> AND MAIL_DEL_CHECK='0'
+	</select>
+	
 	<select id="totalCountByImportant" parameterType="searchVo" resultType="int">
 		select count(*) from mailView
 		where MAIL_TAKE = #{empNo} and MAIL_IMPORTANT = 'I'
