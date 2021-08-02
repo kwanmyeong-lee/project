@@ -281,6 +281,7 @@
 	<select id="selectAllConditionByMonth" parameterType="hashmap" resultType="conditionViewVO">
 		select * from (select c.*, rownum as nums from CONDITIONVIEW c
 		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
+		AND ATTENDANCE_DAY_OFF_HOUR is not null
 		<include refid="searchStats"/>
 		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO)
 		<include refid="searchView"/>
