@@ -21,8 +21,12 @@
 	src="<c:url value='/resources/js/html2canvas.min.js'/>"></script>
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jspdf.min.js'/>"></script>
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+
 
 <script type="text/javascript">
+
 	$(function() { // db 에 있는 content 를 가져와서 배열로 돌린다음 배열 갯수만큼 input 에 넣어준다 
 		
 		var draftFolNo = $('#draftFolNo').val();
@@ -285,6 +289,10 @@
 			$('form[name=reAccept]').submit();
 		});
 		
+		$('#recancel').click(function(){
+			history.back();
+		});
+		
 		
 		$('#save_draft').click(function() { //임시저장문서 저장
 			
@@ -325,7 +333,12 @@
     			$('input[name=electronicFileFlag]').val("Y");
     		}
     		
-    		checkVal();
+    		if($('#title').val().length == 0  ){
+    			alert("제목을 입력해주세요");
+    			event.preventDefault();
+    			return false;
+    		}
+    		
 	        $('form[name=docfrm]').submit();
 
 		});
@@ -399,7 +412,7 @@
 		
 
 </script>
-<div class="container shadow p-3 mb-5 bg-white rounded"  id="pdfLine">
+<div class="container shadow p-3 mb-5 bg-white rounded" id="pdfLine">
 
 	<!-- 결재자 승인을 위한 form -->
 	<!-- 수신사 삭제를 위한 form -->
@@ -579,7 +592,7 @@
 								<button type="button" id="reOk"
 									class="btn btn-light btn-outline-secondary">받음</button>
 								<button type="button" id="recancel"
-									class="btn btn-light btn-outline-secondary">안받음처리</button>
+									class="btn btn-light btn-outline-secondary">뒤로가기</button>
 							</c:if>
 
 							<!-- 임시저장 문서일때 -->
@@ -612,10 +625,10 @@
 								<button type="button"
 									class="btn btn-light btn-outline-secondary cancel">뒤로가기</button>
 							</c:if>
-								<button type="button" id="savePdf"
-									class="btn btn-light btn-outline-secondary">PDF 다운로드</button>
-							
-							
+							<button type="button" id="savePdf"
+								class="btn btn-light btn-outline-secondary">PDF 다운로드</button>
+
+
 						</div>
 					</div>
 				</div>
