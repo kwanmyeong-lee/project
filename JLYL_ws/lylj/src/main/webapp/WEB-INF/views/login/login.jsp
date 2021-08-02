@@ -11,25 +11,7 @@
 <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/login/login.css"/>"> 
 <style type="text/css">
-.form-check #emp{
-	width: 30px;
-}
-.form-check #admin{
-	width: 30px;
-}
-.logo{
-	height: 50px;
-}
-.textGroup{
-	width:  500px; 
-}
-.buttonGroup{
-	margin-left: 115px; 
-}
 
-.modalButton{
-	margin-left: 30px;
-}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -38,6 +20,12 @@
 			$('#findPwdModal').modal('show');
 			$('#modalEmpNo').val("");
 			$('#modalEmpEmail').val("");
+		});
+		
+		$('#findPwd2').click(function(){
+			console.log("비밀번호 변경");
+			$('#changePwdModal').modal('show');
+			$('#modalEmpNo').val("");
 		});
 		
 		$('#modalClose').click(function(){
@@ -114,16 +102,24 @@
 								<label class="mb-1">비밀번호</label> 
 								<input class="mb-4 textGroup" type="password" name="empPwd" id="empPwd" placeholder="Enter password">
 							</div>
-							<div class="row px-3 mb-4">
-								<div class="custom-control custom-checkbox custom-control-inline">
-									<input id="chk1" type="checkbox" name="chkSave" class="custom-control-input" <c:if test="${!empty cookie.ck_empNo}"> checked="checked" </c:if>>
-									<label for="chk1" id="chkSave" class="custom-control-label text-sm">아이디 저장하기</label>
+							<div class="row px-3 mb-4" style="width: 800px;">
+								<input type="checkbox" id="switch1" name="chkSave" class="input__on-off" <c:if test="${!empty cookie.ck_empNo}"> checked="checked" </c:if>>
+								<label for="switch1" class="label__on-off">
+								  <span class="marble"></span>
+								  <span class="on">on</span>
+								  <span class="off">off</span>
+								</label>
+								<span style="margin-top: 3px;">&nbsp;저장</span>
+								<span style="font-size: 0.8em; margin-top:6px; margin-left: 20%">비밀번호를 잃어버리셨나요? </span>
+								
+								<div class="svg-wrapper">
+								  <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
+								    <rect class="shape" style="height:30px; width:90px;" />
+								  </svg>
+								   <div class="findPwd"><a href="#" id="findPwd" >find</a></div>
 								</div>
-								<span style="margin-left: 120px;">						
-									<a href="#" id="findPwd" class="ml-auto mb-0 text-sm" >임시비밀번호발급</a> 
-									/ <a href="#" id="findPwd2" class="ml-auto mb-0 text-sm" >휴대폰인증</a>
-								</span>
 							</div>
+							
 							<div class="row mb-3 px-3">
 								<button type="submit" class="btn btn-blue text-center" id="btLongin">로그인</button>
 							</div>
@@ -139,14 +135,14 @@
 		</div>
 	</div> 
 	
-	<!-- 비밀번호찻기 Modal -->
+	<!-- 임시비밀번호발급 Modal -->
 	<div class="modal" id="findPwdModal" data-bs-backdrop="static">
 	  <div class="modal-dialog ">
 	    <div class="modal-content">
 	
 	      <!-- Modal Header -->
 	      <div class="modal-header">
-	        <h4 class="modal-title">비밀번호찾기</h4>
+	        <h4 class="modal-title">임시비밀번호 발급</h4>
 	        <button type="button" class="close" data-bs-dismiss="modal" id="modalClose">&times;</button>
 	      </div>
 	

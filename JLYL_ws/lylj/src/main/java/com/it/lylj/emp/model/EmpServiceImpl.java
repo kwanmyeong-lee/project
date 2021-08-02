@@ -1,5 +1,6 @@
 package com.it.lylj.emp.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -165,6 +166,31 @@ public class EmpServiceImpl implements EmpService{
 	@Override
 	public int selectCountByEmpNo(int empNo) {
 		return empDao.selectCountByEmpNo(empNo);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectAge() {
+		return empDao.selectAge();
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectAgeGrop() {
+		return empDao.selectAgeGrop();
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectJoinLeave() {
+		return empDao.selectJoinLeave();
+	}
+
+	@Override
+	public int selectTotalEmpCount() {
+		return empDao.selectTotalEmpCount();
+	}
+
+	@Override
+	public int selectTotalAdmin() {
+		return empDao.selectTotalAdmin();
 	}
 
 }
