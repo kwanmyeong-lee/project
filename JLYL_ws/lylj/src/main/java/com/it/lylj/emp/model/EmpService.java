@@ -1,5 +1,6 @@
 package com.it.lylj.emp.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public interface EmpService {
 	int EMP=3;
 	
 	int insertEmp(EmpVO vo);
-	public int loginProc(int empNo, String empPwd);
+	int loginProc(int empNo, String empPwd);
 	EmpVO selectByEmpNo(int empNo);
 	List<EmpVO> selectAllEmp();
 	List<EmpVO> selectAllEmpList(SearchVO searchVo);
@@ -32,8 +33,13 @@ public interface EmpService {
 	List<EmpVO> selectAllEmpForEle();
 	List<EmpVO> selectSearchNum(int searcNo);
 	int selectCountByEmpNo(int empNo);
+	List<HashMap<String, Object>> selectAge();
+	List<HashMap<String, Object>> selectAgeGrop();
+	List<HashMap<String, Object>> selectJoinLeave();
 	
+	int selectTotalEmpCount();
+	int selectTotalAdmin();
 	
 	//비밀번호이메일발송
-	public void sendEmail(EmpVO vo);
+	void sendEmail(EmpVO vo);
 }

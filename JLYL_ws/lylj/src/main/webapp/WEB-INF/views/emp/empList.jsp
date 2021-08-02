@@ -187,7 +187,7 @@
 			  
 			  <c:if test="${pagingInfo.lastPage<pagingInfo.totalPage }">
 				    <li class="page-item">
-				      <a class="page-link" href="#" onclick="pageProc(${pagingInfo.lastPage+1})">다음</a>
+				      <a class="page-link" href="#" onclick="(${pagingInfo.lastPage+1})">다음</a>
 				    </li>
 			  </c:if>
 		  </ul>

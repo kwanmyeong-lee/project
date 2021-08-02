@@ -27,6 +27,7 @@ public interface AttendDayService {
 	List<ConditionViewVO> selectAttendDayByFlag(int currentPage);
 	int selecCnttAttendDayByFlag();
 	int updateAttendDayByFlag(HashMap<String, Object> map);
+	int updateAutoOffHour();
 
 
 }
