@@ -113,8 +113,11 @@ public class IndexController {
 	@RequestMapping("/admin")
 	public String admin(Model model) {
 		logger.info("관리자페이지");
-		
+		int adminCount = empService.selectTotalAdmin();
+		int empCount = empService.selectTotalEmpCount();
 		model.addAttribute("navNo", 8);
+		model.addAttribute("adminCount", adminCount);
+		model.addAttribute("empCount", empCount);
 		
 		return "adminMain";
 	}

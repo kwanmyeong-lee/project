@@ -183,5 +183,15 @@ public class EmpServiceImpl implements EmpService{
 		return empDao.selectJoinLeave();
 	}
 
+	@Override
+	public int selectTotalEmpCount() {
+		return empDao.selectTotalEmpCount();
+	}
+
+	@Override
+	public int selectTotalAdmin() {
+		return empDao.selectTotalAdmin();
+	}
+
 }
 

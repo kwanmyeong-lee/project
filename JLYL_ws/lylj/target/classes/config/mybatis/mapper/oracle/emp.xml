@@ -110,6 +110,16 @@
 		select * from emp
 	</select>
 	
+	<select id="selectTotalEmpCount" resultType="int">
+		select count(*) from emp
+		where EMP_RESDATE is null
+	</select>
+	
+	<select id="selectTotalAdmin" resultType="int">
+		select count(*) from emp
+		where EMP_ADMIN_LEV = 1 AND EMP_RESDATE is null
+	</select>
+	
 	<!-- 사원 전체 수 -->
 	<select id="selectTotalEmp" parameterType="searchVo" resultType="int">
 		select count(*) from empView

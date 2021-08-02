@@ -25,6 +25,8 @@ public interface EmpDAO {
 	List<EmpVO>  selectAllEmpForEle();
 	List<EmpVO> selectSearchNum(int searcNo);
 	int selectCountByEmpNo(int empNo);
+	int selectTotalEmpCount();
+	int selectTotalAdmin();
 	List<HashMap<String, Object>> selectAge();
 	List<HashMap<String, Object>> selectAgeGrop();
 	List<HashMap<String, Object>> selectJoinLeave();

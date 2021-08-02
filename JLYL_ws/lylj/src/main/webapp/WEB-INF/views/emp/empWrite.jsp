@@ -191,9 +191,8 @@
 	}
 	
 </script>
-
-<style type="text/css">
- .mainPanel{
+<style>
+.mainPanel{
  	width: 1250px;
  	padding: 20px;
  	background: white;

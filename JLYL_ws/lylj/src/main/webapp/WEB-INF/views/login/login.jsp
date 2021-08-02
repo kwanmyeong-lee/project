@@ -11,25 +11,7 @@
 <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/login/login.css"/>"> 
 <style type="text/css">
-.form-check #emp{
-	width: 30px;
-}
-.form-check #admin{
-	width: 30px;
-}
-.logo{
-	height: 50px;
-}
-.textGroup{
-	width:  500px; 
-}
-.buttonGroup{
-	margin-left: 115px; 
-}
 
-.modalButton{
-	margin-left: 30px;
-}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -120,7 +102,7 @@
 								<label class="mb-1">비밀번호</label> 
 								<input class="mb-4 textGroup" type="password" name="empPwd" id="empPwd" placeholder="Enter password">
 							</div>
-							<div class="row px-3 mb-4" style="width: 600px;">
+							<div class="row px-3 mb-4" style="width: 800px;">
 								<input type="checkbox" id="switch1" name="chkSave" class="input__on-off" <c:if test="${!empty cookie.ck_empNo}"> checked="checked" </c:if>>
 								<label for="switch1" class="label__on-off">
 								  <span class="marble"></span>
@@ -128,19 +110,13 @@
 								  <span class="off">off</span>
 								</label>
 								<span style="margin-top: 3px;">&nbsp;저장</span>
+								<span style="font-size: 0.8em; margin-top:6px; margin-left: 20%">비밀번호를 잃어버리셨나요? </span>
 								
-								<div class="svg-wrapper" style="margin-left: 150px;">
+								<div class="svg-wrapper">
 								  <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
 								    <rect class="shape" style="height:30px; width:90px;" />
 								  </svg>
 								   <div class="findPwd"><a href="#" id="findPwd" >find</a></div>
-								</div>
-								<span> /&nbsp;&nbsp; </span>
-								<div class="svg-wrapper">
-								  <svg height="60" width="210" xmlns="http://www.w3.org/2000/svg">
-								    <rect class="shape" style="height:30px; width:90px;" />
-								  </svg>
-								   <div class="findPwd"><a href="#" id="findPwd2">change</a></div>
 								</div>
 							</div>
 							
