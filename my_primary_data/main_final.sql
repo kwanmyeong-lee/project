@@ -2135,7 +2135,7 @@ EXCEPTION
     WHEN OTHERS THEN
     raise_application_error(-20001, '근태 날짜 정보 업데이트 실패!');
         ROLLBACK;
-end;
+END;
 
 
 ---자동 퇴근
@@ -2160,7 +2160,7 @@ EXCEPTION
     WHEN OTHERS THEN
     raise_application_error(-20001, '근태 날짜 정보 업데이트 실패!');
         ROLLBACK;
-end;
+END;
 
 
 
