@@ -450,7 +450,7 @@ public class AssiduityController {
 		int selectSumWeekWorkEx = attendDayService.selectSumWeekWorkEx(empNo);
 		int selectSumMonthWorkEx = attendDayService.selectSumMonthWorkEx(map2);
 		int selectLeftTimeWeek = attendDayService.selectLeftTimeWeek(empNo);
-		
+		logger.info("selectSumWeekWork={}",selectSumWeekWork);
 		model.addAttribute("attendMonthList", attendMonthList);
 		model.addAttribute("weekTimelist", weekTimelist);
 		model.addAttribute("selectSumMonthWork", selectSumMonthWork);
