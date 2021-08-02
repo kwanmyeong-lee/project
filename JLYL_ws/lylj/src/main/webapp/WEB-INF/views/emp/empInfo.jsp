@@ -187,10 +187,10 @@
 		<div></div>
 		<div class="btGroup">
 			<a href="<c:url value='/emp/empEdit?empNo=${vo.empNo }'/>"><button class="btn btn-secondary " type="submit">수정</button></a>
-			<c:if test="${vo.empAdminLev==1 || vo.empAdminLev==2}">
+			<c:if test="${sessionScope.empAdminLev == '1' || sessionScope.empAdminLev == '2' }">
 				<button class="btn btn-secondary" id="leaveEmp" type="submit">퇴사</button>
 			</c:if>
-			<c:if test="${vo.empAdminLev==1 || vo.empAdminLev==2}">
+			<c:if test="${sessionScope.empAdminLev == '1' || sessionScope.empAdminLev == '2' }">
 				<a href="<c:url value='/emp/empList'/>"><button class="btn btn-secondary " type="button" >사원목록으로</button></a>
 			</c:if>
 			<a href="<c:url value="/index"/>"><button class="btn btn-secondary" type="submit">메인으로</button></a>

@@ -125,6 +125,27 @@ a {
 	cursor: pointer;
 }
 
+.form-check #emp{
+	width: 30px;
+}
+.form-check #admin{
+	width: 30px;
+}
+.logo{
+	height: 50px;
+}
+.textGroup{
+	width:  500px; 
+}
+.buttonGroup{
+	margin-left: 115px; 
+}
+
+.modalButton{
+	margin-left: 30px;
+}
+
+
 input[type="checkbox"] {
   display: none;
 }
@@ -218,7 +239,6 @@ input[type="checkbox"] {
 
 .findPwd {
   text-align: center;
-  font-family: 'Roboto Condensed';
   font-size: 0.9em;
   letter-spacing: 8px;
   line-height: 32px;

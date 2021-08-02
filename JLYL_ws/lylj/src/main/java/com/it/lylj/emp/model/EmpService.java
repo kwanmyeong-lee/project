@@ -18,7 +18,7 @@ public interface EmpService {
 	int EMP=3;
 	
 	int insertEmp(EmpVO vo);
-	public int loginProc(int empNo, String empPwd);
+	int loginProc(int empNo, String empPwd);
 	EmpVO selectByEmpNo(int empNo);
 	List<EmpVO> selectAllEmp();
 	List<EmpVO> selectAllEmpList(SearchVO searchVo);
@@ -37,7 +37,9 @@ public interface EmpService {
 	List<HashMap<String, Object>> selectAgeGrop();
 	List<HashMap<String, Object>> selectJoinLeave();
 	
+	int selectTotalEmpCount();
+	int selectTotalAdmin();
 	
 	//비밀번호이메일발송
-	public void sendEmail(EmpVO vo);
+	void sendEmail(EmpVO vo);
 }
