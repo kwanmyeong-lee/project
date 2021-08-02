@@ -28,6 +28,7 @@ public interface EmailService {
 	int updateInportant(int mailNo);
 	int updateNotInportant(int mailNo);
 	int updateNotReadDate(int mailNo);
+	int totalCountByReadDateMain(int mailNo);
 	
 	// 메인에 뿌려주기
 	List<EmailVO> selectNotRead(String empNo);

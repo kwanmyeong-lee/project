@@ -223,7 +223,7 @@
 	text-align: center;
 }
 .pwdInfo{
-	color: red;
+	color: blue;
 	font-size: 0.9em;
 }
 </style>
