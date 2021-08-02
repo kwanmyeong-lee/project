@@ -124,7 +124,7 @@
 			from
 			(
 				select * from apEleList
-				where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 1 and ELECTRONIC_DRAFT = 0
+				where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 1 and ELECTRONIC_DRAFT = 0 and ELECTRONIC_COMPLET_FLAG != 1 
 				<include refid="searchWhere"></include>
 				order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC
 				

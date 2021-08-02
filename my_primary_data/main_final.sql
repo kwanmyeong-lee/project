@@ -1494,12 +1494,7 @@ insert into DOCFOL
 values(DOCFOL_SEQ.nextval, '문서폴더2');
 insert into DOCFOL
 values(DOCFOL_SEQ.nextval, '문서폴더3');
-insert into DOCFOL
-values(DOCFOL_SEQ.nextval, '문서폴더4');
-insert into DOCFOL
-values(DOCFOL_SEQ.nextval, '문서폴더5');
-insert into DOCFOL
-values(DOCFOL_SEQ.nextval, '문서폴더6');
+
 
 --전자 결재 문서 양식 (no, 이름 내용 폴더번호)
 --SEQ strat 100
@@ -1626,17 +1621,14 @@ values(DOCSTY_SEQ.nextval, '지출기안서', '<br>
 				</table>
 				<br>', 1);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호101', '', 2);
+values(DOCSTY_SEQ.nextval, '테스트양식1', '', 2);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호102', '', 2);
+values(DOCSTY_SEQ.nextval, '테스트양식2', '', 2);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호103', '', 3);
+values(DOCSTY_SEQ.nextval, '테스트양식3', '', 3);
 insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호104', '', 3);
-insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호105', '', 4);
-insert into DOCSTY
-values(DOCSTY_SEQ.nextval, '양식번호106', '', 4);
+values(DOCSTY_SEQ.nextval, '테스트양식4', '', 3);
+
 
 -- 결재 도장 등록
 insert into APPSTAMP
@@ -1660,7 +1652,6 @@ values (APPSTAMP_SEQ.nextval, 119, '아이유1.jpg');
 insert into APPSTAMP
 values (APPSTAMP_SEQ.nextval, 120, '아이유1.jpg');
 
-select * from APPSTAMP;
 
 --전자 결재 정보 
 
@@ -1881,31 +1872,6 @@ insert into ELIMP
 values (ELIMP_SEQ.nextval, sysdate, '기안서테스트16', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
 values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
-
-insert into ELIMP
-values (ELIMP_SEQ.nextval, to_date('2021-07-24 09:12:12', 'yyyy-mm-dd hh24:mi:ss'), '날짜 테스트', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
-
-select * from elimp
-order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC;
-
-select * from elimp;
-
-
-
-
--- 결재 라인 
-
-select * from appline;
-
-
--- 수신 라인
-
-select * from reline;
-
---전자 결재 파일 
- 
-select * from ELFILE;
-
 
 
 -- 게시판 폴더

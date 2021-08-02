@@ -101,14 +101,18 @@ public class ElectronicController {
 		List<Map<String, Object>> ListRe = electronicService.selectListByEmpNo((searchVo), "2");
 
 		List<Map<String, Object>> ListFi = electronicService.selectListByEmpNo((searchVo), "6");
+		
+		List<Map<String, Object>> ListReturn = electronicService.selectListByEmpNo((searchVo), "7");
 
 		logger.info("결재 대기 문서 보여주기  ListAp={}", ListAp);
 		logger.info("결재 수신 문서 보여주기  ListRe={}", ListRe);
 		logger.info("결재 완료 문서 보여주기  ListFi={}", ListFi);
+		logger.info("결재 완료 문서 보여주기  ListReturn={}", ListReturn);
 
 		model.addAttribute("ListAp", ListAp);
 		model.addAttribute("ListRe", ListRe);
 		model.addAttribute("ListFi", ListFi);
+		model.addAttribute("ListReturn", ListReturn);
 
 		model.addAttribute("navNo", 1);
 
