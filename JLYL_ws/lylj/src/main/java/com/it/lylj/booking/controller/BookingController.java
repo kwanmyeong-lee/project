@@ -49,6 +49,7 @@ public class BookingController {
 	private static final Logger logger
 	=LoggerFactory.getLogger(ScheduleController.class);
 	
+	/* main 페이지 */
 	@GetMapping("/main")
 	public void main(Model model, HttpServletRequest req) {
 		HttpSession session = req.getSession();
@@ -57,39 +58,41 @@ public class BookingController {
 		List<BookingVO> bookingList = bookingService.selectAllBookingByEmpNo(empNo);
 		model.addAttribute("bookingList", bookingList);
 		
-	}//main 페이지
+	}
 	
-	
+	/* 예약 정보 페이지 */
 	@GetMapping("/assetInfo")
 	public void assetInfo(Model model, @RequestParam int bookingTargetNo, @RequestParam int bookingFolderNo ) {
 		model = topModel(model);
 		model.addAttribute("bTNo", bookingTargetNo);
 		model.addAttribute("bFNo", bookingFolderNo);
-	}//예약 정보 페이지
+	}
 	
-	
+	/* 예약 승인 페이지 */
 	@GetMapping("/rent")
 	public void rent(Model model) {
 		model.addAttribute("navNo",8);
-	}//예약 관리 페이지
+	}
 	
+	/* 예약목록, 자산 관리 페이지 */
 	@GetMapping("/property")
 	public void property(Model model) {
 		model.addAttribute("navNo",8);
-	}//예약 관리 페이지
+	}
 	
+	/* 모든 자산 List 반환 AJAX */
 	@GetMapping("/calDraw")
 	@ResponseBody
 	public List<BoTargetVO> calDraw(){
 		List<BoTargetVO> data=boTargetService.selectAllBoTarget();
 		
 		return data;
-	}//ajax 모든타켓 가져오기
+	}
 	
+	/* 자산 등록, 수정, 삭제 AJAX */
 	@GetMapping("/targetSer")
 	@ResponseBody
 	public int targetSer(int ser, BoTargetVO vo){
-		
 		if(ser==1) {
 			boTargetService.insertBoTarget(vo);
 		}else if(ser==2) {
@@ -97,14 +100,13 @@ public class BookingController {
 		}else if(ser==3) {
 			boTargetService.deleteBorTarget(vo.getBookingTargetNo());
 		}
-		
 		return 1;
-	}//ajax 타켓  추가 수정 삭제
+	}
 	
+	/* 예약 목록 등록, 수정, 삭제 */
 	@GetMapping("/folSer")
 	@ResponseBody
 	public int folSer(int ser, BoFolVO vo){
-		
 		if(ser==1) {
 			boFolservice.insertBoFol(vo);
 		}else if(ser==2) {
@@ -112,33 +114,32 @@ public class BookingController {
 		}else if(ser==3) {
 			boFolservice.deleteBoFol(vo.getBookingFolderNo());
 		}
-		
 		return 1;
-	}//ajax 목록 추가 수정 삭제
+	}
 	
-	
+	/* 자산, 예약목록 관리 페이지의 select option에 넣을 자산List, 예약목록List 중 하나 반환 AJAX */
 	@GetMapping("/propertySelView")
 	@ResponseBody
 	public HashMap<String, Object> propertySelView(int raCheck){
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		if(raCheck==0) {
+		if(raCheck==0) {//예약 목록 List
 			List<BoFolVO> boFolList = boFolservice.selectAllBoFol();
 			map.put("boFolList", boFolList);
 			logger.info("boFolList={}",boFolList);
-		}else {
+		}else {//자산 List
 			List<BoTargetVO> boTargetList = boTargetService.selectAllBoTarget();
 			map.put("boTargetList", boTargetList);
 			logger.info("boTargetList={}",boTargetList);
 		}
-		
 		return map;
-	}//ajax 타켓,목록 중 선택 가져오기
+	}
 	
+	/* 예약 승인 대기중 List 반환 AJAX */
 	@GetMapping("/selectAllApp")
 	@ResponseBody
 	public HashMap<String, Object> selectAllApp(int currentPage, int btCheck){
+		/* 페이징에 따른 List 반환 */
 		HashMap<String, Object> map = new HashMap<>();
-		
 		if(btCheck==1) {
 			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN + 1;
 			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;
@@ -146,11 +147,10 @@ public class BookingController {
 			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN - 1;
 			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;			
 		}
-		
 		List<BookingVO> bookingList= bookingService.selectAllBookingByAppFlag(currentPage); 
-		
 		map.put("bookingList", bookingList);
 		
+		/* 페이징 정보 반환 */
 		int TotalRecord = bookingService.selectCntAllByAppFlag();
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setCurrentPage(currentPage);
@@ -161,8 +161,9 @@ public class BookingController {
 		
 		logger.info("bookingList={}",bookingList);
 		return map;
-	}//ajax 대기중인 예약 리스트 가져오기
+	}
 	
+	/* 승인 업데이트 AJAX */
 	@GetMapping("/updateAppFlag")
 	@ResponseBody
 	public int updateAppFlag(int bookingNo, String bookingAppFlag, int scheduleNo){
@@ -170,21 +171,22 @@ public class BookingController {
 		map.put("bookingNo", bookingNo);
 		map.put("bookingAppFlag", bookingAppFlag);
 		bookingService.updateBokkingByBookingNo(map);
-		if(bookingAppFlag.equals("1")) {
+		if(bookingAppFlag.equals("1")) {//만약 flag가 1로 반려라면 해당 예약 번호를 가진 스케줄 제거
 			scheduleService.deleteScheduleByScheduleNo(scheduleNo);
 		}
-		
 		return 1;
-	}//ajax AppFlag 업데이트
-	
+	}
+
+	/* 해당 자산의 모든 스케줄 List 반환 AJAX */
 	@PostMapping("/calDrawByBTNo")
 	@ResponseBody
 	public List<ScheduleVO> calDrawByBTNo(@RequestParam int bTNo){
 		List<ScheduleVO> data=scService.selectAllScheduleByBTNo(bTNo);
 		
 		return data;
-	}//ajax 특정 타겟 가져오기
+	}
 	
+	/* 해당 자산의 번호로 스케줄 추가  AJAX*/
 	@PostMapping("/insertSchedule")
 	@ResponseBody
 	@Transactional
@@ -192,7 +194,6 @@ public class BookingController {
 		logger.info("insertSchedule 업데이트, 파라미터 scheduleVO = {}", scheduleVO);
 		scService.insertSchedule(scheduleVO);
 		int maxScNo = scService.selectMaxScNoByEmpNo(scheduleVO.getEmpNo());
-		
 		BookingVO bookingVo = new BookingVO();
 		bookingVo.setBookingContent(scheduleVO.getScheduleContent());
 		bookingVo.setBookingEnd(scheduleVO.getScheduleEnd());
@@ -200,16 +201,15 @@ public class BookingController {
 		bookingVo.setBookingTargetNo(scheduleVO.getBookingTargetNo());
 		bookingVo.setEmpNo(scheduleVO.getEmpNo());
 		bookingVo.setScheduleNo(maxScNo);
-		
 		logger.info("insertSchedule 업데이트, 파라미터 bookingVo = {}", bookingVo);
 		
 		bookingService.insertBooking(bookingVo);
-		
 		int no = scService.selectMaxScNoByEmpNo(scheduleVO.getEmpNo());
-		
+
 		return no;
-	}//ajax 특정 타겟 일정 추가
+	}
 	
+	/* 테마가 예약인 모든 스케줄 List 반환 AJAX */
 	@GetMapping("/selectAllSchedule")
 	@ResponseBody
 	public List<ScheduleVO> selectAllSchedule(){	
@@ -217,9 +217,9 @@ public class BookingController {
 		
 		return list;
 		
-	}//ajax 전체 일정 불러오기
+	}
 	
-	
+	/* 페이지 공통으로 사용하는 자산List 예약목록List 반환하는 메서드 */
 	public Model topModel(Model model) {
 		model.addAttribute("navNo",7);
 		List<BoFolVO> boFolList = boFolservice.selectAllBoFol();
@@ -228,5 +228,5 @@ public class BookingController {
 		model.addAttribute("boFolList", boFolList);
 		model.addAttribute("boTargetList", boTargetList);
 		return model;
-	}//top.jsp 모델
+	}
 }

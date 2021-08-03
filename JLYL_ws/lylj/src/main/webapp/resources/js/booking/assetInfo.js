@@ -1,9 +1,10 @@
 var calendar;
 var endD;
 var startD;
+
 $(function() {
     var calendarEl = document.getElementById('calendar');
-
+	/* 캘린더 */
     calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
             left: 'prev,next today',
@@ -18,6 +19,7 @@ $(function() {
         nowIndicator: true,
         dayMaxEvents: true,
         select: function(arg) {
+			/* 날짜 선택 */
             var nowTime = new Date();
             startD = moment(arg.start).format('YYYY-MM-DD HH:mm');
 			startD = new Date(startD);
@@ -39,49 +41,11 @@ $(function() {
 				var st = timeDefault(sh,sm);
 				var et = timeDefault(eh,em);
 				timeSetting(st,et);
-				
-	            /*alert(startD+" "+endD);
-	            startD=startD.substr(1,startD.indexOf("T")-1);
-	            endD=endD.substr(1,endD.indexOf("T")-1);          
-	            
-	            $('#startDate').datepicker( "setDate", new Date(startD));
-				$("#endDate").datepicker( "option", "minDate", $('#startDate').val() );
-				$('#endDate').datepicker( "setDate", new Date(endD));
-				*/
 	
 	            $('#startDate').datepicker("setDate", startD);
 	            $("#endDate").datepicker("option", "minDate", $('#startDate').val());
 	            $('#endDate').datepicker("setDate", endD);
 			}
-             /*var title= prompt("일정명:");
-        	  if(title){
-        		  var obj = new Object();
-        		  obj.title = title;
-        		  obj.startDate = arg.start;
-        		  obj.endDate = arg.end;
-        		  obj.allday = arg.allDay;
-        		  var jsondata= JSON.stringify(obj);
-					
-            	  $.ajax({
-      				type:'POST',
-      				url:"insertSchedule",
-      				data:jsondata,
-      				contentType: "application/json; charset=utf-8;",
-      	            dataType: "json",
-      				success : function(data) {
-      					alert("성공");
-      				}
-      			  });
-      			  
-      			  
-            	  
-        		  calendar.addEvent({
-        			  title:title,
-        		  	  start:arg.start,
-        		  	  end:arg.end,
-        		  	  allDay:arg.allDay
-        		  })
-        	  }*/ 
 
         },
         selectOverlap:false,
@@ -105,8 +69,9 @@ $(function() {
         },
 
         events: function(info, successCallback, failureCallback) {
+			/* 해당 자산의 예약된 스케줄 List event로 만듬 */
 			var bTNo = $('.bTNo').val();
-            $.ajax({
+            $.ajax({//예약 스케줄List 반환
                 type: 'POST',
                 url: "calDrawByBTNo",
                 data:{bTNo:bTNo},
@@ -133,9 +98,9 @@ $(function() {
     });
     calendar.render();
 
-  
+  	/* 해당 자산 예약하기 */
 	$('#btdd').click(function(){
-		
+			/* 입력 받은 자산 정보 */
             var startTimes = $('#startTime').val();
             var stnum= "#option-startTime"+startTimes;
             var startTimes = $(stnum).text();
@@ -156,7 +121,7 @@ $(function() {
             var empNo = $('.empNo').val();
             var scheduleContent = $('#scheduleContent').val();
             var bookingTargetNo = $('.bTNo').val();
-            $.ajax({    
+            $.ajax({//예약등록    
                       type:'POST',
                       url:"insertSchedule",
                       data:JSON.stringify({scheduleTitle:scheduleTitle,
@@ -173,6 +138,7 @@ $(function() {
                       contentType: "application/json; charset=utf-8;",
                       dataType: "json",
                       success : function(data) {
+						  /* 등록한 정보 event로 추가 */
                           calendar.addEvent({
 							    id:bookingTargetNo,
 	                            title: scheduleTitle,

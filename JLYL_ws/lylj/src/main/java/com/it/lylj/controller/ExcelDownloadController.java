@@ -41,6 +41,7 @@ public class ExcelDownloadController {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	private final AttendDayService attendDayService;
 
+	/* 근태 정보 엑셀 다운 시 정보 변환*/
 	@GetMapping(path="/stats", produces = "application/vnd.ms-excel")
 	public void downloadExcel(@RequestParam String selectDate, HttpServletResponse response, Model model) throws Exception { 
 		HashMap<String, Object> map = new HashMap<>();

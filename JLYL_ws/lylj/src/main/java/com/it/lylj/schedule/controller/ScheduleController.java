@@ -38,49 +38,53 @@ public class ScheduleController {
 	private static final Logger logger
 		=LoggerFactory.getLogger(ScheduleController.class);
 
+	/* 일정 추가 (ajax) */
 	@PostMapping("/insertSchedule")
 	@ResponseBody
 	@Transactional
 	public int insertSchedule(@RequestBody ScheduleVO scheduleVO) {
-		service.insertSchedule(scheduleVO);
-		int no = service.selectMaxScNoByEmpNo(scheduleVO.getEmpNo());
+		service.insertSchedule(scheduleVO); //입력받은 일정 스케줄에 추가
+		int no = service.selectMaxScNoByEmpNo(scheduleVO.getEmpNo());//empNo의 스케줄의 일정중 가장 최근의 스케줄 번호 반환
 		return no;
-	}//일정 추가
+	}
 	
+	/* 일정 목록명 추가 (ajax) */
 	@PostMapping("/insertScFolder")
 	@ResponseBody
 	public List<ScFolderVO> insertScFolder(@ModelAttribute ScFolderVO vo) {
-		sfService.insertScFolder(vo);
-		List<ScFolderVO> sfList= sfService.selectAllScFolderByEmpNo(vo.getEmpNo());
+		sfService.insertScFolder(vo); //empNo의 일정 목록명 추가
+		List<ScFolderVO> sfList= sfService.selectAllScFolderByEmpNo(vo.getEmpNo());//empNo의 모든 일정목록명 반환
 		
 		return sfList;
-	}//일정목록 추가
+	}
 	
+	/* 일정 목록 번호에 해당하는 일정List, 일정 목록명과 이를 포함하는 일정 제거후 일정목록List 반환 (ajax) */
 	@PostMapping("/deleteScFolder")
 	@ResponseBody
 	@Transactional
 	public Map<String,Object> deleteScFolder(@ModelAttribute ScFolderVO vo) {
-		List<ScheduleVO> list = service.selectAllScheduleByScFolderNo(vo.getScheduleFolderNo());
-		sfService.deleteScFolderByScFolderNo(vo.getScheduleFolderNo());
-		service.deleteScheduleByScFolderNo(vo.getScheduleFolderNo());
-		List<ScFolderVO> sfList= sfService.selectAllScFolderByEmpNo(vo.getEmpNo());
+		List<ScheduleVO> list = service.selectAllScheduleByScFolderNo(vo.getScheduleFolderNo()); //일정목록번호에 해당하는 모든 일정 반환
+		sfService.deleteScFolderByScFolderNo(vo.getScheduleFolderNo());//일정 목록 번호에 해당하는 일정목록 제거
+		service.deleteScheduleByScFolderNo(vo.getScheduleFolderNo());// 일정 목록 번호에 해당하는 일정 제거
+		List<ScFolderVO> sfList= sfService.selectAllScFolderByEmpNo(vo.getEmpNo()); // empNo의 모든 일정목록 반환
 		
 		Map<String, Object> rmap = new HashMap<String, Object>();
 		rmap.put("sfList", sfList);
 		rmap.put("list", list);
 		
 		return rmap;
-	}//일정목록 제거
+	}
 	
+	/* 일정목록명과 이를 포함하는 일정 업데이트 후 일정List, 일정목록List 반환 (ajax)*/
 	@PostMapping("/updateScFolder")
 	@ResponseBody
 	@Transactional
 	public Map<String,Object> updateScFolder(@ModelAttribute ScFolderVO vo) {
-		ScheduleVO scvo= new ScheduleVO();
+		ScheduleVO scvo= new ScheduleVO();//xml에서 sql을 이용한 if 구절이 있기 때문에 vo를 따로 만들어서 넣음
 		scvo.setScheduleFolderNo(vo.getScheduleFolderNo());
 		scvo.setScheduleColor(vo.getScheduleFolderColor());
-		service.updateScheduleByScFolderNo(scvo);
-		sfService.updateScFolderByScFolderNo(vo);
+		service.updateScheduleByScFolderNo(scvo);//일정목록명에 해당되는 일정 업데이트
+		sfService.updateScFolderByScFolderNo(vo);// 일정목록번호와 맞는 일정목록 업데이트
 		List<ScheduleVO> list = service.selectAllScheduleByScFolderNo(vo.getScheduleFolderNo());
 		List<ScFolderVO> sfList= sfService.selectAllScFolderByEmpNo(vo.getEmpNo());
 		
@@ -89,30 +93,27 @@ public class ScheduleController {
 		rmap.put("list", list);
 		
 		return rmap;
-	}//일정목록 수정
+	}
 	
+	/* 메인 페이지 */
 	@GetMapping("/scheduleMain")
 	public String Schedule(Model model, HttpServletRequest req){
 		model.addAttribute("navNo",4);
 		HttpSession session = req.getSession();
 		
-		if(session.getAttribute("empNo")==null) {
-			model.addAttribute("msg","잘못된 URL입니다.");
-			model.addAttribute("url", "/login/login");
-			
-			return "common/message";
-		}
-		
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		List<ScFolderVO> sfList= sfService.selectAllScFolderByEmpNo(empNo);
-		if(sfList.isEmpty() || sfList==null) {
+		
+		if(sfList.isEmpty() || sfList==null) { //만약 empNo의 일정목록명이 하나도 없다면 기본 일정목록 추가
 			sfService.insertDefaultScFolder(empNo);
 		}
-		sfList= sfService.selectAllScFolderByEmpNo(empNo);
+		
+		sfList= sfService.selectAllScFolderByEmpNo(empNo); //empNo의 일정목록명 반환
 		model.addAttribute("sfList", sfList);
 		return "schedule/scheduleMain";
-	}//메인 페이지 일정불러오기
+	}
 	
+	/* empNo의 전체 일정 반환 AJAX */
 	@GetMapping("/listSchedule")
 	@ResponseBody
 	public List<ScheduleVO> listSchedule(HttpServletRequest req){
@@ -125,8 +126,9 @@ public class ScheduleController {
 		
 		return list;
 		
-	}//ajax 전체 일정 불러오기
+	}
 	
+	/* 일정번호와 맞는 일정 정보, 일정목록명번호와 맞는 일정목록명 반환 AJAX */
 	@PostMapping("/selectScheduleByScheduleNo")
 	@ResponseBody
 	public Map<String,Object> selectScheduleByScheduleNo(@RequestBody int scheduleNo){
@@ -138,16 +140,18 @@ public class ScheduleController {
 		map.put("scvo", scvo);
 		return map;
 		
-	}//ajax 일정 한개 불러오기
+	}
 	
+	/* 일정번호와 맞는 일정정보 삭제 AJAX */
 	@PostMapping("/deleteScheduleByScheduleNo")
 	@ResponseBody
 	public int deleteScheduleByScheduleNo(@RequestBody int scheduleNo){
 		service.deleteScheduleByScheduleNo(scheduleNo);
 		
 		return 1;
-	}//ajax 일정 한개 삭제하기
+	}
 	
+	/* empNo의 일정목록List 반환  AJAX*/
 	@GetMapping("/listScFolder")
 	@ResponseBody
 	public List<ScFolderVO> listScFolder(HttpServletRequest req){
@@ -158,8 +162,9 @@ public class ScheduleController {
 		List<ScFolderVO> list = sfService.selectAllScFolderByEmpNo(empNo);
 		
 		return list;
-	}//ajax 일정목록 불러오기
+	}
 	
+	/* 일정 목록 번호에 맞는 일정List 반환 AJAX*/
 	@PostMapping("/listScheduleByScFolderNo")
 	@ResponseBody
 	public List<ScheduleVO> listScheduleByScFolderNo(@RequestBody int scFolderNo){
@@ -167,19 +172,14 @@ public class ScheduleController {
 		List<ScheduleVO> list = service.selectAllScheduleByScFolderNo(scFolderNo);
 		
 		return list;
-	}//ajax 목록번호에 맞는 일정만 불러오기
+	}
 	
+	/* 일정 등록 페이지 */
 	@GetMapping("/write")
 	public String write(Model model, HttpServletRequest req) {
 		model.addAttribute("navNo",4);
 		HttpSession session = req.getSession();
 		
-		if(session.getAttribute("empNo")==null) {
-			model.addAttribute("msg","잘못된 URL입니다.");
-			model.addAttribute("url", "/login/login");
-			
-			return "common/message";
-		}
 		
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		List<ScFolderVO> sfList= sfService.selectAllScFolderByEmpNo(empNo);
@@ -191,8 +191,9 @@ public class ScheduleController {
 		
 		return "schedule/write";
 
-	}//일정등록 페이지
+	}
 	
+	/* 등록페이지에서 일정 등록 후 main페이지로 이동 */
 	@PostMapping("/write")
 	public String writeok(HttpServletRequest req) {
 		HttpSession session = req.getSession();
@@ -202,5 +203,5 @@ public class ScheduleController {
 		
 		return "redirect:/schedule/scheduleMain";
 		
-	}//일정등록
+	}
 }
