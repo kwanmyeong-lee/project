@@ -138,13 +138,13 @@ window.onload= function(){
 									<th scope="col">보낸 날짜</th>
 								</tr>
 							</thead>
-								<c:if test="${empty emailList }">
+								<c:if test="${empty emailVo }">
 									<tr>
 										<td colspan="3" style="text-align: center;">모두 읽으셨습니다.</td>
 									</tr>
 								</c:if>
-								<c:if test ="${!empty emailList }">
-									<c:forEach var="list" items="${emailList }">
+								<c:if test ="${!empty emailVo }">
+									<c:forEach var="list" items="${emailVo }">
 										<tr>
 											<td>${list.mailSend}</td>
 											<td><a href="<c:url value='/email/emailDetail?mailNo=${list.mailNo }'/>">${list.mailTitle}</a></td>

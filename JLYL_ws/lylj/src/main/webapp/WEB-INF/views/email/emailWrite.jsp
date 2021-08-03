@@ -192,7 +192,6 @@
 	   			var	searchNo = $('#mailTake').val();
 	            $.ajax({
 	                url: "../emp/searchEmp",
-	                	/*"<c:url value='/emp/searchEmp'/>",  */
 	                data: {searchNo:searchNo},
 	                type:'POST',
 	                dataType:'json',
