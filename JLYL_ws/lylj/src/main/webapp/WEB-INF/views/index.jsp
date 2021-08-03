@@ -92,7 +92,16 @@ window.onload= function(){
 									<c:if test="${!empty notice }">
 										<c:forEach var="notice" items="${notice }">
 											<tr>
-												<th><a href="<c:url value='/board/countUpdate?boardNo=${notice.boardNo }'/>">${notice.boardTitle }</a></th>
+												<th>
+											        <a href="<c:url value='/board/countUpdate?boardNo=${notice.boardNo }'/>" >
+											        	<c:if test="${fn:length(notice.boardTitle) > 30 }">
+											        		${fn:substring(notice.boardTitle,0, 30)}...
+											        	</c:if>
+											        	<c:if test="${fn:length(notice.boardTitle) < 31 }">
+											        		${notice.boardTitle }
+											        	</c:if>
+											        </a>
+											    </th>
 												<td>${notice.boardWriter }</td>
 												<td><fmt:formatDate value="${notice.boardDate }" pattern="yyyy-MM-dd"/></td>
 											</tr>
