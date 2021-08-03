@@ -19,10 +19,12 @@ public class MvcConfiguration implements WebMvcConfigurer{
 //		registry.addInterceptor(new LoginInterceptor())
 //		.addPathPatterns("/shop/cart/*", "/shop/order/*","/member/memberEdit","/member/memberOut");
 //		
+		/* 로그인 안하고 접근하는 경우*/
 		registry.addInterceptor(new LoginInterceptor())
 		.excludePathPatterns("/login/login","/login/findPwd")
 		.addPathPatterns("/*/*");
 		
+		/* 로그인상태에서 접근하는 경우*/
 		registry.addInterceptor(new LoginToLoginInterceptor())
 		.addPathPatterns("/");
 		

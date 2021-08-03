@@ -1,5 +1,6 @@
 $(function() { // document ready
-
+	
+	/* 캘린더 */
     $('#calendar').fullCalendar({
         header: {
             left: 'promptResource today prev,next',
@@ -29,8 +30,8 @@ $(function() { // document ready
         resourceLabelText: '예약 대상',
         scrollTime: '00:00:00',
         resources: function(callback) {
-	
-    			$.ajax({
+			/* 자산 List 가져와 달력에 표시 */
+			$.ajax({//자산 List 반환
                 type: 'GET',
                 url: "calDraw",
                 dataType: "json",
@@ -41,15 +42,14 @@ $(function() { // document ready
 							id:data[index].bookingTargetNo,
                             title: data[index].bookingTargetName,
                         });
-
                     });
-					
                     callback(events);
                 }
-            });
+        	});
   		},
   		events: function(start, end, timezone, callback) {
-		    $.ajax({
+			/* 모든 자산의 스케쥴 List 가져와 달력에 표시 */
+		    $.ajax({//모든 자산의 스케쥴 List
 			  type: 'GET',
 		      url: 'selectAllSchedule',
 		      dataType: 'json',
@@ -70,33 +70,11 @@ $(function() { // document ready
 		      }
 		    });
 		 },
-        /*selectable: true,
-        select: function(start, end, event, view, resource) {
-            $('#myModal').modal('show');
-            var title = prompt("일정명:");
-            var resourceId = resource.id
-            if (title) {
-                $('#calendar').fullCalendar('renderEvent', {
-                    title: title,
-                    start: start,
-                    end: end,
-                    resourceId: resourceId,
-                }, true);
-            }
-
-        },
-
-        eventClick: function(calEvent, jsEvent, view) {
-            if (confirm("일정을 삭제하시겠습니까?")) {
-                var calEvents = calEvent.id;
-                alert(calEvents);
-                $('#calendar').fullCalendar('removeEvents', calEvents);
-            }
-        },*/
         slotLabelFormat: ['HH'] // 시간 칼럼 표시방법
     });
 });
 
+/* 캘린더 다시 그리기 */
 function reloadCal(){
 	$('#calendar').fullCalendar({
         header: {
@@ -168,29 +146,6 @@ function reloadCal(){
 		      }
 		    });
 		 },
-        /*selectable: true,
-        select: function(start, end, event, view, resource) {
-            $('#myModal').modal('show');
-            var title = prompt("일정명:");
-            var resourceId = resource.id
-            if (title) {
-                $('#calendar').fullCalendar('renderEvent', {
-                    title: title,
-                    start: start,
-                    end: end,
-                    resourceId: resourceId,
-                }, true);
-            }
-
-        },
-
-        eventClick: function(calEvent, jsEvent, view) {
-            if (confirm("일정을 삭제하시겠습니까?")) {
-                var calEvents = calEvent.id;
-                alert(calEvents);
-                $('#calendar').fullCalendar('removeEvents', calEvents);
-            }
-        },*/
         slotLabelFormat: ['HH'] // 시간 칼럼 표시방법
     });
 }

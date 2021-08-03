@@ -15,9 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class LoginInterceptor extends HandlerInterceptorAdapter{
-	
-	
-	
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -39,13 +37,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	}
 
 
-
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		super.postHandle(request, response, handler, modelAndView);
 	}
-
 
 
 	@Override

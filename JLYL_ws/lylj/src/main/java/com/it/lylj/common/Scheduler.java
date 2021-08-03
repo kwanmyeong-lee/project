@@ -16,6 +16,7 @@ public class Scheduler {
 	private static final Logger logger = LoggerFactory.getLogger(EmailController.class);
 	private final AttendDayService attendDayService;
 	
+	/* 23시 59분 30초 자동 퇴근 */
 	@Scheduled(cron= "30 59 23 * * *")
 	public void updateAttendDayOffHour(){
 		attendDayService.updateAutoOffHour();
