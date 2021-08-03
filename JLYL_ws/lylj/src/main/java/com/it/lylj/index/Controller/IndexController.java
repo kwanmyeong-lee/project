@@ -100,7 +100,8 @@ public class IndexController {
 		int mailCount = emailService.totalCountByReadDateMain(empNo);
 		List<EmailVO> emailVo = emailService.selectNotRead(Integer.toString(empNo));
 		
-		logger.info("index 안읽은 메일, mailCount={}",mailCount);
+		logger.info("index 안읽은 메일, emailList.size()={}",emailList.size());
+		logger.info("empVO={}", empVO);
 		
 		model.addAttribute("elist", elist);
 		model.addAttribute("empNo", empNo);
