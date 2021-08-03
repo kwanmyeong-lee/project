@@ -42,6 +42,7 @@ $(function(){
 		
 	});
 	
+	/* 목록명 클릭시 해당 체크박스 상태 변환 */
 	$('.list-span').click(function(){
 		if($(this).prev('.ckSch').prop('checked')){
 			$(this).prev('.ckSch').prop('checked',false)
@@ -50,6 +51,7 @@ $(function(){
 		}
 	});
 	
+	/* 일정 등록 */
 	$('#btWrite').click(function(){
 			var startTimes = $('#startTime').val();
            	var stnum= "#option-startTime"+startTimes;
@@ -71,7 +73,7 @@ $(function(){
             var empNo = $('#empNo').val();
             var scheduleContent=$('#scheduleContent').val();
             
-            $.ajax({    
+            $.ajax({//스케줄 등록
                       type:'POST',
                       url:"insertSchedule",
                       data:JSON.stringify({

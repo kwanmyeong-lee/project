@@ -8,21 +8,14 @@ $(function() {
 	});
 	
     
-	
+	/* 일정 등록시 */
     $('#btn-add').click(function(){
 		if($('#addtitle').val()==""){
 			swal ( "" , "일정명을 입력하세요" ,  "error" );
 		}else if($('#selectMycal').val()=="" || $('#selectMycal').val()==null){
 			swal ( "" , "내 캘린더를 등록하세요" ,  "error" );
 		}else{
-            /*var scheduleTitle = $('#addtitle').val();
-            var scheduleStart = $('#startDate').val();
-            var scheduleEnd = $('#endDate').val();
-            var scheduleAllday = $('.chk-day').prop('checked');
-            /*var scheduleColor =
-            /*var scheduleFolderNo =
-            var scheduleThemeNo =1 ;
-            var empNo ="${sessionScope.empNo}";*/
+            /* 일정명, 일정 시작날짜와시간,일정 마지막날짜시간, 종일여부 이용하여 일정 등록 */
             var startTimes = $('#startTime').val();
             var stnum= "#option-startTime"+startTimes;
             var startTimes = $(stnum).text();
@@ -58,6 +51,7 @@ $(function() {
                       contentType: "application/json; charset=utf-8;",
                       dataType: "json",
                       success : function(data) {
+						/* 일정 등록 성공 후 달력에 event 추가 */
 						var listCheck = "#scFolNo"+scheduleFolderNo;
 						if($(listCheck).prev().prev().prop('checked')){
                           calendar.addEvent({
@@ -80,6 +74,7 @@ $(function() {
 		$('#myModaladd').modal('show');
 	});
 	
+	/* 일정 목록 수정 */
 	$('#cal-edit').click(function(){
 		$.ajax({    
                       type:'get',
@@ -97,6 +92,7 @@ $(function() {
 		$('#myModaledit').modal('show');
 	});
 	
+	/* 일정 목록 삭제 */
 	$('#cal-delete').click(function(){
 		$.ajax({    
                       type:'get',
@@ -114,10 +110,11 @@ $(function() {
 		
 	});
 	
+	/* nav-itme에 일정목록명 클릭할 경우 앞의 checkbox 상태에 따라 달력의 일정 제거 또는 생성*/
 	$(document).on("click",".list-span",function(){
 		var texts=$(this).next().val();
 		var event2 = calendar.getEventById(texts);
-		if($(this).prev('.ckSch').prop('checked')){
+		if($(this).prev('.ckSch').prop('checked')){//해당 목록명 앞 체크박스가 체크되어 있는 경우 체크 해지후 목록명이 같은 달력의 event 전체 삭제
 			$(this).prev('.ckSch').prop('checked',false);
 			$.ajax({    
                       type:'POST',
@@ -134,7 +131,7 @@ $(function() {
                     });
 			
 			
-		}else{
+		}else{//체크박스가 해지되어있는 경우 해당 목록명과 같은 event 달력에 생성
 			$(this).prev('.ckSch').prop('checked',true);		
 			$.ajax({    
                       type:'POST',
@@ -161,6 +158,7 @@ $(function() {
 			}
 	});
 	
+	/* 체크박스 상태에 따른 해당 일정목록명과 동일한 event 달력에서 제거, 생성 (위와 동일)*/
 	$(document).on("change",".ckSch",function(){
 		var texts=$(this).next().next().val();
 		var event2 = calendar.getEventById(texts);
