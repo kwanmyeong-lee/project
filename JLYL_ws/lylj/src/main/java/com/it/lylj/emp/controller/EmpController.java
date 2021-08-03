@@ -157,7 +157,7 @@ public class EmpController {
 		//1
 		logger.info("사원정보디테일 페이지, 파라미터 empNo={}",empNo);
 		
-		//출퇴근 시간 체크
+		//출퇴근 시간 체크 by 준경
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = new Date();
 		logger.info("메인페이지");
@@ -195,13 +195,13 @@ public class EmpController {
 		
 		logger.info("elist={}", elist);
 
-		//안읽은 메일 선택
+		//안읽은 메일 숫자
 		int mailCount = emailService.totalCountByReadDateMain(empNo);
 		logger.info("index 안읽은 메일, mailCount={}",mailCount);
-
 		//파라미터로 넘어온 정보
 		EmpVO paramEmpVo = empService.selectByEmpNo(empNo);
 		
+		//모델에 저장, 뷰페이지 리턴
 		model.addAttribute("elist", elist);
 		model.addAttribute("empNo", empNo2);
 		model.addAttribute("bookingList", bookingList);
@@ -219,9 +219,12 @@ public class EmpController {
 	public String empEdit(@RequestParam(defaultValue = "0") int empNo, HttpSession session ,Model model) {
 		logger.info("사원정보수정페이지, empNo={}", empNo);
 		int adminLev = (int)session.getAttribute("empAdminLev");
+
+		//수정할 EMP 정보 선택
 		EmpVO empVo = empService.selectByEmpNo(empNo);
 		logger.info("사원정보수정페이지, adminLev={}", adminLev);
-
+		
+		//모델 저장, 뷰페이지 리턴 => input태그에 정보 띄어주기 위함
 		model.addAttribute("empVo", empVo);
 		
 		return "emp/empEdit";
@@ -233,12 +236,14 @@ public class EmpController {
 			, @RequestParam String mEmpPwd, HttpServletRequest request, @RequestParam String oldFileName, Model model) {
 		logger.info("사원정보 수정처리, vo={}", empVo);
 		
+		//비밀번호 수정 요청자의 사원번호, 비밀번호로 본인확인
 		int result = empService.loginProc(Integer.parseInt(loginEmpNo), mEmpPwd);
 		logger.info("정보확인,result={}",result);
-			
+		
 		String msg="사원정보수정 실패", url="/emp/empEdit?empNo="+empVo.getEmpNo();
+		//본인확인 후 결과처리
 		if(result==EmpService.LOGIN_OK) {
-			//파일 수정
+			//사진파일 수정
 			String fileUrl="";
 			List<Map<String, Object>> list = null;
 			try {
@@ -256,7 +261,7 @@ public class EmpController {
 			
 			empVo.setEmpPhoto(fileUrl);
 			
-			//수정처리
+			//정보 수정 처리
 			int cnt = empService.updateEmp(empVo);
 			logger.info("사원정보수정여부 cnt={}",cnt);
 			if(cnt>0) {
@@ -291,23 +296,24 @@ public class EmpController {
 		logger.info("사원정보리스트 페이지");
 		
 		//2
-		//
+		//페이징 처리
 		PaginationInfo pagingInfo = new PaginationInfo();
-		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
-		pagingInfo.setBlockSize(ConstUtil.EMP_BLOCK_SIZE);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());			 
+		pagingInfo.setBlockSize(ConstUtil.EMP_BLOCK_SIZE); 	 
 		pagingInfo.setRecordCountPerPage(ConstUtil.EMP_RECORD_COUNT);
-		
-		//
-		searchVo.setRecordCountPerPage(ConstUtil.EMP_RECORD_COUNT);
+		searchVo.setRecordCountPerPage(ConstUtil.EMP_RECORD_COUNT);		 
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		logger.info("searchVo={}",searchVo);
 		
+		//사원목록선택
 		List<EmpVO> empList = empService.selectAllEmpList(searchVo);
 		logger.info("사원목록조회, empList.size()={}",empList.size());
 		
+		//검색에 따른 전체데이터 수 얻어오기
 		int totalRecord = empService.selectTotalEmp(searchVo);
 		logger.info("totalRecord={}",totalRecord);
 		
+		//페이징인포에 값 셋팅
 		pagingInfo.setTotalRecord(totalRecord);
 		
 		model.addAttribute("navNo", 8);
@@ -318,17 +324,22 @@ public class EmpController {
 		
 	}
 	
+	/* 사원정보삭제 - DB베이스에 정보는 유지 */
 	@PostMapping("/leaveEmp")
 	public String deleteEmp(@RequestParam String modalEmpNo, @RequestParam String modalAdmin, @RequestParam String modalAdminPwd, Model model) {
+		//퇴사하는 사원번호
 		int delEmpNo = Integer.parseInt(modalEmpNo);
+		//퇴사요청하는 관리자번호
 		int adminEmpNo = Integer.parseInt(modalAdmin);
 		
 		logger.info("사원퇴사처리 삭제요청관리자, modalEmpNo={}, adminEmpNo={}",modalEmpNo, adminEmpNo);
 		logger.info("사원퇴사처리 삭제사원번호, modalEmpNo={}",modalEmpNo);
 
 		String msg = "", url= "";
+		//관리자 확인
 		int result = empService.loginProc(adminEmpNo, modalAdminPwd);
 		
+		//결과처리
 		if(result == EmpService.LOGIN_OK) {
 			int cnt = empService.deleteEmp(delEmpNo);
 			msg="퇴사되었습니다.";
@@ -338,22 +349,25 @@ public class EmpController {
 			url="/emp/empList";
 		}
 		
+		//모델에 저장, 뷰페이지 리턴
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		
 		return "common/message";
 	}
 	
+	/* 비밀번호 변경 */
 	@PostMapping("/changePwd")
 	public String changePwd(@ModelAttribute EmpVO vo, @RequestParam String changeEmpPwd, Model model) {
 		logger.info("비밀번호변경, 변경요청 vo={}",vo);
 		
-		//2
+		//기존비밀번호 가져오기
 		String dbPwd = empService.selectPwd(vo.getEmpNo());
 		logger.info("비밀번호변경, 변경요청 dbPwd={}, changeEmpPwd={}",dbPwd,changeEmpPwd);
-		String msg ="", url="";
+
 		
-		if(passwordEncoder.matches(vo.getEmpPwd(), dbPwd)) {//dbpwd와 입력한 비밀번호가 동일하면
+		String msg ="", url="";
+		if(passwordEncoder.matches(vo.getEmpPwd(), dbPwd)) {//기존비밀번호와 일치하면
 			//변경요청
 			vo.setEmpPwd(changeEmpPwd);
 			int cnt = empService.updateTempPwd(vo);
@@ -365,7 +379,7 @@ public class EmpController {
 				msg="비밀번호가 변경되지 않았습니다. 다시 시도해주세요";
 				url="/emp/empEdit?empNo="+vo.getEmpPwd();
 			}
-		}else {
+		}else { // 기존비밀번호와 다르면
 			msg="비밀번호가 다릅니다, 다시확인해주세요";
 			url="/emp/empEdit?empNo="+vo.getEmpPwd();
 		}
@@ -376,6 +390,7 @@ public class EmpController {
 		
 	}
 	
+	/* 이메일 작성 시 사원번호 자동완성 */
 	@ResponseBody
 	@RequestMapping("/searchEmp")
 	public List<EmpVO> searchEmp(@RequestParam(defaultValue = "0") int searchNo){

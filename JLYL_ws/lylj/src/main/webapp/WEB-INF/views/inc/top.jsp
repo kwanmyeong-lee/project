@@ -228,69 +228,111 @@
 	font-size: 1em;
 }
 
-.modal-aside{
+.modal-aside {
 	display: block; /* position: relative; */
 	pointer-events: none; /* background clickable */
 }
 
-.modal-backdrop-aside{ /* display: block; 검은색레이어*/
+.modal-backdrop-aside { /* display: block; 검은색레이어*/
 	display: none; /* background clickable */
 }
-#navSideBar{
+
+#navSideBar {
 	background: #258493;
 }
 
 /*티틀*/
-
 #container {
-  color:#999;
-  text-transform: uppercase;
-  font-size:24px;
-  font-weight:bold;
-  width:40%;
-  bottom:50%;
-  display:block;
-  float: left;
-  
+	color: #999;
+	text-transform: uppercase;
+	font-size: 24px;
+	font-weight: bold;
+	width: 40%;
+	bottom: 50%;
+	display: block;
+	float: left;
 }
 
 #flip {
-  height:50px;
-  overflow:hidden;
-  
+	height: 50px;
+	overflow: hidden;
 }
 
-#flip > div > div {
-  color:#fff;
-  padding:4px 12px;
-  height:50px;
-  margin-bottom:50px;
-  display:inline-block;
+#flip>div>div {
+	color: #fff;
+	padding: 4px 12px;
+	height: 50px;
+	margin-bottom: 50px;
+	display: inline-block;
 }
 
 #flip div:first-child {
-  animation: show 7s linear infinite;
+	animation: show 7s linear infinite;
 }
 
 #flip div div {
-  background: #ff859d;
-}
-#flip div:first-child div {
-  background: #46ddff;
-}
-#flip div:last-child div {
-  background: #89ffa8;
+	background: #ff859d;
 }
 
-@keyframes show {
-  0% {margin-top:-270px;}
-  5% {margin-top:-180px;}
-  33% {margin-top:-180px;}
-  38% {margin-top:-90px;}
-  66% {margin-top:-90px;}
-  71% {margin-top:0px;}
-  99.99% {margin-top:0px;}
-  100% {margin-top:-270px;}
+#flip div:first-child div {
+	background: #46ddff;
+}
+
+#flip div:last-child div {
+	background: #89ffa8;
+}
+
+@
+keyframes show { 0% {
+	margin-top: -270px;
+}
+
+5
+%
+{
+margin-top
+:
+-180px;
+}
+33
+%
+{
+margin-top
+:
+-180px;
+}
+38
+%
+{
+margin-top
+:
+-90px;
+}
+66
+%
+{
+margin-top
+:
+-90px;
+}
+71
+%
+{
+margin-top
+:
+0px;
+}
+99
+.99 % {
+	margin-top: 0px;
+}
+100
+%
+{
+margin-top
+:
+-270px;
+}
 }
 
 /* 어사이드 */
@@ -306,7 +348,7 @@
 				<ul
 					class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"
 					id="accordionSidebar">
-						
+
 
 					<!-- Sidebar - Brand -->
 					<a
@@ -318,26 +360,34 @@
 					</a>
 
 					<div class="card">
-						<img src="<c:url value ="/resources/img/아이유1.jpg"/>"
+						<!-- 프로필 사진 -->
+						<img
+							src="<c:url value ="/resources/emp_images/${empVO.empPhoto }"/>"
 							class="card-img-top" alt="...">
 						<ol class="breadcrumb mt-3">
 							<li class="breadcrumb-item">안읽은 메일</li>
-							<li class="breadcrumb-item">
-								<a href="<c:url value="/email/emailList?empNo=${sessionScope.empNo }&type=6"/>">
-									${mailCount }개
-								</a>
-							</li>
+							<li class="breadcrumb-item"><a
+								href="<c:url value="/email/emailList?empNo=${sessionScope.empNo }&type=6"/>">
+									<c:if test="${emailList.size() eq '0'}">
+										0개
+									</c:if> <c:if test="${emailList.size() ne '0'}">
+										${emailList.size() }개
+									</c:if>
+							</a></li>
 						</ol>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item">오늘 일정</li>
 							<li class="breadcrumb-item"><a href="#">${todayScheduleCnt}개</a></li>
 						</ol>
 						<div class="card-body">
-							<a href="<c:url value='/email/emailWrite'/>" class="card-link"><button type="button" class="btn btn-outline-info btn-lg w-100">메일 쓰기</button></a>
+							<a href="<c:url value='/email/emailWrite'/>" class="card-link"><button
+									type="button" class="btn btn-outline-info btn-lg w-100">메일
+									쓰기</button></a>
 
 							<button type="button"
 								class="btn btn-outline-info btn-lg w-100 mt-3">
-								<a href="<c:url value="/schedule/write"/>" class="card-link">일정 등록</a> <br>
+								<a href="<c:url value="/schedule/write"/>" class="card-link">일정
+									등록</a> <br>
 							</button>
 
 						</div>
@@ -352,41 +402,50 @@
 								<li class="list-group-item">출근 시간
 									<p class="card-text" id="timeSize">-- : --</p>
 								</li>
-	
+
 								<li class="list-group-item">퇴근 시간
 									<p class="card-text" id="timeSize">-- : --</p>
 								</li>
 							</c:if>
 							<c:if test="${!empty attendDayVO }">
 								<c:if test="${!empty attendDayVO.attendanceDayWorkHour}">
-								<li class="list-group-item">오늘 일한 시간
-									<p class="card-text" id="timeSize"><fmt:formatDate value="${attendDayVO.attendanceDayWorkHour}" pattern="HH시간 mm분"/></p>
-								</li>
+									<li class="list-group-item">오늘 일한 시간
+										<p class="card-text" id="timeSize">
+											<fmt:formatDate value="${attendDayVO.attendanceDayWorkHour}"
+												pattern="HH시간 mm분" />
+										</p>
+									</li>
 								</c:if>
 								<c:if test="${empty attendDayVO.attendanceDayWorkHour}">
-								<li class="list-group-item">오늘 일한 시간
-									<p class="card-text" id="timeSize">-- : --</p>
-								</li>
+									<li class="list-group-item">오늘 일한 시간
+										<p class="card-text" id="timeSize">-- : --</p>
+									</li>
 								</c:if>
 								<c:if test="${!empty attendDayVO.attendanceDayOnHour}">
-								<li class="list-group-item">출근 시간
-									<p class="card-text" id="timeSize"><fmt:formatDate value="${attendDayVO.attendanceDayOnHour}" pattern="HH시간 mm분"/></p>
-								</li>
+									<li class="list-group-item">출근 시간
+										<p class="card-text" id="timeSize">
+											<fmt:formatDate value="${attendDayVO.attendanceDayOnHour}"
+												pattern="HH시간 mm분" />
+										</p>
+									</li>
 								</c:if>
 								<c:if test="${empty attendDayVO.attendanceDayOnHour}">
-								<li class="list-group-item">출근 시간
-									<p class="card-text" id="timeSize">-- : --</p>
-								</li>
+									<li class="list-group-item">출근 시간
+										<p class="card-text" id="timeSize">-- : --</p>
+									</li>
 								</c:if>
 								<c:if test="${!empty attendDayVO.attendanceDayOffHour}">
-								<li class="list-group-item">퇴근 시간
-									<p class="card-text" id="timeSize"><fmt:formatDate value="${attendDayVO.attendanceDayOffHour}" pattern="HH시간 mm분"/></p>
-								</li>
+									<li class="list-group-item">퇴근 시간
+										<p class="card-text" id="timeSize">
+											<fmt:formatDate value="${attendDayVO.attendanceDayOffHour}"
+												pattern="HH시간 mm분" />
+										</p>
+									</li>
 								</c:if>
 								<c:if test="${empty attendDayVO.attendanceDayOffHour}">
-								<li class="list-group-item">퇴근 시간
-									<p class="card-text" id="timeSize">-- : --</p>
-								</li>
+									<li class="list-group-item">퇴근 시간
+										<p class="card-text" id="timeSize">-- : --</p>
+									</li>
 								</c:if>
 							</c:if>
 						</ul>
@@ -397,9 +456,7 @@
 					<hr class="sidebar-divider d-none d-md-block">
 
 					<!-- Sidebar Toggler (Sidebar) -->
-					<div class="text-center d-none d-md-inline">
-						
-					</div>
+					<div class="text-center d-none d-md-inline"></div>
 
 				</ul>
 				<!-- End of Sidebar -->
@@ -411,17 +468,23 @@
 
 			<!-- Main Content -->
 			<div id="content">
-				
+
 				<!-- Topbar -->
 				<nav
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-					
+
 					<div id=container>
-					  <div id=flip>
-					    <div><div>열정없이 사느니 차라리 죽는게 낫다</div></div>
-					    <div><div>이 사악한 세상에서 영원한 것은 없다</div></div>
-					    <div><div>지지마라 세상에도 나약한 내 자신에게도</div></div>
-					  </div>
+						<div id=flip>
+							<div>
+								<div>열정없이 사느니 차라리 죽는게 낫다</div>
+							</div>
+							<div>
+								<div>이 사악한 세상에서 영원한 것은 없다</div>
+							</div>
+							<div>
+								<div>지지마라 세상에도 나약한 내 자신에게도</div>
+							</div>
+						</div>
 					</div>
 
 					<!-- Topbar Navbar -->
@@ -458,17 +521,20 @@
 						<li class="nav-item topNavText"><a class="nav-link"
 							href="<c:url value='/booking/main'/>" role="button"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">예약</span>
-						</a></li>		
+						</a></li>
 
 						<div class="topbar-divider d-none d-sm-block"></div>
-						<li class="nav-item " style="padding-top: 16px;">	
+						<li class="nav-item " style="padding-top: 16px;">
 							<button type="button" class="btn btn-dark" id="intoChat">채팅</button>
 						</li>
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow"><a
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="fas fa-user fa-2x"></i><span
+								<img
+								src="<c:url value ="/resources/emp_images/${empVO.empPhoto }"/>"
+								class="rounded-circle" style="width: 35px; height: 35px">
+								<span
 								class="mr-2 d-none d-lg-inline text-gray-600 small topNavText">
 									${empName}</span>
 						</a> <!-- Dropdown - User Information -->
