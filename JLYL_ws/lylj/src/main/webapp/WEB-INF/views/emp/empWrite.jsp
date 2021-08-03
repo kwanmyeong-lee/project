@@ -80,6 +80,7 @@
 			      $('#positionNo').focus();
 			      event.preventDefault(); 
 			  }
+	          
 	  		/* 스플릿하여 이미지확장자가 아닐 시 alert 해주기 */
 	  		if( $("#empPhoto").val() != "" ){
 	  			var ext = $('#empPhoto').val().split('.').pop().toLowerCase();
