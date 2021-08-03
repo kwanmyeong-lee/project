@@ -286,52 +286,160 @@
 keyframes show { 0% {
 	margin-top: -270px;
 }
-
 5
+
+
+
+
 %
 {
 margin-top
+
+
+
+
 :
--180px;
+
+
+
+
+-180px
+
+
+;
 }
 33
+
+
+
+
 %
 {
 margin-top
+
+
+
+
 :
--180px;
+
+
+
+
+-180px
+
+
+;
 }
 38
+
+
+
+
 %
 {
 margin-top
+
+
+
+
 :
--90px;
+
+
+
+
+-90px
+
+
+;
 }
 66
+
+
+
+
 %
 {
 margin-top
+
+
+
+
 :
--90px;
+
+
+
+
+-90px
+
+
+;
 }
 71
+
+
+
+
 %
 {
 margin-top
+
+
+
+
 :
-0px;
+
+
+
+
+0px
+
+
+;
 }
 99
-.99 % {
-	margin-top: 0px;
-}
-100
+
+
+
+
+.99
+
+ 
+
 %
 {
 margin-top
+
+
 :
--270px;
+
+ 
+
+0px
+
+
+;
+}
+100
+
+
+
+
+%
+{
+margin-top
+
+
+
+
+:
+
+
+
+
+-270px
+
+
+;
 }
 }
 
@@ -362,7 +470,7 @@ margin-top
 					<div class="card">
 						<!-- 프로필 사진 -->
 						<img
-							src="<c:url value ="/resources/emp_images/${empVO.empPhoto }"/>"
+							src="<c:url value ="/resources/emp_images/${sessionScope.empPhoto }"/>"
 							class="card-img-top" alt="...">
 						<ol class="breadcrumb mt-3">
 							<li class="breadcrumb-item">안읽은 메일</li>
@@ -528,7 +636,7 @@ margin-top
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								<img
-								src="<c:url value ="/resources/emp_images/${empVO.empPhoto }"/>"
+								src="<c:url value ="/resources/emp_images/${sessionScope.empPhoto }"/>"
 								class="rounded-circle" style="width: 35px; height: 35px">
 								<span
 								class="mr-2 d-none d-lg-inline text-gray-600 small topNavText">
