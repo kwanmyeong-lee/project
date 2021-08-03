@@ -84,32 +84,20 @@ window.onload= function(){
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<th><a href="#">월요일 식단표</a></th>
-										<th>김부장</th>
-										<th>2021-07-08</th>
-									</tr>
-								</tbody>
-								<tbody>
-									<tr>
-										<th><a href="#">금요일 식단표</a></th>
-										<th>김부장</th>
-										<th>2021-07-08</th>
-									</tr>
-								</tbody>
-								<tbody>
-									<tr>
-										<th><a href="#">수요일 식단표</a></th>
-										<th>김부장</th>
-										<th>2021-07-08</th>
-									</tr>
-								</tbody>
-								<tbody>
-									<tr>
-										<th><a href="#">내일 식단표</a></th>
-										<th>김부장</th>
-										<th>2021-07-08</th>
-									</tr>
+									<c:if test="${empty notice }">
+										<tr>
+											<td colspan="3" style="text-align: center;">등록된 공지사항이 없습니다.</td>
+										</tr>
+									</c:if>
+									<c:if test="${!empty notice }">
+										<c:forEach var="notice" items="${notice }">
+											<tr>
+												<th><a href="<c:url value='/board/countUpdate?boardNo=${notice.boardNo }'/>">${notice.boardTitle }</a></th>
+												<td>${notice.boardWriter }</td>
+												<td><fmt:formatDate value="${notice.boardDate }" pattern="yyyy-MM-dd"/></td>
+											</tr>
+										</c:forEach>
+									</c:if>
 								</tbody>
 							</table>
 						</div>
