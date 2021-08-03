@@ -27,18 +27,20 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	private final EmpService empService;
 	
+	/* 로그인페이지 보여주기 */
 	@GetMapping("/")
 	public String login() {
 		logger.info("로그인 페이지");
 		return "login/login";
 	}
 	
-	//테스트
+	/* 테스트 페이지 삭제예정 */
 	@RequestMapping("/testLogin")
 	public void testpage() {
 		
 	}
 	
+	/* 로그인처리 */
 	@PostMapping("/login/login")
 	public String login_post(@RequestParam String empNo, @RequestParam String empPwd, 
 				@RequestParam(required = false) String chkSave, HttpServletRequest request, HttpServletResponse response,
@@ -63,6 +65,7 @@ public class LoginController {
 	    	session.setAttribute("empName", vo.getEmpName());
 	    	session.setAttribute("empAdminLev", vo.getEmpAdminLev());
 	    	session.setAttribute("departmentNo", vo.getDepartmentNo());
+	    	session.setAttribute("empPhoto", vo.getEmpPhoto());
 	    	session.setMaxInactiveInterval(120*60);
 	    	
 	    	//쿠키 저장
@@ -93,6 +96,7 @@ public class LoginController {
 	    return "common/message";
 	}
 	
+	/* 로그아웃처리 */
 	@RequestMapping("/login/logout")
 	public String logout(HttpSession session) {
 		logger.info("로그아웃");
@@ -104,6 +108,8 @@ public class LoginController {
 		return "redirect:/";
 	}
 	
+	
+	/* 비밀번호 찾기 */
 	@RequestMapping("login/findPwd")
 	public String sendRandomPwd(@ModelAttribute EmpVO empVo, Model model) {
 		//1 파라미터 셋팅

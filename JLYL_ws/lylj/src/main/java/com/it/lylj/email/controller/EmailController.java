@@ -52,8 +52,11 @@ public class EmailController {
 	@RequestMapping("/emailMain")
 	public void emailMain(SearchVO searchVo, HttpSession session ,Model model) {
 		logger.info("이메일메인페이지");
+		//로그인된 사원 확인 => 자신의 메일확인을 위함
 		String empNo = (String)session.getAttribute("empNo");
 		searchVo.setEmpNo(empNo);
+		
+		//안읽은메일, 중요메일, 임시저장, 예약메일 선택
 		List<EmailVO> nrMailList = emailService.selectNotRead(empNo);
 		List<EmailVO> itMailList = emailService.selectImportant(empNo);
 		List<EmailVO> tpMailList = emailService.selectTempSave(empNo);
@@ -64,10 +67,12 @@ public class EmailController {
 		logger.info("tpMailList={}",tpMailList);
 		logger.info("rvMailList={}",rvMailList);
 		
+		//모델에 저장
 		model.addAttribute("nrMailList", nrMailList);
 		model.addAttribute("itMailList", itMailList);
 		model.addAttribute("tpMailList", tpMailList);
 		model.addAttribute("rvMailList", rvMailList);
+		//사이드메뉴 지정을 위한 모델
 		model.addAttribute("navNo", 2);
 	}
 	
@@ -75,7 +80,9 @@ public class EmailController {
 	@RequestMapping("/emailList")
 	public void emailList(@RequestParam int empNo, @ModelAttribute SearchVO searchVo, @RequestParam(defaultValue = "0")int type, Model model) {
 		logger.info("이메일 페이지, 파라미터 empNo={}",empNo);
+		//searchVo에 empNo 셋팅
 		searchVo.setEmpNo(Integer.toString(empNo));
+		
 		//페이징처리
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
@@ -86,18 +93,19 @@ public class EmailController {
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		logger.info("이메일페이징, searchVo={}",searchVo);
 		
-		//리스트 
+		//유형에 따른 리스트 선택 
 		List<Map<String, Object>> list = emailService.selectListByType(searchVo,type);
 		logger.info("이메일목록, list.size()={}", list.size());
 		
-		
+		//유형,검색에따른 전체 데이터 수 가져오기
 		int totalRecord = emailService.totalRecordByType(searchVo,type);
 		logger.info("empNo={} ,totalRecord={}",empNo,totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
 		
-		model.addAttribute("navNo", 2);
+		//모델에 저장
 		model.addAttribute("list", list);
 		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("navNo", 2);
 		
 	}
 	
@@ -109,7 +117,7 @@ public class EmailController {
 			@RequestParam(defaultValue = "0", required = false) String type, Model model) {
 		logger.info("이메일쓰기 페이지");
 		
-		//답장,전달 확인 파라미터(메일번호)가 있는경우 처리
+		//답장,전달, 확인 파라미터(메일번호)가 있는경우 처리
 		if(type.equals("re")) {
 		   EmailVO reEmailVo = emailService.selectByMailNo(mailNo);
 		   model.addAttribute("reEmailVo", reEmailVo);
@@ -138,12 +146,13 @@ public class EmailController {
 		//사원번호 이름 분리작업
 		String emailTaker = emailService.splitName(emailVo.getMailTake());
 		logger.info("받는사람, emailTaker={}", emailTaker);
+		
 		//받는사람 존재여부체크
 		int chkTaker = empService.selectCountByEmpNo(Integer.parseInt(emailTaker));
 		logger.info("받는사람 존재여부, chkTaker={}", chkTaker);
 		
 		String msg="",url="/email/emailWrite";
-		if(chkTaker==0) {
+		if(chkTaker==0) { // 받는사람이 없으면
 			msg="받으시는분을 확인해주세요";
 			url="/email/emailWrite";
 			
@@ -215,9 +224,11 @@ public class EmailController {
 		//메일내용선택
 		EmailVO emailVo = emailService.selectByMailNo(mailNo);
 		logger.info("선택된 메일, emailVo={}",emailVo);
+
 		//메일에 저장된 파일선택
 		List<EmailFileVO> emailFileList =emailFileService.selectFileByMailNo(mailNo);
 		
+		// 모델에 저장, 뷰페이지 리턴
 		model.addAttribute("emailVo", emailVo);
 		model.addAttribute("emailFileList", emailFileList);
 		model.addAttribute("navNo", 2);
@@ -263,13 +274,14 @@ public class EmailController {
 	public String emailPreview(String mailTitle, String mailTake, String mailContent, HttpSession session, Model model) {
 		String empNo = (String)session.getAttribute("empNo");
 		EmailVO vo = new EmailVO();
-		
+		//파라미터 셋팅
 		vo.setMailEmpno(Integer.parseInt(empNo));
 		vo.setMailTake(mailTake);
 		vo.setMailTitle(mailTitle);
 		vo.setMailContent(mailContent);
 		logger.info("셋팅된 미리보기, vo={}",vo);
 		
+		//리턴
 		model.addAttribute("vo", vo);
 		
 		return "email/emailPreview";
@@ -279,7 +291,10 @@ public class EmailController {
 	@RequestMapping("/emailMultiDelete")
 	public String emailMultiDelete(@ModelAttribute EmailListVO listVo, HttpServletRequest request, HttpSession session, Model model) {
 		logger.info("메일 선택 삭제, listVo={}",listVo);
+		//요청하는 사원번호 -> 삭제 완료 후 휴지통으로 보내기 위함
 		String empNo = (String)session.getAttribute("empNo");
+		
+		//listVo로 받아온 메일정보를 하나하나 꺼냄
 		List<EmailVO> list = listVo.getSelectedEmail();
 		
 		for(int i=0; i<list.size(); i++) {
@@ -288,6 +303,7 @@ public class EmailController {
 			logger.info("i={},mailNo={}", i, mailNo);
 		}
 		
+		// 성공 & 실패 처리
 		String msg ="휴지통으로 이동하지 못했습니다", url = "/email/emailList?type=5&empNo="+empNo; 
 		int cnt = emailService.deleteCheckMulti(list);
 		
@@ -295,6 +311,7 @@ public class EmailController {
 			msg ="휴지통으로 이동시켰습니다";
 		}
 		
+		//모델에 저장, 뷰페이지 리턴
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		
@@ -304,8 +321,11 @@ public class EmailController {
 	
 	/* 메일 다중 완전 삭제 */
 	@RequestMapping("/emailMultiCompleteDel")
-	public String emailMultiCompleteDel(@ModelAttribute EmailListVO listVo, Model model) {
+	public String emailMultiCompleteDel(@ModelAttribute EmailListVO listVo, HttpSession session,Model model) {
 		logger.info("메일 선택 삭제, listVo={}",listVo);
+		String empNo = (String)session.getAttribute("empNo");
+		
+		//listVo로 받아온 메일정보를 하나하나 꺼냄
 		List<EmailVO> list = listVo.getSelectedEmail();
 		logger.info("list.size()={}",list.size());
 		
@@ -315,13 +335,15 @@ public class EmailController {
 			logger.info("i={},mailNo={}", i, mailNo);
 		}
 		
-		String msg ="삭제 실패", url = "/email/emailMain"; 
+		// 삭제 처리
+		String msg ="삭제 실패", url = "/email/emailList?type=5&empNo="+empNo;  
 		int cnt = emailService.deleteCompleteMail(list);
 		
 		if(cnt>0) {
 			msg ="삭제 성공";
 		}
 		
+		// 뷰페이지 리턴
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		
@@ -356,7 +378,7 @@ public class EmailController {
 		
 	}
 	
-	
+	/* 중요메일 처리 */
 	@RequestMapping("/importantEmail")
 	public String updateInportantMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
 		logger.info("중요메일, mailNo={}",mailNo);
@@ -368,6 +390,7 @@ public class EmailController {
 		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
 	}
 	
+	/* 중요 => 안중요 메일처리 */
 	@RequestMapping("/notImportantEmail")
 	public String updateNotInportantMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
 		logger.info("중요메일, mailNo={}",mailNo);
@@ -379,6 +402,7 @@ public class EmailController {
 		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
 	}
 	
+	/* 읽음처리 */
 	@RequestMapping("/readMail")
 	public String readMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
 		logger.info("메일읽음처리, mailNo={}",mailNo);
@@ -390,6 +414,7 @@ public class EmailController {
 		return "redirect:/email/emailList?empNo="+empNo+"&type="+type;
 	}
 	
+	/* 읽음 => 안읽음처리 */
 	@RequestMapping("/notReadMail")
 	public String notReadMail(@RequestParam(defaultValue = "0") int mailNo, int type, HttpSession session, Model model ) {
 		logger.info("메일안읽음처리, mailNo={}",mailNo);

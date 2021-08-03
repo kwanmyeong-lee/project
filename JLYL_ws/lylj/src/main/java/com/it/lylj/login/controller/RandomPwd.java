@@ -1,7 +1,7 @@
 package com.it.lylj.login.controller;
 
 public class RandomPwd {
-	
+	/*랜덤 패스워드 발급을 위한 메소드*/
 	public static String getRandomPwd(int length) {
 
 		char[] charSet = new char[] { 
