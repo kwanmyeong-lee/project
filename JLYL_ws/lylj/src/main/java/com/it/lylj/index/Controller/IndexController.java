@@ -97,7 +97,7 @@ public class IndexController {
 		logger.info("elist={}", elist);
 
 		//안읽은 메일 선택
-		List<EmailVO> emailList = emailService.selectNotRead(Integer.toString(empNo));
+		int mailCount = emailService.totalCountByReadDateMain(empNo);
 		
 		logger.info("index 안읽은 메일, emailList.size()={}",emailList.size());
 		logger.info("empVO={}", empVO);
@@ -108,7 +108,7 @@ public class IndexController {
 		model.addAttribute("todayScheduleCnt", todayScheduleCnt);
 		model.addAttribute("attendDayVO", attendDayVO);
 		model.addAttribute("empVO", empVO);
-		model.addAttribute("emailList", emailList);
+		model.addAttribute("mailCount", mailCount);
 	}
 	
 	@RequestMapping("/admin")
