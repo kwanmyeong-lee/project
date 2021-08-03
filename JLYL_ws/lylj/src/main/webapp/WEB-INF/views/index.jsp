@@ -174,7 +174,7 @@ window.onload= function(){
 							<thead class="table-info">
 								<tr>
 									<th scope="col">제목</th>
-									<th scope="col">기안자 번호</th>
+									<th scope="col">기안자</th>
 								</tr>
 							</thead>
 							<c:if test="${empty elist }">
@@ -186,7 +186,14 @@ window.onload= function(){
 								<c:forEach var="ele" items="${elist }">
 									<tr>
 										<td class="subject"><a href="<c:url value = '/electronic/electronicDetail?ElectronicNo='/>${ele.electronicNo }&no=1">${ele.electronicTitle } </a></td>
-										<td class="name">${ele.empNo }</td>
+										<td class="name">
+											<c:forEach var="AllEmp" items="${allEmp }">
+												<c:if test="${ele.empNo eq AllEmp.empNo}">
+													<img class="rounded-circle" style="width: 35px; height: 35px; object-fit: cover; object-position: 100% 0;" src="<c:url value ='/resources/emp_images/${AllEmp.empPhoto }'/>"> ${AllEmp.empName } / ${AllEmp.empNo }
+												</c:if>
+											</c:forEach>
+										
+									</td>
 									</tr>
 								</c:forEach>
 							</c:if>
