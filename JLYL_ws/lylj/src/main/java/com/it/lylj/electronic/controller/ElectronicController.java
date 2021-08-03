@@ -440,6 +440,8 @@ public class ElectronicController {
 
 		String empNo = (String) session.getAttribute("empNo");
 		logger.info("결재 리스트 보여주기 파라미터 empNo={}", empNo);
+		
+		List<EmpVO> allEmp= empService.selectAllEmp();
 
 		/* 페이징 처리 */
 		PaginationInfo pagingInfo = new PaginationInfo();
@@ -489,6 +491,7 @@ public class ElectronicController {
 
 		model.addAttribute("approList", approList);
 		model.addAttribute("List", List);
+		model.addAttribute("allEmp", allEmp);
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("navNo", 1);
 	}

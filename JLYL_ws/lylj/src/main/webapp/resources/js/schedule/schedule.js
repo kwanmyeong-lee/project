@@ -3,7 +3,8 @@ var endD;
 var startD;
 $(function() {
     var calendarEl = document.getElementById('calendar');
-
+	
+	/* FullCalendar 이용한 캘린더 생성 */
     calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
             left: 'prev,next today',
@@ -17,12 +18,13 @@ $(function() {
         locale: "ko",
         nowIndicator: true,
         dayMaxEvents: true,
-        select: function(arg) {	
-			$.ajax({    
+        select: function(arg) {	// 달력의 날짜를 선택한 경우 
+			$.ajax({//일정 목록 불러오기
                       type:'get',
                       url:"listScFolder",
                       dataType: "json",
                       success : function(data) {
+							/* 일정 등록 모달에 있는 select(일정목록명)을 셋팅하고 일정목록명에 맞는 컬러 색과 목록번호를 hidden에 각각 넣음 */
 							var res="";
 							var resC="";
 							$(data).each(function(index) {
@@ -37,6 +39,7 @@ $(function() {
                     
             $('#myModal').modal('show');
 			
+			/* 시작시간 마지막시간 셋팅*/
             startD = moment(arg.start).format('YYYY-MM-DD HH');
             endD = moment(arg.end).format('YYYY-MM-DD HH');
             
@@ -48,46 +51,13 @@ $(function() {
 			var et = timeDefault(eh,em);
 			timeSetting(st,et);
 			
-            /*alert(startD+" "+endD);
-            startD=startD.substr(1,startD.indexOf("T")-1);
-            endD=endD.substr(1,endD.indexOf("T")-1);          
-            
-            $('#startDate').datepicker( "setDate", new Date(startD));
-			$("#endDate").datepicker( "option", "minDate", $('#startDate').val() );
-			$('#endDate').datepicker( "setDate", new Date(endD));*/
-
-
+			
+			/* 데이터픽커 날짜셋팅 */
             $('#startDate').datepicker("setDate", startD);
             $("#endDate").datepicker("option", "minDate", $('#startDate').val());
             $('#endDate').datepicker("setDate", endD);
 
-            /* var title= prompt("일정명:");
-        	  if(title){
-        		  var obj = new Object();
-        		  obj.title = title;
-        		  obj.startDate = arg.start;
-        		  obj.endDate = arg.end;
-        		  obj.allday = arg.allDay;
-        		  var jsondata= JSON.stringify(obj);
-
-            	  $.ajax({
-      				type:'POST',
-      				url:"insertSchedule",
-      				data:jsondata,
-      				contentType: "application/json; charset=utf-8;",
-      	            dataType: "json",
-      				success : function(data) {
-      					alert("성공");
-      				}
-      			  });
-            	  
-        		  calendar.addEvent({
-        			  title:title,
-        		  	  start:arg.start,
-        		  	  end:arg.end,
-        		  	  allDay:arg.allDay
-        		  })
-        	  } */
+            
 
         },
         buttonText: {
@@ -99,16 +69,17 @@ $(function() {
         },
         droppable: true,
         drop: function(arg) {},
-        eventClick: function(arg) {	
+        eventClick: function(arg) {	//일정 클릭시 이벤트
 			$('#detailScheduleNo').text(arg.event.classNames);
 			var scheduleNo=$('#detailScheduleNo').text();
-			$.ajax({    
+			$.ajax({//해당 스케줄번호의 스케줄 정보 가져오기 
                       type:'POST',
                       url:"selectScheduleByScheduleNo",
                       data:scheduleNo,
                       contentType: "application/json; charset=utf-8;",
                       dataType: "json",
                       success : function(data) {
+							/* 스케줄 정보 모달에 출력 */
 							$('#detailStart').text("");
 							$('#detailEnd').text("");
 							$('#detailContent').html("");
@@ -126,6 +97,8 @@ $(function() {
 							}
                       }
                     });
+                    
+            /* 모달의 정보삭제 누를 경우 이벤트 삭제 */
             $('#btn-delete').click(function(){
 				$.ajax({    
 		                      type:'POST',
@@ -152,7 +125,7 @@ $(function() {
 
         events: function(info, successCallback, failureCallback) {
             
-            $.ajax({
+            $.ajax({//스케줄 일정 전체 불러오기 
                 type: 'GET',
                 url: "listSchedule",
                 dataType: "json",
@@ -180,12 +153,6 @@ $(function() {
 		}
         	
     });
-    calendar.render(); 	
-
-    $('.add-button').click(function() {
-        allSave();
-    });
-
-
+    calendar.render(); 
 
 });

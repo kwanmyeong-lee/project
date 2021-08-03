@@ -24,6 +24,8 @@ import com.it.lylj.attend.model.AttendService;
 import com.it.lylj.attend.model.AttendVO;
 import com.it.lylj.attendDay.model.AttendDayService;
 import com.it.lylj.attendDay.model.AttendDayVO;
+import com.it.lylj.board.model.BoardService;
+import com.it.lylj.board.model.BoardVO;
 import com.it.lylj.booking.model.BookingService;
 import com.it.lylj.booking.model.BookingVO;
 import com.it.lylj.department.model.DepartmentService;
@@ -50,6 +52,7 @@ public class IndexController {
 	private final ScheduleService scheduleService;
 	private final AttendDayService attendDayService;
 	private final EmailService emailService;
+	private final BoardService boardService;
 	
 	@RequestMapping("/inc/organizationChart")
 	public void organizationChart() {
@@ -64,6 +67,7 @@ public class IndexController {
 		logger.info("메인페이지");
 		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
 		
+		List<EmpVO> allEmp = empService.selectAllEmp();
 		EmpVO empVO = empService.selectByEmpNo(empNo);
 		List<ElectronicVo> elist = eleService.selectUpdateToday(empNo);
 		List<BookingVO> bookingList2 = bookingService.selectAllBookingViewByEmpNo(empNo);
@@ -103,14 +107,20 @@ public class IndexController {
 		logger.info("index 안읽은 메일, emailVo={}",emailVo);
 		logger.info("empVO={}", empVO);
 		
+		//공지사항
+		List<BoardVO> notice = boardService.selectBoardMain(1);
+		logger.info("공지사항 리스트 목록, notice.size()={}", notice.size());
+		
 		model.addAttribute("elist", elist);
 		model.addAttribute("empNo", empNo);
+		model.addAttribute("allEmp", allEmp);
 		model.addAttribute("bookingList", bookingList);
 		model.addAttribute("todayScheduleCnt", todayScheduleCnt);
 		model.addAttribute("attendDayVO", attendDayVO);
 		model.addAttribute("empVO", empVO);
 		model.addAttribute("mailCount", mailCount);
 		model.addAttribute("emailVo", emailVo);
+		model.addAttribute("notice", notice);
 	}
 	
 	@RequestMapping("/admin")

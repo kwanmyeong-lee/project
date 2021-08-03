@@ -47,11 +47,14 @@
 			if($('#boardSelect').val()==''){
 				alert('게시판을 선택하세요.');
 				return false;
+			}else if($('#title').val().length > 60){
+				alert('제목의 글자수는 60자 이하로 입력하세요.');
+				return false;
 			}else if($('#title').val()==''){
-				alert('상품명을 입력하세요.');
+				alert('제목을 입력하세요.');
 				return false;
 			}else if($('#summernote').val()==''){
-				alert('상품명을 입력하세요.');
+				alert('내용을 입력하세요.');
 				return false;
 			}
 		});

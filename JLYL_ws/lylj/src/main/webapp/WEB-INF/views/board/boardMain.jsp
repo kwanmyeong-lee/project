@@ -42,7 +42,14 @@
 	        	<c:forEach var="vo" items="${noticeList}">
 				    <tr id="tdStyle">
 			            <td>
-			            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
+			            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;margin-left:20px;">
+			            		<c:if test="${fn:length(vo.boardTitle) > 70 }">
+				        			${fn:substring(vo.boardTitle,0, 70)}...
+					        	</c:if>
+					        	<c:if test="${fn:length(vo.boardTitle) < 71 }">
+					        		${vo.boardTitle}
+					        	</c:if>
+			            	</a> 
 			            	<c:if test="${vo.commentCnt > 0}">
 			            		<div class="commCnt2">[${vo.commentCnt }]</div>
 			            	</c:if>
@@ -84,7 +91,14 @@
 				        <c:forEach var="vo" items="${referenceList }">
 						    <tr id="tdStyle">
 					            <td>
-					            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
+					            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="float:left;margin-left:20px;">
+					            		<c:if test="${fn:length(vo.boardTitle) > 30 }">
+							        		${fn:substring(vo.boardTitle,0, 30)}...
+							        	</c:if>
+							        	<c:if test="${fn:length(vo.boardTitle) < 31 }">
+							        		${vo.boardTitle}
+							        	</c:if>
+					            	</a> 
 					            	<c:if test="${vo.commentCnt > 0}">
 					            		<span class="commCnt2">[${vo.commentCnt }]</span>
 					            	</c:if>
@@ -124,7 +138,14 @@
 				        <c:forEach var="vo" items="${communityList }">
 						    <tr id="tdStyle">
 					            <td>
-					            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>"class="titleA" style="float:left;margin-left:20px;">${vo.boardTitle }</a> 
+					            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>"class="titleA" style="float:left;margin-left:20px;">
+					            		<c:if test="${fn:length(vo.boardTitle) > 30 }">
+						        			${fn:substring(vo.boardTitle,0, 30)}...
+							        	</c:if>
+							        	<c:if test="${fn:length(vo.boardTitle) < 31 }">
+							        		${vo.boardTitle}
+							        	</c:if>
+						        	</a> 
 					            	<c:if test="${vo.commentCnt > 0}">
 					            		<div class="commCnt2">[${vo.commentCnt }]</div>
 					            	</c:if>

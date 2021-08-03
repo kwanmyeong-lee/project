@@ -84,32 +84,29 @@ window.onload= function(){
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<th><a href="#">월요일 식단표</a></th>
-										<th>김부장</th>
-										<th>2021-07-08</th>
-									</tr>
-								</tbody>
-								<tbody>
-									<tr>
-										<th><a href="#">금요일 식단표</a></th>
-										<th>김부장</th>
-										<th>2021-07-08</th>
-									</tr>
-								</tbody>
-								<tbody>
-									<tr>
-										<th><a href="#">수요일 식단표</a></th>
-										<th>김부장</th>
-										<th>2021-07-08</th>
-									</tr>
-								</tbody>
-								<tbody>
-									<tr>
-										<th><a href="#">내일 식단표</a></th>
-										<th>김부장</th>
-										<th>2021-07-08</th>
-									</tr>
+									<c:if test="${empty notice }">
+										<tr>
+											<td colspan="3" style="text-align: center;">등록된 공지사항이 없습니다.</td>
+										</tr>
+									</c:if>
+									<c:if test="${!empty notice }">
+										<c:forEach var="notice" items="${notice }">
+											<tr>
+												<th>
+											        <a href="<c:url value='/board/countUpdate?boardNo=${notice.boardNo }'/>" >
+											        	<c:if test="${fn:length(notice.boardTitle) > 30 }">
+											        		${fn:substring(notice.boardTitle,0, 30)}...
+											        	</c:if>
+											        	<c:if test="${fn:length(notice.boardTitle) < 31 }">
+											        		${notice.boardTitle }
+											        	</c:if>
+											        </a>
+											    </th>
+												<td>${notice.boardWriter }</td>
+												<td><fmt:formatDate value="${notice.boardDate }" pattern="yyyy-MM-dd"/></td>
+											</tr>
+										</c:forEach>
+									</c:if>
 								</tbody>
 							</table>
 						</div>
@@ -174,7 +171,7 @@ window.onload= function(){
 							<thead class="table-info">
 								<tr>
 									<th scope="col">제목</th>
-									<th scope="col">기안자 번호</th>
+									<th scope="col">기안자</th>
 								</tr>
 							</thead>
 							<c:if test="${empty elist }">
@@ -186,7 +183,14 @@ window.onload= function(){
 								<c:forEach var="ele" items="${elist }">
 									<tr>
 										<td class="subject"><a href="<c:url value = '/electronic/electronicDetail?ElectronicNo='/>${ele.electronicNo }&no=1">${ele.electronicTitle } </a></td>
-										<td class="name">${ele.empNo }</td>
+										<td class="name">
+											<c:forEach var="AllEmp" items="${allEmp }">
+												<c:if test="${ele.empNo eq AllEmp.empNo}">
+													<img class="rounded-circle" style="width: 35px; height: 35px; object-fit: cover; object-position: 100% 0;" src="<c:url value ='/resources/emp_images/${AllEmp.empPhoto }'/>"> ${AllEmp.empName } / ${AllEmp.empNo }
+												</c:if>
+											</c:forEach>
+										
+									</td>
 									</tr>
 								</c:forEach>
 							</c:if>

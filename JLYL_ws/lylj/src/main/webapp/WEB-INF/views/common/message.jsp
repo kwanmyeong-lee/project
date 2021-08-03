@@ -24,8 +24,21 @@
 	%>
 	
 	<script type="text/javascript">
-	alert("<%=msg%>"); 
-	location.href="<%=url%>";
+	$(function(){
+		$('.swal2-confirm').click(function(){
+			location.href="<%=url%>";
+		});
+	});
+	
+	if("<%=msg%>"=="로그인되었습니다"){
+		Swal.fire("<%=msg%>")
+	}
+	else{
+	Swal.fire({
+		  icon: 'error',
+		  text: "<%=msg%>",
+		})
+	}
 	
 	</script>
 	
