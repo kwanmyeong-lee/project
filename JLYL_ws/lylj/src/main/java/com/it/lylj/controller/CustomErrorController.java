@@ -19,11 +19,11 @@ import com.it.lylj.index.Controller.IndexController;
 @Controller
 public class CustomErrorController implements ErrorController {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
-
-	// 에러 페이지 정의 
 	private final String ERROR_404_PAGE_PATH = "error/404"; 
 	private final String ERROR_500_PAGE_PATH = "error/500"; 
 	private final String ERROR_ETC_PAGE_PATH = "error/error";
+	
+	/* 에러 발생시 이동 페이지 설정 */
 	@RequestMapping("/error") 
 	public String handleError(HttpServletRequest request, Model model) { 
 		// 에러 코드를 획득한다. 

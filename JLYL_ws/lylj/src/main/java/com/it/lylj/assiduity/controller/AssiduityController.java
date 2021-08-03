@@ -54,35 +54,33 @@ public class AssiduityController {
 	private static final Logger logger
 	=LoggerFactory.getLogger(ScheduleController.class);
 
-	
+	/* 출근시 AttendDay 등록 AJAX*/
 	@GetMapping("/insertComTime")
 	@ResponseBody
 	public int insertComTime(AttendDayVO vo){
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		attendDayService.insertAttendDay(vo);
+		attendDayService.insertAttendDay(vo); // AttendDay 등록
 		
 		Date comet= vo.getAttendanceDayOnHour();
 		Date regt= vo.getAttendanceDayRegdate();
 		
 		regt.setHours(10);
-		if(comet.getTime()>regt.getTime()) {
+		if(comet.getTime()>regt.getTime()) {// 지각이면 Attend의 지각수 증가
 			attendService.updateLateAttendByEmpNo(vo.getEmpNo());
 		}
 		
 		return 1;
-	}//ajax 출근 입력하기
+	}
 	
+	/* 퇴근시 attendDay 퇴근시간, 근무시간 업데이트 AJAX*/
 	@GetMapping("/updateLeaveTime")
 	@ResponseBody
 	public int updateLeaveTime(AttendDayVO vo){
-		
 		attendDayService.updateAttendDay(vo);
-		
-		
 		return 1;
-	}//ajax 근태 퇴근,근무시간 업데이트하기
+	}
 	
+	/* 초과근무 승인여부 업데이트 AJAX*/
 	@GetMapping("/updateExcess")
 	@ResponseBody
 	public int updateExcess(int attendanceDayNo, int flag){
@@ -91,16 +89,15 @@ public class AssiduityController {
 		map.put("flag",flag);
 		attendDayService.updateAttendDayByFlag(map);
 		
-		
 		return 1;
-	}//ajax 근태 퇴근,근무시간 업데이트하기
+	}
 	
-	
+	/* 초과근무 승인대기 List 반환 AJAX*/
 	@GetMapping("/excessView")
 	@ResponseBody
 	public HashMap<String, Object> excessView(int btCheck, int currentPage){
+		/* 페이징 블럭 만큼만 초과근무 승인 List 조회*/
 		HashMap<String, Object> map = new HashMap<>();
-		
 		if(btCheck==1) {
 			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN + 1;
 			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;
@@ -110,11 +107,10 @@ public class AssiduityController {
 		}
 		
 		List<ConditionViewVO> conditionList= attendDayService.selectAttendDayByFlag(currentPage);
-		
 		map.put("conditionList", conditionList);
 		
+		/* 페이징 정보 */
 		int TotalRecord = attendDayService.selecCnttAttendDayByFlag();
-
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setCurrentPage(currentPage);
 		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ANN);
@@ -124,8 +120,9 @@ public class AssiduityController {
 		
 		logger.info("conditionList={}",conditionList);
 		return map;
-	}//ajax 초과근무 승인
+	}
 	
+	/* 근태 현황 해당 날짜 달의 conditionView List 반환 AJAX*/
 	@GetMapping("/conditionMonthView")
 	@ResponseBody
 	public HashMap<String,Object> conditionMonthView(int departmentNo, String selectDate, int selectNum,int timeNum, String searchKeyword){
@@ -136,10 +133,8 @@ public class AssiduityController {
 		map.put("timeNum", timeNum);
 		map.put("searchKeyword", searchKeyword);
 		
-		
-		
-		List<Map<String,Object>> conditionSumList = attendDayService.selectSumConditionByGroup(map);
-		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByDepartMent(map);
+		List<Map<String,Object>> conditionSumList = attendDayService.selectSumConditionByGroup(map);//누적시간, 초과시간, 일한시간 조회
+		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByDepartMent(map);//부서별 모든 conditionview 조회
 		
 		logger.info("conditionList={}",conditionList);
 		HashMap<String, Object> data = new HashMap<>();
@@ -147,13 +142,15 @@ public class AssiduityController {
 		data.put("conditionList", conditionList);
 		
 		return data;
-	}//ajax 근태 현황 목록
+	}
 	
+	/* 근태 통계 목록 List AJAX*/
 	@GetMapping("/statsView")
 	@ResponseBody
 	public HashMap<String, Object> statsView(int selectItem1,int selectItem2,int selectItem3, String searchEmp,
 											String searchDepart, String startDate,String endDate,String selectDate,
 											int currentPage,int btCheck){
+		/* 엑셀다운용 List 및 검색조건에 따른 List 반환 메서드의 매개변수용 map */
 		HashMap<String, Object> map = new HashMap<>();
 		HashMap<String, Object> map2 = new HashMap<>();
 		map.put("selectItem1", selectItem1);
@@ -183,12 +180,13 @@ public class AssiduityController {
 		}
 		map2.put("currentPage", currentPage);
 		
-		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByMonth(map);
-		List<ConditionViewVO> conditionList2 = attendDayService.selectAllConditionByMonth(map2);
+		List<ConditionViewVO> conditionList = attendDayService.selectAllConditionByMonth(map);//검색 view용 List
+		List<ConditionViewVO> conditionList2 = attendDayService.selectAllConditionByMonth(map2);//엑셀 다운용 List
 		int empCnt = attendDayService.selectCntConditionByMonth(map);
 		int breakCnt = attendDayService.selectCntBreakDayByMonth(map);
 		int TotalRecord = attendDayService.selectAllCntConditionByMonth(map);
-
+		
+		/* 페이징 정보 */
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setCurrentPage(currentPage);
 		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ANN);
@@ -204,8 +202,9 @@ public class AssiduityController {
 		data.put("pagingInfo", pagingInfo);
 		
 		return data;
-	}//ajax 근태 통계 목록
+	}
 	
+	/* 로그인 사원의 특정 날짜 근태 정보 반환 AJAX*/
 	@GetMapping("/selectAttendDayView")
 	@ResponseBody
 	public AttendDayVO selectAttendDayView(AttendDayVO vo){
@@ -213,8 +212,9 @@ public class AssiduityController {
 		AttendDayVO attendDayVo = attendDayService.selectAttendDayByRegdate(vo);
 		
 		return attendDayVo;
-	}//ajax 로그인된 사원의 특정 날짜 근태 정보 불러오기
+	}
 	
+	/* 선택된 달의 누적근무 시간 반환 AJAX*/
 	@GetMapping("/selectMonthSumTime")
 	@ResponseBody
 	public int selectMonthSumTime(int empNo,String nowDate){
@@ -225,8 +225,9 @@ public class AssiduityController {
 		int data = attendDayService.selectSumMonthWork(map);
 		
 		return data;
-	}//ajax 선택된 달의 누적근무
+	}
 	
+	/* 선택된 달의 초과 근무 반환 AJAX*/
 	@GetMapping("/selectMonthExTime")
 	@ResponseBody
 	public int selectMonthExTime(int empNo,String nowDate){
@@ -237,12 +238,13 @@ public class AssiduityController {
 		int data = attendDayService.selectSumMonthWorkEx(map);
 		
 		return data;
-	}//ajax 선택된 달의 초과 근무
+	}
 	
+	/* 로그인 사원의 휴가List 반환 AJAX*/
 	@GetMapping("/currentList")
 	@ResponseBody
 	public HashMap<String,Object> currentList(int empNo,int currentPage, int btCheck){
-		
+		/* 페이징 블럭 만큼만 휴가 List 조회 AJAX*/
 		if(btCheck==1) {
 			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN + 1;
 			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;
@@ -250,7 +252,6 @@ public class AssiduityController {
 			int block =currentPage/ConstUtil.BLOCK_SIZE_ANN - 1;
 			currentPage= block*ConstUtil.BLOCK_SIZE_ANN +1;			
 		}
-		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("empNo", empNo);
 		map.put("currentPage", currentPage);
@@ -258,6 +259,7 @@ public class AssiduityController {
 		int TotalRecord = breakDayService.selectCntAllBREAKDAYByEmpNo(empNo);
 		List<BreakDayVO> breakdayList = breakDayService.selectAllBREAKDAYByEmpNo(map);
 		
+		/* 페이징 정보*/
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setCurrentPage(currentPage);
 		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ANN);
@@ -270,9 +272,9 @@ public class AssiduityController {
 		data.put("breakdayList", breakdayList);
 		
 		return data;
-	}//ajax 선택된 페이지로 
+	}
 	
-	
+	/* 선택한 달의 주간 근무 시간 List 반환 AJAX*/
 	@GetMapping("/selectMonthWorkTime")
 	@ResponseBody
 	public List<Integer> selectMonthWorkTime(String selectDate, int empNo){
@@ -289,11 +291,11 @@ public class AssiduityController {
 		List<Integer> weekTimelist = new ArrayList<>(); 
 		int firstDay = firstDate.get(Calendar.DAY_OF_WEEK)-1;
 		int weekCheck=1;
-		for(int i=1; i<=maxday; i++) {
+		for(int i=1; i<=maxday; i++) {//선택한 달의 첫날 부터 마지막날까지 반복
 			Calendar date=new GregorianCalendar(year,month,i);
 			int weekNum = (int)Math.ceil((i + firstDay)/7.0);
 			
-			if(weekCheck<weekNum) {
+			if(weekCheck<weekNum) {//주차 검사
 				date.add(Calendar.DATE, -1);
 				HashMap<String, Object> map = new HashMap<>();
 				
@@ -315,8 +317,9 @@ public class AssiduityController {
 		}
 		
 		return weekTimelist;
-	}//ajax 월 변경시 주간 근무 시간
+	}
 	
+	/* 선택한 월의 정보 List 반환 AJAX*/
 	@GetMapping("/selectMonth")
 	@ResponseBody
 	public List<AttendDayVO> selectMonth(String selectDate, int empNo){
@@ -362,10 +365,10 @@ public class AssiduityController {
 		}
 		
 		return attendMonthList;
-	}//ajax 월 변경시 그 월의 정보 불러오기
+	}
 	
 	
-	
+	/* 근태 main 페이지 */
 	@GetMapping("/main")
 	public void main(Model model, HttpServletRequest req) {
 		model = topView(req,model);
@@ -460,8 +463,9 @@ public class AssiduityController {
 		model.addAttribute("selectLeftTimeWeek", selectLeftTimeWeek);
 	
 		
-	}//main 페이지
+	}
 	
+	/* 휴가 페이지 */
 	@Transactional
 	@GetMapping("/annual")
 	public void annual(Model model, HttpServletRequest req) {
@@ -489,8 +493,9 @@ public class AssiduityController {
 		model.addAttribute("pagingInfo", pagingInfo);
 		
 		
-	}//휴가 페이지
+	}
 	
+	/* 근태 현황 페이지 */
 	@GetMapping("/condition")
 	public void condition(Model model, HttpServletRequest req) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -521,23 +526,25 @@ public class AssiduityController {
 		model.addAttribute("conditionList", conditionList);
 		model.addAttribute("conditionSumList", conditionSumList);
 		model.addAttribute("nowMili", nowMili);
-	}//근태 현황 페이지
+	}
 	
+	/* 근태 통계 페이지 */
 	@GetMapping("/stats")
 	public void stats(Model model, HttpServletRequest req) {
 		model = topView(req,model);
 		
 		
-	}//근태 통계 페이지
+	}
 	
+	/* 초과 근무 관리 페이지 */
 	@GetMapping("/excess")
 	public void excess(Model model) {
 		model.addAttribute("navNo",8);
 		
-	}//초과근무 관리 페이지
+	}
 	
 	
-	
+	/* top의 출근시간,퇴근시간 정보 반환*/
 	public Model topView(HttpServletRequest req,Model model) {
 		Date today =new Date();
 		HttpSession session =req.getSession();

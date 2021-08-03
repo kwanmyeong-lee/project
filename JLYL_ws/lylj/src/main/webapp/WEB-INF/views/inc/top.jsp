@@ -282,56 +282,29 @@
 	background: #89ffa8;
 }
 
-@
-keyframes show { 0% {
+@keyframes show { 0% {
 	margin-top: -270px;
 }
-
-5
-%
-{
-margin-top
-:
--180px;
+5%{
+margin-top:-180px;
 }
-33
-%
-{
-margin-top
-:
--180px;
+33%{
+margin-top:-180px;
 }
-38
-%
-{
-margin-top
-:
--90px;
+38%{
+margin-top:-90px;
 }
-66
-%
-{
-margin-top
-:
--90px;
+66%{
+margin-top:-90px;
 }
-71
-%
-{
-margin-top
-:
-0px;
+71%{
+margin-top:0px;
 }
-99
-.99 % {
-	margin-top: 0px;
+99.99%{
+margin-top:0px;
 }
-100
-%
-{
-margin-top
-:
--270px;
+100%{
+margin-top:-270px;
 }
 }
 
@@ -362,18 +335,13 @@ margin-top
 					<div class="card">
 						<!-- 프로필 사진 -->
 						<img
-							src="<c:url value ="/resources/emp_images/${empVO.empPhoto }"/>"
-							class="card-img-top" alt="...">
+							src="<c:url value ="/resources/emp_images/${sessionScope.empPhoto }"/>"
+							class="card-img-top img-thumbnail" alt="..."  style="width: 222px; height: 222px; object-fit: cover; object-position: 100% 0;">
 						<ol class="breadcrumb mt-3">
 							<li class="breadcrumb-item">안읽은 메일</li>
 							<li class="breadcrumb-item"><a
 								href="<c:url value="/email/emailList?empNo=${sessionScope.empNo }&type=6"/>">
-									<c:if test="${emailList.size() eq '0'}">
-										0개
-									</c:if> <c:if test="${emailList.size() ne '0'}">
-										${emailList.size() }개
-									</c:if>
-							</a></li>
+									${mailCount }개 </a></li>
 						</ol>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item">오늘 일정</li>
@@ -532,8 +500,8 @@ margin-top
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								<img
-								src="<c:url value ="/resources/emp_images/${empVO.empPhoto }"/>"
-								class="rounded-circle" style="width: 35px; height: 35px">
+								src="<c:url value ="/resources/emp_images/${sessionScope.empPhoto }"/>"
+								class="rounded-circle" style="width: 35px; height: 35px; object-fit: cover; object-position: 100% 0;">
 								<span
 								class="mr-2 d-none d-lg-inline text-gray-600 small topNavText">
 									${empName}</span>
