@@ -2,6 +2,11 @@ package com.it.lylj.emp.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -22,18 +27,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.lylj.attendDay.model.AttendDayService;
+import com.it.lylj.attendDay.model.AttendDayVO;
+import com.it.lylj.booking.model.BookingService;
+import com.it.lylj.booking.model.BookingVO;
 import com.it.lylj.common.ConstUtil;
 import com.it.lylj.common.FileUploadUtil;
 import com.it.lylj.common.PaginationInfo;
 import com.it.lylj.common.SearchVO;
 import com.it.lylj.department.model.DepartmentService;
 import com.it.lylj.department.model.DepartmentVO;
+import com.it.lylj.electronic.model.ElectronicService;
+import com.it.lylj.electronic.model.ElectronicVo;
 import com.it.lylj.email.model.EmailService;
 import com.it.lylj.email.model.EmailVO;
 import com.it.lylj.emp.model.EmpService;
 import com.it.lylj.emp.model.EmpVO;
 import com.it.lylj.position.model.PositionService;
 import com.it.lylj.position.model.PositionVO;
+import com.it.lylj.schedule.model.ScheduleService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,6 +61,11 @@ public class EmpController {
 	private final FileUploadUtil fileUploadUtil;
 	private final PasswordEncoder passwordEncoder;
 	private final EmailService emailService;
+	private final ElectronicService eleService;
+	private final BookingService bookingService;
+	private final ScheduleService scheduleService;
+	private final AttendDayService attendDayService;
+	
 	
 	//사원등록페이지
 	@GetMapping("/empWrite")
@@ -56,12 +73,12 @@ public class EmpController {
 		//1
 		logger.info("사원등록페이지");
 		
-		//2
+		//2 직급, 부서명 가지고 오기
 		List<PositionVO> positionList = positionService.selectAllPosition();
 		List<DepartmentVO> departmentList = departmentService.selectAllDepartment();
 		logger.info("positionList={}, departmentList={}", positionList, departmentList);
 		
-		//3
+		//3 모델에 저장, 뷰페이지 리턴
 		model.addAttribute("positionList", positionList);
 		model.addAttribute("departmentList", departmentList);
 		model.addAttribute("navNo", 8);
@@ -76,18 +93,14 @@ public class EmpController {
 		//1
 		logger.info("사원등록처리, 파라미터 vo={}",vo);
 		
-		//2
-		//사진업로드
+		//2. 사진파일 업로드(단일파일)
 		String fileUrl ="";
-		
 		try {
 			List<Map<String, Object>> list = fileUploadUtil.fileUpload(request, ConstUtil.UPLOAD_EMP_FLAG);
-			
 			for(int i=0; i<list.size();i++ ) {
 				Map<String, Object> map = list.get(i);
 				fileUrl = (String)map.get("fileName");
 			}
-			
 			logger.info("파일 업로드 성공, fileUrl={}",fileUrl);
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
@@ -95,7 +108,7 @@ public class EmpController {
 		
 		vo.setEmpPhoto(fileUrl);
 		
-		//등록처리
+		//3. 등록처리
 		int cnt = empService.insertEmp(vo);
 		logger.info("사원등록정보 vo={}",vo);
 		logger.info("사원등록처리 성공여부, cnt={}",cnt);
@@ -106,6 +119,7 @@ public class EmpController {
 			url="/emp/empList";
 		}
 		
+		//4. 모델에 저장 및 리턴
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		
@@ -119,9 +133,11 @@ public class EmpController {
 	public boolean pwdCheck(@RequestParam String empPwd ) {
 		logger.info("비밀번호 chk, empPwd={}", empPwd);
 		
+		//2.
+		//반환값 셋팅
 		boolean chkPwd = false;
 		
-		//최소 8자, 최소 하나의 문자 및 하나의 숫자 포함
+		//정규식 최소 8자, 최소 하나의 문자 및 하나의 숫자 포함
 		String validPwd = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
 		
 		Pattern pt_symbol= Pattern.compile(validPwd);
@@ -131,23 +147,69 @@ public class EmpController {
 			chkPwd=true;
 		}
 		
+		//3. 리턴
 		return chkPwd;
 	}
 
 	/* 사원정보 상세보기 */
 	@GetMapping("/empInfo")
-	public String empinfo(@RequestParam(defaultValue = "0")int empNo,  Model model) {
+	public String empinfo(@RequestParam(defaultValue = "0")int empNo, HttpSession session ,Model model) {
 		//1
 		logger.info("사원정보디테일 페이지, 파라미터 empNo={}",empNo);
 		
-		//
-		EmpVO vo = empService.selectByEmpNo(empNo);
-		logger.info("사원정보, 파라미터 vo={}",vo);
+		//출퇴근 시간 체크
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
+		logger.info("메인페이지");
+		int empNo2 = Integer.parseInt((String)session.getAttribute("empNo"));
 		
-		List<EmailVO> emailList = emailService.selectNotRead(Integer.toString(empNo));
-		//3
-		model.addAttribute("vo", vo);
-		model.addAttribute("emailList", emailList);
+		EmpVO empVO = empService.selectByEmpNo(empNo2);
+		List<ElectronicVo> elist = eleService.selectUpdateToday(empNo2);
+		List<BookingVO> bookingList2 = bookingService.selectAllBookingViewByEmpNo(empNo2);
+		List<BookingVO> bookingList = new ArrayList<BookingVO>();
+		Date startDate;
+		Date endDate;
+		for(int i=0; i<bookingList2.size(); i++) {
+			try {
+				startDate = sdf.parse(bookingList2.get(i).getBookingStart());
+				endDate = sdf.parse(bookingList2.get(i).getBookingEnd());
+				if(startDate.getTime()<now.getTime() && now.getTime()<endDate.getTime()) {
+					bookingList.add(bookingList2.get(i));
+				}
+			} catch (ParseException e) {
+			}
+		}
+		Date today = new Date();
+		today.setHours(0);
+		today.setMinutes(0);
+		today.setSeconds(0);
+		logger.info("strToday ={}",today);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("empNo", empNo2);
+		map.put("nowDate", today);
+		int todayScheduleCnt= scheduleService.selectCntScheduleByToday(map);
+		AttendDayVO atdVO = new AttendDayVO();
+		atdVO.setEmpNo(empNo2);
+		atdVO.setAttendanceDayRegdate(today);
+		AttendDayVO attendDayVO = attendDayService.selectAttendDayByRegdate(atdVO);
+		
+		logger.info("elist={}", elist);
+
+		//안읽은 메일 선택
+		int mailCount = emailService.totalCountByReadDateMain(empNo);
+		logger.info("index 안읽은 메일, mailCount={}",mailCount);
+
+		//파라미터로 넘어온 정보
+		EmpVO paramEmpVo = empService.selectByEmpNo(empNo);
+		
+		model.addAttribute("elist", elist);
+		model.addAttribute("empNo", empNo2);
+		model.addAttribute("bookingList", bookingList);
+		model.addAttribute("todayScheduleCnt", todayScheduleCnt);
+		model.addAttribute("attendDayVO", attendDayVO);
+		model.addAttribute("empVO", empVO);
+		model.addAttribute("mailCount", mailCount);
+		model.addAttribute("paramEmpVo", paramEmpVo);
 
 		return "emp/empInfo";
 	}

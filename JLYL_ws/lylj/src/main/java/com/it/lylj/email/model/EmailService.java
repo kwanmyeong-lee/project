@@ -20,7 +20,7 @@ public interface EmailService {
 	List<Map<String, Object>> selectListByType(SearchVO searchVo, int type);
 	//메인
 	EmailVO selectByMailNo(int mailNo);
-	int totalRecordByType(String taker, int type);
+	int totalRecordByType(SearchVO searchVo, int type);
 	int deleteCheckMulti(List<EmailVO> list);
 	int deleteCompleteMail(List<EmailVO> list);
 	int updateMultiReadDate(List<EmailVO> list);
@@ -28,6 +28,7 @@ public interface EmailService {
 	int updateInportant(int mailNo);
 	int updateNotInportant(int mailNo);
 	int updateNotReadDate(int mailNo);
+	int totalCountByReadDateMain(int mailNo);
 	
 	// 메인에 뿌려주기
 	List<EmailVO> selectNotRead(String empNo);

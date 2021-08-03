@@ -18,7 +18,7 @@
 	
 	<select id="selectFileByFileNo" parameterType="int" resultType="emailFileVo">
 		select * from mailFile
-		where FILENO = #{fileNo}
+		where FILE_NO = #{fileNo}
 	</select>
 	
 </mapper>

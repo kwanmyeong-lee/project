@@ -62,22 +62,22 @@ public class EmailServiceImpl implements EmailService{
 	}
 
 	@Override
-	public int totalRecordByType(String empNo, int type) {
+	public int totalRecordByType(SearchVO searchVo, int type) {
 		int totalRecord = 0;
 		if(type==EmailService.TAKE_MAIL) {
-			totalRecord = emailDao.totalRecordByEmailTake(empNo);
+			totalRecord = emailDao.totalRecordByEmailTake(searchVo);
 		}else if(type==EmailService.SEND_MAIL) {
-			totalRecord = emailDao.totalRecordByEmailSend(empNo);
+			totalRecord = emailDao.totalRecordByEmailSend(searchVo);
 		}else if(type==EmailService.TEMP_MAIL) {
-			totalRecord = emailDao.totalRecordByTempsave(empNo);
+			totalRecord = emailDao.totalRecordByTempsave(searchVo);
 		}else if(type==EmailService.BOOK_MAIL) {
-			totalRecord = emailDao.totalRecordByReserv(empNo);
+			totalRecord = emailDao.totalRecordByReserv(searchVo);
 		}else if(type==EmailService.TRASH_MAIL) {
-			totalRecord = emailDao.totalRecordByTrash(empNo);
+			totalRecord = emailDao.totalRecordByTrash(searchVo);
 		}else if(type==EmailService.NOTREAD_MAIL) {
-			totalRecord = emailDao.totalCountByReadDate(empNo);
+			totalRecord = emailDao.totalCountByReadDate(searchVo);
 		}else if(type==EmailService.IMPORTANT_MAIL) {
-			totalRecord = emailDao.totalCountByImportant(empNo);
+			totalRecord = emailDao.totalCountByImportant(searchVo);
 		}
 		return totalRecord;
 	}
@@ -164,6 +164,11 @@ public class EmailServiceImpl implements EmailService{
 	@Override
 	public List<EmailVO> selectReserve(String empNo) {
 		return emailDao.selectReserve(empNo);
+	}
+
+	@Override
+	public int totalCountByReadDateMain(int mailNo) {
+		return emailDao.totalCountByReadDateMain(mailNo);
 	}
 
 

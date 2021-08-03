@@ -21,8 +21,12 @@
 	src="<c:url value='/resources/js/html2canvas.min.js'/>"></script>
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jspdf.min.js'/>"></script>
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+
 
 <script type="text/javascript">
+
 	$(function() { // db 에 있는 content 를 가져와서 배열로 돌린다음 배열 갯수만큼 input 에 넣어준다 
 		
 		var draftFolNo = $('#draftFolNo').val();
@@ -188,7 +192,7 @@
 		
 		var eleNo =  $('input[name=electronicNo]').val(); //문서 번호
 		
-		$('#deleteUpFile').click(function(){
+		$('#deleteUpFile').click(function(){ //첨부파일 삭제 
 			$.ajax({
 				url : "<c:url value = '/electronic/deleteFile?electronicNo='/>"+eleNo,
 						type : "get",
@@ -197,7 +201,7 @@
 									console.log("삭제 성공");
 									alert("삭제 성공");
 									$('#upLoadDisplay').css('display', 'block');
-									$('#fileBlock').css('display', 'none');
+									$('.fileBlock').css('display', 'none');
 								}else{
 									console.log("삭제 실패");
 									alert("삭제 실패");
@@ -285,6 +289,10 @@
 			$('form[name=reAccept]').submit();
 		});
 		
+		$('#recancel').click(function(){
+			history.back();
+		});
+		
 		
 		$('#save_draft').click(function() { //임시저장문서 저장
 			
@@ -325,7 +333,12 @@
     			$('input[name=electronicFileFlag]').val("Y");
     		}
     		
-    		checkVal();
+    		if($('#title').val().length == 0  ){
+    			alert("제목을 입력해주세요");
+    			event.preventDefault();
+    			return false;
+    		}
+    		
 	        $('form[name=docfrm]').submit();
 
 		});
@@ -399,7 +412,7 @@
 		
 
 </script>
-<div class="container shadow p-3 mb-5 bg-white rounded"  id="pdfLine">
+<div class="container shadow p-3 mb-5 bg-white rounded" id="pdfLine">
 
 	<!-- 결재자 승인을 위한 form -->
 	<!-- 수신사 삭제를 위한 form -->
@@ -517,49 +530,45 @@
 
 				<!-- 문서 양식 끝 -->
 
+				<!-- 첨부파일 다운 / 삭제 -->
 				<div class="shadow-sm p-3 mb-2 bg-light rounded ">
-					<div class="row justify-content-center " id="fileBlock">
+					<div class="row justify-content-center fileBlock ">
 						<div class="col-2">
 							<c:if test="${!empty fvo}">
 								<button type="button"
 									class="btn btn-light btn-outline-secondary my-2 "
-									id="deleteUpFile">첨부파일 전체 삭제</button>
-							</c:if>
-						</div>
-						<div class="col-2 dropend">
-							<!-- 첨부파일 -->
-							<c:if test="${!empty fvo}">
-								<button class="btn btn-light btn-outline-secondary my-2"
-									id="upFile" type="button" data-bs-toggle="dropdown">첨부파일</button>
-								<ul class="dropdown-menu dropdown-menu-lg-end"
-									aria-labelledby="dropdownMenuLink" id="upFileList">
-									<c:forEach var="file" items="${fvo}">
-										<c:set var="filesize" value="${file.fileSize }" />
-										<li><a class="dropdown-item"
-											href="<c:url value = '/electronic/download?fileNo=${file.fileNo }'/>"><i
-												class="fas fa-save"></i>&nbsp;&nbsp;
-												${file.fileOriginalname}</a></li>
-									</c:forEach>
-								</ul>
+									id="deleteUpFile"
+									style="
+										<c:if test="${param.no eq '5'}">
+											display: block;
+										</c:if>
+										<c:if test="${param.no != '5'}">
+											display: none;
+										</c:if>
+										">첨부파일
+									전체 삭제</button>
 							</c:if>
 						</div>
 					</div>
-					<!-- 첨부파일 -->
 
-					<c:if test="${empty fvo }">
-						<div id="borderDiv">
-							<div class="form-group col-6">
-								<div class="input-group mb-3 ">
-									<input multiple="multiple" type="file" class="form-control"
-										name="upfile" id="inputGroupFile02" aria-label="Upload">
-								</div>
-								<span style="margin-left: 5px; font-size: 14px;">※&nbsp;
-									파일크기 제한 : 50MB</span>
-							</div>
-						</div>
-					</c:if>
+					<!-- 첨부파일 추가 -->
+
 					<div id="borderDiv">
-						<div class="form-group col-6" style="display: none;"
+						<div class="form-group col-6"
+							style="
+						<c:if test='${param.no == "5" }'>
+							<c:if test="${!empty fvo }">
+									display: none;
+							</c:if>
+							<c:if test="${empty fvo }">
+									display: block;
+							</c:if>
+						</c:if>
+						<c:if test='${param.no != "5" }'>
+									display: none;
+						</c:if>
+						
+						"
 							id="upLoadDisplay">
 							<div class="input-group mb-3 ">
 								<input multiple="multiple" type="file" class="form-control"
@@ -572,14 +581,14 @@
 
 					<br>
 					<div class="form-row" style="justify-content: center;">
-						<div class="form-group">
+						<div class="form-group dropend">
 
 							<!-- 수신 문서일때 -->
 							<c:if test="${param.no eq '2' }">
 								<button type="button" id="reOk"
 									class="btn btn-light btn-outline-secondary">받음</button>
 								<button type="button" id="recancel"
-									class="btn btn-light btn-outline-secondary">안받음처리</button>
+									class="btn btn-light btn-outline-secondary">뒤로가기</button>
 							</c:if>
 
 							<!-- 임시저장 문서일때 -->
@@ -612,10 +621,24 @@
 								<button type="button"
 									class="btn btn-light btn-outline-secondary cancel">뒤로가기</button>
 							</c:if>
-								<button type="button" id="savePdf"
-									class="btn btn-light btn-outline-secondary">PDF 다운로드</button>
-							
-							
+							<button type="button" id="savePdf"
+								class="btn btn-light btn-outline-secondary">PDF 다운로드</button>
+								
+							<!-- 첨부파일 확인 -->
+								<c:if test="${!empty fvo}">
+									<button class="btn btn-light btn-outline-secondary my-3 fileBlock "
+										id="upFile" type="button" data-bs-toggle="dropdown">첨부파일</button>
+									<ul class="dropdown-menu dropdown-menu-lg-end"
+										aria-labelledby="dropdownMenuLink" id="upFileList">
+										<c:forEach var="file" items="${fvo}">
+											<c:set var="filesize" value="${file.fileSize }" />
+											<li><a class="dropdown-item"
+												href="<c:url value = '/electronic/download?fileNo=${file.fileNo }'/>"><i
+													class="fas fa-save"></i>&nbsp;&nbsp;
+													${file.fileOriginalname}</a></li>
+										</c:forEach>
+									</ul>
+								</c:if>
 						</div>
 					</div>
 				</div>

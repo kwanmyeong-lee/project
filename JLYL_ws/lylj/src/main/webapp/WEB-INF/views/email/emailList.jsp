@@ -163,6 +163,17 @@ thead tr th{
 			console.log(mailNo);
 			location.href="<c:url value='/email/emailWrite?mailNo="+mailNo+"&type=sv'/>"
 		});
+		
+		/* 검색조건 선택 없을 시 안내 */
+		$('#btn_search').click(function(){
+			console.log('검색');
+			if($('select[name=searchCondition]').val()=='' || $('select[name=searchCondition]').val()==null){
+				alert('검색조건을 선택하세요');
+				event.preventDefault();
+				return false;
+			}
+		});
+		
 	});
 
 	function pagingProc(curPage){
