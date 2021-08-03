@@ -78,32 +78,29 @@
 				<div class="col-lg-6">
 					<div class="card1 pb-5">
 						<div class="row">
-							<img src="<c:url value="/resources/img/logo.png"/>" class="logo">
+							<img src="<c:url value="/resources/img/logo.png"/>" class="logo"/>
 						</div>
 						<div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-							<img src="<c:url value='/resources/img/office.png'/>" class="image">
+							<img src="<c:url value='/resources/img/office.png'/>" class="image"/>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<form class="loginFrm login-box login-box" method="post" action="<c:url value="/login/login"/>">
 						<div class="card2 card border-0 px-4 py-5">
-							<div class="row mb-4 px-3">
-							</div>
-							<div class="row mb-4 px-3">
-							</div>
-							<div class="row px-3 mb-4">
-							</div>
+							<div class="row mb-4 px-3"></div>
+							<div class="row mb-4 px-3"></div>
+							<div class="row px-3 mb-4"></div>
 							<div class="row px-3 user-box">
 								<label class="mb-1">사원번호</label> 
-								<input class="mb-4 textGroup" type="text" name="empNo" id="empNo" placeholder="Enter employee number" value="${cookie.ck_empNo.value }">
+								<input class="mb-4 textGroup" type="text" name="empNo" id="empNo" placeholder="Enter employee number" value="${cookie.ck_empNo.value }"/>
 							</div>
 							<div class="row px-3 user-box">
 								<label class="mb-1">비밀번호</label> 
-								<input class="mb-4 textGroup" type="password" name="empPwd" id="empPwd" placeholder="Enter password">
+								<input class="mb-4 textGroup" type="password" name="empPwd" id="empPwd" placeholder="Enter password"/>
 							</div>
 							<div class="row px-3 mb-4" style="width: 800px;">
-								<input type="checkbox" id="switch1" name="chkSave" class="input__on-off" <c:if test="${!empty cookie.ck_empNo}"> checked="checked" </c:if>>
+								<input type="checkbox" id="switch1" name="chkSave" class="input__on-off" <c:if test="${!empty cookie.ck_empNo}"> checked="checked" </c:if> />
 								<label for="switch1" class="label__on-off">
 								  <span class="marble"></span>
 								  <span class="on">on</span>
@@ -116,7 +113,9 @@
 								  <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
 								    <rect class="shape" style="height:30px; width:90px;" />
 								  </svg>
-								   <div class="findPwd"><a href="#" id="findPwd" >find</a></div>
+								  <div class="findPwd">
+								   		<a href="#" id="findPwd" >find</a>
+								  </div>
 								</div>
 							</div>
 							
@@ -165,10 +164,9 @@
 		        <button type="button" class="btn btn-danger modalButton" data-bs-dismiss="modal" id="btcloseModal">취소</button>
 		    </div>
             </form>
-		  </div>
-	    </div>
-	  </div>
-	</div>
-	
-	</body>
+		 </div>
+	   </div>
+	 </div>
+   </div>
+</body>
 </html>
