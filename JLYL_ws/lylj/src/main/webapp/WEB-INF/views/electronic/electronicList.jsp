@@ -104,15 +104,15 @@
 		<div class="table-wrap">
 			<table class="table table-responsive-xl">
 				<colgroup>
-					<col style="width: 50%" />
-					<col style="width: 10%" />
+					<col style="width: 45%" />
+					<col style="width: 15%" />
 					<col style="width: 20%" />
 					<col style="width: 20%" />
 				</colgroup>
 				<thead>
 					<tr>
 						<th class="text-center">제목</th>
-						<th class="text-center">기안자 번호</th>
+						<th class="text-center">기안자</th>
 						<th class="text-center">상태</th>
 						<th class="text-center">날짜</th>
 					</tr>
@@ -140,7 +140,13 @@
 											<i class="fas fa-exclamation-triangle"></i>
 										</c:if> </a>
 								</td>
-								<td class="text-center pt-3 ">${eleVo.EMP_NO }</td>
+								<td class="text-center pt-3 ">
+									<c:forEach var="AllEmp" items="${allEmp }">
+										<c:if test="${eleVo.EMP_NO eq AllEmp.empNo}">
+											<img class="rounded-circle" style="width: 35px; height: 35px; object-fit: cover; object-position: 100% 0;" src="<c:url value ='/resources/emp_images/${AllEmp.empPhoto }'/>"> ${AllEmp.empName } / ${AllEmp.empNo }
+										</c:if>
+									</c:forEach>
+								</td>
 								<td class="text-center pt-3"><span class=""> <c:if
 											test="${param.no eq 1 }">
 											<c:if test="${eleVo.APPROVAL_LINE_COMPLETE_FLAG eq '0'}">
