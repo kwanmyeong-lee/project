@@ -27,8 +27,8 @@ public interface ConstUtil {
 
 	//사원사진파일저장경로(경로확인필요)-기성
 	String EMP_UPLOAD_PATH = "emp_images";
-	String EMP_FILE_UPLOAD_PATH_TEST = "E:\\gicording\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\emp_images";
-	//String EMP_FILE_UPLOAD_PATH_TEST = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\emp_images";
+	//String EMP_FILE_UPLOAD_PATH_TEST = "E:\\gicording\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\emp_images";
+	String EMP_FILE_UPLOAD_PATH_TEST = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\emp_images";
 	
 	
 	//자료실 - 파일 저장 경로
