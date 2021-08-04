@@ -175,10 +175,10 @@ font-weight: 300;
 				</tr>
 				<tr>
 					<td >현재사용인원</td>
-					<td >${empCount }</td>
+					<td >${empCount }명</td>
 					<td ></td>
 					<td >현재관리자인원</td>
-					<td >${adminCount }</td>
+					<td >${adminCount }명</td>
 					<td ></td>
 				</tr>
 				<tr>
