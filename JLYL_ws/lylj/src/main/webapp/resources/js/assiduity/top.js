@@ -1,6 +1,6 @@
 $(function() {
 
-    $('#btnCome').click(function(){
+    $(document).on("click","#btnCome",function(){
 		var now = $('#clockTime').text();
 		var ymd= new Date();
 		ymd= moment(ymd).format("YYYY-MM-DD");
@@ -8,7 +8,7 @@ $(function() {
 		var attendanceDayRegdate = ymd;
 		var empNo = $('.empNo').val();
 		var attendanceDayOnHour = ymd+" "+now
-		
+
 		$.ajax({    
             type:'get',
             url:"insertComTime",
@@ -19,18 +19,6 @@ $(function() {
  
         		$('#comeTime').text(now);
         		$('#btnCome').prop("disabled",true);
-        		var comeNum = hourMin(now);
-        		
-        		var comef="#content-td"+comeNum;
-        		
-        		var nDate=new Date();
-        		var weekNum= getWeekOfMonth(nDate);
-        		var weekDay=moment(nDate).format('d');
-        		
-        		var parent="#content"+weekNum+"Div"+weekDay;
-        		
-        		$(parent).prev().find('span').eq(1).text(now);
-        		$(parent).find(comef).css("background","blue");
             }
           });
 		
@@ -38,7 +26,7 @@ $(function() {
 		
 	});
 		
-	$('#btnLeave').click(function(){
+	$(document).on("click","#btnLeave",function(){
 		if($('#btnCome').prop("disabled")==true){
 			var now = $('#clockTime').text();
 			var cTime = $('#comeTime').text();
@@ -67,23 +55,6 @@ $(function() {
 	            	$('#leaveTime').text(now);
 	    			$('#btnLeave').prop("disabled",true);
 	    			$('#dayWorkTime').text(dayWorkTime);
-	        		
-	        		var comeNum = hourMin(cTime);
-	    			var leaveNum = hourMin(now);
-	    			
-	    			
-	    			var nDate=new Date();
-	    			var weekNum= getWeekOfMonth(nDate);
-	    			var weekDay=moment(nDate).format('d');
-	    			
-	    			var parent="#content"+weekNum+"Div"+weekDay;
-	    			$(parent).prev().find('span').eq(2).text(now);
-	    			$(parent).prev().find('span').eq(3).text(dayWorkTime);
-	    			
-	    			for(var i=comeNum; i<=leaveNum; i++){
-	    				var comef="#content-td"+i;
-	    				$(parent).find(comef).css("background","blue");
-	    			}
 	            }
 	          });
 			
