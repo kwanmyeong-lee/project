@@ -87,10 +87,15 @@ $(function() {
 							
 							$('#myDetailModal').modal('show');
 							$('#detailTitle').text(data.scvo.scheduleTitle);
-							$('#detailStart').text(data.scvo.scheduleStart);
-							$('#detailEnd').text(data.scvo.scheduleEnd);
+							$('#detailStart').text("["+data.scvo.scheduleStart+"] ~ ");
+							$('#detailEnd').text("["+data.scvo.scheduleEnd+"]");
 							$('#detailColor').val(data.scvo.scheduleColor);
 							$('#detailFolder').text(data.scFolderName);
+							if(data.scvo.scheduleAllday=="true"){
+								$('#detailAllday').text(" 종일");
+							}else{
+								$('#detailAllday').text("");
+							}
 							if(data.scvo.scheduleContent!=null){
 								var content = data.scvo.scheduleContent.replace(/(?:\r\n|\r|\n)/g, '<br>');
 								$('#detailContent').html(content);
@@ -100,6 +105,7 @@ $(function() {
                     
             /* 모달의 정보삭제 누를 경우 이벤트 삭제 */
             $('#btn-delete').click(function(){
+				var scheduleNo=$('#detailScheduleNo').text();
 				$.ajax({    
 		                      type:'POST',
 		                      url:"deleteScheduleByScheduleNo",
@@ -107,7 +113,9 @@ $(function() {
 		                      contentType: "application/json; charset=utf-8;",
 		                      dataType: "json",
 		                      success : function(data) {
-									arg.event.remove();
+									if(arg.event.classNames==scheduleNo){
+										arg.event.remove();
+									}
 									$('#myDetailModal').modal('hide');
 		                      }
 		             });

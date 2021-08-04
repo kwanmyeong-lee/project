@@ -111,7 +111,7 @@
                             <label class="labelTime2">일정명</label>
                             <span id="detailTitle"></span><br/>
                             <label class="labelTime2">일시</label>
-                            <span id="detailStart"></span>~<span id="detailEnd"></span><br/>
+                            <span id="detailStart"></span><span id="detailEnd"></span><span id="detailAllday"></span><br/>
                             <label class="labelTime2">내 캘린더</label>
                             <span id="detailFolder"></span><br/>
                             <label class="labelTime2">색상</label>

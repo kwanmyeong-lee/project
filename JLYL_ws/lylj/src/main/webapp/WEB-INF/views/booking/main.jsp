@@ -49,7 +49,7 @@
                         <th scope="col">이름</th>
                         <th scope="col">예약 기간</th>
                         <th scope="col">신청 날짜</th>
-                        <th scope="col">취소/반납</th>
+                        <th scope="col">승인여부</th>
                     </tr>
                 </thead>
                 <tbody>

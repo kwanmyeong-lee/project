@@ -12,15 +12,17 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="<c:url value="/resources/css/assiduity/top.css"/>" rel="stylesheet" type="text/css">
-<script src='<c:url value="/resources/js/assiduity/top.js"/>'></script>
 <link href="<c:url value="/resources/css/assiduity/stats.css"/>" rel="stylesheet" type="text/css">
+
 <script src='<c:url value="/resources/js/assiduity/stats.js"/>'></script>
+<script src='<c:url value="/resources/js/assiduity/top.js"/>'></script>
+
 <title>assiduitygMain</title>
 <div class="container-fluid">
     <h3 class="h3 mb-4 text-gray-800">부서 근태통계</h3>
     <article class="consDiv shadow">
         <br/>
-        <input type="hidden" id="empNoHidden" value="${empNo }"/>
+        <input type="hidden" class="empNo" id="empNoHidden" value="${empNo }"/>
         <div class="now-div text-center">
             <span class="now-span" id="nowLeft">
                 <i class="fas fa-chevron-left"></i>

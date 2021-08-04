@@ -16,7 +16,7 @@ $(function(){
 			$('#addText1').val("");
 			$('#addText2').show();
 			
-			var ob = $(this).prev().prev().val();
+			var ob = $(this).prev().prev().prev().val();
 			propertySelView(0,ob);
 	});
 	
