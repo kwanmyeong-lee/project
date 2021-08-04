@@ -144,7 +144,16 @@ window.onload= function(){
 									<c:forEach var="list" items="${emailVo }">
 										<tr>
 											<td>${list.mailSend}</td>
-											<td><a href="<c:url value='/email/emailDetail?mailNo=${list.mailNo }'/>">${list.mailTitle}</a></td>
+											<td>
+												<a href="<c:url value='/email/emailDetail?mailNo=${list.mailNo }'/>">
+													<c:if test="${fn:length(list.mailTitle)>20}">
+														${fn:substring(list.mailTitle,0,20)}...
+													</c:if>
+													<c:if test="${fn:length(list.mailTitle)<21}">
+														${list.mailTitle}
+													</c:if>
+												</a>
+											</td>
 											<td><fmt:formatDate value="${list.mailSenddate}" pattern="yyyy-MM-dd HH:mm"/></td>
 										</tr>
 									</c:forEach>
