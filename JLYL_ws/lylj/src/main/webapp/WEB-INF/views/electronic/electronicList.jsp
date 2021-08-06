@@ -93,7 +93,7 @@
 				<h2 class="heading-section bg-light text-dark">결재 임시 저장함</h2>
 			</c:if>
 			<c:if test="${param.no eq '6' }">
-				<h2 class="heading-section bg-light text-dark">결재 결재 완료 문서</h2>
+				<h2 class="heading-section bg-light text-dark">결재 완료 문서</h2>
 			</c:if>
 			<c:if test="${param.no eq '7' }">
 				<h2 class="heading-section bg-light text-dark">결재 반려 문서</h2>
