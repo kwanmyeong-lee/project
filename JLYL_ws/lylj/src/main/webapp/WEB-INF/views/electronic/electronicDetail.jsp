@@ -412,6 +412,28 @@
 		
 
 </script>
+
+<c:if test="${param.no eq '1' }">
+	<h2>결재 대기</h2>
+</c:if>
+<c:if test="${param.no eq '2' }">
+	<h2>결재 수신문서</h2>
+</c:if>
+<c:if test="${param.no eq '3' }">
+	<h2>결재 예정 문서</h2>
+</c:if>
+<c:if test="${param.no eq '4' }">
+	<h2>결재 기안 문서함</h2>
+</c:if>
+<c:if test="${param.no eq '5' }">
+	<h2>결재 임시 저장함</h2>
+</c:if>
+<c:if test="${param.no eq '6' }">
+	<h2>결재 완료 문서</h2>
+</c:if>
+<c:if test="${param.no eq '7' }">
+	<h2>결재 반려 문서</h2>
+</c:if>
 <div class="container shadow p-3 mb-5 bg-white rounded" id="pdfLine">
 
 	<!-- 결재자 승인을 위한 form -->
@@ -464,6 +486,7 @@
 
 		<div class="container" style="max-width: 1000px;">
 			<div class="shadow-sm p-3 mb-3 bg-light rounded ">
+
 				<h1>기안서</h1>
 				<br>
 
@@ -623,22 +646,23 @@
 							</c:if>
 							<button type="button" id="savePdf"
 								class="btn btn-light btn-outline-secondary">PDF 다운로드</button>
-								
+
 							<!-- 첨부파일 확인 -->
-								<c:if test="${!empty fvo}">
-									<button class="btn btn-light btn-outline-secondary my-3 fileBlock "
-										id="upFile" type="button" data-bs-toggle="dropdown">첨부파일</button>
-									<ul class="dropdown-menu dropdown-menu-lg-end"
-										aria-labelledby="dropdownMenuLink" id="upFileList">
-										<c:forEach var="file" items="${fvo}">
-											<c:set var="filesize" value="${file.fileSize }" />
-											<li><a class="dropdown-item"
-												href="<c:url value = '/electronic/download?fileNo=${file.fileNo }'/>"><i
-													class="fas fa-save"></i>&nbsp;&nbsp;
-													${file.fileOriginalname}</a></li>
-										</c:forEach>
-									</ul>
-								</c:if>
+							<c:if test="${!empty fvo}">
+								<button
+									class="btn btn-light btn-outline-secondary my-3 fileBlock "
+									id="upFile" type="button" data-bs-toggle="dropdown">첨부파일</button>
+								<ul class="dropdown-menu dropdown-menu-lg-end"
+									aria-labelledby="dropdownMenuLink" id="upFileList">
+									<c:forEach var="file" items="${fvo}">
+										<c:set var="filesize" value="${file.fileSize }" />
+										<li><a class="dropdown-item"
+											href="<c:url value = '/electronic/download?fileNo=${file.fileNo }'/>"><i
+												class="fas fa-save"></i>&nbsp;&nbsp;
+												${file.fileOriginalname}</a></li>
+									</c:forEach>
+								</ul>
+							</c:if>
 						</div>
 					</div>
 				</div>
