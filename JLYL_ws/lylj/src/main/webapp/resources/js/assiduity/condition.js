@@ -25,57 +25,7 @@ $(function(){
 		dayView(nd);
 	});
 	
-	$('#btnCome').click(function(){
-		var now = $('#clockTime').text();
-		
-		$('#comeTime').text(now);
-		$(this).prop("disabled",true);
-		var comeNum = hourMin(now);
-		
-		var comef="#content-td"+comeNum;
-		
-		var nDate=new Date();
-		var weekNum= getWeekOfMonth(nDate);
-		var weekDay=moment(nDate).format('d');
-		
-		var parent="#content"+weekNum+"Div"+weekDay;
-		
-		$(parent).find(comef).css("background","blue");
-		
-		
-	});
-		
-	$('#btnLeave').click(function(){
-		if($('#btnCome').prop("disabled")==true){
-			var now = $('#clockTime').text();
-			$('#leaveTime').text(now);
-			$(this).prop("disabled",true);
-			
-			var cTime = $('#comeTime').text();
-			var lTime = $('#leaveTime').text();
-			var dayWorkTime=workTime(cTime,lTime);
-			
-			$('#dayWorkTime').text(dayWorkTime);
-			
-			
-			var comeNum = hourMin("08:24:00");
-			var leaveNum = hourMin(now);
-			
-			
-			var nDate=new Date();
-			var weekNum= getWeekOfMonth(nDate);
-			var weekDay=moment(nDate).format('d');
-			
-			var parent="#content"+weekNum+"Div"+weekDay;
-
-			for(var i=comeNum; i<=leaveNum; i++){
-				var comef="#content-td"+i;
-				$(parent).find(comef).css("background","blue");
-			}
-		}else{
-			alert("출근을 하세요");
-		}
-	});
+	
 	
 	
 	

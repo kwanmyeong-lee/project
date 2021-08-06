@@ -1404,21 +1404,22 @@ insert into EMP values(EMP_SEQ.nextval, '츠동', '$2a$10$50mL18dBG6mblQkrPe34h.
 insert into EMP values(EMP_SEQ.nextval, '크동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-07-01', null, 'images (20).jpg', 3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
 insert into EMP values(EMP_SEQ.nextval, '트동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-07-05', 'images (21).jpg', 3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
 
-insert into EMP values(EMP_SEQ.nextval, '그동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (22).jpg', 3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
-insert into EMP values(EMP_SEQ.nextval, '느동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (23).jpg', 3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
-insert into EMP values(EMP_SEQ.nextval, '드동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-08-10','images (24).jpg', 3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
-insert into EMP values(EMP_SEQ.nextval, '르동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (25).jpg', 3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
-insert into EMP values(EMP_SEQ.nextval, '므동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (26).jpg', 3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
-insert into EMP values(EMP_SEQ.nextval, '브동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-08-15',  'images (27).jpg' ,3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
-insert into EMP values(EMP_SEQ.nextval, '스동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (28).jpg', 3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
-insert into EMP values(EMP_SEQ.nextval, '으동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (3).jpg', 3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
-insert into EMP values(EMP_SEQ.nextval, '즈동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-08-11',  'images (4).jpg' ,3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
-insert into EMP values(EMP_SEQ.nextval, '츠동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (5).jpg', 3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
-insert into EMP values(EMP_SEQ.nextval, '크동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (6).jpg', 3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
-insert into EMP values(EMP_SEQ.nextval, '트동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-08-09',  'images (7).jpg' ,3000, '1234-1234-1234', 4, '1953-07-29', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '그동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (22).jpg', 3000, '1234-1234-1234', 4, '1953-08-15', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '느동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (23).jpg', 3000, '1234-1234-1234', 4, '1953-08-14', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '드동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-08-25','images (24).jpg', 3000, '1234-1234-1234', 4, '1953-08-13', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '르동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (25).jpg', 3000, '1234-1234-1234', 4, '1953-08-12', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '므동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (26).jpg', 3000, '1234-1234-1234', 4, '1953-08-11', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '브동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-08-25',  'images (27).jpg' ,3000, '1234-1234-1234', 4, '1953-08-10', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '스동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (28).jpg', 3000, '1234-1234-1234', 4, '1953-08-09', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '으동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (3).jpg', 3000, '1234-1234-1234', 4, '1953-08-08', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '즈동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-08-25',  'images (4).jpg' ,3000, '1234-1234-1234', 4, '1953-08-07', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '츠동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (5).jpg', 3000, '1234-1234-1234', 4, '1953-08-06', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '크동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (6).jpg', 3000, '1234-1234-1234', 4, '1953-08-05', 6, 4);
+insert into EMP values(EMP_SEQ.nextval, '트동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-08-25',  'images (7).jpg' ,3000, '1234-1234-1234', 4, '1953-08-04', 6, 4);
 
 
-select * from emp;
+select * from emp 
+order by emp_no;
 
 --달력테마
 insert into sctheme values(1, '일정');
@@ -1878,7 +1879,8 @@ values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전�
 -- 게시판 폴더
 INSERT INTO OFBOARDFOL VALUES(1, '공지사항');
 INSERT INTO OFBOARDFOL VALUES(2, '자료실');
-INSERT INTO OFBOARDFOL VALUES(3, '커뮤니티');
+INSERT INTO OFBOARDFOL VALUES(3, '요청게시판');
+INSERT INTO OFBOARDFOL VALUES(4, '커뮤니티');
 INSERT INTO OFBOARDFOL VALUES(OFBOARDFOL_SEQ.nextval, '영업 본부');
 
 
@@ -1998,8 +2000,28 @@ to_date('2021-07-30 15:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-07-30 06:0
 
 
 
-
-
+insert into attendday values(attendday_seq.nextval,117, to_date('2021-08-03 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-08-03 20:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-08-03 11:00:00', 'yyyy-mm-dd hh24:mi:ss'),1,'2021-08-03');
+insert into attendday values(attendday_seq.nextval,118, to_date('2021-08-03 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-08-03 20:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-08-03 11:00:00', 'yyyy-mm-dd hh24:mi:ss'),1,'2021-08-03');
+insert into attendday values(attendday_seq.nextval,119, to_date('2021-08-03 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-08-03 20:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-08-03 11:00:00', 'yyyy-mm-dd hh24:mi:ss'),1,'2021-08-03');
+insert into attendday values(attendday_seq.nextval,120, to_date('2021-08-03 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-08-03 20:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-08-03 11:00:00', 'yyyy-mm-dd hh24:mi:ss'),1,'2021-08-03');
+insert into attendday values(attendday_seq.nextval,121, to_date('2021-08-03 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-08-03 20:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-08-03 11:00:00', 'yyyy-mm-dd hh24:mi:ss'),1,'2021-08-03');
+insert into attendday values(attendday_seq.nextval,122, to_date('2021-08-03 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-08-03 20:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-08-03 11:00:00', 'yyyy-mm-dd hh24:mi:ss'),1,'2021-08-03');
+insert into attendday values(attendday_seq.nextval,123, to_date('2021-08-03 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-08-03 20:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-08-03 11:00:00', 'yyyy-mm-dd hh24:mi:ss'),1,'2021-08-03');
+insert into attendday values(attendday_seq.nextval,124, to_date('2021-08-03 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-08-03 20:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-08-03 11:00:00', 'yyyy-mm-dd hh24:mi:ss'),1,'2021-08-03');
+insert into attendday values(attendday_seq.nextval,125, to_date('2021-08-03 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-08-03 20:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-08-03 11:00:00', 'yyyy-mm-dd hh24:mi:ss'),1,'2021-08-03');
+insert into attendday values(attendday_seq.nextval,126, to_date('2021-08-03 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-08-03 20:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-08-03 11:00:00', 'yyyy-mm-dd hh24:mi:ss'),1,'2021-08-03');
+insert into attendday values(attendday_seq.nextval,127, to_date('2021-08-03 09:12:12', 'yyyy-mm-dd hh24:mi:ss') ,
+to_date('2021-08-03 20:12:12', 'yyyy-mm-dd hh24:mi:ss'),to_date('2021-08-03 11:00:00', 'yyyy-mm-dd hh24:mi:ss'),1,'2021-08-03');
 
 
 --휴가 종류
@@ -2048,6 +2070,61 @@ insert into ATTEND values(ATTEND_seq.nextval, 118,default,default,default,defaul
 insert into ATTEND values(ATTEND_seq.nextval, 119,default,default,default,default,default);
 insert into ATTEND values(ATTEND_seq.nextval, 120,default,default,default,default,default);
 insert into ATTEND values(ATTEND_seq.nextval, 121,default,default,default,default,default);
+
+insert into ATTEND values(ATTEND_seq.nextval, 123,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 124,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 125,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 126,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 127,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 128,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 129,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 130,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 131,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 132,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 133,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 134,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 135,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 136,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 137,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 138,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 139,default,default,default,default,default);
+
+insert into ATTEND values(ATTEND_seq.nextval, 140,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 141,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 142,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 143,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 144,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 145,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 146,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 147,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 148,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 149,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 150,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 151,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 152,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 153,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 154,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 155,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 156,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 157,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 158,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 159,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 160,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 161,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 162,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 163,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 164,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 165,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 166,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 167,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 168,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 169,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 170,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 171,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 172,default,default,default,default,default);
+insert into ATTEND values(ATTEND_seq.nextval, 173,default,default,default,default,default);
+
+
 
 --메일 정보
 insert into mail values (mail_seq.nextVal, '메일제목1', '메일내용입니다1', '102', '100', default, null, null,default, default, 102, default);

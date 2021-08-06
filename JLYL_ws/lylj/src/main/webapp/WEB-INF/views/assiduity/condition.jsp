@@ -10,10 +10,13 @@
 <!-- 팝업 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="<c:url value="/resources/css/assiduity/condition.css"/>" rel="stylesheet" type="text/css">
+<script src='<c:url value="/resources/js/assiduity/top.js"/>'></script>
 <script src='<c:url value="/resources/js/assiduity/condition.js"/>'></script>
+
 <title>assiduitygMain</title>
 <div class="container-fluid ">
     <h3 class="h3 mb-4 text-gray-800">근태현황</h3>
+    <input type="hidden" class="empNo" id="empNoHidden" value="${empNo}"/>
     <article class="consDiv shadow">
         <br/>
         <input type="hidden" id="departmentNoHidden" value="${departmentNo }"/>

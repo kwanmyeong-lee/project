@@ -329,10 +329,30 @@ thead tr th{
 													<td style="text-align: center;">${map['MAIL_TAKE']}@lylj.net</td>
 												</c:if>
 												<c:if test="${param.type eq '3'}">
-													<td class="typeSubject"><a href="<c:url value="/email/emailWrite?mailNo=${map['MAIL_NO']}&type=sv"/>" id="readMail">${map['MAIL_TITLE']} </a></td>
+													<td class="typeSubject">
+														<c:set var="titleLen" value="${map['MAIL_TITLE']}"/>
+														<a href="<c:url value="/email/emailWrite?mailNo=${map['MAIL_NO']}&type=sv"/>" id="readMail">
+															<c:if test="${fn:length(titleLen)>20 }">
+																${fn:substring(titleLen,0,20)}...
+															</c:if>
+															<c:if test="${fn:length(titleLen)<21 }">
+																${titleLen}
+															</c:if>
+														</a>
+													</td>
 												</c:if>
 												<c:if test="${param.type ne '3'}">
-													<td class="typeSubject"><a href="<c:url value="/email/emailRead?mailNo=${map['MAIL_NO']}"/>" id="readMail">${map['MAIL_TITLE']} </a></td>
+													<td class="typeSubject">
+														<c:set var="titleLen" value="${map['MAIL_TITLE']}"/>
+														<a href="<c:url value="/email/emailRead?mailNo=${map['MAIL_NO']}"/>" id="readMail">
+															<c:if test="${fn:length(titleLen)>20 }">
+																${fn:substring(titleLen,0,20)}...
+															</c:if>
+															<c:if test="${fn:length(titleLen)<21 }">
+																${titleLen}
+															</c:if>
+														</a>
+													</td>
 												</c:if>
 												<td class="typeTime">
 												    <c:if test="${param.type eq '4'}"><fmt:formatDate value="${map['MAIL_RESERVE'] }" pattern="yyyy-MM-dd HH:mm"/></c:if>

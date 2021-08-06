@@ -9,14 +9,16 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="<c:url value="/resources/css/assiduity/top.css"/>" rel="stylesheet" type="text/css">
 <link href="<c:url value="/resources/css/assiduity/annual.css"/>" rel="stylesheet" type="text/css">
+
 <script src='<c:url value="/resources/js/assiduity/top.js"/>'></script>
 <script src='<c:url value="/resources/js/assiduity/annual.js"/>'></script>
+
 <title>assiduitygMain</title>
 <div class="container-fluid">
     <h3 class="h3 mb-4 text-gray-800">내 연차 내역</h3>
     <article class="consDiv shadow">
         <hr/>
-        <input type="hidden" id="empNoHidden" value="${empNo}"/>
+        <input type="hidden" class="empNo" id="empNoHidden" value="${empNo}"/>
         <input type="hidden" id="departmentNameHidden" value="${empVo.departmentName}"/>
         <div class="now-div text-center">
             <span class="now-span" id="nowYearMonth"></span>

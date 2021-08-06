@@ -25,7 +25,7 @@
 	<!-- 비밀번호 -->
 	<select id="selectPwd" parameterType="int" resultType="String">
 		select emp_pwd from emp
-		where emp_no=#{empNo}
+		where emp_no=#{empNo} and EMP_RESDATE IS NULL
 	</select> 
 	
 	<resultMap type="hashmap" id="ageEmp">

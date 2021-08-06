@@ -126,7 +126,9 @@ public class EmailController {
 			model.addAttribute("fwEmailVo", fwEmailVo);
 		}else if(type.equals("sv")) {
 			EmailVO svEmailVo= emailService.selectByMailNo(mailNo);
+			List<EmailFileVO> svFileList = emailFileService.selectFileByMailNo(mailNo);
 			model.addAttribute("svEmailVo", svEmailVo);
+			model.addAttribute("svFileList", svFileList);
 		}
 		
 		if(empNo!=0) {
@@ -271,7 +273,7 @@ public class EmailController {
 	
 	/* 미리보기 페이지 */
 	@RequestMapping("/emailPreview")
-	public String emailPreview(String mailTitle, String mailTake, String mailContent, HttpSession session, Model model) {
+	public String emailPreview(String mailTitle, String mailTake, String mailContent, HttpSession session,Model model) {
 		String empNo = (String)session.getAttribute("empNo");
 		EmailVO vo = new EmailVO();
 		//파라미터 셋팅
@@ -279,6 +281,7 @@ public class EmailController {
 		vo.setMailTake(mailTake);
 		vo.setMailTitle(mailTitle);
 		vo.setMailContent(mailContent);
+		
 		logger.info("셋팅된 미리보기, vo={}",vo);
 		
 		//리턴

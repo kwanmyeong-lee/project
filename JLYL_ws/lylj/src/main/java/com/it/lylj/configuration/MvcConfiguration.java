@@ -6,6 +6,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.it.lylj.controller.AdminPageInterceptor;
 import com.it.lylj.controller.LoginInterceptor;
 import com.it.lylj.controller.LoginToLoginInterceptor;
 
@@ -16,9 +17,6 @@ public class MvcConfiguration implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		
-//		registry.addInterceptor(new LoginInterceptor())
-//		.addPathPatterns("/shop/cart/*", "/shop/order/*","/member/memberEdit","/member/memberOut");
-//		
 		/* 로그인 안하고 접근하는 경우*/
 		registry.addInterceptor(new LoginInterceptor())
 		.excludePathPatterns("/login/login","/login/findPwd")
@@ -28,6 +26,11 @@ public class MvcConfiguration implements WebMvcConfigurer{
 		registry.addInterceptor(new LoginToLoginInterceptor())
 		.addPathPatterns("/");
 		
+		
+		/* 관리자 페이지 접근하는 경우*/
+		registry.addInterceptor(new AdminPageInterceptor())
+		.addPathPatterns("/admin","/assiduity/excess","/booking/property","/booking/rent",
+						"/adminBoard/main","/emp/empList","/emp/empWrite");
 		
 	}
 

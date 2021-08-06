@@ -89,7 +89,14 @@
 			    <tr id="tdStyle">
 		            <td class="no" style="text-align: center;">${vo.boardNo}</td>
 		            <td>
-		            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="margin-left:20px;">${vo.boardTitle}</a> 
+		            	<a href="<c:url value='/board/countUpdate?boardNo=${vo.boardNo }'/>" class="titleA" style="margin-left:20px;">
+			            	<c:if test="${fn:length(vo.boardTitle) > 60 }">
+				        		${fn:substring(vo.boardTitle,0, 60)}...
+				        	</c:if>
+				        	<c:if test="${fn:length(vo.boardTitle) < 61 }">
+				        		${vo.boardTitle}
+				        	</c:if>
+		            	</a> 
 		            	<c:if test="${vo.commentCnt > 0}">
 		            		<span class="commCnt2" style="float: inherit;">[${vo.commentCnt }]</span>
 		            	</c:if>

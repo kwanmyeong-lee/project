@@ -214,7 +214,10 @@
 	    	});
 	   		
 	    });
-	    
+	$(function(){
+		$('.btn_fileDel').click(function(){
+		});
+	});
 </script>
 
 <div class="container emailContainer">
@@ -238,7 +241,7 @@
 	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${reEmailVo.mailSend}@lylj.net"  readonly="readonly">
 	                    </c:if>
 	                    <c:if test="${!empty fwEmailVo}">
-	                        <input type="text" class="orm-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
+	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1">
 	                    </c:if>
 	                    <c:if test="${!empty svEmailVo}">
 	                        <input type="text" class="form-control select2-offscreen textBox" id="mailTake" name="mailTake" tabindex="-1" value="${svEmailVo.mailTake}@lylj.net">
@@ -271,73 +274,93 @@
 			    	</div>
 			  	</div>
 			  	<div class="form-group row">
-			    		<label for="bcc" class="col-sm-1 control-label">첨부파일:</label>
-			  		<div class="col-sm-11">
-			    		<input type="file" multiple="multiple" name="upfile" class="form-control select2-offscreen textBox tx" >
-			    		<span style="margin-left: 95px; color: blue;">※&nbsp; 파일크기 제한 : 50MB</span><br>
-			    		<c:if test="${!empty fwEmailVo}">
-			    			<span style="margin-left: 95px; color: blue;">※&nbsp; 파일은 전달되지 않습니다.</span>
-			    		</c:if>
-			    	</div>
+				  	<c:if test="${empty svEmailVo }">
+				    	<label for="bcc" class="col-sm-1 control-label">첨부파일:</label>
+				  		<div class="col-sm-11">
+				    		<input type="file" multiple="multiple" name="upfile" class="form-control select2-offscreen textBox tx" />
+				    		<span style="margin-left: 95px; color: blue;">※&nbsp; 파일크기 제한 : 50MB</span><br>
+				    		<c:if test="${!empty fwEmailVo}">
+				    			<span style="margin-left: 95px; color: blue;">※&nbsp; 파일은 전달되지 않습니다.</span>
+				    		</c:if>
+				    	</div>
+			    	</c:if>
+			 	  	<c:if test="${!empty svEmailVo }">
+				    	<label for="bcc" class="col-sm-1 control-label">첨부파일:</label>
+				  		<div class="col-sm-11">
+			    			<input type="file" multiple="multiple" name="upfile" class="form-control select2-offscreen textBox tx" />
+			    			<span style="margin-left: 95px; color: blue;">※&nbsp; 파일크기 제한 : 50MB</span><br>
+			    			<c:if test="${empty svFileList }">
+				    			<input type="file" multiple="multiple" name="upfile" class="form-control select2-offscreen textBox tx" />
+				    			<span style="margin-left: 95px; color: blue;">※&nbsp; 파일크기 제한 : 50MB</span><br>
+			    			</c:if>
+			    			<c:if test="${!empty svFileList }">
+					  			<c:forEach var="list" items="${svFileList }">
+					  				<div>
+					  					<i class="fas fa-save"></i>${list.fileOriginName}
+					  					<span><a class="btn_fileDel" href=""><i class="fas fa-minus-circle"></i></a></span>			  				</div>
+					    		</c:forEach>
+				    		</c:if>
+				    	</div>
+			    	</c:if>
+			   	</div>
+	  			<div class="form-group">
+					<textarea class="form-control message" id="summernote" name="mailContent">
+						<c:if test="${!empty reEmailVo}">
+							<br><br>
+							---------------------------받은메일내용---------------------------<br>
+							보낸사람 : ${reEmailVo.mailSend }<br>
+							제목 : ${reEmailVo.mailTitle}<br>
+							내용 :
+							&nbsp;${reEmailVo.mailContent }<br>
+							--------------------------------------------------------------------						
+						</c:if>
+						<c:if test="${!empty fwEmailVo}">
+							<br><br>
+							---------------------------받은메일내용---------------------------<br>
+							보낸사람 : ${fwEmailVo.mailSend }<br>
+							제목 : ${fwEmailVo.mailTitle}<br>
+							내용 :
+							&nbsp;${fwEmailVo.mailContent }<br>
+							--------------------------------------------------------------------						
+						</c:if>
+						<c:if test="${!empty svEmailVo}">
+							${svEmailVo.mailContent }						
+						</c:if>
+					</textarea>
+				</div>
+				<div class="form-group row chkBook">
+					<span>
+				    	<label for="yesBook" class="col-sm-1 control-label">전송예약 : </label>
+		    			<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="okBook" value="1">
+						  <label class="form-check-label" for="okBook">예</label>
+						</div>
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="notBook" value="2" checked="checked">
+						  <label class="form-check-label" for="notBook">아니요</label>
+						</div>
+					</span>
 			    </div>
-			  			<div class="form-group">
-						<textarea class="form-control message" id="summernote" name="mailContent">
-							<c:if test="${!empty reEmailVo}">
-								<br><br>
-								---------------------------받은메일내용---------------------------<br>
-								보낸사람 : ${reEmailVo.mailSend }<br>
-								제목 : ${reEmailVo.mailTitle}<br>
-								내용 :
-								&nbsp;${reEmailVo.mailContent }<br>
-								--------------------------------------------------------------------						
-							</c:if>
-							<c:if test="${!empty fwEmailVo}">
-								<br><br>
-								---------------------------받은메일내용---------------------------<br>
-								보낸사람 : ${fwEmailVo.mailSend }<br>
-								제목 : ${fwEmailVo.mailTitle}<br>
-								내용 :
-								&nbsp;${fwEmailVo.mailContent }<br>
-								--------------------------------------------------------------------						
-							</c:if>
-							<c:if test="${!empty svEmailVo}">
-								${svEmailVo.mailContent }						
-							</c:if>
-						</textarea>
-					</div>
-					<div class="form-group row chkBook">
-						<span>
-					    	<label for="yesBook" class="col-sm-1 control-label">전송예약 : </label>
-			    			<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="okBook" value="1">
-							  <label class="form-check-label" for="okBook">예</label>
-							</div>
-							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="notBook" value="2" checked="checked">
-							  <label class="form-check-label" for="notBook">아니요</label>
-							</div>
-						</span>
-				    </div>
-				    <div class="form-group row">
-					    <input type="hidden" id="mailReserve" name="mailReserve" value="">
-				    	<div class="col-sm-11 row" id="setDate" >
-					    	<span>날짜 :
-					    	<input type="text" class="scheduleDate" name="startDate" id="startDate" readonly="readonly">
-					    	시간 :
-					    	<select class="selectTime" id="startTime" name="bookTime">
-				        		<c:forEach var="i" begin="0" end="47">
-				        			<c:set var="hour" value="${i/2 - i/2%1}"/>
-				        			<c:set var ="min" value="00"/>
-				        			<c:set var ="sec" value="00"/>
-				        			<c:if test="${i%2 eq 1 }">
-				        				<c:set var ="min" value="30"/>
-				        			</c:if>
-				        			<option class="optionTime" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${min }:${sec }</option>
-				        		</c:forEach>
-		        			</select>
-		        			</span> 
-					   </div>
-				  	</div>
+			    <div class="form-group row">
+				    <input type="hidden" id="mailReserve" name="mailReserve" value="">
+			    	<div class="col-sm-11 row" id="setDate" >
+				    	<span>날짜 :
+				    	<input type="text" class="scheduleDate" name="startDate" id="startDate" readonly="readonly">
+				    	시간 :
+				    	<select class="selectTime" id="startTime" name="bookTime">
+			        		<c:forEach var="i" begin="0" end="47">
+			        			<c:set var="hour" value="${i/2 - i/2%1}"/>
+			        			<c:set var ="min" value="00"/>
+			        			<c:set var ="sec" value="00"/>
+			        			<c:if test="${i%2 eq 1 }">
+			        				<c:set var ="min" value="30"/>
+			        			</c:if>
+			        			<option class="optionTime" value="${i }"><fmt:formatNumber value="${hour }" pattern="00"  />:${min }:${sec }</option>
+			        		</c:forEach>
+	        			</select>
+	        			</span> 
+				   </div>
+			  	</div>
 			</form>
 		</div>	
 </div>
