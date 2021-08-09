@@ -8,7 +8,7 @@
 			select MAILFILE_SEQ.nextval from dual
 		</selectKey>
 		insert into mailfile
-		values(#{fileNo}, #{mailNo}, #{fileName}, #{fileOriginName}, #{fileSize})
+		values(#{fileNo}, #{mailNo}, #{mailNo}, #{fileName}, #{fileOriginName}, #{fileSize})
 	</insert>
 
 	<select id="selectFileByMailNo" parameterType="int" resultType="emailFileVo">
