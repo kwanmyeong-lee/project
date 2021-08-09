@@ -267,9 +267,6 @@
 					'top=40, left=40, width=1000, height=1000, status=no, menubar=no, toolbar=no, resizable=no, directories=no, location=no');
 			
 		});
-	
-
-		
 
 		var getStyle = $('#getStyle').val();
 
@@ -277,8 +274,16 @@
 			$('form[name=apAccept]').submit();
 		});
 
+		var titleVal = $('#title').text();
+		var Take = $('#eleEmpNo').val();
+		
 		$('#return').click(function() { //결재 반려
-			location.href = "<c:url value = '/electronic/EleReturn?ElectronicNo='/>"+eleNo;
+			window
+			.open(
+					'<c:url value = '/electronic/electronicReturnEmail?mailTitle='/>'+titleVal+'&mailTake='+Take+'&eleNo='+eleNo,
+					'_parent ',
+					'top=40, left=1000, width=520, height=700, status=no, menubar=no, toolbar=no, resizable=no, directories=no, location=no');
+
 		});
 		
 		$('.cancel').click(function(){  // 결재 보류 // 수신 뒤로가기 // 반려문서 뒤로가기
@@ -409,6 +414,10 @@
 		
 	};
 	
+	function back(){
+		location.href = "<c:url value = '/electronic/electronicList?no=1'/>"
+	}
+	
 		
 
 </script>
@@ -435,7 +444,8 @@
 	<h2>결재 반려 문서</h2>
 </c:if>
 <div class="container shadow p-3 mb-5 bg-white rounded" id="pdfLine">
-
+	<input type="hidden" id="eleEmpNo" value="${vo.empNo }">
+	
 	<!-- 결재자 승인을 위한 form -->
 	<!-- 수신사 삭제를 위한 form -->
 	<form name="apAccept" method="post"
