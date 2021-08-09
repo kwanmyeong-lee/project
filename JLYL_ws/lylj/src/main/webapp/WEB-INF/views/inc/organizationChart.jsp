@@ -91,7 +91,7 @@
 					success : function(json) {
 						$('#userimgDiv')
 								.html(
-										"<img src='<c:url value = '/resources/img/"+json.empPhoto+"/'/>'>");
+										"<img src='<c:url value = '/resources/emp_images/"+json.empPhoto+"/'/>'>");
 						$('#userEmail').html(json.empNo + "@lylj.net");
 						$('#userTel').html(json.empTel);
 
