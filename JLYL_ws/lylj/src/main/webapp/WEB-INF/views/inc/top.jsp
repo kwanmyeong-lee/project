@@ -345,7 +345,7 @@ margin-top:-270px;
 						</ol>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item">오늘 일정</li>
-							<li class="breadcrumb-item"><a href="#">${todayScheduleCnt}개</a></li>
+							<li class="breadcrumb-item"><a href="<c:url value='/schedule/scheduleMain'/>">${todayScheduleCnt}개</a></li>
 						</ol>
 						<div class="card-body">
 							<a href="<c:url value='/email/emailWrite'/>" class="card-link"><button
