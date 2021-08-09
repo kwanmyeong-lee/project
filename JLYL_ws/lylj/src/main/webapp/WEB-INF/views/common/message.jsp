@@ -32,12 +32,14 @@
 	
 	if("<%=msg%>"=="로그인되었습니다"){
 		Swal.fire("<%=msg%>")
-	}
-	else{
+	}	
+	else if(('<%=msg%>').indexOf('실패')>0){
 	Swal.fire({
 		  icon: 'error',
 		  text: "<%=msg%>",
 		})
+	}else{
+		Swal.fire("<%=msg%>")
 	}
 	
 	</script>
