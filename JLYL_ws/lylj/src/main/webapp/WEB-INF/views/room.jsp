@@ -6,6 +6,8 @@
 <head>
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
+<link href="<c:url value="/resources/css/boot_css/bootstrap.min.css"/>"
+rel="stylesheet">
 <meta charset="UTF-8">
 <title>Room</title>
 <style>
@@ -15,9 +17,9 @@
 }
 
 .container {
-	width: 500px;
+	width: 501px;
 	margin: 0 auto;
-	padding: 25px
+	padding: 10px 0px 0px 0px;
 }
 
 .container h1 {
@@ -29,8 +31,8 @@
 }
 
 .roomContainer {
-	background-color: #F6F6F6;
-	width: 500px;
+	background-color: #e5fffe;
+	width: 497px;
 	height: 500px;
 	overflow: auto;
 }
@@ -59,6 +61,7 @@
 
 .roomList .room {
 	width: 350px;
+	text-align: center;
 }
 
 .roomList .go {
@@ -66,22 +69,12 @@
 	text-align: center;
 }
 
-button {
-	background-color: #3e9dff;
-	font-size: 14px;
-	color: #000;
-	border: 1px solid #000;
-	border-radius: 5px;
-	padding: 3px;
-	margin: 3px;
-}
-
 .inputTable th {
-	padding: 5px;
+	padding: 3px;
 }
 
 .inputTable input {
-	width: 330px;
+	width: 350px;
 	height: 25px;
 }
 </style>
@@ -133,7 +126,7 @@ button {
 								+ "<td class='room'>"
 								+ rn
 								+ "</td>"
-								+ "<td class='go'><button type='button' onclick='goRoom(\""
+								+ "<td class='go'><button type='button' class='btn btn-outline-primary btn-sm my-1' onclick='goRoom(\""
 								+ roomNumber + "\", \"" + rn
 								+ "\")'>참여</button></td>" + "</tr>";
 					});
@@ -165,11 +158,11 @@ button {
 			<table id="roomList" class="roomList"></table>
 		</div>
 		<div>
-			<table class="inputTable">
+			<table class="inputTable  my-3">
 				<tr>
 					<th>방 제목</th>
-					<th><input type="text" name="roomName" id="roomName"></th>
-					<th><button id="createRoom">방 만들기</button></th>
+					<th><input type="text" class="form-control"  name="roomName" id="roomName"></th>
+					<th><button class="btn btn-outline-primary btn-sm" id="createRoom">방 만들기</button></th>
 				</tr>
 			</table>
 		</div>

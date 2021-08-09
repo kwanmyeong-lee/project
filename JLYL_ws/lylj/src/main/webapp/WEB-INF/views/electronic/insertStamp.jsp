@@ -78,7 +78,7 @@
 							파일크기 제한 : 50MB</span>
 						<hr>
 						<div class="col text-center">
-							<button type="button" id="ok" class="btn btn-success">Success</button>
+							<button type="button" id="ok" class="btn btn-success">등록</button>
 						</div>
 					</div>
 				</form>

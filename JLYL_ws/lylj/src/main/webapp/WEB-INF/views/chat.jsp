@@ -6,6 +6,8 @@
 <head>
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery-3.6.0.min.js'/>"></script>
+<link href="<c:url value="/resources/css/boot_css/bootstrap.min.css"/>"
+rel="stylesheet">
 <meta charset="UTF-8">
 <title>Chating</title>
 <style>
@@ -17,7 +19,7 @@
 .container {
 	width: 500px;
 	margin: 0 auto;
-	padding: 25px
+	padding: 10px 0px 0px 0px;
 }
 
 .container h1 {
@@ -49,13 +51,19 @@
 	font-weight: bold;
 }
 
-input {
-	width: 330px;
-	height: 25px;
-}
 
 #yourMsg {
 	display: none;
+}
+
+#userName  {
+	width: 347px;
+	height: 25px;
+}
+
+#chatting {
+	width: 384px;
+	height: 25px;
 }
 </style>
 </head>
@@ -149,14 +157,14 @@ input {
 		<input type="hidden" id="sessionId" value=""> <input
 			type="hidden" id="roomNumber" value="${roomNumber}">
 
-		<div id="chating" class="chating"></div>
+		<div id="chating" class="chating my-3"></div>
 
 		<div id="yourName">
 			<table class="inputTable">
 				<tr>
 					<th>사용자명</th>
-					<th><input type="text" name="userName" id="userName"></th>
-					<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
+					<th><input type="text" class="form-control mx-1" name="userName" id="userName"></th>
+					<th><button class="btn btn-outline-primary btn-sm" onclick="chatName()" id="startBtn">이름 등록</button></th>
 				</tr>
 			</table>
 		</div>
@@ -164,8 +172,8 @@ input {
 			<table class="inputTable">
 				<tr>
 					<th>메시지</th>
-					<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-					<th><button onclick="send()" id="sendBtn">보내기</button></th>
+					<th><input type="text" id="chatting" class="form-control mx-1" placeholder="보내실 메시지를 입력하세요."></th>
+					<th><button class="btn btn-outline-primary btn-sm" onclick="send()" id="sendBtn">보내기</button></th>
 				</tr>
 			</table>
 		</div>
