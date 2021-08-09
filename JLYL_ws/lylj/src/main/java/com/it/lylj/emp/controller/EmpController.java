@@ -196,7 +196,7 @@ public class EmpController {
 		logger.info("elist={}", elist);
 
 		//안읽은 메일 숫자
-		int mailCount = emailService.totalCountByReadDateMain(empNo);
+		int mailCount = emailService.totalCountByReadDateMain(empNo2);
 		logger.info("index 안읽은 메일, mailCount={}",mailCount);
 		//파라미터로 넘어온 정보
 		EmpVO paramEmpVo = empService.selectByEmpNo(empNo);
@@ -219,12 +219,61 @@ public class EmpController {
 	public String empEdit(@RequestParam(defaultValue = "0") int empNo, HttpSession session ,Model model) {
 		logger.info("사원정보수정페이지, empNo={}", empNo);
 		int adminLev = (int)session.getAttribute("empAdminLev");
+		
+		//출퇴근 시간 체크 by 준경
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
+		logger.info("메인페이지");
+		int empNo2 = Integer.parseInt((String)session.getAttribute("empNo"));
+		
+		EmpVO empVO = empService.selectByEmpNo(empNo2);
+		List<ElectronicVo> elist = eleService.selectUpdateToday(empNo2);
+		List<BookingVO> bookingList2 = bookingService.selectAllBookingViewByEmpNo(empNo2);
+		List<BookingVO> bookingList = new ArrayList<BookingVO>();
+		Date startDate;
+		Date endDate;
+		for(int i=0; i<bookingList2.size(); i++) {
+			try {
+				startDate = sdf.parse(bookingList2.get(i).getBookingStart());
+				endDate = sdf.parse(bookingList2.get(i).getBookingEnd());
+				if(startDate.getTime()<now.getTime() && now.getTime()<endDate.getTime()) {
+					bookingList.add(bookingList2.get(i));
+				}
+			} catch (ParseException e) {
+			}
+		}
+		Date today = new Date();
+		today.setHours(0);
+		today.setMinutes(0);
+		today.setSeconds(0);
+		logger.info("strToday ={}",today);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("empNo", empNo2);
+		map.put("nowDate", today);
+		int todayScheduleCnt= scheduleService.selectCntScheduleByToday(map);
+		AttendDayVO atdVO = new AttendDayVO();
+		atdVO.setEmpNo(empNo2);
+		atdVO.setAttendanceDayRegdate(today);
+		AttendDayVO attendDayVO = attendDayService.selectAttendDayByRegdate(atdVO);
+		
+		logger.info("elist={}", elist);
 
+		//안읽은 메일 숫자
+		int mailCount = emailService.totalCountByReadDateMain(empNo2);
+		logger.info("index 안읽은 메일, mailCount={}",mailCount);
+		
 		//수정할 EMP 정보 선택
 		EmpVO empVo = empService.selectByEmpNo(empNo);
 		logger.info("사원정보수정페이지, adminLev={}", adminLev);
 		
 		//모델 저장, 뷰페이지 리턴 => input태그에 정보 띄어주기 위함
+		model.addAttribute("elist", elist);
+		model.addAttribute("empNo", empNo2);
+		model.addAttribute("bookingList", bookingList);
+		model.addAttribute("todayScheduleCnt", todayScheduleCnt);
+		model.addAttribute("attendDayVO", attendDayVO);
+		model.addAttribute("empVO", empVO);
+		model.addAttribute("mailCount", mailCount);
 		model.addAttribute("empVo", empVo);
 		
 		return "emp/empEdit";
