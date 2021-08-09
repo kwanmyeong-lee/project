@@ -57,7 +57,7 @@
 	
 	<select id="selectAttendDayByRegdate" parameterType="attendDayVo" resultType="attendDayVo">
 		select * from ATTENDDAY 
-		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(#{attendanceDayRegdate})
+		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(TO_DATE(TO_CHAR(#{attendanceDayRegdate},'yyyy-mm-dd'),'yyyy-mm-dd'))
 	</select>
 	
 	<select id="selectAttendDayByFlag" parameterType="int" resultType="conditionViewVo">
@@ -127,7 +127,7 @@
 
 		FROM ATTENDDAY 
 		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
-		AND ATTENDANCE_DAY_REGDATE = #{selectDay} and EMP_NO=#{empNo}
+		AND ATTENDANCE_DAY_REGDATE = TO_DATE(TO_CHAR(#{selectDay},'yyyy-mm-dd'),'yyyy-mm-dd') and EMP_NO=#{empNo}
 		]]>
 	</select>
 	
@@ -197,7 +197,7 @@
 	<update id="updateAttendDayByOffHour" parameterType="attendDayVo">
 		update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=#{attendanceDayOffHour},
 		ATTENDANCE_DAY_WORK_HOUR=#{attendanceDayWorkHour}
-		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE =#{attendanceDayRegdate}
+		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TO_DATE(TO_CHAR(#{attendanceDayRegdate},'yyyy-mm-dd'),'yyyy-mm-dd')
 	</update>
 	
 	<update id="updateAttendDayByFlag" parameterType="hashmap">
