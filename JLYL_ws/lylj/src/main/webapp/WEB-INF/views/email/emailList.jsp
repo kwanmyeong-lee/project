@@ -252,11 +252,13 @@ thead tr th{
 								<table class="table">
 									<colgroup>
 								       <col style="width:6%;" />
-								       <col style="width:6%;" />
-								       <col style="width:6%;" />
+								       <c:if test="${param.type ne '2' && param.type ne '3' && param.type ne '4' && param.type ne '5'}">
+								       		<col style="width:6%;" />
+								    		<col style="width:6%;" />
+								       </c:if>
 								       <col style="width:6%;" />
 								       <c:if test="${param.type eq '5' }"> 
-								      	 <col style="width:6%;" />
+								      	 	<col style="width:6%;" />
 								       </c:if>
 								       <col style="width:20%;" />
 								       <col style="width:35%;" />
@@ -265,8 +267,10 @@ thead tr th{
 									<thead>
 									    <tr>
 								            <th><input type="checkbox" id="AllCheckbox"></th>
-								            <th>읽음</th>
-								            <th>중요</th>
+								            <c:if test="${param.type ne '2' && param.type ne '3' && param.type ne '4' && param.type ne '5'}">
+								            	<th>읽음</th>
+								            	<th>중요</th>
+								            </c:if>
 								            <th>첨부</th>
 								            <th>
 								            	<c:if test="${param.type eq '2' || param.type eq '3' || param.type eq '4' }">받는사람</c:if>
@@ -286,12 +290,7 @@ thead tr th{
 									<!-- 반복 -->
 									<c:if test="${empty list }">
 										<tr>
-											<c:if test="${param.type eq '5' }">
-												<td colspan="8" style="text-align: center;">메일함이 비어있습니다.</td>
-											</c:if>
-											<c:if test="${param.type ne '5' }">
-												<td colspan="7" style="text-align: center;">메일함이 비어있습니다.</td>
-											</c:if>
+											<td colspan="7" style="text-align: center;">메일함이 비어있습니다.</td>
 										</tr>
 									</c:if>
 									
@@ -300,24 +299,26 @@ thead tr th{
 										<c:forEach var="map" items="${list }">
 											<tr>
 												<td class="typeCheck"><input type="checkbox" name="selectedEmail[${idx}].mailNo" id="getMailNo" value="${map['MAIL_NO']}" class="mailItem" /></td>
-												<td class="typeRead">
-													<c:if test="${empty map['MAIL_READDATE'] }">
-														<a class="btn" href="<c:url value='/email/readMail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-envelope"></i></a>
-													</c:if>
-													<c:if test="${!empty map['MAIL_READDATE']}">
-														<a class="btn" href="<c:url value='/email/notReadMail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-envelope-open"></i></a>
-													</c:if>
-												</td>
-												<td class="typeInportant">
-													<c:if test="${map['MAIL_IMPORTANT']=='I'}">
-														<a class="btn bt_important1" href="<c:url value='/email/notImportantEmail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="fas fa-star"></i></a>
-													</c:if>
-													<c:if test="${map['MAIL_IMPORTANT']=='0'}">
-														<a class="btn bt_important2" href="<c:url value='/email/importantEmail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-star"></i></a>
-													</c:if>
-												</td>
+												<c:if test="${param.type ne '2' && param.type ne '3' && param.type ne '4' && param.type ne '5'}">
+													<td class="typeRead">
+														<c:if test="${empty map['MAIL_READDATE'] }">
+															<a class="btn" href="<c:url value='/email/readMail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-envelope"></i></a>
+														</c:if>
+														<c:if test="${!empty map['MAIL_READDATE']}">
+															<a class="btn" href="<c:url value='/email/notReadMail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-envelope-open"></i></a>
+														</c:if>
+													</td>
+													<td class="typeInportant">
+														<c:if test="${map['MAIL_IMPORTANT']=='I'}">
+															<a class="btn bt_important1" href="<c:url value='/email/notImportantEmail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="fas fa-star"></i></a>
+														</c:if>
+														<c:if test="${map['MAIL_IMPORTANT']=='0'}">
+															<a class="btn bt_important2" href="<c:url value='/email/importantEmail?mailNo=${map["MAIL_NO"] }&type=${param.type }'/>"><i class="far fa-star"></i></a>
+														</c:if>
+													</td>
+												 </c:if>
 												<td class="typeFile">
-													<c:if test="${!empty map['FILE_ORIGIN_NAME'] }">
+													<c:if test="${!empty map['FILE_CHECK_NO'] }">
 														<i class="far fa-file btn"></i>
 													</c:if>
 												</td>

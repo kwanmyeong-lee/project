@@ -526,6 +526,7 @@ ALTER TABLE POSITION
 CREATE TABLE MAILFILE (
 	FILE_NO NUMBER NOT NULL, /* 파일번호 */
 	MAIL_NO NUMBER, /* 메일 번호 */
+    FILE_CHECK_NO NUMBER, /* 파일존재여부확인 */
 	FILE_NAME VARCHAR2(255) NOT NULL, /* 파일이름 */
 	FILE_ORIGIN_NAME VARCHAR2(255) NOT NULL, /* 원래파일이름 */
 	FILE_SIZE NUMBER NOT NULL /* 파일용량 */
@@ -1210,12 +1211,15 @@ select * from apEleList;
 
 create or replace view mailView
 as
-select m.* , e.emp_name, mf.file_origin_name
-from mail m join emp e
-on m.mail_empno = e.emp_no
-left join mailfile mf
-on m.mail_no = mf.mail_no;
-
+select m.*, mf.file_check_no, e.emp_name
+from mail m 
+left join 
+        (
+            select distinct file_check_no from mailfile
+        )mf
+on m.mail_no = mf.file_check_no
+left join emp e
+on m.mail_empno = e.emp_no;
 ------------------------- view ----------------------------------
 create or replace view empView
 as
