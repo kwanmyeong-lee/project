@@ -21,7 +21,7 @@
 
 	<insert id="insertBooking" parameterType="bookingVo">
 		insert into BOOKING
-		values(booking_seq.nextval, #{empNo}, sysdate, #{bookingStart}, #{bookingEnd},
+		values(booking_seq.nextval, #{empNo}, CURRENT_DATE, #{bookingStart}, #{bookingEnd},
         '0','0',#{bookingTargetNo},#{bookingContent:CLOB}, 
         #{scheduleNo})
     </insert>

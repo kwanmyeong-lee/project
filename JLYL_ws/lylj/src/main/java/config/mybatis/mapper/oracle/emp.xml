@@ -47,22 +47,22 @@
 	
 	<select id="selectAge" resultMap="ageEmp2">
 		select age,ROUND(RATIO_TO_REPORT(COUNT(*)) OVER(),3)*100 as per, floor(age/10)*10 as ageGroup
-		from( select (to_char(sysdate, 'YYYY') - to_char(emp_birth,'YYYY')) as age from emp ) o
+		from( select (to_char(CURRENT_DATE, 'YYYY') - to_char(emp_birth,'YYYY')) as age from emp ) o
 		group by age
 		order by age
 	</select> 
 	
 	<select id="selectAgeGrop" resultMap="ageEmp">
 		select age, ROUND(RATIO_TO_REPORT(COUNT(*)) OVER(),3)*100 AS per
-		from( select floor((to_char(sysdate, 'YYYY') - to_char(emp_birth,'YYYY')) / 10) * 10 as age from emp ) o
+		from( select floor((to_char(CURRENT_DATE, 'YYYY') - to_char(emp_birth,'YYYY')) / 10) * 10 as age from emp ) o
 		group by age
 		order by age
 	</select> 
 	
 	<select id="selectJoinLeave" resultMap="joinLeave">
 		select count(EMP_REGDATE) as reg, count(EMP_RESDATE ) as res from emp
-		where EMP_REGDATE between TRUNC(sysdate,'MM') and ADD_MONTHS( TRUNC(sysdate,'MM'), 1)
-		OR EMP_RESDATE between TRUNC(sysdate,'MM') and ADD_MONTHS( TRUNC(sysdate,'MM'), 1)
+		where EMP_REGDATE between TRUNC(CURRENT_DATE,'MM') and ADD_MONTHS( TRUNC(CURRENT_DATE,'MM'), 1)
+		OR EMP_RESDATE between TRUNC(CURRENT_DATE,'MM') and ADD_MONTHS( TRUNC(CURRENT_DATE,'MM'), 1)
 	</select> 
 	
 	
@@ -149,7 +149,7 @@
 	
 	<update id="deleteEmp" parameterType="int">
 		update emp
-		set emp_resdate = sysdate
+		set emp_resdate = CURRENT_DATE
 		where emp_no = #{empNo}
 	</update>
 	
