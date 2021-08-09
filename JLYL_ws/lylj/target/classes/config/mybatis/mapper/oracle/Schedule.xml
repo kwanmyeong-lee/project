@@ -72,7 +72,11 @@
 	
 	<select id="selectCntScheduleByToday" parameterType="hashmap" resultType="int">
 		select count(*) from calendar
-		where EMP_NO=#{empNo} and #{nowDate} between SCHEDULE_START and SCHEDULE_END
+		where EMP_NO=#{empNo} 
+		<![CDATA[ and #{nowDate} >= TRUNC(TO_DATE(SCHEDULE_START,'yyyy-mm-dd HH24:mi:ss')) 
+		and #{nowDate} < TRUNC(TO_DATE(SCHEDULE_END,'yyyy-mm-dd HH24:mi:ss')+1)
+		and TRUNC(#{nowDate}) != TRUNC(TO_DATE(SCHEDULE_END,'yyyy-mm-dd HH24:mi:ss'))
+		]]>
 	</select>
 	
 	

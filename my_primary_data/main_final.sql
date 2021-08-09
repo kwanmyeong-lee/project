@@ -280,7 +280,7 @@ ALTER TABLE EMP
 /* 전자결재정보 */
 CREATE TABLE ELIMP (
 	ELECTRONIC_NO NUMBER NOT NULL, /* 문서번호 */
-	ELECTRONIC_DATE DATE DEFAULT SYSDATE, /* 기안일자 */
+	ELECTRONIC_DATE DATE DEFAULT CURRENT_DATE, /* 기안일자 */
 	ELECTRONIC_TITLE VARCHAR2(255) NOT NULL, /* 기안제목 */
 	ELECTRONIC_CONTENT CLOB NOT NULL, /* 기안내용 */
 	ELECTRONIC_FILE_FLAG VARCHAR2(255), /* 첨부파일여부 */
@@ -310,10 +310,10 @@ CREATE TABLE MAIL (
 	MAIL_CONTENT CLOB, /* 내용 */
 	MAIL_SEND VARCHAR2(255) NOT NULL, /* 보낸사람 */
 	MAIL_TAKE VARCHAR2(255) NOT NULL, /* 받는사람 */
-	MAIL_SENDDATE DATE DEFAULT SYSDATE, /* 보낸 날짜 */
+	MAIL_SENDDATE DATE DEFAULT CURRENT_DATE, /* 보낸 날짜 */
 	MAIL_READDATE DATE, /* 읽은 날짜 */
     MAIL_TEMPSAVE VARCHAR2(255), /*임시저장*/
-	MAIL_RESERVE DATE DEFAULT SYSDATE, /* 예약 날짜 */
+	MAIL_RESERVE DATE DEFAULT CURRENT_DATE, /* 예약 날짜 */
 	MAIL_DEL_CHECK VARCHAR2(255) DEFAULT 0, /* 삭제 여부 */
 	MAIL_EMPNO NUMBER NOT NULL, /* 사원번호 */
     MAIL_IMPORTANT  VARCHAR2(255) DEFAULT 0 /*중요메일*/
@@ -362,7 +362,7 @@ CREATE TABLE OFBOARD (
 	BOARD_CONTENT CLOB, /* 내용 */
 	BOARD_WRITER VARCHAR2(255) NOT NULL, /* 글쓴이 */
 	BOARD_HITS NUMBER DEFAULT 1, /* 조회수 */
-	BOARD_DATE DATE DEFAULT SYSDATE, /* 작성일 */
+	BOARD_DATE DATE DEFAULT CURRENT_DATE, /* 작성일 */
 	BOARD_FOLDER_NO NUMBER, /* 게시판 폴더 번호 */
     commentCnt NUMBER default 0 /* 댓글 수 */
 );
@@ -383,7 +383,7 @@ ALTER TABLE OFBOARD
 CREATE TABLE BOOKING (
 	BOOKING_NO NUMBER NOT NULL, /* 예약 번호 */
 	EMP_NO NUMBER, /* 사원 번호 */
-	BOOKING_CURRENT DATE DEFAULT SYSDATE, /* 신청 시간 */
+	BOOKING_CURRENT DATE DEFAULT CURRENT_DATE, /* 신청 시간 */
 	BOOKING_START VARCHAR2(255), /* 예약 시간 */
 	BOOKING_END VARCHAR2(255), /* 예약 종료 시간 */
 	BOOKING_APP_FLAG VARCHAR2(255) DEFAULT '0', /* 승인 여부 */
@@ -593,7 +593,7 @@ CREATE TABLE OFBOARDCOM (
 	BOARD_NO NUMBER, /* 게시판 번호 */
 	BOARD_COMMENT_CONTENT VARCHAR2(255) NOT NULL, /* 내용 */
 	BOARD_COMMENT_WRITER VARCHAR2(255) NOT NULL, /* 글쓴이 */
-	BOARD_COMMENT_DATE DATE DEFAULT SYSDATE, /* 작성일 */
+	BOARD_COMMENT_DATE DATE DEFAULT CURRENT_DATE, /* 작성일 */
 	BOARD_COMMENT_DEL_FLAG VARCHAR2(255) DEFAULT '0', /* 삭제 여부 */
 	BOARD_COMMENT_GROUP_NO NUMBER, /* 그룹 번호 */
     BOARD_COMMENT_STEP_NO NUMBER DEFAULT '0'/* 단계 번호 */
@@ -1469,23 +1469,23 @@ insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15', '
 
 
 --예약정보
-insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,1,'asd', 2);
-insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,2,'asd', 3);
-insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,3,'asd', 4);
-insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,4,'asd', 5);
-insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,5,'asd', 6);
-insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,6,'asd', 7);
-insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,7,'asd', 8);
-insert into BOOKING values(booking_seq.nextval,119, sysdate ,'2021-07-17', '2021-07-20',0,0,8,'asd', 9);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,'2021-07-17', '2021-07-20',0,0,1,'asd', 2);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,'2021-07-17', '2021-07-20',0,0,2,'asd', 3);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,'2021-07-17', '2021-07-20',0,0,3,'asd', 4);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,'2021-07-17', '2021-07-20',0,0,4,'asd', 5);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,'2021-07-17', '2021-07-20',0,0,5,'asd', 6);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,'2021-07-17', '2021-07-20',0,0,6,'asd', 7);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,'2021-07-17', '2021-07-20',0,0,7,'asd', 8);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,'2021-07-17', '2021-07-20',0,0,8,'asd', 9);
 
-insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,1,'asd', 10);
-insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,2,'asd', 11);
-insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,3,'asd', 12);
-insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,4,'asd', 13);
-insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,5,'asd', 14);
-insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,6,'asd', 15);
-insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,7,'asd', 16);
-insert into BOOKING values(booking_seq.nextval,103, sysdate ,'2021-08-15', '2021-08-18',0,0,8,'asd', 17);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,'2021-08-15', '2021-08-18',0,0,1,'asd', 10);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,'2021-08-15', '2021-08-18',0,0,2,'asd', 11);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,'2021-08-15', '2021-08-18',0,0,3,'asd', 12);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,'2021-08-15', '2021-08-18',0,0,4,'asd', 13);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,'2021-08-15', '2021-08-18',0,0,5,'asd', 14);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,'2021-08-15', '2021-08-18',0,0,6,'asd', 15);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,'2021-08-15', '2021-08-18',0,0,7,'asd', 16);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,'2021-08-15', '2021-08-18',0,0,8,'asd', 17);
 
 
 --전자 결재 문서 폴더 
@@ -1658,61 +1658,61 @@ values (APPSTAMP_SEQ.nextval, 120, '아이유1.jpg');
 --전자 결재 정보 
 
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트1', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트1', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트2', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트2', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트3', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트3', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트4', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트4', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트5', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트5', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트6', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트6', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트7', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트7', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트8', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트8', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트9', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트9', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트10', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트10', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트12', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트12', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트13', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트13', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트14', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트14', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트15', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트15', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트16', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트16', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, default);
 
 
 
@@ -1784,96 +1784,96 @@ insert into RELINE
 values (RELINE_SEQ.nextval, 15, 101, '0');
 
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트18', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트18', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트19', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트19', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트20', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트20', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트21', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트21', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트22', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트22', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트23', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트23', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트24', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트24', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트25', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트25', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트26', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트26', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트27', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트27', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트28', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트28', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트29', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트29', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트30', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트30', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트31', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트31', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '1', '0', 120, 100, default);
 
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트32', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트32', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트33', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트33', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트34', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트34', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트35', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트35', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트36', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트36', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트37', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트37', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트38', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트38', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트39', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트39', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트40', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트40', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트41', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트41', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트42', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트42', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트43', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트43', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트44', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트44', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트45', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트45', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '2', '0', 120, 100, default);
 
 
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트1', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트1', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트2', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트2', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트3', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트3', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트4', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트4', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트5', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트5', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트6', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트6', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트7', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트7', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트8', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트8', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트9', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트9', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트10', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트10', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트12', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트12', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트13', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트13', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트14', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트14', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트15', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트15', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트16', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트16', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 insert into ELIMP
-values (ELIMP_SEQ.nextval, sysdate, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
+values (ELIMP_SEQ.nextval, CURRENT_DATE, '기안서테스트17', '["2021/7/28","전략기획팀","관명","부장","123","","","","","","123"]', 'N', '0', '0', 120, 100, '1');
 
 
 -- 게시판 폴더
@@ -2030,7 +2030,7 @@ insert into BREAKTHEME values(BREAKTHEME_seq.nextval,'보상휴가');
 
 
 select NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0)   from ATTENDDAY
-		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'d') and SYSDATE and EMP_NO=117;
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(CURRENT_DATE,'d') and CURRENT_DATE and EMP_NO=117;
 
 --휴가 정보
 insert into BREAKDAY values(BREAKDAY_seq.nextval, '2021-06-01', '2021-06-02','122','2');
@@ -2208,7 +2208,7 @@ is
 begin
         update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-mm-dd')||' 18:00:00','yyyy-mm-dd hh24:mi:ss'),
 		ATTENDANCE_DAY_WORK_HOUR=TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-mm-dd')||' 18:00:00','yyyy-mm-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR+ATTENDANCE_DAY_REGDATE
-		where ATTENDANCE_DAY_OFF_HOUR IS NULL and ATTENDANCE_DAY_REGDATE =TRUNC(SYSDATE)
+		where ATTENDANCE_DAY_OFF_HOUR IS NULL and ATTENDANCE_DAY_REGDATE =TRUNC(CURRENT_DATE)
         AND ATTENDANCE_DAY_ON_HOUR < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-mm-dd')||' 18:00:00','yyyy-mm-dd hh24:mi:ss') ;
         
         delete from ATTENDDAY 

@@ -16,7 +16,7 @@
 			select ELIMP_SEQ.nextval from dual
 		</selectKey>
 		insert into ELIMP
-		values (#{electronicNo} , sysdate,
+		values (#{electronicNo} , CURRENT_DATE,
 		#{electronicTitle}, #{electronicContent}, #{electronicFileFlag},
 		#{electronicCompletFlag},
 		#{electronicEmergencyFlag}, #{empNo},
@@ -250,7 +250,7 @@
 	
 	<update id="updateEleReturn" parameterType="int">
 		update elimp
-		set ELECTRONIC_COMPLET_FLAG = '2', ELECTRONIC_DATE = sysdate
+		set ELECTRONIC_COMPLET_FLAG = '2', ELECTRONIC_DATE = CURRENT_DATE
 		where ELECTRONIC_NO = #{electronicNo}
 	</update>
 	
@@ -273,7 +273,7 @@
 	
 	<update id="upToDate" parameterType="int">
 		update elimp
-		set ELECTRONIC_DATE = sysdate
+		set ELECTRONIC_DATE = CURRENT_DATE
 		where ELECTRONIC_NO = #{electronicNo}
 	</update>
 	
@@ -282,7 +282,7 @@
 		<![CDATA[
 		(
 			select * from apEleList
-			where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0 and ELECTRONIC_DATE < sysdate +1 and ELECTRONIC_DATE > sysdate -1
+			where EMP_NO_AP = #{empNo} and APPROVAL_LINE_COMPLETE_FLAG = 0 and ELECTRONIC_DRAFT = 0 and ELECTRONIC_DATE < CURRENT_DATE +1 and ELECTRONIC_DATE > CURRENT_DATE -1
 		    order by ELECTRONIC_DATE DESC, ELECTRONIC_NO DESC
 		)A
 		where rownum < 6]]>

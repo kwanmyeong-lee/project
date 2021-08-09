@@ -57,7 +57,7 @@
 	
 	<select id="selectAttendDayByRegdate" parameterType="attendDayVo" resultType="attendDayVo">
 		select * from ATTENDDAY 
-		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(#{attendanceDayRegdate})
+		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(TO_DATE(TO_CHAR(#{attendanceDayRegdate},'yyyy-mm-dd'),'yyyy-mm-dd'))
 	</select>
 	
 	<select id="selectAttendDayByFlag" parameterType="int" resultType="conditionViewVo">
@@ -79,7 +79,7 @@
 	
 	<select id="selectSumWeekWork" parameterType="int" resultType="int">
 		select NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0)   from ATTENDDAY
-		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(SYSDATE,'d') and SYSDATE and EMP_NO=#{empNo}
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(CURRENT_DATE,'d') and CURRENT_DATE and EMP_NO=#{empNo}
 	</select>
 	
 	<select id="selectSumWeekWorkEx" parameterType="int" resultType="int">
@@ -102,7 +102,7 @@
 		
 		FROM ATTENDDAY 
 		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
-		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(SYSDATE,'d') AND SYSDATE and EMP_NO=#{empNo} AND ATTENDANCE_DAY_HOLIDAY_FLAG ='2'
+		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(CURRENT_DATE,'d') AND CURRENT_DATE and EMP_NO=#{empNo} AND ATTENDANCE_DAY_HOLIDAY_FLAG ='2'
 		
 		]]>
 	</select>
@@ -127,7 +127,7 @@
 
 		FROM ATTENDDAY 
 		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
-		AND ATTENDANCE_DAY_REGDATE = #{selectDay} and EMP_NO=#{empNo}
+		AND ATTENDANCE_DAY_REGDATE = TO_DATE(TO_CHAR(#{selectDay},'yyyy-mm-dd'),'yyyy-mm-dd') and EMP_NO=#{empNo}
 		]]>
 	</select>
 	
@@ -154,7 +154,7 @@
 
 		FROM ATTENDDAY 
 		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
-		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(SYSDATE,'d') AND SYSDATE and EMP_NO=#{empNo}
+		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(CURRENT_DATE,'d') AND CURRENT_DATE and EMP_NO=#{empNo}
 		]]>
 	</select>
 	
@@ -197,7 +197,7 @@
 	<update id="updateAttendDayByOffHour" parameterType="attendDayVo">
 		update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=#{attendanceDayOffHour},
 		ATTENDANCE_DAY_WORK_HOUR=#{attendanceDayWorkHour}
-		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE =#{attendanceDayRegdate}
+		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TO_DATE(TO_CHAR(#{attendanceDayRegdate},'yyyy-mm-dd'),'yyyy-mm-dd')
 	</update>
 	
 	<update id="updateAttendDayByFlag" parameterType="hashmap">
