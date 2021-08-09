@@ -28,12 +28,14 @@ public interface ConstUtil {
 	//사원사진파일저장경로(경로확인필요)-기성
 	String EMP_UPLOAD_PATH = "emp_images";
 	//String EMP_FILE_UPLOAD_PATH_TEST = "E:\\gicording\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\emp_images";
-	String EMP_FILE_UPLOAD_PATH_TEST = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\emp_images";
+	//String EMP_FILE_UPLOAD_PATH_TEST = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\emp_images";
+	String EMP_FILE_UPLOAD_PATH_TEST = "E:\\[FINAL]\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\emp_images";
 	
 	
 	//자료실 - 파일 저장 경로
 	String BOARD_UPLOAD_PATH = "board_upFile";
-	String BOARD_UPLOAD_PATH_TEST = "C:\\Users\\yooh0\\Documents\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\board_upFile";
+	String BOARD_UPLOAD_PATH_TEST = "E:\\[FINAL]\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\board_upFile";
+	//String BOARD_UPLOAD_PATH_TEST = "C:\\Users\\yooh0\\Documents\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\board_upFile";
 	//String BOARD_UPLOAD_PATH_TEST = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\board_upFile";
 	
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값
@@ -50,13 +52,16 @@ public interface ConstUtil {
 	
 	//전자결재 파일 업로드 경로
 	String ELECTRONIC_UPLOAD_PATH = "electronic_upFile";
-	String ELECTRONIC_UPLOAD_PATH_REAL = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\electonic_stamp_upfile";
+	String ELECTRONIC_UPLOAD_PATH_REAL = "E:\\[FINAL]\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\electonic_stamp_upfile";
+	//String ELECTRONIC_UPLOAD_PATH_REAL = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\electonic_stamp_upfile";
 	
 	//전자결재 도장 업로드 경로
 	String ELECTRONIC_STAMP_UPLOAD_PATH = "electronic_upFile";
-	String ELECTRONIC_STAMPUP_LOAD_PATH_REAL = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\electonic_stamp_upfile";
+	String ELECTRONIC_STAMPUP_LOAD_PATH_REAL = "E:\\[FINAL]\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\electonic_stamp_upfile";
+	//String ELECTRONIC_STAMPUP_LOAD_PATH_REAL = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\electonic_stamp_upfile";
 
 	//이메일 파일 업로드 경로
 	String EMAIL_UPLOAD_PATH = "email_upfile";
-	String EMAIL_UPLOAD_PATH_REAL = "E:\\gicording\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\email_upfile";
+	String EMAIL_UPLOAD_PATH_REAL = "E:\\[FINAL]\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\email_upfile";
+	//String EMAIL_UPLOAD_PATH_REAL = "E:\\gicording\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\email_upfile";
 }
