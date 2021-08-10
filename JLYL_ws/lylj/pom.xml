@@ -51,6 +51,7 @@
 		</dependency>
 
 		<!-- 추가한 dependency -->
+		<!-- jsp 사용을 위한 라이브러리 -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
@@ -104,13 +105,21 @@
 			<version>5.3.9</version>
 		</dependency>
 		
+		<!-- 엑셀 -->
 		<dependency> 
 			<groupId>org.apache.poi</groupId> 
 			<artifactId>poi</artifactId> 
 			<version>3.17</version> 
 		</dependency>
-
-
+		
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>4.0.0</version>
+		</dependency> 
+		
+		
+		<!-- 엑셀 -->
 
 		<!-- json simple -->
 		<dependency>
@@ -119,7 +128,22 @@
 			<version>1.1.1</version>
 		</dependency>
 		<!-- json simple -->
-
+	
+		<!-- cloud wallet -->
+		<dependency>
+			<groupId>com.oracle.database.security</groupId>
+			<artifactId>oraclepki</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.database.security</groupId>
+			<artifactId>osdt_core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.database.security</groupId>
+			<artifactId>osdt_cert</artifactId>
+		</dependency>
+		<!-- cloud wallet -->
+		
 	</dependencies>
 
 	<build>

@@ -47,6 +47,9 @@ public interface ConstUtil {
 	int BOOKING_WAIT_FLAG=0;
 	int BOOKING_RETURN_FLAG=1;
 	
+	//엑셀 업로드 경로
+	String EXCELFILE_UPLOAD_PATH = "excel_upFile";
+	String EXCELFILE_UPLOAD_PATH_REAL = "E:\\[FINAL]\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\excel_upFile";
 	
 	
 	
