@@ -46,10 +46,6 @@
 		$('#leaveEmp').click(function(){
 			$('#leaveModal').modal('show');			
 		});
-		
-		$('#btdeleteModal').click(function(){
-			
-		});
 	});
 </script>
 
@@ -211,7 +207,7 @@
      	        <div class="row">
      	        	<div class="col-md-12">
      		        	<label class="form-label modalLabel" for="empNo">사원번호</label> 
-	                	<input class="form-control" type="text" name="modalEmpNo" id="modalEmpNo" placeholder="Enter employee number" readonly="readonly" value="${vo.empNo }">
+	                	<input class="form-control" type="text" name="modalEmpNo" id="modalEmpNo" placeholder="Enter employee number" readonly="readonly" value="${paramEmpVo.empNo }">
 	                </div>
                 </div>
                 <div class="row">
