@@ -45,7 +45,7 @@
 		<p class="title">메일함</p>
 				<br>
 				<hr>
-			  <div class="form-group">	
+			  <div class="form-group">
 				 <a href="<c:url value='/email/emailWrite?mailNo=${param.mailNo }&type=re'/>"><button type="button" class="btn btn-secondary">답장</button></a>
 				 <a href="<c:url value='/email/emailWrite?mailNo=${param.mailNo }&type=fw'/>"><button type="button" class="btn btn-secondary">전달</button></a>
 				 <button type="button" class="btn btn-secondary">삭제</button>

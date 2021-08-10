@@ -289,17 +289,6 @@
 				  		<div class="col-sm-11">
 			    			<input type="file" multiple="multiple" name="upfile" class="form-control select2-offscreen textBox tx" />
 			    			<span style="margin-left: 95px; color: blue;">※&nbsp; 파일크기 제한 : 50MB</span><br>
-			    			<c:if test="${empty svFileList }">
-				    			<input type="file" multiple="multiple" name="upfile" class="form-control select2-offscreen textBox tx" />
-				    			<span style="margin-left: 95px; color: blue;">※&nbsp; 파일크기 제한 : 50MB</span><br>
-			    			</c:if>
-			    			<c:if test="${!empty svFileList }">
-					  			<c:forEach var="list" items="${svFileList }">
-					  				<div>
-					  					<i class="fas fa-save"></i>${list.fileOriginName}
-					  					<span><a class="btn_fileDel" href=""><i class="fas fa-minus-circle"></i></a></span>			  				</div>
-					    		</c:forEach>
-				    		</c:if>
 				    	</div>
 			    	</c:if>
 			   	</div>

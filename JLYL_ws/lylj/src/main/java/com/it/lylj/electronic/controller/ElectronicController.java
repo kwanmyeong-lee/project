@@ -48,6 +48,8 @@ import com.it.lylj.electronicFile.model.ElectronicFileService;
 import com.it.lylj.electronicFile.model.ElectronicFileVo;
 import com.it.lylj.electronicReLine.model.ElectronicReLineService;
 import com.it.lylj.electronicReLine.model.ElectronicReLineVo;
+import com.it.lylj.email.model.EmailService;
+import com.it.lylj.email.model.EmailVO;
 import com.it.lylj.emp.model.EmpService;
 import com.it.lylj.emp.model.EmpVO;
 import com.it.lylj.index.model.OriVo;
@@ -71,6 +73,7 @@ public class ElectronicController {
 	private final ElectronicAppStampService stampService;
 	private final DepartmentService departmentService;
 	private final PositionService positionService;
+	private final EmailService emailService;
 
 	// 전자결재 메인 보여주기
 	@GetMapping("/electronicMain")
@@ -80,7 +83,7 @@ public class ElectronicController {
 		logger.info("결재 리스트 보여주기 파라미터 empNo={}", empNo);
 		SearchVO searchVo = new SearchVO();
 		searchVo.setEmpNo(empNo);
-		
+
 		logger.info("SearchVO searchVo={}", searchVo);
 
 		/* 페이징 처리 */
@@ -93,15 +96,12 @@ public class ElectronicController {
 		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ELE);
 		searchVo.setEmpNo(empNo);
 
-
-		
-		
 		List<Map<String, Object>> ListAp = electronicService.selectListByEmpNo((searchVo), "1");
 
 		List<Map<String, Object>> ListRe = electronicService.selectListByEmpNo((searchVo), "2");
 
 		List<Map<String, Object>> ListFi = electronicService.selectListByEmpNo((searchVo), "6");
-		
+
 		List<Map<String, Object>> ListReturn = electronicService.selectListByEmpNo((searchVo), "7");
 
 		logger.info("결재 대기 문서 보여주기  ListAp={}", ListAp);
@@ -122,9 +122,9 @@ public class ElectronicController {
 
 	// 자주쓰는 양식 리스트 보여주기
 	@GetMapping("/myDocument")
-	public void myDocument(HttpSession session , Model model) {
+	public void myDocument(HttpSession session, Model model) {
 		logger.info("자주쓰는 양식 페이지 보여주기 ");
-		String empNo= (String) session.getAttribute("empNo");
+		String empNo = (String) session.getAttribute("empNo");
 		List<Map<String, Object>> list = electronicService.selectTopSty(Integer.parseInt(empNo));
 
 		model.addAttribute("list", list);
@@ -158,7 +158,8 @@ public class ElectronicController {
 
 	// 도장 등록하기
 	@PostMapping("/insertStamp")
-	public String insertStamp_post(@ModelAttribute ElectronicAppStampVo stampVo , MultipartHttpServletRequest request, HttpSession session, Model model) {
+	public String insertStamp_post(@ModelAttribute ElectronicAppStampVo stampVo, MultipartHttpServletRequest request,
+			HttpSession session, Model model) {
 		logger.info("도장 등록 페이지 보여주기");
 
 		// 파일 업로드
@@ -178,18 +179,18 @@ public class ElectronicController {
 					e.printStackTrace();
 				}
 				stampVo.setStampName(fileName);
-				String empNo =  (String) session.getAttribute("empNo");
+				String empNo = (String) session.getAttribute("empNo");
 				logger.info("empNo={}", empNo);
 				stampVo.setEmpNo(Integer.parseInt(empNo));
 				logger.info("stampVo={}", stampVo);
-				
+
 				cnt = stampService.insertStamp(stampVo);
-				
+
 				logger.info("stampVo={}", stampVo);
-				
-				if(cnt>0) {
+
+				if (cnt > 0) {
 					msg = "도장 등록 성공";
-					url = "/electronic/insertStamp?cnt="+cnt;
+					url = "/electronic/insertStamp?cnt=" + cnt;
 				}
 				logger.info("cnt={}", cnt);
 
@@ -197,21 +198,20 @@ public class ElectronicController {
 		} // for
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
-		
 
 		return "common/message";
 	}
 
 	// 기안서 작성 페이지 보여주기
 	@GetMapping("/documentWrite")
-	public void documentWrite(@RequestParam String styleNo,HttpSession session ,Model model) {
+	public void documentWrite(@RequestParam String styleNo, HttpSession session, Model model) {
 		logger.info("양식 작성 페이지 보여주기 파라미터 문서 번호 ={}", styleNo);
 		ElectronicDocStyVO svo = electronicDocStyService.selectByStyleNo(styleNo);
 		String empNo = (String) session.getAttribute("empNo");
 		EmpVO evo = empService.selectByEmpNo(Integer.parseInt(empNo));
 		List<DepartmentVO> dvo = departmentService.selectAllDepartment();
 		List<PositionVO> pvo = positionService.selectAllPosition();
-		
+
 		model.addAttribute("pvo", pvo);
 		model.addAttribute("dvo", dvo);
 		model.addAttribute("evo", evo);
@@ -255,26 +255,25 @@ public class ElectronicController {
 		int electronicNo = electronicService.selectMaxEleNo(Integer.parseInt(empNo));
 		logger.info("electronicNo={}", electronicNo);
 
-
 		if (AempNoData.length() != 0) {
-			
+
 			String[] ApEmpNo = AempNoData.split(","); // 결재자 번호 배열
-			
+
 			for (int i = 0; i < ApEmpNo.length; i++) {
-				
+
 				String apempno = ApEmpNo[i];
 				ElectronicAppLineVo avo = new ElectronicAppLineVo();
 				avo.setEmpNo(Integer.parseInt(apempno)); // 결재자 번호
 				avo.setApprovalLineOrder(i); // 결재 자 순서 번호
 				avo.setElectronicNo(electronicNo); // 문서 번호
 				avo.setApprovalLineCompleteFlag("0");
-	
+
 				int cnt2 = electronicAppService.insertAppLine(avo);
-	
+
 			}
-		
+
 		}
-		
+
 		if (RempNoData.length() > 0) {
 
 			String[] ReEmpNo = RempNoData.split(","); // 수신자 번호 배열
@@ -329,8 +328,9 @@ public class ElectronicController {
 
 	// 기안서 업데이트 하기
 	@RequestMapping("/documentUpdate")
-	public String documentUpdate(@ModelAttribute ElectronicVo vo, @RequestParam String AempNoData, MultipartHttpServletRequest request,
-			@ModelAttribute ElectronicFileVo fileVo, @RequestParam String RempNoData, HttpSession session, Model model) {
+	public String documentUpdate(@ModelAttribute ElectronicVo vo, @RequestParam String AempNoData,
+			MultipartHttpServletRequest request, @ModelAttribute ElectronicFileVo fileVo,
+			@RequestParam String RempNoData, HttpSession session, Model model) {
 		logger.info("양식 수정 하기 파라미터 ElectronicVo={}", vo);
 
 		String empNo = (String) session.getAttribute("empNo");
@@ -344,7 +344,6 @@ public class ElectronicController {
 
 		int electronicNo = vo.getElectronicNo();
 		logger.info("electronicNo={}", electronicNo);
-		
 
 		if (AempNoData.length() != 0) {
 
@@ -395,7 +394,7 @@ public class ElectronicController {
 				url = "/electronic/electronicList?no=" + 5;
 			}
 		}
-		
+
 		// 파일 업로드
 		String fileName = "", originalFileName = "";
 		long fileSize = 0;
@@ -427,7 +426,6 @@ public class ElectronicController {
 			} // if
 		} // fot
 
-
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 
@@ -436,12 +434,13 @@ public class ElectronicController {
 
 	// 사이드 바에서 항목 선택시 리스트 보여주기
 	@RequestMapping("/electronicList")
-	public void electronicWait(@RequestParam String no, HttpSession session, @ModelAttribute SearchVO searchVo, Model model) {
+	public void electronicWait(@RequestParam String no, HttpSession session, @ModelAttribute SearchVO searchVo,
+			Model model) {
 
 		String empNo = (String) session.getAttribute("empNo");
 		logger.info("결재 리스트 보여주기 파라미터 empNo={}", empNo);
-		
-		List<EmpVO> allEmp= empService.selectAllEmp();
+
+		List<EmpVO> allEmp = empService.selectAllEmp();
 
 		/* 페이징 처리 */
 		PaginationInfo pagingInfo = new PaginationInfo();
@@ -463,27 +462,27 @@ public class ElectronicController {
 		List<Map<String, Object>> List = electronicService.selectListByEmpNo(searchVo, no);
 
 		logger.info("결재 리스트 보여주기 결과 List={}", List);
-		
+
 		List<ElectronicAppLineVo> approList = new ArrayList<ElectronicAppLineVo>();
-		
-		for(int i =0;i<List.size();i++) {
+
+		for (int i = 0; i < List.size(); i++) {
 			Map<String, Object> mList = List.get(i);
-			String eleNo =   String.valueOf(mList.get("ELECTRONIC_NO"));
-			
-			logger.info("eleNo={}",eleNo);
-			
+			String eleNo = String.valueOf(mList.get("ELECTRONIC_NO"));
+
+			logger.info("eleNo={}", eleNo);
+
 			ElectronicVo evo = new ElectronicVo();
-			
+
 			evo.setElectronicNo(Integer.parseInt(eleNo));
 			evo.setEmpNo(Integer.parseInt(empNo));
 			logger.info("evo={}", evo);
-			if(electronicAppService.selectAppLineCheck(evo) ==null) {
+			if (electronicAppService.selectAppLineCheck(evo) == null) {
 				ElectronicAppLineVo eevo = new ElectronicAppLineVo();
 				eevo.setElectronicNo(Integer.parseInt(eleNo));
 				eevo.setEmpNo(Integer.parseInt(empNo));
 				eevo.setApprovalLineCompleteFlag("1");
 				approList.add(eevo); // 내 앞사람이 승인을 했는지 안했는지
-			}else {
+			} else {
 				approList.add(electronicAppService.selectAppLineCheck(evo)); // 내 앞사람이 승인을 했는지 안했는지
 			}
 		}
@@ -498,7 +497,8 @@ public class ElectronicController {
 
 	// 문서 선택시 문서 디테일 보여주기
 	@GetMapping("/electronicDetail")
-	public void electronicDetail(@RequestParam int ElectronicNo, @RequestParam String no, HttpSession session , Model model) {
+	public void electronicDetail(@RequestParam int ElectronicNo, @RequestParam String no, HttpSession session,
+			Model model) {
 		logger.info("문서 선택시 디테일 화면 보여주기 파라미터 ElectronicNo={}", ElectronicNo);
 		ElectronicVo vo = electronicService.selectByElectronicNo(ElectronicNo);
 		logger.info("vo={}", vo);
@@ -509,16 +509,15 @@ public class ElectronicController {
 		List<ElectronicReLineVo> rvo = electronicReService.selectByElectronicNo(ElectronicNo);
 		logger.info("avo={}, rvo={}", avo, rvo);
 		List<ElectronicFileVo> fvo = electronicFileService.selectFileByEleNo(ElectronicNo);
-		
-		String empNo =(String) session.getAttribute("empNo");
+
+		String empNo = (String) session.getAttribute("empNo");
 		EmpVO evo = empService.selectByEmpNo(Integer.parseInt(empNo));
 		List<DepartmentVO> dvo = departmentService.selectAllDepartment();
 		List<PositionVO> pvo = positionService.selectAllPosition();
-		
+
 		model.addAttribute("pvo", pvo);
 		model.addAttribute("dvo", dvo);
 		model.addAttribute("evo", evo);
-		
 
 		model.addAttribute("fvo", fvo);
 		model.addAttribute("avo", avo);
@@ -617,21 +616,35 @@ public class ElectronicController {
 		os.close();
 	}
 
-	// 결재 반려
-	@RequestMapping("/EleReturn")
-	public String EleReturn(@RequestParam int ElectronicNo, Model model) {
+
+	// 결재 반려 이메일 작성 보여주기
+	@GetMapping("/electronicReturnEmail")
+	public void eleReturnEmail() {
+		logger.info("결재 반려 이메일 작성 페이지 보여주기");
+	}
+
+	// 결재 반려 이메일 전송 및 반려 처리
+	@PostMapping("/electronicReturnEmail")
+	public String eleReturnEmail_post(@ModelAttribute EmailVO emailVo,@RequestParam int ElectronicNo, Model model) {
+		logger.info("결재 반려 이메일 파라미터 emailVo={}", emailVo);
 		logger.info("결재 반려하기 파라미터 electronicNo ={}", ElectronicNo);
-
-		int cnt = electronicService.updateEleReturn(ElectronicNo);
-
-		String msg = "결재 반려 실패", url = "/electronic/electronicList?no=" + 1;
-		if (cnt > 0) {
-			msg = "결재 반려 완료";
+		
+		int cnt = emailService.sendEmail(emailVo);
+		
+		String url = "/electronic/electronicReturnEmail", msg="반려 메일 전송 실패";
+		if(cnt>0) {
+			msg = "반려 메일 전송 완료";
 		}
-
+		
+		int cnt2 = electronicService.updateEleReturn(ElectronicNo);
+		
+		if (cnt2 > 0) {
+			msg = "결재 반려 완료/ 메일 전송 완료";
+		}
+		
 		model.addAttribute("url", url);
 		model.addAttribute("msg", msg);
-
+		
 		return "common/message";
 	}
 
@@ -777,21 +790,16 @@ public class ElectronicController {
 		return listmap;
 
 	}
-	
-	//기안서 파일 삭제 
+
+	// 기안서 파일 삭제
 	@RequestMapping("/deleteFile")
 	@ResponseBody
 	public int deleteFile(@RequestParam int electronicNo) {
 		logger.info("파일 삭제 처리 파리미터 electronicNo ={}", electronicNo);
-		
+
 		int cnt = electronicFileService.deleteFile(electronicNo);
-		
+
 		return cnt;
 	}
 
 }
-
-
-
-
-

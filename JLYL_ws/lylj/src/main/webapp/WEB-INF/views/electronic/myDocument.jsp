@@ -37,7 +37,7 @@
 						<thead>
 							<tr class="row100 head">
 								<th class="cell100 column1">양식 번호</th>
-								<th class="cell100 column3">양식 이름</th>
+								<th class="cell100 column3">사용된 문서 이름</th>
 							</tr>
 						</thead>
 					</table>

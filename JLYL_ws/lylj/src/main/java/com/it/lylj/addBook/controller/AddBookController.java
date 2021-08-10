@@ -172,4 +172,10 @@ public class AddBookController {
 		return "addressBook/addressBookList";
 	}
 	
+	/* 주소록 엑셀 업로드 페이지 */
+	@RequestMapping("/addressBookExcel")
+	public void addressBookExcel() {
+		
+	}
+	
 }

@@ -10,6 +10,7 @@ import lombok.ToString;
 public class EmailFileVO {
 	private int fileNo;
 	private int mailNo;
+	private int fileCheckNo;
 	private String fileName;
 	private String fileOriginName;
 	private long fileSize;

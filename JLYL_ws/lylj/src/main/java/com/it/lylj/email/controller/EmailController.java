@@ -83,6 +83,9 @@ public class EmailController {
 		//searchVo에 empNo 셋팅
 		searchVo.setEmpNo(Integer.toString(empNo));
 		
+		//파일존재여부
+		emailFileService.selectFileByMailNo(type);
+		
 		//페이징처리
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());

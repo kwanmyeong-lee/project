@@ -123,7 +123,7 @@
 				}
 			},
 			error:function(xhr,status,error){
-				alert("ajax에러");
+				alert("에러");
 			}
 		});
 	}
@@ -323,8 +323,9 @@
 					<label class="form-label">관리자</label>
 				    <select class="form-control" name="empAdminLev" id="empAdminLev">
 				    	<option value="0">-선택하세요-</option>
-				    	<option value="3">사원</option>
-				    	<option value="2">팀장</option>
+				    	<option value="4">일반</option>
+				    	<option value="3">총무팀장</option>
+				    	<option value="2">인사팀장</option>
 				    	<option value="1">관리자</option>
 				    </select>
 			  	</div>
