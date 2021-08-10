@@ -79,12 +79,16 @@
 				data: formData,
 				dataType:"json",
 				success: function(data){
-					Swal.fire({
-						  icon: 'success',
-						  title: '등록 성공!',
-						  showConfirmButton: false,
-						  timer: 1500
-						})
+					if(data==0){
+						Swal.fire("유효 데이터가 없습니다.")
+					}else{
+						Swal.fire({
+							  icon: 'success',
+							  title: insertCnt+'개 등록 성공!',
+							  showConfirmButton: false,
+							  timer: 1500
+						});
+					}
 				}
 			});
 		});
@@ -144,6 +148,7 @@ function excelViewAjax(currentPage, btCheck){
 	    	
 	    	$('#excelBody').html(str);
 	    	
+	    	
 	    	/* 페이징 */
 	    	var pageStr="";
         	if(data.pagingInfo.firstPage>1){
@@ -165,7 +170,9 @@ function excelViewAjax(currentPage, btCheck){
 			}
         	
         	$('.page_nation').html(pageStr);
-	    		
+	    	
+        	
+        	$('#rowCnt').text("총 행의 갯수 : "+data.totalRowCnt+"개, 필수값이 입력된 행의 갯수 : "+data.pagingInfo.totalRecord+"개");
 	    
 		}
 	});
@@ -246,6 +253,7 @@ function excelViewAjax(currentPage, btCheck){
 				<button type="button" class="excel-btn btn btn-outline-secondary" id="excelDown">양식받기</button>
 				<button type="button" class="excel-btn btn btn-outline-secondary" id="excelView">보기</button>
 				<button type="button" class="excel-btn btn btn-outline-secondary" id="excelInsert">등록</button>
+				<span id="rowCnt"></span>
 			</div>
 		</form>
 		
