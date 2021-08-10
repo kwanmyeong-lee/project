@@ -5,8 +5,6 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	$(function(){
-		
-		
 		/* 전체 유효성검사 */
 		$('#btAddEmp').click(function(){
 	          if($('#empName').val().length<1){
@@ -125,7 +123,7 @@
 				}
 			},
 			error:function(xhr,status,error){
-				alert("ajax에러");
+				alert("에러");
 			}
 		});
 	}

@@ -53,9 +53,6 @@
 	}
 	
 	$(function(){
-		/* 유효성 */
-		$('')
-		
 		/* modal */
 		$('#bt_edit').click(function(){
 			$('#editModal').modal('show');
@@ -253,7 +250,7 @@
 	  		</div>
 	  	  	<div class="col-md-11">
 				<label for="empPhoto" class="form-label">사진첨부</label>
-			    <input type="file" class="form-control" id="empPhotoUrl" name="uploadFile" value="${empVo.empPhoto }">
+			    <input type="file" class="form-control" id="empPhotoUrl" name="uploadFile" value="${empVo.empPhoto }" accept=".gif, .jpg, .png">
 			    <input type="hidden" id="ofName" name="oldFileName" value="${empVo.empPhoto }">
 		  	</div>
 	  		<div class="col-md-6">
@@ -298,30 +295,32 @@
 		  	<div class="row">
 			  	<div class="col-md-4">
 					<label for="empSalary" class="form-label">봉급</label>
-				    <input type="text" class="form-control" id="empSalary" name="empSalary" placeholder="Salary" value="${empVo.empSalary }" <c:if test="${sessionScope.empAdminLev==3 }">  readonly="readonly"</c:if>>
+				    <input type="text" class="form-control" id="empSalary" name="empSalary" placeholder="Salary" value="${empVo.empSalary }" <c:if test="${sessionScope.empAdminLev==4 }">  readonly="readonly"</c:if>>
 				    
 			  	</div>
 			   	<div class="col-md-4">
 					<label for="empAccount" class="form-label">계좌번호</label>
-				    <input type="text" class="form-control" id="empAccount" name="empAccount" placeholder="Account" value="${empVo.empAccount }" <c:if test="${sessionScope.empAdminLev==3 }">  readonly="readonly"</c:if>>
+				    <input type="text" class="form-control" id="empAccount" name="empAccount" placeholder="Account" value="${empVo.empAccount }" <c:if test="${sessionScope.empAdminLev==4 }">  readonly="readonly"</c:if>>
 			  	</div>
 		  	</div>
 		  	<div><br></div>
 		  	<div class="row">
 				<div class="col-md-2">
 					<label class="form-label">관리자</label>
-				    <select class="form-control" name="empAdminLev" id="empAdminLev" <c:if test="${sessionScope.empAdminLev==3 }">  readonly="readonly"</c:if>>
-				    	<option value="3" <c:if test="${empVo.empAdminLev==3}"> selected</c:if> 
-				    	>사원</option>
+				    <select class="form-control" name="empAdminLev" id="empAdminLev" <c:if test="${sessionScope.empAdminLev==4 }">  readonly="readonly"</c:if>>
+				    	<option value="4" <c:if test="${empVo.empAdminLev==4}"> selected</c:if> 
+				    	>일반</option>
+				    	<option value="3" <c:if test="${empVo.empAdminLev==2}"> selected</c:if>
+				    	>총무팀장</option>
 				    	<option value="2" <c:if test="${empVo.empAdminLev==2}"> selected</c:if>
-				    	>팀장</option>
+				    	>인사팀장</option>
 				    	<option value="1" <c:if test="${empVo.empAdminLev==1}"> selected</c:if>
 				    	>관리자</option>
 				    </select>
 			  	</div>
 		  	  <div class="col-md-2">
 			  	<label class="form-label" for="departmentNo">부서</label>
-				    <select class="form-control" id="departmentNo" name="departmentNo" <c:if test="${sessionScope.empAdminLev==3 }">  readonly="readonly"</c:if> >
+				    <select class="form-control" id="departmentNo" name="departmentNo" <c:if test="${sessionScope.empAdminLev==4 }">  readonly="readonly"</c:if> >
 			    		<option value='1'
 			    			<c:if test="${empVo.departmentNo=='1' }"> selected</c:if>
 							>전략기획팀</option>
@@ -344,7 +343,7 @@
 				</div>
 				<div class="col-md-2">
 				 	<label class="form-label" for="positionNo" >직급</label>
-				    <select class="form-control" id="positionNo" name="positionNo" <c:if test="${sessionScope.empAdminLev==3 }"> readonly="readonly"</c:if>>
+				    <select class="form-control" id="positionNo" name="positionNo" <c:if test="${sessionScope.empAdminLev==4 }"> readonly="readonly"</c:if>>
 				    		<option value="1" 
 				    			<c:if test="${empVo.positionNo=='1' }"> selected</c:if>
 				    		>사장</option>
