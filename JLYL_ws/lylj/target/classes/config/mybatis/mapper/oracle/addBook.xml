@@ -14,7 +14,7 @@
 			SELECT ADDBOOK_SEQ.nextval FROM dual
 		</selectKey>
 		INSERT INTO addbook(ADDRESSBOOK_NO, EMP_NO, ADDRESSBOOK_NAME, ADDRESSBOOK_TEL, ADDRESSBOOK_MAILE, ADDRESSBOOK_POSITION, ADDRESSBOOK_OFFICENAME, ADDRESSBOOK_OFFICETEL, ADDRESSBOOK_GENDER, ADDRESS_FOLDER_NO)
-		VALUES(#{addressBookNo}, #{empNo}, #{addressBookName}, #{addressBookTel}, #{addressBookMaile}, #{addressBookPosition}, #{addressBookOfficeName}, #{addressBookOfficeTel}, #{addressBookGender}, #{addressFolderNo})
+		VALUES(#{addressBookNo}, #{empNo}, #{addressBookName:VARCHAR}, #{addressBookTel:VARCHAR}, #{addressBookMaile:VARCHAR}, #{addressBookPosition:VARCHAR}, #{addressBookOfficeName:VARCHAR}, #{addressBookOfficeTel:VARCHAR}, #{addressBookGender:VARCHAR}, #{addressFolderNo})
 	</insert>
 	
 	<select id="selectAllAddBook" parameterType="searchVo" resultType="map">
