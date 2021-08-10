@@ -27,8 +27,8 @@ public class BoardFileServiceImpl implements BoardFileService{
 	}
 
 	@Override
-	public int deleteFile(int boardNo) {
-		return boardFileDao.deleteFile(boardNo);
+	public int deleteFile(BoardFileVO fileVo) {
+		return boardFileDao.deleteFile(fileVo);
 	}
 
 }

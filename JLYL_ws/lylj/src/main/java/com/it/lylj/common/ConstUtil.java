@@ -34,8 +34,8 @@ public interface ConstUtil {
 	
 	//자료실 - 파일 저장 경로
 	String BOARD_UPLOAD_PATH = "board_upFile";
-	String BOARD_UPLOAD_PATH_TEST = "E:\\[FINAL]\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\board_upFile";
-	//String BOARD_UPLOAD_PATH_TEST = "C:\\Users\\yooh0\\Documents\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\board_upFile";
+	//String BOARD_UPLOAD_PATH_TEST = "E:\\[FINAL]\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\board_upFile";
+	String BOARD_UPLOAD_PATH_TEST = "C:\\Users\\yooh0\\Documents\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\board_upFile";
 	//String BOARD_UPLOAD_PATH_TEST = "C:\\Users\\93061\\OneDrive\\Desktop\\GitHub\\project\\JLYL_ws\\lylj\\src\\main\\webapp\\resources\\board_upFile";
 	
 	//자료실 업로드인지, 상품 등록시 업로드인지 구분값

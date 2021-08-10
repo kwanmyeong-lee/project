@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -317,9 +318,6 @@ public class BoardController {
 			MultipartHttpServletRequest request, Model model) {
 		logger.info("게시판 글 수정 처리, 파라미터 vo={}", vo);
 		
-		/* 기존 첨부파일 삭제 */
-		boardFileService.deleteFile(boardNo);
-		
 		/* 파일 업로드 처리*/
 		String fileName="", originalFileName="";
 		long fileSize=0;
@@ -388,8 +386,22 @@ public class BoardController {
 		return "common/message";
 	}
 	
-	
-	
+	/* 기존파일 삭제 */
+	@ResponseBody
+	@RequestMapping(value="/boardFileDel", produces = "application/json;charset=UTF-8")
+	public int deleteFile(@RequestParam(value="checkBoxArr[]") List<String> checkBoxArr, @ModelAttribute BoardFileVO vo) {
+		logger.info("checkBoxArr={}",checkBoxArr);
+		int result=0;
+		String checkNum="";
+		
+		for(String str: checkBoxArr) {
+			checkNum=str;
+			vo.setBoardFileNo(Integer.parseInt(checkNum));
+			result=boardFileService.deleteFile(vo);
+		}
+		
+		return result;
+	}
 	
 }
 

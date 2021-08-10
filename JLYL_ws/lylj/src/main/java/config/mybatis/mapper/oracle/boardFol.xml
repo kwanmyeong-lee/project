@@ -34,7 +34,7 @@
 	
 	<select id="otherFolder" resultType="boardFolVo">
 		SELECT * FROM ofboardfol
-		WHERE board_folder_no > 3
+		WHERE board_folder_no > 4
 	</select>
 </mapper>
 

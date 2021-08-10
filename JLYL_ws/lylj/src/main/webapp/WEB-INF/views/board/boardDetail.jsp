@@ -57,7 +57,7 @@ $(function(){
 	    	<input type="hidden" id="empName" value="${empName }">
 	    	<span>${vo.boardTitle }</span>
 	    	<br>
-	        <a href="#" id="userNameSpan">${vo.boardWriter }</a>
+	        <span id="userNameSpan">${vo.boardWriter }</span>
 	        <span id="readcountSpan">조회수 : ${vo.boardHits }</span>
 		    <span id="regdateSpan"><fmt:formatDate value="${vo.boardDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 		    <c:if test="${vo.empNo == empNo }">

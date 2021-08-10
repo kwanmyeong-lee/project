@@ -30,7 +30,39 @@
 			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
 		});
 		
+		/* 삭제 버튼 */
+		$('#fileDelBtn').click(function(){
+			var confirm1 = confirm('선택한 파일을 삭제하시겠습니까?');
+			if(!confirm1){
+				return false;
+			}else{
+				fileDeleteClick();
+			}
+		});
 	});
+	
+	/* 선택 삭제 */
+	function fileDeleteClick(){
+	    var checkBoxArr = []; 
+	    $("#fileList input[type=checkbox]:checked").each(function() {
+		    checkBoxArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 담기
+		    console.log(checkBoxArr);
+		});
+
+	    $.ajax({
+	        type: "POST",
+	        url: "<c:url value='/board/boardFileDel'/>",
+	        data: {
+	        checkBoxArr : checkBoxArr        // folder seq 값을 가지고 있음.
+	        },
+	        success: function(result){
+	      	  location.reload();
+	        },
+	        error: function(xhr, status, error) {
+	      	  alert('체크박스를 선택하지 않거나, 삭제 처리 중 오류가 발생하였습니다.');
+	       }  
+	    });
+	} 
 </script>
 <form enctype="multipart/form-data" method="post" class="writeForm" action="<c:url value='/board/boardEdit'/>">
     <div class="wrtieDiv">
@@ -58,7 +90,19 @@
 		  <input multiple="multiple" type="file" class="form-control" name="upfile" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" value="${fileList }">
 		  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"><i class="fas fa-trash-alt"></i></button>
 		</div>
-		<span style="margin-left:5px;font-size:14px;">※&nbsp; 파일크기 제한 : 10MB</span>
+		<span style="margin-left:5px;font-size:14px;">※&nbsp; 파일크기 제한 : 50MB</span>
+		<c:if test="${!empty fileList}">
+			<br><br>
+			<span style="margin-left:10px;margin-top:7px;background-color:#36b9cc;color:white;width:100px;padding:5px 0;display: inline-block;text-align: center;font-weight: bold;border-radius: 5px;">기존파일</span><button class="btn btn-outline-secondary" type="button" id="fileDelBtn" style="float:right;margin-right:10px;margin-top:20px;;height:30px;width:100px;padding:3px;">선택삭제</button>
+			<div style="border: 1px solid #bdbcbc; padding:10px;margin-top:15px;">
+				<c:forEach var="file" items="${fileList}">
+					<div id="fileList">
+						<input type="checkbox" value="${file.boardFileNo}">
+						<span>${file.originalFileName }</span>
+					</div>
+				</c:forEach>
+			</div>
+		</c:if>
     </div>
 </form>
 <%@ include file="../inc/bottom.jsp" %>
