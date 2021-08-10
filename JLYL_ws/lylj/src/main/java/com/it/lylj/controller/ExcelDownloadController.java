@@ -149,5 +149,94 @@ public class ExcelDownloadController {
 		
 		
 	}
+	
+	/* 주소록 양식 엑셀 */
+	@GetMapping(path="/addressBookExcel", produces = "application/vnd.ms-excel")
+	public void AddressBookExcel(HttpServletResponse response, Model model) throws Exception { 
+		HSSFWorkbook objWorkbook = new HSSFWorkbook();
+		HSSFSheet objSheet =null;
+		HSSFRow objRow=null;
+		HSSFCell objCell=null;
+		
+		HSSFFont font = objWorkbook.createFont();
+		font.setFontHeightInPoints((short)(9));
+		font.setFontName("맑은고딕");
+		
+		
+		HSSFCellStyle styleHd = objWorkbook.createCellStyle();
+		HSSFCellStyle styleHd2 = objWorkbook.createCellStyle();
+		styleHd.setFont(font);
+		styleHd.setBorderBottom(BorderStyle.THIN);
+		styleHd.setBorderTop(BorderStyle.THIN);
+		styleHd.setBorderLeft(BorderStyle.THIN);
+		styleHd.setBorderRight(BorderStyle.THIN);
+		styleHd.setAlignment(HorizontalAlignment.CENTER);
+		styleHd2.setFont(font);
+		styleHd2.setBorderBottom(BorderStyle.THIN);
+		styleHd2.setBorderTop(BorderStyle.THIN);
+		styleHd2.setBorderLeft(BorderStyle.THIN);
+		styleHd2.setBorderRight(BorderStyle.THIN);
+		styleHd2.setFillForegroundColor(HSSFColorPredefined.YELLOW.getIndex());
+		styleHd2.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		styleHd2.setAlignment(HorizontalAlignment.CENTER);
+		objSheet = objWorkbook.createSheet("첫번째 시트");
+		
+		objRow = objSheet.createRow(0);
+		objRow.setHeight((short)0x150);
+		
+		objCell = objRow.createCell(0);
+		objCell.setCellValue("이름");
+		objCell.setCellStyle(styleHd2);
+		
+		objCell = objRow.createCell(1);
+		objCell.setCellValue("전화번호");
+		objCell.setCellStyle(styleHd2);
+		
+		objCell = objRow.createCell(2);
+		objCell.setCellValue("이메일");
+		objCell.setCellStyle(styleHd2);
+		
+		objCell = objRow.createCell(3);
+		objCell.setCellValue("직위");
+		objCell.setCellStyle(styleHd2);
+		
+		objCell = objRow.createCell(4);
+		objCell.setCellValue("회사");
+		objCell.setCellStyle(styleHd2);
+		
+		objCell = objRow.createCell(5);
+		objCell.setCellValue("회사번호");
+		objCell.setCellStyle(styleHd2);
+		
+		objCell = objRow.createCell(6);
+		objCell.setCellValue("카테고리");
+		objCell.setCellStyle(styleHd2);
+		
+		objCell = objRow.createCell(7);
+		objCell.setCellValue("성별");
+		objCell.setCellStyle(styleHd2);
+		
+		
+		objSheet.setColumnWidth(0, objSheet.getColumnWidth(0)+256);
+		objSheet.setColumnWidth(1, objSheet.getColumnWidth(1)+2048);
+		objSheet.setColumnWidth(2, objSheet.getColumnWidth(2)+4096);
+		objSheet.setColumnWidth(3, objSheet.getColumnWidth(3)+1024);
+		objSheet.setColumnWidth(4, objSheet.getColumnWidth(4)+1024);
+		objSheet.setColumnWidth(5, objSheet.getColumnWidth(5)+2048);
+		objSheet.setColumnWidth(6, objSheet.getColumnWidth(6)+4096);
+		objSheet.setColumnWidth(7, objSheet.getColumnWidth(7)+256);
+		
+		response.setContentType("Application/Msexcel");
+		response.setHeader("Content-Disposition", "ATTachment;FileName="+URLEncoder.encode("주소록 양식","UTF-8")+".xls");
+		
+		OutputStream fileOut = response.getOutputStream();
+		objWorkbook.write(fileOut);
+		fileOut.close();
+		
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
+		
+		
+	}
 
 }
