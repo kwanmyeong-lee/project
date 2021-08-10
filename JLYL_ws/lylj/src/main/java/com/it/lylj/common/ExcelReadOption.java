@@ -7,6 +7,8 @@ public class ExcelReadOption {
 	private String filePath;
 	private List<String> outputColumns;
 	private int startRow;
+	private int totalRow;
+	private static int excelRowCnt;
 	
 	public String getFilePath() {
 		return filePath;
@@ -45,5 +47,21 @@ public class ExcelReadOption {
 	public void setStartRow(int startRow) {
 		this.startRow = startRow;
 	}
+	
+	public int getTotalRow() {
+		return totalRow;
+	}
+	
+	public static int getExcelRowCnt() {
+		return ExcelReadOption.excelRowCnt;
+	}
+	
+	public void setTotalRow(int totalRow) {
+		this.totalRow = totalRow;
+	}
+	public static void setExcelRowCnt(int excelRowCnt) {
+		ExcelReadOption.excelRowCnt = excelRowCnt;
+	}
+	
 	
 }
