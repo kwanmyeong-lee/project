@@ -192,6 +192,13 @@ public class BookingController {
 	@Transactional
 	public int insertSchedule(@RequestBody ScheduleVO scheduleVO) {
 		logger.info("insertSchedule 업데이트, 파라미터 scheduleVO = {}", scheduleVO);
+		int bookingCheck=0;
+		if(scService.selectCntScheduleByBookingday(scheduleVO)>0) {
+			bookingCheck--;
+			return bookingCheck;
+		}
+		
+		
 		scService.insertSchedule(scheduleVO);
 		int maxScNo = scService.selectMaxScNoByEmpNo(scheduleVO.getEmpNo());
 		BookingVO bookingVo = new BookingVO();

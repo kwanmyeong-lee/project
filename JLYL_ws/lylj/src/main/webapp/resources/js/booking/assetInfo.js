@@ -13,7 +13,7 @@ $(function() {
         },
         navLinks: false, // can click day/week names to navigate views
         businessHours: true, // display business hours
-        editable: true,
+        editable: false,
         selectable: true,
         locale: "ko",
         nowIndicator: true,
@@ -56,7 +56,7 @@ $(function() {
             day: "일별",
             list: "목록"
         },
-        droppable: true,
+        droppable: false,
         drop: function(arg) {},
         eventClick: function(arg) {
         },
@@ -138,6 +138,10 @@ $(function() {
                       contentType: "application/json; charset=utf-8;",
                       dataType: "json",
                       success : function(data) {
+						  if(data==-1){
+							alert("이미 예약된 날짜가 있습니다.")
+						  }
+						  else{
 						  /* 등록한 정보 event로 추가 */
                           calendar.addEvent({
 							    id:bookingTargetNo,
@@ -149,12 +153,15 @@ $(function() {
 	                            classNames:[data]
                           });
                           $('#myModal').modal('hide');
+                          }
                       }
                     });
                 
 	});
 	
-	$("#startDate").datepicker( "option", "minDate", $('#startDate').val() );//startDate의 날짜보다 전의 날짜 선택 불가능
+	var todate = new Date();
+	todate.setDate(todate.getDate()+1);
+	$("#startDate").datepicker( "option", "minDate", todate);//startDate의 날짜보다 전의 날짜 선택 불가능
 
 
 });

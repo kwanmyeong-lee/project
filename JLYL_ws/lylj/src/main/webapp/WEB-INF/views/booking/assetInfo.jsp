@@ -20,8 +20,8 @@
     rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     
 <!-- scheduleMain -->
-<script src='<c:url value="/resources/js/booking/assetInfo.js"/>'></script>
 <script src='<c:url value="/resources/js/schedule/datepicker.js"/>'></script>
+<script src='<c:url value="/resources/js/booking/assetInfo.js"/>'></script>
 <link href="<c:url value="/resources/css/booking/assetInfo.css"/>" rel="stylesheet" type="text/css">
 
 <div class="container-fluid ">

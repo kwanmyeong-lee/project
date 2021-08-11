@@ -18,5 +18,5 @@ public interface ScheduleDAO {
 	int updateScheduleByScFolderNo(ScheduleVO vo);
 	int selectMaxScNoByEmpNo(int empNo);
 	int selectCntScheduleByToday(HashMap<String, Object> map);
-	
+	int selectCntScheduleByBookingday(ScheduleVO vo);
 }
