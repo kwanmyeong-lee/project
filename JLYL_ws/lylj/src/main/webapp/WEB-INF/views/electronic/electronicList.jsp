@@ -19,6 +19,21 @@
 	    $('input[name=currentPage]').val(curPage);
 	    $('form[name=frmPage]').submit();   
 	 }
+	
+	/*한페이지당 게시물 */
+	function page(no){
+	  var pageNo = no;
+	  var listSize = $("#listSize option:selected").val();
+		
+	  if(listSize == 5){
+		  var url='<c:url value = "/electronic/electronicList?no="/>'+pageNo+"&recordPerPage="+listSize;
+	  }else if(listSize == 10){
+		  var url='<c:url value = "/electronic/electronicList?no="/>'+pageNo+"&recordPerPage="+listSize;
+	  }else if(listSize == 15){
+		  var url='<c:url value = "/electronic/electronicList?no="/>'+pageNo+"&recordPerPage="+listSize;
+	  }
+	  location.href = url;
+	}
 </script>
 
 <style type="text/css">
@@ -65,7 +80,7 @@
 <!-- 페이징 처리를 위한 form -->
 
 <form
-	action="<c:url value='/electronic/electronicList?no=${param.no}'/>"
+	action="<c:url value='/electronic/electronicList?no=${param.no}&recordPerPage=${param.recordPerPage }'/>"
 	name="frmPage" method="post" id="frmPage">
 	<input type="hidden" name="currentPage"
 		value=${pagingInfo.currentPage }><br> <input
@@ -275,6 +290,22 @@
 			</div>
 		</div>
 	</form>
+	
+		<!-- 페이지 목록 갯수   -->
+	<div class="col-md-16 row justify-content-center py-4 page_wrap">
+		게시판 목록 갯수
+		<div class="col-sm-2 mr-0" style="padding-right: 10px">
+			<select class="form-control form-control-sm" name="searchType"
+				id="listSize" onchange="page(${param.no })">
+				<option value="5"
+					<c:if test="${pagingInfo.getRecordCountPerPage() == 5 }">selected="selected"</c:if>>5개</option>
+				<option value="10"
+					<c:if test="${pagingInfo.getRecordCountPerPage() == 10 }">selected="selected"</c:if>>10개</option>
+				<option value="15"
+					<c:if test="${pagingInfo.getRecordCountPerPage() == 15 }">selected="selected"</c:if>>15개</option>
+			</select>
+		</div>
+	</div>
 
 </div>
 

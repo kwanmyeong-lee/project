@@ -434,7 +434,7 @@ public class ElectronicController {
 
 	// 사이드 바에서 항목 선택시 리스트 보여주기
 	@RequestMapping("/electronicList")
-	public void electronicWait(@RequestParam String no, HttpSession session, @ModelAttribute SearchVO searchVo,
+	public void electronicWait(@RequestParam String no, HttpSession session, @ModelAttribute SearchVO searchVo, @RequestParam(defaultValue = "0") int recordPerPage,
 			Model model) {
 
 		String empNo = (String) session.getAttribute("empNo");
@@ -446,10 +446,18 @@ public class ElectronicController {
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 		pagingInfo.setBlockSize(ConstUtil.BLOCK_SIZE_ELE);
-		pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ELE);
+		if(recordPerPage < 1) {
+			pagingInfo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ELE);
+		}else {
+			pagingInfo.setRecordCountPerPage(recordPerPage);
+		}
 
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ELE);
+		if(recordPerPage  < 1) {
+			searchVo.setRecordCountPerPage(ConstUtil.RECORD_COUNT_ELE);
+		}else {
+			searchVo.setRecordCountPerPage(recordPerPage);
+		}
 		searchVo.setEmpNo(empNo);
 
 		logger.info("사이드바 선택 번호 no ={}", no);
