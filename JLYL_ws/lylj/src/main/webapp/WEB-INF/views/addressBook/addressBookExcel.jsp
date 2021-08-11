@@ -84,7 +84,7 @@
 					}else{
 						Swal.fire({
 							  icon: 'success',
-							  title: insertCnt+'개 등록 성공!',
+							  title: data+'개 등록 성공!',
 							  showConfirmButton: false,
 							  timer: 1500
 						});

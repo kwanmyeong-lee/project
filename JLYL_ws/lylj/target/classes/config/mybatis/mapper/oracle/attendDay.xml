@@ -22,7 +22,7 @@
 	<sql id="searchStats">
 	   <if test="selectItem3 == 1 and startDate!=null and startDate!=''" >
 		 <![CDATA[
-		 AND ATTENDANCE_DAY_REGDATE BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate})
+		 AND ATTENDANCE_DAY_REGDATE BETWEEN TO_DATE(#{startDate},'YYYY-MM-DD') AND TO_DATE(#{endDate},'YYYY-MM-DD')
 		 ]]>
 	   </if>
 	   <if test="selectItem2 == 1 and searchDepart!=null and searchDepart!=''">
@@ -36,8 +36,8 @@
 	<sql id="searchBreak">
 	   <if test="selectItem3 == 1 and startDate!=null and startDate!=''" >
 		 <![CDATA[
-		 AND (BREAKDAY_START BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate}) OR 
-		 BREAKDAY_END BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate}))
+		 AND (BREAKDAY_START BETWEEN TO_DATE(#{startDate},'YYYY-MM-DD') AND TO_DATE(#{endDate},'YYYY-MM-DD') OR 
+		 BREAKDAY_END BETWEEN TO_DATE(#{startDate},'YYYY-MM-DD') AND TO_DATE(#{endDate},'YYYY-MM-DD'))
 		 ]]>
 	   </if>
 	   <if test="selectItem2 == 1 and searchDepart!=null and searchDepart!=''">
@@ -73,7 +73,7 @@
 	
 	<select id="selectAttendMonth" parameterType="hashmap" resultType="attendDayVo">
 		select * from ATTENDDAY 
-		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE between TO_DATE(#{firstDate:VARCHAR}) and TO_DATE(#{lastDate:VARCHAR})
+		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE between TO_DATE(#{firstDate:VARCHAR},'YYYY-MM-DD') and TO_DATE(#{lastDate:VARCHAR},'YYYY-MM-DD')
 		order by ATTENDANCE_DAY_REGDATE
 	</select>
 	
@@ -133,7 +133,7 @@
 	
 	<select id="selectSumMonthWork" parameterType="hashmap" resultType="int">
 		select NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0)   from ATTENDDAY
-		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{nowDate}),'MM') AND ADD_MONTHS( TRUNC(TO_DATE(#{nowDate}),'MM'), 1) AND EMP_NO=#{empNo}
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{nowDate},'YYYY-MM-DD'),'MM') AND ADD_MONTHS( TRUNC(TO_DATE(#{nowDate},'YYYY-MM-DD'),'MM'), 1) AND EMP_NO=#{empNo}
 	</select>
 	
 	<select id="selectLeftTimeWeek" parameterType="int" resultType="int">
@@ -178,14 +178,14 @@
 
 		FROM ATTENDDAY 
 		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
-		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(TO_DATE(#{nowDate}),'MM') AND ADD_MONTHS( TRUNC(TO_DATE(#{nowDate}),'MM'), 1) AND EMP_NO=#{empNo}
+		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(TO_DATE(#{nowDate},'YYYY-MM-DD'),'MM') AND ADD_MONTHS( TRUNC(TO_DATE(#{nowDate},'YYYY-MM-DD'),'MM'), 1) AND EMP_NO=#{empNo}
 		AND ATTENDANCE_DAY_HOLIDAY_FLAG ='2'
 		]]>
 	</select>
 	
 	<select id="selectSumWeekWorkByMonth" resultType="int" parameterType="hashmap">
 		select NVL(TRUNC(SUM((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0)   from ATTENDDAY
-		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TO_DATE(#{startDate:VARCHAR}) and TO_DATE(#{endDate:VARCHAR}) and EMP_NO=${empNo}
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TO_DATE(#{startDate:VARCHAR},'YYYY-MM-DD') and TO_DATE(#{endDate:VARCHAR},'YYYY-MM-DD') and EMP_NO=${empNo}
 	</select>
 	
 	<insert id="insertAttendDay" parameterType="attendDayVo">
