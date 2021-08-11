@@ -160,7 +160,7 @@
 					}
 				});
 		$
-				.ajax({
+				.ajax({//수신자 라인을 보여주고, 승인을 했으면 도장을 표시하기 위한
 					url : "<c:url value ='/electronic/selectstampList'/>",
 					data : {
 						empNo : rvoEmpNo
@@ -182,6 +182,8 @@
 												$('.Rstamp').eq(idx).attr(
 														'style',
 														'display: none');
+											}else{
+												$('#reOk').attr('style', 'display:none');
 											}
 										});
 					},
