@@ -253,6 +253,12 @@ $(function(){
 				btCheck : btCheck
 			},
 			dataType:"json",
+			beforeSend: function() {
+       			 $('.loading').show();
+    		},
+    		complete: function() {
+		        $('.loading').hide();
+		    },
 			success: function(data){
 				var str = "";
 				var comeNum=0;
@@ -291,19 +297,26 @@ $(function(){
 						
 					}
 					var year = selectDate.substr(0,selectDate.indexOf("-"));
-					var month = selectDate.substr(selectDate.lastIndexOf("-")+1);
-					var sDay=1;
-					var eDay = new Date(year,month,0).getDate();
-					
+					var month = selectDate.substring(5,7);
+					var eDay = new Date(year,month,0);
+					var presentDate = new Date();
+					 var sumDay = 0;
+					 
 					if(startDate!=null && startDate!=""){
-						sDay= startDate.substr(startDate.lastIndexOf("-")+1);
-						eDay= endDate.substr(endDate.lastIndexOf("-")+1);
+						sumDay=weekdayCnt(startDate,endDate);
+					}else if(presentDate.getFullYear()==year && presentDate.getMonth()==Number(month)-1){
+						sumDay=weekdayCnt(selectDate,presentDate);
+					}else{
+						sumDay=weekdayCnt(selectDate,eDay);
 					}
 					
-					var sumDay = Number(eDay)-Number(sDay)+1;
 					absenceNum = sumDay*data.empCnt-data.conditionList.length;
+					if(absenceNum>0){
+	           			$('#absenceNum').text(absenceNum);
+	           		}else{
+	           			$('#absenceNum').text(0);
+					}
 	           		$('#pDataCheck').text(data.conditionList.length+"개의 정보가 있습니다.");
-	           		$('#absenceNum').text(absenceNum);
 	           		$('#leaveNum').text(leaveNum);
 	           		$('#comeNum').text(comeNum);
 	           		$('#excessNum').text(excessNum);
@@ -378,6 +391,34 @@ $(function(){
 		var yd= moment(ntime).format('YYYY-MM');
 		
 		$('#nowYearMonth').text(yd);
+	}
+	
+	function weekdayCnt(stDate,enDate){
+		var date1 = new Date(stDate); // 2017-11-30
+	    var date2 = new Date(enDate); // 2017-12-6
+	    var count = 0;
+
+		while(true) {  
+		
+		
+		    var temp_date = date1;
+		    if(temp_date.getTime() > date2.getTime()) {
+		        console.log("count : " + count);
+		        break;
+		    } else {
+		        var tmp = temp_date.getDay();
+		        if(tmp == 0 || tmp == 6) {
+		            // 주말
+		            console.log("주말");
+		        } else {
+		            // 평일
+		            console.log("평일");
+		            count++;         
+		        }
+		        temp_date.setDate(date1.getDate() + 1); 
+		    }
+		}
+		return count;
 	}
 	
 	window.onload = function() {

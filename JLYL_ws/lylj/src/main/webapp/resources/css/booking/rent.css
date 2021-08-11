@@ -8,6 +8,7 @@
 }
 .page_nation {
 	display: inline-block;
+	min-width: 262px;
 }
 
 .page_nation a {
