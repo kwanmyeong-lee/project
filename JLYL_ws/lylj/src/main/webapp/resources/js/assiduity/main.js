@@ -188,10 +188,11 @@ $(function(){
 					if(allEx !=0 ){
 						var exText = miliHMS(allEx);
 						allText+=" / 초과:" + exText;
+						$(parent).prev().find('span').eq(5).text("대기");
 					}
 					
 					$(parent).prev().find('span').eq(4).text(allText);
-					$(parent).prev().find('span').eq(5).text("대기");
+					
 	    			
 	    			
 	            }
