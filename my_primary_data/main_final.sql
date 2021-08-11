@@ -1340,10 +1340,10 @@ insert into DEPARTMENT values(6,'총무회계팀');
 
 --EMP
 insert into EMP values(EMP_SEQ.nextval, '사장님', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01',null, 'images.jpg', 3000, '1234-1234-1234', 1, '1993-06-14', null, null);
-insert into EMP values(EMP_SEQ.nextval, '관명', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01',null, 'images (1).jpg', 3000, '1234-1234-1234', 1, '1993-06-14', 1, 2);
-insert into EMP values(EMP_SEQ.nextval, '혁', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01',null, 'images (10).jpg', 3000, '1234-1234-1234', 1, '1993-06-14', 1, 3);
-insert into EMP values(EMP_SEQ.nextval, '준경', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01',null, 'images (11).jpg', 3000, '1234-1234-1234', 1, '1993-06-14', 1, 4);
-insert into EMP values(EMP_SEQ.nextval, '기성', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, 'images (12).jpg', 3000, '1234-1234-1234', 1, '1993-06-14', 2, 2);
+insert into EMP values(EMP_SEQ.nextval, '관명', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01',null, 'images (1).jpg', 3000, '1234-1234-1234', 2, '1993-06-14', 5, 2);
+insert into EMP values(EMP_SEQ.nextval, '혁', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01',null, 'images (10).jpg', 3000, '1234-1234-1234', 2, '1993-06-14', 5, 2);
+insert into EMP values(EMP_SEQ.nextval, '준경', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01',null, 'images (11).jpg', 3000, '1234-1234-1234', 3, '1993-06-14', 6, 2);
+insert into EMP values(EMP_SEQ.nextval, '기성', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, 'images (12).jpg', 3000, '1234-1234-1234', 3, '1993-06-14', 6, 2);
 
 insert into EMP values(EMP_SEQ.nextval, '아람', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, 'images (13).jpg', 3000, '1234-1234-1234', 4, '1993-06-14', 2, 3);
 insert into EMP values(EMP_SEQ.nextval, '재민', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null, 'images (14).jpg', 3000, '1234-1234-1234', 4, '1993-06-14', 2, 4);
@@ -2131,32 +2131,34 @@ insert into ATTEND values(ATTEND_seq.nextval, 173,default,default,default,defaul
 
 
 --메일 정보
-insert into mail values (mail_seq.nextVal, '메일제목1', '메일내용입니다1', '102', '100', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목2', '메일내용입니다2', '102', '100', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목3', '메일내용입니다3', '102', '100', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목4', '메일내용입니다4', '102', '100', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목5', '메일내용입니다5', '102', '100', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목5', '메일내용입니다5', '102', '100', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목5', '메일내용입니다5', '102', '100', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목5', '메일내용입니다5', '102', '100', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목5', '메일내용입니다5', '102', '100', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목5', '메일내용입니다5', '102', '100', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목5', '메일내용입니다5', '102', '100', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목5', '메일내용입니다5', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextVal, '사장님 보고드립니다!', '메일내용입니다1', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '인사팀 보고입니다', '메일내용입니다2', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '사내 공지사항입니다', '메일내용입니다3', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '사장님 금일 2시 미팅예정입니다', '준경컴퍼니와 사내 미팅 예정입니다', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '신입사원공고계획입니다.', '개발팀 신입사원 공고 내역입니다', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '사원 단합대회안내.', '단합대회는 코로나19로 인해 취소되었습니다', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '하계휴가 공지입니다.', '부서별 하계 휴가자 입니다', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '코로나관련 소독안내', '사내 소독이 예정되어있습니다', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '승진 안내입니다', '', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, 'MOU 체결건입니다', '관명상사와 계약체결 안내', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '김사원 결혼식 안내', '10/11 결혼예식입니다', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '9/1부터 관련 규정이 변경됩니다', '규정변경', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '사내 동호회 안내', '사내 독서동아리 내일책방이 개설되었습니다', '102', '100', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '인사변동내역입니다.', '정기성 인사팀 -> 총무팀으로 부서변경되었습니다', '102', '100', default, null, null,default, default, 102, default);
 
-insert into mail values (mail_seq.nextval, '메일제목1', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목2', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목3', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목4', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목5', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목6', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목7', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목8', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목9', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목10', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목11', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목12', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
-insert into mail values (mail_seq.nextval, '메일제목13', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용1', '메일내용입니다1', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용2', '메일내용입니다2', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용3', '메일내용입니다3', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용4', '메일내용입니다4', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용5', '메일내용입니다5', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용6', '메일내용입니다6', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용7', '메일내용입니다7', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용8', '메일내용입니다8', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용9', '메일내용입니다9', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용10', '메일내용입니다10', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용11', '메일내용입니다11', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용12', '메일내용입니다12', '100', '102', default, null, null,default, default, 102, default);
+insert into mail values (mail_seq.nextval, '보낸내용13', '메일내용입니다13', '100', '102', default, null, null,default, default, 102, default);
 
 
 
