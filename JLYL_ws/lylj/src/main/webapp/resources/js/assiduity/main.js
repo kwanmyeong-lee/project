@@ -14,7 +14,7 @@ $(function(){
 		selectMonthWorkTime(empNo, pd);
 		selectMonthSumTime(empNo,pd1);
 		selectMonthExTime(empNo,pd1);
-		
+		borderColorRemove();
 		
 	});
 	
@@ -33,6 +33,7 @@ $(function(){
 		selectMonthWorkTime(empNo, pd);
 		selectMonthSumTime(empNo,pd1);
 		selectMonthExTime(empNo,pd1);
+		borderColorRemove();
 	});
 	
 	$('#todayYearMonth').click(function(){
@@ -49,6 +50,7 @@ $(function(){
 		selectMonthWorkTime(empNo, nd);
 		selectMonthSumTime(empNo,nd1);
 		selectMonthExTime(empNo,nd1);
+		borderColorRemove();
 	});
 	
 	$('#btnCome').click(function(){
@@ -186,10 +188,11 @@ $(function(){
 					if(allEx !=0 ){
 						var exText = miliHMS(allEx);
 						allText+=" / 초과:" + exText;
+						$(parent).prev().find('span').eq(5).text("대기");
 					}
 					
 					$(parent).prev().find('span').eq(4).text(allText);
-					$(parent).prev().find('span').eq(5).text("대기");
+					
 	    			
 	    			
 	            }
@@ -676,6 +679,15 @@ function exView(){
 	}
 	
 	
+}
+
+function borderColorRemove(){
+	$('.content-collapse').each(function(){
+			$(this).removeClass('show');
+		});
+		$('.content-link').each(function(){
+			$(this).addClass('collapsed')
+		});
 }
 
 var nowDates= new Date();
