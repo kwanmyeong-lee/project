@@ -1,22 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
+@charset "UTF-8";
 .loading {
   position: fixed;
   z-index: 999;
-  height: 2em;
-  width: 2em;
+  height: 5em;
+  width: 3em;
   overflow: visible;
   margin: auto;
   top: 0;
-  left: 0;
+  left: 200px;
   bottom: 0;
   right: 0;
+  display: none;
 }
 
 .loading:not(:required):after {
@@ -102,13 +96,3 @@
     transform: rotate(360deg);
   }
 }
-
-</style>
-</head>
-<body>
-<div>
-<button>aa</button>
-<div class="loading"></div>
-</div>
-</body>
-</html>

@@ -92,21 +92,21 @@ $(function(){
 		var currentPage = $(this).text();
 		var btCheck =0;
 		
-		statsViewAjax(currentPage, btCheck);
+		excessViewAjax(currentPage, btCheck);
 	});
 	
 	$(document).on('click','.ar-forward',function(){
 		var currentPage = $('.px-1').eq(0).text();
 		var btCheck=1;
 		
-		statsViewAjax(currentPage, btCheck);
+		excessViewAjax(currentPage, btCheck);
 	});
 	
 	$(document).on('click','.ar-backward',function(){
 		var currentPage = $('.px-1').eq(0).text();
 		var btCheck=2;
 		
-		statsViewAjax(currentPage, btCheck);
+		excessViewAjax(currentPage, btCheck);
 	});
 	
 	$(document).on('change','#checkAll',function(){
