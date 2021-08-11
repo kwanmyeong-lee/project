@@ -153,6 +153,8 @@ $(function() {
                     });
                 
 	});
+	
+	$("#startDate").datepicker( "option", "minDate", $('#startDate').val() );//startDate의 날짜보다 전의 날짜 선택 불가능
 
 
 });
