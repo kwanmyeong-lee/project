@@ -120,10 +120,12 @@
 				<div class="col-md-2">
 					<label class="form-label">관리자</label>
 				    <select class="form-control" name="empAdminLev" id="empAdminLev" disabled>
+				    	<option value="3" <c:if test="${paramEmpVo.empAdminLev==4}"> selected</c:if> 
+				    	>일반</option>
 				    	<option value="3" <c:if test="${paramEmpVo.empAdminLev==3}"> selected</c:if> 
-				    	>사원</option>
+				    	>총무팀장</option>
 				    	<option value="2" <c:if test="${paramEmpVo.empAdminLev==2}"> selected</c:if>
-				    	>팀장</option>
+				    	>인사팀장</option>
 				    	<option value="1" <c:if test="${paramEmpVo.empAdminLev==1}"> selected</c:if>
 				    	>관리자</option>
 				    </select>
