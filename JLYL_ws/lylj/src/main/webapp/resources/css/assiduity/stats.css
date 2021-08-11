@@ -158,3 +158,6 @@ table th {
 #xlsDown{
 	float: right;
 }
+.now-span:hover{
+	cursor: pointer;
+}
