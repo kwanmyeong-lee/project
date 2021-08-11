@@ -44,14 +44,16 @@
                 </a>
             </c:if>
             <!-- 페이지 번호 -->
-            <c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
-                <c:if test="${i==pagingInfo.currentPage }">
-                    <a class="px-1 active" href="#">${i }</a>
-                </c:if>
-                <c:if test="${i!=pagingInfo.currentPage }">
-                    <a class="px-1" href="#">${i }</a>
-                </c:if>
-            </c:forEach>
+            <c:if test="${pagingInfo.firstPage != 0 }">
+	            <c:forEach var="i" begin="${pagingInfo.firstPage }" end="${pagingInfo.lastPage }">
+	                <c:if test="${i==pagingInfo.currentPage }">
+	                    <a class="px-1 active" href="#">${i }</a>
+	                </c:if>
+	                <c:if test="${i!=pagingInfo.currentPage }">
+	                    <a class="px-1" href="#">${i }</a>
+	                </c:if>
+	            </c:forEach>
+            </c:if>
             <!-- 다음 블럭 -->
             <c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
                 <a class="arrow ar-forward" href="#">

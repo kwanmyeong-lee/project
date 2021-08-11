@@ -22,7 +22,7 @@
 	<sql id="searchStats">
 	   <if test="selectItem3 == 1 and startDate!=null and startDate!=''" >
 		 <![CDATA[
-		 AND ATTENDANCE_DAY_REGDATE BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate})
+		 AND ATTENDANCE_DAY_REGDATE BETWEEN TO_DATE(#{startDate},'YYYY-MM-DD') AND TO_DATE(#{endDate},'YYYY-MM-DD')
 		 ]]>
 	   </if>
 	   <if test="selectItem2 == 1 and searchDepart!=null and searchDepart!=''">
@@ -36,8 +36,8 @@
 	<sql id="searchBreak">
 	   <if test="selectItem3 == 1 and startDate!=null and startDate!=''" >
 		 <![CDATA[
-		 AND (BREAKDAY_START BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate}) OR 
-		 BREAKDAY_END BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate}))
+		 AND (BREAKDAY_START BETWEEN TO_DATE(#{startDate},'YYYY-MM-DD') AND TO_DATE(#{endDate},'YYYY-MM-DD') OR 
+		 BREAKDAY_END BETWEEN TO_DATE(#{startDate},'YYYY-MM-DD') AND TO_DATE(#{endDate},'YYYY-MM-DD'))
 		 ]]>
 	   </if>
 	   <if test="selectItem2 == 1 and searchDepart!=null and searchDepart!=''">
@@ -57,7 +57,7 @@
 	
 	<select id="selectAttendDayByRegdate" parameterType="attendDayVo" resultType="attendDayVo">
 		select * from ATTENDDAY 
-		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(TO_DATE(TO_CHAR(#{attendanceDayRegdate},'yyyy-mm-dd'),'yyyy-mm-dd'))
+		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TRUNC(TO_DATE(TO_CHAR(#{attendanceDayRegdate},'YYYY-MM-DD'),'YYYY-MM-DD'))
 	</select>
 	
 	<select id="selectAttendDayByFlag" parameterType="int" resultType="conditionViewVo">
@@ -73,7 +73,7 @@
 	
 	<select id="selectAttendMonth" parameterType="hashmap" resultType="attendDayVo">
 		select * from ATTENDDAY 
-		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE between TO_DATE(#{firstDate:VARCHAR}) and TO_DATE(#{lastDate:VARCHAR})
+		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE between TO_DATE(#{firstDate:VARCHAR},'YYYY-MM-DD') and TO_DATE(#{lastDate:VARCHAR},'YYYY-MM-DD')
 		order by ATTENDANCE_DAY_REGDATE
 	</select>
 	
@@ -84,17 +84,17 @@
 	
 	<select id="selectSumWeekWorkEx" parameterType="int" resultType="int">
 		<![CDATA[
-		SELECT NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60
-                                                                -(ATTENDANCE_DAY_ON_HOUR  - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
-                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+		SELECT NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60
+                                                                -(ATTENDANCE_DAY_ON_HOUR  - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60),0)
+                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60),0)
                                   END 
-                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
-                                                                -(to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
-                                  ELSE NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
+                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
+                                  THEN NVL(TRUNC((TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
+                                                                -(TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
+                                  ELSE NVL(TRUNC((TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
                                   END
                         ELSE 0
                    END 
@@ -109,17 +109,17 @@
 	
 	<select id="selectDayWorkEx" parameterType="hashmap" resultType="int">
 		<![CDATA[
-		SELECT NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60
-                                                                -(ATTENDANCE_DAY_ON_HOUR  - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
-                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+		SELECT NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60
+                                                                -(ATTENDANCE_DAY_ON_HOUR  - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60),0)
+                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60),0)
                                   END 
-                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
-                                                                -(to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
-                                  ELSE NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
+                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
+                                  THEN NVL(TRUNC((TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
+                                                                -(TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
+                                  ELSE NVL(TRUNC((TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
                                   END
                         ELSE 0
                    END 
@@ -127,26 +127,26 @@
 
 		FROM ATTENDDAY 
 		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
-		AND ATTENDANCE_DAY_REGDATE = TO_DATE(TO_CHAR(#{selectDay},'yyyy-mm-dd'),'yyyy-mm-dd') and EMP_NO=#{empNo}
+		AND ATTENDANCE_DAY_REGDATE = TO_DATE(TO_CHAR(#{selectDay},'YYYY-MM-DD'),'YYYY-MM-DD') and EMP_NO=#{empNo}
 		]]>
 	</select>
 	
 	<select id="selectSumMonthWork" parameterType="hashmap" resultType="int">
 		select NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0)   from ATTENDDAY
-		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{nowDate}),'MM') AND ADD_MONTHS( TRUNC(TO_DATE(#{nowDate}),'MM'), 1) AND EMP_NO=#{empNo}
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{nowDate},'YYYY-MM-DD'),'MM') AND ADD_MONTHS( TRUNC(TO_DATE(#{nowDate},'YYYY-MM-DD'),'MM'), 1) AND EMP_NO=#{empNo}
 	</select>
 	
 	<select id="selectLeftTimeWeek" parameterType="int" resultType="int">
 		<![CDATA[
 		SELECT (40*60*60)-NVL(SUM(
                         NVL((
-                        CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
+                        CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
                         ELSE ATTENDANCE_DAY_OFF_HOUR
                         END 
                         -
-                        CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                        CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
                         ELSE ATTENDANCE_DAY_ON_HOUR
                         END 
                         )*24*60*60,0)
@@ -160,17 +160,17 @@
 	
 	<select id="selectSumMonthWorkEx" parameterType="hashmap" resultType="int">
 		<![CDATA[
-		SELECT NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60
-                                                                -(ATTENDANCE_DAY_ON_HOUR  - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
-                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+		SELECT NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60
+                                                                -(ATTENDANCE_DAY_ON_HOUR  - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60),0)
+                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60),0)
                                   END 
-                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
-                                                                -(to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
-                                  ELSE NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
+                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
+                                  THEN NVL(TRUNC((TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
+                                                                -(TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
+                                  ELSE NVL(TRUNC((TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
                                   END
                         ELSE 0
                    END 
@@ -178,26 +178,26 @@
 
 		FROM ATTENDDAY 
 		WHERE ATTENDANCE_DAY_OFF_HOUR IS NOT NULL
-		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(TO_DATE(#{nowDate}),'MM') AND ADD_MONTHS( TRUNC(TO_DATE(#{nowDate}),'MM'), 1) AND EMP_NO=#{empNo}
+		AND ATTENDANCE_DAY_REGDATE  BETWEEN TRUNC(TO_DATE(#{nowDate},'YYYY-MM-DD'),'MM') AND ADD_MONTHS( TRUNC(TO_DATE(#{nowDate},'YYYY-MM-DD'),'MM'), 1) AND EMP_NO=#{empNo}
 		AND ATTENDANCE_DAY_HOLIDAY_FLAG ='2'
 		]]>
 	</select>
 	
 	<select id="selectSumWeekWorkByMonth" resultType="int" parameterType="hashmap">
 		select NVL(TRUNC(SUM((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0)   from ATTENDDAY
-		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TO_DATE(#{startDate:VARCHAR}) and TO_DATE(#{endDate:VARCHAR}) and EMP_NO=${empNo}
+		where ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TO_DATE(#{startDate:VARCHAR},'YYYY-MM-DD') and TO_DATE(#{endDate:VARCHAR},'YYYY-MM-DD') and EMP_NO=${empNo}
 	</select>
 	
 	<insert id="insertAttendDay" parameterType="attendDayVo">
 		insert into ATTENDDAY 
-		values(ATTENDDAY_SEQ.nextval, #{empNo}, #{attendanceDayOnHour}, #{attendanceDayOffHour:DATE},
+		values(ATTENDDAY_SEQ.nextval, #{empNo}, TO_DATE(TO_CHAR(#{attendanceDayOnHour},'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS'), #{attendanceDayOffHour:DATE},
 		#{attendanceDayWorkHour:DATE},#{attendanceDayHolidayFlag:VARCHAR},#{attendanceDayRegdate})
 	</insert>
 	
 	<update id="updateAttendDayByOffHour" parameterType="attendDayVo">
-		update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=#{attendanceDayOffHour},
-		ATTENDANCE_DAY_WORK_HOUR=#{attendanceDayWorkHour}
-		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TO_DATE(TO_CHAR(#{attendanceDayRegdate},'yyyy-mm-dd'),'yyyy-mm-dd')
+		update ATTENDDAY set ATTENDANCE_DAY_OFF_HOUR=TO_DATE(TO_CHAR(#{attendanceDayOffHour},'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS')
+		ATTENDANCE_DAY_WORK_HOUR=TO_DATE(TO_CHAR(#{attendanceDayWorkHour},'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS')
+		where EMP_NO=#{empNo} and ATTENDANCE_DAY_REGDATE = TO_DATE(TO_CHAR(#{attendanceDayRegdate},'YYYY-MM-DD'),'YYYY-MM-DD')
 	</update>
 	
 	<update id="updateAttendDayByFlag" parameterType="hashmap">
@@ -226,35 +226,35 @@
 		<![CDATA[
 		select * from (select EMP_NO, DEPARTMENT_NAME, POSITION_NAME, EMP_NAME,
 			NVL(TRUNC(sum((ATTENDANCE_DAY_OFF_HOUR -ATTENDANCE_DAY_ON_HOUR)*24*60*60)),0) as SUM_TIME,
-            NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60
-                                                                -(ATTENDANCE_DAY_ON_HOUR  - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
-                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
+            NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60
+                                                                -(ATTENDANCE_DAY_ON_HOUR  - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60),0)
+                                  ELSE NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR - TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60),0)
                                   END 
-                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
-                                                                -(to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
-                                  ELSE NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
+                        WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN CASE WHEN ATTENDANCE_DAY_OFF_HOUR   < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
+                                  THEN NVL(TRUNC((TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_ON_HOUR)*24*60*60
+                                                                -(TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_OFF_HOUR)*24*60*60),0)
+                                  ELSE NVL(TRUNC((TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
                                   END
                         ELSE 0
                    END 
             ),0) AS EXCESS_TIME,
-            NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                                                                -to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
-                                  WHEN ATTENDANCE_DAY_ON_HOUR >= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss') AND
-                                             ATTENDANCE_DAY_ON_HOUR < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')-ATTENDANCE_DAY_ON_HOUR)*24*60*60),0)
+            NVL(SUM(CASE WHEN ATTENDANCE_DAY_OFF_HOUR > TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
+                                  THEN NVL(TRUNC((TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                                                                -TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60),0)
+                                  WHEN ATTENDANCE_DAY_ON_HOUR >= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS') AND
+                                             ATTENDANCE_DAY_ON_HOUR < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                                  THEN NVL(TRUNC((TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')-ATTENDANCE_DAY_ON_HOUR)*24*60*60),0)
                                   ELSE 0
                                   END 
-                        WHEN ATTENDANCE_DAY_OFF_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss') AND
-                                   ATTENDANCE_DAY_OFF_HOUR  <= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'yyyy-MM-dd')||' 18:00:00','yyyy-MM-dd hh24:mi:ss')
-                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
-                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR-to_date(to_char(ATTENDANCE_DAY_OFF_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss'))*24*60*60),0)
-                                  WHEN ATTENDANCE_DAY_ON_HOUR  >= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'yyyy-MM-dd')||' 09:00:00','yyyy-MM-dd hh24:mi:ss')
+                        WHEN ATTENDANCE_DAY_OFF_HOUR  > TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS') AND
+                                   ATTENDANCE_DAY_OFF_HOUR  <= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR ,'YYYY-MM-DD')||' 18:00:00','YYYY-MM-DD HH24:MI:SS')
+                        THEN CASE WHEN ATTENDANCE_DAY_ON_HOUR  < TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
+                                  THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR-TO_DATE(TO_CHAR(ATTENDANCE_DAY_OFF_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS'))*24*60*60),0)
+                                  WHEN ATTENDANCE_DAY_ON_HOUR  >= TO_DATE(TO_CHAR(ATTENDANCE_DAY_ON_HOUR,'YYYY-MM-DD')||' 09:00:00','YYYY-MM-DD HH24:MI:SS')
                                   THEN NVL(TRUNC((ATTENDANCE_DAY_OFF_HOUR-ATTENDANCE_DAY_ON_HOUR )*24*60*60),0)
                                   ELSE 0
                                   END
@@ -263,7 +263,7 @@
             ),0) AS NORMAL_TIME
 		from conditionview
 		
-		where department_no =#{departmentNo} and ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'d') and TO_DATE(#{selectDate},'yyyy-mm-dd') 
+		where department_no =#{departmentNo} and ATTENDANCE_DAY_OFF_HOUR is not null and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'d') and TO_DATE(#{selectDate},'YYYY-MM-DD') 
 		group by EMP_NO,DEPARTMENT_NAME,POSITION_NAME, EMP_NAME)
 		]]>
 		<include refid="searchWhere"/>
@@ -273,14 +273,14 @@
 	
 	<select id="selectAllConditionByDepartMent" parameterType="hashmap" resultType="conditionViewVO">
 		select * from CONDITIONVIEW
-		where department_no =#{departmentNo} and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'d') and TO_DATE(#{selectDate},'yyyy-mm-dd')
+		where department_no =#{departmentNo} and ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'d') and TO_DATE(#{selectDate},'YYYY-MM-DD')
 		order by ATTENDANCE_DAY_NO
 		
 	</select>
 	
 	<select id="selectAllConditionByMonth" parameterType="hashmap" resultType="conditionViewVO">
 		select * from (select c.*, rownum as nums from CONDITIONVIEW c
-		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
+		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'MM'), 1) 
 		AND ATTENDANCE_DAY_OFF_HOUR is not null
 		<include refid="searchStats"/>
 		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO)
@@ -288,7 +288,7 @@
 	</select>
 	<select id="selectAllCntConditionByMonth" parameterType="hashmap" resultType="int">
 		select count(*) from (select c.*, rownum as nums from CONDITIONVIEW c
-		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
+		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'MM'), 1) 
 		<include refid="searchStats"/>
 		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO)
 		
@@ -296,15 +296,15 @@
 	
 	<select id="selectCntConditionByMonth" parameterType="hashmap" resultType="int">
 		select count(distinct(emp_name)) from CONDITIONVIEW
-		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
+		where ATTENDANCE_DAY_REGDATE  between TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'MM'), 1) 
 		<include refid="searchStats"/>
 		order by ATTENDANCE_DAY_NO, DEPARTMENT_NO
 	</select>
 	
 	<select id="selectCntBreakDayByMonth" parameterType="hashmap" resultType="int">
 		select count(*) from BREAKVIEW
-		where (BREAKDAY_START between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1) 
-		OR BREAKDAY_END between TRUNC(TO_DATE(#{selectDate},'yyyy-mm-dd'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate}),'MM'), 1))
+		where (BREAKDAY_START between TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'MM'), 1) 
+		OR BREAKDAY_END between TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'MM') and ADD_MONTHS( TRUNC(TO_DATE(#{selectDate},'YYYY-MM-DD'),'MM'), 1))
 		<include refid="searchBreak"/>
 	</select>
 	

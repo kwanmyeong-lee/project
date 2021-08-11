@@ -53,7 +53,7 @@
 		}else if(${navNo==5}){
 		    $('#navSideBar')
 					.html(
-					'<!--Sidebar--><ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><button type="button"class="btn btn-light btnSchAdd"id="newAddressBook">주소록 등록</button><div class="addressBookModal"id="topNavButton"><div class="modal_content"><form name="frmBookWrite" action="<c:url value="/addressBook/write"/>"><div id="bookWriteDiv"><h4>주소록등록</h4><p>등록하기 전 주소록 카테고리가 있어야 등록이 가능합니다.<br>카테고리 수정버튼을 통해 카테고리를 추가, 수정, 삭제 할 수 있습니다.<br></p><div id="userNameInputDiv"class="boxDiv"><label>이름</label><span class="splitSpan">:</span><input type="text"name="addressBookName"id="addressBookName"class="inputItems"></div><div id="telInputDiv"class="boxDiv"><label>전화번호</label><span class="splitSpan">:</span><input type="text"name="addressBookTel"id="addressBook_tel1"class="inputItems"></div><div id="emailInputDiv"class="boxDiv"><label>메일</label><span class="splitSpan">:</span><input type="text"name="addressBookMaile"id="addressBookMaile"class="inputItems"></div><div id="positionBox"class="boxDiv"><label>직위</label><span class="splitSpan">:</span><input type="text"name="addressBookPosition"id="addressBook_position1"class="inputItems"><label style="margin-left:22px;">성별</label><span class="splitSpan">:</span><select name="addressBookGender"class="selectItem1"><option value=""></option><option value="남자">남자</option><option value="여자">여자</option></select></div><div id="officeNameInputBox"class="boxDiv"><label>회사</label><span class="splitSpan">:</span><input type="text"name="addressBookOfficeName"id="addressBook_officeName"class="inputItems"></div><div id="officeNameInputBox"class="boxDiv"><label>회사번호</label><span class="splitSpan">:</span><input type="text"name="addressBookOfficeTel"id="addressBook_officeTel1"class="inputItems"></div><div id="InputDiv"class="boxDiv"><label>카테고리</label><span class="splitSpan">:</span><select name="addressFolderNo" class="selectItem3" id="addressFolderNo"><option value="">선택하세요.</option><c:forEach var="bookFol" items="${bookFolList}"><option value="${bookFol.addressFolderNo}">${bookFol.addressFolderName}</option></c:forEach></select><button type="button" class="btn btn-outline-secondary folBtn" id="editFolBtn">카테고리 수정</button></div><div id="btnItems"><input type="submit"id="bookWriteSubmit"value="등록"><button class="bookCancleBtn" type="button">취소</button></div></div></form></div></div><!--Divider--><hr class="sidebar-divider d-none d-md-block"><!--Nav Item-Tables--><li class="nav-item"><a class="nav-link"href="<c:url value="/addressBook/addressBookMain"/>"><i class="fas fa-fw fa-table"></i><span>전체 목록</span></a></li><!--Nav Item-Pages Collapse Menu--><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseOne"data-bs-toggle="collapse"role="button"aria-expanded="ture"aria-controls="collapseOne"><i class="fas fa-address-book"></i><span>카테고리</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><c:forEach var="bookFol" items="${bookFolList}"><a class="collapse-item"href="<c:url value="/addressBook/list?addressFolderNo=${bookFol.addressFolderNo}"/>">${bookFol.addressFolderName}</a></c:forEach></div></div></li></ul>');
+					'<!--Sidebar--><ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center"href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><!--Heading--><button type="button"class="btn btn-light btnSchAdd"id="newAddressBook">주소록 등록</button><div class="addressBookModal"id="topNavButton"><div class="modal_content"><form name="frmBookWrite" action="<c:url value="/addressBook/write"/>"><div id="bookWriteDiv"><h4>주소록등록</h4><p>등록하기 전 주소록 카테고리가 있어야 등록이 가능합니다.<br>카테고리 수정버튼을 통해 카테고리를 추가, 수정, 삭제 할 수 있습니다.<br></p><div id="userNameInputDiv"class="boxDiv"><label>이름</label><span class="splitSpan">:</span><input type="text"name="addressBookName"id="addressBookName"class="inputItems"></div><div id="telInputDiv"class="boxDiv"><label>전화번호</label><span class="splitSpan">:</span><input type="text"name="addressBookTel"id="addressBook_tel1"class="inputItems"></div><div id="emailInputDiv"class="boxDiv"><label>메일</label><span class="splitSpan">:</span><input type="text"name="addressBookMaile"id="addressBookMaile"class="inputItems"></div><div id="positionBox"class="boxDiv"><label>직위</label><span class="splitSpan">:</span><input type="text"name="addressBookPosition"id="addressBook_position1"class="inputItems"><label style="margin-left:22px;">성별</label><span class="splitSpan">:</span><select name="addressBookGender"class="selectItem1"><option value=""></option><option value="남자">남자</option><option value="여자">여자</option></select></div><div id="officeNameInputBox"class="boxDiv"><label>회사</label><span class="splitSpan">:</span><input type="text"name="addressBookOfficeName"id="addressBook_officeName"class="inputItems"></div><div id="officeNameInputBox"class="boxDiv"><label>회사번호</label><span class="splitSpan">:</span><input type="text"name="addressBookOfficeTel"id="addressBook_officeTel1"class="inputItems"></div><div id="InputDiv"class="boxDiv"><label>카테고리</label><span class="splitSpan">:</span><select name="addressFolderNo" class="selectItem3" id="addressFolderNo"><option value="">선택하세요.</option><c:forEach var="bookFol" items="${bookFolList}"><option value="${bookFol.addressFolderNo}">${bookFol.addressFolderName}</option></c:forEach></select><button type="button" class="btn btn-outline-secondary folBtn" id="editFolBtn">카테고리 수정</button></div><div id="btnItems"><input type="submit"id="bookWriteSubmit"value="등록"><button class="bookCancleBtn" type="button">취소</button></div></div></form></div></div><!--Divider--><hr class="sidebar-divider d-none d-md-block"><!--Nav Item-Tables--><li class="nav-item"><a class="nav-link"href="<c:url value="/addressBook/addressBookMain"/>"><i class="fas fa-fw fa-table"></i><span>전체 목록</span></a></li><!--Nav Item-Pages Collapse Menu--><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseOne"data-bs-toggle="collapse"role="button"aria-expanded="ture"aria-controls="collapseOne"><i class="fas fa-address-book"></i><span>카테고리</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><c:forEach var="bookFol" items="${bookFolList}"><a class="collapse-item"href="<c:url value="/addressBook/list?addressFolderNo=${bookFol.addressFolderNo}"/>">${bookFol.addressFolderName}</a></c:forEach></div></div></li><li class="nav-item"><a class="nav-link"href="<c:url value="/addressBook/addressBookExcel"/>""><i class="fas fa-file-excel"></i><span>주소록 등록(Excel)</span></a></li></ul>');
 		}else if(${navNo==6}){
 		    $('#navSideBar')
 		    .html(
@@ -67,7 +67,7 @@
 			$('#navSideBar').css("background","#373840");
 			$('#navSideBar')
 			.html(
-					'<!--Sidebar--><ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center "href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><hr class="sidebar-divider d-none d-md-block white"><!--Heading--><a class="adminMain"id="adminMain"href="<c:url value="/admin"/>"><div class="sidebar-brand-text mx-3 ">관리자메인</div></a><!--Divider--><!--Nav Item-Pages Collapse Menu--><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseOne"data-bs-toggle="collapse"role="button"aria-expanded="ture"aria-controls="collapseOne"><i class="fas fa-user-circle"></i><span>사원관리</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value='/emp/empList'/>">사원목록</a><a class="collapse-item"href="<c:url value='/emp/empWrite'/>">사원등록</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseTwo"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="fas fa-clipboard-list"></i><span>게시판관리</span></a><div id="collapseTwo"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value="/adminBoard/main"/>">카테고리 관리</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseThree"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="far fa-edit"></i><span>근태관리</span></a><div id="collapseThree"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value='/assiduity/excess'/>">초과근무승인</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseFour"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="far fa-edit"></i><span>예약관리</span></a><div id="collapseFour"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a class="collapse-item"href="<c:url value='/booking/rent'/>">예약승인</a><a class="collapse-item"href="<c:url value='/booking/property'/>">자산관리</a></div></div></li></ul>');
+					'<!--Sidebar--><ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion"id="accordionSidebar"><!--Sidebar-Brand--><a class="sidebar-brand d-flex align-items-center justify-content-center "href="<c:url value="/index"/>"><div class="sidebar-brand-text mx-3">메인으로이동</div></a><hr class="sidebar-divider d-none d-md-block white"><!--Heading--><a class="adminMain"id="adminMain"href="<c:url value="/admin"/>"><div class="sidebar-brand-text mx-3 ">관리자메인</div></a><!--Divider--><!--Nav Item-Pages Collapse Menu--><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseOne"data-bs-toggle="collapse"role="button"aria-expanded="ture"aria-controls="collapseOne"><i class="fas fa-user-circle"></i><span>사원관리</span></a><div id="collapseOne"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a id="bt_emp1"class="collapse-item"href="<c:url value='/emp/empList'/>">사원목록</a><a id="bt_emp2"class="collapse-item"href="<c:url value='/emp/empWrite'/>">사원등록</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseTwo"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="fas fa-clipboard-list"></i><span>게시판관리</span></a><div id="collapseTwo"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a id="bt_board"class="collapse-item"href="<c:url value='/adminBoard/main'/>">카테고리관리</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseThree"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="far fa-edit"></i><span>근태관리</span></a><div id="collapseThree"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a id="bt_ass1"class="collapse-item"href="<c:url value='/assiduity/excess'/>">초과근무승인</a></div></div></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle"href="#collapseFour"data-bs-toggle="collapse"role="button"aria-expanded="true"><i class="far fa-edit"></i><span>예약관리</span></a><div id="collapseFour"class="collapse"aria-labelledby="headingTwo"data-parent="#accordionSidebar"><div class="bg-white py-2 collapse-inner rounded"><a id="bt_book1"class="collapse-item"href="<c:url value='/booking/rent'/>">예약승인</a><a id="bt_book2"class="collapse-item"href="<c:url value='/booking/property'/>">자산관리</a></div></div></li></ul>');
 		}
 		
 
@@ -99,7 +99,67 @@
 					'top=40, left=40, width=600, height=800, status=no, menubar=no, toolbar=no, resizable=no, directories=no, location=no, resizable=0, titlebar=no');
 		});
 	
-
+		
+		$('#bt_emp1').click(function(){
+			console.log('클릭');
+			var admin = $('#adminLev').val();
+			console.log(admin);
+			if(admin!=1 && admin!=2){
+				alert('권한이없습니다');
+				event.preventDefault();
+			}
+		});
+		
+		$('#bt_emp2').click(function(){
+			console.log('클릭');
+			var admin = $('#adminLev').val();
+			console.log(admin);
+			if(admin!=1 && admin!=2){
+				alert('권한이없습니다');
+				event.preventDefault();
+			}
+		});
+		
+		$('#bt_ass1').click(function(){
+			console.log('클릭');
+			var admin = $('#adminLev').val();
+			console.log(admin);
+			if(admin!=1 && admin!=2){
+				alert('권한이없습니다');
+				event.preventDefault();
+			}
+		});
+		
+		$('#bt_board').click(function(){
+			console.log('클릭');
+			var admin = $('#adminLev').val();
+			console.log(admin);
+			if(admin!=1 && admin!=3){
+				alert('권한이없습니다');
+				event.preventDefault();
+			}
+		});
+		
+		$('#bt_book1').click(function(){
+			console.log('클릭');
+			var admin = $('#adminLev').val();
+			console.log(admin);
+			if(admin!=1 && admin!=3){
+				alert('권한이없습니다');
+				event.preventDefault();
+			}
+		});
+		
+		$('#bt_book2').click(function(){
+			console.log('클릭');
+			var admin = $('#adminLev').val();
+			console.log(admin);
+			if(admin!=1 && admin!=3){
+				alert('권한이없습니다');
+				event.preventDefault();
+			}
+		});
+			
 	});
 </script>
 <style>
@@ -314,6 +374,7 @@ margin-top:-270px;
 
 
 <body id="page-top">
+	<input type="hidden" id="adminLev" value="${sessionScope.empAdminLev }">
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<div id="navSideBar">
@@ -514,7 +575,7 @@ margin-top:-270px;
 									href="<c:url value='/emp/empInfo?empNo=${empNo}'/>"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내정보
 								</a>
-								<c:if test="${empAdminLev==1||empAdminLev==2}">
+								<c:if test="${empAdminLev==1||empAdminLev==2 || empAdminLev==3}">
 									<a class="dropdown-item" href="<c:url value='/admin'/>"> <i
 										class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 관리자
 									</a>

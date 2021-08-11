@@ -132,11 +132,14 @@ aside .modal-content {
 
 #modalForm img {
 	width: 100px;
+	height: 100px;
 	border: 3px solid gold;
 	border-radius: 70px;
 	-moz-border-radius: 70px;
 	-khtml-border-radius: 70px;
 	-webkit-border-radius: 70px;
+	object-fit: cover;
+	object-position: 100% 0;
 }
 
 #userimgDiv {
@@ -173,7 +176,7 @@ aside .modal-content {
 						<label class="form-label">전화번호</label>
 						<p class="fs-3" id="userTel"></p>
 					</div>
-		<!-- 			<div class="modal-footer d-block">
+					<!-- 			<div class="modal-footer d-block">
 						<button type="button" id="close" class="btn btn-warning float-end">닫기</button>
 					</div> -->
 				</div>
