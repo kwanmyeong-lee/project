@@ -109,7 +109,7 @@ public class EmpServiceImpl implements EmpService{
 		String charSet = "utf-8";						//인코딩
 		String hostSMTP = "smtp.gmail.com";				//서버
 		String hostSMTPid = "gisungj5027@gmail.com";	//서버 사용아이디
-		String hostSMTPpwd = "gksmfdnffla@";			//서버 비번
+		String hostSMTPpwd = "gksmfdnffla!";			//서버 비번
 		
 		//보내는사람 email
 		String fromEmail = "gisungj5027@gmail.com"; //받는사람 이메일에 표시되는 이메일주소
