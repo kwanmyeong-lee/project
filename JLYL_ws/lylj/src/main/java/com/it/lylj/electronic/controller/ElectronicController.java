@@ -189,7 +189,7 @@ public class ElectronicController {
 				logger.info("stampVo={}", stampVo);
 
 				if (cnt > 0) {
-					msg = "도장 등록 성공";
+					msg = "도장 등록 완료";
 					url = "/electronic/insertStamp?cnt=" + cnt;
 				}
 				logger.info("cnt={}", cnt);
@@ -238,14 +238,14 @@ public class ElectronicController {
 		String url = "/electronic/documentSelect?no=" + 1, msg = "";
 		if (draftVal.equals("1")) {
 			if (cnt > 0) {
-				msg = "임시저장 성공";
+				msg = "임시저장 완료";
 				url = "/electronic/documentSelect?no=" + 2;
 			} else {
 				msg = "임시저장 실패";
 			}
 		} else {
 			if (cnt > 0) {
-				msg = "기안서 보내기 성공";
+				msg = "기안서 보내기 완료";
 				url = "/electronic/documentSelect?no=" + 2;
 			} else {
 				msg = "기안서 보내기 실패";
@@ -307,7 +307,7 @@ public class ElectronicController {
 					e.printStackTrace();
 				}
 
-				logger.info("파일 업로드 성공, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName,
+				logger.info("파일 업로드 완료, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName,
 						fileSize);
 				fileVo.setElectronicNo(electronicNo);
 				fileVo.setFileName(fileName);
@@ -385,12 +385,12 @@ public class ElectronicController {
 
 		if (vo.getElectronicDraft().equals("1")) { // 아직 임시저장 문서
 			if (cnt > 0) {
-				msg = "기안서 수정 성공";
+				msg = "기안서 수정 완료";
 				url = "/electronic/electronicList?no=" + 5;
 			}
 		} else {
 			if (cnt > 0) {
-				msg = "기안서 기안 성공";
+				msg = "기안서 기안 완료";
 				url = "/electronic/electronicList?no=" + 5;
 			}
 		}
@@ -413,7 +413,7 @@ public class ElectronicController {
 					e.printStackTrace();
 				}
 
-				logger.info("파일 업로드 성공, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName,
+				logger.info("파일 업로드 완료, fileName={}, originalFileName={}, fileSize={}", fileName, originalFileName,
 						fileSize);
 				fileVo.setElectronicNo(electronicNo);
 				fileVo.setFileName(fileName);
@@ -568,7 +568,7 @@ public class ElectronicController {
 
 		String url = "/electronic/electronicList?no=" + no, msg = "승인 순서가 아닙니다.";
 		if (cnt > 0) {
-			msg = "승인 성공";
+			msg = "승인 완료";
 		}
 		if (completeCnt > 0) {
 			msg = "결재 최종 완료";
@@ -698,7 +698,7 @@ public class ElectronicController {
 		int cnt = electronicReService.AcceptUpdateReLine(vo);
 		String url = "/electronic/electronicList?no=" + no, msg = "수신 실패";
 		if (cnt > 0) {
-			msg = "수신 확인 성공";
+			msg = "수신 확인";
 		}
 
 		model.addAttribute("msg", msg);
