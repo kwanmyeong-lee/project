@@ -67,5 +67,10 @@ public class ScheduleServieImpl implements ScheduleService{
 	public int selectCntScheduleByToday(HashMap<String, Object> map) {
 		return dao.selectCntScheduleByToday(map);
 	}
+
+	@Override
+	public int selectCntScheduleByBookingday(ScheduleVO vo) {
+		return dao.selectCntScheduleByBookingday(vo);
+	}
 	
 }

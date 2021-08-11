@@ -73,9 +73,18 @@
 	<select id="selectCntScheduleByToday" parameterType="hashmap" resultType="int">
 		select count(*) from calendar
 		where EMP_NO=#{empNo} 
-		<![CDATA[ and #{nowDate} >= TRUNC(TO_DATE(SCHEDULE_START,'yyyy-mm-dd HH24:mi:ss')) 
-		and #{nowDate} < TRUNC(TO_DATE(SCHEDULE_END,'yyyy-mm-dd HH24:mi:ss')+1)
-		and TRUNC(#{nowDate}) != TRUNC(TO_DATE(SCHEDULE_END,'yyyy-mm-dd HH24:mi:ss'))
+		<![CDATA[ and #{nowDate} >= TRUNC(TO_DATE(SCHEDULE_START,'YYYY-MM-DD HH24:MI:SS')) 
+		and #{nowDate} < TRUNC(TO_DATE(SCHEDULE_END,'YYYY-MM-DD HH24:MI:SS')+1)
+		and TRUNC(#{nowDate}) != TRUNC(TO_DATE(SCHEDULE_END,'YYYY-MM-DD HH24:MI:SS'))
+		]]>
+	</select>
+	
+	<select id="selectCntScheduleByBookingday" parameterType="scheduleVO" resultType="int">
+		select count(*) from calendar
+		where SCHEDULE_THEME_NO=2 AND BOOKING_TARGET_NO=#{bookingTargetNo} AND
+		<![CDATA[ (TO_DATE(#{scheduleStart},'YYYY-MM-DD HH24:MI') >= TO_DATE(SCHEDULE_START,'YYYY-MM-DD HH24:MI:SS') AND TO_DATE(#{scheduleStart},'YYYY-MM-DD HH24:MI') < TO_DATE(SCHEDULE_END,'YYYY-MM-DD HH24:MI:SS'))
+		OR (TO_DATE(#{scheduleEnd},'YYYY-MM-DD HH24:MI') > TO_DATE(SCHEDULE_START,'YYYY-MM-DD HH24:MI:SS') AND TO_DATE(#{scheduleEnd},'YYYY-MM-DD HH24:MI') <= TO_DATE(SCHEDULE_END,'YYYY-MM-DD HH24:MI:SS'))
+		OR (TO_DATE(#{scheduleStart},'YYYY-MM-DD HH24:MI') <= TO_DATE(SCHEDULE_START,'YYYY-MM-DD HH24:MI:SS') AND TO_DATE(#{scheduleEnd},'YYYY-MM-DD HH24:MI') >= TO_DATE(SCHEDULE_END,'YYYY-MM-DD HH24:MI:SS'))
 		]]>
 	</select>
 	
