@@ -86,12 +86,10 @@ public class ExcelUploadController {
 		}
 		pagingInfo.setTotalRecord(ExcelReadOption.getExcelRowCnt());
 		
-		logger.info("pagingInfo={}",pagingInfo.getLastPage());
-		logger.info("pagingInfo={}",pagingInfo.getFirstPage());
-		logger.info("pagingInfo={}",pagingInfo.getBlockSize());
-		
+		int totalRowCnt =  excelReadOption.getTotalRow();
 		map.put("excelContent", excelContent);
 		map.put("pagingInfo", pagingInfo);
+		map.put("totalRowCnt", totalRowCnt);
 		return map;
 	}
 	
@@ -103,6 +101,7 @@ public class ExcelUploadController {
 	public int excelUploadInsert(MultipartHttpServletRequest multiRequest){
 		MultipartFile excelFile= multiRequest.getFile("excelFile");
 		int empNo = Integer.parseInt(multiRequest.getParameter("empNo"));
+		int insertCnt=0;
 		
 		File destFile = new File(ConstUtil.EXCELFILE_UPLOAD_PATH_REAL+"\\"+excelFile.getOriginalFilename());
 		try {
@@ -202,10 +201,10 @@ public class ExcelUploadController {
 			
 			addBookFolNameCheck=0;
 			addBookService.insertAddBook(addBookVO);
-			
+			insertCnt++;
 			
 		}
 		
-		return 1;
+		return insertCnt;
 	}
 }

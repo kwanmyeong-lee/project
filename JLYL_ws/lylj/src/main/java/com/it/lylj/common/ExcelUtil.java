@@ -231,5 +231,6 @@ public class ExcelUtil {
 		
 		//excel의 행의 총 갯수 셋팅
 		ExcelReadOption.setExcelRowCnt(numOfnotNull);
+		excelReadOption.setTotalRow(numOfLastRows);
 	}
 }

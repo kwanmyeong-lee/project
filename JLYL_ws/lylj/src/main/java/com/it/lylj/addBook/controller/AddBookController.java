@@ -174,8 +174,12 @@ public class AddBookController {
 	
 	/* 주소록 엑셀 업로드 페이지 */
 	@RequestMapping("/addressBookExcel")
-	public void addressBookExcel() {
+	public void addressBookExcel(Model model, HttpSession session) {
+		int empNo = Integer.parseInt((String)session.getAttribute("empNo"));
+		List<AddBookFolVO> bookFolList = addBookFolService.selectFol(empNo);
+		model.addAttribute("bookFolList", bookFolList);
 		
+		model.addAttribute("navNo", 5);
 	}
 	
 }
