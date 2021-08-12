@@ -225,25 +225,25 @@
 	
 	<!-- 항목별 메일 size() -->
 	<select id="totalRecordByEmailTake" parameterType="searchVo" resultType="int">
-		select count(*) from mail
+		select count(*) from mailView
 		where MAIL_TAKE = #{empNo} AND MAIL_TEMPSAVE IS NULL AND <![CDATA[ MAIL_RESERVE<=CURRENT_DATE ]]> AND MAIL_DEL_CHECK='0'
 		<include refid="searchWhere"/>
 	</select>
 	
 	<select id="totalRecordByEmailSend" parameterType="searchVo" resultType="int">
-		select count(*) from mail
+		select count(*) from mailView
 		where MAIL_SEND = #{empNo} AND MAIL_TEMPSAVE IS NULL AND <![CDATA[ MAIL_RESERVE<=CURRENT_DATE ]]> AND MAIL_DEL_CHECK='0'
 		<include refid="searchWhere"/>
 	</select>
 	
 	<select id="totalRecordByTempsave" parameterType="searchVo" resultType="int">
-		select count(*) from mail
+		select count(*) from mailView
 		where mail_send = #{empNo} and MAIL_TEMPSAVE = 'T'
 		<include refid="searchWhere"/>
 	</select>
 	
 	<select id="totalRecordByReserv" parameterType="searchVo" resultType="int">
-		select count(*) from mail
+		select count(*) from mailView
 		where mail_send = #{empNo} AND <![CDATA[ MAIL_RESERVE>=CURRENT_DATE ]]>
 		<include refid="searchWhere"/>
 	</select>
@@ -252,10 +252,10 @@
 		select count(*) 
 		from 
 		(
-		    select * from mail
+		    select * from mailView
 		    where mail_take=#{empNo} and mail_del_check='D'
 		    union all
-		    select * from mail
+		    select * from mailView
 		    where mail_send=#{empNo} and mail_del_check='D'
 		)
 		<if test="searchKeyword!=null and searchKeyword!=''">
@@ -264,20 +264,20 @@
 	</select>
 	
 	<select id="totalCountByReadDate" parameterType="searchVo" resultType="int">
-		select count(*) from mail
+		select count(*) from mailView
 		where MAIL_TAKE = #{empNo} and MAIL_READDATE is null
 		AND MAIL_TEMPSAVE IS NULL AND <![CDATA[ MAIL_RESERVE<=CURRENT_DATE ]]> AND MAIL_DEL_CHECK='0'
 		<include refid="searchWhere"/>
 	</select>
 	
 	<select id="totalCountByReadDateMain" parameterType="int" resultType="int">
-		select count(*) from mail
+		select count(*) from mailView
 		where MAIL_TAKE = #{empNo} and MAIL_READDATE is null
 		AND MAIL_TEMPSAVE IS NULL AND <![CDATA[ MAIL_RESERVE<=CURRENT_DATE ]]> AND MAIL_DEL_CHECK='0'
 	</select>
 	
 	<select id="totalCountByImportant" parameterType="searchVo" resultType="int">
-		select count(*) from mail
+		select count(*) from mailView
 		where MAIL_TAKE = #{empNo} and MAIL_IMPORTANT = 'I'
 		AND MAIL_TEMPSAVE IS NULL AND <![CDATA[ MAIL_RESERVE<=CURRENT_DATE ]]> AND MAIL_DEL_CHECK='0'
 		<include refid="searchWhere"/>
