@@ -258,7 +258,7 @@ thead tr th{
 								       </c:if>
 								       <col style="width:6%;" />
 								       <c:if test="${param.type eq '5' }"> 
-								      	 	<col style="width:6%;" />
+								      	 	<col style="width:8%;" />
 								       </c:if>
 								       <col style="width:20%;" />
 								       <col style="width:35%;" />
