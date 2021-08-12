@@ -313,6 +313,12 @@ function selectMonthAjax(empNo, pd){
         data:{empNo:empNo, selectDate:pd},
         dataType: "json",
         async : false,
+        beforeSend: function() {
+			 $('.loading').show();
+		},
+		complete: function() {
+	        $('.loading').hide();
+	    },
         success : function(data) {
         	var smNum= 0;
         	
@@ -420,10 +426,13 @@ function miliHMS(mili){
 	var hour = "00"+Math.floor(mili/1000/3600);
 	var min = "00"+Math.floor(mili/1000%3600/60);
 	var sec = "00"+Math.floor(mili/1000%3600%60);
-	hour = hour.slice(-2);
+	if(hour>99){
+		hour = hour.slice(-3);
+	}else{
+		hour = hour.slice(-2);
+	}
 	min = min.slice(-2);
 	sec = sec.slice(-2);
-	
 	return hour+"h "+min+"m "+sec+"s";
 }
 

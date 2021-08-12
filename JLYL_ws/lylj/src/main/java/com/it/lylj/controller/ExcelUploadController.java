@@ -143,7 +143,7 @@ public class ExcelUploadController {
 		
 		
 		logger.info("excelContent.size()={}",excelContent.size());
-		for(int i=0; i<excelContent.size()-1; i++) { // 엑셀 정보 만큼 반복 1행은 칼럼명이니 하나빼야함
+		for(int i=0; i<excelContent.size(); i++) { // 엑셀 정보 만큼 반복
 			String addBookFolName = "기본";
 			AddBookVO addBookVO = new AddBookVO();
 			addBookVO.setEmpNo(empNo);

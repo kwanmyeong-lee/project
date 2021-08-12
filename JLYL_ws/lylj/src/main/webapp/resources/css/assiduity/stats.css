@@ -38,6 +38,7 @@
 
 .page_nation {
 	display: inline-block;
+	min-width: 262px;
 }
 
 .page_nation a {
@@ -161,3 +162,4 @@ table th {
 .now-span:hover{
 	cursor: pointer;
 }
+

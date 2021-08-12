@@ -16,5 +16,6 @@ public interface ScheduleService {
 	List<ScheduleVO> selectAllScheduleByBTNo(int bookingTargetNo);
 	List<ScheduleVO> selectAllScheduleByScThemeNo(int scheduleThemeNo);
 	int selectCntScheduleByToday(HashMap<String, Object> map);
+	int selectCntScheduleByBookingday(ScheduleVO vo);
 
 }
