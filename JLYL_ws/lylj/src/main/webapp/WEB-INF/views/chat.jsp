@@ -107,7 +107,7 @@ rel="stylesheet">
 								"<p class='me'>" + d.msg + "</p>");
 					} else {
 						
-						alert("메시지 받음");
+						/* alert("메시지 받음"); */
 						
 						$("#chating").append(
 								"<p class='others'>" + d.userName + " :"

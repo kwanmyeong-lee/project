@@ -202,11 +202,11 @@
 				</div>
 
 				<button type="button"
-					class="btn btn-light btn-outline-secondary mx-2" id="selectAP">결재자
-					다시 선택</button>
+					class="btn btn-light btn-outline-secondary ms-1 me-5" id="selectAP">결재자
+					선택</button>
 				<button type="button"
-					class="btn btn-light btn-outline-secondary me-2"
-					style="margin-left: 300px;" id="selectRC">수신자 다시 선택</button>
+					class="btn btn-light btn-outline-secondary me-2 "
+					style="margin-left: 300px;" id="selectRC">수신자 선택</button>
 				<button type="button" class="btn btn-light btn-outline-secondary"
 					style="margin-left: 200px;" id="clear">초기화</button>
 			</div>
