@@ -98,7 +98,7 @@ $(function(){
 							            <img src="<c:url value='/resources/img/icons8_menu.png'/>" id="menuImg" alt="메뉴"/>
 							        </button>
 						        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
-						            <li><a class="dropdown-item" href="<c:url value='/comment/delete?boardCommentNo=${commVo.boardCommentNo}&boardNo=${commVo.boardNo }'/>">삭제</a></li>
+						            <li><a class="dropdown-item deleteBtn" href="<c:url value='/comment/delete?boardCommentNo=${commVo.boardCommentNo}&boardNo=${commVo.boardNo }'/>">삭제</a></li>
 						        </ul>
 						        </c:if>
 						        <br>

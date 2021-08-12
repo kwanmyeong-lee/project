@@ -16,7 +16,7 @@
 		
 		/* 등록 유효성 */
 		$('#bookWriteSubmit').click(function(){
-			var telRules = /^\d{3}-\d{3,4}-\d{4}$/;
+			var telRules = /^\d{2,3}-\d{3,4}-\d{4}$/;
 			var ofTelRules = /^\d{2,3}-\d{3,4}-\d{4}$/;
 			
 			if($('#addressBookName').val() == ''){
@@ -32,8 +32,8 @@
 				alert('잘못된 \'전화번호\'입니다. 숫자, -를 포함한 숫자만 입력하세요.');
 				$('#addressBook_tel').focus();
 				return false;
-			}else if($('#addressBook_officeTel1').val() > 0){
-				if(!ofTelRules.test($('#addressBook_officeTel').val())){
+			}else if($('#addressBook_officeTel1').val().length > 0){
+				if(!ofTelRules.test($('#addressBook_officeTel1').val())){
 					alert('잘못된 \'회사번호\'입니다. 숫자, -를 포함한 숫자만 입력하세요.');
 					$('#addressBook_officeTel').focus();
 					return false;

@@ -9,8 +9,10 @@
 <!-- 팝업 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="<c:url value="/resources/css/assiduity/main.css"/>" rel="stylesheet" type="text/css">
+<link href="<c:url value="/resources/css/ajax/loading.css"/>" rel="stylesheet" type="text/css">
 <script src='<c:url value="/resources/js/assiduity/main.js"/>'></script>
 <title>assiduitygMain</title>
+<div class="loading"></div>
 <div class="container-fluid">
     <h3 class="h3 mb-4 text-gray-800">근태현황</h3>
     <div class="container-fluid consDiv shadow">

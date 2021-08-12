@@ -36,7 +36,7 @@
 			      $('#empEmail').focus();
 			      event.preventDefault(); 
 			  }else if($('#empPhoto').val().length<1){
-				  alert('사진을업로드해주세요 입력하세요');
+				  alert('사진을업로드해주세요');
 			      $('#empPhoto').focus();
 			      event.preventDefault(); 
 			  }else if($('#empZipcode').val().length<1){
