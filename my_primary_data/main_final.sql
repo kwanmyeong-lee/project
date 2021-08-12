@@ -1420,7 +1420,7 @@ insert into EMP values(EMP_SEQ.nextval, '즈동', '$2a$10$50mL18dBG6mblQkrPe34h.
 insert into EMP values(EMP_SEQ.nextval, '츠동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (5).jpg', 3000, '1234-1234-1234', 4, '1953-08-06', 6, 4);
 insert into EMP values(EMP_SEQ.nextval, '크동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2021-08-01', null, 'images (6).jpg', 3000, '1234-1234-1234', 4, '1953-08-05', 6, 4);
 insert into EMP values(EMP_SEQ.nextval, '트동', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-3225-4091', 'admin@gmail.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', '2021-08-25',  'images (7).jpg' ,3000, '1234-1234-1234', 4, '1953-08-04', 6, 4);
-
+insert into EMP values(EMP_SEQ.nextval, '정기성', '$2a$10$50mL18dBG6mblQkrPe34h.KGev0eKnDDbVwX5HXE59RLNEovaBHeu', '010-2959-5027', 'jgs5027@naver.com', '12345', '서울특별시 강남구 역삼동', '111-123', '2020-01-01', null,  'images (7).jpg' ,3000, '1234-1234-1234', 4, '1991-05-27', 6, 4);
 
 select * from emp 
 order by emp_no;
