@@ -24,9 +24,6 @@
 <div id="listBodyDiv">
 	<h4 class="listTitle">${boFol.boardFolderName }</h4>
 	<br>
-	<c:if test="${!empty param.searchKeyword }">
-	   <p id="searchP">검색어 : ${param.searchKeyword}, ${pagingInfo.totalRecord} 건 검색되었습니다.</p>
-	</c:if>
 	<!-- 페이징 처리를 위한 form -->
 	<form action="<c:url value='/board/boardList?boardFolderNo=${param.boardFolderNo}'/>" 
 	   name="frmPage" method="post" id="frmPage">
