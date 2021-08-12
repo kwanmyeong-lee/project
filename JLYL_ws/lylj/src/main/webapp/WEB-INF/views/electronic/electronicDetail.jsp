@@ -146,7 +146,7 @@
 													+ "</span><span id='select-name'>"
 													+ val.EMP_NAME
 													+ "<br>"
-													+ "<img class='Astamp' style='width: 40px;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'apEmpNo'>";
+													+ "<img class='Astamp' style='width: 40px;' alt='아이유' src='<c:url value='/resources/emp_images/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'apEmpNo'>";
 											$('#Approval').append(stampInfo);
 											if (avoFlagsum[idx] == '0') {
 												$('.Astamp').eq(idx).attr(
@@ -176,14 +176,12 @@
 													+ "</span><span id='select-name'>"
 													+ val.EMP_NAME
 													+ "<br>"
-													+ "<img class='Rstamp'  style='width: 40px;' alt='아이유' src='<c:url value='/resources/img/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'reEmpNo'>";
+													+ "<img class='Rstamp'  style='width: 40px;' alt='아이유' src='<c:url value='/resources/emp_images/"+val.STAMP_NAME+"'/>'></span><input type='hidden' value="+val.EMP_NO+" id='styno' name = 'reEmpNo'>";
 											$('#Receive').append(stampInfo);
 											if (rvoFlagsum[idx] == '0') {
 												$('.Rstamp').eq(idx).attr(
 														'style',
 														'display: none');
-											}else{
-												$('#reOk').attr('style', 'display:none');
 											}
 										});
 					},
@@ -620,7 +618,7 @@
 
 							<!-- 수신 문서일때 -->
 							<c:if test="${param.no eq '2' }">
-								<button type="button" id="reOk"
+								<button type="button" id="reOk" 
 									class="btn btn-light btn-outline-secondary">받음</button>
 								<button type="button" id="recancel"
 									class="btn btn-light btn-outline-secondary">뒤로가기</button>
