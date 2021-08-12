@@ -13,6 +13,36 @@
 			open('<c:url value="/electronic/insertStamp"/>',
 					'documentSelect', 'width=800,height=500');
 		});
+		
+		$('#searchBtn').click(function(){
+			
+			if($('#searchCondition option:selected').text() == "선택하세요" && $('#searchTextBox').val().length > 0 ){
+				alert('검색항목을 선택하세요')
+				return false;
+			}else if($('#searchCondition option:selected').text() != "선택하세요" && $('#searchTextBox').val().length < 1 ){
+				alert('검색어를 입력하세요')
+				return false;
+			}else{
+				$('form[name=frmSearch]').submit();
+			}
+			
+		});
+		
+		$("#searchTextBox").keypress(function(e) { 
+			 if (e.keyCode == 13){
+					if($('#searchCondition option:selected').text() == "선택하세요" && $('#searchTextBox').val().length > 0 ){
+						alert('검색항목을 선택하세요')
+						return false;
+					}else if($('#searchCondition option:selected').text() != "선택하세요" && $('#searchTextBox').val().length < 1 ){
+						alert('검색어를 입력하세요')
+						return false;
+					}else{
+						$('form[name=frmSearch]').submit();
+					}
+
+			    }    
+		});
+		
 	});
 	
 	function pageProc(curPage){
@@ -83,10 +113,10 @@
 	action="<c:url value='/electronic/electronicList?no=${param.no}&recordPerPage=${param.recordPerPage }'/>"
 	name="frmPage" method="post" id="frmPage">
 	<input type="hidden" name="currentPage"
-		value=${pagingInfo.currentPage }><br> <input
-		type="hidden" name="searchCondition" value="${param.searchCondition}"><br>
-	<input type="hidden" name="searchKeyword"
-		value="${param.searchKeyword}"><br>
+		value=${pagingInfo.currentPage }> <br> <input
+		type="hidden" name="searchCondition" value="${param.searchCondition}">
+	<br> <input type="hidden" name="searchKeyword"
+		value="${param.searchKeyword}"> <br>
 </form>
 
 <div class="shadow-sm p-3 mb-5 bg-body align-middle mx-5 rounded">
@@ -145,23 +175,21 @@
 
 								<!-- 반복 처리 구간 -->
 
-								<td
-									class="text-center pt-3">
-									<a class="list_title"
+								<td class="text-center pt-3"><a class="list_title"
 									href="<c:url value='/electronic/electronicDetail?ElectronicNo=${eleVo.ELECTRONIC_NO }&no=${param.no }'/>"><span>${eleVo.ELECTRONIC_TITLE }</span>
 										<c:if test="${eleVo.ELECTRONIC_FILE_FLAG eq 'Y' }">
 											<i class="fas fa-file"></i>
 										</c:if> <c:if test="${eleVo.ELECTRONIC_EMERGENCY_FLAG eq '1' }">
 											<i class="fas fa-exclamation-triangle"></i>
-										</c:if> </a>
-								</td>
-								<td class="text-center pt-3 ">
-									<c:forEach var="AllEmp" items="${allEmp }">
+										</c:if> </a></td>
+								<td class="text-center pt-3 "><c:forEach var="AllEmp"
+										items="${allEmp }">
 										<c:if test="${eleVo.EMP_NO eq AllEmp.empNo}">
-											<img class="rounded-circle" style="width: 35px; height: 35px; object-fit: cover; object-position: 100% 0;" src="<c:url value ='/resources/emp_images/${AllEmp.empPhoto }'/>"> ${AllEmp.empName } / ${AllEmp.empNo }
+											<img class="rounded-circle"
+												style="width: 35px; height: 35px; object-fit: cover; object-position: 100% 0;"
+												src="<c:url value ='/resources/emp_images/${AllEmp.empPhoto }'/>"> ${AllEmp.empName } / ${AllEmp.empNo }
 										</c:if>
-									</c:forEach>
-								</td>
+									</c:forEach></td>
 								<td class="text-center pt-3"><span class=""> <c:if
 											test="${param.no eq 1 }">
 											<c:if test="${eleVo.APPROVAL_LINE_COMPLETE_FLAG eq '0'}">
@@ -209,16 +237,16 @@
 											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '1' }">
 											승인
 										</c:if>
-										</c:if>
-										 <c:if test="${param.no eq 7 }">
+										</c:if> <c:if test="${param.no eq 7 }">
 											<c:if test="${eleVo.ELECTRONIC_COMPLET_FLAG eq '2' }">
 											반려
 										</c:if>
 										</c:if>
 
 								</span></td>
-								<td class="text-center pt-3">
-							<fmt:formatDate value="${eleVo.ELECTRONIC_DATE }" pattern="yyyy-MM-dd / HH:mm"/>	</td>
+								<td class="text-center pt-3"><fmt:formatDate
+										value="${eleVo.ELECTRONIC_DATE }" pattern="yyyy-MM-dd / HH:mm" />
+								</td>
 								<!-- 반복 처리 구간 -->
 
 							</tr>
@@ -261,13 +289,13 @@
 	</div>
 
 	<form name="frmSearch" method="post"
-		action='<c:url value="/electronic/electronicList?no=${param.no }"/>'>
+		action='<c:url value="/electronic/electronicList?no=${param.no }&recordPerPage=${param.recordPerPage }"/>'>
 		<div class="col-md-12 row justify-content-center">
 			<div class="col-sm-2 mr-0">
 				<label class="visually-hidden" for="specificSizeSelect">Preference</label>
 				<select class="form-select" id="searchCondition"
 					name="searchCondition">
-					<option selected>선태하세요</option>
+					<option selected>선택하세요</option>
 					<option value="ELECTRONIC_TITLE"
 						<c:if test="${param.searchCondition == 'ELECTRONIC_TITLE' }">               
 	                  selected="selected"
@@ -285,13 +313,13 @@
 					placeholder="입력해주세요">
 			</div>
 			<div class="col-sm-1">
-				<button type="submit" class="btn btn-outline-secondary"
+				<button type="button" class="btn btn-outline-secondary"
 					id="searchBtn">검색</button>
 			</div>
 		</div>
 	</form>
-	
-		<!-- 페이지 목록 갯수   -->
+
+	<!-- 페이지 목록 갯수   -->
 	<div class="col-md-16 row justify-content-center py-4 page_wrap">
 		게시판 목록 갯수
 		<div class="col-sm-2 mr-0" style="padding-right: 10px">

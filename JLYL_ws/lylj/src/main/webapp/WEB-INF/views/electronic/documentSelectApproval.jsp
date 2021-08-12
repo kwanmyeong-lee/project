@@ -86,9 +86,7 @@
 
 					},
 					error : function(xhr, status, error) {
-						alert("error!" + error);
-						alert(xhr.status);
-						alert(thrownError);
+						alert("도장등록이 안되어있습니다.");
 					}
 
 				});

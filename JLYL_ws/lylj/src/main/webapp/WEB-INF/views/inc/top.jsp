@@ -570,7 +570,7 @@ margin-top:-270px;
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="userDropdown">
+								aria-labelledby="userDropdown" style="left: -55px;">
 								<a class="dropdown-item"
 									href="<c:url value='/emp/empInfo?empNo=${empNo}'/>"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 내정보
