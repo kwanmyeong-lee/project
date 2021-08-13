@@ -1456,43 +1456,43 @@ insert into BOTARGET  values(botarget_seq.nextval, '빔프로젝터1',4);
 insert into BOTARGET  values(botarget_seq.nextval, '빔프로텍터2',4);
 
 --예약정보
-insert into calendar values(schedule_seq.nextval, '[119]민기', TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',1,2,119,1,'asd');
-insert into calendar values(schedule_seq.nextval, '[119]민기', TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',1,2,119,2,'asd');
-insert into calendar values(schedule_seq.nextval, '[119]민기', TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',2,2,119,3,'asd');
-insert into calendar values(schedule_seq.nextval, '[119]민기', TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',2,2,119,4,'asd');
-insert into calendar values(schedule_seq.nextval, '[119]민기', TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',3,2,119,5,'asd');
-insert into calendar values(schedule_seq.nextval, '[119]민기', TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',3,2,119,6,'asd');
-insert into calendar values(schedule_seq.nextval, '[119]민기', TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',4,2,119,7,'asd');
-insert into calendar values(schedule_seq.nextval, '[119]민기', TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',4,2,119,8,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17 00:00:00', '2021-07-20 00:00:00', 'true','#4ea0ec',1,2,119,1,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17 00:00:00', '2021-07-20 00:00:00', 'true','#4ea0ec',1,2,119,2,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17 00:00:00', '2021-07-20 00:00:00', 'true','#4ea0ec',2,2,119,3,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17 00:00:00', '2021-07-20 00:00:00', 'true','#4ea0ec',2,2,119,4,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17 00:00:00', '2021-07-20 00:00:00', 'true','#4ea0ec',3,2,119,5,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17 00:00:00', '2021-07-20 00:00:00', 'true','#4ea0ec',3,2,119,6,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17 00:00:00', '2021-07-20 00:00:00', 'true','#4ea0ec',4,2,119,7,'asd');
+insert into calendar values(schedule_seq.nextval, '[119]민기', '2021-07-17 00:00:00', '2021-07-20 00:00:00', 'true','#4ea0ec',4,2,119,8,'asd');
 
-insert into calendar values(schedule_seq.nextval, '[103]준경', TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',1,2,103,1,'asd');
-insert into calendar values(schedule_seq.nextval, '[103]준경', TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',1,2,103,2,'asd');
-insert into calendar values(schedule_seq.nextval, '[103]준경', TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',2,2,103,3,'asd');
-insert into calendar values(schedule_seq.nextval, '[103]준경', TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',2,2,103,4,'asd');
-insert into calendar values(schedule_seq.nextval, '[103]준경', TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',3,2,103,5,'asd');
-insert into calendar values(schedule_seq.nextval, '[103]준경', TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',3,2,103,6,'asd');
-insert into calendar values(schedule_seq.nextval, '[103]준경', TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',4,2,103,7,'asd');
-insert into calendar values(schedule_seq.nextval, '[103]준경', TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'), 'true','#4ea0ec',4,2,103,8,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15 00:00:00', '2021-08-18 00:00:00', 'true','#4ea0ec',1,2,103,1,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15 00:00:00', '2021-08-18 00:00:00', 'true','#4ea0ec',1,2,103,2,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15 00:00:00', '2021-08-18 00:00:00', 'true','#4ea0ec',2,2,103,3,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15 00:00:00', '2021-08-18 00:00:00', 'true','#4ea0ec',2,2,103,4,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15 00:00:00', '2021-08-18 00:00:00', 'true','#4ea0ec',3,2,103,5,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15 00:00:00', '2021-08-18 00:00:00', 'true','#4ea0ec',3,2,103,6,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15 00:00:00', '2021-08-18 00:00:00', 'true','#4ea0ec',4,2,103,7,'asd');
+insert into calendar values(schedule_seq.nextval, '[103]준경', '2021-08-15 00:00:00', '2021-08-18 00:00:00', 'true','#4ea0ec',4,2,103,8,'asd');
 
-
+select * from calendar; 
 --예약정보
-insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'),0,0,1,'asd', 2);
-insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'),0,0,2,'asd', 3);
-insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'),0,0,3,'asd', 4);
-insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'),0,0,4,'asd', 5);
-insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'),0,0,5,'asd', 6);
-insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'),0,0,6,'asd', 7);
-insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'),0,0,7,'asd', 8);
-insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('202107170000','YYYY-MM-DD HH24:MI'), TO_DATE('202107200000','YYYY-MM-DD HH24:MI'),0,0,8,'asd', 9);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('20210717000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210720000000','YYYY-MM-DD HH24:MI:SS'),0,0,1,'asd', 2);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('20210717000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210720000000','YYYY-MM-DD HH24:MI:SS'),0,0,2,'asd', 3);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('20210717000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210720000000','YYYY-MM-DD HH24:MI:SS'),0,0,3,'asd', 4);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('20210717000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210720000000','YYYY-MM-DD HH24:MI:SS'),0,0,4,'asd', 5);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('20210717000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210720000000','YYYY-MM-DD HH24:MI:SS'),0,0,5,'asd', 6);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('20210717000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210720000000','YYYY-MM-DD HH24:MI:SS'),0,0,6,'asd', 7);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('20210717000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210720000000','YYYY-MM-DD HH24:MI:SS'),0,0,7,'asd', 8);
+insert into BOOKING values(booking_seq.nextval,119, CURRENT_DATE ,TO_DATE('20210717000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210720000000','YYYY-MM-DD HH24:MI:SS'),0,0,8,'asd', 9);
 
-insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'),0,0,1,'asd', 10);
-insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'),0,0,2,'asd', 11);
-insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'),0,0,3,'asd', 12);
-insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'),0,0,4,'asd', 13);
-insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'),0,0,5,'asd', 14);
-insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'),0,0,6,'asd', 15);
-insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'),0,0,7,'asd', 16);
-insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('202108150000','YYYY-MM-DD HH24:MI'), TO_DATE('202108180000','YYYY-MM-DD HH24:MI'),0,0,8,'asd', 17);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('20210815000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210818000000','YYYY-MM-DD HH24:MI:SS'),0,0,1,'asd', 10);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('20210815000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210818000000','YYYY-MM-DD HH24:MI:SS'),0,0,2,'asd', 11);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('20210815000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210818000000','YYYY-MM-DD HH24:MI:SS'),0,0,3,'asd', 12);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('20210815000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210818000000','YYYY-MM-DD HH24:MI:SS'),0,0,4,'asd', 13);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('20210815000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210818000000','YYYY-MM-DD HH24:MI:SS'),0,0,5,'asd', 14);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('20210815000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210818000000','YYYY-MM-DD HH24:MI:SS'),0,0,6,'asd', 15);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('20210815000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210818000000','YYYY-MM-DD HH24:MI:SS'),0,0,7,'asd', 16);
+insert into BOOKING values(booking_seq.nextval,103, CURRENT_DATE ,TO_DATE('20210815000000','YYYY-MM-DD HH24:MI:SS'), TO_DATE('20210818000000','YYYY-MM-DD HH24:MI:SS'),0,0,8,'asd', 17);
 
 
 --전자 결재 문서 폴더 
